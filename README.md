@@ -28,7 +28,18 @@ import step. `build.py` remains as an offline fallback.
     probe_figures.json  measured figure harvest (28/160 pages, 66 usable figures)
     skills/anki-deck-building/   the Hermes skill (see below)
 
-## Run it on another machine
+## On the other machine
+
+```bash
+git clone https://github.com/tranhongs0n/java-anki-roadmap.git
+cd java-anki-roadmap
+cp -r skills/anki-deck-building ~/AppData/Local/hermes/skills/productivity/   # Windows
+# cp -r skills/anki-deck-building ~/.hermes/skills/productivity/               # macOS/Linux
+```
+
+Then continue with the setup below.
+
+## Run it
 
 ```bash
 python -m pip install genanki pillow httpx trafilatura youtube-transcript-api
