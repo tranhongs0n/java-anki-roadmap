@@ -1,0 +1,3453 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/javac/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <code>javac</code> command do with a <code>.java</code> source file?",
+     "back": "Reads class/interface definitions and <b>compiles them to bytecode</b> class files",
+     "extra": "Unlike <code>java</code>, which launches code, <code>javac</code> produces the <code>.class</code> file. It can also process annotations in source files and classes.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What file name does <code>javac</code> produce for a class <code>MyClass</code> declared in <code>MyClass.java</code>?",
+     "back": "<code>MyClass.class</code>",
+     "extra": "Source and class files must share a root name identifying the class. Inner classes get extra names joining outer and inner, e.g. <code>MyClass$MyInnerClass.class</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does <code>javac</code> place a class file <b>by default</b>?",
+     "back": "In the <b>same directory as the source file</b>",
+     "extra": "To redirect output you pass <code>-d directory</code>. For a packaged class <code>com.mypackage.MyClass</code> compiled with <code>-d /home/myclasses</code>, the result is <code>/home/myclasses/com/mypackage/MyClass.class</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javac</code> option sets the destination directory for class files, creating package subdirectories as needed?",
+     "back": "<code>-d directory</code>",
+     "extra": "Because the package name becomes a subdirectory path under the destination, you do not pre-create the package folders. Without <code>-d</code>, class files land next to their sources.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you hand <code>javac</code> a long list of source files without typing them all on the command line?",
+     "back": "Put them in a file and pass it as <code>@filename</code>",
+     "extra": "An argument file can mix options and source file names, separated by spaces or newlines. It lets you build commands of almost any length, though OS limits still apply.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a <code>javac @argfile</code>, how are paths of the file names listed <b>inside</b> the argument file resolved?",
+     "back": "Relative to the <b>current working directory</b>, not the argfile's location",
+     "extra": "Wildcards such as <code>*.java</code> are not allowed in argument files, recursive <code>@</code> expansion is unsupported, and <code>-J</code> options are not allowed because they are passed to the launcher.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javac</code> option reads options and file names from a file?",
+     "back": "@filename",
+     "extra": "You can pass several argument files. Options such as <code>-J</code> are excluded because they go to the launcher, which does not support argument files.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which environment variable does <code>javac</code> prepend to its command line, introduced in JDK 9?",
+     "back": "<code>JDK_JAVAC_OPTIONS</code>",
+     "extra": "Its whitespace-separated content is prepended to the arguments passed to javac. Quotes can enclose arguments containing spaces, <code>@files</code> are supported there, but wildcards are not.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default user class path for <code>javac</code> when <code>-class-path</code>/<code>-cp</code> is not specified?",
+     "back": "The <b>current directory</b>",
+     "extra": "If <code>-sourcepath</code> is not set, the class path is also searched for source files, and if <code>-processorpath</code> is not set, it is searched for annotation processors too.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option makes <code>javac</code> show a description of <b>each</b> use of a deprecated member instead of a summary?",
+     "back": "<code>-deprecation</code>",
+     "extra": "Without it, javac only summarises which source files use deprecated members. The option is shorthand for <code>-Xlint:deprecation</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>javac -g</code> generate compared with the default?",
+     "back": "All debugging info, including <b>local variables</b>",
+     "extra": "By default javac emits only line-number and source-file information. <code>-g:none</code> emits no debug info; <code>-g:[lines,vars,source]</code> selects individual kinds.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>javac -g:none</code> do?",
+     "back": "Generates <b>no debugging information</b>",
+     "extra": "It is the opposite end from plain <code>-g</code>, which emits everything. Selective generation uses <code>-g:lines</code>, <code>-g:vars</code>, and <code>-g:source</code> in a comma-separated list.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>javac -parameters</code> record in the generated class file?",
+     "back": "The <b>formal parameter names</b> of constructors and methods",
+     "extra": "They become retrievable through <code>java.lang.reflect.Executable.getParameters()</code>. Without the flag, reflection sees only synthetic names like <code>arg0</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>javac -proc:none</code> do?",
+     "back": "Compiles <b>without annotation processing</b>",
+     "extra": "Its sibling <code>-proc:only</code> runs only the annotation processors and skips compilation. Processors are otherwise discovered via <code>META-INF/services/javax.annotation.processing.Processor</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javac</code> option bypasses the default discovery process and names the annotation processors to run?",
+     "back": "<code>-processor class1[,class2,...]</code>",
+     "extra": "By default processors are located through service-provider configuration files named <code>META-INF/services/javax.annotation.processing.Processor</code> on the search path.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the <code>javac</code> annotation-processing loop run an extra round <b>after</b> no new source files are generated?",
+     "back": "To let processors <b>finish remaining work</b>",
+     "extra": "Each round scans any newly generated sources and re-invokes every processor called so far. Only after that final call does javac compile the original and generated sources, unless <code>-proc:only</code> was used.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>javac --release N</code> and <code>-target N</code>?",
+     "back": "<code>--release</code> checks the <b>documented API</b>; <code>-target</code> sets only the version",
+     "extra": "<code>--release</code> ties source level, class-file format and the JDK's documented API together, so accidental use of newer undocumented APIs fails. <code>-target</code> changes only the emitted class-file version.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which javac option makes compilation <b>fail</b> when warnings occur?",
+     "back": "<code>-Werror</code>",
+     "extra": "Useful in CI so deprecation and lint warnings cannot silently accumulate. <code>-nowarn</code> is the opposite knob and behaves like <code>-Xlint:none</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javac</code> option prints <b>supported keys</b> for <code>-Xlint</code>?",
+     "back": "<code>--help-lint</code>",
+     "extra": "Individual keys are enabled or disabled with <code>-Xlint:key</code> (prefix <code>-key</code> to disable); <code>-Xlint</code> alone enables all recommended warnings.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>javac -Xprefer:source</code> change when both a source and a class file exist for an implicitly compiled type?",
+     "back": "The compiler reads the <b>source file</b>",
+     "extra": "The default is <code>-Xprefer:newer</code>, which reads whichever of the two is newer. Source is preferred when annotation processors must see annotations with SOURCE retention.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "With <code>javac -Xlint:serial</code>, what problem is reported on a serializable class?",
+     "back": "Missing <code>serialVersionUID</code> definition",
+     "extra": "The default computed serialVersionUID depends on class details and compiler implementation, so an explicit constant avoids unexpected <code>InvalidClassException</code> at deserialization.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>javac -implicit:none</code> prevent?",
+     "back": "Generating class files for implicitly <b>loaded</b> source files",
+     "extra": "Implicitly loaded files are <code>.java</code> files the compiler pulls in for missing types. The default <code>-implicit:class</code> compiles them, warning when annotation processing is also active.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/javadoc/",
+   "tags": [
+    "roadmap::java",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <code>javadoc</code> tool produce from Java source files?",
+     "back": "<b>HTML pages</b> of API documentation",
+     "extra": "It parses declarations together with documentation comments. By default it documents public and protected classes, nested classes (not anonymous), interfaces, constructors, methods and fields.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is javadoc's <b>default</b> access level for what it documents?",
+     "back": "<b>protected</b> (protected and public members)",
+     "extra": "Lower it with <code>-package</code> or <code>-private</code>; raise it with <code>-public</code>, which shows only public classes and members.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which javadoc option includes the <code>@author</code> text in the generated docs?",
+     "back": "<code>-author</code>",
+     "extra": "The tag text is otherwise dropped from output. The sibling <code>-version</code> option includes version text, which is likewise omitted by default.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which javadoc option creates HTML copies of each source file with line numbers, linked from the docs?",
+     "back": "<code>-linksource</code>",
+     "extra": "It exposes private implementation details regardless of the <code>-public</code>/<code>-private</code> access options. Links are made on classes, interfaces, constructors, methods and fields.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between javadoc <code>-nodeprecatedlist</code> and <code>-nodeprecated</code>?",
+     "back": "<code>-nodeprecatedlist</code> drops just the list page; <code>-nodeprecated</code> drops <b>all of it</b>",
+     "extra": "<code>-nodeprecatedlist</code> still generates deprecated API in the rest of the docs, only removing <code>deprecated-list.html</code> and its nav link. <code>-nodeprecated</code> does both.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why would you pass javadoc <code>-notimestamp</code> when comparing two source bases?",
+     "back": "It suppresses the page timestamp so diffs don't show a change on <b>every page</b>",
+     "extra": "The hidden timestamp comment includes the javadoc tool release number, so two runs on identical sources would otherwise differ on every generated page.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which javadoc option makes the generated docs link to <b>externally</b> published javadoc?",
+     "back": "<code>-link url</code>",
+     "extra": "The URL must point to a directory holding a <code>package-list</code> (or <code>element-list</code> for modules) file. Repeat the option for multiple external documents.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When should you use javadoc <code>-linkoffline</code> instead of <code>-link</code>?",
+     "back": "When the external doc's list file <b>cannot be reached</b> over the web",
+     "extra": "It takes two arguments: the URL to embed in links and a location where the <code>package-list</code>/<code>element-list</code> can be found, typically locally.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the javadoc <code>-private</code> option document?",
+     "back": "<b>All</b> classes and members",
+     "extra": "It is the most permissive of the access filters <code>-public</code>, <code>-protected</code> (default), <code>-package</code> and <code>-private</code>, which act like a visibility ladder.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option generates docs for packages <b>and all their subpackages</b> recursively?",
+     "back": "<code>-subpackages subpkglist</code>",
+     "extra": "Each argument is a top-level or fully qualified package; wildcards are not allowed and <code>-sourcepath</code> still locates the sources. Use <code>-exclude</code> to carve packages out.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the javadoc <code>-exclude pkglist</code> option do relative to <code>-subpackages</code>?",
+     "back": "<b>Unconditionally</b> excludes packages and their subpackages",
+     "extra": "The exclusion wins even if an earlier or later <code>-subpackages</code> option would otherwise include the package, so it is the reliable way to carve out a subtree.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does javadoc <code>-nocomment</code> generate?",
+     "back": "Only <b>declarations</b>, with the whole comment body suppressed",
+     "extra": "It drops the main description and all tags. Handy for reusing existing sources to produce skeleton documentation early in a project.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which javadoc option builds <b>Use</b> pages listing what depends on each documented class or package?",
+     "back": "<code>-use</code>",
+     "extra": "For class C the page lists subclasses, fields of type C, methods returning C, and methods/constructors taking C. Only API usage counts, not internal implementation usage.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does javadoc <code>-splitindex</code> do to the index?",
+     "back": "Splits it <b>alphabetically</b>, roughly one file per letter",
+     "extra": "Entries that start with non-alphabetic symbols go into their own extra file. It keeps very large indexes from becoming one unwieldy page.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which javadoc option specifies a custom <b>doclet</b> instead of the standard HTML one?",
+     "back": "<code>-doclet class</code>",
+     "extra": "The class must be fully qualified, contain a <code>start(Root)</code> method, and be findable via <code>-docletpath</code>. A doclet defines the content and output format.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the relationship between <code>-encoding</code> and <code>-docencoding</code> in javadoc?",
+     "back": "<code>-encoding</code> is input; <code>-docencoding</code> is <b>output</b>",
+     "extra": "With <code>-charset</code> also controlling the HTML character set. If both an input and an output encoding are given, they must be the same value; with neither output option the input encoding is reused.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does javadoc <code>-noqualifier all</code> remove from the output?",
+     "back": "<b>All package qualifiers</b> from class and interface names",
+     "extra": "You can list specific packages instead, e.g. <code>-noqualifier java.lang:java.io</code>, or use wildcards such as <code>java.*</code>. Where a qualifier would appear it is simply dropped.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is javadoc's <code>-Xdoclint</code> check enabled by default, and how is it turned off?",
+     "back": "Yes, <b>enabled</b> by default; disable with <code>-Xdoclint:none</code>",
+     "extra": "Groups are <code>accessibility</code>, <code>html</code>, <code>missing</code>, <code>reference</code> and <code>syntax</code>. The same option in <code>javac</code> is off by default, a notable asymmetry.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>-Xdoclint</code>, which check group catches an item not found in <code>@see</code> or a bad <code>@param</code> name?",
+     "back": "<code>reference</code>",
+     "extra": "The other groups are <code>accessibility</code> (e.g. missing captions), <code>html</code> (block elements inside inline), <code>missing</code> (absent comments or tags) and <code>syntax</code> (unescaped angle brackets, ampersands).",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the javadoc standard doclet <b>not</b> do about documentation comment conformance?",
+     "back": "It does <b>not validate</b> or correct comment content",
+     "extra": "<code>-Xdoclint</code> can flag common problems, but javadoc is not a conformance checker. Output containing executable content such as JavaScript is your responsibility.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/javap/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>javap</code> do?",
+     "back": "<b>Disassembles</b> one or more class files",
+     "extra": "Its output depends on the options used and is printed to stdout. Without options it prints package-private, protected and public fields and methods.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "With no options, which members does <code>javap</code> print?",
+     "back": "<b>package-private, protected and public</b> fields and methods",
+     "extra": "This matches the <code>-package</code> visibility, which is the default. Private members need <code>-p</code>/<code>-private</code>; only-public needs <code>-public</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option prints the actual bytecode instructions of each method?",
+     "back": "<code>-c</code>",
+     "extra": "It shows the disassembled code that makes up the Java bytecodes. For extra detail on descriptors and reflection info, combine it with <code>-s</code> for internal type signatures.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option shows all classes and members, including private ones?",
+     "back": "<code>-p</code> (or <code>-private</code>)",
+     "extra": "The visibility ladder is <code>-public</code>, <code>-protected</code>, <code>-package</code> (default), and <code>-p</code>/<code>-private</code> for everything.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option prints line-number and <b>local variable tables</b>?",
+     "back": "<code>-l</code>",
+     "extra": "Those tables exist only if the class was compiled with debug info (<code>javac -g</code> including <code>vars</code>). Without them, line lookups return nothing useful.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option prints static final constants?",
+     "back": "<code>-constants</code>",
+     "extra": "Inlining of <code>static final</code> compile-time constants is why a stale constant can survive after recompiling only one class: the value is baked into callers' bytecode.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>javap</code> treat <b>multi-release JARs</b> when given via the class path?",
+     "back": "It is <b>not</b> multi-release aware; it shows the <b>base</b> entry",
+     "extra": "This applies to all JARs, multi-release or not. To disassemble a specific versioned class, use the URL form of the argument instead of the class-path form.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option prints system information such as path, size, date and MD5 hash of the class?",
+     "back": "<code>-sysinfo</code>",
+     "extra": "Useful for confirming exactly which class file the tool opened when there are several on the class path. The hash also lets you compare builds.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option prints <b>internal type signatures</b> (JVMS descriptors)?",
+     "back": "<code>-s</code>",
+     "extra": "Descriptors like <code>Ljava/lang/String;</code> and <code>(II)V</code> appear for each member. Combine with <code>-c</code> when reading bytecode that calls those members.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>javap</code> option says which module contains the classes to disassemble?",
+     "back": "<code>--module module</code> (or <code>-m module</code>)",
+     "extra": "Pair it with <code>--module-path path</code> to locate application modules, or <code>--system jdk</code> for system modules. The classes are then named without a path.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you pass a JVM option, such as a larger heap, to the JVM that runs <code>javap</code>?",
+     "back": "<code>-Joption</code>",
+     "extra": "Example: <code>-J-Xmx64m</code>. The <code>-J</code> prefix is a general convention across JDK tools for forwarding options to the tool's own JVM.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/jdeprscan/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <code>jdeprscan</code> tool scan for?",
+     "back": "Uses of <b>deprecated Java SE API</b> elements",
+     "extra": "It is a static analysis tool over a JAR, directory, or class file. Deprecated APIs declared by third-party libraries are not reported.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which kinds of deprecated APIs does <code>jdeprscan</code> <b>not</b> report?",
+     "back": "Those defined by <b>third-party libraries</b>",
+     "extra": "Only APIs deprecated by Java SE are in its database, selected by <code>--release</code>. Everything else relies on the compiler's own deprecation warnings.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must be true of the class path before <code>jdeprscan</code> can scan a JAR?",
+     "back": "All <b>dependent classes</b> must be present on it",
+     "extra": "Typically you reuse the same class path as the application run. For every class it cannot find, jdeprscan prints an error message; <code>--class-path</code> sets the search path.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeprscan</code> option limits results to APIs deprecated <b>for removal</b>?",
+     "back": "<code>--for-removal</code>",
+     "extra": "Plain deprecated APIs are excluded. It cannot be combined with a release value of 6, 7 or 8, since the for-removal marking did not exist in those releases.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jdeprscan --list</code> do?",
+     "back": "Prints the set of deprecated APIs; <b>no scanning</b> is done",
+     "extra": "Because it scans nothing, you must not supply a directory, JAR, or class argument. The set depends on <code>--release</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>jdeprscan</code> name a nested class on the command line?",
+     "back": "With a <b>dollar sign</b>, e.g. <code>java.lang.Thread$State</code>",
+     "extra": "Ordinary class names use a dot as package separator, as in <code>java.lang.Thread</code>. A class file path may also be named directly, e.g. <code>build/classes/java/lang/Thread$State.class</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jdeprscan</code> output, what does the method name <code>&lt;init&gt;</code> indicate?",
+     "back": "It is a <b>constructor</b>",
+     "extra": "Special names replace real method names: <code>&lt;clinit&gt;</code> indicates a class static initializer. All other methods appear under their plain method name, followed by argument list and return type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jdeprscan</code> output, what does a signature like <code>(II)V</code> mean?",
+     "back": "Two <code>int</code> arguments, returning <code>void</code>",
+     "extra": "Descriptor letters map to types: <code>I</code> is int, <code>D</code> double, <code>V</code> void, and <code>Ljava/math/BigDecimal;</code> is a reference return type. A <code>setScale(II)V</code> therefore takes two ints.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How far back can <code>jdeprscan</code> check deprecated APIs relative to the JDK you run it on?",
+     "back": "The <b>previous three</b> JDK releases",
+     "extra": "For example, JDK 19 can check against earlier releases back to JDK 16. <code>--release</code> chooses which Java SE release supplies the deprecated-API set.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/jdeps/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jdeps</code> analyze?",
+     "back": "<b>Package-level or class-level dependencies</b> of Java class files",
+     "extra": "Input can be a <code>.class</code> file, a directory, a JAR, or a fully qualified class name. By default the dependencies are written to standard output.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default filter for dependencies in <code>jdeps</code>?",
+     "back": "<code>-filter:package</code> — hides dependencies <b>within the same package</b>",
+     "extra": "The alternative <code>-filter:archive</code> hides same-archive dependencies, <code>-filter:module</code> hides same-module ones, and <code>-filter:none</code> disables both package and archive filtering.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>jdeps</code> <code>-verbose:package</code> and <code>-verbose:class</code>?",
+     "back": "Package level (excluding same-package) vs <b>class level</b> (excluding same-archive)",
+     "extra": "<code>-v</code>/<code>-verbose</code> is equivalent to <code>-verbose:class</code>; <code>-s</code>/<code>-summary</code> prints only a dependency summary.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option restricts analysis to dependencies arising from <b>public API signatures</b>?",
+     "back": "<code>-apionly</code>",
+     "extra": "It looks only at public and protected members of public classes: field types, method parameter types, return types and checked exception types. Illegal internal usage is ignored.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option finds dependencies on <b>JDK internal APIs</b>?",
+     "back": "<code>--jdk-internals</code>",
+     "extra": "Those APIs are inaccessible under the module system, so such dependencies are a portability hazard. It cannot be combined with <code>-p</code>, <code>-e</code>, or <code>-s</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option outputs dependencies as <b>DOT graph</b> files?",
+     "back": "<code>--dot-output dir</code>",
+     "extra": "One <code>archive-name.dot</code> file is written per analyzed archive plus a <code>summary.dot</code> for the inter-archive dependencies, suitable for Graphviz.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option generates a <code>module-info.java</code> for plain JARs?",
+     "back": "<code>--generate-module-info dir</code>",
+     "extra": "Use <code>--generate-open-module</code> for open modules. Both cannot be combined with <code>--dot-output</code> or <code>--class-path</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option prints a comma-separated module list suitable for <code>jlink --add-modules</code>?",
+     "back": "<code>--print-module-deps</code>",
+     "extra": "It is <code>--list-reduced-deps</code> with a comma-separated output, so you can paste it straight into a jlink command to build a minimal runtime image.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jdeps --inverse</code> report, and what must it be combined with?",
+     "back": "Artifacts that <b>depend on</b> the matching nodes",
+     "extra": "It inverts the compile-time view: instead of what your classes use, it finds what uses them, both directly and indirectly. It prints a dependency summary.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do <code>jdeps --check module</code> print beyond the descriptor?",
+     "back": "The module dependencies, the <b>transition-reduced graph</b>, and unused qualified exports",
+     "extra": "The transition reduction hides implied read edges, and flagging unused qualified exports tells you which targeted exports could be narrowed.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jdeps -R</code> (or <code>-recursive</code>) do?",
+     "back": "Recursively traverses all <b>run-time</b> dependencies",
+     "extra": "It implies <code>-filter:none</code>. If <code>-p</code>, <code>-e</code>, or <code>-f</code> are given, only matching dependencies are analysed. <code>--compile-time</code> gives the compile-time equivalent.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option prints which <b>profile</b> contains a package?",
+     "back": "<code>-P</code> (or <code>-profile</code>)",
+     "extra": "Profiles were the pre-module way of splitting Java SE into subsets. The profile of a dependency indicates how fundamental it is to the platform.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/jlink/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <code>jlink</code>'s default module path when <code>--module-path</code> is not given?",
+     "back": "<code>$JAVA_HOME/jmods</code>",
+     "extra": "That directory holds <code>java.base</code> and the other standard and JDK modules. If a module path is given but <code>java.base</code> cannot be resolved from it, <code>$JAVA_HOME/jmods</code> is appended.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jlink --add-modules</code> add, given that the default root set is empty?",
+     "back": "The named modules as <b>root modules</b>, plus their transitive dependencies",
+     "extra": "Because jlink starts from an empty root set, you must name the application's root module or nothing useful is linked. The modules are resolved transitively from there.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default compression level for <code>jlink --compress</code>?",
+     "back": "<code>zip-6</code>",
+     "extra": "Levels run from <code>zip-0</code> (none) to <code>zip-9</code> (maximum); <code>zip-1</code> is fastest. Higher values produce smaller images at the cost of build time.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jlink</code> option hides a fatal error about signed modular JARs, at the cost of not copying their signature files?",
+     "back": "<code>--ignore-signing-information</code>",
+     "extra": "Signed JARs break linking because their signature files cannot survive transformation. The resulting image contains unsigned content, so consider the security implications.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jlink</code> option creates a launcher script, e.g. <code>myapp=com.example.app</code>?",
+     "back": "<code>--launcher command=module[/mainclass]</code>",
+     "extra": "The module and main class are separated by a slash. Without it, users would have to invoke <code>java -m module/mainclass</code> from inside the image.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jlink</code> option strips <b>debug symbols</b> to shrink the image?",
+     "back": "<code>--strip-debug</code>",
+     "extra": "It is a plugin option. A jlink plugin can also remove native commands, exclude header files, exclude man pages, or include only selected locales.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do <code>jlink --no-header-files</code> and <code>--no-man-pages</code> exclude?",
+     "back": "C header files and <b>manual pages</b> from the image",
+     "extra": "A shipped runtime rarely needs to compile native code or display man pages, so dropping both trims size with no runtime effect. jpackage passes both by default in its jlink options.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jlink</code> option links service provider modules together with their dependencies?",
+     "back": "<code>--bind-services</code>",
+     "extra": "Normally services are resolved lazily; service binding makes the image self-contained for ServiceLoader lookups. <code>--suggest-providers</code> lists providers implementing a service type.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jlink</code> option limits the universe of observable modules?",
+     "back": "<code>--limit-modules mod[,mod...]</code>",
+     "extra": "The observable set becomes the transitive closure of the named modules plus the main module plus anything added via <code>--add-modules</code>. It is the inverse knob of <code>--add-modules</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jlink</code> option lists the available plugins?",
+     "back": "<code>--list-plugins</code>",
+     "extra": "Plugin options such as <code>compress</code>, <code>strip-debug</code>, <code>order-resources</code> and <code>include-locales</code> are ordinary command-line options. Some need a pattern-list value.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jlink</code> options files passed with <code>@filename</code>, how are comments written?",
+     "back": "Prefix the line with a <b>hash</b> (<code>#</code>)",
+     "extra": "Options can straddle one or several lines, but environment variables are not expanded in path names. This mirrors the argument-file convention of javac and other JDK tools.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/jmod/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does a <b>JMOD</b> file contain that a JAR cannot?",
+     "back": "Files other than <code>.class</code> files: <b>native code, config, headers, man pages</b>",
+     "extra": "It aggregates class files, metadata and resources. Because of that a JMOD can hold <code>lib/</code> native libraries and <code>conf/</code> files that a modular JAR has no place for.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is a JMOD file executable at run time?",
+     "back": "<b>No</b> — it is transportable but usable only at <b>compile or link</b> time",
+     "extra": "A JMOD is an input to <code>javac</code>'s module path and to <code>jlink</code>. At run time you ship a modular JAR or a linked runtime image instead.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the <code>jmod</code> command's main operation modes?",
+     "back": "<code>create</code>, <code>extract</code>, <code>list</code>, <code>describe</code>, <code>hash</code>",
+     "extra": "Each mode takes the JMOD file as its argument. <code>describe</code> prints module details; <code>extract</code> unpacks everything into <code>--dir</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jmod hash</code> do?",
+     "back": "Records dependency hashes in the consuming modules, <b>tying</b> them together",
+     "extra": "Leaf modules are found and their hashes recorded in the modules that require them. The runtime verifies the recorded hash against the resolved module and errors out on a mismatch.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the runtime care about the hashes recorded by <code>jmod --hash-modules</code>?",
+     "back": "It <b>verifies them</b> at run time and errors if they don't match",
+     "extra": "This makes qualified exports safe: a package can be exported to exactly the named modules and no others, because a substituted module fails the hash check.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmod</code> option specifies where extracted files are placed?",
+     "back": "<code>--dir path</code>",
+     "extra": "Used with the <code>extract</code> mode. On <code>create</code>, it is one of many options that name a source path whose contents are copied into the archive.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmod</code> option performs a <b>dry run</b> of hash mode?",
+     "back": "<code>--dry-run</code>",
+     "extra": "It identifies the leaf modules and their required modules without recording any hash values, so you can preview what <code>hash</code> would tie down.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmod</code> option records the main class in <code>module-info.class</code>?",
+     "back": "<code>--main-class class-name</code>",
+     "extra": "Its sibling <code>--module-version</code> records the module version. These let a linked image launch the module via <code>java -m</code> without a separate main-class argument.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmod</code> option excludes files matching patterns when copying a directory?",
+     "back": "<code>--exclude pattern-list</code>",
+     "extra": "Path options otherwise copy the entire directory including subdirectories. The pattern list is comma-separated, with each element a glob, <code>glob:</code> regex, or <code>@file</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmod</code> extra option hints that a module should be excluded from the default root set?",
+     "back": "<code>--do-not-resolve-by-default</code>",
+     "extra": "Its companion <code>--warn-if-resolved</code> takes <code>deprecated</code>, <code>deprecated-for-removal</code>, or <code>incubating</code>, so tools warn whenever the module is resolved.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmod</code> option is <b>required</b> when you also specify <code>--hash-modules</code>?",
+     "back": "<code>--module-path path</code> (or <code>-p</code>)",
+     "extra": "Hash mode must build the module graph to know which modules require the leaf modules, so it needs the module path. Under Java Flight Recorder's config, hashing options cannot be changed after init.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/jshell/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <code>jshell</code>?",
+     "back": "A <b>REPL</b> that evaluates Java declarations, statements and expressions",
+     "extra": "It supports variable, method and class definitions, imports, and bare expressions. Each bit of entered code is called a <b>snippet</b> and is evaluated as you go.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>snippet</b> in jshell?",
+     "back": "A preserved unit of entered code such as a declaration, statement or expression",
+     "extra": "Each snippet is evaluated immediately and receives an ID. Snippets can be dropped, edited, listed and replayed, which is why an early declaration stays available to later ones.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is jshell's default feedback mode?",
+     "back": "<b>normal</b>",
+     "extra": "Modes are <code>verbose</code>, <code>normal</code>, <code>concise</code>, <code>silent</code>, and <code>custom</code>. Shortcuts for the middle two are <code>-v</code>, <code>-q</code> and <code>-s</code>; errors are described in every mode.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does jshell's <code>-v</code> command-line flag set?",
+     "back": "The feedback mode to <b>verbose</b>",
+     "extra": "It is the same as <code>--feedback verbose</code>. Verbose adds information about the action taken after each result and separates prompts with a blank line.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command lists snippets and their IDs?",
+     "back": "<code>/list</code>",
+     "extra": "<code>/list -all</code> includes startup snippets plus failed, overwritten and dropped ones. IDs starting with <code>s</code> are startup snippets and those starting with <code>e</code> are failures.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command discards all entered snippets and restarts the session <b>without</b> replaying history?",
+     "back": "<code>/reset</code>",
+     "extra": "<code>/reload</code> differs: it resets and then <b>replays</b> the history in order. <code>/env</code> also restarts and replays, but is aimed at changing environment settings.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the jshell <code>/save -history</code> option save?",
+     "back": "The <b>whole</b> session history, both snippets and commands",
+     "extra": "Plain <code>/save</code> saves only active snippets. <code>/save -all</code> additionally includes startup snippets and ones that failed or were overwritten.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does jshell <code>/open file</code> do?",
+     "back": "Reads the file's snippets into the current session",
+     "extra": "The file can be a local script or a predefined script such as <code>DEFAULT</code>, <code>JAVASE</code>, <code>PRINTING</code>, or <code>TOOLING</code>. Loading a script from an untrusted site risks executing arbitrary code.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command reruns the <b>previous</b> snippet?",
+     "back": "<code>/!</code>",
+     "extra": "<code>/-n</code> reruns the n-th previous snippet, with commands excluded from the count. Named snippets or ID ranges can be rerun with <code>/name</code> or <code>/startID-endID</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the jshell shortcut <b>Shift+V</b> do after entering an expression?",
+     "back": "Converts it into a <b>variable declaration</b> with the inferred type",
+     "extra": "Shift+M converts an expression or statement into a method declaration, and Shift+I imports the type of an unresolved identifier. All three are editing accelerators, not commands.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell option stops the default startup scripts from running?",
+     "back": "<code>--no-startup</code>",
+     "extra": "It cannot be combined with <code>--startup</code>, which overrides the startup script. Startup scripts also rerun on <code>/reset</code>, <code>/reload</code>, and <code>/env</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option loads a script in a jshell session with <b>inherited startup</b> disabled for that file?",
+     "back": "<code>--startup file</code>",
+     "extra": "Startup scripts are run when jshell starts and again on <code>/reset</code>, <code>/reload</code>, and <code>/env</code>, so what you load at startup survives a restart of the session.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you use jshell inside a shell pipe, feeding it standard input non-interactively?",
+     "back": "Pass a hyphen (<code>-</code>) as the load-files argument",
+     "extra": "The hyphen suppresses interactive I/O, so the tool reads from standard input. This makes jshell usable in pipe chains and in simple scripted experiments.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does jshell's <code>--execution</code> option choose?",
+     "back": "An alternate <b>execution engine</b>",
+     "extra": "Its value is an ExecutionControl spec from <code>jdk.jshell.spi</code>. It lets snippets run locally in-process or against a separately launched remote process.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does jshell's <code>-C</code> flag pass flags to?",
+     "back": "The <b>compiler</b>",
+     "extra": "Do not confuse it with <code>-R</code> (remote runtime) or <code>-J</code> (this tool's runtime). Give one instance of the option per flag or flag argument.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the jshell <code>/set feedback</code> command do without a mode argument?",
+     "back": "Displays the <b>current</b> feedback mode",
+     "extra": "Feedback modes are concise, normal, silent, verbose, or a custom mode created with <code>/set mode</code>. A custom mode is configured with <code>/set prompt</code>, <code>/set format</code>, and <code>/set truncation</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does jshell <code>/exit</code> use as the process exit status when given an integer snippet?",
+     "back": "That <b>integer value</b>",
+     "extra": "With no argument the status is zero. If the snippet errors or does not yield an integer, an error is shown and the tool stays active.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you configure a custom jshell feedback mode that shows only errors for commands?",
+     "back": "<code>/set mode name -quiet</code>",
+     "extra": "<code>-command</code> shows info and verification feedback for commands, while <code>-quiet</code> shows only essential feedback such as errors. Add <code>-retain</code> to keep the mode across sessions.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/jshell-advanced/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which jshell option adds external libraries or JavaFX to a session's class path?",
+     "back": "<code>--class-path</code>",
+     "extra": "Since Java 9 the module form is also available with <code>--module-path</code>. Both can be passed at startup or changed inside a session via <code>/env</code> options.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which predefined jshell script makes JDK tools like <code>javac</code> and <code>jar</code> callable as methods?",
+     "back": "<code>TOOLING</code>",
+     "extra": "Loading it defines <code>javac</code>, <code>jar</code> and others, so you can compile and package without leaving the shell. <code>tools()</code> lists the available tools.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does calling <code>tools()</code> in a jshell session show?",
+     "back": "The list of JDK tools available via the <b>TOOLING</b> script",
+     "extra": "It must be loaded first with <code>/open TOOLING</code> or the <code>--startup TOOLING</code> option. Each tool can be invoked by name through <code>run(String, String...)</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can jshell run an arbitrary JDK tool with arguments, without its dedicated wrapper method?",
+     "back": "<code>run(toolName, args...)</code>",
+     "extra": "Example: <code>run(\"javac\", \"-d\", \"out\", \"src/Foo.java\")</code>. The dedicated wrappers such as <code>javac(...)</code> are convenience methods over the same mechanism.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command saves the current active snippets, and with which option saves the entire history?",
+     "back": "<code>/save</code>, with <code>-history</code> for full history",
+     "extra": "The saved file is a <code>.jsh</code> script that can be reloaded with <code>/open</code> or the <code>--startup</code> option. <code>-all</code> also captures failed and overwritten snippets.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "According to JEP 220, what can a jshell snippet <b>not</b> declare?",
+     "back": "A <b>package</b> or <b>module</b>",
+     "extra": "That is why generating a jar needs a plain source file with a package declaration. Writing snippets to a file with <code>/save</code> gives you a <code>.java</code> skeleton to add the package to.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>src/</code> plus an edit session give you in a modular jshell workflow?",
+     "back": "A <code>.java</code> file whose package and <code>module-info.java</code> you add by hand",
+     "extra": "The root package directory mirrors the package tree. Then you compile with the TOOLING <code>javac</code> and package with <code>jar</code> to launch with <code>java --module-path</code>.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is loading a remote <code>.jsh</code> script from jshell risky?",
+     "back": "Scripts contain <b>executable code</b>, so an untrusted source can run anything",
+     "extra": "There is no sandbox for loaded scripts. For scripts shared with teammates, prefer reading them into version control instead of fetching them at run time.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command resets state before you can rebuild a modular jar example?",
+     "back": "<code>/reset</code>",
+     "extra": "It drops all snippets and restarts with startup scripts, but does not replay history. Use it when the previous session's classes would otherwise shadow new definitions.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/jfr/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is JDK Flight Recorder (JFR)?",
+     "back": "An <b>observability and monitoring framework built into HotSpot</b>",
+     "extra": "It records events from the JVM and the application for debugging and profiling. It ships with the JDK, so no separate download or configuration step is needed.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What single JVM argument enables JFR at startup?",
+     "back": "<code>-XX:StartFlightRecording</code>",
+     "extra": "It can be combined with recording options such as <code>name</code>, <code>settings</code>, <code>duration</code>, <code>filename</code>, and <code>dumponexit</code>, all separated by commas.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK release can JFR be used in production <b>without a commercial license</b>?",
+     "back": "JDK <b>11</b>",
+     "extra": "This followed JEP 328, which contributed Flight Recorder to open source. The feature was renamed from Java Flight Recorder to <b>JDK Flight Recorder</b> at the same time.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is JFR's typical overhead with the <b>default</b> settings?",
+     "back": "About <b>1%</b>",
+     "extra": "With profile settings it should stay under 2%. That low cost is the basis for JFR's claim that recordings can be enabled in production without harming application performance.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <b>event</b> in JFR?",
+     "back": "A <b>self-describing</b> element of data propagated from code execution",
+     "extra": "Events come from the JVM and from application code. Users configure which events are collected and can define their own events to capture application-specific data.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when a JFR recording reaches its data-retention limit?",
+     "back": "The <b>oldest</b> data is overwritten",
+     "extra": "Contents go to temporary files or stay in memory, and retention is configurable. This makes JFR suitable for being always-on, much like an aircraft's flight recorder.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why was JFR renamed from 'Java Flight Recorder' to 'JDK Flight Recorder'?",
+     "back": "The rename came with open-sourcing JFR under <b>JEP 328</b>",
+     "extra": "Both names refer to the same technology. The newer name reflects that it ships with the JDK and can be used in production on JDK 11+ without a commercial licence.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is JFR described as easy to adopt but hard to master?",
+     "back": "It is started with <b>one JVM flag</b> but has many configuration layers",
+     "extra": "The comparison is to the board game Go. Single-arg startup sets sensible defaults, while recording options, .jfc settings files, event settings, and FlightRecorderOptions are where the depth lies.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/jfr/getting-started/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "When is enabling JFR at <b>startup</b> preferable to attaching to a running JVM?",
+     "back": "Startup gives the <b>most complete picture</b> from JVM launch onward",
+     "extra": "Attaching to a running JVM misses everything before the attachment, but is still useful when a process starts misbehaving and you want data before shutting it down.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command starts a JFR recording on a running JVM?",
+     "back": "<code>JFR.start</code>",
+     "extra": "It accepts the same recording options as <code>-XX:StartFlightRecording</code>, but delimited by spaces rather than commas. If no options are given, defaults are used.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command writes the current JFR recording data out to a file?",
+     "back": "<code>JFR.dump</code>",
+     "extra": "The recording keeps running after the dump. With no <code>filename</code>, a name is generated from the PID and current date; <code>name</code> selects one recording, otherwise all are dumped.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jcmd JFR.dump</code>, what does a <code>begin</code> value of <code>-12h</code> mean?",
+     "back": "Include data from the <b>last 12 hours</b>",
+     "extra": "Relative times are a negative integer plus <code>s</code>, <code>m</code>, or <code>h</code>. Absolute times must parse as <code>LocalTime</code>, <code>LocalDateTime</code> or <code>Instant</code>, e.g. <code>2020-03-17T09:00:00</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>JFR.dump path-to-gc-root=true</code> expensive?",
+     "back": "Collecting GC-root paths can <b>pause the application</b> briefly",
+     "extra": "It gives you the allocation path for leaked objects, which is invaluable for memory leaks. Enable it only for an application you already suspect of leaking.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> JFR action requires a <code>name</code> argument to stop a recording?",
+     "back": "<code>JFR.stop name=...</code>",
+     "extra": "Its siblings are <code>JFR.start</code>, <code>JFR.dump</code>, <code>JFR.configure</code>, and <code>JFR.check</code>. <code>JFR.stop</code> discards data unless <code>filename</code> is supplied.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command gives basic diagnostics about a JVM running JFR?",
+     "back": "<code>JFR.check</code>",
+     "extra": "With no options it shows all active recordings; <code>name</code> narrows it and <code>verbose=true</code> also prints the event settings in effect, which is handy for verifying a .jfc file took effect.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which tool is commonly used first to find the PID for <code>jcmd JFR.start</code>?",
+     "back": "<code>jps</code>",
+     "extra": "It lists instrumented JVMs on the local host with the main class or jar name. Any other means of getting the OS pid works too, e.g. <code>ps</code> or a container's process list.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/jfr/configure/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "How do the delimiters differ between <code>-XX:StartFlightRecording</code> and <code>JFR.start</code> when passing multiple options?",
+     "back": "<code>-XX:</code> uses <b>commas</b>; <code>JFR.start</code> uses <b>spaces</b>",
+     "extra": "Both accept the identical set of recording options, so the same configuration can be written either way. Mixing delimiters is the usual cause of a rejected option.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the four levels of JFR configuration?",
+     "back": "Recording, <b>event</b>, configuration (.jfc) and Flight Recorder options",
+     "extra": "Recording options govern overall behaviour (retention, .jfc used, dump-on-exit). Configuration settings live in .jfc files; event options govern individual events; FlightRecorderOptions tune buffers and chunking.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is JFR's default <code>maxsize</code> for disk data?",
+     "back": "<b>250 MB</b>",
+     "extra": "It caps disk data when <code>disk=true</code> and must not be smaller than <code>maxchunksize</code>. Use <code>m</code>/<code>M</code> for megabytes or <code>g</code>/<code>G</code> for gigabytes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the two predefined JFR settings files shipped in the JDK, and where are they?",
+     "back": "<code>default.jfc</code> and <code>profile.jfc</code> in <code>JAVA_HOME/lib/jfr</code>",
+     "extra": "default.jfc has low overhead and suits continuous recordings. profile.jfc collects more data at higher overhead and is meant for short diagnostic periods.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>dumponexit</code> recording option do, and what is its default?",
+     "back": "Dumps the recording when the JVM shuts down; default is <b>false</b>",
+     "extra": "If enabled without a <code>filename</code>, a file is written to the process's start directory with a generated name containing the PID, recording ID and timestamp.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>maxage</code> recording option control?",
+     "back": "The maximum age of <b>disk data</b> kept for the recording",
+     "extra": "It is valid only when <code>disk=true</code> and defaults to 0s (unlimited). Times take an <code>s</code>, <code>m</code>, <code>h</code> or <code>d</code> suffix, e.g. <code>30s</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>settings</code> recording option point to?",
+     "back": "The path of an event settings file of type <b>.jfc</b>",
+     "extra": "The .jfc also holds controls that JDK Mission Control uses. As of JDK 19 the recommended way to build settings files is the <code>jfr configure</code> utility.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JFR event option governs how long an event may run before it is recorded?",
+     "back": "<code>threshold</code>",
+     "extra": "Its value is a duration, defaulting to 0. By contrast <code>period</code> sets the minimum time between recordings of the same periodic event.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default value of the JFR event option <code>stackTrace</code>?",
+     "back": "<b>true</b>",
+     "extra": "Stack traces are collected for every event unless disabled. They cost memory in the buffers, so busy events are sometimes recorded without them, but they are what makes recordings diagnostic.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>-XX:FlightRecorderOptions maxchunksize</code> default to, and what is its minimum?",
+     "back": "<b>12 MB</b> default, <b>1 MB</b> minimum",
+     "extra": "Chunks are the unit written to disk; a chunk holds all data needed to parse it. <code>memorysize</code> (default 10 MB) sizes the buffers, and <code>repository</code> sets the temp dir.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default JFR <code>stackdepth</code>, and why not raise it casually?",
+     "back": "<b>64</b> frames; deeper stacks can cost significant overhead",
+     "extra": "The maximum is 2048. Raising it slows the app and enlarges recordings, so tune it only when a specific 65-deep frame trend is what you need to see.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>-XX:FlightRecorderOptions retransform=true</code> enable?",
+     "back": "Event classes are retransformed using <b>JVMTI</b>",
+     "extra": "It is the default; with <code>false</code>, instrumentation is instead added when event classes load. Disabling retransform matters when another agent relies on class shapes.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>delay</code> recording option control?",
+     "back": "The wait between <b>application launch</b> and recording start",
+     "extra": "Default is 0. It takes <code>s</code>, <code>m</code>, <code>h</code>, or <code>d</code>, e.g. <code>10m</code>, so a scheduled recording can skip warm-up or catch a later steady-state window.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK release can event options be set directly on the command line rather than in a .jfc file?",
+     "back": "<b>JDK 17</b>",
+     "extra": "They work on <code>-XX:StartFlightRecording</code>, <code>JFR.start</code>, and <code>JFR.configure</code>. Precedence is command line over .jfc file over annotations in the event class.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/jfr/tools/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the <code>jfr</code> command for?",
+     "back": "Parsing, summarising and printing <code>.jfr</code> recording files",
+     "extra": "It filters and converts binary recordings into human-readable output, and supports merging and splitting. It operates on files, not on live JVMs.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand prints events in a filterable human-readable form?",
+     "back": "<code>jfr print</code>",
+     "extra": "Options include <code>--events</code> and <code>--categories</code> filters, <code>--stack-depth</code>, and machine-readable <code>--json</code> or <code>--xml</code> output.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default number of stack-trace frames shown by <code>jfr print</code>?",
+     "back": "<b>5</b>",
+     "extra": "Change it with <code>--stack-depth</code>. Truncation is why a promising stack sometimes stops just short of the frame you want to see.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jfr print</code>, how do the event and category filters combine?",
+     "back": "As a <b>union</b> of the two selections",
+     "extra": "Matching is on symbolic event names (<code>@Name</code>) and categories (<code>@Category</code>). With no filter all events print, and multiple names in one filter are comma-separated.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand displays aggregated event data rather than raw events?",
+     "back": "<code>jfr view</code>",
+     "extra": "Named views summarise a recording into tables; <code>all-views</code> shows every view and <code>all-events</code> shows every event. <code>--verbose</code> reveals the query behind the view.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand prints statistics such as event counts and disk usage?",
+     "back": "<code>jfr summary</code>",
+     "extra": "It is the quickest way to judge whether an .jfc setting was appropriate, since a recording that is all one event type usually signals a mis-tuning.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand removes events from a recording, e.g. before sharing it?",
+     "back": "<code>jfr scrub</code>",
+     "extra": "It filters by event, category, and thread, which lets you strip sensitive payload. Without an output file the result is written beside the input with <code>-scrubbed</code> appended.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand turns <b>chunk files</b> back into a recording?",
+     "back": "<code>jfr assemble repository file</code>",
+     "extra": "Chunks survive a JVM crash on disk, so assembling recovers a usable recording. Chunks are concatenated chronologically and unfinished <code>.part</code> files are skipped.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why would you run <code>jfr disassemble</code> on a recording?",
+     "back": "To repair a broken file by dropping the <b>faulty chunk</b>, or split a huge file",
+     "extra": "Output goes to <code>--output</code> (default current directory) as <code>myfile_1.jfr</code>, <code>myfile_2.jfr</code>, zero-padded when there are more than 99 parts.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default number of chunks per output file for <code>jfr disassemble</code>?",
+     "back": "<b>5</b>",
+     "extra": "Set it with <code>--max-chunks</code>, or cap bytes with <code>--max-size</code>. A chunk's size varies but is typically around 15 MB.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand builds a .jfc settings file non-interactively?",
+     "back": "<code>jfr configure</code>",
+     "extra": "Without <code>--output</code> it writes <code>custom.jfc</code>; <code>--input none</code> starts from an empty configuration, and prefixing an event name with <code>+</code> adds an event setting.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand shows event names, categories and field layout stored in a recording?",
+     "back": "<code>jfr metadata</code>",
+     "extra": "It reads the metadata embedded in the .jfr file rather than the event payload, which is what you need before writing <code>jfr print --events</code> or <code>--categories</code> filters.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr</code> subcommand lists the version string of the tool itself, not of a recording?",
+     "back": "<code>jfr --version</code> (or <code>jfr version</code>)",
+     "extra": "Per-subcommand help comes from <code>jfr --help subcommand</code>. Because <code>jfr</code> ships with the JDK, this version identifies the JDK whose event metadata you are reading.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/monitoring/jfr/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "How does a <code>jdk.jfr.Percentage</code> annotated field with value <code>0.52</code> appear in <code>jfr print</code>?",
+     "back": "As <b>52%</b>",
+     "extra": "Fields are formatted according to their declared content types, not raw values. So percentages, durations and memory sizes are already humanised unless <code>--json</code> or <code>--xml</code> is used.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you get machine-readable output from <code>jfr print</code>?",
+     "back": "Add <code>--json</code> or <code>--xml</code>",
+     "extra": "The default is human-readable text. JSON and XML are the supported formats for post-processing with your own scripts, and their field values are not pre-formatted.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jfr view --truncate beginning</code> change?",
+     "back": "Overlong table cells keep their <b>start</b> instead of their end",
+     "extra": "The default is <code>end</code>, which keeps the tail of a value. <code>--cell-height</code> caps rows per cell and <code>--width</code> sets the total character width.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jfr configure</code>, what does prefixing an event name with <code>+</code> do?",
+     "back": "Adds a <b>new</b> event setting to the .jfc file",
+     "extra": "The syntax is <code>event#setting=value</code>, where <code>#</code> is the setting name. Existing settings are modified by naming them without the <code>+</code> prefix.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jfr configure</code> option makes the tool ask questions to build the configuration?",
+     "back": "<code>--interactive</code>",
+     "extra": "It walks through the choices rather than requiring you to know option names. <code>--verbose</code> then prints the resulting modified settings so you can review them.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jfr scrub</code> do when no output file is given?",
+     "back": "Writes the result next to the input with <b><code>-scrubbed</code></b> appended",
+     "extra": "This matters in pipelines that expect the input file to be untouched. Specify an explicit output path when the tool will later read the original again.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jfr scrub</code>, what happens when an event matches both an include and an exclude filter?",
+     "back": "Filters are applied in the <b>order specified</b>",
+     "extra": "So a later include can re-add what an earlier exclude removed, or vice versa. Include and exclude filters exist for events, categories, and threads alike.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>jfr disassemble</code> chunk file of <code>myfile_001.jfr</code> imply about the recording?",
+     "back": "It has <b>more than 100 chunks</b>",
+     "extra": "File names are zero-padded to preserve chronological ordering when concatenated, so a fixed width signals a large count. Directories and glob expansion sort correctly because of it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>jfr assemble</code> exclude <code>.part</code> chunk files?",
+     "back": "They are unfinished chunks, so they cannot be parsed reliably",
+     "extra": "Chunks are written progressively; the <code>.part</code> suffix marks the one that was in flight at the time of a crash. Its data is incomplete and would corrupt the assembly.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/monitoring/jconsole/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <code>jconsole</code>?",
+     "back": "A <b>graphical</b> console to monitor and manage Java applications",
+     "extra": "It connects to a local or remote JVM using the JMX management agent and shows live threads, memory, classes, and JVM internals. It needs a GUI display.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default update interval for <code>jconsole</code>?",
+     "back": "<b>4 seconds</b>",
+     "extra": "Change it with <code>-interval n</code>. On a graph, a shorter interval shows burstier detail; a longer one smooths the trace but hides short spikes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What forms can <code>jconsole</code>'s connection argument take?",
+     "back": "<code>pid</code>, <code>host:port</code>, or a <b>JMX URL</b>",
+     "extra": "A pid requires the target JVM to run under the same user ID. A host:port must match <code>com.sun.management.jmxremote.port</code> set when the JVM started.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why would <code>jconsole</code> fail to attach using a <code>pid</code>?",
+     "back": "The target JVM runs under a <b>different user ID</b>",
+     "extra": "PID attachment uses the local attach mechanism, which enforces same-user access. For a different account, start the target with a JMX remote port and connect with <code>host:port</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>jconsole -notile</code> option change?",
+     "back": "It stops <b>tiling</b> the windows of two or more connections",
+     "extra": "By default multiple connection windows are arranged side by side inside a single window. Untiling lets you place them yourself, e.g. across separate displays.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jconsole</code> option tells it where to look for <b>plug-ins</b>?",
+     "back": "<code>-pluginpath path</code>",
+     "extra": "Each directory in that path needs a provider-configuration file at <code>META-INF/services/com.sun.tools.jconsole.JConsolePlugin</code> naming the implementing class.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/monitoring/jps/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jps</code> list?",
+     "back": "<b>Instrumented</b> Java HotSpot JVMs on the target system",
+     "extra": "For each it reports the lvmid plus, by default, the short form of the main class or jar name. It only sees JVMs the running user has access to.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <b>lvmid</b>?",
+     "back": "The local JVM identifier, usually the OS pid but not required to be",
+     "extra": "It is the <code>lvmid</code> component of a vmid in tools like <code>jstat</code>. Because it is only typically the OS pid, code should not assume they are interchangeable.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jps</code> option shows arguments passed to the <b>main method</b>?",
+     "back": "<code>-m</code>",
+     "extra": "Output may be null for embedded JVMs. Do not confuse it with <code>-v</code>, which shows arguments the JVM itself received.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>jps -l</code> and <code>jps -m</code>?",
+     "back": "<code>-l</code> shows the full class/jar name; <code>-m</code> shows main arguments",
+     "extra": "The other selectors are <code>-v</code> for JVM arguments and <code>-q</code> for only the identifiers. Any combination of <code>-mlvV</code> is accepted.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jps</code> option suppresses the class name and main arguments, leaving only identifiers?",
+     "back": "<code>-q</code> (or <code>-V</code>)",
+     "extra": "Both produce a bare list of local JVM identifiers, convenient for shell loops. Neither adds information; they remove it, which makes parsing less fragile.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When <code>jps hostid</code> targets a remote host, what must be running <b>on that host</b>?",
+     "back": "A <b>jstatd</b> process",
+     "extra": "The remote lookup uses the RMI protocol via the jstatd server, on the default rmiregistry port 1099 unless specified. Local listing needs nothing extra.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>jps</code> sometimes print <code>Unknown</code> for the class name?",
+     "back": "The JVM was started with a <b>custom launcher</b>",
+     "extra": "The Java launcher supplies the main class and arguments that jps reports. Without it, those values are unavailable and Unknown replaces each of them.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Should you parse <code>jps</code> output in scripts?",
+     "back": "<b>No</b> — the format may change in future releases",
+     "extra": "The same caution applies to <code>jstat</code>. Tokenisation also breaks when an argument contains embedded whitespace, so prefer the JVM APIs for programmatic use.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/monitoring/jstat/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jstat</code> display?",
+     "back": "<b>Performance statistics</b> for an instrumented HotSpot JVM",
+     "extra": "It targets a JVM by vmid and supports two option kinds: general options (help, version) and output options that choose which statistics are shown.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstat -gcutil</code> show?",
+     "back": "A <b>summary</b> of garbage collector statistics",
+     "extra": "It reports per-space utilisation percentages (E, O, S0, S1) plus counts and times of young and full collections. It is the usual first look at GC health.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>jstat -gcutil</code> and <code>jstat -gccause</code>?",
+     "back": "<code>-gccause</code> adds the <b>cause</b> of the last and current GC events",
+     "extra": "Both otherwise print the same summary. The added cause columns are what tell you whether a full GC was triggered by allocation failure, System.gc, or an ergonomics decision.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstat -gcnew</code> display?",
+     "back": "Statistics about the <b>new generation</b>",
+     "extra": "Its columns include survivor and eden usage plus the tenuring threshold (TT) and desired survivor size (DSS). <code>-gcnewcapacity</code> complements it with the space sizes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jstat</code> output, which option shows old generation and metaspace behaviour?",
+     "back": "<code>-gcold</code>",
+     "extra": "It covers both old-generation behaviour and metaspace statistics. For old-generation sizes only, <code>-gcoldcapacity</code>; for metaspace sizes, <code>-gcmetacapacity</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstat -h n</code> do?",
+     "back": "Prints the column <b>header every n samples</b>",
+     "extra": "Without it the header appears once at the top and scrolls away during a long sample run. The default value 0 means header only on the first line.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstat -t</code> add to its output?",
+     "back": "A <b>Timestamp</b> column of seconds since the JVM started",
+     "extra": "Because the timestamp measures from JVM start rather than wall-clock time, aligning jstat samples with an external log requires adding the JVM's own start time.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <code>jstat</code>'s default units for the <code>interval</code> argument?",
+     "back": "<b>Milliseconds</b>",
+     "extra": "Append <code>s</code> for seconds. <code>count</code> defaults to infinity, so jstat keeps sampling until the JVM or jstat exits; give a positive integer to bound the run.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstat -J-Xms48m</code> do?",
+     "back": "Passes <code>-Xms48m</code> to the <b>jstat tool's own</b> JVM",
+     "extra": "The <code>-J</code> prefix never reaches the monitored target. To affect the target, you would have to pass options at its own launch, not through jstat.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>jstat -options</code> general option list?",
+     "back": "The <b>available stat options</b> for that platform installation",
+     "extra": "It is the authoritative list for the local JVM, which matters because options may be changed or removed between releases. Using it with another option is not allowed.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jstat</code> output for <code>-gcnew</code>, what does a falling <b>tenuring threshold</b> (TT) indicate?",
+     "back": "Survivors were promoted early because survivor space overflowed",
+     "extra": "When survivor usage exceeds the desired survivor size (DSS), objects move to the old generation and TT is lowered. A subsequent light collection can push TT back up.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a <code>jstat</code> vmid, what is the only <b>required</b> component?",
+     "back": "The <code>lvmid</code>",
+     "extra": "Protocol, hostname, port, and servername are optional. Omitting both protocol and hostname selects a platform-optimised local protocol; naming a host without a protocol defaults to RMI.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/monitoring/jstatd/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the <code>jstatd</code> command?",
+     "back": "An <b>RMI server</b> that monitors instrumented JVM creation and termination",
+     "extra": "It gives remote monitoring tools such as <code>jstat</code> and <code>jps</code> a way to attach to JVMs on the host and read their instrumentation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What port does <code>jstatd</code> use by default for the RMI registry?",
+     "back": "<b>1099</b>",
+     "extra": "Set a different port with <code>-p port</code>. If no registry exists at that port, jstatd starts one internally unless <code>-nr</code> is given.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstatd -nr</code> do?",
+     "back": "Stops it from creating an <b>internal RMI registry</b>",
+     "extra": "It is used when an external registry should already be running. If none is found, jstatd reports an error instead of silently binding its own.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstatd -r rmiport</code> set?",
+     "back": "The port the <b>RMI connector</b> binds to",
+     "extra": "This is distinct from the registry port set by <code>-p</code>. If omitted, a random available port is used, which can defeat firewall rules unless both are pinned.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default name bound for jstatd's remote RMI object, and which option changes it?",
+     "back": "<code>JStatRemoteHost</code>, changed with <code>-n rminame</code>",
+     "extra": "Run multiple jstatd servers on one host and each needs a unique name. Clients must then include that name in their hostid and vmid strings.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>jstatd</code> authenticate remote clients?",
+     "back": "<b>No</b> — it provides no authentication",
+     "extra": "Anyone on the network who can reach it acquires the instrumentation of every JVM it has permission to read. Treat it as a local-tool-only option unless the network is trusted.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which permission constraint applies to what <code>jstatd</code> can monitor?",
+     "back": "Only JVMs it can <b>natively</b> access, so it must run under the same user as them",
+     "extra": "A process with root credentials can attach to anything, but that greatly widens exposure. Running as root for monitoring is a security tripwire, not a convenience.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does running without a security manager make <code>jstatd</code> require a policy file?",
+     "back": "It installs an <b>RMISecurityPolicy</b> instance by default",
+     "extra": "The policy file must follow the standard policy syntax. If your security needs exceed what a policy file can express, the safest move is not to run jstatd at all.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JVMs does <code>jps</code> fail to list when using <code>jstatd</code>?",
+     "back": "JVMs running inside <b>docker containers</b>",
+     "extra": "Container PID namespaces hide those processes from the host-side instrumented listing. Use <code>ps</code> inside the container or expose the container's own port instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why not write against the interface exported by <code>jstatd</code>?",
+     "back": "It is <b>proprietary and guaranteed to change</b>",
+     "extra": "There is no compatibility promise, so code depending on it will break on a future JDK. Use the jstat and jps command-line tools, or JMX, for automation.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/troubleshooting/jcmd/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <code>jcmd</code> utility do?",
+     "back": "Sends <b>diagnostic command</b> requests to a running JVM",
+     "extra": "It must run on the same machine as the JVM and under the same effective user and group. Each diagnostic command has its own syntax and arguments.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jcmd</code> with <b>no arguments</b> do?",
+     "back": "Lists running JVMs — the same as <code>jcmd -l</code>",
+     "extra": "The listing shows the process identifier, main class, and launch arguments, but excludes JVMs running in separate docker processes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you discover the available diagnostic commands for a given JVM?",
+     "back": "Run <code>jcmd pid help</code>",
+     "extra": "Adding the command name, as in <code>jcmd pid help VM.flags</code>, shows that command's description, syntax and arguments. Guessing command names and arguments is never necessary.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jcmd 0 command</code> do?",
+     "back": "Sends the command to <b>all Java processes</b>",
+     "extra": "The pid 0 is the broadcast selector. You can equivalently pass a <code>main-class</code> name, matched partially or fully, to target every JVM started from that class.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which command produces a HPROF heap dump from a running JVM?",
+     "back": "<code>GC.heap_dump filename</code>",
+     "extra": "It is high impact and requests a full GC unless <code>-all</code> is given. For live-only content the default is preferable; use <code>-all</code> when you need unreachable objects.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command prints a histogram of heap classes by instance count?",
+     "back": "<code>GC.class_histogram</code>",
+     "extra": "It is high impact because it walks the heap. <code>-all</code> includes unreachable objects; default counts only reachable ones, which is usually what you want for a leak hunt.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command prints all thread stack traces?",
+     "back": "<code>Thread.print</code>",
+     "extra": "The option <code>-l</code> also prints <code>java.util.concurrent</code> locks. This is the in-flight equivalent of the standalone <code>jstack</code> tool.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command prints the VM flags and their current values?",
+     "back": "<code>VM.flags</code>",
+     "extra": "<code>VM.flags -all</code> prints every flag the VM supports. This is the authoritative answer to 'what is this JVM actually configured with', including defaults.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command changes a VM flag on a running JVM?",
+     "back": "<code>VM.set_flag flag value</code>",
+     "extra": "Only flags declared as manageable can be changed at run time. Others are locked once the JVM starts, and the command will refuse them.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command reports <b>native</b> memory usage by subsystem?",
+     "back": "<code>VM.native_memory summary</code>",
+     "extra": "It needs the JVM launched with NMT enabled. <code>baseline</code> snapshots current usage and <code>summary.diff</code> reports growth against it, which pinpoints the leaking subsystem.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jcmd VM.native_memory baseline</code> accomplish for a later diff?",
+     "back": "Records current usage as a <b>reference point</b>",
+     "extra": "The subsequent <code>detail.diff</code> then shows allocation activity since that baseline at each call site. Without a baseline, the diff commands have nothing to compare against.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command lists all loaded classes in hierarchy form?",
+     "back": "<code>VM.class_hierarchy</code>",
+     "extra": "Each class is followed by its ClassLoaderData pointer, or null for the bootstrap loader. <code>-s</code> shows subclasses, and <code>-i</code> includes inherited interfaces.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command rotates the JVM's unified-logging outputs?",
+     "back": "<code>VM.log rotate</code>",
+     "extra": "<code>VM.log list</code> shows the current configuration. Setting <code>disable=true</code> turns all logging off and clears the configuration, so use it deliberately.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command reports the JVM's uptime?",
+     "back": "<code>VM.uptime</code>",
+     "extra": "<code>-date</code> prefixes the output with the current date. Since <code>jstat -t</code> timestamps are relative to JVM start, uptime lets you convert them to wall-clock time.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command prints <b>all methods ever touched</b> during this JVM's lifetime?",
+     "back": "<code>VM.print_touched_methods</code>",
+     "extra": "Useful for finding dead code that still gets linked, and for auditing what a loaded agent actually invoked. It is not the same as the compiled-method list.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command dumps the JVM's <b>string table</b>?",
+     "back": "<code>VM.stringtable</code>",
+     "extra": "<code>-verbose</code> also dumps the content of every string, which can be huge and may expose user data. The parallel command for interned symbols is <code>VM.symboltable</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> command shows the command line used to start the VM?",
+     "back": "<code>VM.command_line</code>",
+     "extra": "It reports the launch line recorded in ProcessHandle terms, which may differ in presentation from what <code>ps</code> shows. Compare with <code>VM.system_properties</code> for resolved paths.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jcmd VM.version</code> print?",
+     "back": "The <b>JVM</b> version information",
+     "extra": "<code>VM.info</code> is the fuller report covering environment and status. Neither is the same as asking a running app what its Java <code>java.version</code> property says.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>jcmd</code> fail when run by a different user than the target JVM?",
+     "back": "It requires the same <b>effective user and group</b> as the JVM's launch",
+     "extra": "The attach mechanism checks credentials at the OS level. Parent process identity, groups, and container boundaries all affect whether the attach is permitted.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jcmd</code>, how are command options written when the command defines them?",
+     "back": "<code>key</code> or <code>key=value</code> syntax",
+     "extra": "Flags given as <code>key</code> are usually Boolean options. This differs from the positional arguments some commands take, such as a heap-dump filename.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/troubleshooting/jdb/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <code>jdb</code>?",
+     "back": "A simple <b>command-line debugger</b> for Java classes",
+     "extra": "It demonstrates the Java Platform Debugger Architecture and can debug a local or remote JVM. Its command set mirrors the textbook debugger workflow and suits automation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you start <code>jdb</code> so it launches the application itself?",
+     "back": "Substitute <code>jdb</code> for <code>java</code> on the command line",
+     "extra": "It starts a second JVM, loads the class, and stops before the first instruction of the main class. No separate debug-server setup is needed for this mode.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which kind of JVM options must a target JVM be started with so <code>jdb</code> can attach?",
+     "back": "The <b>in-process debugging libraries</b>, specifying a connection",
+     "extra": "Often written as <code>-agentlib:jdwp=...</code> with an address. Without them, the JVM accepts no debugger connection at all.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdb</code> command sets a breakpoint at a specific line?",
+     "back": "<code>stop at MyClass:22</code>",
+     "extra": "It resolves to the first instruction for line 22 of the source file containing MyClass. <code>stop in java.lang.String.length</code> instead breaks at a method's first instruction.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is required when setting a breakpoint on an <b>overloaded</b> method?",
+     "back": "Specify the <b>argument types</b>",
+     "extra": "For example <code>stop in MyClass.myMethod(int,java.lang.String)</code>. Without types, jdb cannot tell which overload you mean, so it cannot set the breakpoint.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdb</code> command removes a breakpoint?",
+     "back": "<code>clear MyClass:45</code>",
+     "extra": "Running <code>clear</code> or <code>stop</code> with no argument lists the currently set breakpoints. Resuming execution after a stop uses <code>cont</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>jdb step</code> and <code>jdb next</code>?",
+     "back": "<code>step</code> follows calls; <code>next</code> stays in the <b>current frame</b>",
+     "extra": "Step advances to the next line whether it is in this frame or a called method. Next advances to the next line in the same frame, treating calls as a single step.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When a thread hits an uncaught exception under <code>jdb</code>, what happens instead of the JVM exiting?",
+     "back": "Control returns to jdb <b>at the throw</b>",
+     "extra": "Without a debugger the JVM usually prints a trace and exits. At the break, you can inspect variables and the stack to find the cause before it unwinds.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdb</code> command makes it stop whenever a given exception is <b>thrown</b>?",
+     "back": "<code>catch java.io.FileNotFoundException</code>",
+     "extra": "Any instance of the class or a subclass stops execution where it is thrown. <code>ignore</code> reverses the effect for the debugger, not for the application.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jdb ignore</code> actually do?",
+     "back": "Reverts a <code>catch</code>, making the <b>debugger</b> ignore that exception",
+     "extra": "It does not change exception handling in the application. If the app catches and swallows an exception, jdb still sees the throw unless <code>catch</code> tells it to stop there.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jdb -launch</code> change about startup?",
+     "back": "It <b>starts the application immediately</b>, removing the need for <code>run</code>",
+     "extra": "The app then stops just before the initial class is loaded, giving you a chance to set breakpoints first. This avoids missing early execution.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdb</code> option waits for a running JVM to connect at any available address?",
+     "back": "<code>-listenany</code>",
+     "extra": "The opposite direction is <code>-attach address</code>, where jdb connects out to a JVM. <code>-listen address</code> waits on one specific address.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdb</code> option lists the <b>connectors</b> available in the JVM?",
+     "back": "<code>-listconnectors</code>",
+     "extra": "Connector names are then used with <code>-connect connector-name:name1=value1,...</code>. This is how you pick a non-default transport without guessing its name.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/troubleshooting/jhsdb/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <code>jhsdb</code> used for?",
+     "back": "<b>Postmortem</b> analysis of a core dump from a crashed JVM",
+     "extra": "It launches a debugger against a core file (or attaches to a process) and exposes modes mirroring the jstack, jmap, jinfo and jsnap tools.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you attach <code>jhsdb</code> to a <b>live</b> process?",
+     "back": "The process <b>hangs</b> and probably crashes when the debugger detaches",
+     "extra": "jhsdb suspends the target while it works, so it is not a safe live diagnostic. For a running JVM use jcmd, jstack, or jmap instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is required to analyze a core dump with <code>jhsdb</code> instead of a pid?",
+     "back": "The <b>Java executable</b> and the <b>core file</b>",
+     "extra": "Both must be supplied together. Alternatively a <code>[server-id@]debugd-host</code> can be used. Any one of these three forms satisfies the requirement.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jhsdb</code> mode starts an <b>interactive command-line</b> debugger?",
+     "back": "<code>jhsdb clhsdb</code>",
+     "extra": "It is the text-session counterpart of the GUI mode <code>hssdb</code> (hsdb). The others are batch-style modes that mimic familiar JDK tools.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jhsdb</code> mode prints <b>performance counter</b> information?",
+     "back": "<code>jhsdb jsnap</code>",
+     "extra": "It is the counterpart of <code>PrintPerfCounters</code>. <code>--all</code> prints every counter, which can be a very long dump.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jhsdb jmap</code> mode, what does <code>--binaryheap</code> produce?",
+     "back": "A heap dump in <b>hprof binary</b> format",
+     "extra": "It pairs with <code>--dumpfile name</code> to choose the output file. Without a dump file the binary heap would have nowhere to go, so the two options are normally used together.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jhsdb jstack</code> mode, what does <code>--mixed</code> attempt?",
+     "back": "Print <b>both Java and native frames</b>",
+     "extra": "It only works where the platform permits it. <code>--locks</code> adds <code>java.util.concurrent</code> lock information, matching jstack's <code>-l</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jhsdb debugd</code> option sets the <b>RMI registry</b> port for a remote debug server?",
+     "back": "<code>--registryport port</code>",
+     "extra": "It overrides the system property <code>sun.jvm.hotspot.rmi.port</code>, and defaults to 1099. The separate RMI connector port is set with <code>--rmiport</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jhsdb jmap</code> mode, what does running with <b>no option</b> print?",
+     "back": "The same information as <code>pmap</code>",
+     "extra": "The mode has a sensible default rather than erroring out. <code>--heap</code> gives the heap summary, and <code>--histo</code> the object histogram.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must <code>jhsdb debugd</code> set <code>--serverid</code> when several debug servers share a host?",
+     "back": "Each server needs a <b>unique ID</b> to be addressed",
+     "extra": "Clients then use <code>server-id@debugd-host</code> to select the right one. Without distinct IDs, remote connections are ambiguous.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/troubleshooting/jinfo/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jinfo</code> print for a Java process?",
+     "back": "<b>Java system properties and JVM command-line flags</b>",
+     "extra": "With no options, both categories are printed. It is the quickest answer to 'what flags and properties did this running process really get'.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jinfo</code> option prints <b>only</b> the JVM command-line flags?",
+     "back": "<code>-flags</code>",
+     "extra": "By contrast <code>-sysprops</code> prints only system properties as name-value pairs. With neither, jinfo prints both, which is often all you need.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jinfo</code> option prints a single named VM flag and its value?",
+     "back": "<code>-flag name</code>",
+     "extra": "Without the value it reads; with it, it can write. For Boolean flags, <code>-flag +name</code> or <code>-flag -name</code> toggles them on or off on a live JVM.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jinfo -flag +HeapDumpOnOutOfMemoryError pid</code> do?",
+     "back": "Enables that Boolean VM flag on the <b>running</b> process",
+     "extra": "Writing flags requires the flag to be manageable. Many performance flags are locked at startup, and jinfo reports an error rather than changing them.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jinfo</code> option sets a VM flag to an explicit value such as <code>MetaspaceSize=64m</code>?",
+     "back": "<code>-flag name=value</code>",
+     "extra": "The <code>=</code> form assigns a value; <code>+-name</code> only toggles Boolean flags. Flags that are not manageable cannot be assigned mid-run.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jinfo</code> option prints Java system properties as name-value pairs?",
+     "back": "<code>-sysprops</code>",
+     "extra": "These are the properties a running JVM resolved, including defaults jinfo adds, not only those passed with <code>-D</code>. Compare with the launch line before assuming a value was set explicitly.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which extra JVM option might <code>jinfo</code> need against a 64-bit JVM?",
+     "back": "<code>-J-d64</code>",
+     "extra": "It selects the 64-bit attach library. The same need can arise with jstack, so a 'cannot attach' error on 64-bit is worth ruling out first.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>jinfo</code> a supported, permanent JDK tool?",
+     "back": "<b>No</b> — it is experimental and unsupported",
+     "extra": "The same holds for jps, jstat, jstatd, jmap, jstack, and jhsdb. They may change or disappear in a future JDK, so do not build production automation on their output.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/troubleshooting/jmap/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jmap</code> print?",
+     "back": "Details of a running Java process, e.g. heap histogram and heap dump",
+     "extra": "The most-used options are <code>-histo</code> for an object histogram and <code>-dump</code> for an hprof heap dump. Both connect to the live process.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmap</code> option prints a histogram of the Java object heap?",
+     "back": "<code>-histo</code>",
+     "extra": "Adding <code>live</code> (as <code>-histo:live</code>) first forces a full GC and counts only live objects, which removes garbage from a leak analysis.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which dump option in <code>jmap -dump:format=b,file=heap.hprof</code> selects the binary format?",
+     "back": "<code>format=b</code>",
+     "extra": "It is the hprof binary format that analysis tools read. Without it the dump is not consumable by heap analysers.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jmap</code> option prints <b>class loader statistics</b> of the Java heap?",
+     "back": "<code>-clstats</code>",
+     "extra": "It is the right tool when class loaders themselves are accumulating. By contrast <code>-finalizerinfo</code> lists objects waiting for finalization.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>jmap -dump</code> with the <code>live</code> sub-option pause the application?",
+     "back": "It triggers a <b>full GC</b> to isolate reachable objects",
+     "extra": "That pause can be long on a large heap, and it changes what is in the dump. Use it deliberately, and expect a service-impacting GC on a busy production JVM.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>jmap -dump</code>, what is the difference between including and omitting <code>live</code>?",
+     "back": "With <code>live</code> only <b>live objects</b> are dumped; otherwise all objects",
+     "extra": "Dumping everything preserves unreachable-but-not-yet-collected objects. For leak hunting, live-only removes noise but loses evidence of what was about to be collected.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting",
+   "source": "https://dev.java/learn/jvm/monitoring-troubleshooting/troubleshooting/jstack/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::04-monitoring-and-troubleshooting"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jstack</code> print?",
+     "back": "<b>Java stack traces</b> of all threads in a process",
+     "extra": "For each Java frame it prints the full class name, method name, bytecode index (BCI), and line number when available. It cannot see native-only frames.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>jstack -l</code> option add?",
+     "back": "Additional information about <b>locks</b>",
+     "extra": "It shows lock ownership, which is essential for diagnosing a deadlock or a thread blocked on a monitor. Without it, contention shows as the thread state only.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>bytecode index (BCI)</b> printed in each <code>jstack</code> frame?",
+     "back": "The position of the executed instruction within the compiled <b>method</b>",
+     "extra": "It corresponds to a line number when the class has line-number debug info. Without <code>javac -g</code>, BCI may be all you have.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jstack</code> print for C++ frames with mangled names?",
+     "back": "The mangled names <b>un-demangled</b>",
+     "extra": "It does not demangle them; pipe the output to <code>c++filt</code>. This matters when reading native libraries such as a JNI binding.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>jstack</code> output on a 64-bit JVM sometimes incomplete or failing?",
+     "back": "The <code>-J-d64</code> option may be needed for the 64-bit attach",
+     "extra": "Applying it lets the tool bind the correct attach library. The same quirk is documented for jinfo, and both stem from experimental attach code.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>jstack</code> output stable enough for automated parsing?",
+     "back": "No — it is <b>experimental</b> and may change or be removed",
+     "extra": "For programmatic thread dumps prefer <code>jcmd Thread.print</code>, or the ThreadMXBean API. Human-readable text formats are intentionally not a contract.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::05 Other JVM Tools",
+   "source": "https://dev.java/learn/jvm/other-tools/cds-appcds/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::05-other-jvm-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the goal of <b>CDS</b> in HotSpot?",
+     "back": "Reduce JVM <b>startup time</b> by loading pre-processed classes and metadata",
+     "extra": "At initialization the JVM loads a fixed set of core classes regardless of the application. Storing that work in a shared archive skips decompression, verification, and constant-pool work.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>-Xshare:</code> argument's <b>default</b> value do?",
+     "back": "<code>auto</code> — use CDS when a shared archive is present",
+     "extra": "Since JDK 12 <code>auto</code> is the default on all 64-bit builds. If the archive is missing or broken, the JVM falls back silently to normal class loading.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>-Xshare:on</code> discouraged in production?",
+     "back": "It exits the JVM on any archive-loading problem",
+     "extra": "A missing, unreadable, or invalid archive becomes a hard startup failure. Default <code>auto</code> degrades to file-based loading, whereas <code>on</code> makes the JVM refuse to start.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JVM flag generates an <b>AppCDS dynamic</b> archive when the application exits?",
+     "back": "<code>-XX:ArchiveClassesAtExit=&lt;file&gt;</code>",
+     "extra": "It records the classes the running application actually touched, giving a ready-made archive. Generating it has a noticeable cost at startup and termination.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which flag loads a previously generated shared archive?",
+     "back": "<code>-XX:SharedArchiveFile=&lt;file&gt;</code>",
+     "extra": "This is used with dynamic and static archives alike. Pair it with <code>-XX:+AutoCreateSharedArchive</code> to generate or regenerate the archive when needed.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which flag lets the JVM <b>auto-generate</b> a dynamic archive if it is missing or invalid?",
+     "back": "<code>-XX:+AutoCreateSharedArchive</code>",
+     "extra": "Added in JDK 19, it looks at <code>-XX:SharedArchiveFile</code> and rebuilds when absent, corrupt, from an older JDK, or stale because a dependent JAR changed.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which flag dumps the list of loaded classes so a <b>static</b> AppCDS archive can be created?",
+     "back": "<code>-XX:DumpLoadedClassList=&lt;file&gt;</code>",
+     "extra": "That run needs <code>-Xshare:off</code>, otherwise CDS is already active. The resulting classlist is then fed to <code>-Xshare:dump</code> to build the archive.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two flags together create a static archive from a classlist?",
+     "back": "<code>-Xshare:dump</code> plus <code>-XX:SharedClassListFile=&lt;file&gt;</code>",
+     "extra": "You also pass <code>-XX:SharedArchiveFile</code> and <code>-cp</code> for the classes. Static archives include core JDK classes and support extra symbol and string data.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if the <b>default</b> CDS archive is missing when using a <b>dynamic</b> archive?",
+     "back": "Core classes load normally, slowing startup",
+     "extra": "A dynamic archive references the default archive location rather than copying those classes. With <code>-Xshare:on</code> the JVM instead exits with an error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the key advantage of a <b>static</b> archive over a dynamic one?",
+     "back": "It <b>includes</b> core JDK classes, so it is self-contained",
+     "extra": "A static archive does not depend on <code>default.jsa</code> at all. Deleting or corrupting the default archive therefore does not break startup that uses a static archive.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which logging flag gives detailed CDS diagnostics during archive generation or loading?",
+     "back": "<code>-Xlog:cds=debug</code>",
+     "extra": "The variant <code>-Xlog:cds+lambda=debug</code> adds detail on CDS's handling of lambdas. These flags show which classes and metadata actually made it into the archive.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which flag confirms which classes were loaded <b>from the shared archive</b>?",
+     "back": "<code>-verbose:class</code>",
+     "extra": "Classes sourced from an archive report their origin as <code>shared objects file</code>. Others report a location such as <code>jrt:/java.base</code> for module classes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the generated CDS <b>classlist</b> file not to be edited by hand?",
+     "back": "It is a generated artifact whose format and comments assume no manual edits",
+     "extra": "Generate a new classlist by re-running the application under <code>-XX:DumpLoadedClassList</code> with CDS off. Hand edits make the archive diverge from what was observed.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which classes can AppCDS archive, besides core JDK classes?",
+     "back": "Platform, application-on-classpath and application-on-module-path classes",
+     "extra": "That breadth is why AppCDS delivers more consistent gains as applications grow. Plain CDS alone only covers core classes, and its benefit shrinks with application size.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::05 Other JVM Tools",
+   "source": "https://dev.java/learn/jvm/other-tools/complementary/jextract/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::05-other-jvm-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which API do the bindings generated by <code>jextract</code> use internally?",
+     "back": "The <b>Foreign Function and Memory (FFM) API</b>",
+     "extra": "That API covers foreign memory access and foreign function calls. It became a final feature in JDK 22, so jextract bindings target the modern replacement for JNI and Unsafe.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jextract</code> option sets the <b>target package</b> for generated classes?",
+     "back": "<code>-t</code> (or <code>--target-package</code>)",
+     "extra": "Without it, the unnamed package is used, which makes the generated classes awkward to import. jextract creates the package directories under <code>--output</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jextract</code> option names the shared library the generated header class should load?",
+     "back": "<code>-l</code> (or <code>--library</code>)",
+     "extra": "A leading colon makes the value a path, as in <code>-l :/usr/lib/libGL.so.1</code>. Otherwise it is treated as a library name such as <code>-l GL</code>, resolved by the platform loader.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jextract</code> option adds a directory to the <b>header include search path</b>?",
+     "back": "<code>-I</code> (or <code>--include-dir</code>)",
+     "extra": "Include paths are searched in the order given, so <code>-I foo -I bar</code> checks foo before bar. This is how <code>#include</code> directives inside the main header get resolved.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jextract</code> option sets the output directory for generated files?",
+     "back": "<code>--output</code>",
+     "extra": "It is combined with <code>-t</code> to place the generated package tree inside your source root. Without output control, generated files land wherever the tool defaults.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jextract</code> flag dumps all encountered symbols so you can filter afterwards?",
+     "back": "<code>--dump-includes</code>",
+     "extra": "The dump can be edited down and re-fed as a plain argument file (with <code>@</code>). That lets you generate bindings for only what you need; large headers such as Windows.h become manageable.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do <code>--include-*</code> options on <code>jextract</code> act as an <b>allowlist</b>?",
+     "back": "Once any is specified, all unmatched symbols are <b>omitted</b>",
+     "extra": "The options are <code>--include-function</code>, <code>--include-constant</code>, <code>--include-struct</code>, <code>--include-union</code>, <code>--include-typedef</code>, and <code>--include-var</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you exclude a declaration that an included struct depends on?",
+     "back": "jextract reports the <b>missing dependency</b> and generates nothing",
+     "extra": "There is no partial output. The dump-then-edit workflow makes it easy to accidentally cut a needed field type, so iterate until the tool accepts the list.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you enable tracing of parameters passed to native calls?",
+     "back": "<code>-Djextract.trace.downcalls=true</code>",
+     "extra": "It is a VM argument rather than a jextract build option, and the generated code prints the parameters as the call is made. Very useful when a native call crashes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can <code>jextract</code> reach a library written in <b>Rust</b>?",
+     "back": "Generate a C interface (e.g. with <b>cbindgen</b>), then bind that",
+     "extra": "jextract understands C headers only. For C++, an <code>extern \"C\"</code> interface works the same way, since many C++ libraries ship one.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jextract --version</code> print along with the tool version?",
+     "back": "The <b>JDK</b> it was built for and the <b>clang</b> version",
+     "extra": "Because jextract wraps the system C parser, the clang version affects how headers are interpreted. Mismatches with a header's compiler assumptions show up as odd parse failures.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If <code>jextract</code> is given several header files, what must you supply?",
+     "back": "<code>--header-class-name</code>",
+     "extra": "With a single header the class name is derived from the file name, e.g. <code>foo_h</code> for <code>foo.h</code>. Multiple headers leave no single name to derive, so the option becomes mandatory.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::05 Other JVM Tools",
+   "source": "https://dev.java/learn/jvm/other-tools/jpackage/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::05-other-jvm-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jpackage</code> produce from a Java application and a runtime image?",
+     "back": "A <b>self-contained</b> application image or native package",
+     "extra": "The image bundles the app and all its dependencies, including a runtime, so the end user needs no separate JDK. It can also wrap it in a platform installer such as exe, msi, rpm, deb, pkg or dmg.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which platform package types can <code>jpackage --type</code> build?",
+     "back": "<code>app-image</code>, exe, msi, rpm, deb, <code>pkg</code>, <code>dmg</code>",
+     "extra": "The valid set depends on the host platform. If <code>--type</code> is omitted, a platform-dependent default type is created.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>jpackage</code> cross-platform — can you build a Windows exe on Linux?",
+     "back": "<b>No</b> — each format must be built on the platform it runs on",
+     "extra": "So producing Windows and macOS installers requires CI runners for those OSes. There is no cross-compilation support for jpackage package types.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jpackage</code> options supply the application's entry point?",
+     "back": "<code>--module</code> <b>or</b> <code>--main-jar</code>",
+     "extra": "For a modular app use <code>--module module[/main-class]</code>; otherwise <code>--main-jar</code> plus <code>--main-class</code>. They are mutually exclusive, not additive.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jpackage</code> option overrides where output files are placed?",
+     "back": "<code>--dest</code> (or <code>-d</code>)",
+     "extra": "It defaults to the current working directory. The app's name and version come from <code>--name</code> and <code>--app-version</code>, which also shape the installer file names.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When does <code>jpackage</code> invoke <code>jlink</code> itself?",
+     "back": "When <code>--runtime-image</code> is <b>not</b> supplied",
+     "extra": "It builds a runtime image using <code>--jlink-options</code> and the <code>--add-modules</code> list. Providing <code>--runtime-image</code> skips that step and reuses your own image.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <code>jpackage</code>'s default <code>--jlink-options</code>?",
+     "back": "<code>--strip-native-commands --strip-debug --no-man-pages --no-header-files</code>",
+     "extra": "They trim the bundled runtime to what a shipped app needs. Override them only if you need debugging native commands or headers in the image.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jpackage</code> option adds <b>alternative launchers</b> via a properties file?",
+     "back": "<code>--add-launcher name=path</code>",
+     "extra": "The properties file can set keys such as module, main-jar, main-class, arguments, java-options, icon, and shortcut settings. Repeat the option to build several extra launchers.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jpackage</code> option supplies files to bundle into the application image?",
+     "back": "<code>--input directory</code> (or <code>-i</code>)",
+     "extra": "Everything in that directory is packaged. Use <code>--app-content</code> to graft in extra files and directories from other locations without copying them into the input tree first.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>jpackage</code> let you override bundled icons and templates?",
+     "back": "Put same-named replacements in the <code>--resource-dir</code> directory",
+     "extra": "Defaults differ per OS: <code>.ico</code> on Windows, <code>.icns</code> on macOS, <code>.png</code> on Linux. Installer-specific files like WiX sources or Debian control dirs live in the same directory.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jpackage</code> option passes arguments to the <b>main class</b> when the user gives none?",
+     "back": "<code>--arguments arguments</code>",
+     "extra": "Values can expand environment variables and <code>$APPDIR</code>, <code>$BINDIR</code>, <code>$ROOTDIR</code> at run time. JVM-level flags go through <code>--java-options</code> instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>jpackage --arguments</code> and <code>--java-options</code>?",
+     "back": "One targets the <b>main class</b>; the other the <b>JVM</b>",
+     "extra": "Only <code>--java-options</code> can change things like heap or system properties, because those must be applied when the runtime starts. Wrongly mixing them yields arguments the app cannot use.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Windows-only <code>jpackage</code> option is needed for an app that reads from or writes to the console?",
+     "back": "<code>--win-console</code>",
+     "extra": "Without it the app launches without a console window, so stdin/stdout interaction is invisible. On other platforms the console behaviour follows the launcher norm.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jpackage</code> option signs the bundle on macOS?",
+     "back": "<code>--mac-sign</code>",
+     "extra": "Pair it with <code>--mac-signing-keychain</code> and the signing identity options. Entitlements come from <code>--mac-entitlements</code>, and <code>--mac-app-store</code> marks App Store output.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>jpackage</code> replace its bundled runtime libraries with a vendor's own?",
+     "back": "Replace them via <code>--resource-dir</code>, or use your own <code>--runtime-image</code>",
+     "extra": "On Windows the bundled runtime includes MS runtime libraries from the JDK. If a different version is required, the user must add or replace those files themselves.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must a macOS <code>--app-content</code> value be a directory containing a <code>Resources</code> subdirectory?",
+     "back": "Otherwise <b>code signing and notarization</b> of the bundle can fail",
+     "extra": "jpackage expects content laid out like the app bundle's <code>Contents</code> directory. A flat drop produces an invalid bundle that validators will reject.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jpackage --temp directory</code> change about cleanup?",
+     "back": "An explicit temporary dir is <b>not</b> removed on completion",
+     "extra": "Without the option, jpackage creates a temporary directory and deletes it when it finishes. Specifying one keeps intermediate output for inspection but leaves cleanup to you.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you build a package from a <b>previously built</b> application image?",
+     "back": "Pass <code>--app-image dir</code> instead of inputs like <code>--input</code>",
+     "extra": "That mode turns an existing image into an installable package, and on macOS is also the way to sign a predefined image. Only signing-related and <code>--verbose</code> options are then permitted.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option does <code>jpackage</code> use to associate file extensions with the app?",
+     "back": "<code>--file-associations path</code>",
+     "extra": "The properties file keys are <code>extension</code>, <code>mime-type</code>, <code>icon</code>, and <code>description</code>. The option can be repeated for multiple associations.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/core/all/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "In JavaFX, which thread may modify the scene graph or update the UI?",
+     "back": "The <b>JavaFX Application Thread</b>",
+     "extra": "All UI updates must be performed on it. Long-running work belongs on background threads with results marshalled back, otherwise the UI freezes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>ObservableList</code> add over a plain <code>List</code> in JavaFX?",
+     "back": "It <b>notifies listeners</b> when the collection changes",
+     "extra": "JavaFX controls that display data expect observable lists and update themselves when items are added or removed. That is why a <code>ListView</code> needs no manual refresh.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which property does a JavaFX <code>ListView</code> expose for listening to the current selection?",
+     "back": "<code>selectedItemProperty()</code>",
+     "extra": "A change listener on it fires on selection changes and on deselection, where the new value is <code>null</code>. Attach it once, then keep the detail form in sync with it.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a <code>ListView</code> selection change listener, what is the new value when the user <b>deselects</b> the item?",
+     "back": "<b><code>null</code></b>",
+     "extra": "Deselecting is done with Command-click on a Mac or Control-click on Linux/Windows. Clearing the form fields whenever the value is null avoids stale detail on screen.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>ListView</code> setting enables selecting more than one item?",
+     "back": "The <b>multiple selection</b> mode",
+     "extra": "In that mode each additional CTRL/Command selection re-fires the listener with the most recent value. To get the full set, read <code>getSelectedItems()</code> rather than only <code>newValue</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>SortedList</code> wrap, and how do you change its contents?",
+     "back": "An underlying <b>ObservableList</b>; you modify that list, not the SortedList",
+     "extra": "The SortedList cannot be modified directly. It re-sorts automatically whenever items are added to or removed from its backing list.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you keep a <code>Compare</code>-driven <code>SortedList</code> sorted when an item's fields change?",
+     "back": "Define an <b>extractor</b> on the backing <code>ObservableList</code>",
+     "extra": "Changes to individual elements are otherwise invisible, so ordering goes stale. The extractor names the properties to observe, and those changes then trigger a re-sort.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the alternative to an extractor when an item's sort key changes?",
+     "back": "<b>Remove and re-add</b> the item with its new values",
+     "extra": "A SortedList always re-sorts on add or remove, so the round trip fixes ordering. With an extractor, it is enough to change the observed property in place.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does deleting by removing-and-re-adding an item keep a <code>SortedList</code> correctly ordered?",
+     "back": "Add/remove are the operations the SortedList <b>observes</b>",
+     "extra": "Element-level property changes are not observed by default, so the list has no reason to re-sort on an in-place edit. Add and remove are reliable triggers.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do JavaFX bind expressions do when you call <code>bind()</code> on a property?",
+     "back": "They <b>react automatically</b> to source-property changes",
+     "extra": "The bound property updates whenever any bound source value changes. This is what makes a Delete button disable itself as soon as nothing is selected, with no listener code.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can <code>button.disableProperty()</code> be bound directly to a selection model's <code>selectedItemProperty</code>?",
+     "back": "Both are JavaFX <b>observables</b>",
+     "extra": "A binding from a nullable selected item to a disable flag often needs a null test, so code usually binds to an expression like <code>selectedItemProperty().isNull()</code> instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Before updating a model object in place, why temporarily remove the <code>selectedItemProperty</code> listener?",
+     "back": "A possible re-sort changes the selection and re-fires the <b>listener</b>",
+     "extra": "The listener would then reload the form from a different item mid-update. Immutable models sidestep the problem: replace the item instead of editing it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What class tracks whether the user has changed any form field in the Person UI?",
+     "back": "<code>SimpleBooleanProperty</code> (<code>modifiedProperty</code>)",
+     "extra": "It is set to true on a key release in any editable field and reset to false after each selection change. The Update button binds to it so it stays disabled until an edit occurs.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which FXML attribute links a control to its action handler in the controller?",
+     "back": "<code>onAction</code>",
+     "extra": "It names the handler method, while <code>fx:id</code> exposes the control as a field for binding and lookup. Both are needed for a button to be set up and bound.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In FXML, what does setting <code>mnemonicParsing=\"false\"</code> on a button do?",
+     "back": "Stops an underscore in the label from becoming a <b>keyboard mnemonic</b>",
+     "extra": "With parsing on, the underscore marks the accelerator letter, so <code>_File</code> renders File with an Alt-F accelerator. Turning it off makes the label text literal.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which layout control splits a JavaFX window into two resizable parts?",
+     "back": "<code>SplitPane</code>",
+     "extra": "It divides the view, and each side can host its own container such as an <code>AnchorPane</code>. The master-detail UI pairs a ListView on one side with a form on the other.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which layout makes <code>ButtonBar</code> buttons all the same width, and how?",
+     "back": "<code>ButtonBar</code> itself, sizing every button to the <b>widest label</b>",
+     "extra": "Buttons in the bar align right by default. This keeps New, Update and Delete visually consistent without per-button width settings.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which layout arranges labels and fields in the Person form, and how is it structured?",
+     "back": "A <code>GridPane</code>, two columns by four rows",
+     "extra": "Text fields for first and last name sit in the upper rows, a notes <code>TextArea</code> beside them, and a single ButtonBar spans both columns at the bottom.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a JavaFX <b>record</b> generate for its components automatically?",
+     "back": "Accessors, a constructor, plus <code>equals</code>, <code>hashCode</code>, <code>toString</code>",
+     "extra": "The components are final instance fields with accessor methods named after them. Records suit models that are immutable, such as a Person whose identity is its values.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you update an immutable <b>record</b> model held in a sorted ListView?",
+     "back": "Create a <b>new record</b>, remove the old one, add the new one",
+     "extra": "In-place field updates are impossible on a record. Because add and remove re-sort automatically, no extractor is needed for sorting after an update.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does a record-based model remove the need for an extractor in a sorted ListView?",
+     "back": "Updates replace the <b>list element</b> instead of mutating it",
+     "extra": "The SortedList observes add and remove, so it re-sorts. An extractor was only needed to catch property changes inside a mutable element.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must a JavaFX <code>record</code> model override for use in a <code>ListView</code>?",
+     "back": "<code>toString()</code>",
+     "extra": "A ListView displays each item using toString(). Without an override, the record's generated form appears instead of the intended display text like a full name.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In the JavaFX theater metaphor, what does the runtime system create and invoke?",
+     "back": "The primary <b>stage</b>, then your application's <code>start()</code> method",
+     "extra": "You install the root node of a hierarchical scene graph into a scene on that stage. Menu bars are added directly to the stage and are only honoured there.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where is the origin in JavaFX <b>2D</b> coordinates?",
+     "back": "The <b>upper-left corner</b> of the scene",
+     "extra": "The x-axis grows right and the y-axis grows down. That orientation differs from typical mathematical plotting, which trips up hand-computed positions.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is writing scene descriptions in <b>FXML</b> preferred over all-Java UI code?",
+     "back": "It separates the <b>view</b> from the model and controller",
+     "extra": "Each FXML file typically describes a scene and configures a controller. JavaFX also supports both 2D and 3D graphics, so the visual layer benefits from a declarative form.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the hierarchical scene-graph design let parent nodes do?",
+     "back": "Delegate rendering work to their <b>children</b>",
+     "extra": "Each node is described by properties, and parents pass rendering down. That shared traversal is why a single property change deep in the graph suffices to trigger a redraw.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are JavaFX <b>transitions</b>?",
+     "back": "High-level <b>animations</b> over time",
+     "extra": "They animate node properties such as position, opacity or scale without a frame loop. Rapidly updating a property from application code is what the transition machinery exists to avoid.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  }
+ ]
+}

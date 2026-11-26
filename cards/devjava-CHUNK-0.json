@@ -1,0 +1,4734 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/all-operators/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "In Java's operator summary, what does the <code>%</code> operator compute?",
+     "back": "The <b>remainder</b> of a division",
+     "extra": "It is the arithmetic remainder operator, e.g. <code>7 % 3</code> is 1. For negative operands the sign of the result follows the dividend, not the divisor.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the unary <code>!</code> operator do?",
+     "back": "Inverts a <b>boolean</b> value (logical complement)",
+     "extra": "It is the only unary operator that works on <code>boolean</code>; it cannot be applied to numbers, where you would instead use <code>~</code> for a bitwise complement.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>instanceof</code> operator compare?",
+     "back": "An object against a <b>specified type</b>",
+     "extra": "It yields true if the object is an instance of that class, a subclass of it, or a class implementing that interface. It is classified as a relational operator for precedence.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which operator is an <b>unsigned</b> right shift?",
+     "back": "<code>&gt;&gt;&gt;</code>",
+     "extra": "It shifts bits right and fills the leftmost positions with zeros. By contrast <code>&gt;&gt;</code> is the signed right shift and fills with the sign bit (sign extension).",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do <code>&amp;&amp;</code> and <code>&amp;</code> differ in result type?",
+     "back": "<code>&amp;&amp;</code> takes two booleans; <code>&amp;</code> is a <b>bitwise AND</b>",
+     "extra": "The conditional operators <code>&amp;&amp;</code>/<code>||</code> are boolean-only and short-circuit. The bitwise operators <code>&amp;</code>, <code>|</code>, <code>^</code> combine the bits of integral values.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "The ternary operator <code>?:</code> is shorthand for which statement?",
+     "back": "An <b>if-then-else</b> statement",
+     "extra": "Form: <code>condition ? valueIfTrue : valueIfFalse</code>. It uses three operands, which is why it is also called the ternary operator.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which unary operator requires an operand and leaves numbers positive anyway?",
+     "back": "Unary <code>+</code> (indicates an already-positive value)",
+     "extra": "Numbers are positive without it, so it exists mostly to make a sign explicit. Unary <code>-</code> negates an expression instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>++</code> operator do?",
+     "back": "Increments a value by <b>1</b>",
+     "extra": "It exists in prefix (<code>++x</code>) and postfix (<code>x++</code>) forms, which differ in the value the expression yields. Its counterpart <code>--</code> decrements by 1.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/using-operators/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which operators have the highest precedence in Java?",
+     "back": "Postfix <code>++</code> and <code>--</code> (<code>expr++</code>, <code>expr--</code>)",
+     "extra": "The precedence ladder descends: postfix, unary, multiplicative, additive, shift, relational, equality, bitwise AND/XOR/OR, logical AND/OR, ternary, then assignment last.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Among operators of <b>equal</b> precedence, in which direction are binary operators evaluated?",
+     "back": "Left to right (<b>assignment</b> operators are right to left)",
+     "extra": "So <code>a - b - c</code> means <code>(a - b) - c</code>, while <code>a = b = c</code> assigns <code>c</code> to <code>b</code> first. Parentheses override both rules.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which precedence does the assignment operator <code>=</code> have relative to all other operators?",
+     "back": "<b>Lowest</b> precedence",
+     "extra": "That is why <code>a = b + c</code> computes the addition before the assignment. Only the ternary <code>?:</code> sits immediately above it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>x += 1</code> preferred to <code>x = x + 1</code>?",
+     "back": "Compound assignment applies the binary operator then assigns, in <b>one step</b>",
+     "extra": "Semantically they are equivalent for a simple variable, but <code>x += 1</code> names the left operand once, which avoids evaluating a complex target expression twice.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where do the <b>relational</b> operators sit relative to <b>equality</b> operators in precedence?",
+     "back": "<b>Tighter</b> than <code>==</code> and <code>!=</code>",
+     "extra": "So <code>a &lt; b == c &lt; d</code> compares the two boolean results. Precedence alone explains why <code>x + 1 &lt; y * 2</code> needs no parentheses.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three operators are <b>short-circuiting</b> in Java?",
+     "back": "<code>&amp;&amp;</code>, <code>||</code> and <code>?:</code>",
+     "extra": "The second operand of <code>&amp;&amp;</code>/<code>||</code> and the unused branch of <code>?:</code> are not evaluated when the outcome is already determined, which matters when the left side has <b>side effects</b>.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Applying <code>~</code> to a byte whose bits are <code>00000000</code> produces which bit pattern?",
+     "back": "<code><b>11111111</b></code>",
+     "extra": "The unary bitwise complement inverts every bit: each 0 becomes 1 and each 1 becomes 0. Applied to an <code>int</code> the pattern is 32 bits wide.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Java uses <code>==</code> rather than <code>=</code> to test equality. What can go wrong with <code>==</code> on two non-null objects?",
+     "back": "It compares <b>references</b>, not contents",
+     "extra": "Two distinct <code>String</code> objects with identical characters are <code>==</code>-unequal; use <code>equals()</code> for value equality. For primitive values <code>==</code> is correct.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>+</code> do when either operand is a <code>String</code>?",
+     "back": "Concatenates, converting the other operand <b>to a string</b>",
+     "extra": "If one operand is a String the whole <code>+</code> is string concatenation, so <code>\"a\" + 1 + 2</code> gives a12 while <code>1 + 2 + \"a\"</code> gives 3a.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do prefix and postfix <code>++</code> differ in the value they evaluate to?",
+     "back": "Prefix yields the <b>incremented</b> value; postfix the original",
+     "extra": "In a statement on its own line the difference is invisible; it only matters when the increment is embedded in a larger expression such as an assignment or an argument list.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/arrays/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a Java array?",
+     "back": "A container <b>object</b> holding a fixed number of values of a <b>single type</b>",
+     "extra": "If you need a growable sequence, use a collection such as <code>ArrayList</code>; an array's length cannot change after it is created.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is the length of an array established?",
+     "back": "At <b>creation</b> - and it is fixed afterwards",
+     "extra": "Declaring a variable only declares the type; the length appears when the <code>new</code> expression or the initializer runs.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does array element indexing start?",
+     "back": "At <b>0</b>, so the <i>n</i>-th element is at index <i>n</i>-1",
+     "extra": "An array of 6 elements has valid indices 0 to 5, and an array's last valid index is <code>length - 1</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which syntax creates a 10-element int array?",
+     "back": "<code>new int[10]</code>",
+     "extra": "The size lives in the creation expression, not in the type: the type is written <code>int[]</code> and stays bare. The shortcut <code>{...}</code> instead sizes the array to the number of values.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a multidimensional array such as <code>String[][] names</code>, what is each component?",
+     "back": "Another <b>array</b> - it is an array of array <b>references</b>",
+     "extra": "Each element must be accessed with the matching number of indices, <code>names[i][j]</code>. Rows may have different lengths, producing jagged arrays.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a Java 2-D array differ from a C or Fortran 2-D array?",
+     "back": "It is <b>not</b> one contiguous memory block, so rows may vary in length",
+     "extra": "Each row is a separate array referenced from the outer array. That is what permits irregular (jagged) arrays, which a contiguous rectangular block could not represent efficiently.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <b>property</b> gives an array's size (not a method)?",
+     "back": "<code>array.length</code>",
+     "extra": "Unlike <code>String</code>, which uses the method <code>length()</code>. For arrays of arrays, read each row's own <code>length</code> rather than assuming they are equal.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>System.arraycopy(src, srcPos, dest, destPos, length)</code> require of the caller?",
+     "back": "The <b>destination array must already exist</b>",
+     "extra": "The five parameters are source, its start index, destination, its start index and the number of elements to copy. No array is allocated for you.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Arrays.copyOfRange(a, from, to)</code> return?",
+     "back": "A <b>new</b> array, for indices <code>from</code> to <code>to - 1</code>",
+     "extra": "Because it allocates the destination itself, it needs fewer lines than <code>System.arraycopy</code>. The end index is excluded, as with <code>substring</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Given <code>Arrays.copyOfRange(c, 0, 9)</code>, is the element at index 9 of <code>c</code> copied?",
+     "back": "<b>No</b> - the end index is exclusive",
+     "extra": "Off-by-one here is the classic bug: the result has <code>to - from</code> elements, so <code>(0, 9)</code> copies indices 0 through 8 only.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Arrays</code> method sorts an array using multiple threads?",
+     "back": "<code>Arrays.parallelSort()</code> (since Java SE 8)",
+     "extra": "The sequential alternative is <code>sort()</code>. Parallel sorting is faster on multiprocessor systems for large arrays, but has overhead that hurts tiny ones.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Arrays</code> method finds the index of a value in a sorted array?",
+     "back": "<code>Arrays.binarySearch()</code>",
+     "extra": "It relies on the array already being sorted; on an unsorted array the result is unspecified. <code>Arrays.equals()</code> compares two arrays, and <code>Arrays.fill()</code> writes one value to every index.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the compiler assign to a <b>local</b> variable that is not initialized?",
+     "back": "<b>Nothing</b> - there is no default value",
+     "extra": "Fields do get a reasonable default; locals do not, and reading an unassigned local is a compile-time error. This is why a declared but unallocated array blows up.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which control-flow statement runs a block only if a test is <b>true</b>?",
+     "back": "<code>if-then</code>",
+     "extra": "If the test is false, control jumps to the end of the statement. The <code>if-then-else</code> variant adds a second path for the false case.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are the braces of an <code>if-then</code> clause required?",
+     "back": "Optional, but <b>only for a single statement</b>",
+     "extra": "Omitting them is legal but brittle: add a second statement later and it silently falls outside the clause, and the compiler cannot catch it. Braces are the safer convention.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In an <code>if / else if / else if</code> chain, how many clauses' statements run?",
+     "back": "Only the <b>first</b> whose condition is true",
+     "extra": "Later conditions are not even evaluated, so a value matching several tests (76 &gt;= 70 and 76 &gt;= 60) is graded by the earliest branch in source order.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>do-while</code> differ from <code>while</code>?",
+     "back": "The condition is tested at the <b>bottom</b>, so the body runs at least once",
+     "extra": "With <code>while</code> a false condition on entry skips the body entirely. Use <code>do-while</code> when the action must happen before the check makes sense.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which for-loop part executes exactly <b>once</b>, as the loop begins?",
+     "back": "The <b>initialization</b> expression",
+     "extra": "The termination expression is tested before each iteration and, when false, ends the loop. The increment expression runs after every iteration, even though it may decrement.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the scope of a variable declared in a <code>for</code> loop's initialization?",
+     "back": "From its declaration to the <b>end of the loop's block</b>",
+     "extra": "It is therefore usable in the termination and increment expressions but not after the loop. Declaring the counter there limits its lifetime and avoids reuse bugs.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which is recommended: the enhanced <code>for</code> or the general three-clause <code>for</code>?",
+     "back": "The <b>enhanced</b> <code>for</code>, whenever it can be used",
+     "extra": "It is more compact and readable when you only need each element of an array or collection in turn, without index arithmetic.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does an unlabeled <code>break</code> behave inside nested loops?",
+     "back": "It terminates only the <b>innermost</b> switch/for/while",
+     "extra": "To leave an outer loop from inside an inner one, label the outer statement and use <code>break label;</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "After a labeled <code>break search;</code>, where does control continue?",
+     "back": "At the statement <b>immediately after</b> the labeled statement",
+     "extra": "It does not jump to the label. The label merely names the statement to leave, so the statement flagged <code>search:</code> is abandoned entirely.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does an unlabeled <code>continue</code> do?",
+     "back": "Skips the rest of the <b>current iteration</b> of the innermost loop",
+     "extra": "Control then re-evaluates the loop's condition and proceeds with the next iteration. It does not exit the loop, unlike <code>break</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A loop counts letter 'p' by iterating characters; what happens if the <code>continue</code> is removed?",
+     "back": "The count becomes <b>wrong</b>, counting every character",
+     "extra": "Without the guard the counting statement runs on non-matching characters too. The original 9 'p's become 35 's example.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>return</code> statement do?",
+     "back": "Exits the <b>current method</b>, optionally returning a value",
+     "extra": "In a <code>void</code> method, use the bare <code>return;</code> form. In a non-void method, the type of the returned expression must match the declared return type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which keyword produces the value of a <code>switch</code> expression from inside a case <b>block</b>?",
+     "back": "<code><b>yield</b></code>",
+     "extra": "<code>return</code> would be ambiguous between leaving the method and leaving the switch. <code>yield</code> is followed by a non-void expression that becomes the switch's value.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/expressions-statements-blocks/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a Java expression?",
+     "back": "A construct that evaluates to a <b>single value</b>",
+     "extra": "The value's type depends on the elements used: <code>cadence = 0</code> yields an <code>int</code> because assignment returns a value of the left operand's type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "cloze",
+     "text": "If you do not use parentheses, the evaluation order of an expression follows operator {{c1::precedence}}.",
+     "extra": "Higher-precedence operators are applied before lower ones, so <code>a + b / c</code> divides first. Parentheses let you state the intended order explicitly instead of relying on this.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should you add parentheses to a compound expression even when precedence alone is unambiguous?",
+     "back": "It makes the code <b>easier to read and to maintain</b>",
+     "extra": "Anyone reading <code>(a + b) / c</code> knows the intent at a glance; <code>a + b / c</code> forces the reader to recall the precedence table.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three kinds of statements exist in Java?",
+     "back": "Expression statements, declaration statements and control-flow statements",
+     "extra": "Expression statements are expressions (assignment, <code>++</code>/<code>--</code>, method call, object creation) terminated by <code>;</code>; declaration statements declare variables; control-flow statements govern execution order.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What ends an expression statement?",
+     "back": "A <b>semicolon</b> (<code>;</code>)",
+     "extra": "That terminator is what turns an expression into a complete unit of execution, e.g. <code>result++;</code> or <code>new Object();</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a block?",
+     "back": "A group of zero or more statements between balanced <b>braces</b>",
+     "extra": "A block may be used anywhere a single statement is allowed, which is why braces can appear in a method body, an <code>if</code> clause or a bare scope.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>0.1 + 0.2 == 0.3</code> evaluate to true in Java?",
+     "back": "<b>No</b> - it evaluates to false",
+     "extra": "Binary floating point cannot represent 0.1, 0.2 or 0.3 exactly, so the rounded sum differs. Use <code>BigDecimal</code> or an epsilon comparison when decimal precision matters.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What type does the expression <code>cadence = 0</code> evaluate to?",
+     "back": "The declared type of the left operand",
+     "extra": "An assignment is an expression, not just a statement, so <code>int cadence; int x = (cadence = 0);</code> compiles. This chaining also allows <code>a = b = c</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/switch-statement/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which primitive selector types does a <code>switch</code> <b>not</b> accept?",
+     "back": "<code>boolean</code>, <code>long</code>, <code>float</code> and <code>double</code>",
+     "extra": "The accepted primitives are <code>byte</code>, <code>short</code>, <code>char</code> and <code>int</code>. Wrapper types, enums and <code>String</code> are also accepted.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Name the selector types a <code>switch</code> <b>does</b> accept.",
+     "back": "<code>int</code>, <code>char</code> and their wrappers, plus enums and <code>String</code>",
+     "extra": "The wrappers are <code>Character</code>, <code>Byte</code>, <code>Short</code> and <code>Integer</code>. <code>String</code> selectors are allowed since Java SE 7.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>fall through</b> mean in a switch statement?",
+     "back": "Statements after the matched label run until a <code>break</code>, even past later labels",
+     "extra": "Subsequent <code>case</code> labels are not tested. That is why each <code>break</code> is needed to stop execution at the end of the intended case.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What ends a switch statement and jumps past the switch block?",
+     "back": "<code>break</code>",
+     "extra": "Without it, execution falls through into the following cases. A final <code>break</code> is not required but is recommended so that adding cases later stays safe.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which case labels handle selector values that no <code>case</code> matches?",
+     "back": "The <code><b>default</b></code> label",
+     "extra": "There is at most one default, and it may appear anywhere in the block - commonly last for readability. Without it an unmatched value runs no case statements.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can two <code>case</code> labels share one statement?",
+     "back": "Yes - stack labels one after another, with no <code>break</code> between them",
+     "extra": "That is the legitimate use of fall through: the shared statement executes when either label matches. Commonly used to group equivalent values such as 28-day months.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When must you use <code>if-then-else</code> rather than <code>switch</code>?",
+     "back": "When the test is a <b>range or boolean condition</b>",
+     "extra": "A switch matches a single integer, enum or String value against constants; it cannot express <code>score &gt;= 80 &amp;&amp; score &lt; 90</code> or a boolean selector.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is a <code>String</code> switch selector compared to its case labels?",
+     "back": "As if by <code>String.equals()</code> (case <b>sensitive</b>)",
+     "extra": "To accept case variations, lowercase the selector first with <code>toLowerCase()</code> and write lowercase labels.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when the selector variable of a switch statement is <code>null</code>?",
+     "back": "A <b>NullPointerException</b> is thrown",
+     "extra": "A selector is an object for String, wrapper and enum types, so null is possible. Guard with a null check before switching.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/switch-expression/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Starting with which Java SE version is the switch <b>expression</b> syntax available?",
+     "back": "Java SE <b>14</b>",
+     "extra": "The traditional switch <b>statement</b> remains available and its semantics did not change; the new form is an addition, not a replacement.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the new switch case label syntax in a switch expression?",
+     "back": "<code>case <i>L</i> <b>-&gt;</b></code> (arrow, no colon)",
+     "extra": "Only the code to the right of a matched arrow label runs, so nothing falls through. That code may be an expression, a block, or a <code>throw</code> statement.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does fall through still happen with arrow (<code>-&gt;</code>) case labels?",
+     "back": "<b>No</b> - each label's code is the only code that runs",
+     "extra": "Fall through is limited to the traditional colon form. Avoiding it is one of the main motivations for the new syntax, since accidental falling is a common bug.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many constants can one arrow case label match?",
+     "back": "Any number, separated by <b>commas</b>",
+     "extra": "e.g. <code>case 1, 3, 5, 7 -&gt; ...</code>. In the colon syntax the same effect needs stacked labels or a companion <code>break</code> structure.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does an arrow case produce a value when its body is a single statement?",
+     "back": "That statement's value is returned <b>implicitly</b>",
+     "extra": "No <code>yield</code> needed. Only when the body is a block does the value have to be produced explicitly, because a block's last statement does not automatically supply it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which statement yields the value of a switch expression from a <b>block</b> body?",
+     "back": "<code><b>yield</b></code>",
+     "extra": "<code>return</code> was rejected because it is ambiguous between leaving the method and leaving the switch expression. <code>yield</code> is a branch statement, valid in any case block.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a switch <b>expression</b> require that a switch statement does not?",
+     "back": "<b>Exhaustiveness</b> - a matching label for every possible value",
+     "extra": "A non-exhaustive statement silently does nothing. Non-exhaustive expressions are a compile-time error, which turns a hidden bug into a build failure.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can an enum switch expression omit the <code>default</code> clause?",
+     "back": "When it covers <b>all known constants</b> of the enum",
+     "extra": "The compiler still inserts a synthetic default for the case where a constant is added later; it is never reached in normal runs and throws <code>IncompatibleClassChangeError</code> if it is.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the compiler's synthesised default clause throw in an exhaustive enum switch?",
+     "back": "<code>IncompatibleClassChangeError</code>",
+     "extra": "It fires only if a new enum constant appeared after the code was compiled, which means the switch no longer covers every value. It cannot be reached during a normal run.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a switch expression use the traditional <code>case L:</code> colon form?",
+     "back": "Yes, but <b>fall through applies</b> and values must be produced with <code>yield</code>",
+     "extra": "This lets you migrate incrementally: the expression does not force the arrow syntax, though mixing the two styles in one block is confusing.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens today when you switch on a <code>null</code> selector?",
+     "back": "<code>NullPointerException</code>",
+     "extra": "Switch does not accept null selectors; null handling was a preview feature in Java SE 17. A <code>null</code>-tolerant switch required an explicit null case to arrive.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why was the old switch block's single-scope treatment a problem for the expression form?",
+     "back": "A variable declared in one case might be <b>visible in other cases</b>",
+     "extra": "The whole block shared one scope, so name collisions and unclear lifetimes were possible. The arrow form gives each case body its own block scope.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/using-var/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Starting with which Java SE version can you declare a local variable with <code>var</code>?",
+     "back": "Java SE <b>10</b>",
+     "extra": "The compiler infers the real type from the initializer, so you write <code>var message = \"hi\";</code> instead of <code>String message = \"hi\";</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Once a <code>var</code> variable is created, can its type change?",
+     "back": "<b>No</b> - the inferred type is fixed at declaration",
+     "extra": "The type is not dynamic or weakly typed. <code>var</code> only saves you typing it out; all the usual compile-time checks still apply to the inferred type.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where can <code>var</code> <b>not</b> be used?",
+     "back": "Fields, and method or constructor <b>parameters</b>",
+     "extra": "It is restricted to local variables in methods, constructors and initializer blocks. Some languages reuse <code>var</code> for parameters; Java deliberately does not.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must every <code>var</code> declaration include, and why?",
+     "back": "An <b>initializer</b> - because <code>null</code> and missing values have no type",
+     "extra": "The compiler cannot infer a type from nothing, so <code>var greetings;</code> and <code>var x = null;</code> both fail to compile.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>for (var item : list)</code>, what is <code>var</code> inferred from?",
+     "back": "The <b>element type</b> of the iterated array or collection",
+     "extra": "For a <code>List&lt;String&gt;</code>, <code>item</code> becomes <code>String</code>. The same works in a try-with-resources declaration.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "source": "https://dev.java/learn/language/constructs/numbers-strings/autoboxing/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::strings-and-methods"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <b>autoboxing</b>?",
+     "back": "The compiler automatically converting a <b>primitive</b> to its wrapper <b>object</b>",
+     "extra": "For example <code>int</code> becomes <code>Integer</code>, <code>double</code> becomes <code>Double</code>. The reverse conversion, object to primitive, is called unboxing.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>unboxing</b>?",
+     "back": "The compiler automatically converting a <b>wrapper object</b> to its primitive",
+     "extra": "Triggered when an object of a wrapper class is passed to a method expecting the primitive, or assigned to a primitive variable. The typical call inserted is <code>intValue()</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When does the compiler apply <b>autoboxing</b>?",
+     "back": "When assigned to a <b>wrapper</b> variable, or passed to a wrapper parameter",
+     "extra": "These are the two listed cases. Nothing else triggers it - for instance, a method expecting <code>long</code> does not box an <code>int</code> into a <code>Long</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>List&lt;Integer&gt; ints = new ArrayList&lt;&gt;(); ints.add(42);</code> compile?",
+     "back": "The compiler boxes 42 into an <code>Integer</code> automatically",
+     "extra": "The list stores Integer objects, not ints, so the compiler rewrites the call as <code>ints.add(Integer.valueOf(42))</code>. Unboxing does the opposite on read.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can you compute <code>remainder % total</code> on two <code>Integer</code> objects?",
+     "back": "Each is <b>unboxed</b> to <code>int</code> first",
+     "extra": "The <code>%</code> operator does not apply to objects; the compiler inserts <code>intValue()</code> calls. An unboxing of null throws a <code>NullPointerException</code>.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which wrapper class corresponds to <code>char</code>?",
+     "back": "<code>Character</code>",
+     "extra": "The other wrappers mirror their primitive's name capitalised (<code>int</code> to <code>Integer</code> is the exception). <code>char</code> also has no numeric wrapper shared with <code>int</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which wrapper type is paired with <code>int</code> for autoboxing?",
+     "back": "<code>Integer</code>",
+     "extra": "Its siblings mirror the primitive names: <code>Boolean</code>, <code>Long</code>, <code>Double</code>, <code>Float</code>, <code>Short</code>, <code>Byte</code>, <code>Character</code>. Autoboxing maps between each pair implicitly.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the main benefit of autoboxing and unboxing?",
+     "back": "Cleaner, more <b>readable</b> code",
+     "extra": "You can mix primitives and their wrappers without explicit conversion calls. The cost, easy to miss, is a hidden allocation per boxed value.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "source": "https://dev.java/learn/language/constructs/numbers-strings/characters/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::strings-and-methods"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which escape sequence inserts a <b>tab</b>?",
+     "back": "<code><b>\\t</b></code>",
+     "extra": "Other common escapes are <code>\\n</code> for newline, <code>\\r</code> for carriage return, <code>\\f</code> for form feed and <code>\\b</code> for backspace.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you put a double quote inside a string literal?",
+     "back": "Escape it as <code><b>\\\"</b></code>",
+     "extra": "Likewise a single quote inside a character literal is <code>\\'</code>, and a literal backslash is <code>\\\\</code>. An unescaped interior quote ends the literal.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a backslash followed by a line terminator do in a string literal?",
+     "back": "It inserts <b>nothing</b> - the line break is removed",
+     "extra": "That lets you break a long literal across source lines without adding characters. <code>\\s</code> is the opposite trick: it inserts a real space.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>\\s</code> escape sequence insert?",
+     "back": "A <b>space</b> character",
+     "extra": "Useful to keep a trailing space that an editor would otherwise trim. It differs from an ordinary space in that it survives formatting tools.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the type of a <code>Character</code> object's single stored value?",
+     "back": "<code>char</code>",
+     "extra": "<code>Character</code> wraps exactly one <code>char</code> field. That means it is based on 16-bit code units, so it cannot itself hold a supplementary character.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Character</code> method tests for a letter?",
+     "back": "<code>Character.isLetter(char)</code>",
+     "extra": "Its relatives are <code>isDigit()</code> and <code>isWhitespace()</code>. Case tests are <code>isUpperCase()</code> and <code>isLowerCase()</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Character</code> method returns a one-character <code>String</code>?",
+     "back": "<code>Character.toString(char)</code>",
+     "extra": "<code>String.valueOf(char)</code> does the same thing. Beware that passing the resulting char to <code>println</code> with an int argument selects a different overload.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What character range can a <code>char</code> hold?",
+     "back": "<code>0x0000</code> to <code>0xFFFF</code> (<b>Basic Multilingual Plane</b>)",
+     "extra": "A char is 16 bits, encoded as an unsigned range. Code points above 0xFFFF are supplementary characters and need an int or a surrogate pair.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Unicode range is called the <b>Basic Multilingual Plane</b>?",
+     "back": "U+0000 to <b>U+FFFF</b>",
+     "extra": "The full legal range of code points is U+0000 to U+10FFFF. Everything above 0xFFFF is supplementary and does not fit in a single char.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many <code>char</code> values does a supplementary character need?",
+     "back": "Two (<b>a surrogate pair</b>)",
+     "extra": "Since a char is only 16 bits, characters above U+FFFF are encoded as a high and a low surrogate. A <code>String</code> is therefore UTF-16, not a sequence of code points.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do <code>Character</code>'s <code>char</code> methods treat surrogate values?",
+     "back": "As <b>undefined</b>, so supplementary characters are not supported",
+     "extra": "Methods taking a <code>char</code> cannot see whole supplementary characters. Overloads taking an <code>int</code> code point are the ones that support all of Unicode.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>Character</code> mutable?",
+     "back": "<b>No</b> - it is immutable",
+     "extra": "Once created, a <code>Character</code> cannot be changed. That is why the API's case-conversion methods return new values instead of modifying in place.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "source": "https://dev.java/learn/language/constructs/numbers-strings/numbers/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::strings-and-methods"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which four subclasses of <code>Number</code> are <b>not</b> part of the primitive wrappers?",
+     "back": "<code>BigDecimal</code>, <code>BigInteger</code> and the two Atomics",
+     "extra": "The numeric pair serves high-precision calculation; <code>AtomicInteger</code> and <code>AtomicLong</code> serve multi-threaded code. All primitive wrappers also extend Number.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the range of <code>Math.random()</code>?",
+     "back": "<code>0.0 &lt;= x &lt; 1.0</code> - includes 0.0, excludes 1.0",
+     "extra": "To get integers 0 to 9 you multiply by 10 and cast to int. For a series of numbers prefer a <code>java.util.Random</code> instance.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>%n</code> in a format string?",
+     "back": "The <b>platform-specific newline</b>",
+     "extra": "You should always use <code>%n</code> rather than <code>\\n</code> in <code>printf</code>/<code>format</code>, so the correct line terminator is emitted on Windows as well as Unix.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a <code>printf</code> format string, what does <code>%d</code> specify?",
+     "back": "A <b>decimal integer</b> converter",
+     "extra": "It is one of many converters, each a letter ending a specifier that begins with <code>%</code>. Flags and width can appear between the two.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a format string, what does the flag <code>,</code> do?",
+     "back": "Inserts locale-specific <b>grouping</b> separators",
+     "extra": "On an English locale it turns 1234567 into 1,234,567. The flag sits between <code>%</code> and the converter, as in <code>%,d</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which format specifier prints the full name of a month?",
+     "back": "<code>%tB</code>",
+     "extra": "It is locale-specific and followed by a <code>Date</code> argument. Daily numbers are <code>%td</code> (zero-padded) or <code>%te</code> (unpadded).",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>0</code> placeholder in a <code>DecimalFormat</code> pattern mean?",
+     "back": "A digit, showing <b>zeroes</b> when the value is smaller than the digit count",
+     "extra": "<code>#</code> is a digit placeholder that shows nothing when absent, so <code>000000.000</code> pads while <code>###,###.###</code> drops leading zeroes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>#</code> placeholder in a <code>DecimalFormat</code> pattern do?",
+     "back": "Holds a digit, but shows <b>nothing</b> when it is absent",
+     "extra": "That is why <code>###.###</code> formats 123456.789 as 123,456.789 only if grouping chars are supplied; leading zeroes are dropped.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>DecimalFormat</code> handle more decimal places than its pattern allows?",
+     "back": "It <b>rounds</b>, e.g. 123456.789 with pattern <code>###.##</code> gives 123456.79",
+     "extra": "Formatting discards precision rather than throwing. That makes DecimalFormat unsuitable where exactness is required - consider BigDecimal formatting.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Math.ceil(d)</code> return?",
+     "back": "The <b>smallest</b> integer <b>&gt;=</b> the argument, as a double",
+     "extra": "Its opposite is <code>floor()</code>, the largest integer &lt;= argument. Both return a double even though the value is integral.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Math.rint(d)</code> return?",
+     "back": "The integer closest in value to the argument, as a <b>double</b>",
+     "extra": "Unlike <code>round()</code> it keeps the double type and uses ties-to-even rounding. <code>round()</code> returns long for a double argument, int for a float.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>Math.round(double)</code> differ from <code>Math.rint(double)</code> in return type?",
+     "back": "<code>round</code> gives <b>long</b>; <code>rint</code> gives <b>double</b>",
+     "extra": "Use <code>round(float)</code> for an int result. The difference matters when you assign the outcome to a variable with a specific numeric type.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do <code>Math.pow</code> and <code>Math.sqrt</code> return?",
+     "back": "A <b>double</b>, in both cases",
+     "extra": "<code>pow(base, exp)</code> raises the first argument to the second; <code>sqrt(d)</code> takes the square root. Everything in Math is static.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Math</code> constants represent the natural logarithm base and pi?",
+     "back": "<code>Math.E</code> and <code>Math.PI</code>",
+     "extra": "They are static final fields, so you can read them without instantiating Math. A static import would let you write just <code>E</code> or <code>PI</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What unit do <code>Math.sin</code>, <code>Math.cos</code> and <code>Math.tan</code> expect?",
+     "back": "<b>Radians</b>",
+     "extra": "Convert with <code>Math.toRadians(degrees)</code>. <code>toDegrees()</code> goes the other way; <code>atan2(y, x)</code> converts rectangular to polar.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Integer</code> method parses a string in binary, octal or hex?",
+     "back": "<code>parseInt(String, int radix)</code>",
+     "extra": "Radix 2 is binary, 8 octal and 16 hexadecimal. The one-argument <code>parseInt(String)</code> accepts decimal only.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns an <code>Integer</code> object, rather than an int, from a string?",
+     "back": "<code>Integer.valueOf(String)</code>",
+     "extra": "Its overload <code>valueOf(String, int radix)</code> parses with a given base. In contrast <code>parseInt</code> returns a primitive int.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why might you choose a <code>Number</code> object instead of a primitive?",
+     "back": "To pass it where an <b>object</b> is required, e.g. collections",
+     "extra": "The other listed reasons are access to <code>MIN_VALUE</code>/<code>MAX_VALUE</code> constants and the conversion helpers between types, strings and number systems.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "source": "https://dev.java/learn/language/constructs/numbers-strings/string-builders/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::strings-and-methods"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "How does <code>StringBuilder</code> differ from <code>String</code> fundamentally?",
+     "back": "<code>String</code> is <b>immutable</b>; <code>StringBuilder</code> is mutable",
+     "extra": "Every apparent String modification returns a new object. A StringBuilder can be changed in place, which avoids allocating intermediate copies.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <code>StringBuilder</code>'s <b>capacity</b>?",
+     "back": "The number of character spaces <b>allocated</b>",
+     "extra": "It is always greater than or equal to <code>length()</code>, and grows automatically when content is appended beyond it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What capacity does <code>new StringBuilder()</code> give?",
+     "back": "<b>16</b> empty elements",
+     "extra": "The capacity is a buffer size, not visible content. <code>length()</code> stays 0 until something is appended.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What capacity results from <code>new StringBuilder(\"Greetings\")</code>?",
+     "back": "Length <b>9</b>, capacity <b>25</b> (9 plus 16 extra)",
+     "extra": "The String constructor keeps the characters and appends 16 empty slots for growth. The no-arg constructor gives just 16.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which constructor creates an empty builder with a chosen initial capacity?",
+     "back": "<code>new StringBuilder(int initCapacity)</code>",
+     "extra": "Useful when you can estimate the final size, avoiding repeated reallocation. Passing a capacity of 0 is legal but forces reallocation on the first append.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>setLength(n)</code> do when <code>n</code> is smaller than the current length?",
+     "back": "<b>Truncates</b> the last characters",
+     "extra": "When n is larger than the current length, null characters are appended instead. Either way, length changes without touching capacity.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which methods give <code>StringBuilder</code> capabilities that <code>String</code> lacks?",
+     "back": "<code>append()</code> and <code>insert()</code>",
+     "extra": "Both are overloaded for any type: the argument's <code>toString()</code> is used. <code>append</code> adds at the end, <code>insert</code> at a given offset.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What range does <code>delete(int start, int end)</code> remove?",
+     "back": "From <code>start</code> to <code>end - 1</code> <b>inclusive</b>",
+     "extra": "This is the same half-open convention as <code>substring</code>. To remove one character only, use <code>deleteCharAt(index)</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must you call <code>toString()</code> to use a String method on a builder?",
+     "back": "<code>StringBuilder</code> does not inherit from <code>String</code>",
+     "extra": "You cannot call <code>replaceAll</code> on a builder directly. Convert to String, apply the String method, then pass the result back into a new builder.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>println(sb)</code> print for a builder containing \"Hi\"?",
+     "back": "<code>Hi</code> - <code>toString()</code> is called implicitly",
+     "extra": "The same applies to any object whose class overrides <code>toString()</code>. Type-formatted output requires an explicit call.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>StringBuffer</code> differ from <code>StringBuilder</code>?",
+     "back": "Same API, but StringBuffer methods are <b>synchronized</b>",
+     "extra": "Thread safety costs performance. Unless you truly share the buffer across threads, use StringBuilder.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which Java SE release is string concatenation usually <b>faster</b> than append-based building?",
+     "back": "Java SE <b>9</b>",
+     "extra": "The compiler's concat strategy was optimised in 9. Earlier, appending many strings to a StringBuilder was generally the faster option.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two <code>StringBuilder</code> methods replace characters in place?",
+     "back": "<code>replace(start, end, s)</code> and <code>setCharAt(idx, c)</code>",
+     "extra": "Together with <code>delete</code>, <code>deleteCharAt</code> and <code>insert</code>, these cover in-place editing that String can only do by allocating a new string.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "source": "https://dev.java/learn/language/constructs/numbers-strings/strings/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::strings-and-methods"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Is the <code>String</code> class mutable?",
+     "back": "<b>No</b> - strings are immutable",
+     "extra": "Methods that seem to modify a string actually create and return a new String. That is why <code>s.trim()</code> without assignment changes nothing.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>charAt(i)</code> return?",
+     "back": "The character at index <code>i</code>, counting from <b>0</b>",
+     "extra": "It returns a <code>char</code>, not a String of length one. Use <code>substring(i, i + 1)</code> if you need a one-character String.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What range does <code>substring(beginIndex, endIndex)</code> copy?",
+     "back": "From <code>beginIndex</code> up to but <b>not including</b> <code>endIndex</code>",
+     "extra": "Half-open again: <code>substring(11, 15)</code> of a longer string yields four characters. The one-argument overload runs to the end of the string.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do <code>indexOf()</code> and <code>lastIndexOf()</code> return when nothing matches?",
+     "back": "<b>-1</b>",
+     "extra": "Never compare the result to 0 to detect absence, since 0 is a valid match at the start. The boolean alternative <code>contains()</code> avoids this check entirely.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which String method answers \"does the text appear at all\" as a boolean?",
+     "back": "<code>contains(CharSequence)</code>",
+     "extra": "It takes a CharSequence, and String implements that interface, so you can pass a String directly. It does not report the match position.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which string concatenation form also accepts non-String operands?",
+     "back": "The <code>+</code> operator (concat takes only a String)",
+     "extra": "With <code>+</code> any non-String is converted by calling its <code>toString()</code>. The <code>concat()</code> method is restricted to String arguments.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When you concatenate an object with a String, what gets appended?",
+     "back": "The result of the object's <b><code>toString()</code></b>",
+     "extra": "That is why <code>\"x\" + sb</code> works for a StringBuilder: its toString() supplies the characters. A null reference appends the text \"null\".",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <b>static</b> String method returns a formatted String rather than printing it?",
+     "back": "<code>String.format()</code>",
+     "extra": "It mirrors <code>printf</code> formatting but gives you a reusable String, instead of writing output once to a stream. The format can itself be a text block.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method converts a numeric string to a <b>primitive</b> directly?",
+     "back": "<code>parseFloat()</code> (the <code>parseXXXX</code> family)",
+     "extra": "Primitive returned, so nothing is boxed, which makes it more direct than <code>valueOf()</code>. Each numeric wrapper class provides such a method.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method converts a numeric string into a <b>wrapper object</b>?",
+     "back": "<code>valueOf()</code>, e.g. <code>Double.valueOf(\"4.5\")</code>",
+     "extra": "The <code>parseXXXX</code> methods return primitives instead. Choose valueOf when the result must be stored where an object is required, such as a collection.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method searches for a substring using a <b>regular expression</b> and replaces all matches?",
+     "back": "<code>replaceAll(regex, replacement)</code>",
+     "extra": "Its sibling <code>replaceFirst</code> replaces only the first match. For a plain literal replacement use <code>replace(CharSequence, CharSequence)</code> instead.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>text block</b> in Java?",
+     "back": "A multi-line string literal delimited by <b>triple double quotes</b>",
+     "extra": "Introduced in Java SE 15. It must start with <code>\"\"\"</code> followed by a line terminator, and ends with another <code>\"\"\"</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Starting with which Java SE version are text blocks available?",
+     "back": "Java SE <b>15</b>",
+     "extra": "Before that, a literal could not span lines, so multi-line text had to be assembled with <code>+</code> concatenation between lines.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>trim()</code> remove?",
+     "back": "<b>Leading and trailing</b> whitespace only",
+     "extra": "Internal spaces survive. It returns a copy, since strings are immutable. Newer code often prefers <code>strip()</code>, which is Unicode-aware.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method extracts part of a string into an array of strings?",
+     "back": "<code>split(String regex)</code>",
+     "extra": "The argument is a regular expression, not a literal separator, so <code>\".\"</code> must be escaped as <code>\"\\.\"</code>. The optional limit caps the array's size.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which String method copies characters into a <b>supplied</b> char array?",
+     "back": "<code>getChars()</code>",
+     "extra": "It fills a destination array you provide, rather than returning a new one. That is how the sample palindrome program replaces a manual charAt loop.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/calling-methods-constructors/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "In Java documentation, what is a <b>parameter</b>?",
+     "back": "A variable in the <b>declaration</b> of a method or constructor",
+     "extra": "Arguments are the actual values supplied at the call site. The arguments must match the declared parameters in <b>type and order</b>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <b>argument</b>?",
+     "back": "An actual value passed when a method is <b>invoked</b>",
+     "extra": "The parameters are only the placeholders in the declaration. Java passes every argument by value, parameters and references alike.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you declare a method that accepts any number of arguments of one type?",
+     "back": "Varargs: put <code>...</code> after the <b>last</b> parameter's type",
+     "extra": "e.g. <code>void print(String... labels)</code>. Inside the method the parameter is treated as an array, and it may be called with zero arguments.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Inside a varargs method, what type does the parameter have?",
+     "back": "An <b>array</b> of the element type",
+     "extra": "A caller may pass either a sequence of values or one array, and the body treats both identically. The compiler packs loose arguments into an array.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a varargs parameter have parameters after it?",
+     "back": "No - it must be the <b>last</b> parameter",
+     "extra": "Earlier parameters of other types come first, e.g. <code>printf(String format, Object... args)</code>. Any fixed parameters must precede the ellipsis.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How are primitive arguments passed to a method?",
+     "back": "By <b>value</b> - changes inside the method are lost on return",
+     "extra": "The method works on a copy, so the caller's variable is untouched. This is true for every parameter in Java; there is no by-reference passing.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If a method reassigns a reference parameter to a new object, does the caller see it?",
+     "back": "<b>No</b> - the caller still points at the original object",
+     "extra": "The reference was passed by value, so only the local copy is changed. However, <b>mutating</b> the object it points to is visible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If a method mutates a field of an object passed as a parameter, does the caller see the change?",
+     "back": "<b>Yes</b> - the same object is being changed",
+     "extra": "Passing by value copies the reference, not the object, so both point to one instance. This only applies to fields the caller's code can access.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When does a parameter name <b>shadow</b> a field?",
+     "back": "When the parameter has the same name as a field",
+     "extra": "The simple name then refers to the parameter inside the body, and the field needs <code>this.field</code>. It is conventional only in setters and constructors.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is shadowing a field with a parameter discouraged outside setters?",
+     "back": "It makes code <b>hard to read</b>",
+     "extra": "Readers cannot tell whether a simple name means the parameter or the field. A requalification bug will silently compile when names collide.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/creating-classes/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the <b>class body</b>?",
+     "back": "The code between a class declaration's <b>braces</b>",
+     "extra": "It contains constructors for new objects, field declarations for state, and methods for behaviour. The class name plus body is the minimal declaration.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a class declaration, which keyword introduces the superclass?",
+     "back": "<code>extends</code>",
+     "extra": "e.g. <code>class MountainBike extends Bicycle</code>. A class may extend <b>one</b> parent only, since Java has single class inheritance.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which keyword introduces the list of interfaces a class implements?",
+     "back": "<code>implements</code>",
+     "extra": "The list is comma-separated and a class may implement <b>many</b> interfaces. It must come after any <code>extends</code> clause.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many classes can one class <b>extend</b>?",
+     "back": "<b>Exactly one</b> (single inheritance); a class may implement many interfaces",
+     "extra": "The single-superclass rule avoids multiple state inheritance. Multiple types can still be gained by implementing several interfaces.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the three components of a field declaration, in order?",
+     "back": "Zero or more modifiers, the <b>type</b>, then the <b>name</b>",
+     "extra": "e.g. <code>private int speed;</code>. The modifiers are optional; the type and name never are.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is it common to make fields <code>private</code>?",
+     "back": "<b>Encapsulation</b> - only the class itself touches the field directly",
+     "extra": "Access is then given indirectly through public methods, so the class can change its internal representation without breaking callers.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which modifier restricts a field to its own class only?",
+     "back": "<code>private</code>",
+     "extra": "<code>public</code> exposes it to all classes. There are exceptions to the simple rule, but that is the baseline for both.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the compiler restrict <code>private</code> on a <b>top-level</b> class?",
+     "back": "Only <b>nested</b> classes may be declared private",
+     "extra": "A top-level class is a file-level unit; private would make it unusable anywhere. Top-level classes use public or package-private.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Must a class name start with a capital letter?",
+     "back": "No - it is <b>convention</b>, not a rule",
+     "extra": "The compiler accepts any valid identifier. The same applies to the verb-first convention for method names.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are class names and method names subject to the same identifier rules?",
+     "back": "<b>Yes</b> - same rules, different conventions",
+     "extra": "Class names capitalise the first letter; method names begin with a lowercase verb. Breaking the convention does not break the code but hurts readability.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/creating-objects/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What are the three parts of <code>Point origin = new Point(23, 94);</code>?",
+     "back": "Declaration, instantiation, and <b>initialization</b>",
+     "extra": "The declaration names a variable of the type. The <code>new</code> operator allocates the object and returns a reference. The constructor then initialises it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does it mean to \"instantiate a class\"?",
+     "back": "To <b>create an object</b>, i.e. an instance of that class",
+     "extra": "The two phrases are interchangeable. Each such call allocates memory and runs exactly one constructor.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does declaring a reference variable create an object?",
+     "back": "<b>No</b> - the variable is still <code>null</code>",
+     "extra": "You must assign an object, usually with <code>new</code>. Using the variable before then is a compile or runtime error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a constructor look like in a declaration?",
+     "back": "<b>Same name</b> as the class, and <b>no return type</b>",
+     "extra": "That is how you recognise it, e.g. <code>Point(int x, int y)</code>. Giving it a return type would turn it into an ordinary method.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>no-argument constructor</b>?",
+     "back": "A constructor that takes no arguments",
+     "extra": "It is the only constructor many classes need, and it enables <code>new Foo()</code>. It differs from the compiler-generated default only in origin.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does the compiler distinguish overloaded constructors?",
+     "back": "By the <b>number</b> and <b>types</b> of the arguments",
+     "extra": "Several constructors may exist, but no two may have the same list. e.g. <code>Rectangle(Point, int, int)</code> against <code>Rectangle(int, int)</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the implicit default constructor call?",
+     "back": "The superclass's no-argument constructor",
+     "extra": "Which effectively chains back to <code>Object</code>. If the superclass has no no-arg constructor, the program will not compile.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when a class has no explicit superclass?",
+     "back": "Its implicit superclass is <b><code>Object</code></b>",
+     "extra": "Object provides a no-arg constructor, so the chain always terminates. That is why every class can be created with a default constructor.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which operator accesses an object's fields from outside its class?",
+     "back": "The <b>dot</b> operator, after an object reference",
+     "extra": "e.g. <code>rectangle.width</code>. Inside the class you may use the field's simple name instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Do two instances of the same class share their instance fields?",
+     "back": "<b>No</b> - each object has its own copy",
+     "extra": "So <code>rectangle1.width</code> and <code>rectangle2.width</code> are distinct variables. Only static fields are shared.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is an object eligible for garbage collection?",
+     "back": "When <b>no references</b> to it remain",
+     "extra": "All references must be gone: dropped by going out of scope, or explicitly set to null. Until then the object is reachable and stays.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Do you need to destroy Java objects explicitly?",
+     "back": "No - the <b>garbage collector</b> deletes unreachable ones",
+     "extra": "There is no free or delete. The runtime decides when to reclaim memory, so objects may linger after becoming unreachable.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/defining-constructors/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "How does a constructor declaration differ from a method declaration?",
+     "back": "It uses the <b>class name</b> and has <b>no return type</b>",
+     "extra": "Apart from those two points it looks like a method: it may take parameters, throw exceptions, and carry access modifiers.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Who invokes a constructor?",
+     "back": "The <code><b>new</b></code> operator",
+     "extra": "You never call a constructor like a method on an existing object. <code>new Bicycle(30, 0, 8)</code> both allocates and initialises.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you declare two constructors with the same parameter types?",
+     "back": "<b>No</b> - it is a compile-time error",
+     "extra": "Overloading is decided by the number and types of the arguments. Identical lists leave the compiler no way to choose.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If you declare <b>any</b> constructor, does the compiler still add the default one?",
+     "back": "<b>No</b> - it only supplies one when none is declared",
+     "extra": "So a class with only <code>Bicycle(int, int, int)</code> cannot be created with <code>new Bicycle()</code>. Add a no-arg constructor yourself if you need it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the compiler-generated default constructor do?",
+     "back": "Calls the superclass's <b>no-argument</b> constructor",
+     "extra": "Nothing else, not even field initialisers beyond the normal rules. If the superclass has no no-arg constructor, compilation fails.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why would a class fail to compile if it has no constructors and its superclass has no no-arg constructor?",
+     "back": "The implicit default constructor has <b>no super constructor to call</b>",
+     "extra": "The compiler must either call <code>super()</code> or a parameterised form you declare explicitly. Declaring a constructor fixes this.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a constructor's access modifier restrict who can create objects?",
+     "back": "<b>Yes</b> - a private constructor blocks outside instantiation",
+     "extra": "That is the basis of singletons and utility classes. Protected or package-private constructors let only certain callers build the object.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can a subclass constructor reuse its superclass's constructor?",
+     "back": "Call <code>super(args)</code> as the constructor's first action",
+     "extra": "With no explicit call the compiler inserts <code>super()</code>. That start-of-constructor restriction was loosened starting with JDK 25.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/defining-methods/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which six components make up a full method declaration, in order?",
+     "back": "Modifiers, return type, name, parameter list, exception list, body",
+     "extra": "Only the return type, name, parentheses and body are strictly required: the rest may be omitted from the declaration.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a method's <b>signature</b>?",
+     "back": "The method <b>name</b> plus its <b>parameter types</b>",
+     "extra": "Return type, modifiers and exception declarations are not part of it. Overloading is resolved by the signature alone.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the return type <code>void</code> mean?",
+     "back": "The method returns <b>no value</b>",
+     "extra": "A <code>return;</code> statement is still allowed to exit early. A non-void method must return a value of the declared type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since when do method names have to begin with a lowercase verb?",
+     "back": "It is a <b>convention</b>, not a language rule",
+     "extra": "Any legal identifier compiles, though the convention is universally expected. Multi-word names capitalise each later word, e.g. <code>getBalance</code>.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is method overloading?",
+     "back": "Several methods in one class sharing a name but with <b>different parameter lists</b>",
+     "extra": "The compiler distinguishes them by the number and types of the arguments. They can differ in return type only if the parameters differ too.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does the return type participate in deciding which overload applies?",
+     "back": "<b>No</b> - only the parameters do",
+     "extra": "Two methods with the same name and parameters but different return types is a compile error. The compiler cannot tell which the call intends.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can two methods share a name if one differs only in <b>return type</b>?",
+     "back": "<b>No</b> - same signature, so compile error",
+     "extra": "An overload must change the parameter list. Return type is not part of the signature used for telling methods apart.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should overloading be used sparingly?",
+     "back": "Too many same-named variants make code <b>less readable</b>",
+     "extra": "Callers cannot tell at a glance which overload runs, and a subtle argument conversion can silently pick a different one.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If a class has <code>draw(String)</code>, may it add <code>draw(int)</code>?",
+     "back": "<b>Yes</b> - distinct parameter types make them valid overloads",
+     "extra": "This is preferable to inventing <code>drawString</code>/<code>drawInteger</code> names, since one name expresses one concept and the compiler picks by type.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/design-best-practices/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "When should you choose a <b>local class</b>?",
+     "back": "When you need <b>more than one instance</b>, its constructor, or a named type",
+     "extra": "It also earns its keep when you want to call additional methods later. A one-shot instance instead calls for an anonymous class or a lambda.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When should you choose an <b>anonymous class</b>?",
+     "back": "When you need to declare <b>fields</b> or <b>additional methods</b>",
+     "extra": "You get exactly one unnamed instance of the class, created at the expression's site. That is why a constructor is forbidden.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When should you choose a <b>lambda expression</b>?",
+     "back": "When it encapsulates a <b>single unit of behaviour</b> to pass along",
+     "extra": "Alternatively, when a simple instance of a functional interface suffices and you need no fields, constructor or extra methods.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When should you choose a <b>nested class</b> over a local class?",
+     "back": "When the type should be more <b>widely available</b> and needs no local variables",
+     "extra": "A nested class is a member of the enclosing class, so other code can use it, whereas a local class exists only inside its block.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When must you use a <b>non-static</b> (inner) nested class rather than a static one?",
+     "back": "When you need access to an <b>enclosing instance's non-public</b> members",
+     "extra": "Otherwise choose a static nested class, which has no implicit outer instance and is therefore simpler and leak-free.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is a lambda often preferred to an anonymous class for a one-method callback?",
+     "back": "It states just the <b>behaviour</b>, with no boilerplate class",
+     "extra": "Anonymous classes are still needed when you declare fields or extra methods. Otherwise the lambda's brevity wins and reads more clearly.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which construct gives you exactly one unnamed instance and <b>no constructor</b>?",
+     "back": "An anonymous class",
+     "extra": "It is an expression, so the instance is created where it is written and can never be created again or from elsewhere. That matches helper objects used once.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::09 Enums",
+   "source": "https://dev.java/learn/language/oop/classes-objects/enums/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::enums"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is an <code>enum</code>?",
+     "back": "A class whose <b>instances are fixed and known to the compiler</b>",
+     "extra": "You list them as enum constants in the body, separated by commas. No other instances can be created.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class do all enums implicitly extend?",
+     "back": "<code>java.lang.<b>Enum</b></code>",
+     "extra": "Because the superclass is fixed, an enum cannot extend another class. It also cannot be subclassed: enums are effectively final.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns the name of an enum constant?",
+     "back": "<code>name()</code>",
+     "extra": "It returns exactly the identifier as declared, which matters when persisting values. <code>toString()</code> may be overridden, name() cannot.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>ordinal()</code> return?",
+     "back": "The constant's <b>position</b> in the declaration, starting at 0",
+     "extra": "The first constant has ordinal 0. That ordering is also enums' default natural ordering for <code>Comparable</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which static method returns all enum instances?",
+     "back": "<code>values()</code>",
+     "extra": "It returns an array in declaration order. <code>valueOf(String)</code> does the reverse, and both are added implicitly by the compiler.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>valueOf(String)</code> do?",
+     "back": "Returns the instance whose name matches the argument",
+     "extra": "It matches the identifier exactly and is case-sensitive. An unknown name causes an <code>IllegalArgumentException</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you add a constructor, field or method to an enum?",
+     "back": "List the constants, add a <b>semicolon</b>, then declare the members",
+     "extra": "The <code>;</code> is mandatory before any member declarations. Without it the compiler keeps expecting more constants.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How are constructor arguments supplied to an enum constant?",
+     "back": "In parentheses after the constant's <b>declaration</b>",
+     "extra": "e.g. <code>MONDAY(&quot;Monday&quot;)</code>. The arguments are passed to the enum's (implicitly private) constructor.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What ensures a switch <b>expression</b> handles every enum constant?",
+     "back": "Compile-time <b>exhaustiveness</b> checking (missing value is an error)",
+     "extra": "The compiler rejects a switch expression that lacks a branch for a constant. Sealed classes plus pattern matching bring the same guarantee to regular classes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does an enum with a single constant implement the <b>singleton</b> pattern?",
+     "back": "The one constant <b>is</b> the only instance",
+     "extra": "It is thread-safe, lazily class-initialised, and resistant to reflection and serialisation creating more instances.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an enum declare abstract methods?",
+     "back": "<b>Yes</b> - each constant implements it",
+     "extra": "The enum itself cannot be extended, but the constants behave like implicit subclasses. That is the template-method style often used for per-constant behaviour.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What breaks when an enum constant is removed or added while code persists or switches on it?",
+     "back": "Compilation errors, silent defaults, or stale persisted values",
+     "extra": "A stored ordinal or name can no longer resolve. Review every use site, and prefer storing the name over the ordinal.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "source": "https://dev.java/learn/language/oop/classes-objects/more-on-classes/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::classes-and-objects"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Why do you write <code>this.x = x;</code> in a constructor?",
+     "back": "The parameter <b>shadows</b> the field, so <code>this.x</code> names the field",
+     "extra": "Without the qualifier the assignment would copy the parameter onto itself. This pattern appears only when names collide.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <b>explicit constructor invocation</b>?",
+     "back": "Calling one constructor of the class from another with <code>this(...)</code>",
+     "extra": "It centralises initialisation logic: the simple constructors delegate to the most complete one. Before JDK 25 it had to be the first statement.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which access modifier allows access from the same package <b>and</b> from subclasses in other packages?",
+     "back": "<code><b>protected</b></code>",
+     "extra": "It is broader than package-private, which allows subclasses nowhere outside the package. It is narrower than public.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which access modifier gives access only within the <b>same package</b>?",
+     "back": "No modifier (<b>package-private</b>)",
+     "extra": "Package-private members are not visible to subclasses in other packages. It is the default when you write no modifier.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which access level should you choose for a member?",
+     "back": "The <b>most restrictive</b> one that makes sense (usually private)",
+     "extra": "Wider access ties callers to implementation details and limits future change. Public fields in particular should be avoided.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>static</code> modifier do to a field?",
+     "back": "Makes it a <b>class variable</b>, shared by every instance",
+     "extra": "There is exactly one copy, in one memory location, and any instance can read or change it. Constant-like aggregates or counters live here.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How should a class (static) variable be referenced?",
+     "back": "Through the <b>class name</b>, e.g. <code>Bicycle.numberOfBicycles</code>",
+     "extra": "Referencing it through an instance reference compiles but is discouraged, because it obscures that the field is shared.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a static method access instance fields directly?",
+     "back": "<b>No</b> - it needs an object reference, or it must use static members",
+     "extra": "There is no instance when a static method runs, so <code>this</code> is not available either. This keeps static methods free of implicit state.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>final</code> needed on top of <code>static</code> to define a constant?",
+     "back": "<code>static</code> alone leaves the value <b>mutable</b>; final prohibits reassignment",
+     "extra": "e.g. <code>static final double PI = 3.141592653589793;</code>. Reassigning it afterwards is a compile-time error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which naming convention applies to constants?",
+     "back": "ALL CAPS with <b>underscores</b> between words",
+     "extra": "<code>MAX_SPEED</code>, not <code>maxSpeed</code>. The uppercase signal from the declaration tells readers the value cannot change.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When are static initialization blocks executed?",
+     "back": "In <b>source order</b>, when the class is initialised",
+     "extra": "A class may have several, placed anywhere in the body. They run once, before any instance exists.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can't a failing <b>static initializer</b> be retried?",
+     "back": "It runs at most once - a failure leaves the class unusable",
+     "extra": "If the block touches a missing file or network resource and throws, the class is never initialised, and no instance can be created.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the advantage of a private static method over a static initialization block?",
+     "back": "It can be <b>reused</b> to reinitialise the class variable later",
+     "extra": "A static block is a one-shot, non-reentrant action. A method can be called again for a reset, which a block can never do.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a <code>final</code> method help with instance initialization?",
+     "back": "Being final, it cannot be overridden while the object is being constructed",
+     "extra": "Subclass overrides would run against a partially built object. Making the init method final prevents that trap.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an <code>interface</code> name be used as a return type?",
+     "back": "<b>Yes</b> - the returned object must implement that interface",
+     "extra": "This is what makes polymorphic factories possible: callers program against the interface and need not know the concrete class.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "source": "https://dev.java/learn/language/oop/classes-objects/nested-classes/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::nested-classes"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a <b>nested class</b>?",
+     "back": "A class defined <b>within another class</b>",
+     "extra": "It is divided into two kinds: non-static nested classes, called inner classes, and static nested classes.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a non-static nested class called?",
+     "back": "An <b>inner class</b>",
+     "extra": "It is tied to an instance of the enclosing class, and its objects each exist within such an instance.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between an inner class and a static nested class in access?",
+     "back": "An inner class sees <b>all enclosing members</b>; a static one only via a reference",
+     "extra": "Inner classes reach even private fields and methods of the enclosing instance. Static nested classes have no implicit enclosing instance.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which access modifiers may a <b>nested</b> class have?",
+     "back": "<code>private</code>, <code>public</code>, <code>protected</code>, or package-private",
+     "extra": "Outer top-level classes can only be public or package-private, because a file has no notion of private classes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can't a top-level class be declared <code>private</code>?",
+     "back": "It has no enclosing class to hide it from",
+     "extra": "A file-level type must be reachable from its own file or package, so only public and package-private apply. Private is reserved for nested classes.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is an instance of an inner class created?",
+     "back": "First instantiate the outer class; then use <code>outerObj.new InnerClass()</code>",
+     "extra": "Writing <code>new OuterClass.InnerClass()</code> instead is a compile error. The inner instance needs an outer instance to belong to.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is a <b>static nested</b> class instantiated?",
+     "back": "Exactly like a top-level class, e.g. <code>new Outer.StaticNested()</code>",
+     "extra": "No outer instance is needed. Behaviourally, the static nested class is a top-level class nested only for packaging convenience.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can a static nested class not use the enclosing class's instance field directly?",
+     "back": "It has <b>no implicit enclosing instance</b>",
+     "extra": "It reaches the field only through an object reference, exactly as any other class would have to.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>local class</b>?",
+     "back": "A class declared inside a <b>block</b>, typically a method body",
+     "extra": "Its visibility is restricted to that block. It may be declared in a loop or an if clause, not only in a method.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which local variables can a local class access?",
+     "back": "<b>final</b> or <b>effectively final</b> ones only",
+     "extra": "Since Java SE 8, effectively final is enough. A variable counts as effectively final if it is never reassigned after initialisation.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a local class do when it uses an enclosing local variable?",
+     "back": "It <b>captures</b> that variable",
+     "extra": "That is why the variable must not later change: the class keeps a copy. Reassigning it would make the captured value diverge from the source.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a local class declare a <b>static</b> method?",
+     "back": "No, unless it is a <b>constant variable</b>",
+     "extra": "A local class may hold static members only if they are compile-time constants. Interfaces declared inside a block are also rejected, since they are inherently static.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a <b>static</b> method, which enclosing members can a local class use?",
+     "back": "Only the enclosing class's <b>static</b> members",
+     "extra": "There is no instance to draw on. A non-static field of the enclosing class therefore cannot be referenced from such a class.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does an <b>anonymous class</b> differ from a local class?",
+     "back": "<b>No name</b> - it is an expression, not a declaration",
+     "extra": "It is limited to a single-use helper. Being an expression, it carries its semicolon and appears right where the object is needed.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an anonymous class declare a constructor?",
+     "back": "<b>No</b> - it has no name to give one",
+     "extra": "Fields, extra methods, instance initializers and nested classes are all fine. Instance initializers are the usual substitute for constructor code.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is serialising inner classes discouraged?",
+     "back": "Compiler-generated <b>synthetic</b> constructs vary between implementations",
+     "extra": "Serialised bytes from one JRE may not deserialize under another. Synthetic constructs let compilers add language features without changing the JVM.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "source": "https://dev.java/learn/language/oop/inheritance/abstract-classes/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::abstraction"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is an <b>abstract class</b>?",
+     "back": "A class that <b>cannot be instantiated</b>, but can be subclassed",
+     "extra": "It may or may not declare abstract methods. Its code acts as a partial implementation shared by subclasses.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <b>abstract method</b>?",
+     "back": "A method declared with no body, ending in a <b>semicolon</b>",
+     "extra": "Subclasses must implement it, or they too must be declared abstract. It exists to force a type-specific implementation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If a class declares any abstract method, what must be true of the class?",
+     "back": "It must be declared <code>abstract</code>",
+     "extra": "<code>abstract void draw();</code> in a concrete class is a compile error. The abstract modifier cannot be omitted.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must a subclass do with inherited abstract methods?",
+     "back": "Implement <b>all</b> of them, or be declared <code>abstract</code> itself",
+     "extra": "This is the enforcement mechanism: a subclass that forgets one cannot be created until the hole is filled.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an abstract class have <b>concrete</b> methods and non-static fields?",
+     "back": "<b>Yes</b> - unlike interfaces it may hold both",
+     "extra": "Abstract classes may have shared state and protected or private concrete methods. That is the main reason to pick one over an interface.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an abstract class have static fields and static methods?",
+     "back": "<b>Yes</b>, callable via <code>AbstractClass.staticMethod()</code>",
+     "extra": "Static members are not subject to the abstract-instantiation rule. They are shared like the statics of any other class.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are interface fields implicitly?",
+     "back": "<code>public static final</code>",
+     "extra": "That means interfaces cannot hold mutable state, which removes multiple-inheritance-of-state problems. Abstract classes may, so a class extending one can share state.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a class implement several interfaces but extend only one class?",
+     "back": "<b>Yes</b> - one superclass, many interfaces",
+     "extra": "Single inheritance of class avoids conflicting state; many interfaces supply multiple types. Interfaces may also extend several interfaces.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is an abstract class a better fit than an interface?",
+     "back": "When related classes must <b>share code</b>, common fields, or non-public helpers",
+     "extra": "Interfaces suit unrelated implementors and pure type contracts. An abstract superclass can hold reusable state and behaviour.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is an interface a better fit than an abstract class?",
+     "back": "When <b>unrelated</b> classes should implement the same type or behaviour",
+     "extra": "e.g. <code>Comparable</code> and <code>Cloneable</code> span unrelated hierarchies. And a class may implement several interfaces, giving multiple type inheritance.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which abstract class provides the shared map implementation for <code>HashMap</code> and <code>TreeMap</code>?",
+     "back": "<code>java.util.AbstractMap</code>",
+     "extra": "Its subclasses inherit ready-made <code>get</code>, <code>put</code> and <code>isEmpty</code>. Mutable shared code is exactly what an interface could not provide.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JDK class demonstrates one class mixing interfaces with an abstract superclass?",
+     "back": "<code>HashMap</code> - <code>Map</code>, <code>Cloneable</code>, <code>Serializable</code>",
+     "extra": "HashMap implements Map, Cloneable and Serializable, and also extends AbstractMap. Its interfaces advertise its contract; the abstract class supplies shared code.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an abstract class implement only <b>some</b> methods of an interface?",
+     "back": "Yes - that is why it must be abstract",
+     "extra": "A concrete subclass then implements the rest. An interface cannot be declared abstract, so only classes can carry the obligation forward.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is an abstract class with a <code>draw()</code> abstract method useful for shapes?",
+     "back": "Shared state and logic live in one place, while <b>each shape supplies</b> its own drawing",
+     "extra": "Position, colour and <code>moveTo()</code> are inherited once. What differs per subclass stays abstract, so the compiler forces each shape to implement it.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "source": "https://dev.java/learn/language/oop/inheritance/objects/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::inheritance"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class sits at the top of every hierarchy?",
+     "back": "<code>java.lang.<b>Object</b></code>",
+     "extra": "Every class is a direct or indirect descendant. It supplies the contract: <code>equals</code>, <code>hashCode</code>, <code>toString</code>, <code>getClass</code> and more.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>Object</code> version of <code>equals()</code> do?",
+     "back": "Tests <b>reference identity</b> using <code>==</code>",
+     "extra": "Two distinct Book objects with the same ISBN are unequal until you override equals. Override it whenever identity is not the right notion of equality.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If you override <code>equals()</code>, what else must you override?",
+     "back": "<code><b>hashCode()</b></code>",
+     "extra": "Objects equal by equals must have equal hash codes. Otherwise a HashSet or HashMap lookup can miss a key that is present.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>getClass()</code> return, and can it be overridden?",
+     "back": "The runtime <b><code>Class</code> object</b>; it cannot be overridden",
+     "extra": "It is final. The returned Class exposes <code>getSimpleName</code>, <code>getSuperclass</code>, <code>getInterfaces</code> and many other reflective queries.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>clone()</code> require of a class?",
+     "back": "That the class implements <b><code>Cloneable</code></b>",
+     "extra": "Otherwise the call throws <code>CloneNotSupportedException</code>. Adding <code>implements Cloneable</code> lets Object.clone make a shallow copy.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>Object.clone()</code> a deep or shallow copy?",
+     "back": "<b>Shallow</b> - member references are copied, not the objects they point to",
+     "extra": "If a member references an external object, original and clone share it, so a change is visible in both. Override clone to also copy such members.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should you not rely on <code>finalize()</code> for cleanup?",
+     "back": "It may never be called, or when it runs is <b>uncertain</b>",
+     "extra": "As of Java SE 18 it is deprecated for removal. Use <code>AutoCloseable</code> plus try-with-resources for deterministic release.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface should replace <code>finalize()</code> for resource cleanup?",
+     "back": "<code>AutoCloseable</code>",
+     "extra": "Its <code>close()</code> runs deterministically via try-with-resources, rather than at the JVM's whim. This frees resources when the block exits.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why override <code>toString()</code> in your own classes?",
+     "back": "To give objects a useful <b>text representation</b> for debugging and logging",
+     "extra": "The inherited version prints a class name and a hash hex. A good override shows the real state, which is what appears inside string concatenation.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three methods of <code>Object</code> support thread synchronisation?",
+     "back": "<code>wait()</code>, <code>notify()</code> and <code>notifyAll()</code>",
+     "extra": "They coordinate independently running threads. All must be called while holding the object's monitor.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "source": "https://dev.java/learn/language/oop/inheritance/overriding/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::inheritance"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is required to <b>override</b> an instance method?",
+     "back": "Same <b>signature</b> (name and parameter types) and same or covariant return type",
+     "extra": "The overriding method may narrow the return type to a subtype. That narrower type is called a covariant return type.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>@Override</code> annotation do?",
+     "back": "Tells the compiler you <b>intend</b> to override, and errors if nothing is overridden",
+     "extra": "It turns a silent typo in the method name into a compile error. Using it is recommended on every override.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when a subclass declares a <b>static</b> method with the same signature as a superclass static method?",
+     "back": "The subclass method <b>hides</b> the superclass one",
+     "extra": "Hiding is not overriding. Which version runs depends on the static type used for the call, not on the object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is that difference between overriding and hiding significant?",
+     "back": "Overrides dispatch on the <b>object</b>; hidden statics on the type",
+     "extra": "So <code>Animal.testClassMethod()</code> runs Animal's static, while an instance call runs Cat's override. Resolution of statics happens at compile time.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When a subclass declares an instance method matching a superclass <b>static</b> method, what happens?",
+     "back": "A <b>compile-time error</b>",
+     "extra": "Instance and static cannot be mixed for the same signature. The reverse (static in subclass, instance in superclass) is also an error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an overriding method reduce the visibility of the overridden method?",
+     "back": "<b>No</b> - it may widen it, not narrow it",
+     "extra": "A protected method can become public, but not private. Narrowing would break callers who compiled against the broader access.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When do two interface default methods with the same signature cause an error?",
+     "back": "When they are independently defined or conflict with an abstract method",
+     "extra": "The compiler refuses to guess; the class must override the method. Overridden or inherited-from-a-common-ancestor methods are excluded from the conflict.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If a superclass instance method clashes with an interface default method, which wins?",
+     "back": "The <b>instance method</b> from the class",
+     "extra": "Instance methods are preferred over interface defaults. In the horse/Dragon examples, the class's own method silently takes precedence.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you call a specific interface's default implementation from a class?",
+     "back": "<code><i>InterfaceName</i>.super.method()</code>",
+     "extra": "The name before <code>super</code> must be a direct superinterface that defines or inherits that default. This also works to reach a class's default.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are <b>static</b> methods in interfaces inherited by implementing classes?",
+     "back": "<b>No</b> - never inherited",
+     "extra": "They belong to the interface and are called as <code>Interface.method()</code>. Default methods, by contrast, are inherited normally.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a subclass do if it declares a new method with the same name but different parameters?",
+     "back": "<b>Overloads</b>, which neither overrides nor hides",
+     "extra": "It is a new, distinct method in the subclass, unique to it. Parent classes are unaffected.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "source": "https://dev.java/learn/language/oop/inheritance/polymorphism/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::inheritance"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <b>polymorphism</b> let a subclass do?",
+     "back": "Share the parent's interface while defining its own <b>behaviour</b>",
+     "extra": "The subclass overrides methods but is still usable wherever the parent type is expected, so callers code to one type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method does the JVM call when an overridden method is invoked through a superclass variable?",
+     "back": "The <b>object's</b> version, not the variable's declared type",
+     "extra": "This is virtual method invocation and the core of polymorphism. Which method runs is decided from the runtime class of the object.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>field hiding</b>?",
+     "back": "A subclass field with the <b>same name</b> as a superclass field",
+     "extra": "Fields are not polymorphic, so the declared type decides which is read. Hiding fields is discouraged because it makes code hard to follow.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you reach a hidden superclass field from a subclass?",
+     "back": "Through <b><code>super</code></b>",
+     "extra": "The simple name picks the subclass's field, since that declaration shadows the other. Hiding is discouraged for exactly this confusion.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you call a superclass method you have overridden?",
+     "back": "<code><b>super</b>.methodName(args)</code>",
+     "extra": "useful as \"call the parent's logic\" in combination with extra work. Without <code>super</code> the call would recurse into the override.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is a superclass constructor called from a subclass constructor?",
+     "back": "<code><b>super</b>(args)</code> before any use of <code>this</code>",
+     "extra": "<code>super()</code> calls the no-arg constructor; <code>super(list)</code> the matching one. If neither is present, the compiler inserts <code>super()</code> implicitly.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if a constructor does not explicitly call <code>super()</code>?",
+     "back": "The compiler inserts a call to the superclass's <b>no-arg</b> constructor",
+     "extra": "so a superclass lacking a no-arg constructor breaks compilation. <code>Object</code> has one, which is why bare classes always work.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>constructor chaining</b>?",
+     "back": "The implicit chain of superclass constructors up to <code>Object</code>",
+     "extra": "Every constructor runs along the chain, so some code runs once per level. With long hierarchies, this matters for correctness and performance.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>final</code> on a method prohibit?",
+     "back": "<b>Overriding</b> it in subclasses",
+     "extra": "Use it on methods whose behaviour must not change, particularly those central to a consistent object state. <code>Object</code> declares several final methods.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should methods called from constructors be <code>final</code>?",
+     "back": "A non-final method can be <b>overridden</b> and run against a half-built object",
+     "extra": "The override executes before the subclass's fields are initialised, so it sees defaults. A final method avoids the surprising result.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does declaring an entire class <code>final</code> do?",
+     "back": "Prevents <b>subclassing</b> the class at all",
+     "extra": "Useful for immutable value types; <code>String</code> is the prime example. It also guarantees no subclass can change the behaviour.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a superclass constructor call with no no-arg constructor still compile?",
+     "back": "<b>No</b> - a compile-time error",
+     "extra": "The implicit <code>super()</code> has nothing to bind to, so you must call an explicit <code>super(args)</code> in the subclass constructor.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "source": "https://dev.java/learn/language/oop/inheritance/what-is-inheritance/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::inheritance"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a <b>superclass</b>?",
+     "back": "The class a subclass is derived <b>from</b> (base or parent class)",
+     "extra": "A subclass is the derived (extended) class. Members of the superclass, apart from constructors, are inherited.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many direct superclasses does a class have?",
+     "back": "Exactly <b>one</b>, except <code>Object</code> which has none",
+     "extra": "This is single inheritance of classes. Multiple inheritance of type instead comes from implementing several interfaces.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If no superclass is given, what is a class's implicit parent?",
+     "back": "<code>java.lang.<b>Object</b></code>",
+     "extra": "So every class is an Object and inherits its methods. The inheritance chain always terminates at Object.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are <b>constructors</b> inherited?",
+     "back": "<b>No</b> - but the superclass constructor can be invoked from a subclass",
+     "extra": "Constructors are not members, so a subclass does not inherit them. It calls one with <code>super(...)</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which members does a subclass inherit from its parent?",
+     "back": "<b>All</b> public and protected members, plus package-private in-package ones",
+     "extra": "It never inherits private members, regardless of package. Package-private members vanish once the subclass lives elsewhere.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What can a subclass do with inherited members?",
+     "back": "Use them as-is, <b>replace</b> them, hide them, or supplement them",
+     "extra": "Use, override (instance methods), hide (fields or static methods), or add new members. All four are legal; only hiding fields is discouraged.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does a subclass inherit its parent's <b>private</b> members?",
+     "back": "<b>No</b>",
+     "extra": "It can still reach them indirectly, through public or protected methods the parent provides. A nested class, by contrast, sees the enclosing class's private members.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>implicit casting</b> in an inheritance context?",
+     "back": "Assigning a subclass reference to a superclass variable without a cast",
+     "extra": "e.g. <code>Object obj = new MountainBike();</code>. Legal because a MountainBike <b>is a</b> Bicycle and an Object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which operator guards a downcast against a runtime failure?",
+     "back": "<code>instanceof</code>",
+     "extra": "Check the type first, then cast safely, since a failed cast throws. Pattern matching for instanceof folds the check and the declaration into one step.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What type of multiple inheritance does Java allow?",
+     "back": "<b>Of type</b> - many interfaces, but only one superclass",
+     "extra": "A class implementing several interfaces has several types. State and implementation inheritance through many classes are excluded to avoid ambiguity.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does Java forbid multiple inheritance of <b>state</b>?",
+     "back": "The same field could be <b>defined twice</b>, with no rule to pick",
+     "extra": "Interfaces have no fields (only constants), so implementing many cannot duplicate state. Default methods are one exception handled by explicit compiler rules.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::15 Interfaces",
+   "source": "https://dev.java/learn/language/oop/interfaces/defining-interfaces/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::interfaces"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a Java <b>interface</b>?",
+     "back": "A <b>reference type</b> of constants and method signatures (plus defaults)",
+     "extra": "It cannot be instantiated, only implemented by classes or extended by other interfaces. The signatures have no braces, so the implementing classes supply the bodies.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>default method</b> in an interface?",
+     "back": "A method with the <code>default</code> modifier and a <b>body</b>",
+     "extra": "It lets you add functionality to a published interface without breaking implementors, since they inherit the body instead of implementing it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the implicit access level of an interface method?",
+     "back": "<code><b>public</b></code>",
+     "extra": "You may omit the keyword, and you cannot narrow it. Fields are implicitly public static final.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the implicit modifier set of an interface constant?",
+     "back": "<code>public static final</code>",
+     "extra": "Constants may be declared without any modifiers. Mutable state is impossible, which is why interfaces avoid the state-inheritance problem.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an interface have <b>private</b> methods?",
+     "back": "<b>Yes</b>, since Java SE 9 - to share code among the interface's own defaults",
+     "extra": "They belong to the implementation, are not callable from outside, and can be neither default nor abstract. They also cannot be protected.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an interface have <b>protected</b> methods?",
+     "back": "<b>No</b>",
+     "extra": "Allowed are public members, private instance methods, and private or public static methods. A protected interface method is a compile error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many interfaces can one interface <b>extend</b>?",
+     "back": "Any number, listed <b>comma-separated</b>",
+     "extra": "Unlike classes, which may extend only one class. This is how the type system supports multiple inheritance of type.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens to a non-public interface?",
+     "back": "It is accessible only to classes in the <b>same package</b>",
+     "extra": "Declaring it <code>public</code> opens it to any class in any package. Without the modifier, it is package-private.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which keyword do implementing classes use, and where must it appear?",
+     "back": "<code>implements</code>, <b>after</b> any <code>extends</code> clause",
+     "extra": "The list is comma-separated and may name several interfaces, e.g. <code>extends A implements B, C</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does an implementing class have to supply for each abstract interface method?",
+     "back": "A method <b>body</b> for each one",
+     "extra": "An abstract class is exempt, at the price of not being instantiable. A concrete class missing one body will not compile.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are interfaces described as <b>contracts</b>?",
+     "back": "They specify how software parts interact, not how either is implemented",
+     "extra": "Producers can publish an interface, and consumers program against it. Each side can change its internals as long as the contract holds.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What role does an interface play when it is published as an API?",
+     "back": "The public <b>signatures</b>, with the implementation hidden",
+     "extra": "The vendor may reimplement freely as long as the published interface continues to be implemented. Callers only need the interface to compile and run.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::15 Interfaces",
+   "source": "https://dev.java/learn/language/oop/interfaces/examples/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::interfaces"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Where does the <code>implements</code> clause go in a class declaration?",
+     "back": "After the <code>extends</code> clause, if one is present",
+     "extra": "It may list several interfaces, separated by commas. You cannot put a superclass after it.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why would two unrelated classes implement the same interface such as <code>Relatable</code>?",
+     "back": "So code written against the interface can <b>compare any of them</b>",
+     "extra": "A <code>findLargest(Relatable, Relatable)</code> method then works for rectangles, books or students. The method needs no knowledge of each class.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>isLargerThan(Relatable other)</code>, why is a cast to the concrete class needed?",
+     "back": "The parameter's type is <code>Relatable</code>; <b>subclass members</b> are not visible",
+     "extra": "You must cast to RectanglePlus to call getArea(). The compiler does not know the interface reference is a RectanglePlus.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What breaks if you add an abstract method to a published interface?",
+     "back": "<b>All existing implementing classes</b> stop compiling",
+     "extra": "Each must now supply the new method, so source-incompatible changes break clients. This is why interface evolution is deliberate.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can you add a method to an interface without breaking implementors?",
+     "back": "Declare it <code><b>default</b></code> with an implementation body",
+     "extra": "Existing implementors inherit the body unchanged and need no recompilation. Adding a new static method has the same compatibility property.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the alternative to adding the method to the existing interface?",
+     "back": "Publish a new interface that <b>extends</b> it",
+     "extra": "e.g. DoItPlus extends DoIt. Users may stay on the old interface or upgrade, giving them a choice rather than a forced migration.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a class express a default-method override to call the interface version?",
+     "back": "<code><i>InterfaceName</i>.super.method()</code>",
+     "extra": "Needed when two default methods clash and the class must pick one. Without the override, the compiler rejects the ambiguity.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If two implemented interfaces define conflicting default methods, what must the class do?",
+     "back": "<b>Override</b> the method explicitly",
+     "extra": "The compiler refuses to choose for you. Inside the override, call whichever defaults with the InterfaceName.super form.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why was the <code>Comparator</code> interface enhanced with <code>comparing</code> and <code>thenComparing</code>?",
+     "back": "To let callers build comparators from <b>criteria</b>, not whole classes",
+     "extra": "Previously each sort order demanded a Comparator implementation. Now method references and chained calls express the ordering declaratively.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>thenComparing</code> default method do?",
+     "back": "Chains a <b>second</b> comparison for ties",
+     "extra": "Its Function overload extracts a Comparable key. The Int/Long/Double variants avoid boxing and unboxing that key.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Comparator.reversed()</code> do?",
+     "back": "Returns a comparator with the <b>opposite</b> order",
+     "extra": "Inverting an existing comparator replaces writing a fresh lambda. Chain it last, as in <code>comparing(...).reversed()</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which static method builds a comparator from a key-extraction function?",
+     "back": "<code>Comparator.comparing(Function)</code>",
+     "extra": "It uses the returned key's natural order. Siblings are <code>comparingInt</code>, <code>comparingLong</code> and <code>comparingDouble</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When an interface gains a default method, do implementing classes need to recompile?",
+     "back": "<b>No</b>, as long as no other interface they implement clashes",
+     "extra": "Binary compatibility is the whole point. The new methods can even accept lambda expressions as parameters.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::15 Interfaces",
+   "source": "https://dev.java/learn/language/oop/interfaces/interfaces-as-a-type/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::interfaces"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "When you define an interface, what are you also defining?",
+     "back": "A new <b>reference data type</b>",
+     "extra": "Its name is usable anywhere a type name can appear, e.g. as a variable type, parameter or return type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If a variable's type is an interface, what may be assigned to it?",
+     "back": "Only instances of classes that <b>implement</b> it",
+     "extra": "An unrelated class cannot. That is how types like Comparable become a guarantee of behaviour across unrelated hierarchies.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can a method accept \"anything comparable\" without knowing its class?",
+     "back": "Declare the parameter as the interface, e.g. <code>Relatable</code>",
+     "extra": "Only the interface's methods are callable on the parameter. A common filter is that both operands must be of the same class.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does programming to an interface give some of the benefits of multiple inheritance?",
+     "back": "An object has its own class type plus every <b>implemented interface type</b>",
+     "extra": "So it can be passed to code expecting the superclass and to code expecting the interface, taking behaviour from both.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::18 Packages",
+   "source": "https://dev.java/learn/language/oop/packages/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::packages"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a <b>package</b>?",
+     "back": "A grouping of related types providing access protection and <b>namespace</b> management",
+     "extra": "Types here means classes, interfaces, enums and annotation types. Same-named types can live in different packages without collision.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where must a <code>package</code> statement appear in a source file?",
+     "back": "As the <b>first</b> line of the file",
+     "extra": "Only one such statement is allowed, and it applies to every type in the file. An import would have to come after it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many <b>public</b> types may a source file declare?",
+     "back": "<b>One</b>, and the file must be named after it",
+     "extra": "Non-public (package-private) types may share the file, though that is discouraged. They will not be accessible outside the package.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where do types end up if the source file has no package statement?",
+     "back": "In the <b>unnamed package</b>",
+     "extra": "Appropriate only for small or temporary code. The unnamed package itself cannot be imported from a named package in modern Java.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>fully qualified name</b> of <code>Rectangle</code> declared in package <code>graphics</code>?",
+     "back": "<code>graphics.Rectangle</code>",
+     "extra": "It is the type's simple name prefixed by its package. The same class name can also exist as <code>java.awt.Rectangle</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What naming convention applies to package names?",
+     "back": "<b>All lowercase</b>",
+     "extra": "This avoids clashing with class or interface names. A capitalised package would look like a type to readers.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do companies name packages to keep them globally unique?",
+     "back": "Start with their <b>reversed Internet domain</b>, e.g. <code>com.example.mypackage</code>",
+     "extra": "Domain registration guarantees uniqueness. Name collisions inside a company can be broken up with a region or project segment.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which packages are implicitly imported into every source file?",
+     "back": "<code>java.lang</code> and the <b>current package</b>",
+     "extra": "That is why <code>String</code> and <code>System</code> need no import. Everything else must be imported or fully qualified.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>import graphics.*;</code> import?",
+     "back": "All types in <code>graphics</code>, but <b>not</b> subpackages",
+     "extra": "The wildcard does not reach <code>graphics.color</code> or <code>graphics.font</code>. Those must be imported separately.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can <code>*</code> in an import statement match a <b>subset</b> of types?",
+     "back": "<b>No</b> - only a whole package; a prefix form is a compile error",
+     "extra": "The wildcard means every type in the named package, one level only. To pull in named nested classes, import them explicitly instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>java.awt.color</code> a member of the <code>java.awt</code> package?",
+     "back": "<b>No</b> - they are separate packages that share a prefix",
+     "extra": "Packages only look hierarchical; the dot is part of the name. Importing <code>java.awt.*</code> therefore does not bring in <code>java.awt.color</code>.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When two imported packages contain a type with the same simple name, what must you do?",
+     "back": "Use its <b>fully qualified name</b> to disambiguate",
+     "extra": "Both <code>graphics.Rectangle</code> and <code>java.awt.Rectangle</code> are visible, so the simple name is ambiguous and the compiler rejects it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <b>static import</b> let you omit?",
+     "back": "The <b>class name</b> prefix on static members, e.g. of <code>Math</code>",
+     "extra": "You may import one member (<code>import static java.lang.Math.PI;</code>) or all (<code>import static java.lang.Math.*;</code>).",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How should static imports be used?",
+     "back": "<b>Very sparingly</b>",
+     "extra": "Overuse hides where a static object comes from, hurting readability. Used narrowly, they remove repetitive class-name prefixes.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/introduction_to_java_reflection/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does Java reflection let an object discover about itself?",
+     "back": "Its <b>fields, methods and constructors</b>",
+     "extra": "Reflection can also read and write fields, invoke methods and call constructors to create objects. All of this happens at runtime.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class is the entry point for all reflection?",
+     "back": "<code>java.lang.<b>Class</b></code>",
+     "extra": "It models a runtime type and offers members, constructors and annotations. It is itself a subclass of Object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>obj.getClass()</code> return?",
+     "back": "The <b>actual implementation</b> class of the object",
+     "extra": "The declared type of the variable is ignored: a Set variable holding a HashSet returns HashSet. The method is inherited from Object and is final.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you get a <code>Class</code> object when you have no instance?",
+     "back": "A <b>class literal</b>: <code>ClassName.class</code>",
+     "extra": "It works for types that cannot be instantiated, such as interfaces and primitives. <code>List.class</code> is legal and needs no object.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you load a class whose name is only known as a String at runtime?",
+     "back": "<code>Class.<b>forName</b>(name)</code>",
+     "extra": "The name must be fully qualified. If the class does not exist, the call throws <code>ClassNotFoundException</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class loader holds the JDK's own classes?",
+     "back": "The <b>bootstrap</b> class loader",
+     "extra": "Its class loader appears as <code>null</code> when queried. Your own classes load in the system, that is application, class loader.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does launching with <code>java Foo.java</code> instead of <code>java Foo</code> matter for reflection?",
+     "back": "The two modes use <b>different class loaders</b>",
+     "extra": "In single-file source mode a memory class loader is used, otherwise the application class loader. Classes in separate loaders are invisible to each other.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception type covers everything that can go wrong with a reflective call?",
+     "back": "<code><b>ReflectiveOperationException</b></code> (since Java 7)",
+     "extra": "It wraps NoSuchMethodException, IllegalAccessException and related failures. Catching it avoids a long list of catch clauses.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>NoSuchMethodException</code> indicate?",
+     "back": "No method matching the <b>name and parameter types</b> was found",
+     "extra": "The lookup matches types strictly, so boxing and generic erasure are frequent causes of a method seeming to disappear.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When invoking a <b>static</b> method reflectively, what is the first argument to <code>invoke()</code>?",
+     "back": "<b><code>null</code></b>",
+     "extra": "There is no receiver object for a static method. Passing any other object is an error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>deep reflection</b> mean?",
+     "back": "Reading or writing non-public members",
+     "extra": "It can even change a <b>private final</b> field. Converting a class to a record blocks that, since record fields cannot be mutated.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must deep reflection be authorised by the module system?",
+     "back": "Deep reflection needs the package to be <b>opened</b> to your module",
+     "extra": "By default a named module is closed, so other modules and the unnamed module cannot reach non-public members. <code>--add-opens</code> works but is a last resort.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the article warn against deep reflection into a library's internals?",
+     "back": "The library may rename or retype fields, breaking your code",
+     "extra": "Opening a package gives unfettered access to implementation details. A field rename becomes a runtime failure with no compile-time warning.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why avoid running code with <code>java Foo.java</code> when it relies on another compiled class?",
+     "back": "The two classes end up in <b>different class loaders</b>",
+     "extra": "Then instanceof and casting fail confusingly. Compile both classes and run them from the classpath instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/introduction_to_method_handles/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a <b>method handle</b>?",
+     "back": "A directly invocable reference to a method, constructor or field",
+     "extra": "It is a low-level mechanism for lookup and invocation, and it can be adapted: arguments reordered, inserted, filtered or return values transformed.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does method-handle access checking differ from reflection's?",
+     "back": "Checked <b>once, when the handle is created</b>, not per call",
+     "extra": "That is why method-handle invocation is faster than reflection. The cost is that a leaked handle can expose what it points at.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must method handles be kept private if they reach non-public members?",
+     "back": "Whatever they can reach, <b>their holders</b> can reach too",
+     "extra": "The check is at creation, so passing the handle on passes the privilege. Build them with a restricted Lookup when they must escape.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory creates method handles?",
+     "back": "A <code>MethodHandles.<b>Lookup</b></code> object",
+     "extra": "You decide its access level when creating it. A private lookup can find private members of the class it is created in.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you make a Lookup that can only find <b>public</b> members?",
+     "back": "<code>MethodHandles.publicLookup()</code>",
+     "extra": "It searches public members of public classes in unconditionally exported packages only. That is the safe option for handles you hand to other code.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class describes a method handle's <b>type</b>?",
+     "back": "<code>MethodType</code>",
+     "extra": "Instantiate it with the return type <b>first</b>, then all argument types: <code>methodType(String.class, char.class, char.class)</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Lookup method finds an instance method?",
+     "back": "<code>findVirtual</code>",
+     "extra": "It takes the class, the method name as a String and a MethodType. <code>findStatic</code> is the counterpart for static methods.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>MethodHandle.invokeExact</code> require?",
+     "back": "The arguments must <b>strictly match</b> the handle's type",
+     "extra": "Any mismatch fails at runtime with a wrong-type error. It is the fastest path but the least forgiving.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>MethodHandle.invoke</code> do differently from <code>invokeExact</code>?",
+     "back": "It adapts types to match (<code>asType</code>) before invoking exactly",
+     "extra": "It is more permissive and slightly slower. It accepts Objects and converts them to the handle's parameter types.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>invokeWithArguments</code> accept that <code>invoke</code> does not?",
+     "back": "All the arguments as a single <b>array or list</b> of objects",
+     "extra": "Extra arguments beyond the expected count are squashed into the final array parameter. That suits varargs targets.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are <code>VarHandle</code>s preferred over field method handles?",
+     "back": "They support atomic and ordered memory access, and are the modern API",
+     "extra": "Field handles still work, but are unusual for field access. VarHandles are created with <code>findVarHandle</code> and <code>findStaticVarHandle</code>.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception must a method that invokes a handle declare or catch?",
+     "back": "<code>Throwable</code>",
+     "extra": "Both <code>invokeExact</code> and <code>invoke</code> throw Throwable, since the underlying method may throw anything. Neither is usable without handling it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>MethodHandles.catchException</code> wrap?",
+     "back": "A target handle plus a <b>handler</b> handle for one exception type",
+     "extra": "The handler must return the same type as the target and take the Throwable first. Other exceptions still propagate.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>MethodHandles.tryFinally</code> wrap?",
+     "back": "A target handle plus a <b>cleanup</b> handle, like a try-finally block",
+     "extra": "The cleanup takes a Throwable, then the target's result, then the original arguments. It always runs, whether or not the target succeeded.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method reorders a handle's arguments?",
+     "back": "<code>MethodHandles.permuteArguments</code>, with an <b>index array</b>",
+     "extra": "It also takes the target handle and the new MethodType. The index array names, in order, where each new argument comes from.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method <b>binds</b> fixed values to leading arguments?",
+     "back": "<code>MethodHandles.insertArguments</code>",
+     "extra": "Callers then supply only the remaining arguments. Supplying a bound one again fails with <code>WrongMethodTypeException</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>foldArguments</code>, where does the combiner's result go?",
+     "back": "Into the argument <b>immediately before</b> the folded ones",
+     "extra": "That reserved slot is why the folded arguments must come last. If the combiner returns void, the target needs no extra slot.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In which JDK were method handles introduced?",
+     "back": "JDK <b>7</b>",
+     "extra": "They were built to help compiler and language-runtime developers. They were never intended to replace reflection wholesale.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What can reflection do that method handles cannot?",
+     "back": "<b>List</b> class members and inspect their properties",
+     "extra": "There is no enumeration in the Method Handle API. Method handles instead offer powerful wrapping and adaptation of invocation.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you turn a reflective <code>Method</code> into a method handle?",
+     "back": "<code>Lookup.unreflect(method)</code>",
+     "extra": "It requires the lookup class to have permission for that member. <code>unreflectGetter</code>/<code>unreflectSetter</code> do the same for a Field.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "When is reflection appropriate to use?",
+     "back": "When a program must <b>examine or modify</b> runtime behaviour",
+     "extra": "It is an advanced feature that needs solid language fundamentals. Extensibility, tools and debuggers are its classic uses.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three drawbacks does reflection carry?",
+     "back": "Performance, <b>security restrictions</b>, exposed internals",
+     "extra": "Each comes from dynamic resolution and from reaching members the compiler would forbid. Prefer non-reflective code where possible.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are reflective operations slower than direct calls?",
+     "back": "Types are resolved <b>dynamically</b>, blocking JIT optimisations",
+     "extra": "Including inlining and devirtualisation. Avoid reflection in hot, performance-sensitive paths.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can a module restrict reflection?",
+     "back": "By <b>not opening</b> its package to another module",
+     "extra": "A named module can prohibit access to its own internals at runtime. That is why deep reflection into the JDK's internals largely stopped working.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the danger of accessing private members reflectively?",
+     "back": "It <b>breaks abstractions</b> and can surprise on an upgrade",
+     "extra": "Accessing private fields produces illegal-in-normal-code behaviour, which may create portability and correctness problems.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do debuggers and test harnesses rely on reflection?",
+     "back": "To inspect <b>private</b> members and call discovered APIs systematically",
+     "extra": "A debugger needs to see what the language hides. A test harness can enumerate methods and call them to raise coverage.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/annotations/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which Reflection classes implement <code>AnnotatedElement</code>?",
+     "back": "<code>Field</code>, <code>Method</code>, <code>Constructor</code> and <code>Class</code>",
+     "extra": "Any of them exposes annotation discovery. <code>Class</code> also models enums, records and even arrays.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method tests whether a specific annotation is present?",
+     "back": "<code>isAnnotationPresent(Class)</code>",
+     "extra": "The argument must be an annotation class, or the code will not compile. It returns a boolean.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two methods return an <b>array</b> of annotations on an element?",
+     "back": "<code>getAnnotations()</code> and <code>getDeclaredAnnotations()</code>",
+     "extra": "The array is empty if none are present. The declared variant includes annotations on that element only, excluding inherited ones.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do <code>getAnnotations()</code> and <code>getDeclaredAnnotations()</code> differ?",
+     "back": "<code>getDeclared...</code> excludes <b>inherited</b> annotations",
+     "extra": "The plural forms return arrays. The singular variants, getAnnotation and getDeclaredAnnotation, take a Class and return one instance.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you read a repeating annotation that the compiler stored once?",
+     "back": "Read the <b>container</b> annotation, then call its <code>value()</code>",
+     "extra": "The class file holds a single <code>@Validators</code>, which encloses the repeated <code>@Validator</code>s. Tedious but the only direct route.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns repeated annotations without unwrapping the container?",
+     "back": "<code>getAnnotationsByType(Class)</code> (Java SE 8)",
+     "extra": "It opens the container for you and returns an array. Use it whenever the annotation may repeat.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which annotation meta-annotation makes an annotation inheritable by subtypes?",
+     "back": "<code>@Inherited</code>",
+     "extra": "Inheritance applies only through class extending, not through interfaces. Enums and records cannot be extended, so they gain nothing from it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is annotation inheritance meaningless for enums and records?",
+     "back": "They are <b>final</b> and cannot be subclassed",
+     "extra": "There is no subtype that could inherit. Annotation inheritance needs an actual extends relationship.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface models annotations on <b>types in use</b>, rather than declarations?",
+     "back": "<code>AnnotatedType</code>",
+     "extra": "It covers annotations where a type appears, e.g. the type argument or the implemented interface. Declaration annotations are plain AnnotatedElement.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must <code>getConstructor()</code> be wrapped in a try/catch?",
+     "back": "It throws a checked <b><code>NoSuchMethodException</code></b>",
+     "extra": "The compiler demands handling because a missing constructor may exist at runtime. Reflection's lookups are not compile-time checked.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/arrays/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which methods are available on a Java array?",
+     "back": "Only those <b>inherited from Object</b>",
+     "extra": "Arrays are implemented in the VM and have no dedicated class. <code>clone()</code> and <code>length</code> behave specially.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you obtain an array's length reflectively?",
+     "back": "<code>Array.getLength(object)</code>",
+     "extra": "The <code>length</code> itself is not part of the array's type, which is why it cannot be read from the Class object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method checks whether a <code>Class</code> represents an array?",
+     "back": "<code>Class.isArray()</code>",
+     "extra": "It returns true for any array type, including multidimensional arrays. The component type is available separately.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method gives an array class's element type?",
+     "back": "<code>Class.getComponentType()</code>",
+     "extra": "For an <code>int[]</code> it returns <code>int.class</code>. For a nested array it returns the <i>next</i> array type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you create an array dynamically when its type is only known at runtime?",
+     "back": "<code>Array.newInstance(componentType, length)</code>",
+     "extra": "Any type and dimension is supported. It is the reflective equivalent of <code>new T[n]</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which methods read and write an array element reflectively?",
+     "back": "<code>Array.get(arr, i)</code> and <code>Array.set(arr, i, value)</code>",
+     "extra": "Older code often uses these for primitive arrays; newer code uses per-primitive variants. Arguments must fit the component type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How can you avoid boxing when accessing a primitive array reflectively?",
+     "back": "Use the typed methods: <code>Array.getInt</code>, <code>Array.setDouble</code>, etc.",
+     "extra": "They skip conversion to <code>Integer</code>, <code>Double</code> and so on. That matters in tight loops over large primitive arrays.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you pass a <code>Float</code> object to <code>Array.setFloat</code> for a float array?",
+     "back": "An <b><code>IllegalArgumentException</code></b> is thrown",
+     "extra": "The typed setters insist on the primitive or a value that widens losslessly. This is boxing leaking through the reflective API.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>Array.setLong(arr, ...)</code> legal on a long array but illegal on an int array?",
+     "back": "Widening int to long loses no <b>precision</b>; narrowing long to int does",
+     "extra": "So int values may be stored into long arrays, but not the reverse. The same rule applies to the primary reflection API.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception signals an index beyond the array's length?",
+     "back": "<code><b>ArrayIndexOutOfBoundsException</b></code>",
+     "extra": "It fires for both reads and writes. It is one of the few reflectively reached errors that are not wrapped.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/classes/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Why do most <code>java.lang.reflect</code> classes have no public constructors?",
+     "back": "They must be obtained <b>through</b> methods on <code>Class</code>",
+     "extra": "ReflectPermission is the deprecated exception. Direct construction would bypass the runtime's bookkeeping.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you get the <code>Class</code> object from an instance?",
+     "back": "<code>instance.getClass()</code>",
+     "extra": "This works for any reference type, since all inherit it from Object. Primitives cannot be dereferenced this way.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which suffix gives the Class object for a type without any instance?",
+     "back": "<code>.class</code>, e.g. <code>boolean.class</code>",
+     "extra": "It is the simplest way to get a primitive's Class. It also works for interfaces and arrays.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Class.forName(name)</code> throw for an unknown class?",
+     "back": "<code><b>ClassNotFoundException</b></code>",
+     "extra": "The name must be fully qualified. It cannot be used for primitive types, but it does work for array classes.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a name like <code>[B</code> arise?",
+     "back": "It is <code>Class.getName()</code>'s encoding of an array of <b>bytes</b>",
+     "extra": "One bracket per nesting level; the letter encodes the component type. <code>[B</code> is <code>byte[]</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>Class.getName()</code> encode an array of <code>long</code>?",
+     "back": "<code>[J</code>",
+     "extra": "The letters are Z boolean, B byte, S short, I int, J long, C char, F float, D double. Note long is J, not L.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>Class.getName()</code> encode an array of reference type <code>N</code>?",
+     "back": "<code>L</code> + name + <code>;</code>",
+     "extra": "So <code>String[]</code> is <code>[Ljava.lang.String;</code>, and the canonical name is the readable <code>java.lang.String[]</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many characters does a three-dimensional int array's name start with?",
+     "back": "Three <code>[</code> characters, as in <code>[[[I</code>",
+     "extra": "One bracket per nested array, then the component code. This string can be passed back to <code>Class.forName</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method was added in Java SE 22 for primitive types by name?",
+     "back": "<code>Class.forPrimitiveName(String)</code>",
+     "extra": "It also accepts <code>void</code>. A non-primitive name yields null; a null argument throws NullPointerException.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which field of a wrapper class holds the Class of the primitive it wraps?",
+     "back": "<code>public static final <b>TYPE</b></code>",
+     "extra": "So <code>Double.TYPE</code> is identical to <code>double.class</code>. <code>Void.TYPE</code> is <code>void.class</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Class.getSuperclass()</code> return for a class, and for <code>Object</code>?",
+     "back": "The <b>single</b> superclass; <code>null</code> for Object",
+     "extra": "It never returns interfaces: those come from <code>getInterfaces()</code>. The null is the top of the hierarchy.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>getInterfaces()</code> return inherited interfaces?",
+     "back": "<b>No</b> - only those directly implemented or extended",
+     "extra": "To gather all interfaces, walk the superclass chain yourself. Arrays get <code>Cloneable</code> and <code>Serializable</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interfaces does every array class implement?",
+     "back": "<code>Cloneable</code> and <code>Serializable</code>",
+     "extra": "Arrays are Objects, so their type extends Object and carries those two. That is why arrays can be cloned and serialized.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do <code>getClasses()</code> and <code>getDeclaredClasses()</code> differ?",
+     "back": "<code>getClasses</code> gives <b>public</b> member classes including inherited ones",
+     "extra": "getDeclaredClasses returns all member classes of this class only, private ones included. The latter exposes helpers such as <code>Character$CharacterCache</code>.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>getDeclaringClass()</code> return for an anonymous class?",
+     "back": "<b><code>null</code></b>",
+     "extra": "An anonymous class has no name and thus no declaring class. Its enclosing class can still be found with <code>getEnclosingClass()</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do declaring class and enclosing class differ?",
+     "back": "Enclosing is the class it is <b>written inside</b>; declaring only exists for members",
+     "extra": "For a member class they are the same. For an anonymous class, getDeclaringClass is null but getEnclosingClass is not.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface do <code>Field</code>, <code>Method</code> and <code>Constructor</code> share?",
+     "back": "<code><b>Member</b></code>",
+     "extra": "It provides <code>getDeclaringClass</code> for each member, plus modifiers and related queries. That is why the three look alike in the API.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/constructors/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method returns <b>all</b> declared constructors, private ones included?",
+     "back": "<code>getDeclaredConstructors()</code>",
+     "extra": "The array reflects public, protected, package-private and private. The non-declared forms return public ones only.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns only the <b>public</b> constructors as an array?",
+     "back": "<code>getConstructors()</code>",
+     "extra": "Use the declared variants when you need the full list. A private constructor is invisible here.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can constructors be inherited, and does lookup include inherited ones?",
+     "back": "<b>No</b>, so there is no superclass lookup",
+     "extra": "That is why there is no analogue to <code>getField</code> reaching up the hierarchy. Each class's constructors are its own.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method finds one constructor by parameter types?",
+     "back": "<code>getConstructor(Class...)</code>",
+     "extra": "The declared variant also sees private constructors. Types must match exactly, so <code>byte[].class</code> denotes a byte array parameter.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you obtain a constructor's raw parameter types?",
+     "back": "<code>getParameterTypes()</code>",
+     "extra": "The generic variant <code>getGenericParameterTypes()</code> returns a Type array. There you call <code>getTypeName()</code>.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns the exceptions a constructor declares?",
+     "back": "<code>getExceptionTypes()</code>",
+     "extra": "The generic variant returns Type objects instead of Class objects. Both expose what may be thrown.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>Class.newInstance()</code> deprecated?",
+     "back": "It only calls the <b>no-arg</b> constructor and bypasses exception checking",
+     "extra": "It also requires the constructor to be visible. <code>Constructor.newInstance()</code> has none of those limitations.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception wraps an exception thrown by the constructor itself?",
+     "back": "<code><b>InvocationTargetException</b></code>",
+     "extra": "Use <code>getTargetException()</code> to reach the real cause. It is part of reflective invocation for methods too.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>InstantiationException</code> mean from <code>newInstance</code>?",
+     "back": "The class <b>cannot be instantiated</b>, e.g. an interface or abstract class",
+     "extra": "A private or non-existent constructor is instead an access problem. IllegalAccessException covers that case.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>setAccessible(true)</code> do on a constructor?",
+     "back": "<b>Suppresses</b> the access-control checks, letting it be called",
+     "extra": "It does not change the constructor's modifiers. Module restrictions may still block it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is a record's canonical constructor available reflectively?",
+     "back": "It is <b>generated by the compiler</b> and found as any other constructor",
+     "extra": "You did not write it, so lookup uses the component types. An empty record can also be built via its no-arg constructor.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>getConstructor()</code> throw <code>NoSuchMethodException</code>?",
+     "back": "No matching <b>no-arg</b> or typed constructor exists",
+     "extra": "The check happens at runtime rather than compile time, so the code must handle it explicitly. This is normal for reflective lookups.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/dependency-injection/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <b>dependency injection</b> in one sentence?",
+     "back": "You <b>delegate object creation</b> to a factory that initialises collaborators",
+     "extra": "The factory checks fields and supplies their values, so the business object never builds its own dependencies. Ordering of initialisation is centralised.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is a <b>bean factory</b> implemented in Java without injection infrastructure?",
+     "back": "A class with <code>getInstanceOf(Class, args...)</code> using reflection",
+     "extra": "It derives the argument types, finds the matching constructor and invokes it. The caller passes the class to build.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "To find a constructor reflectively, why must argument types match <b>exactly</b>?",
+     "back": "<code>getConstructor</code> matches declared types, not widened ones",
+     "extra": "Passing a <code>String</code> where the constructor takes <code>CharSequence</code> throws NoSuchMethodException despite the assignability.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you extract the runtime types from the args passed to a factory call?",
+     "back": "A stream of <code>arg.getClass()</code> over the arguments",
+     "extra": "That array of Classes is then handed to the constructor lookup. Null arguments break this approach, as their type is unknown.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is the singleton pattern implemented most simply in this factory?",
+     "back": "A <b>registry</b> keyed by the bean class",
+     "extra": "On a hit it returns the existing instance. On a miss it creates one, stores it, and returns that.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which collection type provides a thread-safe instance registry?",
+     "back": "<code>ConcurrentMap</code>",
+     "extra": "Its <code>putIfAbsent</code> is atomic, which avoids external synchronisation. Null values are not permitted in most implementations.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>putIfAbsent</code> alone not guarantee a single instance?",
+     "back": "Several threads may each create an instance; only one is <b>stored</b>",
+     "extra": "The losers still hold their own newly built object. So after the put you must read the value back, as <code>get</code>, to return the winner.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the atomic sequence for a singleton registry?",
+     "back": "<code>putIfAbsent</code>, then <code>get</code> the stored instance",
+     "extra": "The get-after-put closes the race. Synchronising the entire path would also work, but causes contention.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does the factory perform field injection?",
+     "back": "Scan declared fields, select those annotated, and <b>set</b> an instance",
+     "extra": "The correct type is instantiated through the same factory, so singletons are honoured. <code>setAccessible(true)</code> is called even on public fields.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why call <code>setAccessible(true)</code> before setting an injected field?",
+     "back": "The field is typically <b>private</b>, so otherwise access is refused",
+     "extra": "It suppresses the access check. Calling it on a public field is harmless but redundant.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/enums/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Is there a <code>java.lang.reflect.Enum</code> class?",
+     "back": "<b>No</b> - and none is needed, since enums are classes",
+     "extra": "Enum constants are public static final fields, so most reflective operations work unchanged. Only a few APIs are enum-specific.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three reflection APIs are enum-specific?",
+     "back": "<code>isEnum()</code>, <code>getEnumConstants()</code>, <code>isEnumConstant()</code>",
+     "extra": "The first tests the type, the second lists the constants, the third tests a field. Everything else uses the ordinary class API.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you list an enum's constants when you have no instance?",
+     "back": "<code>Class.getEnumConstants()</code>",
+     "extra": "It returns the constants in declaration order. Without an instance it is the only route, since the enum cannot be instantiated.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the relation between <code>getEnumConstants()</code> and <code>values()</code>?",
+     "back": "They return equal arrays, in the same <b>declaration order</b>",
+     "extra": "values() is added by the compiler; getEnumConstants is the reflective equivalent. Both give the constants as declared.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What parameters does an enum's generated constructor take, beyond any you declare?",
+     "back": "The constant's <b>name</b> and its <b>ordinal</b>",
+     "extra": "These are appended to your own declared parameters. The constructor is private, which is why the constants are the only instances.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can reflection add new constants to an enum at runtime?",
+     "back": "<b>No</b>",
+     "extra": "The private constructor can be located, but invoking it to add a constant fails. This immutability is part of enums' safety.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which field does the compiler generate holding all constants?",
+     "back": "A private static array named <code>$VALUES</code>",
+     "extra": "It backs the public <code>values()</code>. It also appears in the reflective field list.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which compiler-generated methods appear on every enum?",
+     "back": "<code>values()</code>, <code>valueOf(String)</code>, and a private <code>$values()</code>",
+     "extra": "The first two are public API; the third is an internal helper. Lambda-generated methods also show up if the enum uses lambdas.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you read the value of an enum's <b>static</b> field reflectively?",
+     "back": "<code>field.get(<b>null</b>)</code>",
+     "extra": "A static field belongs to no object. Passing an instance is pointless and may mislead readers.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which field modifier marks an enum constant?",
+     "back": "<code>public static final</code>",
+     "extra": "Each constant is a public static final field whose name is the constant's identifier. That is why <code>Field.isEnumConstant()</code> can test it.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/fields/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which field-lookup method returns <b>public</b> fields including inherited ones?",
+     "back": "<code>getFields()</code> or <code>getField(String)</code>",
+     "extra": "Only public fields are returned. The declared forms stay local and reach private members.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns <b>private</b> fields, but not inherited ones?",
+     "back": "<code>getDeclaredFields()</code> or <code>getDeclaredField(String)</code>",
+     "extra": "They return everything declared in this class whatever the modifier. Superclass fields are absent.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method gives a field's type as a <code>Class</code>?",
+     "back": "<code>Field.getType()</code>",
+     "extra": "It works when the type is not generic. For a generic field, the result is the erased type, usually Object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For a generic field of type <code>T</code>, what does <code>getType()</code> return?",
+     "back": "<code>Object</code> - the <b>erased</b> type",
+     "extra": "Type variables disappear at compile time. You need the generic query to recover the declared type.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns a field's <b>generic</b> type?",
+     "back": "<code>Field.getGenericType()</code> (Java SE 5+)",
+     "extra": "It returns a <code>Type</code>, whose <code>getTypeName()</code> gives the readable name. It reflects only the declared signature, not runtime type arguments.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can <code>getGenericType()</code> tell you the real runtime type argument?",
+     "back": "<b>No</b> - only what was written in the source",
+     "extra": "A <code>Box&lt;String&gt;</code> field still reports <code>Box&lt;T&gt;</code> from the declaration. Java's erasure leaves no runtime record of the argument.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Field.getModifiers()</code> return, and how do you decode it?",
+     "back": "An <b>int bitmask</b>, decoded with static <code>Modifier</code> methods",
+     "extra": "Bit 0 set means public, bit 3 means static, and so on. Each Modifier method tests one flag.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method, added in Java SE 20, reads modifiers as a <b>set</b>?",
+     "back": "<code>Field.accessFlags()</code>, returning <code>Set&lt;AccessFlag&gt;</code>",
+     "extra": "It is far more readable than bit tests. Note that modifiers and access flags are not one-to-one.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do field accessors require the target object as an argument?",
+     "back": "The <code>Field</code> object is <b>shared</b> by all instances",
+     "extra": "One Field represents the field declaration, not a value. Which instance you mean must be supplied at each call.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do all instances of a class share one <code>Field</code> object per field?",
+     "back": "There is exactly one <code>Class</code> object per class",
+     "extra": "The <code>Class</code> object and its members model the declaration, not the values. That is why both Field.get and Field.set demand the target instance.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>setAccessible(true)</code> change a field's access modifier?",
+     "back": "<b>No</b> - it only suppresses the access check",
+     "extra": "The field is still declared private and remains so for normal code. This common misconception surprises many developers.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which superclass holds the <code>setAccessible</code> method for fields, methods and constructors?",
+     "back": "<code><b>AccessibleObject</b></code>",
+     "extra": "All three extend it, so the whole family shares the flag. The class also holds related accessibility queries.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What may still block <code>setAccessible(true)</code>?",
+     "back": "A named module that has <b>not opened</b> the package",
+     "extra": "By default a module is closed to reflection, including from the unnamed module. Opening requires a declaration or an explicit flag.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens to <code>final</code> fields after <code>setAccessible(true)</code>?",
+     "back": "They can be <b>written</b>, despite the final modifier",
+     "extra": "Reading works regardless. Since JDK 26 a warning is issued when a final field is mutated reflectively.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which fields remain un-writable even after <code>setAccessible(true)</code>?",
+     "back": "<b>Static</b> fields, and record instance fields",
+     "extra": "These are explicit exceptions. Records make their instance fields unmodifiable to preserve their immutability guarantee.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which methods avoid boxing when reading or writing primitive fields?",
+     "back": "<code>Field.getInt</code>, <code>Field.setInt</code> and their per-primitive siblings",
+     "extra": "They exist for every primitive type. Use them in hot loops where boxing would allocate.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you call <code>Field.setInt</code> on a field of type <code>Integer</code>?",
+     "back": "An <b><code>IllegalArgumentException</code></b> - the types do not match",
+     "extra": "The typed accessors require the exact primitive. A wrapper field needs the general Object forms.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  }
+ ]
+}

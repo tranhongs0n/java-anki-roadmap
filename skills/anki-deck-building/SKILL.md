@@ -1,6 +1,6 @@
 ---
 name: anki-deck-building
-description: Use when turning a course or roadmap into Anki decks.
+description: Use when turning a roadmap or course into an Anki deck.
 version: 1.0.0
 author: Hermes Agent
 license: MIT
@@ -140,7 +140,7 @@ names must show the full `::` path.
 browser and read `getComputedStyle(el).color` per token class. A screenshot description
 will confidently call green text "orange".
 
-## 5. Ingestion is where it breaks
+## 6. Ingestion is where it breaks
 
 Fetching the source is the failure-prone step, not card writing. Measured on
 roadmap.sh/java (160 article links): 81 % extract cleanly with one generic fetch,
@@ -162,7 +162,18 @@ frames is mostly junk — draw the diagram instead.
 Cache raw HTML + extracted text + fetch metadata per topic; that is the evidence you
 re-check when a card looks wrong later.
 
-## 6. Pitfalls that cost time
+## 7. Reference implementation
+
+The whole pipeline (outline generator, card JSON, lint, Java highlighter, push) lives at
+`github.com/tranhongs0n/java-anki-roadmap`, with `BLUEPRINT.md` and this skill. Clone it
+when starting from nothing; read `BLUEPRINT.md` before re-deciding the deck scheme, and
+treat `cards/*.json` as the source of truth, never the live collection.
+
+Rollout order, measured on that project: level 0 (20 cards) -> one `00 Overview` per
+section as that section opens -> leaf decks. 31 notes shipped from 2 leaves before the
+ingester existed; the ingester is not a prerequisite for the first decks.
+
+## 8. Pitfalls that cost time
 
 - `genanki.Deck(id, name)` needs an **int** id; `genanki.guid_for()` returns a base91
   string and raises `TypeError: Deck .deck_id must be an integer`. Use
@@ -190,3 +201,7 @@ re-check when a card looks wrong later.
     references/pushing-to-anki.md          AnkiConnect + genanki, identity, failure modes
     templates/card-batch.json              deck payload schema (basic / cloze / visual)
     scripts/java_highlight.py              Java tokeniser -> span classes for Anki fields
+
+Sibling skills: a leaf deck that outgrows a review sitting goes through `anki-card-dedupe`;
+CSS/template/add-on work goes through `anki-card-styling`; images through
+`anki-image-backfill`. Do not re-solve those here.

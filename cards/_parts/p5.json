@@ -1,0 +1,1336 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which two interfaces are the roots of the Collections Framework's two main categories?",
+     "back": "<code>Collection</code> (collections) and <code>Map</code> (maps)",
+     "extra": "Collections store objects for iteration. Maps bind each value to a key that represents it, like a primary key in a table. There is no inheritance relation between the two hierarchies.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface is the root of the iterator hierarchy in the Collections Framework?",
+     "back": "<code>java.util.Iterator</code>",
+     "extra": "An iterator walks over a collection. It is the fourth hierarchy, alongside Collection, Map and the Queue subcategory; <code>Iterable</code> sits above Collection but is not itself part of the framework.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>Queue</code> an odd member of the <code>Collection</code> hierarchy?",
+     "back": "Queues and stacks are <b>not really about iteration</b>",
+     "extra": "They exist for pushing and popping, not for walking the contents. They were nonetheless placed under Collection, so iteration happens to work on them as well.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What should replace the legacy <code>Vector</code> class in non-concurrent code?",
+     "back": "<code>ArrayList</code>",
+     "extra": "<code>Vector</code> was retrofitted to implement <code>List</code>. In a concurrent environment you would use a concurrent list instead, but for ordinary single-threaded code ArrayList is the substitute.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What should replace the legacy <code>Stack</code> class in non-concurrent code?",
+     "back": "<code>ArrayDeque</code>",
+     "extra": "<code>Stack</code> extends <code>Vector</code> and remains in the JDK only for backward compatibility. <code>ArrayDeque</code> provides the push/pop operations without Vector's synchronisation.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which legacy interface should no longer be used in place of <code>Iterator</code>?",
+     "back": "<code>Enumeration</code>",
+     "extra": "<code>Vector</code> uses it to model its iterator. It predates the collections redesign and lacks remove() and the for-each protocol, so <code>Iterator</code> replaced it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What should replace <code>Hashtable</code> in non-concurrent code?",
+     "back": "<code>HashMap</code>",
+     "extra": "<code>Hashtable</code> was retrofitted to implement <code>Map</code>. In a concurrent setting <code>ConcurrentHashMap</code> is the replacement instead.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Name two capabilities a collection has that a plain array does not.",
+     "back": "<b>Tracks its size</b> and can <b>grow</b> beyond a fixed capacity",
+     "extra": "An array's length is fixed once created; a collection tracks how many elements it holds and lets you keep adding. Collections can also reject nulls, test for presence, and intersect or merge with another collection.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single fact most clearly separates a <code>Collection</code> from a <code>Map</code>?",
+     "back": "A <b>map stores each value with a key</b>; a collection stores bare elements",
+     "extra": "In a collection elements are the values themselves. In a map every value is bound to a key, so lookup happens by key rather than by position or presence.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In which two releases was the Collections Framework substantially rewritten after Java SE 2?",
+     "back": "Java SE <b>5</b> (generics) and Java <b>8</b> (lambdas and default methods)",
+     "extra": "Generics made the containers type-safe; lambdas plus default methods made them functional, adding methods like <code>forEach</code>, <code>removeIf</code> and <code>computeIfAbsent</code> without breaking implementors.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/collection-interface/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "What must <code>add(element)</code> guarantee when it returns, even if it returns false?",
+     "back": "The element <b>is in the collection</b>; <code>contains</code> returns true",
+     "extra": "Returning false only signals a set-like collection already holding it. If the element would not be added at all, throw: UnsupportedOperationException, NullPointerException, ClassCastException or IllegalArgumentException.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which exception must a <b>non-modifiable</b> implementation throw from <code>add</code>?",
+     "back": "<code>UnsupportedOperationException</code>",
+     "extra": "The other cases: <code>NullPointerException</code> for an implementation rejecting nulls, <code>ClassCastException</code> for a wrong type, <code>IllegalArgumentException</code> for an element refused on its properties.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Collection method models set <b>union</b>?",
+     "back": "<code>addAll(other)</code>",
+     "extra": "The four bulk operations map onto set algebra: <code>containsAll</code> inclusion, <code>addAll</code> union, <code>removeAll</code> complement, <code>retainAll</code> intersection.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Collection method models set <b>intersection</b>?",
+     "back": "<code>retainAll(other)</code>",
+     "extra": "It keeps only the elements also present in the argument and removes the rest. The argument need not be the same element type as this collection.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Collection method models set <b>complement</b>?",
+     "back": "<code>removeAll(other)</code>",
+     "extra": "It removes every element of this collection that is present in the argument. Note this is directional: it does not compute a symmetric difference.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>true</code> return from <code>addAll(other)</code> actually tell you?",
+     "back": "That <b>at least one</b> element was added, not all of them",
+     "extra": "The call reports whether this collection changed at all. Individual elements may still have been rejected, for instance duplicates in a Set, so success does not mean the other collection was fully absorbed.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you call <code>contains(new User())</code> on a <code>Collection&lt;String&gt;</code>?",
+     "back": "Yes - it <b>compiles</b>, and an IDE may warn",
+     "extra": "The check is legal even though it can never be true; the implementation may also throw <code>ClassCastException</code>. This looseness is deliberate, so algorithms can probe heterogeneous content.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does the no-arg <code>toArray()</code> return?",
+     "back": "An <b><code>Object[]</code></b>",
+     "extra": "Casting it to <code>String[]</code> would compile but can fail at runtime. For a typed array use <code>toArray(T[] a)</code> or <code>toArray(IntFunction&lt;T[]&gt;)</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>toArray(T[] a)</code>, what happens if the array is <b>too small</b>?",
+     "back": "A <b>new array of the correct size</b> is allocated and returned",
+     "extra": "If it is big enough, the elements are copied in and the same array is returned, with the first spare cell set to null. So <code>new String[0]</code> is safe and allocation-free when the collection is empty.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where is the <b>unused tail</b> of a large array passed to <code>toArray(T[])</code> handled?",
+     "back": "The first unused cell is set to <b><code>null</code></b>",
+     "extra": "Cells after that are left untouched. The returned reference is the very array you supplied, so its tail may still hold your previous contents beyond the terminator.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Collection method filters elements out in place using a predicate?",
+     "back": "<code>removeIf(Predicate)</code>",
+     "extra": "Added in Java SE 8. It replaces the older pattern of an explicit <code>Iterator</code> plus <code>iterator.remove()</code> inside an if statement, and is far easier to read.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which implementation should you pick by default when coding to the <code>Collection</code> interface?",
+     "back": "<code>ArrayList</code>",
+     "extra": "The framework ships no direct implementation of <code>Collection</code>. ArrayList implements <code>List</code>, and since List extends Collection it is a usable Collection, and the sane default most of the time.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/organization/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which interface sits above <code>Collection</code> and enables the for-each loop?",
+     "back": "<code>java.lang.Iterable</code>",
+     "extra": "Added in Java SE 5 together with the for-each pattern. Any instance of <code>Iterable</code> can be used in a for-each, arrays included. It is not itself part of the Collections Framework.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does implementing <code>Iterable</code> require you to provide?",
+     "back": "An <b><code>Iterator</code></b> instance",
+     "extra": "A single <code>iterator()</code> method returning one. That is why Iterable is described as a bridge to Iterator rather than a container in its own right.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What does a <code>List</code> add over a plain <code>Collection</code>?",
+     "back": "<b>Remembered insertion order</b>, which also gives elements an <b>index</b>",
+     "extra": "Iteration always yields the first-added element first, and you can ask for element 3 directly. A plain Collection or a Set offers neither guarantee.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should you not rely on the iteration order of an arbitrary <code>Set</code>?",
+     "back": "A stable order there is <b>accidental</b>, not guaranteed",
+     "extra": "Some implementations happen to iterate in a repeatable order, but the interface does not promise it. Only implementations that document a stable encounter order may be relied upon.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "Is a container with no duplicates <b>and</b> indexes available in the framework?",
+     "back": "<b>No</b> - SortedSet orders elements but gives them no index",
+     "extra": "The closest is a set with a guaranteed iteration order. Because it has no index, it does not implement <code>List</code>, so index access is unavailable.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which comparison mechanisms can a <code>SortedSet</code> use?",
+     "back": "<code>Comparable.compareTo</code> on the elements, or a supplied <code>Comparator</code>",
+     "extra": "If you supply a Comparator it wins even when the elements are Comparable, letting you sort differently from their natural order. Without one, elements must be Comparable or a ClassCastException arises.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What is the difference between <b>ordering</b> and <b>sorting</b>?",
+     "back": "Ordering keeps <b>insertion order</b>; sorting orders by a <b>comparison</b>",
+     "extra": "A List is ordered: first element is the first added. A SortedSet is sorted: first element is the smallest under the comparison logic, and iteration runs lowest to greatest.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>SortedSet</code> methods return the lowest and the greatest element?",
+     "back": "<code>first()</code> / <code>getFirst()</code> and <code>last()</code> / <code>getLast()</code>",
+     "extra": "SortedSet also adds <code>headSet</code> and <code>tailSet</code> for everything below or at-or-above a given element.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>NavigableSet</code> add on top of <code>SortedSet</code>?",
+     "back": "Descending iteration, plus nearest-match lookups",
+     "extra": "It changes no existing SortedSet behaviour. The additions include <code>descendingSet()</code>, <code>descendingIterator()</code>, and the ceiling/floor/higher/lower family of methods.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/factory-methods/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Since which release do <code>List.of()</code> and <code>Set.of()</code> exist?",
+     "back": "Java SE <b>9</b>",
+     "extra": "They are the convenience factory methods for collections. In Java SE 10 the family was joined by <code>List.copyOf()</code> and <code>Set.copyOf()</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can you add to or modify a list returned by <code>List.of()</code>?",
+     "back": "<b>No</b> - the structure is unmodifiable",
+     "extra": "Calling <code>add</code>, <code>remove</code> or <code>set</code> throws. If the contained objects themselves are mutable, however, you can still mutate them: only the structure is frozen.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you pass a <code>null</code> to <code>List.of()</code> or <code>Set.of()</code>?",
+     "back": "An <b>exception</b> - nulls are rejected",
+     "extra": "These implementations do not accept null elements, unlike some mutable collections such as ArrayList. Adding or copying a null is treated as a bug.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you pass duplicate elements to <code>Set.of()</code>?",
+     "back": "An <b>exception</b> - duplicates are treated as a bug",
+     "extra": "A set cannot hold duplicates, so asking for one is a programming error rather than a silently ignored argument. The call fails at creation.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is the implementation returned by <code>List.of()</code> or <code>Set.of()</code> an <code>ArrayList</code>?",
+     "back": "<b>No</b> - an unspecified, size-dependent implementation",
+     "extra": "It may even differ with element count, and none is ArrayList or HashSet. Code must rely only on the <code>List</code> or <code>Set</code> contract, never on the concrete class.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <code>List.copyOf()</code> and <code>Set.copyOf()</code> for?",
+     "back": "An <b>unmodifiable copy</b> of an existing collection",
+     "extra": "Added in Java SE 10. Later changes to the source collection do not show up in the copy, unlike a wrapper, which stays backed by the original.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What does <code>Set.copyOf()</code> do with a source collection that holds duplicates?",
+     "back": "Keeps <b>one</b> of each - the result is a set",
+     "extra": "The other elements are dropped. A null source or a source containing null does not get this leniency: it throws <code>NullPointerException</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>Arrays.asList()</code> support <code>add</code> and <code>remove</code>?",
+     "back": "<b>No</b> - <code>UnsupportedOperationException</code>",
+     "extra": "The returned List wraps a fixed-size array, so its size cannot change, directly or through its iterator. It is therefore not unmodifiable: <code>set</code> and replacement still work.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>Collections</code> methods find the minimum or maximum of a collection?",
+     "back": "<code>Collections.min()</code> and <code>Collections.max()</code>",
+     "extra": "Both take the collection and an optional comparator. Without one the elements must be Comparable or a ClassCastException is thrown. An empty collection raises <code>NoSuchElementException</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which two <code>Collections</code> methods locate a sublist inside a larger list?",
+     "back": "<code>indexOfSublist</code> and <code>lastIndexOfSublist</code>",
+     "extra": "Each returns the first or last index where the target list starts in the source, or -1 when the target does not occur.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Collections</code> method rotates a list's elements, and where does index 0 move?",
+     "back": "<code>rotate(list, d)</code> - element 0 moves to index <b>d</b>",
+     "extra": "Elements wrap around the end back to the front. Combining <code>subList</code> and <code>rotate</code> lets you move an element from one index to another position.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A wrapper from <code>Collections.unmodifiableList</code> - can the underlying list still change?",
+     "back": "Yes, and the change <b>shows through</b> the wrapper",
+     "extra": "The wrapper does not copy: it delegates reads to the original and blocks writes at its own surface. To be safe, defensively copy the collection before wrapping.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which prefix names the <code>Collections</code> methods that wrap a collection in a synchronized view?",
+     "back": "<code>synchronized</code> + the type, e.g. <code>synchronizedList</code>",
+     "extra": "The <code>unmodifiable</code> family follows the same naming pattern. Two cautions apply: route every access through the wrapper, and synchronize manually on the list while iterating it.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Are <code>Collections.synchronizedXxx</code> wrappers the recommended way to get concurrency?",
+     "back": "<b>No</b> - prefer <code>java.util.concurrent</code>",
+     "extra": "The wrapper locks the whole structure and still leaves iteration unsafe. The concurrent collections give better throughput and give you consistent iteration semantics.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/lists/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which two implementations of <code>List</code> does the framework provide?",
+     "back": "<code>ArrayList</code> (array) and <code>LinkedList</code> (doubly linked)",
+     "extra": "If you are unsure which to pick, the advice is ArrayList. LinkedList's theoretical edge on insert and delete is largely erased by cache misses and pointer chasing on modern hardware.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For which kind of use is <code>LinkedList</code> genuinely a good fit?",
+     "back": "A <b>stack or queue</b> - LIFO or FIFO access at the ends",
+     "extra": "A doubly linked list reaches its first and last node directly, faster than an ArrayList. If you use only those operations, LinkedList wins; <code>ArrayDeque</code> is another option, though it rejects nulls.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which List methods insert, read, replace and delete <b>by index</b>?",
+     "back": "<code>add(i,e)</code>, <code>get(i)</code>, <code>set(i,e)</code>, <code>remove(i)</code>",
+     "extra": "Each shifts the following elements as needed, except get and set. An invalid index throws <code>IndexOutOfBoundsException</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>indexOf(e)</code> return when the element is absent?",
+     "back": "<b><code>-1</code></b>",
+     "extra": "<code>lastIndexOf(e)</code> uses the same convention and returns the highest matching index. Neither throws.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which indexes does <code>subList(start, end)</code> actually cover?",
+     "back": "<code>start</code> inclusive to <code>end - 1</code> inclusive",
+     "extra": "So <code>subList(1, 3)</code> returns two elements. The result is a <b>view</b>: changes either way are reflected, which makes <code>list.subList(a, b).clear()</code> an idiom for removing a range.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>subList()</code> return a copy of the elements?",
+     "back": "<b>No</b> - a view backed by the original list",
+     "extra": "Modifying the sublist modifies the main list and vice versa. That aliasing is what makes in-place range operations possible, and also what makes holding onto a sublist risky.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method sorts a list in place, and since which release?",
+     "back": "<code>List.sort(Comparator)</code> - Java SE <b>8</b>",
+     "extra": "Before that you called <code>Collections.sort(list, cmp)</code>. There is no no-arg overload: pass <code>null</code> or, preferably, <code>Comparator.naturalOrder()</code> to mean natural ordering.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>list.sort(null)</code> assume about the elements?",
+     "back": "That they implement <b><code>Comparable</code></b>",
+     "extra": "If they do not, a <code>ClassCastException</code> is thrown. Writing <code>Comparator.naturalOrder()</code> expresses the same intent without a null argument.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which iterator type lets you walk a list backwards and insert elements?",
+     "back": "<code>ListIterator</code>",
+     "extra": "Obtained via <code>listIterator()</code> or <code>listIterator(index)</code>. It extends <code>Iterator</code> with <code>hasPrevious</code>, <code>previous</code>, <code>nextIndex</code>, <code>previousIndex</code>, <code>add</code> and <code>set</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>ListIterator.set(e)</code> throw if neither <code>next</code> nor <code>previous</code> was called?",
+     "back": "<code>IllegalStateException</code>",
+     "extra": "<code>set</code> replaces the element most recently returned by a traversal step. With no such element there is nothing to replace, so it is a state error rather than an index error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>LinkedList</code> reach its first and last element so quickly?",
+     "back": "It holds <b>direct references to both end nodes</b>",
+     "extra": "Each node holds next, prev and item references, and the list holds first and last. Reaching the middle must follow next or prev links, which is where the cost appears.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>List.reversed()</code> return?",
+     "back": "A <b>view</b> on the original list, in reverse order",
+     "extra": "Not a new list with copied elements, so changes are visible in both directions. The same view-versus-copy distinction applies to <code>subList</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::01 Array vs ArrayList",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/arraylist-vs-linkedlist/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::01-array-vs-arraylist"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Complexity of <b>reading a middle element</b>: ArrayList vs LinkedList?",
+     "back": "ArrayList <b>O(1)</b>; LinkedList <b>O(n)</b>",
+     "extra": "ArrayList computes an offset; LinkedList must walk nodes. Reading first and last is O(1) for both, because LinkedList keeps references to both ends.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Complexity of <b>inserting at the first position</b>: ArrayList vs LinkedList?",
+     "back": "ArrayList <b>O(n)</b>; LinkedList <b>O(1)</b>",
+     "extra": "ArrayList shifts every element right; LinkedList relinks two references. In practice the linked-list advantage is diminished by cache misses on the way to the node.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Complexity of <b>inserting in the middle</b>: ArrayList vs LinkedList?",
+     "back": "<b>Both O(n)</b>",
+     "extra": "ArrayList copies part of the array. LinkedList looks simple but must first find the node of the middle element, which is the O(n) part and usually dominates.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the actual cost that spoils <code>LinkedList</code> on modern hardware?",
+     "back": "<b>Pointer chasing and cache misses</b>",
+     "extra": "Following a next/prev reference loads unrelated memory, often not in cache. ArrayList merely adds an offset to one base address, so locality makes it far faster in practice.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By how much does a sparse (non-contiguous) linked list slow random reads?",
+     "back": "About <b>3x</b> slower than a contiguous one",
+     "extra": "When nodes are scattered in the heap every step is a fresh cache miss. Real applications that keep adding and removing nodes are close to the scattered case.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Iterating a <code>LinkedList</code> by index - what is the complexity?",
+     "back": "<b>O(n&sup2;)</b>",
+     "extra": "Each <code>get(i)</code> restarts from an end and walks i nodes. On a 1,000-element list that is about half a millisecond versus roughly 4 microseconds with an iterator, so never use this pattern.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>LinkedList</code> still beat <code>ArrayList</code> when adding at the front?",
+     "back": "Insertion cost <b>doesn't depend on size</b>, at most one pointer hop",
+     "extra": "A direct reference to the first node means inserting at index 0 touches one node. ArrayList must copy the whole array one slot right, whose cost grows with n.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By what factor does <code>ArrayList</code> grow its internal array when full?",
+     "back": "<b>1.5x</b>",
+     "extra": "Growth is geometric, so reallocations become rarer as the list grows. Each one allocates a new array and copies the old, which is why pre-sizing with <code>new ArrayList&lt;&gt;(n)</code> pays off.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Does <code>ArrayList</code> shrink its internal array when you remove elements?",
+     "back": "<b>No</b> - it never shrinks automatically",
+     "extra": "Removing can leave a large, mostly empty array. Call <code>trimToSize()</code> to copy it down, remembering that the next add may then have to grow again.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How much memory does one <code>LinkedList</code> element cost?",
+     "back": "About <b>24 bytes</b> per element (one Node object)",
+     "extra": "Each node holds next, prev and item plus a header. For 1,000 elements a LinkedList needs roughly 24 kB against roughly 5 kB for an ArrayList.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can a one-element <code>ArrayList</code> cost <b>more</b> memory than a one-element <code>LinkedList</code>?",
+     "back": "When it wraps a stale array of capacity <b>10</b>",
+     "extra": "A default-constructed ArrayList with one element can take about 80 bytes against 56 for the LinkedList node. Fix it with <code>trimToSize()</code>, <code>new ArrayList&lt;&gt;(2)</code>, or <code>List.of()</code> (26 bytes).",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which list representation uses the least memory for a single element?",
+     "back": "<code>List.of()</code> - about <b>26 bytes</b>",
+     "extra": "Cheaper than LinkedList (56) and a trimmed ArrayList (44). The trade-off is that it is unmodifiable, so it suits small fixed collections rather than growing ones.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which implementation should be your default for a regular list?",
+     "back": "<b><code>ArrayList</code></b>",
+     "extra": "It wins almost every ordinary list operation including insert and delete, because the winning algorithm still has to reach the right element first. LinkedList only wins on stack/queue use at the ends.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which interfaces does <code>LinkedList</code> implement that justify it as a queue?",
+     "back": "<code>Queue</code> and <code>Deque</code>",
+     "extra": "For a double-ended queue, prefer <code>ArrayDeque</code> over LinkedList. LinkedList remains reasonable when you also need List behaviour.",
+     "tags": [
+      "type::table"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::02 Set",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/sets/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::02-set"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class is the main <code>Set</code> implementation, and what does it wrap internally?",
+     "back": "<code>HashSet</code>, wrapping a <b><code>HashMap</code></b>",
+     "extra": "The elements are the map's keys and a shared placeholder object is the value. That is why HashSet behaves like HashMap with respect to hashing and equals.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Set</code> forbid that <code>List</code> allows?",
+     "back": "<b>Duplicate elements</b>",
+     "extra": "Only one element equal to another may exist. As a consequence, <code>add</code> can fail and return false for an equal element already present.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Set</code> implementation guarantees a reproducible iteration order?",
+     "back": "<code>LinkedHashSet</code>",
+     "extra": "It combines a set with an internal linked list that records insertion order. Plain HashSet stores elements in no particular order you may rely on.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which class implements <code>SortedSet</code> in the framework?",
+     "back": "<code>TreeSet</code>",
+     "extra": "It keeps elements sorted by natural ordering or a Comparator, and requires a way to compare elements at insertion time.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A <code>TreeSet</code> has both a <code>Comparable</code> element type and a supplied <code>Comparator</code>. Which wins?",
+     "back": "The <b><code>Comparator</code></b>",
+     "extra": "The comparator defines equality for the sorted structure too, so two elements it calls equal collide even if <code>equals</code> disagrees. This is a classic source of surprising duplicates.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>SortedSet</code> method returns the elements strictly below a boundary?",
+     "back": "<code>headSet(toElement)</code>",
+     "extra": "<code>tailSet(fromElement)</code> is from-inclusive. When the boundary element exists, toElement is excluded and fromElement included, matching the usual half-open convention.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are the subsets returned by <code>headSet</code>, <code>tailSet</code> and <code>subSet</code> views or copies?",
+     "back": "<b>Views</b> backed by the main set",
+     "extra": "Changes flow in both directions. They remember their limits and reject additions outside them with <code>IllegalArgumentException</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Adding past a <code>headSet</code>'s bound - which exception?",
+     "back": "<code>IllegalArgumentException</code>",
+     "extra": "The subset refuses any element at or above <code>toElement</code>. The bound protects the view's own definition, so it cannot become inconsistent with the main set.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableSet</code> methods return the nearest element <b>including</b> the argument?",
+     "back": "<code>ceiling(e)</code> and <code>floor(e)</code>",
+     "extra": "Ceiling is the least element &gt;= e, floor the greatest &lt;= e. <code>higher</code> and <code>lower</code> are the strict variants. They return null when no such element exists.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableSet</code> methods return and remove the extremes?",
+     "back": "<code>pollFirst()</code> and <code>pollLast()</code>",
+     "extra": "They combine a read with a removal, returning null on an empty set. They are the queue-like operations of the interface.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What can the boolean argument of the <code>NavigableSet</code> <code>subSet</code> overload control?",
+     "back": "Whether each <b>boundary is included</b>",
+     "extra": "So <code>subSet(a, true, b, false)</code> includes a and excludes b. <code>headSet</code> and <code>tailSet</code> gained the same inclusiveness flag.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>descendingSet()</code> return?",
+     "back": "A <b>view</b> of the same set in reversed order",
+     "extra": "Not a copy: it is another NavigableSet sharing content, so removals propagate. <code>descendingIterator()</code> gives the same traversal without a new set object.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/choosing-keys/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Why is a mutable key an anti-pattern in a hash-based map?",
+     "back": "Mutating changes <b>hashCode</b>, so the entry becomes unreachable",
+     "extra": "The bucket chosen at insertion no longer matches the bucket computed at lookup, so even <code>get(sameObject)</code> misses. The key-value pair is effectively lost.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A key is mutated to equal <b>another existing key</b>. What does <code>get</code> return?",
+     "back": "The <b>other key's value</b>",
+     "extra": "Both keys now hash and compare equally, so the lookup lands on the other entry. Values are effectively overwritten or shadowed, and the unrelated key can no longer find its own value.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which type should you choose for map keys?",
+     "back": "<b>Immutable</b> types, such as String or Integer",
+     "extra": "If immutability is impossible, at minimum never mutate a key after insertion. Immutable keys keep hashCode and equality stable for the entry's whole life.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>HashSet.add</code> actually delegate to?",
+     "back": "<b><code>HashMap.put</code></b>",
+     "extra": "The element becomes a key and a shared placeholder object is stored as the value. That is why mutating an element already in a HashSet breaks it exactly as mutating a map key would.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You mutate an object <b>after</b> adding it to a <code>HashSet</code>. What can the set now contain?",
+     "back": "The <b>same object twice</b>",
+     "extra": "Its hash no longer matches the stored bucket, so a re-add sees no duplicate and inserts again. Iteration then reveals the object at two positions.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/maps/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "What is the most widely used <code>Map</code> implementation in the JDK?",
+     "back": "<code>HashMap</code>",
+     "extra": "It stores key-value pairs using hashing, detecting duplicates via a key's equals and hashCode. Both must be consistent for correctness.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which map implementation preserves <b>insertion order</b>?",
+     "back": "<code>LinkedHashMap</code>",
+     "extra": "It is a HashMap with an extra internal structure so iteration over keys or entries follows the order of insertion.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>IdentityHashMap</code> compare its keys?",
+     "back": "By <b>reference</b> with <code>==</code>, not equals/hashCode",
+     "extra": "It is a specialised implementation for very precise cases, not general use. Two equal-but-distinct objects are different keys there.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What is the practical limit on the number of key-value pairs for <code>Map.of()</code>?",
+     "back": "<b>10</b> - use <code>ofEntries</code> beyond that",
+     "extra": "The varargs form returns an <code>Map.Entry</code>-based map for more pairs: <code>Map.ofEntries(entry(k, v), ...)</code>. Both are immutable and reject null keys or values.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>Map</code> factory produces an immutable single entry?",
+     "back": "<code>Map.entry(k, v)</code>",
+     "extra": "Together with <code>Map.of</code> and <code>Map.ofEntries</code> it belongs to the Java SE 9 factory methods. Duplicate keys raise IllegalArgumentException at creation.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a <code>Map.of()</code> map hold null keys or null values?",
+     "back": "<b>No</b> - nulls are rejected",
+     "extra": "The factory maps and their entries are immutable and null-hostile. A duplicate key is treated as a bug and fails at creation with IllegalArgumentException.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which collection shape does the set of map keys have?",
+     "back": "A <b><code>Set</code></b> - no duplicates",
+     "extra": "Every key binds exactly one value, so keys are a set. Key-value entries are also a set, while values may repeat and so form a plain <code>Collection</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can two keys in one map bind the same value?",
+     "back": "<b>Yes</b> - a value may be bound to several keys",
+     "extra": "The rules are asymmetric: each key has at most one value, but many keys can point at one object. That is why <code>values()</code> is not a Set.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can you call <code>setKey()</code> on a <code>Map.Entry</code>?",
+     "back": "<b>No</b> - only the value is writable",
+     "extra": "Entries offer <code>getKey</code>, <code>getValue</code> and <code>setValue</code>. Changing a key in place would move the entry to another bucket and corrupt the map.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are <code>Map.Entry</code> objects from a map copies or views?",
+     "back": "<b>Views</b> backed by the map",
+     "extra": "Calling <code>setValue</code> on an entry updates the map, and updating the map shows in the entry. That is why removing a key breaks the entry you hold.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a multimap, and does the framework provide one?",
+     "back": "One key mapped to <b>several values</b>; <b>not directly</b>",
+     "extra": "The framework offers no Multimap type. The idiom is a map whose values are collections, e.g. <code>Map&lt;K, List&lt;V&gt;&gt;</code>, usually populated with <code>computeIfAbsent</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/maps-and-lambdas/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which functional interface does <code>Map.forEach</code> take?",
+     "back": "<code>BiConsumer&lt;K,V&gt;</code>",
+     "extra": "Each entry is delivered as two arguments rather than as a <code>Map.Entry</code>. That is the one difference from <code>Iterable.forEach</code>, which takes a plain <code>Consumer</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>replace(key, value)</code> do, and what does it return?",
+     "back": "Replaces <b>unconditionally</b>; returns the <b>old value</b>",
+     "extra": "Semantically it is put-if-present: with no existing mapping nothing happens and null comes back. It never creates an entry.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>replace(key, oldValue, newValue)</code> return?",
+     "back": "<b><code>true</code></b> if the replacement happened",
+     "extra": "It replaces only when the current value equals the given old value, a compare-and-set for maps. Otherwise nothing changes and false is returned.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Map method transforms <b>every</b> value in one call?",
+     "back": "<code>replaceAll(BiFunction)</code>",
+     "extra": "The function receives key and old value and returns the new one. It iterates all entries internally; an exception aborts the traversal partway.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if a <code>compute</code>-family remapping function returns <code>null</code>?",
+     "back": "The <b>key is removed</b> from the map",
+     "extra": "No entry with a null value is created. This gives the compute methods a natural delete semantics: return null to drop the mapping.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What do the <code>compute</code> methods return?",
+     "back": "The <b>new</b> value - unlike <code>put</code>, which returns the old one",
+     "extra": "If the function returned null there is no new value and null is returned instead. Mixing up the two return conventions is a common source of bugs.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "<code>computeIfPresent</code> vs <code>compute</code>: which one may call the function with a null value?",
+     "back": "<code>compute</code> may; <code>computeIfPresent</code> <b>never</b> does",
+     "extra": "<code>computeIfPresent</code> runs only when a non-null value is already bound, so the function is skipped for an absent key. <code>compute</code> runs unconditionally, so it sees null there.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When exactly does <code>computeIfAbsent</code> call its function?",
+     "back": "When the key is <b>absent or maps to null</b>",
+     "extra": "The function is a plain <code>Function</code> taking only the key, since there is no current value. That is why it is the idiom for building map-of-collections structures.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why prefer <code>computeIfAbsent(k, k -> new ArrayList&lt;&gt;())</code> over <code>putIfAbsent</code>?",
+     "back": "The list is <b>created only when needed</b>",
+     "extra": "With putIfAbsent you must build the empty list up front, even if the key exists, wasting an allocation every call. The compute form allocates only for new keys.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Map method merges a value into an <b>immutable</b> aggregate such as a String?",
+     "back": "<code>merge(key, value, BiFunction)</code>",
+     "extra": "<code>computeIfAbsent</code> cannot help here because a String cannot be appended to in place. merge supplies the new value and the function combines it with the existing one.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>merge</code>, when is the remapping function <b>not</b> called?",
+     "back": "When the key is <b>absent</b> or maps to null",
+     "extra": "The new value is simply bound and stored. Only when a non-null value already exists does the function receive old and new values.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should the lambdas passed to <code>computeIfAbsent</code> and <code>merge</code> be <b>non-capturing</b>?",
+     "back": "For <b>performance</b> - a capturing lambda allocates per call",
+     "extra": "A lambda that captures a local must create a new object each time it is evaluated, while a non-capturing one is a cached singleton. Taking the key as a parameter avoids the capture entirely.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/sorted-maps/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which data structure backs <code>TreeMap</code>?",
+     "back": "A <b>red-black tree</b>",
+     "extra": "It implements both SortedMap and NavigableMap and offers O(log n) lookups. <code>ConcurrentSkipListMap</code> is the thread-safe counterpart, built on a skip list.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must you provide to a <code>TreeMap</code> so it can sort keys?",
+     "back": "A <b>Comparator</b>, or <code>Comparable</code> keys",
+     "extra": "A supplied comparator takes precedence even over comparable keys. Without either, insertion fails with <code>ClassCastException</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>SortedMap</code> methods return the lowest and greatest key?",
+     "back": "<code>firstKey()</code> and <code>lastKey()</code>",
+     "extra": "Their entry-level siblings on NavigableMap are <code>firstEntry()</code> and <code>lastEntry()</code>, which return the whole key-value pair.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>headMap(toKey)</code> contain?",
+     "back": "Keys <b>strictly less</b> than toKey",
+     "extra": "SortedMap has no inclusive variant: <code>tailMap(fromKey)</code> starts at fromKey, but headMap excludes its bound. NavigableMap adds the inclusive boolean overloads.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are the maps from <code>headMap</code>, <code>tailMap</code>, <code>subMap</code> copies?",
+     "back": "<b>Views</b> backed by the original map",
+     "extra": "Changes propagate both ways. You may remove from a view, but inserting a key outside its bounds is rejected.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "<code>ceilingKey</code> vs <code>higherKey</code>: which includes the argument?",
+     "back": "<code>ceilingKey</code> <b>includes</b> it; <code>higherKey</code> is strict",
+     "extra": "The same pair exists for floor/lower: <code>floorKey</code> may return the argument itself, <code>lowerKey</code> returns a strictly smaller key. Both return null when nothing qualifies.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableMap</code> methods return <b>and remove</b> an entry?",
+     "back": "<code>pollFirstEntry()</code> and <code>pollLastEntry()</code>",
+     "extra": "They pull the lowest or highest entry out of the map, returning it. On an empty map they return null rather than throwing.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableMap</code> method returns a descending-order view?",
+     "back": "<code>descendingMap()</code>",
+     "extra": "<code>descendingKeySet()</code> gives the key-only view. Both are backed by the map but allow removal only, not insertion.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you cast the result of <code>TreeMap.keySet()</code> to <code>NavigableSet</code>?",
+     "back": "<b>Yes</b> - for a TreeMap",
+     "extra": "<code>navigableKeySet()</code> does the cast for you and returns the same object. The cast is only safe because TreeMap's keys are navigable; on a HashMap it is not.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/working-with-keys-and-values/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "What does <code>put(k, v)</code> return for a <b>new</b> key?",
+     "back": "<b><code>null</code></b>",
+     "extra": "put returns the previous value bound to the key, so a null result means there was none. On an existing key it returns the value being replaced.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>putIfAbsent(k, v)</code> replace an existing <b>null</b> value?",
+     "back": "<b>Yes</b> - it treats a null mapping as absent",
+     "extra": "That is what makes it useful for fixing faulty maps that acquired null values, unlike <code>containsKey</code>, which would report the key as present.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does iterating <code>map.values()</code> into an <code>int</code> throw NPE on a null value?",
+     "back": "Auto-unboxing a <b>null Integer</b> fails",
+     "extra": "The values are <code>Integer</code> objects, and assigning one to an <code>int</code> unboxes it. A null Integer cannot be unboxed, so the NPE comes from boxing rather than from the map.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>getOrDefault(k, def)</code> return?",
+     "back": "<code>def</code> when the key is <b>absent</b>, else the mapped value",
+     "extra": "Added in Java SE 8. Note it does not change the map: no entry is created for the default.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>remove(k, v)</code> return, and when does it remove?",
+     "back": "<b><code>true</code></b> if the pair matched and was removed",
+     "extra": "It removes only when the current value equals v, so a blind <code>remove(k)</code> that might clobber a fresh value is avoided. That overload returns the removed value instead.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Map method reports whether a <b>value</b> occurs anywhere in the map?",
+     "back": "<code>containsValue(v)</code>",
+     "extra": "It scans for a match and is not a key lookup, so on a hash map it is typically linear. <code>containsKey(k)</code> is the hashed, fast counterpart.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>putAll(other)</code> do with <b>colliding keys</b>?",
+     "back": "The other map's values <b>overwrite</b> the existing ones",
+     "extra": "Merging is last-writer-wins per key rather than a union of values. Expect data loss if you were trying to accumulate.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>keySet()</code> return?",
+     "back": "A <b><code>Set</code></b> view of the keys",
+     "extra": "<code>entrySet()</code> returns <code>Set&lt;Map.Entry&gt;</code> and <code>values()</code> a <code>Collection</code>. All three are views, so map changes appear in them immediately.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you call <code>add</code> on the set from <code>keySet()</code>?",
+     "back": "<b><code>UnsupportedOperationException</code></b>",
+     "extra": "These views are fixed: you cannot add keys or values through them. Removal is supported and propagates to the map, because a key alone identifies an entry.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You remove a key from <code>keySet()</code>. What happens to the map?",
+     "back": "The whole <b>key-value pair</b> is removed from the map",
+     "extra": "The set is a view, so its removals delete the corresponding entries. The same is true of removing an entry from <code>entrySet()</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which entry is removed if you drop a value from <code>values()</code>, and the value repeats?",
+     "back": "Only the <b>first matching</b> entry - order is unspecified",
+     "extra": "A value can occur under several keys, so removing cannot be unambiguous. On a HashMap you cannot predict which entry will be hit.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why iterate <code>entrySet()</code> rather than <code>keySet()</code> plus <code>get</code>?",
+     "back": "Entry iteration is <b>one pass</b> with no extra lookups",
+     "extra": "Getting each value from the key re-hashes and re-searches. Iterating entries delivers both halves of each pair in a single traversal.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  }
+ ]
+}

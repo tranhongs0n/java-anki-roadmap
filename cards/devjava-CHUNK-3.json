@@ -1,0 +1,3880 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::05 Functional Programming::04 Streams",
+   "source": "https://dev.java/learn/api/collections-and-streams/streams/terminal-operations/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::05-functional-programming",
+    "topic::04-streams"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What happens to a stream pipeline that has no terminal operation?",
+     "back": "<b>Nothing</b> runs - a stream processes no data without a terminal operation",
+     "extra": "Intermediate operations only build up the pipeline. Terminal operations such as count(), forEach(), max() or collect() are what pull the elements through it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>reduce()</code> recommended only as a last resort among terminal operations?",
+     "back": "You must prove the operator is <b>associative</b> and check for an identity first",
+     "extra": "Getting either wrong silently produces wrong results, especially in parallel streams. sum(), min(), max(), count() and the collectors cover almost every real reduction.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which line returns the number of elements a stream processes?",
+     "back": "<code>long n = stream.count();</code>",
+     "extra": "count() exists on every stream interface, object and primitive specializations alike, and returns a long rather than an int.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the return type of <code>Stream.count()</code>?",
+     "back": "<b><code>long</code></b>",
+     "extra": "A stream can process more than Integer.MAX_VALUE elements, for example after a flatMap() multiplies the element count, so the API supports counts beyond int range.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>Collectors.counting()</code> exist when streams already have <code>count()</code>?",
+     "back": "So counting can be a <b>downstream collector</b> of another collector such as groupingBy",
+     "extra": "A plain terminal method cannot be composed. Once counting is itself a Collector it can be plugged in to replace the List values a grouping produces.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>stream.forEach(System.out::println)</code> an acceptable use of a side effect?",
+     "back": "Printing is the intended effect; a consumer that does nothing has no purpose",
+     "extra": "The problem is not side effects per se but side effects on shared state outside the stream, such as mutating a captured list.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What breaks when you fill a list with <code>stream.forEach(result::add)</code>?",
+     "back": "Capturing an external list adds a side effect that <b>blocks parallel execution</b>",
+     "extra": "result::add captures a variable outside the stream's scope, and an ArrayList cannot safely take concurrent writes from the threads of a parallel stream.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which collector stores elements in a list with no side effect from your code?",
+     "back": "<code>Collectors.toList()</code>",
+     "extra": "The Collector API owns the accumulation and the merging of per-thread partial results, so the same code works sequentially or in parallel.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>stream.toList()</code> return since Java SE 16?",
+     "back": "An <b>unmodifiable</b> List",
+     "extra": "It may also be faster than Collectors.toList(), which accumulates into an ArrayList and seals it afterwards, because the JDK can size the backing array up front.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which collector lets you choose the concrete collection class?",
+     "back": "<code>Collectors.toCollection(supplier)</code>",
+     "extra": "The supplier creates the empty container, so <code>() -&gt; new ArrayList&lt;&gt;(10_000)</code> pre-sizes the array and avoids repeated grow-and-copy cycles.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory method returns an unmodifiable set from a stream?",
+     "back": "<code>Collectors.toUnmodifiableSet()</code>",
+     "extra": "Its sibling toUnmodifiableList() seals a List the same way. Any attempt to modify the returned collection throws UnsupportedOperationException.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>toArray()</code> overload preserves the stream's element type?",
+     "back": "<code>toArray(String[]::new)</code> - the IntFunction&lt;A[]&gt; overload",
+     "extra": "The no-arg toArray() returns Object[], losing the component type even when the stream was declared as Stream&lt;String&gt;.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two arguments does <code>Stream.max()</code> on a stream of objects require?",
+     "back": "Only a <b>Comparator</b>, since elements can be of any type",
+     "extra": "The numeric specializations IntStream, LongStream and DoubleStream know how to compare numbers and take no comparator, returning OptionalInt and friends.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do <code>max()</code>, <code>min()</code> and <code>average()</code> return optional objects?",
+     "back": "None has an <b>identity</b> element, so an empty stream has no result",
+     "extra": "Calling get() on an empty Optional throws NoSuchElementException, so use orElse() or orElseThrow() when the stream might produce no elements.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "On an <b>unordered</b> stream, what does <code>findFirst()</code> return?",
+     "back": "Any element - first is undefined, so it behaves like findAny()",
+     "extra": "Order matters only for ordered sources such as a List. With Set.of() the traversal order is randomized, so findFirst() returns a random element.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why prefer <code>findAny()</code> over <code>findFirst()</code> on a parallel stream?",
+     "back": "Tracking the first element forces extra coordination, a cost findAny does not pay",
+     "extra": "findFirst() must guarantee ordering even across worker threads. If any matching element will do, findAny() lets threads return the first they happen to find.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>anyMatch(pred)</code> return for an <b>empty</b> stream?",
+     "back": "<b><code>false</code></b>",
+     "extra": "No element was found to match, so the answer is negative. The predicate is never invoked because there is nothing to test it against.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>allMatch(pred)</code> return for an <b>empty</b> stream?",
+     "back": "<b><code>true</code></b>",
+     "extra": "Vacuously true: no element violates the predicate. noneMatch() also returns true for an empty stream for the mirror reason.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single terminal operation is <b>not</b> short-circuiting among <code>findAny</code>, <code>anyMatch</code> and <code>count</code>?",
+     "back": "<b><code>count()</code></b>",
+     "extra": "It must process every element to produce a total. findFirst(), findAny(), anyMatch(), allMatch() and noneMatch() can stop once the answer is settled.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can <code>anyMatch(pred)</code> stop before consuming the whole stream?",
+     "back": "As soon as one element <b>matches</b> and it can return true",
+     "extra": "To return false it must see every element first. That asymmetry is why a returning true is short-circuiting but a returning false is not.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When does <code>findFirst()</code> have to process every element?",
+     "back": "Only when the stream is empty and it must return an <b>empty</b> Optional",
+     "extra": "findFirst() short-circuits the moment it has an element. Proving the absence of any element is the one case that requires the whole pipeline to run.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::05 Functional Programming::04 Streams",
+   "source": "https://dev.java/learn/api/collections-and-streams/streams/using-collectors/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::05-functional-programming",
+    "topic::04-streams"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which <code>Stream.collect()</code> overload is missing from the numeric streams?",
+     "back": "The one taking a <b>Collector</b> argument",
+     "extra": "Numeric streams keep only the three-argument collect(supplier, accumulator, combiner). To use Collectors with them, box() the stream first.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should code not depend on the concrete class returned by <code>Collectors.toList()</code>?",
+     "back": "The exact List implementation is <b>not part of the specification</b>",
+     "extra": "The JDK is free to change it between releases. Declare the variable as List and use toCollection() when you need a specific implementation.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which collector joins a stream of strings with a separator, prefix and suffix?",
+     "back": "<code>Collectors.joining(sep, prefix, suffix)</code>",
+     "extra": "It also handles empty and single-element streams correctly, producing just prefix+suffix and prefix+element+suffix respectively.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When should you use <code>String.join()</code> instead of <code>Collectors.joining()</code>?",
+     "back": "When the data is already a collection or only a few elements - no stream needed",
+     "extra": "joining() requires building a pipeline and pays the stream overhead. String.join() and StringJoiner do the same work without it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What map type does <code>Collectors.partitioningBy(predicate)</code> produce?",
+     "back": "<b><code>Map&lt;Boolean, List&lt;T&gt;&gt;</code></b>",
+     "extra": "Every element goes under the true or false key depending on the predicate, so only two keys can ever exist, both always present.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the function passed to <code>Collectors.groupingBy()</code> called?",
+     "back": "The <b>classifier</b>",
+     "extra": "It maps each element to a key. Elements sharing a key are gathered into a list, which yields Map&lt;K, List&lt;T&gt;&gt; when no downstream collector is given.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the only restriction on the classifier passed to <code>groupingBy()</code>?",
+     "back": "It must not return <b>null</b>",
+     "extra": "Any other function is allowed, and several elements may map to the same key, since groupingBy collects them into a List under that key.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when <code>Collectors.toMap()</code> sees two elements producing the same key?",
+     "back": "It throws <b>IllegalStateException</b> by default",
+     "extra": "toMap builds one entry per element and cannot choose a survivor. Supply a BinaryOperator merge function as the third argument to resolve collisions.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three arguments does the merge-aware <code>Collectors.toMap()</code> take?",
+     "back": "Key mapper, value mapper and a <b>BinaryOperator</b> merge function",
+     "extra": "The merge function receives the old and the new value when a duplicate key appears and returns what should be stored instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which minor collector variant of <code>toMap()</code> writes into a concurrent map?",
+     "back": "<code>Collectors.toConcurrentMap()</code>",
+     "extra": "It lets a parallel stream merge partial results without locking; the exact map class returned is still not guaranteed.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you stream the entries of a <code>Map</code>?",
+     "back": "<code>map.entrySet().stream()</code>",
+     "extra": "Map has no stream() method. Key only is map.keySet().stream(), and values only is map.values().stream().",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory method builds a Comparator over <code>Map.Entry</code> values?",
+     "back": "<code>Map.Entry.comparingByValue()</code>",
+     "extra": "It only works when the values are Comparable. comparingByKey() provides the analogous comparator over keys.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two collectors convert a value into a different type than a plain group?",
+     "back": "<code>Collectors.mapping()</code> and <code>Collectors.filtering()</code>",
+     "extra": "Both must be given a downstream collector as their second argument, so they exist only inside another collector such as groupingBy.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What extra argument do the mapping, filtering and flatMapping collectors require?",
+     "back": "A mandatory <b>downstream collector</b>",
+     "extra": "They model intermediate operations, which have no terminating step of their own. The downstream collector supplies the terminal half of the behavior.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What type does <code>Collectors.averagingInt(fn)</code> produce?",
+     "back": "<b><code>Double</code></b>",
+     "extra": "Unlike IntStream.average(), which returns an OptionalDouble, the averaging collectors never return an optional; an empty stream averages to 0.0.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Collectors.maxBy(cmp)</code> return when the stream is empty?",
+     "back": "An <b>empty</b> Optional",
+     "extra": "minBy() behaves identically. As with Stream.max(), the result is optional because no identity element exists.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a partitioning collector's map always contain, even for an empty stream?",
+     "back": "Both the <b>true</b> and the <b>false</b> keys",
+     "extra": "The two booleans are fixed, so the result type is Map&lt;Boolean, List&lt;T&gt;&gt;. In contrast, groupingBy only creates keys that actually occur.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::06 Concurrency::06 Virtual Threads in Practice",
+   "source": "https://dev.java/learn/api/virtual-threads/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::06-concurrency",
+    "topic::06-virtual-threads-in-practice"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "When did virtual threads become a final (non-preview) feature of Java?",
+     "back": "Java <b>21</b>",
+     "extra": "They were introduced as a preview by JEP 425 in Java 19, previewed again in Java 20, and finalized in Java 21.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens to a virtual thread when it blocks?",
+     "back": "It is <b>unmounted</b> and its carrier thread runs another virtual thread",
+     "extra": "Many virtual threads share a small pool of platform carrier threads. Unmounting frees the carrier while the blocked task waits, so blocking no longer wastes an OS thread.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory method runs each task in its own virtual thread?",
+     "back": "<code>Executors.newVirtualThreadPerTaskExecutor()</code>",
+     "extra": "It returns an ExecutorService. It is also the only creation route that supports Callables and therefore result-bearing tasks.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which virtual-thread creation route supports result-bearing <code>Callable</code> tasks?",
+     "back": "Only the <b>executor service</b> from newVirtualThreadPerTaskExecutor()",
+     "extra": "Thread.Builder, Thread.ofVirtual().start() and startVirtualThread() all take a Runnable, so they cannot return a value.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What thread group do virtual threads belong to?",
+     "back": "A single, shared thread group",
+     "extra": "There is no API to create a virtual thread in a different group, and calling setPriority() or setDaemon() on one has no effect.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are virtual threads daemon or non-daemon?",
+     "back": "<b>Daemon</b>, with priority NORM_PRIORITY",
+     "extra": "Because they are daemons they never keep the JVM alive. Both properties are fixed and cannot be changed with setters.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>Thread.getAllStackTraces()</code> include virtual threads?",
+     "back": "<b>No</b> - it returns platform threads only",
+     "extra": "Virtual threads are not enumerated by that legacy method. There is also no way to find which carrier platform thread a given virtual thread runs on.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method tells whether a Thread instance is virtual?",
+     "back": "<code>Thread.isVirtual()</code>",
+     "extra": "Virtual threads are ordinary Thread instances, so this boolean is the only way to distinguish them. Cancellation still uses Thread.interrupt().",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should you <b>not</b> pool virtual threads?",
+     "back": "It re-schedules tasks onto platform threads - exactly the inefficiency they remove",
+     "extra": "Virtual threads are cheap to create, so make one per task. Use semaphores or per-resource limits for rate limiting instead.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you limit concurrent access to a scarce resource when using virtual threads?",
+     "back": "Use a <b>Semaphore</b> per resource rather than shrinking a thread pool",
+     "extra": "Semaphore.acquire() blocks when the permit count runs out, which is cheap on a virtual thread. Each limited resource gets its own protection.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many carrier threads does the virtual thread scheduler use by default?",
+     "back": "As many as there are <b>CPU cores</b>",
+     "extra": "Tune it with the jdk.virtualThreadScheduler.parallelism VM option. jdk.virtualThreadScheduler.maxPoolSize caps the carrier pool when compensation kicks in.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In JDK 21 to 23, which two situations pin a virtual thread to its carrier?",
+     "back": "Running a <b>synchronized</b> method or block, or a native or foreign function call",
+     "extra": "A pinned thread cannot be unmounted while it blocks. Replacing synchronized with ReentrantLock removes the first cause, and JDK 24 fixes it in the JVM.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is pinning dangerous when the pinned thread blocks?",
+     "back": "The carrier stays blocked and, in JDK 21, no extra carrier is started to replace it",
+     "extra": "With all carriers stuck, other virtual threads are left unscheduled. Pinning in purely in-memory synchronized code is harmless, since nothing blocks.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which VM flag prints a stack trace when a pinned virtual thread blocks?",
+     "back": "<code>jdk.tracePinnedThreads</code>",
+     "extra": "You get only one warning per pinning location. Alternatively record with JFR and look for VirtualThreadPinned and VirtualThreadSubmitFailed events.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which VM flag traces virtual threads that mutate thread-local variables?",
+     "back": "<code>jdk.traceVirtualThreadLocals</code>",
+     "extra": "Since virtual threads vastly outnumber pooled platform threads, thread locals multiply with them. The trace shows where per-thread state is being created.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For which workload are virtual threads <b>not</b> useful?",
+     "back": "<b>CPU-intensive</b> tasks that rarely block",
+     "extra": "Their win comes from unmounting blocked threads, which never happens for compute-bound work. Use parallel streams or fork-join for those instead.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the non-final <code>Thread.getId()</code> deprecated in favour of <code>threadId()</code>?",
+     "back": "A subclass could <b>override</b> getId() and return a value that is not the real id",
+     "extra": "Callers who need the real identity must use the final threadId(). getId() has been deprecated since Java 19 alongside static thread factories.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/ffm/access-memory/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class represents a contiguous region of memory in the Foreign Function and Memory API?",
+     "back": "<code>MemorySegment</code>",
+     "extra": "It is backed either on-heap (a heap segment) or off-heap (a native segment). Off-heap segments are the ones used for native calls.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must arguments to a C function live in off-heap memory?",
+     "back": "The GC may <b>move or free</b> heap memory, and native code cannot follow that",
+     "extra": "Native code needs a stable address. Off-heap memory is outside the GC's reach, so you also decide exactly when it is deallocated.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What governs the lifetime of a native memory segment?",
+     "back": "The <b>arena</b> used to allocate it - its scope decides when the memory is freed",
+     "extra": "A segment is accessible while its scope is alive. Closing the arena invalidates every segment allocated from it at once.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which arena restricts its segments to the thread that created it?",
+     "back": "<code>Arena.ofConfined()</code>",
+     "extra": "It has an owner thread, usually the creator. Closing it from another thread, or accessing its segments there, fails.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which arena lets any thread access and close its segments, with close being atomic?",
+     "back": "<code>Arena.ofShared()</code>",
+     "extra": "It has no owner thread, so multiple threads can read and write its segments concurrently. Slice-based parallel processing relies on it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when you call <code>close()</code> on <code>Arena.global()</code> or on an automatic arena?",
+     "back": "Both throw <b><code>UnsupportedOperationException</code></b>",
+     "extra": "The global arena's memory is never deallocated, and the automatic arena's memory is managed by the garbage collector, so neither can be closed by hand.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>SegmentAllocator.allocateFrom(String)</code> store in the segment?",
+     "back": "A <b>UTF-8</b> encoded, <b>null-terminated</b> C string",
+     "extra": "It allocates, converts and copies in one call, which is exactly what a C function expecting a <code>char*</code> needs.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <code>ValueLayout</code> used for when accessing a memory segment?",
+     "back": "It encodes the <b>size, byte order, alignment</b> and Java type of the value",
+     "extra": "Every get or set takes one. ValueLayout.JAVA_BYTE, for instance, is one byte, aligned to 1 and uses the hardware's native byte order.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you access a segment whose arena has been closed?",
+     "back": "<b><code>IllegalStateException</code></b>",
+     "extra": "The scope is no longer alive so the segment is invalid. Allocating the arena in a try-with-resources block makes this state impossible to reach by accident.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/ffm/access-structure/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method builds a <code>StructLayout</code> describing a C struct?",
+     "back": "<code>MemoryLayout.structLayout(MemoryLayout...)</code>",
+     "extra": "Pass one value layout per field in declaration order, for example a JAVA_INT for the numerator and one for the denominator of a C fraction.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <code>VarHandle</code> in the context of memory segments?",
+     "back": "A strongly typed reference to read and write a field at a <b>known offset</b>",
+     "extra": "Obtained from a group layout, it lets you set or get a named field of a struct without recomputing offsets by hand.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which call retrieves the layout of field <code>numerator</code> inside a struct layout?",
+     "back": "<code>PathElement.groupElement(\"numerator\")</code>",
+     "extra": "The result is turned into a VarHandle for a given layout, memory segment and offset, then reused to access every instance of the struct.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three arguments does <code>VarHandle.set()</code> take for a struct field?",
+     "back": "The <b>memory segment</b>, the <b>base offset</b> and the <b>value</b>",
+     "extra": "The offset lets the handle address an element inside an array of structs in a single call, without computing an address manually.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>SegmentAllocator.slicingAllocator(segment)</code> return?",
+     "back": "An allocator that hands out consecutive slices of an existing segment",
+     "extra": "Each allocation carves the next chunk right after the previous one, which is how an array of structs is laid out in memory.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns a slice of any size from any position inside a segment?",
+     "back": "<code>MemorySegment.asSlice(long, long)</code>",
+     "extra": "The offset and size must stay within the original segment's spatial bounds; a slice that would overrun them is rejected.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which arena do you need when threads process the slices of one segment in parallel?",
+     "back": "A <b>shared</b> arena",
+     "extra": "Concurrent access requires the segment to be reachable from every thread, and only a shared arena allows that.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/ffm/jextract/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jextract</code> do?",
+     "back": "Parses C <b>header files</b> and generates Java bindings that use the FFM API",
+     "extra": "You then program against a Java model of the native library instead of writing downcall handles and layouts by hand.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In which JDK release did the Foreign Function and Memory API become final?",
+     "back": "JDK <b>22</b>",
+     "extra": "It had been developed as part of Project Panama, with repeated previews, before that finalization.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jextract option sets the package of the generated classes?",
+     "back": "<code>-t</code> / <code>--target-package</code>",
+     "extra": "Without it the classes land in the unnamed package. jextract also creates the package directories under the directory given by --output.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which jextract option links a shared library that the generated header class loads?",
+     "back": "<code>-l</code> / <code>--library</code>",
+     "extra": "A name like <code>-l GL</code> means a library name; a leading colon like <code>-l :libGL.so.1</code> means a file path.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default header class name jextract derives from a header file <code>foo.h</code>?",
+     "back": "<b><code>foo_h</code></b>",
+     "extra": "Override it with --header-class-name. That option is mandatory when you pass more than one header file to a single run.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why use <code>--dump-includes</code> before filtering a huge header?",
+     "back": "It lists every symbol so you can then keep only the ones you want in an argfile",
+     "extra": "Windows.h is an extreme case. Edit the dump, remove unneeded lines, and pass the file back with the @argfile syntax.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if a filter removes a declaration that an included struct still needs?",
+     "back": "jextract reports the <b>missing dependency</b> and generates nothing",
+     "extra": "You must then re-include the dependency. Filtering is not silently Lenient: an incomplete symbol set aborts the whole run.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two wildcard imports give access to everything jextract generated for <code>freeglut.h</code> into package <code>org.freeglut</code>?",
+     "back": "<b><code>import static org.freeglut.freeglut_h.*;</code></b> plus <code>org.freeglut.*</code>",
+     "extra": "The static import brings functions, constants and macros as static members; the plain import brings the struct and typedef classes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which VM flag enables jextract's native call tracing?",
+     "back": "<code>-Djextract.trace.downcalls=true</code>",
+     "extra": "With it, the parameters passed to each native call are printed on standard output, which makes debugging argument mistakes much quicker.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which tool generates a C interface for a <b>Rust</b> library so jextract can consume it?",
+     "back": "<b><code>cbindgen</code></b>",
+     "extra": "For C++ the equivalent route is to consume the library's extern \"C\" declarations. Either way jextract works through a C surface.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/ffm/native/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a <b>downcall</b> method handle?",
+     "back": "A MethodHandle that points to a native function and can be invoked from Java",
+     "extra": "You get it from the linker by combining the function's address with a FunctionDescriptor describing its signature.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class describes the argument and return layouts of a native function?",
+     "back": "<code>FunctionDescriptor</code>",
+     "extra": "Its first layout is the return type and the rest are the parameters. Each layout maps to the Java type used when invoking the handle.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which value layout models a C pointer argument or return value?",
+     "back": "<code>ValueLayout.ADDRESS</code>",
+     "extra": "A <code>char*</code> is also commonly described as a sequence layout of JAVA_BYTE, to express a NUL-terminated byte string.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is a native function signature description platform specific?",
+     "back": "Widths vary: <code>size_t</code> is <b>JAVA_LONG</b> on 64-bit, JAVA_INT on 32-bit",
+     "extra": "Check the layouts your platform actually uses with <code>Linker.canonicalLayouts()</code> rather than hardcoding widths.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which lookup finds symbols in a user-specified library using the standard loader search?",
+     "back": "<code>Linker.defaultLookup()</code>",
+     "extra": "It is the right choice for functions in the C standard library, such as strdup, so you need no OS-specific file name.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which lookup searches libraries already loaded by <code>System.loadLibrary()</code>?",
+     "back": "<code>SymbolLookup.loaderLookup()</code>",
+     "extra": "libraryLookup(name, arena) instead loads a named library on demand and ties its lifetime to the given arena.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method builds a downcall handle from an address and a descriptor?",
+     "back": "<code>linker.downcallHandle(address, descriptor)</code>",
+     "extra": "Different orders exist across JDK versions; the address still uniquely identifies the symbol and the descriptor supplies its types.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must the type descriptor at an <code>invokeExact()</code> call match the handle exactly?",
+     "back": "<code>invokeExact</code> <b>rejects any mismatch</b> with the handle's type descriptor",
+     "extra": "Use invoke() instead when you want the arguments coerced. For FFM handles the C signature and the Java call must line up precisely.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two composite layouts model C struct and union types?",
+     "back": "<b><code>StructLayout</code></b> and <b><code>UnionLayout</code></b>, both GroupLayouts",
+     "extra": "GroupLayout is their common supertype, sufficient when a descriptor only needs to say a parameter or return is a group.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/ffm/troubleshoot/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the FFM API return to represent a pointer whose target size it cannot know?",
+     "back": "A <b>zero-length</b> memory segment",
+     "extra": "That is what a pointer from malloc, from an upcall, or read out of a segment looks like. It carries the address but no bounds.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you read the content of a zero-length memory segment?",
+     "back": "<b><code>IndexOutOfBoundsException</code></b>",
+     "extra": "The JVM cannot validate access to a region of unknown size, so it refuses. The segment is still useful for passing back to native code.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method turns a zero-length segment into one with real bounds and a lifetime?",
+     "back": "<code>MemorySegment.reinterpret(long, Arena, Consumer)</code>",
+     "extra": "Give the byte count, the arena that takes ownership, and an action to run on close such as calling C's free().",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which linker option captures <code>errno</code> after a native call?",
+     "back": "<code>Linker.Option.captureCallState(\"errno\")</code>",
+     "extra": "It snapshots the thread-local state immediately after the downcall. Read it from a MemorySegment of the right layout to see what C set.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which VM option enables native calls without restricted-method warnings?",
+     "back": "<b><code>--enable-native-access=M</code></b>, or ALL-UNNAMED on the classpath",
+     "extra": "Multiple modules take a comma-separated list. An executable JAR can set the manifest attribute Enable-Native-Access instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>SymbolLookup.libraryLookup()</code> a restricted method?",
+     "back": "Loading a library <b>executes native code</b>, for instance through dlopen hooks",
+     "extra": "The JVM cannot inspect what library initialization does, so the operation requires explicit opt-in from the application author.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>MemorySegment.reinterpret(long)</code> restricted?",
+     "back": "An overestimated size can make later access read <b>outside</b> the real region",
+     "extra": "That can crash the JVM or silently corrupt memory, so resizing a segment's view needs an explicit native-access grant.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>Linker.downcallHandle()</code> restricted?",
+     "back": "The linker cannot verify that the FunctionDescriptor matches the real C function",
+     "extra": "A wrong descriptor misinterprets argument and return widths, which is undefined behavior rather than a predictable exception.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a manifest's <code>Enable-Native-Access</code> attribute, what values are allowed?",
+     "back": "Only <code>ALL-UNNAMED</code> - a module name is rejected",
+     "extra": "A JAR cannot name a module, so the manifest route grants native access to everything on the class path.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/ffm/upcall/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is an upcall in the FFM API?",
+     "back": "A call from <b>native</b> code back into a Java method, passed as a function pointer",
+     "extra": "The classic use is qsort, which needs a comparison callback. Java supplies its code as a pointer the native library can invoke.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an upcall stub?",
+     "back": "A native function pointer created by the linker that invokes a Java MethodHandle",
+     "extra": "You build it with Linker.upcallStub(handle, descriptor, arena) and hand it to the native function as a callback argument.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method finds an upcall stub's linkable function pointer for a Java method handle?",
+     "back": "<b><code>Linker.upcallStub(handle, descriptor, arena, options...)</code></b>",
+     "extra": "It needs the handle, the descriptor matching the C signature, and an arena that owns the stub's lifetime.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are the comparator's parameters of type <code>MemorySegment</code> in a Java implementation for qsort?",
+     "back": "Native code passes <b>pointers</b>, so each element arrives as a segment, not as an int",
+     "extra": "You unwrap them with get(ValueLayout.JAVA_INT, offset) using the byte offset given by qsort, then return a negative, zero or positive int.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which arena is appropriate for an upcall stub whose lifetime follows the GC?",
+     "back": "<code>Arena.ofAuto()</code>",
+     "extra": "The garbage collector decides when to free the stub, which suits a callback used for the duration of a single native call.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you get a MethodHandle for a static Java method with <code>MethodHandles.Lookup</code>?",
+     "back": "<code>findStatic(Class, String, MethodType)</code>",
+     "extra": "It takes the declaring class, the method name and a MethodType describing the return type plus every parameter type.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/creating-reading-directories/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method lists the root directories of a file system?",
+     "back": "<code>FileSystem.getRootDirectories()</code>",
+     "extra": "It returns an Iterable, so an enhanced for loop can walk every root. On Windows that is every drive letter; on UNIX usually just /.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method creates a single directory and fails if a parent is missing?",
+     "back": "<code>Files.createDirectory(Path)</code>",
+     "extra": "It takes optional FileAttributes to set at creation. Use createDirectories() when intermediate parents may not exist.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method creates a directory together with any missing parents?",
+     "back": "<code>Files.createDirectories(Path)</code>",
+     "extra": "It works top-down: foo, then bar, then test. If a step fails, some of the parents may already have been created.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which file-system exception type signals that a directory was not empty?",
+     "back": "<code>DirectoryNotEmptyException</code>",
+     "extra": "Files.delete() throws it for a non-empty directory, as does a copy with REPLACE_EXISTING onto one.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you create a temporary directory in the default temporary location?",
+     "back": "<code>Files.createTempDirectory(prefix)</code>",
+     "extra": "The overload taking a Path puts it in a directory you choose instead. The name format after the prefix is platform specific.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/file-path/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class is the legacy way to model a file and should no longer be used?",
+     "back": "<code>java.io.File</code>",
+     "extra": "Path with the Files factory methods replaced it in Java SE 7 with more features and better performance on large directories.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does creating a <code>File</code> instance touch the file system?",
+     "back": "<b>No</b> - it is only an abstract pathname, and every query is explicit",
+     "extra": "Constructing File or Path never creates anything. Existence, permissions and content all require a separate call.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>File.getCanonicalPath()</code> return that <code>getAbsolutePath()</code> does not?",
+     "back": "An absolute <b>unique</b> path: <code>.</code>/<code>..</code> removed, links resolved",
+     "extra": "Only the canonical form is guaranteed unique, which is why it is the one you compare when two paths may name the same file.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>File</code> method gives just the last name element of the path?",
+     "back": "<code>getName()</code>",
+     "extra": "getParent() gives the directory containing it, and getPath() gives the whole abstract pathname as text.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which Java release does the <code>Path</code> interface exist?",
+     "back": "Java SE <b>7</b>",
+     "extra": "It is the primary entry point of java.nio.file. Legacy code can migrate with File.toPath().",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method converts a legacy <code>File</code> to a <code>Path</code>?",
+     "back": "<code>file.toPath()</code>",
+     "extra": "Path.toFile() goes the other way. The migration is preferred over rewriting I/O code wholesale.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is a <code>Path</code> portable across operating systems?",
+     "back": "<b>No</b> - it uses the syntax of the platform it was created on",
+     "extra": "A Solaris Path and a Windows Path never compare equal even when they name the same relative location with the same directory tree.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>File</code> method returns true only if the file already exists?",
+     "back": "<b><code>createNewFile()</code> returns false</b>",
+     "extra": "It returns false rather than overwriting, and throws IOException only if creation failed for another reason.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/file-system/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method retrieves the default file system?",
+     "back": "<code>FileSystems.getDefault()</code>",
+     "extra": "Note the plural on the factory class FileSystems and the singular on the returned FileSystem.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What path separator does a POSIX file system use, and what does Windows use?",
+     "back": "POSIX <code>/</code>, Windows <code>\\</code>",
+     "extra": "Read it from <code>FileSystem.getSeparator()</code> instead of hardcoding, since other file systems may use other delimiters.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <b>file store</b> represent?",
+     "back": "The underlying storage device behind a file system, such as a mounted volume",
+     "extra": "On UNIX each mounted file system is a store; on Windows each volume is one. List them with getFileStores().",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you build a <code>Path</code> directly from a FileSystem?",
+     "back": "<code>FileSystems.getDefault().getPath(\"u\", \"joe\", \"foo.log\")</code>",
+     "extra": "Paths.get() and Path.of() are convenience wrappers around exactly this call, which is why all three are interchangeable.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which file system does a new <code>Path</code> bind to when none is supplied?",
+     "back": "The <b>default</b> file system",
+     "extra": "Every Path belongs to a file system; omitting one simply selects FileSystems.getDefault(), the operating system's own file system.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/links/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method creates a symbolic link?",
+     "back": "<code>Files.createSymbolicLink(Path link, Path target)</code>",
+     "extra": "The target need not exist, which is what makes dangling symbolic links possible.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method creates a hard link?",
+     "back": "<code>Files.createLink(Path link, Path existing)</code>",
+     "extra": "The target must exist, otherwise NoSuchFileException. Hard links are also generally forbidden on directories and across volumes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when you call <code>readSymbolicLink()</code> on a path that is not a link?",
+     "back": "<b><code>NotLinkException</code></b>",
+     "extra": "Use isSymbolicLink(Path) first if the path type is unknown. readSymbolicLink returns the link's target, not its content.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a hard link differ from a symbolic link in what it is?",
+     "back": "A hard link is the <b>same entity</b> as the original file, with identical attributes",
+     "extra": "Both names refer to one inode, so a write through either is visible through the other and the data survives until the last name is deleted.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a hard link point to a file that does not exist?",
+     "back": "<b>No</b> - the target must already exist",
+     "extra": "That is the opposite of a symbolic link, whose target is only resolved when it is followed.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/listing/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method lists a directory's entries as a <code>DirectoryStream</code>?",
+     "back": "<code>Files.newDirectoryStream(Path)</code>",
+     "extra": "The stream is Iterable, so it works in an enhanced for loop, and it scales to very large directories because entries are read lazily.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must you do with a <code>DirectoryStream</code> after use?",
+     "back": "<b>Close</b> it - it holds file-system resources",
+     "extra": "A try-with-resources statement is the standard way. Forgetting to close leaks handles, especially when iteration stops early.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How are entries returned by <code>newDirectoryStream()</code> shaped?",
+     "back": "As <b>paths resolved against</b> the listed directory, such as /tmp/a",
+     "extra": "They are not bare names, so you can use them directly for metadata calls without re-joining the directory.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What exception do you need to handle during a <code>DirectoryStream</code> iteration?",
+     "back": "<b><code>DirectoryIteratorException</code></b>, wrapping the IOException as its cause",
+     "extra": "Iterator methods cannot declare checked exceptions, so the I/O failure is wrapped and thrown unchecked.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method lists only entries whose names match a glob pattern?",
+     "back": "<code>Files.newDirectoryStream(Path, String glob)</code>",
+     "extra": "The two-argument overload compiles the pattern for you. Use the Filter overload for conditions that are not name-based.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In glob syntax, what does a single <code>*</code> match that <code>**</code> does not?",
+     "back": "* matches any characters <b>within</b> one name; ** also crosses directory boundaries",
+     "extra": "That is why <code>**</code> is used for complete path patterns such as <code>**/*.java</code>, while <code>*.java</code> stays in one directory.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In glob syntax, what does <code>?</code> match?",
+     "back": "Exactly <b>one</b> character",
+     "extra": "So <code>???</code> matches every name of exactly three characters, and <code>a?*.java</code> requires at least one character after the a.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In glob syntax, what does the brace form <code>{htm,html,pdf}</code> mean?",
+     "back": "Match any one of the listed <b>subpatterns</b>",
+     "extra": "So <code>*.{htm,html,pdf}</code> takes files with any of the three extensions, which saves writing three separate patterns.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you filter a directory listing by something other than the name?",
+     "back": "Implement <b><code>DirectoryStream.Filter</code></b> and pass it to newDirectoryStream",
+     "extra": "Its single accept() method decides per entry, typically by calling a metadata check such as isDirectory().",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/metadata/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Why prefer <code>Files.readAttributes()</code> over repeated single-attribute calls?",
+     "back": "It fetches all attributes in <b>one bulk operation</b>, not one system call each",
+     "extra": "Each single-attribute call can hit the disk or the network, so a loop over files can cost orders of magnitude more.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a file attribute <b>view</b>?",
+     "back": "A grouping of related attributes mapped to a file system flavor such as POSIX or DOS",
+     "extra": "File systems differ in which attributes they track, so views let one API serve all of them. Basic is the common denominator.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which attribute view supplies file owner, group owner and nine permission bits?",
+     "back": "<code>PosixFileAttributeView</code>",
+     "extra": "It extends the basic view for POSIX standards. DOS systems instead use the four attribute bits of DosFileAttributeView.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the nine-digit POSIX permission string <code>rw-r--r--</code> describe?",
+     "back": "Read/write for owner, read-only for group, read-only for everyone else",
+     "extra": "PosixFilePermissions.toString() produces exactly this form, and fromString() parses it back into a Set.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class method turns a permission set into a FileAttribute for file creation?",
+     "back": "<code>PosixFilePermissions.asFileAttribute(set)</code>",
+     "extra": "Pass the result to Files.createFile or createDirectory. The umask still applies, so the final file can be more restrictive.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method determines a file's MIME type?",
+     "back": "<code>Files.probeContentType(Path)</code>",
+     "extra": "It depends on the platform detector and can be fooled, for example by a .class extension. It returns null when the type is unknown.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>BasicFileAttributes.fileKey()</code> return?",
+     "back": "An object uniquely identifying the file, or <b>null</b> if unavailable",
+     "extra": "Use it to compare two paths for identity when you do not want to resolve symbolic links just to run isSameFile().",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three timestamps does the basic attribute view expose?",
+     "back": "creationTime, <b>lastModifiedTime</b> and lastAccessTime",
+     "extra": "Any of them may be unsupported by an implementation, in which case the accessor returns an implementation-specific value.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which helper class looks up a name as a <code>UserPrincipal</code> for setting a file owner?",
+     "back": "<b><code>UserPrincipalLookupService</code></b>, from getUserPrincipalLookupService()",
+     "extra": "It converts a user name or group name string into the principal object that Files.setOwner() expects.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/move-copy-delete/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>Files.exists()</code> and <code>Files.notExists()</code> both returning false mean?",
+     "back": "The file's status is <b>unknown</b>, for example because the program cannot access it",
+     "extra": "Existence has three outcomes. That is why <code>!Files.exists(p)</code> is not equivalent to <code>Files.notExists(p)</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two-argument method tells whether two paths locate the same file?",
+     "back": "<code>Files.isSameFile(a, b)</code>",
+     "extra": "It resolves symbolic links, so two different paths to one target return true. It declares IOException, unlike equals().",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Files.delete()</code> do when the target does not exist?",
+     "back": "Throws <b><code>NoSuchFileException</code></b>",
+     "extra": "Use deleteIfExists() when concurrent threads may be deleting the same file, so a missing file is not an error.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Files.copy()</code> do with the <b>contents</b> of a source directory?",
+     "back": "It copies the directory only - the new directory is <b>empty</b>",
+     "extra": "A recursive copy needs walkFileTree(). The same applies to move(): emptying a directory elsewhere is not part of the operation.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which copy option copies the source's metadata, including last-modified time, to the target?",
+     "back": "<code>StandardCopyOption.COPY_ATTRIBUTES</code>",
+     "extra": "Exact support is platform dependent, but last-modified time works across platforms and is the usual reason to need it.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>NOFOLLOW_LINKS</code> do when copying a symbolic link?",
+     "back": "<b>Copies the link itself</b>, not the file it points to",
+     "extra": "Without it the link is followed and the target's content is copied, which can silently duplicate a large file.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>ATOMIC_MOVE</code> guarantee about a move?",
+     "back": "It cannot be interrupted or partially performed - <b>either it happens or it fails</b>",
+     "extra": "The file-system must support it or an exception is thrown. This is what lets a watcher see only complete files arrive.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "On UNIX, can <code>move()</code> relocate a <b>non-empty</b> directory?",
+     "back": "<b>Yes</b>, when it is a rename inside the same partition",
+     "extra": "The contents are never relocated: the directory entry is simply renamed, so nothing has to be copied or emptied.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a varargs parameter in a method signature such as <code>copy(Path, Path, CopyOption...)</code>?",
+     "back": "A method parameter that accepts a comma-separated list or an <b>array</b> of values",
+     "extra": "Both call styles compile identically, so <code>copy(a, b, opts)</code> with a CopyOption[] variable is valid.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/path/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method removes redundant <code>.</code> and <code>dir/..</code> elements from a path?",
+     "back": "<code>path.normalize()</code>",
+     "extra": "It is purely syntactic and never checks the file system, so on a path containing a symlink it can point at the wrong file.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can <code>normalize()</code> produce a <b>wrong</b> path when a symlink is involved?",
+     "back": "It never consults the file system, so <code>link/..</code> <b>may not be the parent</b>",
+     "extra": "toRealPath() is the fix: it resolves symlinks and returns the true location of an existing file.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns the real path of an <b>existing</b> file with symlinks resolved?",
+     "back": "<code>toRealPath()</code>",
+     "extra": "It also makes a relative path absolute and drops redundant elements. It throws if the file does not exist or cannot be accessed.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>toAbsolutePath()</code> require the file to exist?",
+     "back": "<b>No</b> - it only resolves against the working directory",
+     "extra": "That makes it safe for user-entered names before the file is created. Only toRealPath() needs the file to exist.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>path.resolve(other)</code> do with an <b>absolute</b> other path?",
+     "back": "Returns the argument unchanged, <b>discarding</b> the receiver",
+     "extra": "Appending an absolute path makes the base irrelevant, which is the usual reason resolve() appears to lose part of a path.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method builds a relative path from one location to another?",
+     "back": "<code>a.relativize(b)</code>",
+     "extra": "It needs both paths with or without a root: if only one has one, no relative path can be formed, and IllegalArgumentException follows.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can <code>relativize()</code> work when only one of the two paths has a root element?",
+     "back": "Refuses - you need <b>both or neither</b> path to have a root",
+     "extra": "For two relative paths the result expresses how to walk from one to the other, such as ../sally/bar.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When do two <code>Path</code> objects compare equal with <code>equals()</code>?",
+     "back": "When their name elements match - the comparison is <b>file system dependent</b>",
+     "extra": "Two different paths can still locate one file through a symlink, so use Files.isSameFile() to test location rather than text.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method gives the number of name elements in a Path, excluding the root?",
+     "back": "<code>getNameCount()</code>",
+     "extra": "Index 0 is farthest from the root, so getName(0) is the highest directory in the path.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>getRoot()</code> return for a relative path?",
+     "back": "<b><code>null</code></b>",
+     "extra": "An absolute path returns its root, such as / on UNIX or C:\\ on Windows. A relative path has no root element at all.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two interfaces does <code>Path</code> extend beyond the usual, enabling for-each and sorting?",
+     "back": "<b><code>Iterable&lt;Path&gt;</code></b> and <b><code>Comparable&lt;Path&gt;</code></b>",
+     "extra": "Iteration visits name elements from the one nearest the root outwards, and compareTo() supports ordering paths in collections.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/walking-tree/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which four callbacks make up the <code>FileVisitor</code> interface?",
+     "back": "preVisitDirectory, postVisitDirectory, visitFile and visitFileFailed",
+     "extra": "They fire before a directory, after it, on each file, and when an entry cannot be accessed.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class should you extend when you need only one or two of the four <code>FileVisitor</code> methods?",
+     "back": "<code>SimpleFileVisitor</code>",
+     "extra": "It implements FileVisitor with sane defaults - CONTINUE for the others - and rethrows errors as IOError.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which callback should a <b>recursive delete</b> use to remove each directory?",
+     "back": "<b><code>postVisitDirectory</code></b>",
+     "extra": "Files must be gone before the directory that contains them, and post-visit runs after all entries have been handled.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which callback should a recursive <b>copy</b> use to create the target directory?",
+     "back": "<b><code>preVisitDirectory</code></b>",
+     "extra": "The directory has to exist before files can be written into it. Attributes are best applied in postVisitDirectory, after copying.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where must a file <b>search</b> do its comparison to also match directories?",
+     "back": "In <code>visitFile</code> <b>and</b> in preVisitDirectory or postVisitDirectory",
+     "extra": "visitFile only sees files. Directories are visited exclusively by the pre and post callbacks, so a policy applied only there misses them.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By default, does <code>walkFileTree()</code> follow symbolic links?",
+     "back": "<b>No</b> - you must pass the <code>FOLLOW_LINKS</code> visit option",
+     "extra": "Following links while deleting is especially risky, since the delete can escape the tree entirely.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>FileVisitResult</code> prunes a directory and everything under it?",
+     "back": "<code>SKIP_SUBTREE</code>",
+     "extra": "Returned from preVisitDirectory, it removes that branch from the traversal, the equivalent of find's -prune.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does returning <code>SKIP_SIBLINGS</code> from <code>visitFile</code> do?",
+     "back": "Skips the <b>remaining siblings</b> - no other file or directory beside it is visited",
+     "extra": "Returned from preVisitDirectory it also skips that directory and no postVisitDirectory is called for it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which callback reports a circular symbolic link when following links?",
+     "back": "<b><code>visitFileFailed</code></b>, with a <code>FileSystemLoopException</code>",
+     "extra": "This is the only way a follow-links walk can terminate on a loop, so handle it there or the walk fails.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must you pass as depth to <code>walkFileTree</code> to visit the whole tree?",
+     "back": "<code>Integer.MAX_VALUE</code>",
+     "extra": "The four-argument overload caps the traversal at that many levels, so an explicit maximum is the 'unlimited' spelling.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the single method defined by <code>PathMatcher</code>?",
+     "back": "<code>matches(Path)</code>, returning a boolean",
+     "extra": "Fetch one from FileSystem.getPathMatcher(\"glob:...\") or \"regex:...\". Glob is the usual choice for file names.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/file-system/watching-dir-changes/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method creates a <code>WatchService</code> for a file system?",
+     "back": "<code>FileSystem.newWatchService()</code>",
+     "extra": "It is obtained from a FileSystem such as FileSystems.getDefault(), not from the Files class.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three entry event kinds can you register with a watch service?",
+     "back": "<b>ENTRY_CREATE</b>, <b>ENTRY_DELETE</b> and <b>ENTRY_MODIFY</b>",
+     "extra": "A fourth, OVERFLOW, arrives whether or not you register for it, because it signals lost events.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method blocks until a watch key is available?",
+     "back": "<code>WatchService.take()</code>",
+     "extra": "poll() returns null immediately when nothing is queued; poll(long, TimeUnit) waits at most that long.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>WatchKey.reset()</code> mandatory at the end of each event cycle?",
+     "back": "Without it the key stays signaled and receives <b>no further events</b>",
+     "extra": "After processing, put the key back into the ready state. A false return means the key was invalidated, so the loop can end.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What should you check for in every event, even if you did not register for it?",
+     "back": "<b><code>OVERFLOW</code></b>",
+     "extra": "It means events may have been dropped, so a count-sensitive listener must reconcile the directory rather than trust the stream.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When does a watch key enter the <b>invalid</b> state?",
+     "back": "On <b>cancel()</b>, when the directory becomes inaccessible, or when the service closes",
+     "extra": "An invalid key delivers nothing further. Reset() returning false is how your loop detects it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you recover the changed file's name from a <code>WatchEvent</code>?",
+     "back": "<code>event.context()</code> yields the entry, which is a Path",
+     "extra": "The context type is untyped, so the cast to WatchEvent&lt;Path&gt; needs suppression of the unchecked warning.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are watch keys noted as being, enabling a dedicated thread pool to process them?",
+     "back": "<b>Thread-safe</b> - they work with the java.util.concurrent package",
+     "extra": "You may keep one watcher thread, as the bundled example does, or distribute keys across a pool for heavy event rates.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which four abstract base classes define the Java I/O stream model?",
+     "back": "<b>Reader</b>, <b>Writer</b>, <b>InputStream</b>, <b>OutputStream</b>",
+     "extra": "Reader/Writer handle characters, InputStream/OutputStream handle bytes. Everything else in java.io descends from these four.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does NIO stand for today, and what did it originally stand for?",
+     "back": "Now <b>Non-blocking I/O</b>; originally <b>New I/O</b>",
+     "extra": "It arrived in Java SE 1.4 with channels and buffers. The renaming reflects what the feature actually delivered.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why did the <code>Path</code> interface replace the <code>File</code> class?",
+     "back": "Methods <b>returned false on failure</b>, with no symlink support and poor scaling",
+     "extra": "Path fixes error reporting through exceptions, adds metadata and link support, and streams huge directory listings safely.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which pattern describes the shape of every I/O stream?",
+     "back": "A <b>sequence of data</b>, read or written one item at a time",
+     "extra": "Sources can be files, devices, sockets or arrays; the model is uniform regardless of what the stream internally transforms.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the two kinds of <b>content</b> the Java I/O API distinguishes?",
+     "back": "<b>Character</b> content (text, XML, JSON) and <b>byte</b> content (images, video)",
+     "extra": "Each content kind crossed with reading or writing gives the four base classes of the stream hierarchy.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between an I/O stream and a <code>java.util.stream</code>?",
+     "back": "<b>Unrelated concepts</b> that only share a name, used for completely different jobs",
+     "extra": "The collision causes real confusion, so it is worth stating explicitly that neither is a specialization of the other.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/putting-it-all-together/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Why does <code>SonnetReader</code> extend <code>BufferedReader</code>?",
+     "back": "It reuses line reading and gets automatic closing from try-with-resources",
+     "extra": "The subclass adds skipLines(), skipSonnetHeader() and readNextSonnet(), while close() is inherited from BufferedReader.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When extending a resource-holding class, what must an overriding <code>close()</code> do?",
+     "back": "Call the <b>superclass close()</b> so the wrapped resources are released",
+     "extra": "If you skip it, the delegate such as a BufferedReader over a FileReader leaks its file handle.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When reading a compressed sonnet, which classes are composed in order from bytes to lines?",
+     "back": "GZIPInputStream, then InputStreamReader, then BufferedReader",
+     "extra": "Binary decorations strip the compression, the character stream decodes the bytes, and the buffer supplies line reads.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When writing a compressed sonnet, which classes wrap a <code>ByteArrayOutputStream</code>?",
+     "back": "GZIPOutputStream, then PrintWriter",
+     "extra": "Closest to the bytes is the compressor, closest to your code is the writer. Println is convenient because PrintWriter supplies it.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many sonnets does the Shakespeare example file contain?",
+     "back": "<b>154</b>",
+     "extra": "The first four bytes of the file hold that count, then per sonnet an offset and a length, then the compressed texts.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can a single <code>skip(n)</code> call on an I/O stream fall short?",
+     "back": "It may skip <b>fewer</b> bytes than asked, so loop until the count is reached",
+     "extra": "The stream cannot be trusted to buffer arbitrary lengths, so a fixed skip is a loop that accumulates what was actually skipped.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two streams write the sonnet file's header and payload?",
+     "back": "<b><code>DataOutputStream</code></b> for numbers, <b>BufferedOutputStream</b> for bytes",
+     "extra": "Mixing them means decoration for the numbers and plain buffered writes for the compressed payload, in file-format order.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In the sonnet file, what does each sonnet's <b>length</b> record?",
+     "back": "The number of <b>bytes</b> of that sonnet's compressed form",
+     "extra": "Sonnets vary in size, so each length must be stored. The offset points at the first byte of that compressed block.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/reading-writing/binary-files/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method opens a file for reading bytes and returns an unbuffered <code>InputStream</code>?",
+     "back": "<code>Files.newInputStream(Path)</code>",
+     "extra": "Unbuffered means each read may hit the device, so wrapping in a BufferedInputStream is worth it for many small reads.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns an unbuffered <code>OutputStream</code> for writing bytes?",
+     "back": "<code>Files.newOutputStream(Path, OpenOption...)</code>",
+     "extra": "With no options it creates the file if absent and truncates it if present, which equals CREATE plus TRUNCATE_EXISTING.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <code>SeekableByteChannel</code>?",
+     "back": "A byte channel that keeps and can change a <b>position</b> in the file",
+     "extra": "It also supports truncate() and size(). Being seekable is what enables random access to a file.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does channel I/O differ from stream I/O?",
+     "back": "Channel I/O moves a <b>buffer</b> at a time, stream I/O a byte or character at a time",
+     "extra": "Fewer per-item calls means channel I/O bypasses layers that bottleneck stream I/O.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which open option is required by <code>newByteChannel()</code> but not by <code>newOutputStream()</code>?",
+     "back": "<code>StandardOpenOption.READ</code>",
+     "extra": "A seekable channel does both directions, so READ must be explicit. With no option at all the channel opens for reading.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>FileChannel.open()</code> add over <code>newByteChannel()</code>?",
+     "back": "Casting to FileChannel adds <b>memory mapping, locking</b> and absolute reads",
+     "extra": "On the default file system a newByteChannel() result can be cast to FileChannel to reach those advanced features.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/reading-writing/buffered-text/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Since which Java release is the default charset of an application UTF-8?",
+     "back": "Java SE <b>18</b>",
+     "extra": "Before that the platform encoding was used, which could be a legacy Windows code page. Explicit charset parameters are now unnecessary.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method opens a file for efficient line-oriented reading?",
+     "back": "<code>Files.newBufferedReader(Path, Charset)</code>",
+     "extra": "It returns a BufferedReader, whose readLine() gives lines without their terminator and null at end of file.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you get a lazy <code>Stream&lt;String&gt;</code> of a file's lines since Java 8?",
+     "back": "<code>bufferedReader.lines()</code>",
+     "extra": "The stream is AutoCloseable, so open it in try-with-resources. Files.lines(Path) is the shortcut that skips the reader.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method opens a file for buffered character writing?",
+     "back": "<code>Files.newBufferedWriter(Path, Charset, OpenOption...)</code>",
+     "extra": "The optional OpenOptions control creation and appending, so the same call can build a fresh file or extend an existing one.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>BufferedReader.readLine()</code> return at end of file?",
+     "back": "<b><code>null</code></b>",
+     "extra": "Each returned line excludes its terminator, so a while loop testing for null is the classic line-reading pattern.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What did character streams do about the local charset before Java 18?",
+     "back": "Translated to and from the <b>platform encoding</b> automatically",
+     "extra": "That default could be a legacy Windows encoding, so code that needed to be portable passed StandardCharsets.UTF_8 explicitly.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/reading-writing/common-operations/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What single checked exception type do all file I/O operations throw?",
+     "back": "<b><code>IOException</code></b>",
+     "extra": "More specific subclasses exist, such as FileNotFoundException and DirectoryNotEmptyException, and may need handling too.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Java release introduced try-with-resources?",
+     "back": "Java SE <b>7</b>",
+     "extra": "It calls close() on each declared resource as the block exits, normally or exceptionally, so no finally block is needed.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In what order does try-with-resources close multiple resources?",
+     "back": "In <b>reverse order of declaration</b> - the last declared closes first",
+     "extra": "So a BufferedReader declared over an InputStream closes first, releasing the outer layer before the underlying stream.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which methods does <code>FileSystemException</code> provide for diagnosis?",
+     "back": "<code>getFile(), getReason(), getMessage()</code> and <b><code>getOtherFile()</code></b>",
+     "extra": "The last is for two-file operations such as copy, where both the source and the target matter to understand the failure.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is method chaining?",
+     "back": "Calling the next method on the object returned by the previous call",
+     "extra": "It avoids temporary variables and keeps I/O setup readable, for example chaining getPath() onto getDefault().",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/reading-writing/decorating/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which design pattern does the Java I/O API use to extend stream behavior?",
+     "back": "The <b>Decorator</b> pattern",
+     "extra": "A wrapper object takes the delegate stream in its constructor and adds or overrides behavior without altering the wrapped class.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class reads characters from an <code>InputStream</code>?",
+     "back": "<code>InputStreamReader</code>",
+     "extra": "It is a Reader over bytes. FileReader is a convenience subclass that opens a file directly.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class writes characters to an <code>OutputStream</code>?",
+     "back": "<code>OutputStreamWriter</code>",
+     "extra": "It is a Writer for byte sinks. Its close() flushes the encoded characters before closing the stream.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What can happen if a writer wrapping an output stream is never flushed?",
+     "back": "Characters stay in the internal buffer and are <b>missing</b> from the file",
+     "extra": "try-with-resources closes both in the right order, flushing each layer as it goes, which is why omitting it is a real data-loss bug.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two classes add primitive read and write methods to a binary stream?",
+     "back": "<code>DataInputStream</code> and <code>DataOutputStream</code>",
+     "extra": "They write and read int, long, double and so on in a fixed binary encoding, which is what a binary file format needs.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does writing six ints with <code>DataOutputStream</code> produce a 24-byte file?",
+     "back": "An int is <b>4 bytes</b>, so six of them take 24",
+     "extra": "Unlike a text file, the binary encoding uses a fixed width per value, so the size is predictable from the count.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>DataInputStream.readFully(byte[])</code> do at end of stream?",
+     "back": "Throws <b><code>EOFException</code></b> if the array cannot be filled",
+     "extra": "It blocks until the array is full, unlike plain read() which may return a partial count, so it is the right call for fixed-length records.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>DataOutputStream.writeUTF(String)</code> use as its encoding?",
+     "back": "<b>Modified UTF-8</b>",
+     "extra": "readUTF() decodes the same format. Modified UTF-8 differs from standard UTF-8 in how it encodes the null character.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/reading-writing/in-memory/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class reads characters from a <code>String</code>?",
+     "back": "<code>StringReader</code>",
+     "extra": "CharArrayReader does the same over a char array. Both are Readers, so they plug into any buffered or parsing decoration.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you get the accumulated text from a <code>StringWriter</code>?",
+     "back": "<code>toString()</code> or <code>getBuffer()</code>",
+     "extra": "toString() builds a String from the internal StringBuffer, while getBuffer() exposes the buffer itself with no defensive copy.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class grows automatically and lets you read back the bytes written to it?",
+     "back": "<code>ByteArrayOutputStream</code>",
+     "extra": "Set an initial size if known; size() gives the count, toByteArray() a copy, and toString() decodes using a charset.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is a <code>ByteArrayOutputStream</code> useful when a file format needs a length field up front?",
+     "back": "You can serialize first and then ask <b>size()</b> for the byte count",
+     "extra": "Compressed content makes the length impossible to compute in advance, so writing to memory and measuring afterwards is the practical route.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class lets you build a String by appending characters through a Writer?",
+     "back": "<code>StringWriter</code>",
+     "extra": "It wraps an internal StringBuffer, so repeated appends never copy the accumulated text the way string concatenation would.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three methods read back the content of a <code>ByteArrayOutputStream</code>?",
+     "back": "<code>size()</code>, <code>toByteArray()</code> and <code>toString()</code>",
+     "extra": "size() gives the byte count, toByteArray() a defensive copy, and toString() decodes those bytes with the default or a given charset.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/java-io/reading-writing/small-files/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method reads a whole small file into a <code>byte[]</code>?",
+     "back": "<code>Files.readAllBytes(Path)</code>",
+     "extra": "It opens and closes the stream for you but is not meant for large files, since the entire content is held in memory.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method reads a whole small text file into a <code>List&lt;String&gt;</code>?",
+     "back": "<code>Files.readAllLines(Path, Charset)</code>",
+     "extra": "Lines come without terminators. For big files prefer Files.lines(), which processes the lines lazily.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which open option creates a new file and throws if it already exists?",
+     "back": "<code>StandardOpenOption.CREATE_NEW</code>",
+     "extra": "CREATE instead opens an existing file or creates it. The difference decides whether an accidental overwrite is caught or allowed.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which open option deletes the file when the stream closes?",
+     "back": "<code>StandardOpenOption.DELETE_ON_CLOSE</code>",
+     "extra": "It is designed for throwaway temporary files whose lifetime should never outlive the program's use of them.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>SPARSE</code> open option hint at?",
+     "back": "That the file will be sparse, so data gaps may consume no disk space",
+     "extra": "Only some file systems honor it, NTFS being the example given. It is a hint, so code must work when it is ignored.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>Files.createFile()</code> safer than an existence check followed by creation?",
+     "back": "The check and the creation happen in one <b>atomic</b> operation",
+     "extra": "A separate check leaves a window for another process to create the file first, a classic TOCTTOU race.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface provides random access to a file through a movable position?",
+     "back": "<code>SeekableByteChannel</code>",
+     "extra": "position() reads or sets the cursor, read/write move bytes through a ByteBuffer, and truncate() shortens the file.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method creates an empty file in a single atomic step with preset attributes?",
+     "back": "<code>Files.createFile(Path, FileAttribute...)</code>",
+     "extra": "Files.write() also creates files but takes no attributes. Checking exists() and then creating is racy; createFile does both at once.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "source": "https://dev.java/learn/api/io/modernio/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::01-i-o-operations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which single method reads a whole text file into a String?",
+     "back": "<code>Files.readString(path)</code>",
+     "extra": "Since Java 18 it assumes UTF-8, so no charset argument is needed. It opens and closes the file for you.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method writes a String to a text file in one call?",
+     "back": "<code>Files.writeString(path, text)</code>",
+     "extra": "For several lines use Files.writeString(path, list), and for binary data use Files.write with a byte array.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method lazily streams a large file's lines, and what must you do with the result?",
+     "back": "<code>Files.lines(path)</code> - the returned stream <b>must be closed</b>",
+     "extra": "It holds the file handle open, so wrap it in try-with-resources. Files.readAllLines loads everything instead.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method visits only the direct entries of a directory?",
+     "back": "<code>Files.list(path)</code>",
+     "extra": "It returns a Stream&lt;Path&gt; that must be closed. Files.walk instead descends into subdirectories.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method recursively visits a directory tree as a Stream?",
+     "back": "<code>Files.walk(path)</code>",
+     "extra": "An overload limits depth. Use stream operations such as filter and collect on the result, and close the stream.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method walks a tree giving each path free access to its <code>BasicFileAttributes</code>?",
+     "back": "<code>Files.find(path, depth, predicate)</code>",
+     "extra": "The predicate receives path and attributes together, which is cheaper than calling readAttributes separately per file.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Files.walkFileTree</code> offer that <code>Files.walk</code> does not?",
+     "back": "Notifications on first and last visit of a directory via a <b>FileVisitor</b>",
+     "extra": "That control matters when deleting or copying a whole tree, where the order of directory removal and creation is critical.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which Java release can you mount a ZIP file as a file system?",
+     "back": "Java SE <b>8</b>",
+     "extra": "Use FileSystems.newFileSystem to get one, then all Files methods work on its entries, and closing it writes the changes back.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does closing a ZIP file system do?",
+     "back": "Writes the accumulated <b>changes</b> back into the ZIP file",
+     "extra": "All additions and deletions made through Files are held until then, so a crash before close loses them.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two classes provide the convenience methods for temporary files and directories?",
+     "back": "<code>Files.createTempFile</code> and <code>Files.createTempDirectory</code>",
+     "extra": "They place the item in a suitable temporary location, such as /tmp on Linux, using the given prefix and optional suffix.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the modern replacement for reading a text file line by line with <code>BufferedReader.readLine()</code>?",
+     "back": "<code>Files.lines()</code> or <code>Files.readAllLines()</code>",
+     "extra": "getPathMatcher-era line loops obsolete. A stream of lines composes with filter and map directly.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "source": "https://dev.java/learn/security/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::09-security-and-cryptography-libraries"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the difference between plaintext and ciphertext?",
+     "back": "Plaintext is <b>readable</b>; ciphertext is <b>unreadable</b> to an attacker",
+     "extra": "Encryption converts plaintext to ciphertext and decryption reverses it, using a publicly known algorithm plus a secret key.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a cryptographic hash function produce from an arbitrarily long input?",
+     "back": "A <b>fixed-length</b> output, effectively unique to that input",
+     "extra": "Salting, concatenating random bits to the input, removes the ability to precompute a table that reverses common inputs.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an initialization vector (IV) for?",
+     "back": "Adding cryptographic variance to the encryption of the first block of plaintext",
+     "extra": "Identical plaintext blocks encrypted with the same key would otherwise produce identical ciphertext, leaking structure.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does JCA stand for and what are its goals?",
+     "back": "<b>Java Cryptography Architecture</b> - algorithm independence and provider neutrality",
+     "extra": "It is the framework layer of the Java Security API; the actual algorithms live in pluggable providers.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which pattern do you use to obtain a cryptographic implementation in the JCA?",
+     "back": "<code>getInstance(algorithm)</code> on an engine class, optionally plus a provider name",
+     "extra": "For example MessageDigest.getInstance(\"SHA-256\") or with \"ProviderC\" pinned. The engine class is the service type.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the three data states that encryption can protect?",
+     "back": "<b>At rest</b>, <b>in motion</b> and <b>in use</b>",
+     "extra": "At rest is stored data, in motion is data on the network, in use is data loaded and actively processed in memory.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In symmetric encryption, how many keys are involved?",
+     "back": "<b>One</b> shared key, used by both parties for encryption and decryption",
+     "extra": "Its cost is low, so it is the default for bulk data. The problem it does not solve is how to share the key safely.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In asymmetric encryption, which key is used to encrypt a message to someone?",
+     "back": "Their <b>public</b> key",
+     "extra": "Only the matching private key can decrypt it. The private key also signs, which is verified with the public key.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK release did the default AES key size rise from 128 to 256 bits?",
+     "back": "JDK <b>19</b>",
+     "extra": "Only when the installed crypto policy allows it; otherwise the default falls back to 128 bits.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which mode of operation combines a cipher with a counter and a Galois authenticator?",
+     "back": "<b>GCM</b> - Galois/Counter Mode",
+     "extra": "It provides confidentiality and integrity in one pass. ECB, by contrast, leaks repeated plaintext patterns.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Cipher.doFinal()</code> do?",
+     "back": "Encrypts or decrypts in a single-part operation, or finishes a multiple-part one",
+     "extra": "It returns the resulting byte array, which is why both the encrypt and the decrypt side end with it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since JDK 19, what is the default RSA key size?",
+     "back": "<b>3072</b> bits, up from 2048",
+     "extra": "RSASSA-PSS and DH moved too. Small keys are now considered weak against modern factoring capacity.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a digital signature made from?",
+     "back": "A hash of the message, encrypted with the <b>sender's private key</b>",
+     "extra": "The receiver recomputes the digest and verifies with the sender's public key, which proves both origin and integrity.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "source": "https://dev.java/learn/security/app-integrity-tools/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::09-security-and-cryptography-libraries"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> subcommand prints a running application's system properties?",
+     "back": "<code>jcmd &lt;pid&gt; VM.system_properties</code>",
+     "extra": "Scan the output for a suspicious library name, then examine that library to learn its version.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jcmd</code> subcommand prints loaded classes hierarchically since JDK 9?",
+     "back": "<code>jcmd &lt;pid&gt; VM.class_hierarchy</code>",
+     "extra": "Before JDK 9 the only option was GC.class_histogram, which lists instantiated classes rather than loaded ones.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does a class missing from <code>jdeps</code> output mean it can never be loaded?",
+     "back": "No - <b>plugins via reflection or proxy</b> can load classes not seen statically",
+     "extra": "jdeps analyzes bytecode references. Frameworks that load by name only appear at runtime.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which tool statically analyzes a JAR's package and class dependencies?",
+     "back": "<b><code>jdeps</code></b>",
+     "extra": "Its -p option filters packages, and regex support lets you hunt partial package names such as shaded libraries.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two system properties disable JNDI object factories in a Java runtime?",
+     "back": "<b><code>jdk.jndi.object.factoriesFilter=!*</code></b> and <code>trustSerialData=false</code>",
+     "extra": "The first blocks all object factories, the second stops deserialization from the LDAP javaSerializedData attribute.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which system property applies a serialization filter to incoming object streams?",
+     "back": "<code>jdk.serialFilter</code>",
+     "extra": "It limits which classes may be deserialized. On the command line both JNDI patches and unlimited native access can be passed via JAVA_TOOL_OPTIONS.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which command lists the modules inside a JDK runtime image?",
+     "back": "<code>java --list-modules</code>",
+     "extra": "Run it against the custom runtime to verify all required modules are present before shipping.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jdeps</code> option produces the module list for <code>jlink --add-modules</code>?",
+     "back": "<code>--print-module-deps</code>",
+     "extra": "It emits a comma-separated list of modules, plus their transitive dependencies, that you can feed straight to jlink.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which runtime option limits the modules an application can observe without building a custom image?",
+     "back": "<code>--limit-modules</code>",
+     "extra": "It was introduced with JEP 261 in JDK 9. The API a module no longer exposes disappears, so code that relies on it breaks.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK release does <code>jdeps</code> exist for static dependency analysis?",
+     "back": "JDK <b>8</b>",
+     "extra": "Before that there was no supported JDK tool for package-level dependency analysis of a JAR.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "source": "https://dev.java/learn/security/digital-signature/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::09-security-and-cryptography-libraries"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What three guarantees does a digital signature provide?",
+     "back": "<b>Authenticity</b>, <b>integrity</b> and <b>non-repudiation</b>",
+     "extra": "It proves who wrote the message, that it was not altered in transit, and that the author cannot deny having sent it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which algorithm is used in the article's digital signature example?",
+     "back": "<b>Ed25519</b> - an elliptic curve signature using EdDSA over Curve25519",
+     "extra": "You obtain a Signature instance with Signature.getInstance(\"Ed25519\") and initialize it with the private key to sign.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method verifies a signature in Java?",
+     "back": "<code>signature.verify(byte[])</code>, returning a boolean",
+     "extra": "You initialize the Signature instance with the signer's public key and feed it the message before calling verify.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the certification authority (CA) vouch for in a digital certificate?",
+     "back": "The link between a <b>public key</b> and the identity that owns it",
+     "extra": "A CA signs the certificate, so a trusting party can rely on the binding without out-of-band key exchange.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What fields does a digital certificate contain?",
+     "back": "Serial number, validity dates, <b>subject name and public key</b>, issuer's signature",
+     "extra": "The public key inside the certificate is what you use to verify the holder's signatures or encrypt to them.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a self-signed certificate?",
+     "back": "One issued by the server that hosts it, not by a known <b>CA</b>",
+     "extra": "Browsers treat it as untrusted by default because nothing verifies the issuer's own identity.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which standard defines the format of digital certificates?",
+     "back": "<b>X.509</b>",
+     "extra": "Digital signatures use the Digital Signature Standard (DSS) instead. The two are different standards with different jobs.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class offers standard access to all the attributes of an X.509 certificate?",
+     "back": "<code>X509Certificate</code>",
+     "extra": "The parent java.security.cert.Certificate is the format-agnostic abstraction; X509Certificate adds the fields.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you compute a certificate's thumbprint?",
+     "back": "Run <code>MessageDigest</code> over the certificate's encoded form",
+     "extra": "The digest is the unique identifier you compare against a stored fingerprint to confirm you have the right certificate.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two classes validate an X.509 certificate chain?",
+     "back": "<code>TrustAnchor</code> and <code>CertPathValidator</code>",
+     "extra": "The trust anchor is the root you already trust, and the validator checks each link from there to the presented certificate.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "source": "https://dev.java/learn/security/monitor/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::09-security-and-cryptography-libraries"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which JDK release introduced the four JFR security events?",
+     "back": "JDK <b>12</b>",
+     "extra": "They are disabled by default in the default.jfc and profile.jfc configurations, so you have to enable them explicitly.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JFR event records calls to <code>Security.setProperty()</code>?",
+     "back": "<code>jdk.SecurityPropertyModification</code>",
+     "extra": "Paired with the initial-value event, it shows the starting security configuration and every later change.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JFR event captures the TLS version and cipher suite negotiated on each handshake?",
+     "back": "<code>jdk.TLSHandshake</code>",
+     "extra": "Its fields include peer host, peer port, negotiated protocol and cipher, and the peer certificate id.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JFR event records details of successfully validated X.509 certificates?",
+     "back": "<code>jdk.X509Validation</code>",
+     "extra": "jdk.X509Certificate captures every certificate generated by the security libraries, validated or not.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which system property prints TLS handshake detail, including the selected protocol version?",
+     "back": "<code>-Djavax.net.debug=ssl:handshake</code>",
+     "extra": "The output includes a line such as \"selected version\": [TLSv1.3], which tells you exactly what was negotiated.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JFR event shows initial JDK security property values?",
+     "back": "<code>jdk.InitialSecurityProperty</code>, added in JDK 20",
+     "extra": "It is enabled by default, unlike the modification event, so a recording always has the baseline to compare against.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which one-word system property prints initial security properties to standard error?",
+     "back": "<code>-Djava.security.debug=properties</code>",
+     "extra": "It is a quick alternative to a JFR recording when you only need the startup snapshot.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JFR event tracks how often service provider implementations are invoked?",
+     "back": "<code>jdk.SecurityProviderService</code>",
+     "extra": "It counts service provider calls, which reveals which crypto implementations actually do the work at runtime.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which fields identify an X.509 certificate for expiry monitoring?",
+     "back": "Its <b>validity period</b>, along with subject, issuer and serial number",
+     "extra": "An expired certificate breaks connections from a specific date, so the not-after value is the field worth alerting on.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK release can JFR events be streamed programmatically over the network instead of only via JMC?",
+     "back": "JDK <b>16</b>",
+     "extra": "An MBeanServerConnection lets you pull recorded events as they occur, which enables custom monitoring dashboards.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which default TLS versions do recent JDKs negotiate?",
+     "back": "<b>TLS 1.3</b> and <b>TLS 1.2</b>",
+     "extra": "Which one a particular socket uses depends on both peers, so measure rather than assume.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/date/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class represents a date with no time and no time zone?",
+     "back": "<code>LocalDate</code>",
+     "extra": "It holds a year, month and day in the ISO calendar, which suits things like birthdays that are the same date everywhere.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class represents a month of a specific year?",
+     "back": "<code>YearMonth</code>",
+     "extra": "lengthOfMonth() answers how many days it has, which correctly handles February in leap years.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class represents a month and day with no year, such as New Year's Day?",
+     "back": "<code>MonthDay</code>",
+     "extra": "isValidYear() then asks whether that day exists in a given year, so February 29 is valid in 2012 but not 2010.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class represents a year alone?",
+     "back": "<code>Year</code>",
+     "extra": "isLeap() reports leap-year status, so Year.of(2012).isLeap() is true.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method on <code>LocalDate</code> returns the day of the week the date falls on?",
+     "back": "<code>getDayOfWeek()</code>",
+     "extra": "It returns a DayOfWeek enum constant such as MONDAY, not a number, which keeps the code readable.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you find the first Wednesday after a given date?",
+     "back": "<code>date.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY))</code>",
+     "extra": "A TemporalAdjuster returns an adjusted temporal value, and with() applies it to produce a new immutable date.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many date-only classes does the Date-Time API provide, and which?",
+     "back": "<b>Four</b>: LocalDate, YearMonth, MonthDay and Year",
+     "extra": "Each models a different precision of date information, so you pick the narrowest one that fits the fact you store.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/dayofweek-month/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What integer values do <code>DayOfWeek</code> constants have?",
+     "back": "<b>1</b> for MONDAY through <b>7</b> for SUNDAY",
+     "extra": "The numbering follows the ISO standard, which starts the week on Monday rather than Sunday.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What integer values do <code>Month</code> constants have?",
+     "back": "<b>1</b> for JANUARY through <b>12</b> for DECEMBER",
+     "extra": "This matches the ISO month range, and unlike legacy Calendar it is 1-based.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method gives a localized name for a day or month?",
+     "back": "<code>getDisplayName(TextStyle, Locale)</code>",
+     "extra": "TextStyle chooses FULL, SHORT or NARROW. STANDALONE variants exist where a language names the month differently in isolation.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Month.FEBRUARY.maxLength()</code> return?",
+     "back": "<b>29</b>",
+     "extra": "It is the most days the month can ever have, so leap years are included. YearMonth.lengthOfMonth() gives the value for a specific year.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>DayOfWeek.MONDAY.plus(3)</code> return?",
+     "back": "<b>THURSDAY</b>",
+     "extra": "Enum constants support temporal arithmetic directly, wrapping around at the end of the week.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/instant/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does an <code>Instant</code> represent?",
+     "back": "A single point on the timeline, measured from the <b>epoch</b> with nanosecond precision",
+     "extra": "The epoch is 1970-01-01T00:00:00Z. Instant is designed for machine timestamps, not for human dates.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What count does an <code>Instant</code> store internally?",
+     "back": "Seconds since <b>1970-01-01T00:00:00Z</b>, plus nanoseconds",
+     "extra": "An instant before the epoch has a negative value. MIN and MAX bound the representable range.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which format does <code>Instant.toString()</code> produce?",
+     "back": "<b>ISO-8601</b>, such as 2013-08-20T15:16:26.355Z",
+     "extra": "The trailing Z marks UTC. Switching between this text form and other classes goes through the same standard.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can an <code>Instant</code> be expressed in years, months or days?",
+     "back": "<b>No</b> - it only knows seconds and nanoseconds",
+     "extra": "Those units depend on a time zone. Bind the Instant to a ZonedDateTime or LocalDateTime first to use them.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "To do year or month arithmetic with an <code>Instant</code>, what must you do first?",
+     "back": "Convert it with a <b>time zone</b> to a ZonedDateTime or LocalDateTime",
+     "extra": "LocalDateTime.ofInstant(instant, zone) is the conversion, and then years, months and days become meaningful.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method measures the elapsed time between two <code>Instant</code> objects?",
+     "back": "<code>instant.until(other, TemporalUnit)</code>",
+     "extra": "isAfter() and isBefore() just compare. until() returns an amount in the chosen unit, such as seconds or hours.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class can be converted to an <code>Instant</code> without extra information?",
+     "back": "<b>ZonedDateTime</b> or <b>OffsetDateTime</b>, but not a LocalDateTime",
+     "extra": "ZonedDateTime and OffsetDateTime map to an exact moment; a LocalDateTime is ambiguous without an offset.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which calendar system does the Date-Time API use by default?",
+     "back": "The <b>ISO-8601</b> calendar, based on the Gregorian calendar",
+     "extra": "Alternative systems such as Hijrah or Thai Buddhist live in java.time.chrono, and you may define your own.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the four design principles of the Date-Time API?",
+     "back": "<b>Clear</b>, <b>fluent</b>, <b>immutable</b> and <b>extensible</b>",
+     "extra": "Immutable is what makes the whole API thread-safe: every modification returns a new object instead of mutating one.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the Date-Time API thread-safe?",
+     "back": "Its classes are <b>immutable</b>, so no shared state can be mutated",
+     "extra": "This is the direct answer to the legacy Calendar and SimpleDateFormat problems, where shared mutable state caused data races.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method prefix creates an instance by <b>validating</b> its input parameters?",
+     "back": "<code>of</code>",
+     "extra": "It checks that the fields form a valid date. from() converts another type instead, and parse() reads text.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method prefix converts another object to the target type, possibly losing information?",
+     "back": "<code>from</code>",
+     "extra": "For example LocalDate.from(temporal) extracts the date part. Information beyond the target type's precision is discarded.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method prefix is the immutable equivalent of a setter?",
+     "back": "<code>with</code>",
+     "extra": "It returns a <b>copy</b> with one element changed. plus() and minus() are the same idea for adding or subtracting time.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method prefix combines one temporal object with another?",
+     "back": "<code>at</code>",
+     "extra": "A LocalDate at a time zone becomes a ZonedDateTime, and at a LocalTime becomes a LocalDateTime.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens when you pass <code>null</code> to a Date-Time method parameter?",
+     "back": "<b><code>NullPointerException</code></b> is typically thrown",
+     "extra": "Nulls are rejected rather than silently accepted, which is part of the clear design and keeps fluent chains safe.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which package holds the formatters and parsers for dates and times?",
+     "back": "<code>java.time.format</code>",
+     "extra": "Mobile java.time.zone instead handles zone rules and offsets. java.time.temporal holds fields, units, adjusters and queries.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/legacy-code/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method converts a legacy <code>Date</code> to an <code>Instant</code>?",
+     "back": "<code>date.toInstant()</code>",
+     "extra": "Date.from(Instant) goes the other way. Both classes model an instant independent of any time zone.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method converts a <code>Calendar</code> to a <code>ZonedDateTime</code>?",
+     "back": "<code>calendar.toInstant()</code> then <code>instant.atZone(zone)</code>",
+     "extra": "Calendar has no direct toZonedDateTime(), so the conversion goes through Instant plus an explicit zone.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method converts a <code>TimeZone</code> to a <code>ZoneId</code>?",
+     "back": "<code>timeZone.toZoneId()</code>",
+     "extra": "TimeZone could not express the rules the Date-Time API needs, while ZoneId carries them.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why could legacy <code>Calendar</code> objects not be shared between threads?",
+     "back": "They are <b>mutable</b> and not thread-safe",
+     "extra": "Date-Time classes replaced them with immutable, thread-safe value objects that never change after creation.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What replaces a legacy <code>GregorianCalendar</code> with the time set to 00:00 to hold a date?",
+     "back": "<code>LocalDate</code>",
+     "extra": "Even midnight is unreliable: in some countries a daylight-saving transition skips it once a year.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Date-Time class replaces a legacy <code>GregorianCalendar</code> used for both date and zone?",
+     "back": "<code>ZonedDateTime</code>",
+     "extra": "GregorianCalendar.from(zoned) and toZonedDateTime() bridge the two as the migration route.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/local-time/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class represents a time of day with no date and no zone?",
+     "back": "<code>LocalTime</code>",
+     "extra": "It stores hour, minute, second and nanosecond, which suits opening hours or a movie schedule.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>LocalTime</code> know about daylight saving time?",
+     "back": "<b>No</b> - it stores no zone or DST information",
+     "extra": "DST is defined relative to a zone, so a zone-independent time cannot know whether a given hour exists or repeats.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class combines a date and a time without a zone?",
+     "back": "<code>LocalDateTime</code>",
+     "extra": "It is effectively LocalDate plus LocalTime. To pin it to a moment you need a ZonedDateTime or OffsetDateTime.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class do you need to attach a time zone to a date and time?",
+     "back": "<b><code>ZonedDateTime</code></b> or <b><code>OffsetDateTime</code></b>",
+     "extra": "LocalDateTime deliberately has no zone, so it names a wall-clock reading rather than an instant on the timeline.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method gives the current date and time as a <code>LocalDateTime</code>?",
+     "back": "<code>LocalDateTime.now()</code>",
+     "extra": "Every temporal class offers now(), which captures the current moment in the fields that class models, discarding the rest.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you add hours or days to a <code>LocalDateTime</code>?",
+     "back": "With <code>plusHours()</code>, <code>plusDays()</code>, <code>plusMonths()</code> and siblings",
+     "extra": "The minus equivalents subtract, and every call returns a new instance rather than mutating the receiver.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/non-iso-conversion/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which package holds the predefined non-ISO chronologies?",
+     "back": "<code>java.time.chrono</code>",
+     "extra": "It offers Japanese, Hijrah, Minguo and Thai Buddhist among others, and lets you implement your own.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which static method converts an ISO date to another chronology such as <code>JapaneseDate</code>?",
+     "back": "<code>JapaneseDate.from(TemporalAccessor)</code>",
+     "extra": "Supply a LocalDateTime, LocalDate or similar. It throws DateTimeException when the input cannot form a valid date.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method converts a non-ISO date back to an ISO <code>LocalDate</code>?",
+     "back": "<code>LocalDate.from(chronoLocalDate)</code>",
+     "extra": "It throws DateTimeException if the given date cannot be converted, so guard the call when input is untrusted.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method would a non-ISO date use to report its chronology object?",
+     "back": "<code>date.getChronology()</code>",
+     "extra": "The returned Chronology also provides ISO conversion methods, which is how you get a ISO weekend or field semantics.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>DateTimeFormatterBuilder</code> add over a plain <code>DateTimeFormatter</code>?",
+     "back": "You can <b>assemble a format</b> step by step, including for a non-ISO chronology",
+     "extra": "it to build the string for a converted date, so a chronology-specific rendering becomes possible.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception do the non-ISO conversions throw when a date cannot be converted?",
+     "back": "<b><code>DateTimeException</code></b>",
+     "extra": "Both directions throw it: converting to a chronology and converting back to LocalDate with from().",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/parsing-formatting/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class both parses strings into dates and formats dates into strings?",
+     "back": "<code>DateTimeFormatter</code>",
+     "extra": "You choose a predefined formatter or a pattern, then pass it to parse() or format() on the temporal object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception should parse code catch?",
+     "back": "<b><code>DateTimeParseException</code></b>",
+     "extra": "Formatting throws DateTimeException instead, so the catch clause depends on which direction you are going.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>DateTimeFormatter</code> immutable and thread-safe?",
+     "back": "<b>Yes</b>, so it should be stored in a static constant",
+     "extra": "That is a major improvement over SimpleDateFormat, which was mutable and unsafe to share between threads.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which predefined formatter produces <code>19590709</code> for July 9, 1959?",
+     "back": "<code>DateTimeFormatter.BASIC_ISO_DATE</code>",
+     "extra": "The one-argument parse() on LocalDate uses ISO_LOCAL_DATE instead, which takes hyphenated input.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a date pattern such as <code>MMM d yyyy</code>, what does <b>d</b> mean versus <b>dd</b>?",
+     "back": "<b>d</b> accepts one or two digits; <b>dd</b> requires exactly two, zero-padded",
+     "extra": "So MMM dd yyyy needs \"Jun 03 2003\", while MMM d yyyy accepts \"Jun 3 2003\".",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which pattern letter sequence represents the hour in 12-hour form, as in the article's example?",
+     "back": "<code>hh</code>, usually paired with <code>a</code> for the AM/PM marker",
+     "extra": "hh for two-digit 12-hour time and a to add the a.m. or p.m. text.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/period-duration/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does a <code>Duration</code> measure?",
+     "back": "A fixed length of time in <b>seconds and nanoseconds</b>",
+     "extra": "It suits machine time such as Instant math. A one-day Duration is always exactly 24 hours.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>Period</code> measure?",
+     "back": "A date-based amount expressed as <b>years, months and days</b>",
+     "extra": "Because it is date-based, a one-day Period added to a ZonedDateTime can be 23 or 25 hours across a DST change.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the key difference between a one day Duration and a one day Period?",
+     "back": "The Duration is exactly <b>24 hours</b>; the Period can be 23 or 25 hours in a zone",
+     "extra": "The Duration is an absolute time amount, while the Period is measured in calendar units whose real length depends on the date.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a <code>Duration</code> be negative?",
+     "back": "<b>Yes</b>, if the end point is before the start point",
+     "extra": "ChronoUnit.between() behaves the same way, returning a negative amount for a reversed pair.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is a <code>Duration</code> tied to a time zone?",
+     "back": "<b>No</b> - it tracks neither zone nor daylight saving time",
+     "extra": "That independence is why Duration is the correct type for elapsed-time measurement and for timeouts.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method measures the amount of time between two temporal objects in a single unit?",
+     "back": "<code>ChronoUnit.between(start, end)</code>",
+     "extra": "It works with any temporal type but reports only one unit, so a total in days or in milliseconds is a single call.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/standard-calendar/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What are the two basic ways to represent time in the Date-Time API?",
+     "back": "<b>Human time</b> (year, month, day) and <b>machine time</b> (a point on a timeline)",
+     "extra": "Pick human time for local schedules and machine time for timestamps and elapsed measurement.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class represents human time as year, month and day only?",
+     "back": "<code>LocalDate</code>",
+     "extra": "Its toString() prints 2013-08-20. A birthday is the classic case, since the same date applies worldwide.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class stores a full date and time together with a zone ID and offset?",
+     "back": "<code>ZonedDateTime</code>",
+     "extra": "Its toString() shows both, such as 2013-08-21T00:16:26.941+09:00[Asia/Tokyo].",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class stores an offset but no zone ID?",
+     "back": "<code>OffsetDateTime</code>, or <code>OffsetTime</code> when the date is not needed",
+     "extra": "Offsets come from network and XML formats, while zone IDs are needed to apply daylight-saving rules.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Duration</code>'s <code>toString()</code> produce for 20 hours?",
+     "back": "<b>PT20H</b>",
+     "extra": "The ISO-8601 duration form puts a T between the date part and the time part, so hours alone need PT.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Period.P10D</code>'s toString() produce?",
+     "back": "<b>P10D</b>",
+     "extra": "Date-based amounts need no T separator, so ten days is simply P10D.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>MonthDay</code>'s toString() print for August 20?",
+     "back": "<b>--08-20</b>",
+     "extra": "The two hyphens stand in for the year a MonthDay does not carry. Its sibling YearMonth prints with the year first, as in 2013-08.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/temporal/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which interface supplies the read-only framework for date-time classes?",
+     "back": "<code>TemporalAccessor</code>",
+     "extra": "Temporal adds the write side, so it is a TemporalAccessor plus arithmetic. LocalDate, Instant and ZonedDateTime implement Temporal.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which concrete class implements <code>TemporalField</code> and provides constants such as DAY_OF_WEEK?",
+     "back": "<code>ChronoField</code>",
+     "extra": "A field is a component of a date such as month-of-year. Its unit is described by a TemporalUnit such as ChronoUnit.MONTHS.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you ask whether a temporal object supports a field?",
+     "back": "<code>temporal.isSupported(field)</code>",
+     "extra": "For example LocalDate.isSupported(ChronoField.CLOCK_HOUR_OF_DAY) is false, since a date has no clock.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface turns a temporal into a new value, typically used through <code>with</code>?",
+     "back": "<code>TemporalAdjuster</code>",
+     "extra": "Its adjustInto(Temporal) returns an adjusted value, and with() is the standard way to apply it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class holds predefined adjusters like first day of month?",
+     "back": "<code>TemporalAdjusters</code> (plural)",
+     "extra": "Its methods are static, so a static import gives you names like firstDayOfMonth() and lastInMonth(DayOfWeek).",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface is implemented to build a custom query of a temporal object?",
+     "back": "<code>TemporalQuery</code>",
+     "extra": "Its queryFrom(TemporalAccessor) method returns the extracted answer, and query() runs a query against a temporal.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which enum provides standard units from nanoseconds to millennia?",
+     "back": "<code>ChronoUnit</code>",
+     "extra": "It implements TemporalUnit, and ChronoField values are built from combinations of them.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class defines ISO-specific fields that ChronoField does not?",
+     "back": "<code>IsoFields</code>",
+     "extra": "It covers things like week-of-week-based-year and quarter-of-year, which only make sense on the ISO calendar.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "source": "https://dev.java/learn/api/date-time-regex/date-time/zoneid-zone-offset/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::10-date-and-time-api-details"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What format does a time zone ID usually have?",
+     "back": "<b>region/city</b>, such as Asia/Tokyo",
+     "extra": "Each zone also has an offset from Greenwich, plus a set of rules for how that offset changes over time.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two classes specify a zone versus a fixed offset?",
+     "back": "<b><code>ZoneId</code></b> for a zone with rules, <b>ZoneOffset</b> for a fixed offset",
+     "extra": "ZoneId can convert between Instant and LocalDateTime using its region's rules; ZoneOffset can only shift by a fixed amount.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class uses <code>ZoneRules</code> to handle daylight-saving gaps and overlaps?",
+     "back": "<b><code>ZonedDateTime</code></b>",
+     "extra": "When clocks spring forward an hour, that wall-clock time does not exist; when they fall back it exists twice. ZonedDateTime handles both.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can <code>OffsetDateTime</code> not resolve a DST gap or overlap?",
+     "back": "It has an offset but <b>no zone ID</b>, so it cannot consult the ZoneRules",
+     "extra": "Without the region's rules it cannot know that 02:30 was skipped or that 01:30 occurred twice that night.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class should you use to track a timestamp that records only an absolute offset?",
+     "back": "<code>OffsetDateTime</code>",
+     "extra": "Databases and XML formats often store an offset rather than a region, which makes it the matching type.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns the same instant in a different time zone?",
+     "back": "<code>zonedDateTime.withZoneSameInstant(zone)</code>",
+     "extra": "Use it for arrival times after a flight. withZoneSameLocal() keeps the wall-clock reading instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  }
+ ]
+}

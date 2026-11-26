@@ -1,0 +1,3077 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::04 Collections::05 Stack",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/stacks-queues/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::05-stack"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What do the acronyms <b>LIFO</b> and <b>FIFO</b> stand for?",
+     "back": "Last In First Out (stack) and First In First Out (queue)",
+     "extra": "A stack pops the youngest element it received; a queue polls the oldest. Both are built on the same three operations: add, remove, peek.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which element does <code>Deque.pop()</code> remove, and which one does <code>Deque.poll()</code> remove?",
+     "back": "<code>pop()</code> removes the <b>head</b>, <code>poll()</code> also removes the <b>head</b>",
+     "extra": "They differ only in the empty case: pop() throws NoSuchElementException, poll() returns null. Stack behaviour built on a deque uses <code>push</code>/<code>pop</code>, which act on the same end.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "In the <code>Queue</code> interface, which method throws and which returns a special value for a <b>failed add</b>?",
+     "back": "<code>add()</code> throws <code>IllegalStateException</code>; <code>offer()</code> returns <code>false</code>",
+     "extra": "Same pairing everywhere in Queue: throwing variant on add/poll/peek is add/remove/element, value-returning variant is offer/poll/peek.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "In the <code>Queue</code> interface, which method throws and which returns a special value when the queue is <b>empty</b>?",
+     "back": "<code>remove()</code> and <code>element()</code> throw <code>NoSuchElementException</code>; <code>poll()</code> and <code>peek()</code> return <code>null</code>",
+     "extra": "So the optionals come in pairs: remove/poll both take an element, element/peek both look at one. Only the failure behaviour differs.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Deque</code> add to <code>Queue</code>?",
+     "back": "Operations on <b>both ends</b> (head and tail), so one type models a queue and a stack",
+     "extra": "Deque stands for double ended queue. The Queue method names are kept, and a new suffix convention (<code>First</code>/<code>Last</code>) duplicates them for each end.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Map a <b>FIFO push</b> onto the <code>Deque</code> suffix convention: which method throws and which returns a value?",
+     "back": "<code>addLast()</code> throws <code>IllegalStateException</code>; <code>offerLast()</code> returns false",
+     "extra": "Deque mirrors Queue exactly: add/offer become addLast/offerLast, remove/poll become removeFirst/pollFirst, element/peek become getFirst/peekFirst.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which two methods give <b>LIFO</b> push behaviour on a <code>Deque</code>?",
+     "back": "<code>addFirst()</code> (throws) and <code>offerFirst()</code> (returns false)",
+     "extra": "Pushing at the head means the youngest element is also the first one, which is what makes pop() and poll() on the head a stack pop.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Deque</code> method names replace <code>Queue.element()</code> and <code>Queue.peek()</code>?",
+     "back": "<code>getFirst()</code> and <code>peekFirst()</code>",
+     "extra": "The one naming exception in the convention: the peek family became getFirst/getLast, not element. getFirst throws on an empty deque, peekFirst returns null.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Name the three non-concurrent implementations of <code>Queue</code>/<code>Deque</code> in the Collections Framework.",
+     "back": "<code>ArrayDeque</code>, <code>LinkedList</code> (both interfaces), and <code>PriorityQueue</code> (Queue only)",
+     "extra": "ArrayDeque is array-backed and grows on demand; LinkedList is node-backed with cheap first/last access. Both always accept new elements.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>PriorityQueue</code> decide which element is at its head?",
+     "back": "The <b>least</b> element according to natural order or the supplied <code>Comparator</code>",
+     "extra": "It is a heap, so iteration order is not sorted; only the head is guaranteed. Elements must be Comparable unless a comparator is given.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you insert a non-<code>Comparable</code> object into a <code>PriorityQueue</code> with no comparator?",
+     "back": "A <code>ClassCastException</code> at insertion time",
+     "extra": "The heap needs to compare the new element with existing ones to sift it into place, and fails immediately if it cannot.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "Why should you avoid the legacy <code>Stack</code> class?",
+     "back": "It extends <code>Vector</code>, is synchronized on every call, and is legacy - use <code>ArrayDeque</code>",
+     "extra": "Vector is thread safe but discouraged, and Stack inherits that cost even when no thread safety is needed. For a thread-safe stack use BlockingDeque implementations.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interfaces extend the Collections Framework into concurrent queue programming?",
+     "back": "<code>BlockingQueue</code>, <code>BlockingDeque</code> and <code>TransferQueue</code>",
+     "extra": "They live at the intersection of Collections and concurrency: blocking variants wait when a queue is full or empty instead of throwing or returning null.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::07 Iterator",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/iterating/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::07-iterator"
+   ],
+   "cards": [
+    {
+     "type": "compare",
+     "front": "Why prefer a <b>for-each</b> over an explicit <code>Iterator</code> loop?",
+     "back": "for-each is shorter but <b>cannot remove</b>; use an <code>Iterator</code> to delete while iterating",
+     "extra": "For plain reading, for-each is the option that hides the cursor entirely and cannot go wrong. Removal is the one job it does not support.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface declares <code>iterator()</code>, and which interface extends it?",
+     "back": "<code>Iterable</code> declares it; <code>Collection</code> extends <code>Iterable</code>",
+     "extra": "That is why every collection in the hierarchy, and any class you write that implements Iterable, can be used in a for-each statement.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the correct two-step loop body when using an <code>Iterator</code>?",
+     "back": "Call <code>hasNext()</code> to test, then <code>next()</code> to advance",
+     "extra": "<code>hasNext()</code> is optional but protects you: calling <code>next()</code> with no elements left throws NoSuchElementException.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Iterator.remove()</code> delete?",
+     "back": "The element the last <code>next()</code> returned, once per <code>next()</code>",
+     "extra": "It is the only safe way to delete during an iteration; calling it twice in a row, or before any next(), throws IllegalStateException.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "On which collections does <code>Iterator.remove()</code> throw <code>UnsupportedOperationException</code>?",
+     "back": "<b>Immutable</b> collections, such as those from <code>List.of()</code>",
+     "extra": "The ArrayList, LinkedList and HashSet iterators all support remove; factories returning unmodifiable collections cannot, since their collections have no remove at all.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is thrown when you modify a collection while iterating over it with a for-each or an Iterator?",
+     "back": "<code>ConcurrentModificationException</code>",
+     "extra": "Despite the name this is not about threads: a single-threaded structural modification during iteration triggers the fail-fast iterator.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method removes matching elements from a collection <b>while</b> iterating, safely?",
+     "back": "<code>removeIf(Predicate)</code>",
+     "extra": "It hides the iterator handling and cannot produce a ConcurrentModificationException, unlike a hand-written loop that calls <code>remove()</code> on the collection.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "cloze",
+     "text": "A class works in a for-each as soon as it implements {{c1::Iterable}}, whose method {{c2::iterator()}} returns an {{c3::Iterator}}.",
+     "extra": "The generic parameter of Iterator is the element type, so Range implements Iterable&lt;Integer&gt; and its iterator() returns Iterator&lt;Integer&gt;.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::08 Generics",
+   "source": "https://dev.java/learn/language/fp/generics/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::08-generics"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does a <b>type parameter</b> let you do that a formal parameter cannot?",
+     "back": "Pass a <b>type</b> instead of a value, so one implementation works for many types",
+     "extra": "Formal parameters take values, type parameters take types. That single distinction is what makes a class like Box&lt;T&gt; reusable and type-checked.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two concrete benefits does generic code give over <code>Object</code>-based code?",
+     "back": "<b>Compile-time</b> type checking instead of runtime errors, and no casts",
+     "extra": "With Object-returning APIs, a wrong insertion is only discovered at runtime; generics catch it at compile time, and the compiler inserts the casts it knows are safe.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Match the conventional type parameter letters <code>E</code>, <code>K</code>, <code>V</code>, <code>T</code> to their meaning.",
+     "back": "<code>E</code> Element, <code>K</code> Key, <code>V</code> Value, <code>T</code> Type",
+     "extra": "Also N for Number and S, U, V for 2nd, 3rd, 4th types. Single uppercase letters keep a type variable visually distinct from a real class name.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What may a type variable be substituted with?",
+     "back": "Any <b>non-primitive</b> type: class, interface, array, or another type variable",
+     "extra": "Primitives are excluded, which is why <code>Box&lt;int&gt;</code> does not compile; autoboxing happens at the call site instead, not in the type argument.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What is the difference between a <b>type parameter</b> and a <b>type argument</b>?",
+     "back": "The parameter is <code>T</code> in <code>Foo&lt;T&gt;</code>; the argument is <code>String</code> in <code>Foo&lt;String&gt;</code>",
+     "extra": "You supply type arguments to build a parameterized type. Developers often say one for the other, but the definition is the declaration versus the usage.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>Box&lt;Integer&gt;</code> called?",
+     "back": "A <b>parameterized type</b> - an invocation of a generic type",
+     "extra": "Reading it aloud is \"Box of Integer\". It is a type, not an object, so the statement still waits for a <code>new</code> before anything exists.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>&lt;&gt;</code> called in <code>new Box&lt;&gt;()</code>, and since which release is it allowed?",
+     "back": "The <b>diamond</b>, allowed since Java SE 7",
+     "extra": "It replaces the type arguments in the constructor call when the compiler can infer them from the declaration on the left-hand side.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>raw type</b>?",
+     "back": "A generic class or interface named <b>without</b> type arguments, such as <code>Box</code>",
+     "extra": "Raw types give pre-generics behaviour, so a raw Box hands back Object. A plain non-generic class is not a raw type.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why do raw types produce an <i>unchecked</i> warning rather than an error?",
+     "back": "They <b>bypass</b> generic checks and defer the failure to runtime",
+     "extra": "Assigning a parameterized type to its raw type is legal for compatibility; the reverse direction, and calling generic methods through a raw type, both warn.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which compiler flag shows the full detail of <i>unchecked</i> warnings?",
+     "back": "<code>-Xlint:unchecked</code>",
+     "extra": "Unchecked warnings are off by default with only a hint. The inverse, <code>-Xlint:-unchecked</code>, disables them; <code>@SuppressWarnings(\"unchecked\")</code> silences a single site.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where do the type parameters go in a generic <b>method</b> declaration?",
+     "back": "<b>Before</b> the return type, as in <code>&lt;T&gt; T first(List&lt;T&gt; l)</code>",
+     "extra": "Their scope is limited to that method, unlike a class type parameter. Constructors may be generic too, with the same bracket placement.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method of a bounded type parameter makes <code>The isEven()</code>-style body possible on <code>&lt;T extends Number&gt;</code>?",
+     "back": "Any method declared on the bound, e.g. <code>intValue()</code> from <code>Number</code>",
+     "extra": "The bound both restricts the argument types and exposes the bound's API inside the body. Without it the variable has only Object's methods.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "In a multi-bound declaration <code>&lt;T extends A &amp; B&gt;</code>, what happens if <code>A</code> is a class but is not written first?",
+     "back": "<b>Compile-time error</b> - the class must come before the interfaces",
+     "extra": "The type variable is a subtype of every bound, so only one class bound is possible and Java requires it to lead the list.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "<code>&lt;T extends Number&gt;</code>: does <code>extends</code> mean class extension only?",
+     "back": "No - it means <b>extends or implements</b>, depending on the bound",
+     "extra": "Bounds are written with one keyword for both cases, so <code>&lt;T extends Comparable&lt;T&gt;&gt;</code> happily accepts a class implementing the interface.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>Box&lt;Integer&gt;</code> a subtype of <code>Box&lt;Number&gt;</code>?",
+     "back": "<b>No</b> - generic types are invariant",
+     "extra": "For any two distinct concrete types A and B, MyClass&lt;A&gt; and MyClass&lt;B&gt; are unrelated; their only common parent is Object.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the common supertype of <code>List&lt;Integer&gt;</code> and <code>List&lt;Number&gt;</code>?",
+     "back": "<code>List&lt;?&gt;</code> (with Object and raw List above it)",
+     "extra": "Not List&lt;Object&gt;: that is a concrete parameterization and is unrelated to a list of Integer. The unbounded wildcard is the meeting point.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is subtyping preserved between parameterized generic types?",
+     "back": "Only when the <b>type argument is left unchanged</b>",
+     "extra": "<code>ArrayList&lt;String&gt;</code> is a subtype of <code>List&lt;String&gt;</code>, which is a subtype of <code>Collection&lt;String&gt;</code>, all following the same declaration chain.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a generic type be instantiated with a <b>primitive</b> type argument?",
+     "back": "<b>No</b> - only reference types: <code>Pair&lt;Integer, Character&gt;</code>, never <code>Pair&lt;int, char&gt;</code>",
+     "extra": "Autoboxing happens at the call site, not in the type argument, so the literal 8 becomes Integer.valueOf(8) while the declared type stays a wrapper.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can you write <code>new T()</code> inside a generic class?",
+     "back": "<b>No</b> - compile-time error; use reflection instead",
+     "extra": "After erasure T may only exist as its bound or Object, so the compiler has no constructor to call. Reflection with a Class&lt;T&gt; token is the workaround.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why can't a class declare a <b>static</b> field of type <code>T</code>?",
+     "back": "A static field is shared by <b>all</b> parameterizations, so T would have no single value",
+     "extra": "If it were allowed, one field would have to be the T of every instance type at once. Static methods may still be generic, but with their own type parameter.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What can the compiler check in place of a cast or an <code>instanceof</code> with a parameterized type?",
+     "back": "Only the <b>unbounded wildcard</b> form, e.g. <code>o instanceof List&lt;?&gt;</code>",
+     "extra": "At runtime the type arguments are gone, so <code>instanceof List&lt;String&gt;</code> and <code>instanceof List&lt;Integer&gt;</code> are indistinguishable.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why is <code>new List&lt;String&gt;[10]</code> rejected?",
+     "back": "<b>Arrays are covariant and reified</b>; parameterized types are neither",
+     "extra": "An array's store check must be able to throw ArrayStoreException. With erasure it cannot distinguish a List&lt;String&gt; from a List&lt;Integer&gt;, so it would silently admit the wrong element.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a generic class extend <code>Throwable</code>?",
+     "back": "<b>No</b> - not directly, not indirectly, not even as a type parameter",
+     "extra": "A catch clause must know the concrete type to dispatch, and overriding or catching a parameterized throwable would be erased to allow arbitrary subclasses.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a method catch a value of a type parameter, as in <code>catch (T e)</code>?",
+     "back": "<b>No</b> - but a type parameter <b>may</b> appear in a <code>throws</code> clause",
+     "extra": "Catching needs the runtime class to match, which erasure destroys. Declaring <code>void m() throws T</code> is fine because the throws clause is only checked at compile time.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can't <code>void m(List&lt;String&gt; l)</code> and <code>void m(List&lt;Integer&gt; l)</code> be overloaded?",
+     "back": "Both erase to the same signature <code>m(List)</code> - a <b>name clash</b>",
+     "extra": "Overloading is resolved on the erased signature stored in the class file, so the two overloads collide and the class does not compile.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the compiler replace a type parameter with during erasure?",
+     "back": "Its <b>first bound</b>, or <code>Object</code> if it is unbounded",
+     "extra": "So <code>Node&lt;T&gt;</code> with T unbounded becomes a class with Object fields, and <code>&lt;T extends Comparable&gt;</code> becomes fields of type Comparable.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What guarantee makes generics free at runtime?",
+     "back": "No new classes are created per parameterization, so there is <b>no runtime overhead</b>",
+     "extra": "The erased bytecode contains only ordinary classes and methods. The price is that type information is unavailable at runtime, which drives the restrictions.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Besides substitution, what two things does erasure add to the bytecode?",
+     "back": "Required <b>casts</b>, and synthetic <b>bridge methods</b>",
+     "extra": "Casts restore type safety at the use site, and bridge methods restore polymorphism in subclasses that override with a concrete type.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is a <b>bridge method</b> needed in a class extending a generic one?",
+     "back": "The erased overriding signature <b>no longer matches</b> the erased supertype method",
+     "extra": "Erasure turns Node.setData(T) into setData(Object), so MyNode.setData(Integer) would not override it. The compiler emits setData(Object) that casts and delegates.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What exception does the bridge method produce after erasure when a wrong type reaches it?",
+     "back": "<code>ClassCastException</code>, thrown by the cast inside the bridge",
+     "extra": "The call is dispatched to the bridge, which casts the argument to the overridden type; the compiler's inserted cast is where the runtime check finally happens.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>reifiable</b> type?",
+     "back": "One whose type information is <b>fully available at runtime</b>",
+     "extra": "Primitives, non-generic types, raw types and unbounded wildcard invocations qualify. <code>List&lt;?&gt;</code> and <code>List</code> are reifiable; List&lt;String&gt; is not.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>non-reifiable</b> type?",
+     "back": "A parameterized type whose arguments are erased, e.g. <code>List&lt;String&gt;</code>",
+     "extra": "It has only partial runtime information, so it cannot be used in <code>instanceof</code> or as an array element; the JVM sees it as plain List.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Define <b>heap pollution</b>.",
+     "back": "A variable of a parameterized type <b>refers to an object</b> that is not of that type",
+     "extra": "It follows from an unchecked operation: a raw-typed reference, an unchecked cast, or a varargs array. Code that compiles without warnings cannot pollute the heap.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why is <code>T... elements</code> dangerous in a generic method?",
+     "back": "Erasure rewrites the varargs parameter to <code>Object[]</code>, which accepts <b>any</b> element type",
+     "extra": "The array of a parameterized type cannot legally be created, so the compiler builds an Object[] instead and type safety is lost through that hole.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which annotation asserts that a varargs method is safe against heap pollution?",
+     "back": "<code>@SafeVarargs</code>, on static, final and constructor declarations",
+     "extra": "It is part of the method's contract: a promise that the body does not mishandle the array. <code>@SuppressWarnings</code> silences only the declaration, not the call sites.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the compiler use to infer type arguments for a generic method?",
+     "back": "The <b>argument types</b>, the <b>target type</b>, and possibly the expected return type",
+     "extra": "It then picks the most specific type that makes the invocation applicable - for example Serializable when it is the tightest common supertype of two arguments.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>type witness</b>, and when do you need one?",
+     "back": "<code>Util.&lt;Integer&gt;compare(...)</code> - an explicit type argument between dot and method name",
+     "extra": "Needed only when inference cannot succeed from the arguments and the target. Usually it can, so a generic method is called exactly like an ordinary one.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must you write the diamond to get inference when instantiating a generic class?",
+     "back": "No diamond: it falls back to the <b>raw type</b> and warns about unchecked conversion",
+     "extra": "The constructor of a raw type refers to the raw class, not to <code>Map&lt;String, List&lt;String&gt;&gt;</code>, so assigning the result to that type becomes an unchecked operation.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can a <b>non-generic</b> class have a generic constructor?",
+     "back": "Yes - constructors may declare their own type parameters",
+     "extra": "In <code>new MyClass&lt;Integer&gt;(\"hi\")</code>, Integer is the class parameter X and String is inferred for the constructor parameter T.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which Java release can the diamond infer the type of the class being instantiated?",
+     "back": "<b>Java SE 7</b>",
+     "extra": "Before 7, compilers could infer generic constructor parameters but not the class's own type arguments; with the diamond the target type of the assignment drives the choice.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>target type</b> of an expression?",
+     "back": "The type the compiler expects <b>where the expression sits</b>",
+     "extra": "In <code>List&lt;String&gt; l = Collections.emptyList();</code> the target type is List&lt;String&gt;, so T is inferred as String with no witness needed.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "In Java SE 7, why did <code>processStringList(Collections.emptyList())</code> fail to compile?",
+     "back": "Method <b>arguments</b> were not yet target types, so T defaulted to <code>Object</code>",
+     "extra": "Java SE 8 widened target typing to include method arguments and lambda bodies, so the same call now compiles and T becomes String.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How is the type of a <b>lambda expression</b> determined?",
+     "back": "From the <b>target type</b> of the context - the functional interface expected there",
+     "extra": "That is why a lambda needs an interface in scope: the same <code>() -&gt; \"done\"</code> is Runnable in one context and Callable in another.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Name the contexts in which a lambda can legally appear.",
+     "back": "Variable declarations, assignments, returns, array initializers, arguments, casts",
+     "extra": "These are the eight target-typed positions: also lambda bodies, conditional expressions and method or constructor arguments. Each supplies the functional interface to implement.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which of two overloads does <code>invoke(() -&gt; \"done\")</code> pick, <code>invoke(Runnable)</code> or <code>invoke(Callable&lt;T&gt;)</code>?",
+     "back": "<code>invoke(Callable&lt;T&gt;)</code> - a lambda returning a value is not void-compatible",
+     "extra": "Overload resolution plus target typing eliminate the void alternative because the body produces a value, so the Callable overload is the only applicable one.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>List&lt;? extends Number&gt;</code> accept that <code>List&lt;Number&gt;</code> does not?",
+     "back": "Lists of <b>subtypes</b>: <code>List&lt;Integer&gt;</code>, <code>List&lt;Double&gt;</code>, and any other Number subclass",
+     "extra": "The plain parameterization matches exactly one type; the upper-bounded wildcard matches that type and everything below it, which is what makes reusable methods possible.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Inside a method taking <code>List&lt;? extends Foo&gt;</code>, how may you read elements and may you add?",
+     "back": "Read them as <b>Foo</b>; <b>adding is rejected</b> except for null",
+     "extra": "The compiler only knows the list is some subtype of Foo, and cannot confirm that your Foo is that subtype. So the type is effectively read-only.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two situations call for an <b>unbounded</b> wildcard <code>&lt;?&gt;</code>?",
+     "back": "You only use <code>Object</code> methods, or the methods you use do not depend on the type parameter",
+     "extra": "The second is why <code>Class&lt;?&gt;</code> is so common: most of Class's API ignores T. null is the only value you can add to a List&lt;?&gt;.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How do <code>List&lt;Object&gt;</code> and <code>List&lt;?&gt;</code> differ for adding?",
+     "back": "<code>List&lt;Object&gt;</code> takes any Object; <code>List&lt;?&gt;</code> takes <b>only null</b>",
+     "extra": "They are not the same type. List&lt;?&gt; is a list of unknown type, so no value can be proven compatible; List&lt;Object&gt; is known to accept Object and its subtypes.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the lower-bounded wildcard <code>List&lt;? super Integer&gt;</code> match?",
+     "back": "Integer and <b>all its supertypes</b> - Integer, Number, Object",
+     "extra": "Its job is writing: any of those lists can hold an Integer. Symmetric to the upper bound, which enables reading.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a wildcard have both an upper and a lower bound?",
+     "back": "<b>No</b> - <code>? extends X</code> or <code>? super X</code>, never both",
+     "extra": "A bound is a one-directional constraint on the unknown type; there is no syntax for an interval. Bounds are also only for wildcards, not for type parameters.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>List&lt;Integer&gt;</code> not a subtype of <code>List&lt;Number&gt;</code>?",
+     "back": "Generics are <b>invariant</b>: subtyping follows only the declaration chain",
+     "extra": "ArrayList&lt;E&gt; implements List&lt;E&gt; so ArrayList&lt;String&gt; is a List&lt;String&gt;, but a change of type argument breaks the relationship entirely - these two are unrelated apart from Object and List&lt;?&gt;.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the common parent of <code>List&lt;Number&gt;</code> and <code>List&lt;Integer&gt;</code>?",
+     "back": "<code>List&lt;?&gt;</code>",
+     "extra": "That is the joining point wildcards provide. <code>List&lt;? extends Number&gt;</code> then sits between it and List&lt;Number&gt; in the type hierarchy.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the compiler report when it says \"capture of ?\"?",
+     "back": "It <b>inferred a hidden type variable</b> for a wildcard and cannot prove your write is safe",
+     "extra": "Wildcard capture is usually invisible. A private helper method named <code>fooHelper(...)</code> gives the captured type a name, letting the compiler accept a safe call.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "State the PECS guideline: which wildcard for an \"in\" variable and which for an \"out\" variable?",
+     "back": "in: <code>? extends</code>; out: <code>? super</code>",
+     "extra": "Mnemonic Producer Extends, Consumer Super: data you read from is produced by the parameter, data you write into is consumed by it. Use no wildcard when both happen.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Should a <b>return type</b> use a wildcard?",
+     "back": "<b>No</b> - it forces every caller to deal with the wildcard",
+     "extra": "The guidelines apply to parameters, not results. Returning List&lt;? extends Foo&gt; takes away the caller's freedom for no benefit they asked for.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "On a <code>List&lt;? extends NaturalNumber&gt;</code>, which four operations are still allowed?",
+     "back": "Add null, <code>clear()</code>, iterate and <code>remove()</code>, write back read elements",
+     "extra": "So it is not strictly read-only, but you cannot add or change elements through it: no new value can be proven to be of the unknown subtype.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces",
+   "source": "https://dev.java/learn/language/fp/pattern-matching/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::05-functional",
+    "topic::01-functional-interfaces"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Name the three elements every pattern matching operation has.",
+     "back": "The <b>matched target</b>, the <b>pattern</b>, and the <b>result</b> of the match",
+     "extra": "Even with a regex these hold: the sonnet is the target, <code>\\bflame\\b</code> is the pattern, the start and end indexes are the result.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In which Java release did <b>pattern matching for instanceof</b> become final?",
+     "back": "<b>Java SE 16</b>",
+     "extra": "Before 16 you checked the type and then declared a local variable to cast; afterwards the cast is folded into the pattern <code>o instanceof String s</code>.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>pattern variable</b>?",
+     "back": "The variable declared inside the pattern, bound only if the match succeeded",
+     "extra": "In <code>o instanceof String s</code>, s is created with the type String only when o really is a String. A pattern may declare several pattern variables.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>type pattern</b>?",
+     "back": "A type followed by a variable declaration, used as the right operand of <code>instanceof</code>",
+     "extra": "It checks the type of the matched target and binds the variable. The type may be a class, an abstract class or an interface, so CharSequence matches a String.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Where may a pattern variable be used, besides the <code>if</code> body?",
+     "back": "Also the boolean expression after <code>&amp;&amp;</code>, which only runs if the match succeeded",
+     "extra": "Short-circuit evaluation guarantees the variable exists there. The right side of <code>||</code> does not qualify, since it can run when the match failed.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When can a pattern variable be used <b>after</b> the <code>if</code> statement?",
+     "back": "Only when the <code>if</code> branch <b>cannot fall through</b> - it returns or throws",
+     "extra": "If the branch can continue into the rest of the method, the compiler cannot prove the match happened and refuses the use outside.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>pi instanceof String s</code> fail to compile when <code>pi</code> is a <code>Point</code>?",
+     "back": "The compiler knows <code>String</code> is <b>final</b>, so the match can never succeed",
+     "extra": "A statically impossible pattern is an error rather than dead code. Sealed and final types give the compiler enough information to reject it.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In which release did <b>pattern matching for switch</b> become final?",
+     "back": "<b>JDK 21</b>, after previews in 17 through 20",
+     "extra": "It allows type patterns as case labels, so a chain of <code>if (o instanceof ...)</code> tests collapses into one switch expression.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which types does <code>switch</code> accept as case labels, before type patterns are added?",
+     "back": "<code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, their wrappers, <code>String</code>, and enums",
+     "extra": "<code>long</code> is not in the list, and neither are float, double or boolean. Pattern matching for switch adds type patterns to that set.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>guarded case label</b>?",
+     "back": "A type pattern followed by a boolean expression in a <code>when</code> clause",
+     "extra": "Example: <code>case String s when !s.isEmpty()</code>. The guard is needed because a case label cannot itself be a boolean expression.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can't you write <code>case s.isEmpty():</code> in a switch?",
+     "back": "Case labels must be <b>constant expressions</b>, and a boolean test is not one",
+     "extra": "The guard clause <code>when</code> exists precisely to express a condition alongside a type pattern, since case labels cannot be booleans.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>record deconstruction</b> in a record pattern?",
+     "back": "A record pattern that declares one pattern per component, binding each from the accessor",
+     "extra": "<code>o instanceof Point(int x, int y)</code> calls <code>x()</code> and <code>y()</code>. That matters: accessors may return defensive copies.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which constructor's shape must a record pattern follow?",
+     "back": "The <b>canonical</b> constructor, regardless of the other constructors declared",
+     "extra": "Extra constructors do not affect pattern syntax; a pattern written to match a non-canonical constructor does not compile.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a record pattern, may a component pattern use <code>var</code>?",
+     "back": "Yes - the component's real type is <b>inferred</b>",
+     "extra": "You may also widen it to a supertype of the component's type. Naming a type that the component could not possibly be extended to is a compile error.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Do record patterns support boxing and unboxing?",
+     "back": "<b>No</b> - a component pattern's type must match or be a supertype, without conversion",
+     "extra": "So a pattern expecting Integer against an int component fails, and the reverse too. Nesting record patterns, however, is supported.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which three language constructs support pattern matching, and which two kinds of patterns?",
+     "back": "<code>instanceof</code>, <code>switch</code>, and the extended <code>for</code> loop; type patterns and record patterns",
+     "extra": "All three accept the same two pattern kinds, so the mental model learned for one transfers directly to the others.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::05 Functional Programming::02 High Order Functions",
+   "source": "https://dev.java/learn/language/fp/lambdas/combining-chaining-composing/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::05-functional",
+    "topic::02-high-order-functions"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What do the default methods of the <code>java.util.function</code> interfaces enable?",
+     "back": "<b>Combining</b> and chaining lambda expressions into one readable expression",
+     "extra": "They hide the technical complexity and expose the intent. They must be default, since only one abstract method is allowed on a functional interface.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three methods combine two predicates?",
+     "back": "<code>and()</code>, <code>or()</code>, and <code>negate()</code>",
+     "extra": "<code>and</code> and <code>or</code> take another Predicate; <code>negate</code> takes nothing. Each returns a new Predicate rather than mutating the receiver.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Predicate</code> factory methods create a predicate from scratch?",
+     "back": "<code>Predicate.isEqual(target)</code>, and its negation <code>Predicate.not()</code>",
+     "extra": "isEqual produces a test for equality with the given object; not() inverts a predicate passed as an argument. Both are static.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method chains two <code>Consumer</code>s so that both run, in order?",
+     "back": "<code>c1.andThen(c2)</code>",
+     "extra": "The first consumer receives the element, then the second. Used for patterns like logging and then printing the same value.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How do <code>f1.andThen(f2)</code> and <code>f2.compose(f1)</code> differ in what they compute?",
+     "back": "<b>Nothing</b> - both give the same function; only the call site differs",
+     "extra": "andThen extends the first function, compose prepends its argument. You need to call andThen on f1 or compose on f2 to get the same result.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the constraint when chaining functions of different types?",
+     "back": "The result type of <b>f1 must be compatible</b> with the input type of f2",
+     "extra": "<code>Function&lt;A, B&gt;.andThen(Function&lt;B, C&gt;)</code> yields Function&lt;A, C&gt;. The compiler enforces the middle type matches.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory method creates the identity function?",
+     "back": "<code>Function.identity()</code>",
+     "extra": "It returns its own argument unchanged, and it is generic over any type. Common as a classifier in <code>groupingBy</code>, where the element is its own key.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What three steps turn a lambda into code?",
+     "back": "Identify the <b>type</b>, find the <b>abstract method</b>, implement it",
+     "extra": "A lambda is an implementation of the single abstract method of a functional interface, so the work is mechanical once you know which interface applies.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What type must a lambda expression have?",
+     "back": "A <b>functional interface</b> - an interface with exactly one abstract method",
+     "extra": "An anonymous class that does not implement a functional interface cannot be rewritten as a lambda, because there would be no single method to implement.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Do concrete interface methods count against a functional interface's single abstract method?",
+     "back": "<b>No</b> - default and static methods are concrete and do not count",
+     "extra": "<code>Predicate</code> is functional with three default and two static methods, because it has just one abstract method (test).",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Is <code>@FunctionalInterface</code> required on a functional interface?",
+     "back": "<b>No</b> - it is an optional check that errors on a type with the wrong shape",
+     "extra": "Interfaces written before Java SE 8 became functional without modification, so the annotation cannot be a requirement. It documents intent and protects against edits.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the three syntactic elements of a lambda expression?",
+     "back": "A parameter block, the arrow <code>-&gt;</code>, and a body",
+     "extra": "Java uses the thin arrow <code>-&gt;</code>, not the fat arrow <code>=&gt;</code>. The parameter block mirrors the abstract method's signature.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two simplifications does the compiler allow in a lambda's parameter list?",
+     "back": "Drop the parameter <b>types</b>, and drop the parentheses when there is exactly one parameter",
+     "extra": "So <code>(String s) -&gt; ...</code> becomes <code>s -&gt; ...</code>. Parentheses are required for zero parameters, as in <code>() -&gt; ...</code>.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can a lambda body omit braces and <code>return</code>?",
+     "back": "When the body is a <b>single expression</b>",
+     "extra": "A multi-statement body needs braces, and once braces are used a value-returning body must use an explicit return.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a lambda override a default method of its interface?",
+     "back": "<b>No</b> - a lambda implements only the abstract method",
+     "extra": "Calling the abstract method runs your lambda code; calling a default method runs the interface's code. There is no syntax to replace the latter.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What compile error appears when a lambda mutates a captured local variable?",
+     "back": "\"Variable used in lambda expression should be final or effectively final\"",
+     "extra": "Lambdas capture <b>values</b>, not variables. A variable the lambda only reads without reassigning is called effectively final and is accepted.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <b>effectively final</b> variable?",
+     "back": "One never reassigned after initialization, so the compiler treats it as final",
+     "extra": "Java SE 8 introduced the notion so lambdas can capture ordinary locals. The compiler does not add <code>final</code> to your source, only relies on it.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can lambda expressions be serialized?",
+     "back": "Yes - lambdas were built to be serializable",
+     "extra": "Needed because a lambda can end up in a field of an object and therefore in its serialized state, which must stay compatible with existing serializable classes.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many interfaces does <code>java.util.function</code> contain, roughly, and around what are they organized?",
+     "back": "Over 40, organized around the <b>four main shapes</b>",
+     "extra": "Supplier, Consumer, Predicate and Function. Learn those four and the rest read as variants: bivariants, primitive specializations, operators.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "State the input and output of the four core functional shapes.",
+     "back": "Supplier: nothing in, T. Consumer: T in, void. Predicate: T in, boolean. Function: T in, R",
+     "extra": "Every other interface in the package is one of these four with a second argument, a primitive type, or both. The four also map to supplier/consumer in stream pipelines.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which is the only abstract method of <code>Supplier&lt;T&gt;</code>?",
+     "back": "<code>T get()</code>",
+     "extra": "The interface has no default or static methods at all. A supplier called repeatedly may return a new object every time, such as a random integer.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single method does <code>Consumer&lt;T&gt;</code> declare as abstract, and what does <code>Iterable.forEach</code> take?",
+     "back": "<code>void accept(T t)</code>; <code>forEach(Consumer&lt;? super T&gt;)</code>",
+     "extra": "Practical consequences: <code>list.forEach(System.out::println)</code> prints every element, and forEach is the standard internal iteration hook.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method do all specialized primitive consumers share?",
+     "back": "<code>accept</code>, e.g. <code>void accept(int value)</code> in <code>IntConsumer</code>",
+     "extra": "Consumers are named after the type they take: IntConsumer, LongConsumer, DoubleConsumer. With a void return there is only one name to use.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which four specialized <code>Supplier</code> interfaces avoid boxing?",
+     "back": "<code>IntSupplier</code>, <code>LongSupplier</code>, <code>DoubleSupplier</code>, <code>BooleanSupplier</code>",
+     "extra": "Their method names add the return type to get: getAsInt(), getAsLong(), getAsDouble(), getAsBoolean(). No wrapper object is created per call.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What naming rule do all primitive-returning functional method names follow?",
+     "back": "<code>get</code> or <code>apply</code> plus the returned type, e.g. <code>applyAsInt()</code>",
+     "extra": "The base method name (get, apply) gains an <code>AsX</code> suffix. Therefore IntSupplier has getAsInt and ToIntFunction has applyAsInt.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>BiConsumer&lt;T, U&gt;</code> and <code>Consumer&lt;T&gt;</code>?",
+     "back": "BiConsumer <b>takes two</b> arguments and returns nothing",
+     "extra": "Specializations exist as ObjIntConsumer, ObjLongConsumer and ObjDoubleConsumer - exactly one of the two arguments is a primitive.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Is there a primitive-specialized <code>BiPredicate</code>?",
+     "back": "<b>No</b> - <code>BiPredicate</code> has no primitive variants",
+     "extra": "Bipredicates follow the same bivariant convention as consumers and functions, but the JDK did not add IntBiPredicate and its siblings.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which collection method takes a predicate and removes matching elements?",
+     "back": "<code>removeIf(Predicate&lt;? super E&gt;)</code>",
+     "extra": "It <b>mutates</b> the collection, so calling it on List.of() results or on a List from Arrays.asList() throws an exception.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interfaces extend <code>Function&lt;T, R&gt;</code> for same-type transformations, and what do they model?",
+     "back": "<code>UnaryOperator&lt;T&gt;</code> and <code>BinaryOperator&lt;T&gt;</code>",
+     "extra": "UnaryOperator takes and returns the same T, BinaryOperator takes two and returns one. Math operations like sqrt or addition are the classic examples.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method applies a <code>UnaryOperator</code> to every element of a list?",
+     "back": "<code>list.replaceAll(unaryOperator)</code>",
+     "extra": "Only element values change, never their types - a reason the JDK chose UnaryOperator over Function: a List&lt;String&gt; must stay a List&lt;String&gt;.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>Function</code> and <code>BiFunction</code>?",
+     "back": "<code>BiFunction&lt;T, U, R&gt;</code> takes two inputs and returns R",
+     "extra": "Its abstract method is <code>R apply(T t, U u)</code>. Specialized forms exist as IntBinaryOperator and ToIntBiFunction&lt;T&gt; style interfaces.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since when does <code>Iterable.forEach</code> let you iterate without an explicit loop?",
+     "back": "Java SE 8, as part of the Collections/lambda update",
+     "extra": "It performs <b>internal iteration</b>: the collection advances itself and you supply only the action, which is more readable than an index or iterator loop.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can a lambda expression be replaced by a method reference?",
+     "back": "When its body is <b>just a call</b> to an existing method, with arguments passed straight through",
+     "extra": "The reference names the method instead of describing the forwarding. IDs like <code>System.out::println</code> are the same lambda with the noise removed.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "List the four kinds of method references with their syntax.",
+     "back": "Static <code>Type::staticMethod</code>, bound <code>obj::method</code>, unbound <code>Type::method</code>, <code>Type::new</code>",
+     "extra": "All four are <code>::</code> expressions; what differs is whether the receiver is a type, an expression, or absent (constructor).",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What distinguishes a <b>bound</b> from an <b>unbound</b> method reference?",
+     "back": "Bound fixes the receiver in the reference; unbound takes it as the <b>first argument</b>",
+     "extra": "<code>System.out::println</code> is bound to the object System.out. <code>User::getName</code> is unbound: the User is passed when the lambda is invoked.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>String::length</code> an unbound reference to, given that <code>length()</code> is an instance method?",
+     "back": "An <b>unbound</b> reference where the String is the argument",
+     "extra": "It reads like a static call but is not one: the lambda is <code>s -&gt; s.length()</code>, which fits <code>ToIntFunction&lt;String&gt;</code>.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the lambda equivalent of <code>ArrayList::new</code>?",
+     "back": "<code>() -&gt; new ArrayList&lt;&gt;()</code>",
+     "extra": "The constructor reference picks a constructor from the functional interface's signature. Its target type decides which constructor overload is selected.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>ArrayList::new</code> ambiguous on its own?",
+     "back": "The <b>target type</b> determines which constructor is meant",
+     "extra": "As a <code>Supplier&lt;List&lt;String&gt;&gt;</code> it uses the no-arg constructor; as <code>IntFunction&lt;List&lt;String&gt;&gt;</code> it uses the capacity constructor. Same syntax, different behaviour.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can you write <code>ArrayList&lt;&gt;::new</code>?",
+     "back": "<b>No</b> - the diamond is not allowed there; give the full type or nothing",
+     "extra": "A constructor reference has no inference context to fill the diamond at that point, so either <code>ArrayList::new</code> or <code>ArrayList&lt;String&gt;::new</code>.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single abstract method does <code>Comparator&lt;T&gt;</code> declare?",
+     "back": "<code>int compare(T o1, T o2)</code>, which makes it a functional interface",
+     "extra": "Introduced back in JDK 2, it became implementable with a lambda only once functional interfaces existed in Java SE 8.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "State the contract of <code>Comparator.compare</code> in terms of sign.",
+     "back": "Negative if o1 &lt; o2, positive if o1 &gt; o2, and opposite signs for the swapped call",
+     "extra": "Returning 0 is not required when equals() is true. Break the contract and sorting behaviour becomes unspecified.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why is <code>(i1, i2) -&gt; i1 - i2</code> a bad comparator?",
+     "back": "Integer subtraction <b>overflows</b> for distant values, reversing the sign",
+     "extra": "So the comparison silently gives the wrong order for large ranges. Use <code>Integer.compare(i1, i2)</code>, which is overflow-safe.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method makes a comparator from a <b>key extractor</b> function?",
+     "back": "<code>Comparator.comparing(Function)</code>",
+     "extra": "The function must return a Comparable type. <code>Comparator.comparing(User::getName)</code> sorts users by name with no explicit comparison code.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which default method chains comparators as tie-breakers?",
+     "back": "<code>thenComparing(Comparator)</code>, with a key-extractor overload",
+     "extra": "It runs the second comparator only when the first returns 0. <code>thenComparing(User::getLastName)</code> is the equivalent with a function.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which comparator factory sorts by a type's <code>compareTo</code>?",
+     "back": "<code>Comparator.naturalOrder()</code>",
+     "extra": "It compares any Comparable via compareTo. Its reverse is <code>reverseOrder()</code>, and it is the usual tie-breaker in chains.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory methods move <code>null</code>s to the end or the start of the order?",
+     "back": "<code>Comparator.nullsLast(cmp)</code> and <code>nullsFirst(cmp)</code>",
+     "extra": "They wrap an existing comparator and handle nulls for you. Hand-rolling null checks inside compare is the main source of accidental NullPointerException.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Comparator</code> method inverts the ordering?",
+     "back": "<code>reversed()</code>",
+     "extra": "It returns a new comparator with the sign inverted, so it composes with comparing and thenComparing instead of duplicating the logic.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>List</code> method sorts with a comparator?",
+     "back": "<code>list.sort(comparator)</code>, added in Java SE 8",
+     "extra": "It replaces <code>Collections.sort(list, cmp)</code>. Sorting in reverse is then <code>list.sort(cmp.reversed())</code>.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which comparator methods avoid boxing when comparing primitive keys?",
+     "back": "<code>comparingInt</code>, <code>comparingLong</code>, <code>comparingDouble</code>",
+     "extra": "They take a ToIntFunction, ToLongFunction or ToDoubleFunction instead of a Function, so no wrapper object is created per comparison.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::05 Functional Programming::03 Functional Composition",
+   "source": "https://dev.java/learn/language/fp/refactoring-to-functional-style/converting-to-streams/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::05-functional",
+    "topic::03-functional-composition"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which method turns a file into a <code>Stream&lt;String&gt;</code> of its lines?",
+     "back": "<code>Files.lines(Path)</code> from <code>java.nio.file</code>",
+     "extra": "It replaces the BufferedReader plus while-readLine loop with one call, and removes the boilerplate around reading each line.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Files.lines()</code> need besides a Path when the file is not UTF-8?",
+     "back": "An overload taking a <code>Charset</code>",
+     "extra": "UTF-8 is the default, so the two-argument form exists only for other encodings. The stream must be closed, so use it in try-with-resources.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What does a file stream replace when iterating: an <b>external</b> or an <b>internal</b> iterator?",
+     "back": "External iteration becomes <b>internal</b> iteration",
+     "extra": "The buffered reader loop fetched one line at a time; the stream drives the traversal itself and you supply only the action on each line.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you count the lines of a file that contain a word, in stream style?",
+     "back": "<code>filter(line -&gt; line.contains(word)).count()</code>",
+     "extra": "The imperative <code>if</code> inside the read loop is exactly the filter stage, and count() is the terminal operation that consumes the result.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many terminal operations does a stream pipeline need to actually run?",
+     "back": "Exactly <b>one</b>, at the end",
+     "extra": "Without it a stream executes nothing. That is why the plain <code>Files.lines(...).filter(...)</code> lines appear to do nothing until count() or forEach() is added.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a Java 5 <code>for (String s : list)</code> compile down to?",
+     "back": "A <b>while</b> loop over an <code>Iterator</code>",
+     "extra": "Foreach is syntax sugar: call hasNext(), fetch the next element, repeat. That makes the <code>Iterable</code> contract the foundation of the loop.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method replaces a foreach loop in functional style?",
+     "back": "<code>forEach(Consumer)</code> on the collection or stream",
+     "extra": "The loop body becomes a lambda receiving each element. Called an internal iterator, because advancing is handled by the API, not your code.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where is <code>forEach</code> available: on <code>Collection</code>, on <code>Stream</code>, or both?",
+     "back": "<b>Both</b>",
+     "extra": "filter and the other intermediate operations, by contrast, exist only on Stream and not on Collection, so that several stages can be optimized together before a terminal operation runs.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which stream method replaces the <code>if</code> inside a loop?",
+     "back": "<code>filter(predicate)</code>",
+     "extra": "It acts like a gate: true lets the element through to the next stage, false discards it. Replacing <code>if</code> alone, the count of elements can shrink.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>filter()</code> return?",
+     "back": "A <b>new stream</b> containing only the elements that passed the predicate",
+     "extra": "Nothing is processed yet; this is an intermediate operation, so filter only builds the pipeline until a terminal operation consumes it.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which stream method replaces a transformation inside a loop?",
+     "back": "<code>map(function)</code>",
+     "extra": "A loop that assigns the transformed value back to a variable is a map; the function models the transformation itself, not the iteration.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How does <code>map</code> differ from <code>filter</code> in effect on the element count?",
+     "back": "<code>map</code> keeps the count and changes the type; <code>filter</code> keeps the type and reduces the count",
+     "extra": "Mapping is one-to-one, so ten elements remain ten. Filtering only removes elements, so the types cannot change.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does <code>map</code> go in a pipeline that selects and then transforms?",
+     "back": "<b>After</b> <code>filter</code>",
+     "extra": "The filter discards unwanted elements and passes the rest; the map then transforms only what survived, saving work on the removed ones.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What should you do first when a loop body does both transforming and printing?",
+     "back": "Split the loop body into <b>two cohesive statements</b> before refactoring",
+     "extra": "Mixed responsibilities make the map plus forEach sketch unreadable. Separating them exposes the transformation, which becomes the map stage.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which stream API form further shortens <code>name -&gt; name.toUpperCase()</code>?",
+     "back": "A method reference: <code>String::toUpperCase</code>",
+     "extra": "When the lambda body is a single call on its own argument, the method reference names it without repeating the parameter.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>IntStream</code> method replaces a <code>for</code> loop that skips values?",
+     "back": "<code>iterate(seed, IntPredicate, IntUnaryOperator)</code>",
+     "extra": "Seed is the first value, the predicate is the loop condition, and the operator is the increment. A filter() would waste work and still need the range.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Map the three parts of <code>for (int i = 0; i &lt; 15; i += 3)</code> onto <code>Iterate</code>'s parameters.",
+     "back": "<code>0</code> seed, <code>i &lt; 15</code> as IntPredicate, <code>i += 3</code> as IntUnaryOperator",
+     "extra": "The semicolons essentially turn into commas. Both conditions and increments become lambdas instead of loop clauses.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method is the functional equivalent of <code>break</code>?",
+     "back": "<code>takeWhile(predicate)</code>",
+     "extra": "It terminates the stream when the predicate returns false. dropWhile is the opposite door: it skips elements until the predicate fails, then stays open.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can <code>takeWhile</code> let elements through again after it has stopped?",
+     "back": "<b>No</b> - once it closes, no further elements pass",
+     "extra": "It behaves like a one-way door. The same is true in reverse for dropWhile: once opened it never closes again.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>intStream.iterate</code> overload turns an unbounded loop into an <b>infinite</b> stream?",
+     "back": "<code>iterate(seed, IntUnaryOperator)</code>, with no predicate",
+     "extra": "Dropping the predicate leaves an endless source, which is then limited by takeWhile or limit. A stream must be bounded before a terminal operation collects it.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which stream methods require an <b>ORDERED</b> stream to make sense?",
+     "back": "<code>takeWhile</code> and <code>dropWhile</code>",
+     "extra": "Without an order there is no 'while' to reason about; on an unordered stream the downstream may receive any subset of the upstream elements.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How do imperative and functional style differ in what they state?",
+     "back": "Imperative says what <b>and</b> how; functional says what and delegates the how",
+     "extra": "A for loop spells out index creation, increment and termination. A range based pipeline names only the interval and the action.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>IntStream</code> method replaces <code>for (int i = 0; i &lt; 5; i++)</code>?",
+     "back": "<code>IntStream.range(0, 5)</code>",
+     "extra": "Both bounds behave as in the for loop: the start is included, and the end 5 is <b>excluded</b>, producing 0 to 4.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method iterates up to and <b>including</b> the end value?",
+     "back": "<code>IntStream.rangeClosed(0, 5)</code>",
+     "extra": "The only difference from range is the inclusive end bound. Use rangeClosed whenever the loop condition is <code>&lt;=</code>.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>IntStream.range</code> return, and how do you print each value?",
+     "back": "An <code>IntStream</code>, consumed with <code>forEach</code>",
+     "extra": "A primitive stream has no forEachIndexed or index loop; the value arrives directly and can be printed with a method reference.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the main structural benefit of the internal iterator over a <code>for</code> loop?",
+     "back": "The index and its mutation disappear; you supply only the per-element action",
+     "extra": "There is no counter to get wrong, so the code is shorter and easier to change. The same range pipeline can save to a database instead of printing.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::05 Functional Programming::04 Streams",
+   "source": "https://dev.java/learn/api/collections-and-streams/streams/characteristics/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::05-functional",
+    "topic::04-streams"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which object carries a stream's characteristics, and what is its name derived from?",
+     "back": "The <code>Spliterator</code> - a contraction of <b>split</b> and <b>iterator</b>",
+     "extra": "It plays the iterator role in the Stream API and also decides how the data splits across CPUs. It is the source of all the stream characteristics.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What do the characteristics <code>ORDERED</code>, <code>SIZED</code>, <code>SORTED</code> mean for a stream?",
+     "back": "ORDERED: order matters. SIZED: count is <b>known</b>. SORTED: already sorted",
+     "extra": "Two others in the tutorial are DISTINCT (no duplicates) and NONNULL (no nulls), plus SUBSIZED. Each is one bit in the Spliterator's characteristics word.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>SUBSIZED</code> add on top of <code>SIZED</code>?",
+     "back": "Splitting produces <b>two SIZED</b> halves, so each half's size is known in advance",
+     "extra": "Essential for parallel streams: it lets the framework split work evenly without counting. An ArrayList is SUBSIZED, a HashSet is SIZED but not SUBSIZED.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single method tests whether a stream has a characteristic?",
+     "back": "<code>spliterator.hasCharacteristics(Spliterator.ORDERED)</code>",
+     "extra": "It reads one bit of the word returned by <code>characteristics()</code>. Checking the bit by hand works too but is the unreadable option.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which intermediate method <b>removes</b> the ORDERED characteristic from a stream?",
+     "back": "<code>unordered()</code>",
+     "extra": "Keeping order can force coordination in a parallel stream, so dropping it is sometimes a deliberate optimization when order is irrelevant.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which characteristic is <b>kept</b> by map()/flatMap() when filtering would keep it?",
+     "back": "SORTED and DISTINCT survive filter, but are <b>lost</b> on map/flatMap",
+     "extra": "Removing elements cannot create duplicates or destroy the sort; transforming elements can change both, so those bits do not survive.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which stream operations erase SIZED and SUBSIZED?",
+     "back": "<code>flatMap</code>, <code>filter</code>, and <code>distinct</code>",
+     "extra": "The element count can no longer be predicted from the source. map and sorted preserve both; these three do not.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is a stream created from <code>Files.lines(path)</code> SIZED?",
+     "back": "<b>No</b> - you must read the file to know the number of lines",
+     "extra": "The byte size of the file does not equal the line count, so the framework cannot know the total without consuming the stream.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which collection stream is SIZED but <b>not</b> SUBSIZED, and why?",
+     "back": "<code>HashSet</code> - buckets can hold several elements, so halves are unequal",
+     "extra": "Splitting the bucket array in the middle does not guarantee equal element counts, so each half must be counted rather than computed.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Name the three ways to build a custom collector.",
+     "back": "Combine collectors, use <code>collect()</code>'s three components, or implement <code>Collector</code>",
+     "extra": "Implementing Collector is the most flexible and the most technical option. Collectors factory methods with downstream collectors cover most needs.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does each of <code>Collector&lt;T, A, R&gt;</code>'s three type parameters mean?",
+     "back": "T stream element, <b>A</b> mutable intermediate container, R final result",
+     "extra": "For a toList-style collector, T is the element type, A is ArrayList&lt;T&gt; and R is List&lt;T&gt;. A may equal R, as in toSet.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does an IDE show <code>?</code> for the second type of a collector from the factory class?",
+     "back": "The factory methods <b>hide A</b> behind the declared return type",
+     "extra": "You cannot name ArrayList&lt;T&gt; there because the API does not expose it; only a hand-written Collector implementation must state A explicitly.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What do the three collector characteristics <code>IDENTITY_FINISH</code>, <code>UNORDERED</code>, <code>CONCURRENT</code> mean?",
+     "back": "Finisher is identity; order is not preserved; the container supports concurrent access",
+     "extra": "They live in the Collector.Characteristics enum and are returned by <code>characteristics()</code>. toSet has UNORDERED; toList does not.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the <code>IDENTITY_FINISH</code> characteristic an optimization?",
+     "back": "The implementation can <b>skip calling the finisher</b> altogether",
+     "extra": "With no transformation between container and result, that step would be a no-op, so declaring it lets the stream runtime omit the call.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which characteristic of a collector only matters for <b>parallel</b> streams?",
+     "back": "<code>CONCURRENT</code>",
+     "extra": "It states that the accumulator container can be filled from several threads at once. Without it, parallel collection must merge per-thread containers afterwards.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For a custom <code>toList()</code>-like collector, what are the supplier, accumulator and finisher?",
+     "back": "<code>ArrayList::new</code>, <code>List::add</code>, and the <b>identity</b> finisher",
+     "extra": "The container is already the result, so only IDENTITY_FINISH appears in the characteristics and no transformation runs at the end.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For a <code>toSet()</code>-like collector, what is the one notable change from <code>toList()</code>?",
+     "back": "Supplier becomes <code>HashSet::new</code>, and <code>UNORDERED</code> is added",
+     "extra": "A set does not preserve insertion order, and that is exactly what the UNORDERED characteristic tells the runtime so it can optimize.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the <code>joining()</code> collector's characteristic set <b>empty</b>?",
+     "back": "It preserves order, has a real finisher, and does not support concurrent access",
+     "extra": "The container is a StringBuffer, finish is toString(), and order matters for concatenation. None of the three characteristics applies.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which four <code>Stream</code> factory methods create a stream from data you already hold?",
+     "back": "<code>of(varargs)</code>, <code>generate(supplier)</code>, <code>iterate(seed, op)</code>, <code>builder()</code>",
+     "extra": "<code>Stream.empty()</code> makes a fifth, empty stream. of() delegates to Arrays.stream, so varargs and arrays behave the same.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>Map</code> have no <code>stream()</code> method, and what do you do instead?",
+     "back": "Stream a view: <code>keySet()</code>, <code>entrySet()</code> or <code>values()</code>",
+     "extra": "A map is not a Collection in the hierarchy, so it inherits nothing. entrySet is the usual choice when both key and value are needed.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three arguments does the <code>StreamSupport.stream(Spliterator, boolean)</code> idiom for an iterator need from you?",
+     "back": "An <b>estimate of size</b>, <b>characteristics</b>, and a <b>parallel</b> flag",
+     "extra": "They wrap an Iterator in a spliterator so any non-standard source can become a stream. The size estimate may be Long.MAX_VALUE when unknown.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method builds an <b>infinite</b> constant stream from a supplier?",
+     "back": "<code>Stream.generate(supplier)</code>",
+     "extra": "The supplier is called for each new element, forever. Always cut it with limit() or findFirst, or the process exhausts memory or hangs.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>limit(n)</code> guarantee about a <b>generate()</b> stream?",
+     "back": "Generation <b>stops</b> after n elements - it is short-circuiting",
+     "extra": "Elements flow one at a time through all stages, so once the limit is satisfied no further supplier calls happen.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can an infinite stream be used without a terminal operation?",
+     "back": "<b>No</b> - a terminal operation both triggers and must bound the consumption",
+     "extra": "A stream does nothing without one, but adding one to an unbounded source must include limit, findFirst, or similar to halt the pipeline.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How do <code>Stream.generate</code> and <code>Stream.iterate</code> differ?",
+     "back": "<code>generate</code> takes a <b>supplier</b>; <code>iterate</code> takes a <b>seed plus a unary operator</b>",
+     "extra": "generate needs no previous element, so every element is independent. iterate builds each value from the last, so the sequence is cumulative.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the Java SE 9 overload of <code>iterate</code> add?",
+     "back": "A <b>predicate</b> that stops generation when it turns false",
+     "extra": "<code>iterate(seed, hasNext, next)</code> replaces the follow-up takeWhile and is the functional equivalent of a bounded for loop with a step.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>IntStream.range(a, b)</code> and <code>rangeClosed(a, b)</code>?",
+     "back": "<code>range</code> excludes b; <code>rangeClosed</code> includes it",
+     "extra": "So <code>LongStream.range(0L, 10L)</code> produces 0 through 9. Both exist on IntStream and LongStream, neither on DoubleStream.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method is needed to turn the <code>int</code> values of an <code>IntStream.range</code> into objects?",
+     "back": "<code>mapToObj(i -&gt; ...)</code>",
+     "extra": "IntStream is a primitive stream, so mapping to a reference type needs mapToObj rather than map, which stays primitive.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three <code>Random</code> methods produce a stream of random numbers?",
+     "back": "<code>ints()</code>, <code>longs()</code>, <code>doubles()</code>",
+     "extra": "Their bounds follow the usual convention: the lower bound is inclusive and the upper bound exclusive. All three are also overloaded with a stream size.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why would you seed a <code>Random</code> before streaming?",
+     "back": "A fixed seed gives a <b>reproducible</b> sequence, which makes tests deterministic",
+     "extra": "The same seed always yields the same numbers, so a test can assert on exact output. Unseeded, the sequence differs on every run.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which specialized stream method converts a primitive stream to its boxed wrapper stream?",
+     "back": "<code>boxed()</code>",
+     "extra": "An IntStream becomes a Stream&lt;Integer&gt;. The reverse direction uses mapToInt, and both are needed when the pipeline mixes primitives with objects.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method gives the characters of a String as a stream, and as what type?",
+     "back": "<code>String.chars()</code>, returning an <code>IntStream</code> of code points",
+     "extra": "Each element is the numeric code point, not a char. To rebuild a one-character String use Character.toString(int) on Java SE 11 and later.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method streams a file's lines with a charset overload, and how must the stream be closed?",
+     "back": "<code>Files.lines(Path)</code>, closed with <b>try-with-resources</b>",
+     "extra": "Stream extends BaseStream which extends AutoCloseable, so the stream itself is a resource. For I/O backed streams, closing is mandatory.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method streams the split result of a regex <b>without building an intermediate array</b>?",
+     "back": "<code>Pattern.compile(re).splitAsStream(text)</code>",
+     "extra": "String.split first builds an array of all pieces, which wastes memory and CPU when the pipeline is short-circuited before consuming everything.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you add elements to a <code>Stream.builder()</code> after building a stream from it?",
+     "back": "<code>IllegalStateException</code>",
+     "extra": "A builder is single-use: once it has produced a stream, it cannot be reused or extended. Build the complete element set first.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory produces the body handler that streams an HTTP response line by line?",
+     "back": "<code>HttpResponse.BodyHandlers.ofLines()</code>",
+     "extra": "The handler, part of the HTTP Client API added in JDK 11, gives a Stream&lt;String&gt; without holding the body in memory.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Name the four components a collector can be built from.",
+     "back": "supplier, accumulator, combiner, and finisher",
+     "extra": "The first two collect elements; the combiner merges partial containers in parallel; the finisher post-processes the container into the result type.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What interfaces model the supplier and accumulator of a collector?",
+     "back": "<code>Supplier</code> creates the container; <code>BiConsumer</code> adds one element to it",
+     "extra": "The accumulator takes the partially filled container and the element. Its name in the Collector API is the accumulator, mirroring the reduce stage of the collector pipeline.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When is a <b>combiner</b> needed?",
+     "back": "For <b>parallel</b> streams, to merge one container per substream into one",
+     "extra": "Each thread fills its own container from the same supplier, then the combiner (a BinaryOperator) merges the two. A sequential stream never calls it.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>finisher</code> do that the supplier and accumulator cannot?",
+     "back": "Turns the <b>mutable container</b> into the final result type",
+     "extra": "Its classic use is sealing an intermediate container into an immutable list, set or map, or converting a StringBuffer into a String.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "For <code>Stream.collect(supplier, acc, combiner)</code> versus a Collector, how do the combiner types differ?",
+     "back": "The three-argument <code>collect</code> takes a <b>BiConsumer</b>; <code>Collector.of</code> takes a <b>BinaryOperator</b>",
+     "extra": "The BiConsumer form merges two containers and returns nothing; the BinaryOperator form returns the merged container for further use.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For which streams does <code>collect(supplier, acc, combiner)</code> exist in a primitive form?",
+     "back": "The numeric streams, e.g. <code>IntStream.collect</code>",
+     "extra": "There the accumulator is an <code>ObjIntConsumer</code> so the int arrives without boxing. The Collectors factory class, by contrast, only serves object streams.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can't a collector accumulate into a <code>String</code> directly?",
+     "back": "<code>String</code> is <b>immutable</b>, so there is nothing to append to",
+     "extra": "Use StringBuffer or StringBuilder as the mutable container and convert in the finisher. That is exactly how Collectors.joining works internally.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>collectingAndThen()</code> finisher enable?",
+     "back": "Applying a <b>post-processing function</b> to the result of another collector",
+     "extra": "Its main use is converting a finished collector into something reusable: the whole operation becomes one collector, so it can serve as a downstream of another.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>teeing()</code> collector do, and when did it arrive?",
+     "back": "Collects in <b>two downstream collectors at once</b> and merges with a bifunction; Java SE 12",
+     "extra": "Data is processed in a single pass, so two independent results cost one traversal. Typical use: collect some items and count them together.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How many arguments does <code>teeing()</code> take?",
+     "back": "<b>Three</b>: two downstream collectors and a merging bifunction",
+     "extra": "Each downstream builds its own container from the same stream, and the bifunction combines those two containers into the final result.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK version is the <b>Gatherer API</b> available, and what does it model?",
+     "back": "<b>JDK 24</b> - it models <b>intermediate</b> operations on a stream",
+     "extra": "Design-wise it mirrors the Collector API, which is for terminal operations. A gatherer is passed to the Stream method <code>gather()</code>.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two main elements is the Gatherer API built on?",
+     "back": "The <code>Gatherer</code> interface and the <code>Gatherers</code> factory class",
+     "extra": "The interface is functional, so a gatherer can be a lambda; the factory class supplies ready-made gatherers such as fold, scan and the windowing ones.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Should you replace <code>map()</code> with a hand-written gatherer for performance?",
+     "back": "<b>No</b> - the built-in methods are simpler and far more readable",
+     "extra": "The Gatherer API exists for operations the Stream API does not offer. Fusing stages into a gatherer creates fewer objects, but needs measurement and hurts readability.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the <b>upstream</b> and <b>downstream</b> of a gatherer?",
+     "back": "Upstream: the stream elements come from; downstream: the stream it pushes to",
+     "extra": "An integrator consumes from upstream and pushes to downstream; the types on the two sides may differ, since a gatherer may map.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What three elements does the abstract method of <code>Integrator</code> take?",
+     "back": "The internal state, the upstream element, and the downstream",
+     "extra": "Its type <code>&lt;A, T, R&gt;</code> is state, consumed and produced type. Its boolean result signals whether the upstream should stop producing.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the boolean returned by <code>downstream.push()</code> mean?",
+     "back": "<code>false</code> means the downstream <b>no longer accepts</b> elements",
+     "extra": "Returning that value from the integrator lets the API stop calling it. It must be passed through unchanged, since a downstream can never reopen.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "State the three rules about a downstream's rejecting state.",
+     "back": "Starts accepting; can only switch to rejecting; only when you push",
+     "extra": "So a fresh downstream never starts rejecting, even if the call is followed by limit(0). A rejecting downstream stays rejecting forever.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where do you need to check <code>isRejecting()</code>: in the integrator or the finisher?",
+     "back": "In the <b>finisher</b> only",
+     "extra": "In an integrator the downstream cannot be rejecting when the call begins, since the previous push told you the state. The finisher runs later and may need the test.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you push elements to a rejecting downstream?",
+     "back": "They are <b>silently ignored</b> - no exception, only wasted work",
+     "extra": "Sensible gatherers return the push result upstream so the source stops early; ignoring it costs whatever the extra computation involves.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory method creates a gatherer with an <b>initializer</b> for mutable state?",
+     "back": "<code>Gatherer.ofSequential(initializer, integrator)</code>",
+     "extra": "Use ofSequential when the gatherer cannot run in parallel; Gatherer.of with four arguments is the parallel-capable form that also needs a combiner.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is a <code>@SafeVarargs</code>-style care needed when flattening with <code>flatMapper.apply(x).forEach(downstream::push)</code>?",
+     "back": "The returned stream may be <b>parallel</b>, and Downstream is not thread-safe",
+     "extra": "Calling <code>sequential()</code> on the returned stream removes the race. A stream must also be closed, so try-with-resources belongs here.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <b>greedy</b> integrator commit to?",
+     "back": "It never interrupts on its own: it returns the downstream state or true",
+     "extra": "Declared with <code>Integrator.ofGreedy</code>, it lets the API apply optimizations. Breaking the contract can make the code fail; a greedy plain integrator only misses optimizations.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does a gatherer that must see <b>all</b> elements before emitting, such as a sort, need a finisher?",
+     "back": "Nothing else tells it the upstream is <b>exhausted</b>",
+     "extra": "The finisher runs once when no more elements arrive. For sorting, the integrator stores elements in a buffer and the finisher pushes them in order.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which type models a gatherer's finisher?",
+     "back": "<code>BiConsumer&lt;State, Downstream&gt;</code>",
+     "extra": "It takes the state and the downstream and returns nothing. A gatherer with no state uses Void as the state type and ignores that argument.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Gatherer.of</code> signature declares mutable state and a combiner for parallel use?",
+     "back": "<code>of(initializer, integrator, combiner, finisher)</code>",
+     "extra": "The combiner (a BinaryOperator) merges two state instances. Mutable state is never shared between threads, so no locks are needed.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How much parallelism does a <b>sequential</b> gatherer leave in a parallel stream?",
+     "back": "Stages before <code>gather()</code> still run <b>in parallel</b>; the gatherer runs single-threaded",
+     "extra": "Only the gatherer stage is serialized, which is a benefit unique to the Gatherer API - a Spliterator-based custom stage would kill parallelism entirely.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method composes two gatherers into one?",
+     "back": "<code>andThen()</code> on the Gatherer interface",
+     "extra": "The first gatherer's produced type must match the second's consumed type. It replaces writing one monolithic integrator for two stages.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between the <code>fold()</code> and <code>scan()</code> factory gatherers?",
+     "back": "<code>fold</code> pushes only the final result; <code>scan</code> pushes every intermediate value",
+     "extra": "Both apply a BiFunction element by element. fold acts like reduce inside an intermediate operation; scan emits the running accumulation at each step.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>mapConcurrent()</code> gatherer use to run each mapping, and what limits it?",
+     "back": "<b>Virtual threads</b>, capped by the <code>maxConcurrency</code> argument",
+     "extra": "It consumes all elements then maps each on its own virtual thread. Despite the concurrency it is a sequential gatherer, made with Gatherer.ofSequential.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How do the <b>fixed</b> and <b>sliding</b> window gatherers differ?",
+     "back": "Fixed windows are disjoint; sliding windows advance by <b>one</b>",
+     "extra": "Fixed: [0,1,2][3,4,5], and the last may be short. Sliding: [0,1,2][1,2,3], all of equal size, each element in several windows.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "On what kind of stream is a windowing gatherer meaningless?",
+     "back": "A <b>non-ORDERED</b> stream",
+     "extra": "A window is an interval of indexes, so without order two runs over the same data may produce different windows or inconsistent results.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a pipeline with only <code>map()</code> and no terminal operation do?",
+     "back": "<b>Nothing</b> - no data is processed",
+     "extra": "Intermediate operations only build the pipeline. A missing terminal operation is a bug, and no element will ever flow.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What do <code>mapToInt</code>, <code>mapToLong</code>, <code>mapToDouble</code> produce?",
+     "back": "Specialized primitive streams: <code>IntStream</code>, <code>LongStream</code>, <code>DoubleStream</code>",
+     "extra": "They avoid boxing and unlock primitive-only terminal operations such as sum() and summaryStatistics(), which plain Stream does not have.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which terminal operation gives count, min, max, sum and average in one pass?",
+     "back": "<code>summaryStatistics()</code> on a primitive stream",
+     "extra": "It returns an IntSummaryStatistics-like object rather than a value. It only exists on the numeric streams, not on Stream&lt;Integer&gt;.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>flatMap()</code> do in two steps?",
+     "back": "Maps each element to a <b>stream</b>, then flattens all those streams into one",
+     "extra": "It turns Stream&lt;Country&gt; into Stream&lt;Stream&lt;City&gt;&gt; and then into Stream&lt;City&gt;. This is the one-to-many operation of the API.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>flatMap</code> better than a stream inside a for loop?",
+     "back": "It expresses the one-to-many relation <b>in the pipeline</b>, with no nested iteration",
+     "extra": "A stream created inside a loop does not fit the map-filter-reduce model and cannot be optimized with the rest of the pipeline.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a flat-mapper drop invalid elements, e.g. unparsable integers?",
+     "back": "Return an <b>empty stream</b> for invalid elements, a single-element stream otherwise",
+     "extra": "This try/catch-in-the-mapper pattern is safer than a predicate filter, which must parse twice and cannot catch the exception cleanly.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method replaced the empty-stream flat-map idiom in Java SE 16?",
+     "back": "<code>mapMulti(BiConsumer)</code>",
+     "extra": "The biconsumer receives the element and a consumer; it calls that consumer only for values it wants to emit, so no extra stream is created per element.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What type must you state for <code>mapMulti</code>, and what happens if you omit it?",
+     "back": "The result type of the emitting consumer; omitted, it is assumed <code>Stream&lt;Object&gt;</code>",
+     "extra": "The compiler cannot infer from a BiConsumer alone, so give an explicit type on its parameter or write <code>&lt;Integer&gt;mapMulti(...)</code>.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are <code>distinct()</code> and <code>sorted()</code> exceptions to 'a stream stores no data'?",
+     "back": "They must <b>buffer</b> elements: a set of seen values, and a sortable buffer",
+     "extra": "distinct still streams: it pushes an element immediately the first time it is seen. sorted must collect everything before emitting anything.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "Can <code>distinct()</code> or <code>sorted()</code> be used on an unbounded stream?",
+     "back": "<code>distinct</code> <b>can</b>, <code>sorted</code> <b>cannot</b>",
+     "extra": "distinct emits as it discovers new values, so a limit downstream can end the infinite source. sorted can never emit without seeing the end.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two methods select elements by <b>index</b>, and which two by <b>predicate</b>?",
+     "back": "Index: <code>skip(n)</code>, <code>limit(n)</code>. Predicate: <code>dropWhile(p)</code>, <code>takeWhile(p)</code>",
+     "extra": "The predicate pair arrived in Java SE 9. takeWhile is the functional break; dropWhile is its mirror image.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "On <code>Stream.of(1,2,3,4,5,6,7)</code>, what does <code>skip(2).limit(5)</code> yield?",
+     "back": "<code>3 4 5 6 7</code> - limit counts on the <b>new</b> stream",
+     "extra": "skip produces a stream starting at 3, so its first 5 elements end at 7. Each intermediate call sees only the stream handed to it.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which factory method concatenates two streams, and what is the recommended alternative for more?",
+     "back": "<code>Stream.concat(a, b)</code>; for three or more, <code>flatMap</code> over a stream of streams",
+     "extra": "concat produces a SIZED stream but creates throwaway intermediate streams per call, so chaining several of them wastes objects.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What does <code>Stream.concat</code> preserve that a flatMap concatenation loses?",
+     "back": "<code>concat</code> keeps the stream <b>SIZED</b>; flatMap does not",
+     "extra": "With known source sizes, the concatenated size is simply their sum. flatMap may emit an unknown number of elements per input.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>peek()</code> for, and why avoid it in production?",
+     "back": "<b>Debugging</b> a pipeline stage; it must not be used for side effects",
+     "extra": "It shows each element passing through. Side-effect logic in peek may be skipped by the optimizer when the stream short-circuits, so it is unreliable.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does stream processing follow element-at-a-time traversal?",
+     "back": "Yes - each element passes through <b>all stages</b> before the next enters",
+     "extra": "peek makes this visible: element 1 is filtered out, element 2 is mapped and added, and no stage handles a whole list at once.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three steps does the <b>map-filter-reduce</b> algorithm consist of?",
+     "back": "Select elements, <b>transform</b> them, then <b>aggregate</b> to one result",
+     "extra": "The classic example: keep October sales, map each to its amount, sum the amounts. Every stream pipeline is a variant of these three.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What does <b>mapping</b> change about the objects, and what does <b>filtering</b> change?",
+     "back": "Mapping changes <b>types</b> one-to-one; filtering changes the <b>number</b>, keeping types",
+     "extra": "Map ten objects and you get ten results. Filter ten and you may get fewer. Map is a Function, filter a Predicate.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which functional interfaces model the mapping and filtering steps?",
+     "back": "<code>Function</code> for map, <code>Predicate</code> for filter",
+     "extra": "Both return a stream in the pipeline. Specialized variants such as ToIntFunction exist to avoid boxing primitives.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are <code>map()</code> and <code>filter()</code> on <code>Stream</code> and not on <code>Collection</code>?",
+     "back": "Returning a collection would force <b>eager intermediate structures</b>",
+     "extra": "Each stage would build and store a whole collection. A stream is an empty object that carries no data, so the stages are free until a terminal operation pulls.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Complete the key property: a stream is an object that ...",
+     "back": "... does not <b>store any data</b>",
+     "extra": "Data is pulled from the source element by element only when a terminal operation runs, so no intermediate list exists in a pure pipeline.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between an intermediate and a terminal operation?",
+     "back": "Intermediate returns a <b>stream</b>; terminal returns <b>anything else</b>, including void",
+     "extra": "Only a terminal operation triggers consumption. Invoking any operation makes the stream consumed for good.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you call a second operation on an already-used stream?",
+     "back": "<code>IllegalStateException</code>: \"stream has already been operated upon or closed\"",
+     "extra": "A stream is single use, so <code>s.map(f).toList()</code> then <code>s.count()</code> fails. Create streams on the spot instead of storing them in fields.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which terminal operations exist only on <code>IntStream</code>, <code>LongStream</code>, <code>DoubleStream</code>?",
+     "back": "<code>sum()</code>, <code>min()</code>, <code>max()</code>, <code>average()</code>, <code>summaryStatistics()</code>",
+     "extra": "They avoid boxing by working on primitives throughout. On Stream&lt;Integer&gt; you would use reduce() with a binary operator instead.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should a stream source not be modified while the stream runs?",
+     "back": "The result becomes <b>unspecified</b>",
+     "extra": "Streams pull from a live source, so a concurrent modification can skip, duplicate or fail to see elements. Copy the data if you must change it.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two coding practices does the single-use rule make dangerous?",
+     "back": "Storing streams in <b>fields or locals</b>, and passing them as <b>method arguments</b>",
+     "extra": "The callee cannot know whether the stream was already consumed, so it may throw. A stream should be created and consumed in one place.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is an <code>Optional&lt;T&gt;</code>?",
+     "back": "A <b>wrapper</b> that either holds a value or is <b>empty</b>",
+     "extra": "Its point of difference from Integer or Long is emptiness. It signals to the method's caller that no result may exist, replacing null returns.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three factory methods create an <code>Optional</code>?",
+     "back": "<code>empty()</code>, <code>of(x)</code>, <code>ofNullable(x)</code>",
+     "extra": "Optional has no public constructor and is final, so these are the only ways. of() throws on null; ofNullable() gives an empty optional instead.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you pass <code>null</code> to <code>Optional.of()</code>?",
+     "back": "<code>NullPointerException</code> - use <code>ofNullable</code> for possibly null input",
+     "extra": "That restriction guarantees the invariant: an optional that is not empty always wraps a non-null reference. Opening it can never give null back.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which primitive optionals exist, and why is there no <code>ofNullable</code> on them?",
+     "back": "<code>OptionalInt</code>, <code>OptionalLong</code>, <code>OptionalDouble</code>; a primitive cannot be null",
+     "extra": "They wrap values, not references, so only empty(), of(value) and simple accessors apply. They pair with the specialized numeric streams.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two methods test an optional, and since when does <code>isEmpty()</code> exist?",
+     "back": "<code>isPresent()</code> and <code>isEmpty()</code>, the latter since Java SE 11",
+     "extra": "They serve the same purpose; isEmpty reads better in guard clauses. Neither gives access to the content.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How do <code>orElse</code> and <code>orElseGet</code> differ?",
+     "back": "<code>orElse(v)</code> <b>always evaluates</b> v; <code>orElseGet(supplier)</code> calls it only when needed",
+     "extra": "For cheap literals orElse is fine. For an expensive object, orElseGet avoids building one that would be discarded, which can matter in hot code.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>orElseThrow()</code> preferred over <code>get()</code>?",
+     "back": "Its name <b>warns</b> that an empty optional throws <code>NoSuchElementException</code>",
+     "extra": "Java SE 10 added it because get() looked like a harmless getter. get() remains for compatibility but is deprecated.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>optional.or(supplier)</code> return?",
+     "back": "This optional if it is not empty; otherwise the optional built by the supplier",
+     "extra": "Unlike orElse, the fallback is itself an Optional, so emptiness is preserved rather than replaced by a default value.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "How does <code>Optional.flatMap</code> differ from <code>Optional.map</code>?",
+     "back": "<code>map</code>'s function returns a value; <code>flatMap</code>'s returns an <b>Optional</b>",
+     "extra": "map wraps the result in an Optional, and flatMap avoids Optional&lt;Optional&lt;T&gt;&gt;. Both short-circuit to empty when the source is empty.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>optional.stream()</code> give you, and why is it useful?",
+     "back": "A stream of <b>zero or one</b> element, letting optionals enter a stream pipeline",
+     "extra": "Inside flatMap the empty streams simply vanish, which is the standard idiom for filtering out empty optionals in one pass.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the difference between <code>ifPresent</code> and <code>ifPresentOrElse</code>?",
+     "back": "<code>ifPresentOrElse</code> also takes a <code>Runnable</code> to run when empty",
+     "extra": "ifPresent maps to Stream.forEach, so it handles only the value case. The two-argument form gives an explicit else branch.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which rule forbids <code>orElseThrow()</code> without a check?",
+     "back": "Rule #2: never open an optional unless you are <b>sure</b> it is not empty",
+     "extra": "Rule #3 adds that you should prefer alternatives to ifPresent, orElseThrow or get. Both exist because opening is the risky operation.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What do Optionals rules #5 and #7 say?",
+     "back": "#5: not in fields, parameters, collections or maps. #7: not <b>serializable</b>",
+     "extra": "Optional is a return-type tool. Using it as a field or argument adds a wrapper everywhere and still cannot be serialized, so it breaks persistence.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What does Optional rule #4 say about null checks?",
+     "back": "Do not create an optional just to <b>avoid</b> testing a reference for null",
+     "extra": "If a variable may be null and the type is a field or parameter, the correct fix is to redesign the API, not to wrap it in Optional at every touch point.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single method makes a stream compute in parallel?",
+     "back": "<code>parallel()</code>, on any existing stream",
+     "extra": "It needs no pool setup and no thread code. Whether it improves anything depends on the data and the workload, so it must be measured.",
+     "kind": "syntax",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Is a parallel stream always faster than a sequential one?",
+     "back": "<b>No</b> - parallelizing adds splitting, merging and thread overhead",
+     "extra": "It wins only when the work per element is heavy, the source splits cheaply and evenly, and free cores exist. Measure against production-like data.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "On what framework is parallel stream computation built?",
+     "back": "The <b>Fork/Join</b> framework using the common pool (JDK 7 onward)",
+     "extra": "The sourcу is recursively decomposed in halves, each part processed on a core, and the partial results merged with the same operator.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is an <code>ArrayList</code> good for parallel streams and a <code>LinkedList</code> bad?",
+     "back": "Array slices split in <b>constant time</b>; finding a linked list's middle is linear",
+     "extra": "A LinkedList also causes pointer chasing. ArrayList, TreeSet and IntStream.range split evenly; LinkedList and HashSet do not.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>pointer chasing</b>, and where does it hurt most?",
+     "back": "Following references to reach data; worst for <code>LinkedList&lt;Integer&gt;</code>",
+     "extra": "An array of ints needs no chasing, an array of Integer needs one hop per element, and a linked list needs two per node, so cache misses multiply.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is a 64-byte cache line relevant to stream performance?",
+     "back": "Memory is copied line by line, so <b>neighbouring values come for free</b>",
+     "extra": "A 64-byte line holds 16 ints or 8 longs, so iterating a primitive array pays one cache miss per line instead of one per value.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>work stealing</b> in the Fork/Join framework?",
+     "back": "An idle thread takes tasks from <b>another</b> thread's queue",
+     "extra": "Splitting one task leaves the others idle, so they grab subtasks. It keeps all cores busy but makes the processing order unpredictable.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which methods are <b>stateful</b> and need the encounter order in a parallel stream?",
+     "back": "<code>limit(n)</code>, <code>skip(n)</code> and <code>findFirst()</code>",
+     "extra": "They count or track position, so a shared internal counter is required across threads, which is costly and hard to parallelize effectively.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which anti-pattern is the classic source of wrong results in a parallel stream?",
+     "back": "Adding to a shared, non-thread-safe collection from the pipeline",
+     "extra": "All threads write into one ArrayList concurrently, so elements are lost and an ArrayIndexOutOfBoundsException is possible. Use a collector instead.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What are the four overheads of computing a stream in parallel?",
+     "back": "Splitting, work dispatch, per-part processing, and <b>merging</b> partial results",
+     "extra": "Merging a sum is cheap; merging hash maps is not. If the total exceeds the gain from parallelism, the parallel stream is slower.",
+     "kind": "table",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the Fork/Join common pool raise concerns in a web server?",
+     "back": "Its threads are shared, so blocking work can <b>starve</b> other parallel tasks",
+     "extra": "The pool is sized to the number of cores and shared JVM-wide. Long blocking operations should not run there.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What does the first rule of parallelizing say?",
+     "back": "Optimize because you have <b>requirements you do not meet</b>, not for fun",
+     "extra": "Rule #3 adds: do not modify external state or share mutable state. Rule #4: measure, never guess.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many overloads does <code>Stream.reduce()</code> have, and what do they all take?",
+     "back": "<b>Three</b>; each takes a binary operator (directly or through a mapper)",
+     "extra": "The variants differ in whether they take an identity element, and whether they also fuse a mapping step.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a reduction do to a stream of elements?",
+     "back": "Combines them <b>pairwise</b> with a binary operator until one value remains",
+     "extra": "Sum: take the first two, add; take the next, add to the partial; repeat. Any operator of that shape can reduce, yielding sum, max or concatenation.",
+     "kind": "mental-model",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What property must a binary operator passed to <code>reduce()</code> have, and why?",
+     "back": "<b>Associativity</b> - so splitting the data cannot change the result",
+     "extra": "(3+6)+(2+1) and 3+(6+2+1) must agree, since parallel processing splits the source arbitrarily. The API is silent about violations.",
+     "kind": "rule",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if a non-associative operator is passed to <code>reduce()</code>?",
+     "back": "<b>Nothing detectable</b> - results may silently differ run to run",
+     "extra": "Neither compiler nor runtime checks it. Testing with random data can prove the operator wrong, but cannot prove it right.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the identity element of a reduction, in words?",
+     "back": "The value that <b>leaves every other value unchanged</b> when combined",
+     "extra": "For + it is 0, for * it is 1, for max it is minus infinity. The reduction of an empty set is the identity element.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do MIN and MAX need special handling in a reduction?",
+     "back": "They have <b>no identity element</b>, so an empty stream has no result",
+     "extra": "The API wraps such results in an Optional, which is empty if the stream was empty and leaves the choice to you.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What does the <code>reduce(identity, op)</code> overload return, and what does <code>reduce(op)</code> return?",
+     "back": "With identity: a <b>plain value</b>; without: an <b>Optional</b>",
+     "extra": "The identity lets the API skip reading the first element and start from it, so an empty stream returns the identity instead of nothing.",
+     "kind": "compare",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if the value you pass as the identity is <b>wrong</b>?",
+     "back": "A <b>silently corrupted</b> result - no error, no exception",
+     "extra": "The implementation starts the algorithm from your value, so a wrong one shifts every intermediate result. The API trusts your claim completely.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the three-argument <code>reduce</code> overload fuse together?",
+     "back": "A <b>mapping</b> and a reduction into one accumulator step",
+     "extra": "Signature: <code>reduce(U identity, BiFunction&lt;U, ? super T, U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</code>. U is the accumulating type.",
+     "kind": "definition",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In the three-argument reduce, which element must be the identity's match?",
+     "back": "The <b>combiner</b>'s identity, not the accumulator's",
+     "extra": "The combiner merges partial results of type U, so its identity sets what the reduction returns for an empty stream.",
+     "kind": "gotcha",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which overload should you use when reducing with a non-associative but reasonable operator?",
+     "back": "None - use a sequential collect or a <b>gatherer</b> such as fold instead",
+     "extra": "Gatherer.fold() was added precisely for cases without a combiner. reduce keeps its contract: associative operator only.",
+     "kind": "convention",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  }
+ ]
+}

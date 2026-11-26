@@ -1,0 +1,382 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Reflection lets a running program examine or modify the runtime behaviour of code in the JVM. What is the main performance cost of reflective calls?",
+     "back": "<b>Slower</b> execution - JVM optimizations can't apply",
+     "extra": "Reflective types are resolved dynamically, so the JIT cannot optimise them the way it does direct calls. Use reflection sparingly on hot code paths and prefer direct calls wherever possible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is reflection considered a security and maintainability concern?",
+     "back": "It <b>breaks abstraction</b> and can reach private members",
+     "extra": "Reflective code can perform operations illegal in non-reflective code, such as touching private fields and methods, causing unexpected side effects. Reflective code is therefore not portable across upgrades and modules may block it outright.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For which three kinds of tool does reflection routinely supply functionality?",
+     "back": "<b>Extensibility</b> (plugins), class browsers/IDE, and debuggers/test tools",
+     "extra": "Extensibility: instantiate user-supplied classes from their fully-qualified names. IDEs and class browsers enumerate members. Debuggers inspect private members and test harnesses call discovered APIs to raise coverage.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "By what default rule should you choose reflective vs direct access?",
+     "back": "If an operation can be done <b>without reflection, avoid reflection</b>",
+     "extra": "The article's guidance is blunt: do not use reflection indiscriminately. Only reach for it when direct code cannot express the operation, such as loading a class unknown at compile time.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/methods/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which <code>Class</code> method finds one method by name and parameter types, <b>including inherited</b> ones, but only public ones?",
+     "back": "<code>Class.getMethod(String, Class...)</code>",
+     "extra": "Its <code>getDeclaredMethod</code> sibling looks only at the class itself but does return private methods. Use <code>int.class</code> for primitive parameters: <code>Integer.class</code> gives a NoSuchMethodException.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>Class</code> method returns an array of <b>all methods declared in the class only</b>, private ones included?",
+     "back": "<code>Class.getDeclaredMethods()</code>",
+     "extra": "<code>getMethods()</code> instead returns public methods including inherited ones. <code>getDeclaredMethods()</code> never walks up to Object, so <code>toString()</code> appears only if the class overrides it.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Method.getReturnType()</code> return for <code>List.get(int)</code> on a <code>List&lt;String&gt;</code>?",
+     "back": "<code>Object</code> (or the raw type) - <b>erased</b>",
+     "extra": "<code>getGenericReturnType()</code> instead returns a <code>Type</code> that still records the type variable, so you can see the element type is <code>E</code>. Generics live in the signature, not in the raw return type.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Why does <code>Class.getDeclaredMethod(\"add\", String.class)</code> fail on a <code>List&lt;String&gt;</code>?",
+     "back": "The parameter is <b>erased to Object</b>",
+     "extra": "Type parameters of a method are erased at compile time, so the compiled signature takes <code>Object</code>, not <code>String</code>. Look the method up with <code>Object.class</code>; invoke it with a String and you lose type safety.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When invoking a method reflectively, what must the first argument of <code>invoke()</code> be for a <b>static</b> method?",
+     "back": "<b><code>null</code></b>",
+     "extra": "<code>invoke</code> takes the target object followed by a vararg of arguments. A static method has no receiver, so you pass <code>null</code> for the target, and then one argument per parameter.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does an exception thrown by the invoked method itself end up?",
+     "back": "Wrapped in an <b>InvocationTargetException</b>",
+     "extra": "The reflection machinery does not let the target's exception propagate directly. Catch <code>InvocationTargetException</code> and call <code>getTargetException()</code> (or <code>getCause()</code>) to reach the real exception.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does calling <code>setAccessible(true)</code> on a private <code>Method</code> actually change?",
+     "back": "It <b>suppresses access checks</b>; the method stays private",
+     "extra": "Without it, invoking a non-visible method throws IllegalAccessException. With it you may invoke the method, but its modifiers are unchanged and module boundaries may still restrict the package.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you obtain the <b>names</b> of a method's formal parameters via reflection?",
+     "back": "Compile with <code>javac -parameters</code>, then use <code>getParameters()</code>",
+     "extra": "Class files do not store parameter names by default, because that costs memory and can leak names like <code>password</code>. Without the flag, <code>Parameter.getName()</code> returns a synthetic name such as <code>arg0</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two methods give you the exceptions a method declares it can throw?",
+     "back": "<code>getExceptionTypes()</code> (Class[]) and <code>getGenericExceptionTypes()</code> (Type[])",
+     "extra": "Both live on <code>Method</code> and return an array, empty when nothing is declared. The generic variant preserves type information for parameterised exception types.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/modifiers/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>getModifiers()</code> return on <code>Class</code> and on <code>Member</code>?",
+     "back": "An <b>int</b> where each bit encodes one modifier",
+     "extra": "Bit 0 set means public, bit 3 set means static, and so on. Decode it with the static helper methods of <code>java.lang.reflect.Modifier</code> rather than testing bits yourself.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class decodes the modifier bit-mask into readable flags?",
+     "back": "<code>java.lang.reflect.Modifier</code>",
+     "extra": "It offers one static test per modifier, such as <code>Modifier.isFinal(m)</code> and <code>isStatic</code>. It was written before sealed classes, so it has no <code>sealed</code> or <code>non-sealed</code> checks.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface do <code>Field</code>, <code>Method</code> and <code>Constructor</code> share to expose <code>getModifiers()</code>?",
+     "back": "<code>java.lang.reflect.Member</code>",
+     "extra": "<code>Class</code> declares its own <code>getModifiers()</code>; the three member types inherit theirs from <code>Member</code>. Both return the same bit-mask.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which release can you read modifiers as a set of <code>AccessFlag</code> values?",
+     "back": "Java SE <b>20</b>",
+     "extra": "<code>Class.accessFlags()</code> and <code>Member.accessFlags()</code> return a <code>Set&lt;AccessFlag&gt;</code>. Correspondences with the int flags are not one-to-one: some access flags have no matching modifier.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What modifier does the compiler add to every interface, and why does <code>getModifiers()</code> on <code>Collection</code> show it?",
+     "back": "<b><code>abstract</code></b>",
+     "extra": "Interfaces are implicitly abstract, so the compiler records the bit even though you never wrote it. This is why reflective code reports <code>Collection</code> as abstract and not final.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/names/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "compare",
+     "front": "What is the difference between <code>getSimpleName()</code> and <code>getCanonicalName()</code>?",
+     "back": "Simple: the name as written, no package. Canonical: the <b>fully qualified</b> name",
+     "extra": "For <code>java.lang.String</code> these are <code>String</code> and <code>java.lang.String</code>. Canonical names are defined by the language spec, simple names by what the source code actually said.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>getCanonicalName()</code> return <b>null</b>?",
+     "back": "For <b>local, anonymous and hidden</b> classes",
+     "extra": "Those classes have no name you could write in source, so no canonical form exists. Use <code>getTypeName()</code> or <code>getName()</code> if you just need an informative string for such a class.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Lambda expressions belong to a class with no source name. What does <code>getSimpleName()</code> of that class print?",
+     "back": "The name of the <b>enclosing</b> class that declared the lambda",
+     "extra": "The lambda's class is generated by the compiler and has no simple name, so the JVM reports the containing class, e.g. <code>Main</code>. The value therefore varies with where you declare the lambda.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns a <b>synthetic, compiler-generated</b> name for anonymous classes and lambdas?",
+     "back": "<code>getTypeName()</code>",
+     "extra": "<code>getTypeName()</code> comes from <code>Type</code> (Java SE 8) and is informative rather than normative. <code>getName()</code> also works, but differs for arrays.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Class.getName()</code> return for a two-dimensional array of <code>String</code>?",
+     "back": "<code>[[Ljava.lang.String;</code>",
+     "extra": "One <code>[</code> per array dimension, then for a reference type an <code>L</code>, the type name, and a <code>;</code>. This is also the exact string <code>Class.forName</code> accepts to get the class back.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "In <code>Class.getName()</code> encodings, which letter stands for <b>long</b>?",
+     "back": "<code>J</code> - not <code>L</code>",
+     "extra": "<code>L</code> is reserved for reference types in the <code>Ljava.lang.String;</code> form. The primitive letters are Z, B, S, I, J, C, F, D for boolean, byte, short, int, long, char, float and double.",
+     "tags": [
+      "type::table"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/records/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which <code>Class</code> method tests whether a given class is a record class?",
+     "back": "<code>Class.isRecord()</code>",
+     "extra": "Added in Java SE 16 alongside the record type itself. It returns true only for classes declared with the <code>record</code> keyword, not for plain immutable classes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which reflection class models a single element declared in a record header?",
+     "back": "<code>java.lang.reflect.RecordComponent</code>",
+     "extra": "Get them with <code>Class.getRecordComponents()</code>, which returns an array. Each component exposes its name, type, generic type, accessor and declaring record.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>RecordComponent</code> method returns the generated accessor <b>method</b>?",
+     "back": "<code>getAccessor()</code>",
+     "extra": "Returns the <code>Method</code> modelling e.g. <code>x()</code> for component <code>x</code>. Companions are <code>getType()</code> (Class), <code>getGenericType()</code> (Type) and <code>getDeclaringRecord()</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>RecordComponent</code> have a method giving you the backing <code>Field</code>?",
+     "back": "<b>No</b> - use <code>Class.getDeclaredFields()</code>",
+     "extra": "Record components are not fields in the reflection model. To read the value you must go through the fields, which bring the record's own restriction with them.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you set a record's field after calling <code>Field.setAccessible(true)</code>?",
+     "back": "<b>No</b> - you get an <b>IllegalAccessException</b>",
+     "extra": "This is specific to records: their fields are final and reflexively locked. You can still read them, e.g. with <code>getInt(obj)</code>, once the private field is made accessible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/interceptor/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the core idea of an interceptor as described for service methods?",
+     "back": "A method call is <b>replaced</b> by another method that decides whether to proceed",
+     "extra": "The interceptor also sees the arguments before and the result after, so it can validate arguments, enforce security rules, skip the call, modify the result, or act on exceptions. Enterprise frameworks implement this with proxies.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "An annotation taking a <code>Class</code> attribute points at an interceptor implementation. Why must that value be cast when read?",
+     "back": "<b>Annotations don't support generics</b>",
+     "extra": "If <code>value()</code> is declared to return <code>Class&lt;? extends Interceptor&gt;</code> you still get a raw <code>Class</code> from the annotation, so the cast is unchecked and the compiler warns about it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "To reflectively call <code>service.message(\"hi\")</code>, which three things does the interceptor tell <code>invoke</code>?",
+     "back": "The <b>Method</b>, the target <b>object</b>, and the <b>arguments</b>",
+     "extra": "Those are exactly the pieces <code>Method.invoke</code> needs. Because the Method travels as a parameter, the same interceptor class can intercept any service method without knowing it at compile time.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A <code>ServiceFactory</code> looks up <code>message(String)</code> but the service declares <code>message(CharSequence)</code>. What happens?",
+     "back": "The lookup <b>fails</b> - no match is found",
+     "extra": "<code>getDeclaredMethod</code> needs an exact parameter-type match and derives the type from the argument you passed. <code>String</code> does not match <code>CharSequence</code>, so the MyService lookup misses even though String is a subtype.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "If no interceptor annotation is found on the service method, what should the factory do?",
+     "back": "Call the service method <b>directly</b>, with no interception",
+     "extra": "Interception is opt-in per method. Skipping the interceptor for unannotated methods lets the same factory handle plain services and intercepted ones without the caller knowing the difference.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  }
+ ]
+}

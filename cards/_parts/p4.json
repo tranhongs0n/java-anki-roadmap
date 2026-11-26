@@ -1,0 +1,847 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the source file that declares a module and all its properties?",
+     "back": "<code>module-info.java</code>",
+     "extra": "Placed in the project's source root, e.g. <code>src/main/java</code>, so tools pick it up. It compiles to <code>module-info.class</code>, the module descriptor, which goes at the JAR root.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which four directives make up the body of a typical module declaration?",
+     "back": "<code>requires</code>, <code>exports</code>, <code>uses</code>, <code>provides</code>",
+     "extra": "<code>requires</code> lists dependencies by module name, <code>exports</code> names packages that form the public API, <code>uses</code> names service types consumed, <code>provides ... with ...</code> names service implementations offered.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By default, which types in a module's packages can code <b>outside</b> the module use?",
+     "back": "<b>None</b> - even public types are internal",
+     "extra": "A module has a real boundary the compiler and JVM enforce. To expose a type you must export or open the package that contains it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What is the effect of <code>exports</code> versus <code>opens</code> on a package?",
+     "back": "<code>exports</code>: <b>compile and run</b>. <code>opens</code>: <b>runtime reflection</b>",
+     "extra": "Exports make the package part of the public API. Opens leaves it invisible to the compiler but lets reflection reach private members. A package may be both.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>requires transitive</code> express?",
+     "back": "A dependency that is <b>part of the module's own API</b>",
+     "extra": "Any module reading this module automatically reads the required one. Needed when a public signature exposes types from the dependency, as <code>java.sql</code> does with <code>java.xml</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What is a <b>modular JAR</b>?",
+     "back": "A JAR that <b>contains <code>module-info.class</code></b>",
+     "extra": "Without the descriptor it is a plain JAR. On the module path a modular JAR becomes a module; on the class path it still merges into the unnamed module.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>module path</b>, and what does it do to plain JARs?",
+     "back": "A list of artifacts; plain JARs become <b>automatic modules</b>",
+     "extra": "It parallels the class path but makes every artifact on it a module, enabling incremental modularisation. <code>javac</code> and <code>java</code> both understand it.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does a JAR having a module descriptor decide whether it is treated as a module?",
+     "back": "<b>No</b> - the path it is placed on decides",
+     "extra": "All JARs on the class path form the single unnamed module; all JARs on the module path become modules. So the project owner, not the dependency's maintainer, decides what is an individual module.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How does <b>module resolution</b> work?",
+     "back": "Start at the initial module, follow each <code>requires</code>, error if one is missing",
+     "extra": "Repeat until nothing new is found; observe it with <code>--show-module-resolution</code>. The result is the module graph, whose edges are readability relations.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which module is the <b>base module</b>, and must you <code>requires</code> it?",
+     "back": "<code>java.base</code> - it is required <b>implicitly</b>, no clause needed",
+     "extra": "It holds <code>Class</code>, <code>ClassLoader</code>, <code>java.lang</code>, <code>java.util</code> and the module system itself. Resolution bootstraps it first, before any other module.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which three conditions must hold for module A to use a type from module B?",
+     "back": "Type is <b>public</b>, package is <b>exported</b>, A <b>reads</b> B",
+     "extra": "That third condition is the new part compared with plain JARs. Reading normally comes from <code>requires</code>, but <code>--add-reads</code> can add it at launch.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two <b>reliable-configuration</b> errors does the module system detect at launch?",
+     "back": "<b>Duplicate modules</b> and <b>split packages</b>",
+     "extra": "There is no notion of version beyond a string, so two versions of one module are a duplicate and rejected. A package living in two modules is a split package, also rejected. Static dependency cycles are the third check.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>static dependency cycle</b> between modules?",
+     "back": "A <b>compile-time</b> <code>requires</code> loop between modules",
+     "extra": "Cycles are fine at runtime, e.g. Spring reflecting over code that uses Spring annotations, but the modules must not require each other to compile. The module system rejects static cycles.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/strong-encapsulation/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Which rule summarises which JDK namespaces are safe to use?",
+     "back": "Use <code>java.*</code>, <b>avoid</b> <code>sun.*</code>, wary of <code>com.sun.*</code>",
+     "extra": "In <code>sun.*</code> only <code>sun.misc</code> and <code>sun.reflect</code> are exempt, exported by <code>jdk.unsupported</code>. In <code>com.sun.*</code> roughly 90% is internal and the exported remainder belongs to <code>jdk.*</code> modules.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which module exports <code>sun.misc</code> and <code>sun.reflect</code>, and why?",
+     "back": "<code>jdk.unsupported</code> - they are <b>needed</b> with no feasible replacement",
+     "extra": "Chiefly for <code>sun.misc.Unsafe</code>. These are the deliberate exceptions: the rest of <code>sun.*</code> is internal and inaccessible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What proportion of <code>com.sun.*</code> packages is internal?",
+     "back": "About <b>90%</b>",
+     "extra": "The namespace is JDK-specific rather than standard. Roughly a tenth is exported by <code>jdk.*</code> modules and supported, evolving with compatibility in mind, so each usage warrants a look.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What happens to non-exported internal types when a module is on the module path?",
+     "back": "Compilation <b>fails</b>, then runtime access <b>fails</b> too",
+     "extra": "E.g. <code>sun.util.BuddhistCalendar</code> lives in <code>java.base</code> which does not export <code>sun.util</code>. Both the compile error and the reflective runtime exception point at strong encapsulation.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which JDK release changed <code>--illegal-access</code> default from <code>permit</code> to <code>deny</code>?",
+     "back": "JDK <b>16</b>",
+     "extra": "JDK 9 to 15 permitted deep reflective access from the class path by default. JDK 16 flipped the default, and JDK 17 removed the option entirely.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "From JDK 17 onwards, which options allow access to internal APIs?",
+     "back": "<b><code>--add-exports</code></b> and <b><code>--add-opens</code></b>",
+     "extra": "Nothing else works: illegal-access is gone. Both act per module/package pair and must be supplied at launch, by whoever runs the application.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/add-exports-opens/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the syntax of <code>--add-exports</code>?",
+     "back": "<code>--add-exports $MODULE/$PACKAGE=$READING_MODULE</code>",
+     "extra": "E.g. <code>--add-exports java.base/sun.util=ALL-UNNAMED</code>. The space can be an equals sign to suit build tools such as Maven.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>ALL-UNNAMED</code> in <code>--add-exports</code> or <code>--add-opens</code>?",
+     "back": "The placeholder meaning <b>all class-path code</b>",
+     "extra": "Use it while your project is not modularised. Once your code runs as a module you can name that module and expose internals to it alone.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which kinds of member does <code>--add-exports</code> expose in the target package?",
+     "back": "<b>Public</b> types and members only",
+     "extra": "Same visibility as a real <code>exports</code>: the compiler can resolve the package and code can call public API in it. Non-public types remain out of reach.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which kinds of member does <code>--add-opens</code> expose?",
+     "back": "<b>All</b> types and members, public or not, <b>via reflection</b>",
+     "extra": "It works like an <code>opens</code> directive applied at launch. Compilation gains nothing, so code must reach the classes reflectively, usually with <code>setAccessible(true)</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Is <code>--add-exports</code> needed at compile time, at run time, or both?",
+     "back": "<b>Both</b> - repeat it on <code>java</code> after using it on <code>javac</code>",
+     "extra": "Compiling against an internal package only grants compile access. Launching on JDK 17+ without the flag fails again at runtime.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you pass <code>--add-opens</code> to <code>javac</code>?",
+     "back": "A <b>warning</b>: it has no effect at compile time",
+     "extra": "It is a pure runtime concept bound to reflection, so javac does not reject the option. It merely reports that nothing will happen, which helps when one option string is fed to several tools.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/add-modules-reads/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>--add-modules</code> add to module resolution?",
+     "back": "<b>Extra root modules</b>, plus their dependencies",
+     "extra": "Resolution starts from root modules, so adding one brings it and its transitive requires into the graph even though the initial module never mentions it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which three special values does <code>--add-modules</code> accept?",
+     "back": "<code>ALL-DEFAULT</code>, <code>ALL-SYSTEM</code>, <code>ALL-MODULE-PATH</code>",
+     "extra": "ALL-DEFAULT is the set picked for class-path launches, for container apps. ALL-SYSTEM adds every system module, used by test harnesses. ALL-MODULE-PATH adds every module found on the module path.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>--add-reads $MODULE=$TARGETS</code> add?",
+     "back": "<b>Readability edges</b> from one module to a comma-separated list",
+     "extra": "The module can then use public types in the targets' exported packages without a <code>requires</code> clause. <code>ALL-UNNAMED</code> as target lets a module read the unnamed module.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which tool accepts <code>--add-modules</code>?",
+     "back": "<code>javac</code>, <code>jlink</code> and <code>java</code>",
+     "extra": "It is a resolution-time option, so each tool that resolves modules honours it. <code>--add-reads</code>, by contrast, is documented for the compiler and runtime.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Give a realistic use for <code>--add-modules</code>.",
+     "back": "Pull in an <b>optional dependency</b> not otherwise required",
+     "extra": "If a module only sometimes needs <code>java.sql</code> it never enters the graph on its own. Listing it in <code>--add-modules</code> at launch adds it, usually alongside <code>--add-reads</code> for readability.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/implied-readability/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Which modifier on <code>requires</code> gives <b>implied readability</b>?",
+     "back": "<b><code>transitive</code></b>",
+     "extra": "Any module that reads the declaring module automatically reads the required one too. Written <code>requires transitive java.xml;</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When should you use <code>requires transitive</code> for module B?",
+     "back": "When <b>public signatures</b> of your API refer to B's packages",
+     "extra": "Otherwise every client would have to add its own <code>requires B</code> to compile against your API. That is a hidden dependency clients could easily miss.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class exposes <code>java.sql</code>'s dependency on <code>java.xml</code> through its API?",
+     "back": "<code>java.sql.SQLXML</code>",
+     "extra": "It maps the SQL XML type, so <code>java.xml</code> types appear in a public signature. <code>Driver.getParentLogger()</code> likewise returns a <code>java.util.logging.Logger</code>, hence the transitive requires on java.logging.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Contrast: <code>java.prefs</code> vs <code>java.sql</code> on <code>java.xml</code>.",
+     "back": "<code>java.prefs</code>: <b>internal</b> use. <code>java.sql</code>: <b>exposed</b> in its API",
+     "extra": "Both declare <code>requires java.xml</code>, but only java.sql needs it transitive, because its public API mentions <code>java.xml</code> types such as SQLXML.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Should a module rely on implied readability of B if it uses B's types <b>throughout</b> its own code?",
+     "back": "<b>No</b> - it should explicitly <code>requires B</code>",
+     "extra": "Implied readability is for types used only at the boundary to the module that grants it. Using them everywhere is a genuine dependency; declaring it documents the architecture and survives refactoring.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/opening-for-reflection/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What are the two reasons <code>exports</code> is a poor fit for reflection frameworks?",
+     "back": "It <b>publishes</b> the package as API, and only <b>public</b> members become reachable",
+     "extra": "Frameworks touch non-public types, constructors, accessors and fields. And exporting a package that handles HTTP requests or database access wrongly advertises it as a stable contract.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How does <code>opens</code> differ from <code>exports</code> at <b>compile time</b>?",
+     "back": "The package stays <b>fully encapsulated</b> - outside code cannot compile against it",
+     "extra": "No exports means no compile-time access at all. Reflection is the only way in, which is exactly the intent: express that this package exists for a reflection-based framework.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How does <code>opens</code> differ from <code>exports</code> with respect to <b>non-public</b> members?",
+     "back": "<code>opens</code>: <b>all</b> members. <code>exports</code>: <b>public</b> only",
+     "extra": "For non-public members reflection still needs <code>setAccessible(true)</code>. The point of opens is that the module has authorised the deep access, so no exception is thrown.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you open <b>every package</b> of a module at once?",
+     "back": "Write <code>open module</code> instead of <code>module</code>",
+     "extra": "An open module behaves as if each package had its own <code>opens</code>. There is no wildcard form, so this keyword is the equivalent of <code>opens com.example.*</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "In an <b>open module</b>, what happens to an explicit <code>opens</code> directive?",
+     "back": "<b>Compile error</b> - all packages are already open",
+     "extra": "Writing <code>opens p;</code> is redundant by definition, so the compiler rejects it. <code>exports</code> directives are still allowed and still mean what they say.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/qualified-exports-opens/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which keyword qualifies <code>exports</code> or <code>opens</code> to specific modules?",
+     "back": "<b><code>to</code></b> followed by a comma-separated module list",
+     "extra": "E.g. <code>exports com.example.internal to com.example.friend;</code>. The named modules get full access; every other module sees strong encapsulation as if the directive had no effect.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JDK module qualifies exports of <code>com.sun.org.apache.xml.internal*</code> to <code>java.xml.crypto</code>?",
+     "back": "<code>java.xml</code>",
+     "extra": "Six internal packages of the JAXP module are needed by XML cryptography, so they are exported to <code>java.xml.crypto</code> and nothing else. A textbook case of controlled sharing inside the JDK.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a package appear in both <code>exports p</code> and <code>exports p to M</code>?",
+     "back": "<b>No</b> - compile error",
+     "extra": "The plain exports already grants everyone access, which makes the qualified one pointless. The module system treats this contradiction as an implementation error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does javac report when a qualified export names a module that cannot be found?",
+     "back": "A <b>warning</b>, not an error",
+     "extra": "The target is mentioned but not required, so it may simply not be on the path at compile time. Failing the build would break builds for optional targets.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Who must change when a new module needs access to a qualified-exported package?",
+     "back": "The <b>exporting module</b> - it must add the new target",
+     "extra": "That control is the feature's point: the owner decides who shares. It is also its cost, since every new friend forces an edit to the exporting module's declaration.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the use case for <b>qualified opens</b> much smaller than for qualified exports?",
+     "back": "Open targets are <b>frameworks</b> that won't start depending on you",
+     "extra": "A framework never develops a compile dependency on a package it reflects over, so unqualified opens risk little. Qualified opens add fragility when API and implementation split, such as JPA and Hibernate.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can qualified opens force you to mention an implementation in your code?",
+     "back": "Reflection needs opening to <b>the module that actually reflects</b>",
+     "extra": "Until frameworks adopt Lookup/VarHandle forwarding, JPA plus Hibernate means opening entity packages to the Hibernate module, not the JPA module. That leaks an implementation detail into the declaration.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/optional-dependencies/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "What does <code>requires static</code> demand at <b>compile time</b>?",
+     "back": "The module <b>must be present</b>, and is readable",
+     "extra": "Identical to a normal <code>requires</code> during compilation, so you can freely use its types in source. Absence is a compile error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What does <code>requires static</code> allow at <b>run time</b>?",
+     "back": "The module <b>may be absent</b>, with no error or warning",
+     "extra": "If it is present on the graph the requiring module reads it. If not, you simply must not reach its types, or you get a NoClassDefFoundError.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "During resolution, does the module system try to find a <code>requires static</code> target?",
+     "back": "<b>No</b> - it is ignored, never pulled into the graph",
+     "extra": "Even a matching module on the module path is not added just for the optional dependency. It enters only via another module's regular requires or via <code>--add-modules</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What error do you get when code touches an absent optional dependency at runtime?",
+     "back": "<code>NoClassDefFoundError</code>",
+     "extra": "The type check fails while loading. With a normal requires the launch would have failed early; opting out of that check means the failure can surface late instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which API tells you at runtime whether a module is present?",
+     "back": "<code>ModuleLayer.boot().findModule(\"name\")</code>, returning an <code>Optional</code>",
+     "extra": "Map it to a boolean and branch before calling into the optional dependency. A library cannot check for you; the decision belongs to the code that knows whether the feature is in use.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can you skip the presence check for an optional dependency?",
+     "back": "When the <b>only callers already need</b> that dependency",
+     "extra": "A JDBC helper inside a library is reached only from code that already uses <code>java.sql</code>, so <code>java.sql</code> is guaranteed in the graph. No check is needed there.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/services/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class acts as the central <b>service registry</b> in Java?",
+     "back": "<code>java.util.ServiceLoader</code>",
+     "extra": "It implements the service locator pattern. Call <code>ServiceLoader.load(Service.class)</code> to get a <code>ServiceLoader</code> that yields every provided implementation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two directives express the consumer and provider side of a service?",
+     "back": "<code>uses $SERVICE</code> and <code>provides $SERVICE with $PROVIDER</code>",
+     "extra": "The consumer names the service type it will look up; the provider names which of its classes is the implementation. Services let a module call behaviour from a module it does not depend on.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What may a <code>provides ... with</code> class be besides an implementor with a no-arg constructor?",
+     "back": "A type with a <b>public static no-arg <code>provider()</code></b> method",
+     "extra": "That is the provider method form. Otherwise the provider is a concrete class extending or implementing the service with a public parameterless constructor.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JDK module uses <code>java.sql.Driver</code> as a service of its own?",
+     "back": "<code>java.sql</code>",
+     "extra": "A module may use one of its own types as a service. It means JDBC drivers can be supplied by other modules without java.sql depending on any vendor.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "After switching to services, why can the implementation module <b>stop exporting</b> its package?",
+     "back": "ServiceLoader needs <b>no exported package</b>",
+     "extra": "The loader instantiates providers through the descriptor, not through public API. Dropping the export shrinks the module's API surface, a bonus of the pattern.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>service binding</b> during resolution?",
+     "back": "Resolving every module that <b>provides</b> a service some resolved module uses",
+     "extra": "It explains why simple apps resolve so many platform modules: providers are added so they are available at runtime. It is a second edge type in the module graph besides requires.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which JDK service lets logging frameworks receive the JDK's messages?",
+     "back": "<code>java.lang.System.LoggerFinder</code>",
+     "extra": "The JDK asks a LoggerFinder for Logger instances instead of writing to stdout, so a framework such as Logback can provide an implementation. Same mechanism as the JDBC Driver service.",
+     "tags": [
+      "type::table"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/unnamed-module/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <b>unnamed module</b> contain?",
+     "back": "All classes loaded from the <b>class path</b>",
+     "extra": "Every JAR on the class path, modular or not, ends up bundled into one unnamed module. It exists so the module system can apply its rules uniformly without forcing anyone to modularise.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the unnamed module's <b>name</b>?",
+     "back": "<b>None</b> - hence nothing can reference it",
+     "extra": "No name means it cannot appear in a <code>requires</code> clause, so no explicit module can depend on class-path code. That refusal is precisely the design goal, not an oversight.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which other modules does the unnamed module <b>read</b>?",
+     "back": "Every module that <b>makes it into the graph</b>",
+     "extra": "It exports all its packages and opens them for reflection too. Both are the loosest settings in the module system, which is what keeps legacy class-path code working.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A library ships a modular JAR. Does that force its users to run it as a module?",
+     "back": "<b>No</b> - a modular JAR on the class path joins the unnamed module",
+     "extra": "Whether a JAR is modular does not decide how it is treated; its location does. This is what lets the ecosystem modularise independently of each other.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Code in an unnamed module prints <code>getModule().getName()</code>. What is the output?",
+     "back": "<code>null</code>",
+     "extra": "From the module path the same call prints the module name. That contrast is the quickest way to confirm which path a JAR was launched from.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If the initial module is the unnamed one, where does module resolution start?",
+     "back": "A <b>predefined set of root modules from the runtime</b>",
+     "extra": "Roughly, java.se if observable, else every java.* module exporting a package unqualified. Non-incubating runtime modules exporting unqualified packages are roots too; module-path modules never are unless --add-modules names them.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why does Java provide <b>no</b> <code>requires class-path</code>?",
+     "back": "Any class-path content would fulfil it, so it <b>guarantees nothing</b>",
+     "extra": "Reliable configuration demands that dependencies be checkable. A dependency satisfiable by any JAR is unverifiable, and two modules could disagree about where a shared library belongs.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/organizing/jlink/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jlink</code> produce?",
+     "back": "A <b>runtime image</b> containing only the modules you picked",
+     "extra": "It links modules and their transitive dependencies into a JDK-like directory tree. Include your own modules and the image is a self-contained application deliverable.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>jlink</code> compile bytecode to machine code?",
+     "back": "<b>No</b> - it only links, no ahead-of-time compilation",
+     "extra": "Your classes stay bytecode; the image just carries an OS-specific JVM plus the modules. That is why images are bound to one operating system.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two options are mandatory to create an image?",
+     "back": "<code>--add-modules</code> and <code>--output</code>",
+     "extra": "The first names the initial modules, the second the target folder. jlink verifies that no module is missing or duplicated, then writes the image.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How does <code>jlink</code> treat services by default?",
+     "back": "<b>No service binding</b> - providers must be listed",
+     "extra": "Deliberate, to keep images small. Add providers with <code>--add-modules</code>, or bind them all with <code>--bind-services</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option lists the modules that provide a given service?",
+     "back": "<code>--suggest-providers $SERVICE</code>",
+     "extra": "Useful before building an image with <code>jlink</code>: it shows what is available in the runtime or on the module path. Then add the ones you need to <code>--add-modules</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>jlink</code> resolve optional (<code>requires static</code>) dependencies?",
+     "back": "<b>No</b> - they must be added manually",
+     "extra": "A static dependency would otherwise pull a module into the image only by accident. Explicitly adding it with <code>--add-modules</code> makes the choice deliberate.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can <code>jlink</code> link an application that depends on <b>automatic modules</b>?",
+     "back": "<b>No</b> - only explicit modules",
+     "extra": "An automatic module has no descriptor to link against. The app and its dependencies must be modular JARs, which is a real reason to push dependencies towards modular artefacts.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do you need so <code>jlink</code> can find your application modules?",
+     "back": "<code>--module-path</code> pointing at the folder holding them",
+     "extra": "Then <code>--add-modules</code> names the app's main module. Platform and application modules together are called the image's <b>system modules</b>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>--launcher $NAME=$MODULE/$MAIN-CLASS</code> generate?",
+     "back": "A script in the image's <code>bin</code> that starts that module",
+     "extra": "Shell script on Unix, batch file on Windows. The <code>/$MAIN-CLASS</code> part may be omitted if the descriptor already names a main class.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the downside of launching through a <code>jlink</code> launcher?",
+     "back": "JVM options become <b>program arguments</b>",
+     "extra": "The launcher passes them after <code>--module</code>, so you cannot add <code>--add-modules</code> ad hoc. Put options in <code>JLINK_VM_OPTIONS</code> or call <code>java</code> from the image directly.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Does the module path on an image's launch override system modules?",
+     "back": "<b>No</b> - system modules shadow same-named module-path modules",
+     "extra": "A module-path entry with a system module's name is simply ignored. You can still supply extra modules, typically service providers, so users can extend the image.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you generate an image for a <b>different</b> operating system?",
+     "back": "Put that OS's <b>jmods</b> folder on the module path",
+     "extra": "Run it with your own <code>jlink</code>; it sees foreign platform modules and links for that OS. Verify by checking for <code>java.exe</code> in <code>bin</code>, and keep JDK versions in step.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  }
+ ]
+}

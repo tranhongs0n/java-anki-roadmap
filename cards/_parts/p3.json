@@ -1,0 +1,214 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "source": "https://dev.java/learn/language/annotations-exceptions/annotations/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::02-annotations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What character marks something as an annotation rather than a call or member access?",
+     "back": "The <b>at sign</b> <code>@</code>",
+     "extra": "It appears directly before the annotation type, as in <code>@Override</code>. The compiler reads the name after it as an annotation type, which is why annotations and interfaces share a namespace.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>@SuppressWarnings(\"unchecked\")</code>, the element name <code>value</code> is missing. Why is that legal?",
+     "back": "With a <b>single element named value</b>, the name can be omitted",
+     "extra": "Writing <code>@SuppressWarnings(value = \"unchecked\")</code> is equivalent. The shorthand is only for <code>value</code>; any other element name must always be written.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When may an annotation be written <b>without parentheses</b>?",
+     "back": "When its type declares <b>no elements</b>",
+     "extra": "Hence <code>@Override</code> and <code>@Deprecated</code> appear bare. The moment an element exists you need <code>@Name(...)</code>, even if you supply no value.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How does an annotation <b>type declaration</b> begin?",
+     "back": "<code>@interface</code> - an interface preceded by <code>@</code>",
+     "extra": "It looks like an interface whose keyword is <code>interface</code> with a leading at sign. Its body holds element declarations that resemble methods and may have default values. <code>@</code> reads as 'AT', i.e. annotation type.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where must you annotate an annotation type's own definition to get it into Javadoc?",
+     "back": "The definition needs <b><code>@Documented</code></b>",
+     "extra": "By default annotations on program elements are omitted from generated documentation. Putting <code>@Documented</code> on the annotation type tells javadoc to publish them.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which three <code>java.lang</code> annotations are <b>used by the language and compiler</b>?",
+     "back": "<code>@Deprecated</code>, <code>@Override</code>, <code>@SuppressWarnings</code>",
+     "extra": "They are predefined in every JDK. <code>@Override</code> and <code>@SuppressWarnings</code> steer compiler checks, <code>@Deprecated</code> both warns and documents.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>@Override</code> do when the marked method does <b>not</b> actually override anything?",
+     "back": "The compiler generates an <b>error</b>",
+     "extra": "Using it is optional but catching typos in the method name or signature. Without it, a misspelt override silently becomes a new method in the subclass.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>@Deprecated</code> attribute, added in Java SE 9, marks that the element will be <b>removed</b> in future?",
+     "back": "<code>forRemoval</code> - default <code>false</code>",
+     "extra": "The companion compiler warning category is <code>removal</code>. When an element is deprecated you should also document it with the Javadoc tag <code>@deprecated</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which four warning categories can <code>@SuppressWarnings</code> name?",
+     "back": "<code>unchecked</code>, <code>deprecation</code>, <code>removal</code>, <code>preview</code>",
+     "extra": "The array form suppresses several at once: <code>@SuppressWarnings({\"unchecked\", \"deprecation\"})</code>. The <code>unchecked</code> warnings arise when mixing with pre-generics legacy code.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>@SafeVarargs</code> assert about a method or constructor?",
+     "back": "Its <b>varargs body is safe</b>, so no unchecked varargs warning",
+     "extra": "Applied to a generic varargs method you promise not to store arbitrary types into the array. Java suppresses the heap-pollution warning it would otherwise report at the call site.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Java SE release introduced <code>@FunctionalInterface</code>?",
+     "back": "Java SE <b>8</b>",
+     "extra": "It marks a type declaration as intended to be a functional interface, meaning one abstract method. It is documentation plus a compiler check against accidental extra abstract methods.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "<code>RetentionPolicy.SOURCE</code> keeps an annotation where?",
+     "back": "<b>Source level only</b> - the compiler ignores it",
+     "extra": "The annotation is available while compiling but never recorded in the class file. <code>@Override</code> is typically SOURCE-retained, since only javac needs to see it.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "<code>RetentionPolicy.CLASS</code> keeps an annotation where?",
+     "back": "In the <b>class file</b> - the JVM ignores it",
+     "extra": "This is the default retention when <code>@Retention</code> is not specified. Bytecode tools can read the annotation, but reflection at runtime cannot see it.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "<code>RetentionPolicy.RUNTIME</code> keeps an annotation where?",
+     "back": "<b>Readable by the JVM at runtime</b>",
+     "extra": "Only RUNTIME-retained annotations are visible through reflection, which is why frameworks that inspect annotations at runtime (JPA, Jackson, JUnit) declare it.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which Java SE release made annotations applicable to <b>type uses</b>, not just declarations?",
+     "back": "Java SE <b>8</b>",
+     "extra": "That is a <b>type annotation</b>: usable on <code>new</code>, on casts, on implements clauses and on <code>throws</code>. It lets a pluggable type checker see where a type is used, not only where a variable is declared.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <b>type annotations</b> used for?",
+     "back": "Feed <b>pluggable type checkers</b> that run alongside javac",
+     "extra": "E.g. declare a variable <code>@NonNull String s</code>. A checker module plugged into the compiler then warns when null could flow in. The JDK ships no checker, only the ability to accept one.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which meta-annotation restricts the <b>element kinds</b> an annotation may be applied to?",
+     "back": "<code>@Target</code>",
+     "extra": "Its value is one or more <code>ElementType</code> constants: TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, PACKAGE, MODULE, TYPE_PARAMETER, ANNOTATION_TYPE, TYPE_USE, RECORD_COMPONENT. The compiler rejects an annotation used in the wrong place.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>ElementType</code> value allows an annotation wherever a <b>type is used</b>?",
+     "back": "<code>ElementType.TYPE_USE</code>",
+     "extra": "That covers <code>new</code>, casts, implements and throws clauses. <code>TYPE</code> instead means class, interface, enum, annotation or record declarations.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>@Inherited</code> do when a subclass has no annotation of that type?",
+     "back": "The <b>superclass</b> is queried for it",
+     "extra": "Inheritance of annotations is off by default, so without it <code>getAnnotation</code> returns null on the subclass. <code>@Inherited</code> applies only to class declarations, never to methods or fields.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "To make your annotation apply twice on one element, which meta-annotation declares it repeatable?",
+     "back": "<code>@Repeatable</code>",
+     "extra": "Its value names the <b>container</b> annotation the compiler generates to hold the repeats. Applying an annotation twice without it is a compile-time error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A repeatable annotation needs a container. What must the container declare?",
+     "back": "A <code>value</code> element whose type is an <b>array of the repeatable type</b>",
+     "extra": "E.g. <code>Schedules</code> holds <code>Schedule[] value()</code>. The compiler then wraps repeated <code>@Schedule</code> annotations into one <code>@Schedules</code> automatically.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>AnnotatedElement</code> method returns all repeated annotations at once?",
+     "back": "<code>getAnnotationsByType(Class)</code>",
+     "extra": "Added in Java SE 8; it scans the container annotation for you. The older <code>getAnnotation(Class)</code> still returns only one and unchanged, so legacy code keeps working.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  }
+ ]
+}

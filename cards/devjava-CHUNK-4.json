@@ -1,0 +1,2276 @@
+{
+ "chunk": "CHUNK-4",
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::11 Regular Expressions Details",
+   "source": "https://dev.java/learn/api/date-time-regex/regex/boundary-matchers/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::07-io-network-data-formats",
+    "topic::11-regex"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which three classes make up the <code>java.util.regex</code> package?",
+     "back": "<code>Pattern</code>, <code>Matcher</code>, <code>PatternSyntaxException</code>",
+     "extra": "<code>Pattern</code> is the compiled regex, <code>Matcher</code> is the matching engine over an input string, and <code>PatternSyntaxException</code> reports a malformed pattern.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you obtain a <code>Pattern</code> instance?",
+     "back": "Via the static <code>Pattern.compile(String)</code> method",
+     "extra": "The compile step builds the internal automaton once; calling it per match is wasteful, so compiled patterns are commonly cached in <code>static final</code> fields.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Given a <code>Pattern p</code>, how do you get a <code>Matcher</code> for a string <code>s</code>?",
+     "back": "<code>p.matcher(s)</code> - <code>Matcher</code> has no public constructors",
+     "extra": "The matcher binds one pattern to one input and holds mutable state such as the region bounds and the last match position, so it must not be shared between threads.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What kind of exception is <code>PatternSyntaxException</code>?",
+     "back": "An <b>unchecked</b> exception signalling a syntax error in a regex pattern",
+     "extra": "Because it is unchecked it is not declared in throws clauses, so a malformed user-supplied pattern only surfaces at the <code>compile</code> call.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is it safe to share one compiled <code>Pattern</code> across threads but not one <code>Matcher</code>?",
+     "back": "<code>Pattern</code> is immutable; <code>Matcher</code> carries <b>mutable state</b>",
+     "extra": "A Matcher holds per-input state such as region bounds and the last match index, so sharing one matcher across threads corrupts results, while sharing the pattern is safe.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Java's <code>java.util.regex</code> syntax is most similar to which regex flavour?",
+     "back": "<b>Perl</b>",
+     "extra": "Not grep, awk or POSIX; Java borrows Perl syntax but with significant additions such as possessive quantifiers and Unicode property escapes.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which escape form matches one Unicode code point like the Han character for east?",
+     "back": "<code>\\uFFFF</code> (e.g. <code>\\u6771</code>) or Perl-style <code>\\x{...}</code>",
+     "extra": "The <code>\\u</code> form takes exactly four hex digits; the Perl <code>\\x{...}</code> form is flexible, so it is the only way to write code points above U+FFFF.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>\\p{prop}</code> match, and what does the capital <code>\\P{prop}</code> match?",
+     "back": "<code>\\p</code>: char <b>in</b> the property; <code>\\P</code>: char <b>not</b> in it",
+     "extra": "Properties are checked per character, so <code>\\p{IsL}\\p{IsL}+</code> style sequences compose a word-run match over Unicode letters.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which three kinds of Unicode property can <code>\\p{...}</code> test?",
+     "back": "<b>Scripts</b>, <b>blocks</b>, and a <b>general</b> category",
+     "extra": "Scripts are written <code>\\p{IsHiragana}</code> or <code>\\p{script=Hiragana}</code>, blocks <code>\\p{InMongolian}</code> or <code>\\p{block=Mongolian}</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two keywords/long forms name a Unicode general category in a regex?",
+     "back": "<code>general_category=Lu</code> or its short form <code>gc=Lu</code>",
+     "extra": "Prefixing with <code>Is</code> also works, e.g. <code>\\p{IsL}</code> for letters. The categories follow the Unicode Standard version used by <code>java.lang.Character</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which JDK release has Java regex supported Unicode (version 6.0) features?",
+     "back": "<b>JDK 7</b>",
+     "extra": "Before that, <code>\\p{...}</code> existed but the supported property set was narrower and Unicode-aware case folding needed extra care.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A regex match spans indices 0 to 3 on <code>\"foo\"</code>. Is the end index inclusive or exclusive?",
+     "back": "<b>Exclusive</b> - the range is start inclusive, end exclusive",
+     "extra": "The string occupies cells 0, 1, 2 and the index positions sit between cells, so the end index is the position after the last matched character.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a regex <b>metacharacter</b>?",
+     "back": "A character the matcher treats as having <b>special meaning</b>, not a literal",
+     "extra": "In <code>cat.</code> the dot matches the 's' of 'cats' because '.' means any character, which is why literal dots must be escaped.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which characters are the regex metacharacters in the Java API?",
+     "back": "<code>&lt;([{\\^-=$!|]})?*+.&gt;</code>",
+     "extra": "This is the complete documented set. Characters outside it, such as <code>@</code> and <code>#</code>, are never metacharacters and never need quoting.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the two ways to force a metacharacter to be treated as an ordinary character?",
+     "back": "Precede it with a <b>backslash</b>, or wrap it in <b><code>\\Q</code>...<code>\\E</code></b>",
+     "extra": "The quoting pair can be placed anywhere in the expression as long as <code>\\Q</code> comes first, which makes it handy for embedding an arbitrary runtime string.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a Java string literal you want the regex <code>\\d</code>. What must you write?",
+     "back": "Two backslashes: <code>\"\\\\d\"</code>",
+     "extra": "The extra backslash is consumed by Java string escaping, so only one reaches the regex engine. Text read from the console needs no doubling.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In regex terminology, what is a <b>character class</b>?",
+     "back": "A set of characters in square brackets that matches <b>one</b> character from the set",
+     "extra": "It is unrelated to Java classes in your source code. <code>[abc]</code> matches exactly one of a, b or c, so <code>[bcr]at</code> matches bat, cat or rat.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you negate a character class so it matches anything but the listed characters?",
+     "back": "Put <code>^</code> immediately after the opening bracket: <code>[^abc]</code>",
+     "extra": "Negation still consumes exactly one character; it fails only on the characters inside the class.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you express the range 'a through z, or A through Z' in one character class?",
+     "back": "<code>[a-zA-Z]</code> - ranges sit side by side inside the brackets",
+     "extra": "The hyphen between two characters means an inclusive range. Outside brackets, or after a leading/trailing position, it is a literal hyphen.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you build a <b>union</b> of two character classes?",
+     "back": "Nest one class inside the other: <code>[0-4[6-8]]</code>",
+     "extra": "A union collects all members, so the example matches 0-4 and 6-8 but not 5. Equivalent shorthand is <code>[0-46-8]</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What operator builds the <b>intersection</b> of two nested classes?",
+     "back": "<code>&amp;&amp;</code>, as in <code>[0-5&amp;&amp;[3-9]]</code>",
+     "extra": "The result keeps only characters present in every nested class, so the example matches 3, 4 and 5 only.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which expression matches the digits 0-9 except 3, 4 and 5?",
+     "back": "<code>[0-9&amp;&amp;[^345]]</code>",
+     "extra": "This is <b>subtraction</b>: intersect all digits with the complement of the excluded set. <code>[a-z&amp;&amp;[^m-p]]</code> is the letter equivalent.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a character class, what is the difference between <code>[a-d[m-p]]</code> and <code>[a-d&amp;&amp;[m-p]]</code>?",
+     "back": "The first is a <b>union</b> (a-d plus m-p); the second is an <b>intersection</b>",
+     "extra": "Nesting without an operator adds the sets, joining them with <code>&amp;&amp;</code> keeps only the shared members, which here do not overlap.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What exactly does <code>\\s</code> match?",
+     "back": "<code>[ \\t\\n\\x0B\\f\\r]</code> - space, tab, newline, VT, FF, CR",
+     "extra": "It is a shorthand class, not 'any whitespace in every charset'. <code>\\S</code> is the complement.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which characters does <code>\\w</code> match?",
+     "back": "<code>[a-zA-Z_0-9]</code> - ASCII letters, <b>underscore</b>, digits",
+     "extra": "Only ASCII by default, so accented and non-Latin letters are non-word characters; <code>\\W</code> matches the complement.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By default, does the dot <code>.</code> match a line terminator?",
+     "back": "Only <b>sometimes</b> - it may or may not, so the API documents it loosely",
+     "extra": "In practice the dot excludes line terminators unless DOTALL mode <code>(?s)</code> is enabled; <code>\\n</code> must then be matched explicitly or via DOTALL.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the capital letter form of a predefined class mean?",
+     "back": "The <b>opposite</b> set: <code>\\D</code>, <code>\\S</code>, <code>\\W</code>",
+     "extra": "The rule holds uniformly across the predefined classes, so once you know the lowercase meaning the uppercase follows.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why prefer <code>\\d</code> or <code>\\w</code> over writing <code>[0-9]</code> or <code>[a-zA-Z_0-9]</code> by hand?",
+     "back": "Better readability and <b>fewer errors</b> from malformed character classes",
+     "extra": "Hand-built classes invite mistakes such as a misplaced hyphen. The predefined forms are also what most developers recognise at a glance.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Write an exact count of n in greedy, reluctant and possessive form.",
+     "back": "<code>X{n}</code>, <code>X{n}?</code>, <code>X{n}+</code>",
+     "extra": "Appending <code>?</code> makes a quantifier reluctant, appending <code>+</code> makes it possessive. The base forms are <code>?</code>, <code>*</code>, <code>+</code>, <code>{n}</code>, <code>{n,}</code>, <code>{n,m}</code>.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>zero-length match</b>?",
+     "back": "A match where <b>start and end indices are equal</b>, consuming no characters",
+     "extra": "It happens in an empty input, at the beginning or end of the input, or between any two characters - anywhere a quantifier permitting zero occurrences fires.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does the quantifier in <code>abc+</code> apply to the whole sequence 'abc'?",
+     "back": "<b>No</b> - it applies to <code>c</code> only: a, then b, then c one or more times",
+     "extra": "Quantifiers bind to one character, one character class, or one group. Use <code>(abc)+</code> to repeat the whole sequence.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a greedy quantifier do before its first match attempt?",
+     "back": "<b>Eats the entire input</b>, then backtracks one character at a time",
+     "extra": "<code>.*foo</code> on <code>xfooxxxxxxfoo</code> first consumes everything, then backs off until the rightmost 'foo' is restored.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does a reluctant quantifier search?",
+     "back": "Starts with the <b>shortest</b> match and grows one character at a time",
+     "extra": "Reluctant <code>.*?foo</code> finds the leftmost 'foo' first, then continues scanning, so it yields both occurrences in <code>xfooxxxxxxfoo</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What distinguishes a possessive quantifier from a greedy one?",
+     "back": "It <b>never backtracks</b> - it tries once with the whole input and gives up",
+     "extra": "<code>.*+foo</code> on <code>xfooxxxxxxfoo</code> fails, because <code>.*+</code> consumes everything and leaves nothing for 'foo'.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why use a possessive quantifier such as <code>[0-9]++</code> instead of a greedy one?",
+     "back": "Avoids backtracking, so it <b>outperforms</b> greedy when no match is found immediately",
+     "extra": "Preventing backtracking also defuses catastrophic backtracking patterns, where nested greedy quantifiers explode exponentially on a failing input.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which quantifiers match zero occurrences and therefore produce a zero-length match after the last character?",
+     "back": "<code>X?</code> and <code>X*</code>",
+     "extra": "On input 'aaaaa', <code>a?</code> matches each 'a' then a zero-length match at index 5, whereas <code>a+</code> stops after the run.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Matching <code>a?</code> against 'ababaaaab' reports a zero-length match at each 'b'. Why?",
+     "back": "<code>a?</code> only asks whether an 'a' is present, and <b>zero 'a'</b> satisfies it",
+     "extra": "Any position not followed by 'a' matches the empty alternative, so non-'a' characters appear as zero-length matches rather than failures.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which quantifier means 'at least n but not more than m'?",
+     "back": "<code>X{n,m}</code>",
+     "extra": "Reluctant and possessive variants are <code>X{n,m}?</code> and <code>X{n,m}+</code>. A comma alone after n (<code>X{n,}</code>) means 'at least n' with no upper limit.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which boundary matcher matches the end of the input, ignoring a final line terminator?",
+     "back": "<code>\\Z</code>",
+     "extra": "<code>\\z</code> is the strict end of input. The HALT distinction matters when a file ends with a trailing newline.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which boundary matchers anchor to the start and end of a <b>line</b>?",
+     "back": "<code>^</code> for start of line, <code>$</code> for end of line",
+     "extra": "Without MULTILINE mode they only match at the beginning and end of the whole input; <code>\\A</code> and <code>\\z</code> always mean the absolute input limits.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you match the word 'dog' only as a whole word, not inside a longer word?",
+     "back": "<code>\\bdog\\b</code>",
+     "extra": "A word boundary is a transition between a word character (<code>\\w</code>) and a non-word character or the input edge.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>\\B</code> match in Java regex?",
+     "back": "A <b>non-word boundary</b> - a position that is not a word boundary",
+     "extra": "A position is not a word boundary where word characters continue across it. Note confusing - the reliable use is matching inside a word, where <code>\\b</code> would fail.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which boundary matcher anchors a match to the end of the previous match?",
+     "back": "<code>\\G</code>",
+     "extra": "It makes repeated <code>find()</code> calls contiguous, so a second occurrence of the target that does not start where the last match ended is skipped.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How are capturing groups numbered in a pattern?",
+     "back": "By counting <b>opening parentheses from left to right</b>",
+     "extra": "In <code>((A)(B(C)))</code> group 1 is the outer group, 2 is (A), 3 is (B(C)) and 4 is (C).",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>groupCount()</code> include group 0?",
+     "back": "<b>No</b> - group 0 is the entire match and is not counted",
+     "extra": "So <code>((A)(B(C)))</code> reports 4. <code>group(0)</code> still returns the whole matched text.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which groups do <b>not</b> count toward <code>groupCount()</code>?",
+     "back": "Groups beginning with <code>(?</code> - <b>non-capturing</b> groups",
+     "extra": "Writing <code>(?:dog)</code> groups for quantification without capturing, which keeps the numbering of the remaining groups stable.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>start(int group)</code> return?",
+     "back": "The <b>start index</b> of the subsequence captured by that group in the previous match",
+     "extra": "<code>start()</code> with no argument returns the start of the whole match; <code>end(g)</code> returns the index of the last character plus one.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>end(int group)</code> return?",
+     "back": "The index of the <b>last character plus one</b> captured by that group",
+     "extra": "That is the exclusive end offset, matching <code>String.substring(start, end)</code>. <code>group(g)</code> returns the captured text itself.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Write a backreference to capture group 1 inside the pattern.",
+     "back": "<code>\\1</code> - a backslash followed by the group number",
+     "extra": "<code>(\\d\\d)\\1</code> matches any two digits followed by the identical two digits, and fails if the last two digits differ.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <b>backreference</b> match?",
+     "back": "The <b>exact text</b> already captured by the referenced group, not just its pattern",
+     "extra": "So <code>(\\d\\d)\\1</code> accepts '1212' but rejects '1234', which a repeated <code>\\d\\d\\d\\d</code> would accept.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Pattern flag makes <code>.</code> also match line terminators?",
+     "back": "<code>Pattern.DOTALL</code>, embedded form <code>(?s)</code>",
+     "extra": "The 's' is a mnemonic for 'single-line' mode as it is called in Perl, which is why the letter does not match the flag name.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Pattern flag makes <code>^</code> and <code>$</code> match at line terminators?",
+     "back": "<code>Pattern.MULTILINE</code>, embedded form <code>(?m)</code>",
+     "extra": "By default those anchors only match at the start and end of the entire input sequence.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Pattern flag lets a pattern contain whitespace and <code>#</code> comments?",
+     "back": "<code>Pattern.COMMENTS</code>, embedded form <code>(?x)</code>",
+     "extra": "Whitespace is ignored and <code>#</code> comments run to end of line, which enables readable multi-line patterns for parsing tasks.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Pattern flag treats the entire pattern as literal text?",
+     "back": "<code>Pattern.LITERAL</code> - <b>no embedded form</b>",
+     "extra": "Metacharacters and escape sequences lose their meaning. Only <code>CASE_INSENSITIVE</code> and <code>UNICODE_CASE</code> still apply alongside it.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Pattern.CASE_INSENSITIVE</code> do on its own, and what must you add for Unicode?",
+     "back": "Only <b>US-ASCII</b> case folding; add <code>UNICODE_CASE</code> for Unicode-aware folding",
+     "extra": "The embedded equivalent pair is <code>(?iu)</code>. Without it, <code>Ä</code> and <code>ä</code> differ as far as the matcher is concerned.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which constant/embedded flag pair enables Unix lines mode?",
+     "back": "<code>Pattern.UNIX_LINES</code> and <code>(?d)</code>",
+     "extra": "In that mode only <code>\\n</code> counts as a line terminator for <code>.</code>, <code>^</code> and <code>$</code>, which matters when files contain <code>\\r</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Pattern flags have <b>no</b> embedded flag expression?",
+     "back": "<code>CANON_EQ</code> and <code>LITERAL</code>",
+     "extra": "Every other flag has a letter: <code>(?i)</code> case-insensitive, <code>(?x)</code> comments, <code>(?m)</code> multiline, <code>(?s)</code> dotall, <code>(?u)</code> Unicode case, <code>(?d)</code> Unix lines.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Pattern.CANON_EQ</code> change about matching?",
+     "back": "Two characters match only if their <b>full canonical decompositions</b> match",
+     "extra": "<code>a\\u030A</code> then matches <code>\\u00E5</code>. It is disabled by default and can impose a performance penalty.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you combine several Pattern flags in one <code>compile</code> call?",
+     "back": "Bitwise OR them: <code>compile(re, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE)</code>",
+     "extra": "The flags parameter is an int bit mask, so the flags compose. The embedded alternative chains the letters, e.g. <code>(?im)</code>.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Pattern.matches(regex, input)</code> return for <code>\"\\\\d\"</code> and <code>\"1\"</code>?",
+     "back": "<b>true</b> - the whole input must match the pattern",
+     "extra": "It is a convenience for compile-match over the entire string, so <code>Pattern.matches(\"\\\\d\", \"12\")</code> is false.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>Pattern.split()</code> treat trailing empty strings?",
+     "back": "With the no-limit form they are <b>discarded</b>",
+     "extra": "<code>\"one:two:\".split(\":\")</code> returns two elements. Passing a limit of zero gives the same result; a negative limit keeps trailing empties.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Pattern.quote(s)</code> return?",
+     "back": "A literal pattern string that matches <code>s</code> <b>exactly</b>",
+     "extra": "Metacharacters and escapes in <code>s</code> get no special meaning, making it safe to interpolate untrusted text into a larger pattern such as a <code>split</code> delimiter.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are <code>Pattern.CANON_EQ</code> and <code>Pattern.LITERAL</code> available as embedded flags like <code>(?i)</code>?",
+     "back": "<b>No</b> - neither has an embedded flag expression",
+     "extra": "Both must be passed to the two-argument <code>compile</code>. Trying to write them inline produces a dangling-metacharacter syntax error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>str.replace(\"aa\", \"b\")</code> do on <code>\"aaa\"</code>?",
+     "back": "Returns <code>\"ba\"</code> - replacement runs <b>left to right</b>, non-overlapping",
+     "extra": "The second 'a' is left unmatched because the scan continues after the replaced span, so 'aa' at index 0 wins over 'aa' at index 1.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Matcher</code> methods return the positions of the previous match?",
+     "back": "<code>start()</code>, <code>end()</code>, <code>start(int)</code>, <code>end(int)</code>",
+     "extra": "They are the index methods. <code>end()</code> is the offset after the last character matched, i.e. an exclusive end position.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "<code>matches()</code> vs <code>lookingAt()</code>: what is the difference?",
+     "back": "<code>matches()</code>: <b>entire</b> region; <code>lookingAt()</code>: prefix only",
+     "extra": "Both always start at the beginning of the region. <code>find()</code> is the one that scans forward for a match anywhere in the input.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Matcher method finds the <b>next</b> matching subsequence anywhere in the input?",
+     "back": "<code>find()</code>",
+     "extra": "Repeated calls continue from the end of the previous match, which is the usual way to iterate all matches in a loop.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Matcher method resets the matcher and matches again starting from an explicit index?",
+     "back": "<code>find(int start)</code>",
+     "extra": "It first resets the matcher, so any prior match state is discarded before scanning from the given index.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Matcher method replaces <b>every</b> match and returns the new string?",
+     "back": "<code>replaceAll(String replacement)</code>",
+     "extra": "<code>replaceFirst</code> replaces only the first match. Both return a new String; the matcher's input is unchanged.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why call <code>Matcher.quoteReplacement(s)</code> before using <code>s</code> as a replacement?",
+     "back": "Slash and <code>$</code> in a replacement are special - it escapes them",
+     "extra": "It escapes <code>\\</code> and <code>$</code> so the text is used literally. Otherwise a group reference like <code>$1</code> in the text would be substituted instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two Matcher methods perform a manual append-and-replace loop?",
+     "back": "<code>appendReplacement(..)</code> in the loop, then <code>appendTail(..)</code>",
+     "extra": "appendReplacement is the non-terminal step inside the loop, appendTail is the terminal step that copies the remainder after the last match.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "<code>str.replaceAll(regex, repl)</code> vs <code>str.replace(target, repl)</code> - what is the difference?",
+     "back": "<code>replaceAll</code>: <b>regex</b>; <code>replace</code>: <b>literal</b> text",
+     "extra": "That is why a string containing regex metacharacters such as '.' or '$' behaves unpredictably with replaceAll but safely with replace.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method of <code>PatternSyntaxException</code> returns the index where the error occurred?",
+     "back": "<code>getIndex()</code>",
+     "extra": "Sibling methods are <code>getDescription()</code> for the reason and <code>getPattern()</code> for the offending expression.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>PatternSyntaxException.getMessage()</code> produce?",
+     "back": "A <b>multi-line</b> string: description, index, the pattern, and a caret marking the index",
+     "extra": "The caret line is the useful part when logging: it points at the exact character the parser choked on.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Typing <code>?i)foo</code> instead of <code>(?i)foo</code> throws what, at which index?",
+     "back": "A <b>dangling metacharacter</b> error at index <b>0</b>",
+     "extra": "The parser sees the question mark as a quantifier with nothing to quantify and reports index 0, not the missing parenthesis. <code>getIndex()</code> gives the same number.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals",
+   "source": "https://dev.java/learn/jvm/tool/garbage-collection/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::01-jvm-internals"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does a Java garbage collector periodically do in three steps?",
+     "back": "Check reachability, remove unreachable objects, then <b>reorganize survivors</b>",
+     "extra": "Reorganizing live objects compactly is what makes later collections cheaper, and it is something manual free/delete in C++ never does.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two concrete costs does manual memory management trade for its control?",
+     "back": "Developers must <b>know</b> how memory is used and hand-write alloc/free control code",
+     "extra": "That control code obscures the business logic, and a missed error path becomes a memory leak - the exact class of bug the GC exists to prevent.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does garbage collection eliminate memory leaks completely?",
+     "back": "<b>No</b> - it vastly reduces but does not eliminate them",
+     "extra": "Leaks still happen through lingering references: static collections that grow forever, listeners never deregistered, or ThreadLocal values kept by pool threads.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In Java, does <code>null</code>-ing a local variable make its object collectible immediately?",
+     "back": "<b>No</b> - unreachability is decided by the collector, not by assignment order",
+     "extra": "A local reference stops making its object reachable when the scope ends; the collector then frees it at its own convenience.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <b>weak generational hypothesis</b> state?",
+     "back": "<b>Most objects are short-lived</b>",
+     "extra": "Generational collectors bet on it: scanning the young generation finds most garbage, so CPU time is spent where collection pays off.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two JVM arguments set the initial/minimum and maximum heap size?",
+     "back": "<code>-Xms</code> for initial and minimum, <code>-Xmx</code> for maximum",
+     "extra": "Both take a size with a k/m/g suffix. If the heap is exhausted, the JVM throws <code>java.lang.OutOfMemoryError</code> on the next allocation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a generational collector, where is a new object allocated?",
+     "back": "<b>Eden</b> space - part of the young generation",
+     "extra": "After it survives a collection it is copied to a survivor space; surviving enough collections moves it to the old generation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is stored in the permanent / metaspace region?",
+     "back": "JVM metadata and <b>core system classes</b> that live for the JVM's lifetime",
+     "extra": "It is not ordinary application data: classes, method metadata and similar long-lived structures land there, not new objects.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does an <b>evacuating</b> garbage collector do?",
+     "back": "Finds <b>live</b> objects and copies them to a new region; old regions become free",
+     "extra": "The name is counter-intuitive: it does not hunt for garbage, it salvages survivors, and whole regions are reclaimed once drained.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does an <b>incremental</b> garbage collector do with the heap?",
+     "back": "Divides it into many <b>small regions</b> of a few MB instead of one young/old space",
+     "extra": "Smaller units let the collector work on a few regions at a time, which shortens pauses and avoids managing one monolithic heap.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which objects serve as <b>GC roots</b>?",
+     "back": "Local variables, static class fields, active threads, <b>JNI references</b>",
+     "extra": "Marking starts only from roots and traverses the object graph, so anything not reachable from a root is collected.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What marking value does the VM give each object, and what does the mark phase do?",
+     "back": "A <b>1-bit</b> flag initially false; marking sets it true for reachable objects",
+     "extra": "The collector traverses the object graph from the roots and flips the bit for everything it can reach, rather than scanning objects blindly.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens during the <b>sweep</b> phase?",
+     "back": "All objects whose mark bit is still <b>false</b> are removed",
+     "extra": "Sweeping follows marking, so the mark bit alone decides liveness - no per-object reference counting is involved.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>minor</b> garbage collection?",
+     "back": "A collection that scans only the <b>young</b> generations",
+     "extra": "Minor collections are frequent and cheap. A major collection also scans the old generation and is usually triggered by a heap-occupancy threshold.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>major</b> garbage collection?",
+     "back": "A collection that scans <b>young and old</b> generations",
+     "extra": "Much rarer than a minor collection, and typically triggered by a condition such as a threshold percentage of heap memory being used.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In GC terminology, what does <b>concurrent</b> mean?",
+     "back": "GC work runs <b>while the application runs</b>",
+     "extra": "It narrows pauses at the cost of throughput. Parallel means GC work uses several cores; concurrent means application threads keep running during GC.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In GC terminology, what does <b>parallel</b> mean?",
+     "back": "The collector uses <b>multiple CPU cores</b>",
+     "extra": "G1, Parallel and ZGC are all parallel collectors. Coordinating the work lowers wall-clock GC time but raises overall CPU usage.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>stop-the-world</b> event?",
+     "back": "A pause where <b>all</b> application threads stop for GC work",
+     "extra": "Heap objects are not thread-safe, so mutation must be frozen while the collector marks, moves or frees objects. JFR and VisualVM measure pause duration.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which GC was the default since JDK 9, and which was removed in JDK 14?",
+     "back": "<b>G1</b> is the default; <b>CMS</b> was removed",
+     "extra": "CMS was deprecated in JDK 9 and deleted in JDK 14; G1 was built as its replacement with more consistent pause times.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In G1, what makes an object <b>humongous</b>?",
+     "back": "It is larger than <b>half a region</b>",
+     "extra": "Such an object gets one or more contiguous regions of its own, bypasses eden and survivor, and is treated like an old-gen object from the start.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are G1's two top-level GC cycle phases?",
+     "back": "<b>Young-Only</b>, then <b>Space-Reclamation</b>",
+     "extra": "G1 starts in Young-Only; when old-gen occupancy crosses a threshold it runs the concurrent marking trio and then mixed collections.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Name the three special pauses of G1's concurrent marking phase, in order.",
+     "back": "<b>Concurrent Start</b>, <b>Remark</b>, <b>Cleanup</b>",
+     "extra": "Concurrent Start still evacuates young regions; Remark and Cleanup do not. Between them G1 finalises marking, unloads classes, and reclaims empty regions.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which G1 pause finalises marking and performs class unloading?",
+     "back": "<b>Remark</b>",
+     "extra": "It also does reference processing and frees empty regions; no young evacuation happens during this pause.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>mixed collection</b> in G1?",
+     "back": "A collection that evacuates <b>young and selected old</b> regions",
+     "extra": "Mixed collections run through the Space-Reclamation phase; the old regions chosen are the ones with the most garbage.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the collector called <b>Garbage-First</b>?",
+     "back": "It reclaims the old regions with the <b>most garbage</b> first",
+     "extra": "An efficiency algorithm ranks regions by reclaimable space, so emptying a mostly-garbage region frees the most memory per unit of pause time.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which condition made the JVM choose G1 between JDK 9 and JDK 26?",
+     "back": "<b>Two or more CPU cores</b> and more than <b>1792 MB</b> of available memory",
+     "extra": "Otherwise <code>SerialGC</code> was selected. As of JDK 27 G1 is the default on every configuration and <code>-XX:+UseG1GC</code> is unnecessary.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "On JDK 8, what is the default collector and what must you pass to use G1?",
+     "back": "<b>ParallelGC</b> is default; pass <code>-XX:+UseG1GC</code>",
+     "extra": "G1 was experimental in JDK 6u14, standard from JDK 7u4, and only became the server default in JDK 9.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is G1's recommended relationship between <code>-Xmx</code> and the expected live set?",
+     "back": "<b>25% above</b> the expected live set size",
+     "extra": "Headroom lets G1 evacuate without pressure; the exact figure depends on the application's allocation behaviour and latency goals.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>-XX:MaxGCPauseMillis</code> a hard guarantee in G1?",
+     "back": "<b>No</b> - it is a soft goal the JVM tries to meet",
+     "extra": "Raising it trades latency for throughput; lowering it usually does the opposite. There is no setting that improves everything at once.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which optimisation goal distinguishes G1 from ParallelGC and from ZGC?",
+     "back": "G1 <b>balances</b> both; Parallel maximizes throughput; ZGC minimizes latency",
+     "extra": "Choosing a collector is choosing a point in the throughput / latency / footprint triangle - no collector wins on all three.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why set <code>-Xms</code> equal to <code>-Xmx</code> together with <code>-XX:+AlwaysPreTouch</code>?",
+     "back": "Avoids heap resizing and <b>pre-commits pages</b>, cutting early-lifecycle latency",
+     "extra": "Without AlwaysPreTouch pages are committed lazily as the heap fills, so the early part of a run pays page-fault costs during pauses.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which G1 region types form the young generation?",
+     "back": "<b>Eden</b> and <b>survivor</b> regions",
+     "extra": "G1 carves the heap into uniform regions and labels each eden, survivor, old or humongous; the labels change between collections.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals",
+   "source": "https://dev.java/learn/jvm/tool/garbage-collection/zgc-overview/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::01-jvm-internals"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What heap size range does ZGC support?",
+     "back": "<b>8 MB to 16 TB</b>",
+     "extra": "Very frequent, low-pause collections that scan only the young regions.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Should you use ZGC on a heaps-as-small-as-8-MB single-core box?",
+     "back": "<b>No</b> - strongly discouraged despite being technically supported",
+     "extra": "Rare collections that scan both young and old regions, often triggered by a heap threshold.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which ZGC GC-cycle order alternates pauses and concurrent phases, starting the cycle?",
+     "back": "Mark Start, Concurrent Mark, Mark End, Prepare for Relocation, Relocate Start, Relocate",
+     "extra": "Three short pauses bracket three concurrent phases, which is why pauses are just synchronization points rather than real work.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are ZGC pauses independent of live set size?",
+     "back": "Nearly all work happens <b>concurrently</b>; pauses only flip flags and colors",
+     "extra": "Heavy work - marking, relocation, reference processing, class unloading, stack scanning - runs alongside the application instead of inside a pause.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many metadata bits does a ZGC colored pointer reserve, and how many are in use?",
+     "back": "<b>20 reserved</b>, <b>4 in use</b> as of JDK 19",
+     "extra": "The remaining 16 are explicitly reserved for future GC features, which is why the design is described as extensible.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the ZGC <b>Finalizable</b> pointer bit indicate?",
+     "back": "The object is reachable only <b>through a finalizer</b>",
+     "extra": "Finalization itself was deprecated for removal in JDK 18 (JEP 421), so this bit tracks a legacy feature.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do the <b>Marked0</b> and <b>Marked1</b> pointer bits do?",
+     "back": "Show the object is marked; ZGC <b>alternates</b> which is 'good' each cycle",
+     "extra": "Alternating avoids clearing all bits between cycles - flipping which color is current makes the previous cycle's marks stale in one step.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is ZGC's <b>heap multi-mapping</b>?",
+     "back": "One physical object mapped into <b>three virtual views</b>, one per pointer color",
+     "extra": "It lets a load barrier resolve an object that moved since the last sync point. A side effect is reported memory usage that looks inflated.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A ZGC process reports memory usage larger than the system's physical RAM. Why?",
+     "back": "Objects are <b>triplicate-addressed</b> in virtual memory, not truly duplicated",
+     "extra": "Only the 'real' color view holds physical memory; the other two mappings are address-space aliases, so virtual size is the misleading figure.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <b>load barriers</b> in ZGC?",
+     "back": "C2-injected code at heap loads that <b>checks and heals</b> pointer color",
+     "extra": "They take a fast path for the common 'good' color; on a bad color they update the pointer to the object's new location, keeping later loads cheap.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which component injects ZGC's load barriers?",
+     "back": "The <b>C2 compiler</b> of the JIT, when classes are parsed",
+     "extra": "Because barriers are compiled into the code rather than interpreted, the 'good color' fast path costs little; capping C2 or forcing interpreted mode undermines ZGC's assumptions.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How big is a ZGC small region?",
+     "back": "<b>2 MB</b>",
+     "extra": "Objects up to 1/8 of a region (256 KB) go in a small region. Medium and large regions exist for bigger objects.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How are ZGC large regions sized?",
+     "back": "Fitted to the object in <b>2 MB increments</b>",
+     "extra": "A 13 MB object occupies a 14 MB large region. Anything too big for a medium region gets its own large region.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "At which max heap size does ZGC turn medium regions <b>off</b>?",
+     "back": "Below <b>128 MB</b> of <code>-Xmx</code>",
+     "extra": "For heaps of at least 1 GB medium regions are 32 MB; smaller heaps step down through 16, 8 and 4 MB before the feature is disabled.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which is ZGC's <b>preferred</b> relocation strategy?",
+     "back": "<b>Not-in-place</b> - move objects into empty regions",
+     "extra": "In-place relocation is the fallback when no empty region is free, and it forces single-threaded compaction inside the target region, hurting performance.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does a larger heap help ZGC even at the same live set?",
+     "back": "More free regions allow not-in-place relocation instead of costly in-place compaction",
+     "extra": "That plus headroom reduces allocation pressure. In-place relocation is the fallback, and its single-threaded compaction is slow.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which ZGC option sets the maximum heap fragmentation percent, and what is the default?",
+     "back": "<code>-XX:ZFragmentationLimit</code>, default <b>25</b>",
+     "extra": "Lowering it compacts more aggressively, reclaiming memory at the cost of CPU time.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which ZGC option sets the max interval between cycles, and what is the default?",
+     "back": "<code>-XX:ZCollectionInterval</code> in seconds, default <b>0</b> (disabled)",
+     "extra": "A non-zero value forces a collection even when the allocation rate would not trigger one, at some throughput cost.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default for <code>-XX:ZUncommitDelay</code> and what does it do?",
+     "back": "<b>300 seconds</b> - how long unused heap must sit before uncommitting",
+     "extra": "Uncommitting returns memory to the OS. Re-committing is expensive, so too small a delay causes churn.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which ZGC option controls the assumed allocation spike factor, and what is its default?",
+     "back": "<code>-XX:ZAllocationSpikeTolerance</code>, default <b>2.0</b>",
+     "extra": "A factor of 3.0 tells ZGC the allocation rate may triple at any moment, making it start collections earlier to stay ahead.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the recommended first step when adopting ZGC?",
+     "back": "Set <code>-Xmx</code> with <b>headroom</b> above the live set, and enable GC logging",
+     "extra": "ZGC needs little tuning; most gains come from headroom. Logging with <code>-Xlog:gc</code> is needed to compare against the previous collector.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which ZGC option sets the number of concurrent GC threads?",
+     "back": "<code>-XX:ConcGCThreads</code>",
+     "extra": "ZGC has heuristics to pick it automatically, sized near a quarter of ParallelGC threads. Too many starves the app; too few lets garbage outpace collection.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is ZGC a general upgrade over G1 that should improve every metric?",
+     "back": "<b>No</b> - it targets latency and huge live sets, and may regress other metrics",
+     "extra": "It was built for a niche, so throughput or footprint can get worse. It suits request-heavy web apps with large live sets and spare CPU.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which GC is enabled by the JVM argument <code>-XX:+UseZGC</code>?",
+     "back": "ZGC, the ultra-low-latency collector",
+     "extra": "ZGC was experimental in JDK 11 and became production in JDK 15; pauses stay around one millisecond with heaps up to 16 TB.",
+     "tags": [
+      "type::compare"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals",
+   "source": "https://dev.java/learn/jvm/tool/jwebserver/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::01-jvm-internals"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is <code>jwebserver</code>?",
+     "back": "A minimal JDK HTTP server serving one directory over <b>HTTP/1.1</b>",
+     "extra": "It serves static files only - no dynamic content, no other HTTP versions. Intended for prototyping, testing and debugging, not production.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which port does <code>jwebserver</code> listen on by default?",
+     "back": "<b>8000</b>",
+     "extra": "Change it with <code>-p</code>/<code>--port</code>. The served directory defaults to the current working directory (<code>-d</code>).",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which address does <code>jwebserver</code> bind to by default?",
+     "back": "<b>127.0.0.1</b> or <b>::1</b> - loopback only",
+     "extra": "To expose all interfaces pass <code>-b 0.0.0.0</code> (or <code>-b ::</code>). The default keeps the server invisible to the network.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which HTTP methods does <code>jwebserver</code> serve?",
+     "back": "Only <b>idempotent HEAD and GET</b>",
+     "extra": "Anything else gets <code>501 Not Implemented</code> or <code>405 Not Allowed</code>, so it cannot stand in for a write-capable API.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>jwebserver</code> return for a directory with no index file?",
+     "back": "An HTML listing of <b>file and subdirectory names</b>",
+     "extra": "Hidden files and symbolic links are neither listed nor served, which keeps dotfiles from leaking over the wire.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which module contains <code>jwebserver</code>, and how else can you start it?",
+     "back": "<code>jdk.httpserver</code>; also via <code>java -m jdk.httpserver</code>",
+     "extra": "It wraps the <code>com.sun.net.httpserver</code> implementation, whose <code>SimpleFileServer</code> class lets you reuse the server programmatically.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default value of <code>jwebserver --output</code>?",
+     "back": "<b>info</b>",
+     "extra": "The three allowed values are <code>none</code>, <code>info</code> and <code>verbose</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>jwebserver</code> decide the MIME type of <code>.java</code> files?",
+     "back": "A <b>built-in table</b> - it serves them as <code>text/plain</code>",
+     "extra": "MIME types are automatic, not configured. <code>.html</code> maps to <code>text/html</code>, and unknown extensions fall back to a generic binary type.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>jar</code> tool let you do per entry to authenticate origin?",
+     "back": "Sign individual entries using <b>jarsigner</b>",
+     "extra": "<code>jar</code> itself only packs and compresses. A signed JAR can then be verified entry by entry, and it stays a valid class-path entry.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What compression formats is the <code>jar</code> tool based on?",
+     "back": "<b>ZIP</b> and <b>ZLIB</b>",
+     "extra": "It is a general-purpose archiving tool whose syntax mirrors <code>tar</code>, with one mandatory main operation argument.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jar</code> flag creates, lists, and extracts an archive?",
+     "back": "<code>-c</code> create, <code>-t</code> list, <code>-x</code> extract",
+     "extra": "<code>-u</code> updates an existing archive; each is the short form of <code>--create</code>, <code>--list</code>, <code>--extract</code>, <code>--update</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When does a JAR become a <b>modular</b> JAR?",
+     "back": "When a <code>module-info.class</code> is at the root of the archive",
+     "extra": "Only then do module-only options such as <code>--module-version</code> and <code>--hash-modules</code> apply.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jar</code> option stores entries <b>without</b> ZIP compression?",
+     "back": "<code>-0</code> / <code>--no-compress</code>",
+     "extra": "Valid in create, update and generate-index modes. Uncompressed JARs load marginally faster but take far more space.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jar</code> option embeds the application entry point for an executable JAR?",
+     "back": "<code>-e=CLASSNAME</code> / <code>--main-class</code>",
+     "extra": "It writes the <code>Main-Class</code> manifest attribute. <code>-m=FILE</code> supplies a whole manifest instead, and <code>-M</code> omits it entirely.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jar</code> option creates a multi-release JAR, and what does it do with the files?",
+     "back": "<code>--release VERSION</code> - files go under <code>META-INF/versions/VERSION/</code>",
+     "extra": "VERSION must be an integer 9 or greater. At runtime the JDK picks the highest matching version folder, falling back to lower ones then the JAR root.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In an old release, what did <code>jar</code> originally package before JDK 9?",
+     "back": "<b>Applets</b> (unsupported since JDK 11) and applications",
+     "extra": "Since JDK 9 the same tool also builds modular JARs, which is the usual distribution unit for modules.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jar</code> operation prints a module's descriptor or automatic module name?",
+     "back": "<code>-d</code> / <code>--describe-module</code>",
+     "extra": "It is the quick way to check the automatic module name derived from a non-modular JAR's filename before depending on it.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals",
+   "source": "https://dev.java/learn/jvm/tool/security/jarsigner/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::01-jvm-internals"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What are the two purposes of <code>jarsigner</code>?",
+     "back": "Sign JARs, and <b>verify</b> signatures and integrity of signed JARs",
+     "extra": "Signing is the default behaviour; <code>-verify</code> switches to checking. It works on any ZIP plus a <code>META-INF/MANIFEST.MF</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two files does signing add under <code>META-INF</code>?",
+     "back": "<code>.SF</code> file plus a <code>.RSA</code>/<code>.DSA</code>/<code>.EC</code> block",
+     "extra": "The extension follows the key algorithm. Both files share a base name derived from the alias or from <code>-sigfile</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Without <code>-sigfile</code>, how are the signature file names derived?",
+     "back": "First <b>8 characters</b> of the alias, uppercased",
+     "extra": "Invalid characters become underscores. Alias <code>jane</code> yields <code>JANE.SF</code> and <code>JANE.RSA</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if no <code>-signedjar</code> is given when signing?",
+     "back": "The <b>original JAR is overwritten</b> by the signed version",
+     "extra": "Pass <code>-signedjar file</code> to keep the input untouched, which matters when the unsigned JAR is a build artifact you may want to re-sign.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a signed JAR, what does a signature file (<code>.SF</code>) record per source file?",
+     "back": "The file name, digest algorithm, and a <b>digest of the manifest lines</b>",
+     "extra": "Unlike the manifest, whose digest covers the file's bytes, the .SF digest covers that file's two manifest lines, chaining bytes to manifest to signature.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which file in a signed JAR carries the certificate chain used to verify it?",
+     "back": "The <b>signature block</b> file (<code>.RSA</code>, <code>.DSA</code>, <code>.EC</code>)",
+     "extra": "It holds the signed .SF plus the encoded certificate or chain, so verification needs no keystore - a keystore only lets you check who you trust.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default message digest algorithm for <code>-digestalg</code>?",
+     "back": "<b>SHA-256</b>",
+     "extra": "Override with <code>-digestalg</code> only if an old consumer requires something else; defaults harden with each JDK release.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A JAR was signed with an algorithm the JDK lists as disabled. How is it treated?",
+     "back": "As an <b>unsigned</b> JAR",
+     "extra": "Legacy (not yet disabled) algorithms still verify but raise an informational warning. The lists live in the java.security file under $JAVA_HOME/conf/security.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where is the default keystore located for <code>jarsigner</code> and <code>keytool</code>?",
+     "back": "<code>.keystore</code> in the user's home directory (<code>user.home</code>)",
+     "extra": "Override with <code>-keystore url</code>. <code>NONE</code> means a null stream, for a keystore living on a hardware token.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default keystore <b>type</b> in modern JDKs?",
+     "back": "<b>PKCS12</b>",
+     "extra": "JKS remains a built-in Oracle implementation. The type comes from the keystore.type property or -storetype, and JKS and PKCS12 files are not interchangeable.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What exit code does a <code>jarsigner</code> failure produce?",
+     "back": "<b>1</b>",
+     "extra": "Without <code>-strict</code>, severe warnings still exit 0. With <code>-strict</code> the exit code is the OR of warning codes, e.g. 12 means expired plus badKeyUsage.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>-strict</code> option change?",
+     "back": "Severe warnings become <b>errors</b> and affect the exit code",
+     "extra": "Messages then read 'jar signed, with signer errors'. Useful in CI, where an expired or disallowed certificate would otherwise pass silently.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>jarsigner</code> option generates a signature time stamp?",
+     "back": "<code>-tsa url</code> (or <code>-tsacert alias</code>)",
+     "extra": "The TSA is contacted with RFC 3161 TSP, and the returned token is stored in the signature block. Without a timestamp, verification fails after the certificate expires.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you sign a JAR with more than one person's signature?",
+     "back": "Run <code>jarsigner</code> repeatedly, once per alias",
+     "extra": "Each run adds another .SF plus signature block pair. Verification then checks all of them, so a later unsigned change is caught regardless of who signed.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In JAR verification, which two things must hold for success?",
+     "back": "Signatures are valid and <b>no signed file has changed</b> since signing",
+     "extra": "Files added after signing are tolerated - they are simply unsigned entries - and are reported as such by <code>hasUnsignedEntry</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>keytool</code> manage?",
+     "back": "A keystore: keys, X.509 certificate chains, and trusted certificates",
+     "extra": "It also stores secret keys and passphrases for symmetric crypto, which is why commands like <code>-genseckey</code> and <code>-importpass</code> exist.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What kind of certificate does <code>keytool -genkeypair</code> produce?",
+     "back": "A <b>self-signed</b> X.509 v3 certificate, a one-element chain",
+     "extra": "keytool generates v3 certificates but can import v1, v2 and v3. The self-signed chain is replaced later by the CA's reply via -importcert.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> command generates a key pair?",
+     "back": "<code>-genkeypair</code>",
+     "extra": "It wraps the public key in a <b>self-signed X.509 v3</b> certificate stored as a one-element chain under the alias.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> command creates a CSR?",
+     "back": "<code>-certreq</code> - a PKCS #10 request signed with the alias's private key",
+     "extra": "The CA authenticates the requester (usually offline) and returns a certificate or chain, which you install with <code>-importcert</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> command installs the CA's reply over the self-signed certificate?",
+     "back": "<code>-importcert</code>",
+     "extra": "If the alias points to a key entry it is treated as a certificate reply; if it does not, the alias becomes a trusted-certificate entry instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <code>keytool</code> default validity, in days?",
+     "back": "<b>90</b>",
+     "extra": "Defaults vary by algorithm: 256 for EC, 255 for EdDSA (Ed25519), 56 for DES and 168 for DESede secret keys; RSA is the common case.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>keytool</code>'s default <code>-keysize</code> for an RSA key pair?",
+     "back": "<b>2048</b> bits",
+     "extra": "Defaults differ by algorithm: 256 for EC, 255 for EdDSA (Ed25519), 56 for DES and 168 for DESede secret keys.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> option prints the <b>default</b> SHA-256 fingerprint of a certificate?",
+     "back": "<code>-list</code>, when used without <code>-v</code>",
+     "extra": "Adding <code>-v</code> prints the human-readable detail: owner, issuer, serial number and extensions. <code>-rfc</code> prints PEM instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you pass both <code>-v</code> and <code>-rfc</code> to <code>keytool -list</code>?",
+     "back": "<b>No</b> - it reports an error",
+     "extra": "They are different output modes: verbose is human-readable detail, rfc is base64 PEM, so they cannot be combined.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> command inspects a certificate file, an SSL server, or a signed JAR?",
+     "back": "<code>-printcert</code> + <code>-file</code>/<code>-sslserver</code>/<code>-jarfile</code>",
+     "extra": "If no port is given, 443 is assumed. <code>-file</code> and <code>-sslserver</code> cannot be combined.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does <code>keytool</code> look for the system trust store (the <code>cacerts</code> file)?",
+     "back": "<code>$JAVA_HOME/lib/security/cacerts</code>",
+     "extra": "It is a system-wide keystore of root CA certificates. <code>-cacerts</code> is shorthand for <code>-keystore .../cacerts -storetype jks</code>.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the initial password of the JDK's <code>cacerts</code> file?",
+     "back": "<b>changeit</b>",
+     "extra": "It is the normal way to convert between keystore types, for example JKS to PKCS12, or to move entries onto a PKCS #11 hardware token.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which command imports <b>all</b> entries from one keystore into another?",
+     "back": "<code>-importkeystore</code>",
+     "extra": "It is the normal way to convert, for example, a JKS store to PKCS12, or to move entries onto a PKCS #11 hardware token.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>keytool -exportcert</code> output by default, and what does <code>-rfc</code> change?",
+     "back": "Binary DER by default; <code>-rfc</code> gives <b>Base64 PEM</b>",
+     "extra": "PEM output is bounded by <code>-----BEGIN</code> / <code>-----END</code> lines, which is what most mailers and web servers accept.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>keytool -genkeypair</code> use as the issuer and subject of the generated certificate?",
+     "back": "The value of <code>-dname</code>, prompting for it if omitted",
+     "extra": "Order matters in a DN - <code>cn</code>, <code>ou</code>, <code>o</code>, <code>l</code>, <code>st</code>, <code>c</code>, like <code>cn=myname, ou=mygroup, o=mycompany, c=mycountry</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the minimum length of a <code>keytool</code> password?",
+     "back": "<b>Six characters</b>",
+     "extra": "The tools scan installed providers for one implementing that type. JKS and PKCS12 are not binary compatible and need conversion via -importkeystore.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Without <code>-storetype</code>, how do <code>keytool</code> and <code>jarsigner</code> choose the implementation?",
+     "back": "<code>keystore.type</code> in <code>java.security</code>; default <code>pkcs12</code>",
+     "extra": "The tools then scan installed providers for one implementing that type. JKS and PKCS12 stores are not binary compatible and need conversion.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> option lets you add an X.509 extension, and can it repeat?",
+     "back": "<code>-ext</code> - it is the only <b>multi-valued</b> option",
+     "extra": "That is why it may be given many times, e.g. <code>-ext SAN=dns:example.com,ip:10.0.0.1</code> plus <code>-ext KU=keyEncipherment</code>.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>keytool</code> command lists TLS protocols and cipher suites?",
+     "back": "<code>-showinfo -tls</code>",
+     "extra": "It reports the enabled TLS configuration rather than any keystore content, which makes it a handy way to check what a JDK will negotiate.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which command prints the contents of a PKCS #10 certificate request?",
+     "back": "<code>-printcertreq</code>",
+     "extra": "That flexibility is deliberate, for self-signed test certificates, but such certificates may be rejected by the JDK and by other applications.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does keytool warn that it can generate non-conforming certificates?",
+     "back": "It does <b>not enforce</b> all X.509 profile rules",
+     "extra": "That flexibility is deliberate, for self-signed test certificates, but such certificates may be rejected by the JDK or other apps.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many <code>keytool</code> commands can appear in one invocation?",
+     "back": "Exactly <b>one</b>",
+     "extra": "Options for that command may come in any order; repeating a single-valued option silently keeps the last value given.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>kinit</code> obtain?",
+     "back": "A Kerberos <b>ticket-granting ticket</b>, cached locally",
+     "extra": "The user must already be registered as a principal with the KDC. The tool is compatible with MIT and SEAM-style kinit.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>kinit</code> flag issues a forwardable ticket, and which a proxiable one?",
+     "back": "<code>-f</code> forwardable, <code>-p</code> proxiable",
+     "extra": "These grant the ticket extra delegation powers; both can be combined, e.g. when a service must act on behalf of the user.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>kinit</code> flag renews an existing renewable ticket?",
+     "back": "<code>-R</code>",
+     "extra": "A ticket must be renewed <b>before it expires</b>. Repeated renewals are possible only until the renewable lifetime set by <code>-r</code> runs out.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>kinit</code> option sets how long a ticket can be <b>renewed</b> for?",
+     "back": "<code>-r renewable_time</code>",
+     "extra": "Distinct from <code>-l lifetime</code>, which sets how long one ticket is valid. Lifetimes accept <code>h:m:s</code>, <code>NdNhNmNs</code>, or a bare number.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why must you never pass a Kerberos password to <code>kinit -password</code> in a script?",
+     "back": "It is <b>for testing only</b>; a real password would be compromised",
+     "extra": "The fallback path is built from the user.home system property, so a daemon started with an unexpected home directory looks in the wrong place.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does <code>kinit</code> get the keytab name when <code>-t</code> is not given?",
+     "back": "From the Kerberos config, else <code>USER_HOME\\krb5.keytab</code>",
+     "extra": "The fallback path is built from the <code>user.home</code> system property, so a daemon started with an odd home directory looks in the wrong place.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>klist</code> display?",
+     "back": "Entries in the local <b>credentials cache</b> and keytab",
+     "extra": "It is read-only: it never modifies the Kerberos database, which makes it the safe default diagnosis step.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>klist</code> flags list the credential cache and the keytab, respectively?",
+     "back": "<code>-c</code> for the cache, <code>-k</code> for the keytab",
+     "extra": "Add <code>-e</code> to show the encryption type, <code>-f</code> for credential flags and <code>-a</code> for addresses in cache listings.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "After changing a keytab with <code>ktab</code>, how can you confirm the change?",
+     "back": "List the keytab with <code>klist -k</code> (or <code>ktab -l</code>)",
+     "extra": "Both are local inspection only. Nothing in the KDC changes, so the KDC side has to be updated separately.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a Kerberos <b>keytab</b>?",
+     "back": "A host's copy of its own principals and keys - analogous to a <b>password</b>",
+     "extra": "A server that must authenticate itself to the KDC (e.g. a service principal) needs a keytab containing its own principal and key.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How must a keytab file be stored to be safe?",
+     "back": "On <b>local disk</b>, readable only by <b>root</b>, never sent over a network in clear",
+     "extra": "Anyone who reads a keytab can impersonate the service without knowing its password, so file permissions are the whole security boundary.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Do <code>ktab</code> changes affect the Kerberos database?",
+     "back": "<b>No</b> - none of its operations touch the KDC",
+     "extra": "If you change keys in the keytab you must make the matching change in the Kerberos database, and vice versa, or the service cannot authenticate.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>ktab</code> option lists entries with timestamps, and which with encryption types?",
+     "back": "<code>-l -t</code> for timestamps, <code>-l -e</code> for encryption types",
+     "extra": "Both can be combined: <code>ktab -l -e -t</code> shows the keytab name, entries, types and timestamps.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>ktab -d principal old</code> delete?",
+     "back": "All keys <b>except</b> those with the highest kvno",
+     "extra": "The default action is <code>all</code>. <code>old</code> is the safe rotation choice - it retires superseded keys while keeping the current one working.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "source": "https://dev.java/learn/jvm/core-tools/java/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::13-jvm-and-tooling",
+    "topic::03-core-jdk-tools"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "How does the <code>java</code> launcher start an application in three steps?",
+     "back": "Start the JRE, load the specified class, call its <code>main()</code>",
+     "extra": "main must be public static void taking a String[]. Overloads taking String... also work, since varargs compile down to an array parameter.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "With <code>java -jar app.jar</code>, how is the entry class determined?",
+     "back": "From the <code>Main-Class</code> header in <b>META-INF/MANIFEST.MF</b>",
+     "extra": "When <code>-jar</code> is used the JAR is the entire class path and any <code>-cp</code> setting is <b>ignored</b> - a classic 'class not found' trap.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What selects <b>source-file mode</b> in the <code>java</code> launcher?",
+     "back": "An existing <code>.java</code> file as first non-option arg, or <code>--source N</code>",
+     "extra": "The file is compiled in memory and the <b>first top-level class</b> found is executed. No .class file is written.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In source-file mode, is annotation processing run?",
+     "back": "<b>No</b> - it is disabled, as if <code>-proc:none</code>",
+     "extra": "Only the file named on the command line is compiled, the source path is effectively empty, so Lombok-style processors and -Werror tricks do not run.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which environment variable prepends options to every <code>java</code> launch?",
+     "back": "<code>JDK_JAVA_OPTIONS</code>",
+     "extra": "Its content is parsed as if it appeared before the command line, and the launcher prints a reminder to stderr when it is set.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can <code>JDK_JAVA_OPTIONS</code> contain <code>-jar</code> or <code>-h</code>?",
+     "back": "<b>No</b> - the launcher aborts with an error",
+     "extra": "Main-class selectors and exit-without-running options are disallowed to stop an environment variable from hijacking which application is launched.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which prefix marks Extra options for HotSpot, and which prefix marks Advanced options?",
+     "back": "<code>-X</code> for extras, <code>-XX</code> for advanced",
+     "extra": "Standard options are guaranteed on every JVM. Both -X and -XX are HotSpot-specific, subject to change, and not portable.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you enable and disable a boolean <code>-XX</code> option?",
+     "back": "<code>-XX:+Option</code> enables, <code>-XX:-Option</code> disables",
+     "extra": "Boolean options take no value. For valued options the syntax varies: space, <code>:</code> or <code>=</code> may all be the separator.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You pass <code>-XX:MaxHeapFreeRatio=25</code> meaning 25%. Is that right?",
+     "back": "<b>No</b> - percentages are given as a fraction from 0 to 1, so <code>0.25</code>",
+     "extra": "The JVM would read 25 literally and reject it as out of range, which the flag validator reports at startup.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are assertions enabled by default by the <code>java</code> launcher?",
+     "back": "<b>No</b> - disabled in all packages and classes",
+     "extra": "Enable globally with <code>-ea</code> or per package/class with <code>-ea:com.foo...</code>. Ordering matters: later switches override earlier ones.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which switch enables or disables assertions?",
+     "back": "<code>-ea</code> enables, <code>-da</code> disables",
+     "extra": "Both apply to all class loaders, but with no argument they skip system classes; <code>-esa</code> and <code>-dsa</code> target system classes.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which launcher option loads a native agent library by name?",
+     "back": "<code>-agentlib:libname[=options]</code>",
+     "extra": "<code>-agentpath</code> does the same with an absolute path. <code>-javaagent:jarpath</code> is the pure-Java equivalent.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is a <code>@argfile</code> useful for getting around command-line length limits?",
+     "back": "Yes - the launcher expands its contents <b>before</b> argument processing",
+     "extra": "Files are expanded after shell expansion. The argument file may even hold the main class and all options, so the command shrinks to <code>java @file</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which launcher option prints ergonomically chosen JVM flags?",
+     "back": "<code>-XX:+PrintCommandLineFlags</code>",
+     "extra": "You then see the heap size and the collector the JVM actually picked, rather than guessing what ergonomics resolved the defaults to.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option sets the thread stack size, and what is the Linux/x64 default?",
+     "back": "<code>-Xss</code> (or <code>-XX:ThreadStackSize</code>), default <b>1024 KB</b>",
+     "extra": "Raise it for deep recursion; shrink it to allow many more threads, since each platform thread reserves this from virtual memory.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which fix eliminates a <code>StackOverflowError</code> from deep recursion?",
+     "back": "Raise <code>-Xss</code>, or restructure to iterative / use virtual threads",
+     "extra": "Raising the stack defers the problem. A deeper point: virtual threads get their own growable stack, so stack size stops being the hard limit.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which heap option sets the initial and minimum heap size?",
+     "back": "<code>-Xms</code>",
+     "extra": "<code>-Xmx</code> (same as <code>-XX:MaxHeapSize</code>) sets the maximum. For server deployments both are often set equal to avoid resizing.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which flag reveals whether compressed oops are active, given heap below 32 GB?",
+     "back": "<code>-XX:+PrintCommandLineFlags</code> or <code>-XshowSettings:vm</code>",
+     "extra": "<code>-XX:-UseCompressedOops</code> disables them. They convert references to 32-bit offsets and are on by default under a 32 GB heap.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default value of <code>-XX:ObjectAlignmentInBytes</code>?",
+     "back": "<b>8</b> bytes",
+     "extra": "It must be a power of 2 between 8 and 256. Raising it stretches the addressable range of compressed oops beyond the usual 32 GB heap limit.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option writes a heap dump on the first <code>OutOfMemoryError</code>?",
+     "back": "<code>-XX:+HeapDumpOnOutOfMemoryError</code>",
+     "extra": "The dump goes to the working directory; set the destination with <code>-XX:HeapDumpPath</code>. It is disabled by default.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>-XX:+DisableExplicitGC</code> do to <code>System.gc()</code> calls?",
+     "back": "Ignores them; the JVM still collects when <b>it</b> decides to",
+     "extra": "Useful because explicit GCs are usually a full stop-the-world collection, often triggered by libraries rather than application logic.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does the JVM write the crash log after an irrecoverable error?",
+     "back": "<code>hs_err_pid&lt;pid&gt;.log</code> in the working directory",
+     "extra": "Override the path with <code>-XX:ErrorFile</code>. <code>-XX:+ExtensiveErrorReports</code> adds more detail, and <code>-XX:OnError</code> runs a command such as gcore.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option links a command to run when an OOM error occurs?",
+     "back": "<code>-XX:OnOutOfMemoryError=string</code>",
+     "extra": "Semicolon-separated commands, <code>%p</code> expands to the PID. Common uses are dumping a core or bouncing the container.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the default for <code>-XX:MaxGCPauseMillis</code> per the launcher reference?",
+     "back": "No maximum pause value by default",
+     "extra": "G1 docs describe it as a soft goal. On some collectors the default is 200 ms; either way the JVM makes a best effort, not a guarantee.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option enables the attach mechanism by default, and how do you turn it off?",
+     "back": "Enabled by default; disable with <code>-XX:+DisableAttachMechanism</code>",
+     "extra": "Turning it off blocks tools like jcmd, jstack, jmap and jinfo from attaching, which is done in locked-down or abandoned-wasro deployments.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You want <code>jcmd</code>/<code>jstack</code> to stop working on a production JVM. Which flag?",
+     "back": "<code>-XX:+DisableAttachMechanism</code>",
+     "extra": "Note the counter-intuitive polarity: the flag is phrased as a positive, but it disables the feature, which is off by default as a flag.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What format does the unified logging option <code>-Xlog</code> use?",
+     "back": "<code>-Xlog:tag[+tag]=level:output:decorators</code>",
+     "extra": "Example: <code>-Xlog:gc=debug:file=gc.log:none</code>. The deprecated <code>-Xloggc:file</code> is the same as <code>-Xlog:gc:file</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which decorators does <code>-Xlog</code> apply when none are specified?",
+     "back": "<b>uptime, level, tags</b>",
+     "extra": "Change them at runtime; the special <code>none</code> decorator turns all decorations off, as in <code>-Xlog:gc=debug:none</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>-Xlog</code> tag combination does <code>gc+heap</code> select?",
+     "back": "Messages with <b>both</b> tags; <code>gc,heap</code> is a union, <code>gc*</code> a prefix",
+     "extra": "Mixing them up is the usual reason a log appears empty. <code>-Xlog:disable</code> first resets everything to off before adding selections.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do <code>@argfile</code> and <code>--disable-@files</code> do together?",
+     "back": "<code>@file</code> expands arguments; <code>--disable-@files</code> stops expansion",
+     "extra": "The stop option can appear anywhere, including inside an argument file, which is how a launcher script controls which nested files are trusted.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option prints the range of every JVM flag?",
+     "back": "<code>-XX:+PrintFlagsRanges</code>",
+     "extra": "The JVM validates all flag values - set ergonomically, on the command line, or via jcmd - and terminates with an error if a value is out of range.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why do large (huge) pages help the JVM?",
+     "back": "They reduce <b>TLB misses</b> by covering more memory per page-table entry",
+     "extra": "The TLB is a small cache of virtual-to-physical translations, and misses cost several memory accesses. Linux and Windows support large pages.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which options put the object heap on large pages?",
+     "back": "<code>-XX:+UseLargePages</code> with <code>+UseHugeTLBFS</code> or <code>+UseSHM</code>",
+     "extra": "They require root-level OS setup (<code>vm.nr_hugepages</code>), and pages are pre-allocated up front, so the heap cannot grow dynamically.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which set of steps produce a dynamic CDS archive?",
+     "back": "<code>-XX:ArchiveClassesAtExit=x.jsa</code>, then <code>-XX:SharedArchiveFile=x.jsa</code>",
+     "extra": "The archive captures classes loaded during a <b>single trial run</b>, so the trial run step AppCDS needs is eliminated. It still needs a base archive.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option turns CDS off entirely?",
+     "back": "<code>-Xshare:off</code>",
+     "extra": "<code>-Xshare:auto</code> uses it when possible, <code>-Xshare:on</code> fails if it cannot. Class data sharing cuts startup time and footprint.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option unlocks the diagnostic JVM options?",
+     "back": "<code>-XX:+UnlockDiagnosticVMOptions</code>",
+     "extra": "Options like <code>-XX:+LogCompilation</code> require it. Diagnostic flags are developer-only and not guaranteed across releases.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::12 Documentation::03 Certifications and Validation",
+   "source": "https://dev.java/learn/validate/java-cert-overview/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::12-documentation",
+    "topic::03-certifications-and-validation"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which exam is the current newest Java certification exam?",
+     "back": "<b>1Z0-831</b> - Java SE 25 Developer Professional",
+     "extra": "50 questions in 120 minutes, passing score 68%. The prior ones are 1Z0-830 (Java 21) and 1Z0-829 (Java 17), both 50 questions and 68%.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many questions and what pass mark does the 1Z0-831 (Java SE 25) exam have?",
+     "back": "<b>50</b> questions, <b>68%</b> to pass, 120 minutes",
+     "extra": "The 1Z0-830 (Java 21) and 1Z0-829 (Java 17) exams use the same 50 questions and 68% bar, so a mock result maps directly onto them.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How many parts did the Java 8 developer certification have?",
+     "back": "<b>Two</b> halves (1Z0-808, 1Z0-809), each earning a certification",
+     "extra": "808 is 56 questions at 65%, 809 is 68 questions at 65%. Splitting the exam is unique to Java 8 - the Java 11 exam started split but was merged.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Should you wait for the next LTS exam before starting to study?",
+     "back": "<b>No</b> - take whichever exam is available when you start",
+     "extra": "Objectives and study materials lag an LTS release by months, and passing without materials is much harder; newer syntax is a small gain.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You hold Java 21 study materials. Which exam should you target?",
+     "back": "<b>1Z0-830</b> (Java 21)",
+     "extra": "Materials must match the exam version, because objectives change between releases. Studying Java 21 books for the Java 25 exam leaves gaps.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the format of the Java 11 exam 1Z0-819?",
+     "back": "One <b>consolidated</b> exam, replacing the earlier 815/816 split",
+     "extra": "Java 8 launched its exam in two parts and Java 11 began that way too, then merged into the single 1Z0-819, with 50 questions and a 68% pass mark.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which certification is the Oracle Academy Java Foundations exam?",
+     "back": "<b>1Z0-811</b> - 60 questions, 65%, based on Java 8",
+     "extra": "It is far less common than the developer exams and is positioned as an easier first certification before the 829, 830 or 831.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What practice technique is recommended before attempting the real exam?",
+     "back": "Timed <b>mock exams</b>, e.g. Enthuware's 20 tests",
+     "extra": "Mocks expose the precise API recall the exam rewards and produce a score comparable to the real 68% pass bar. Writing code matters too.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  }
+ ]
+}

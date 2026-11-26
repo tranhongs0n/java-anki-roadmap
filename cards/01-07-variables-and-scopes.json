@@ -1,0 +1,61 @@
+{
+ "deck": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+ "source": "https://dev.java/learn/language/constructs/basics/variables/",
+ "tags": ["roadmap::java", "sec::01-foundations", "topic::07-variables-and-scopes"],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "An object's individual state lives in fields declared without <code>static</code>. What are those fields called?",
+   "back": "<b>Instance variables</b>",
+   "extra": "Also called non-static fields. Each object gets its own copy, so the <code>currentSpeed</code> of one Bicycle is independent of another's.",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>static</code> modifier on a field tell the compiler?",
+   "back": "There is exactly <b>one copy</b> of that variable, however many instances exist",
+   "extra": "A static field belongs to the class, not to any object. The number of gears on a kind of bicycle is the same for every instance, so <code>static int numGears = 6;</code> is the right shape.",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "What makes a variable <b>local</b> in Java - a keyword or something else?",
+   "back": "Its <b>location</b>: declared between the braces of a method",
+   "extra": "There is no local-variable keyword. Determination comes entirely from where it is declared, which is also why it is visible only inside that method and not from the rest of the class.",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "Method parameters such as <code>String[] args</code> - are they classified as fields or variables?",
+   "back": "Always <b>variables</b>, never fields",
+   "extra": "The same holds for parameters of constructors and exception handlers. That classification is what decides whether the field-versus-variable distinction applies to them.",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "In Java's own terminology, what is a class's <b>member</b>?",
+   "back": "Its fields, methods and nested types together",
+   "extra": "\"Member\" is the umbrella term. \"Field\" excludes local variables and parameters; \"variable\" covers all of the above.",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "cloze",
+   "text": "A variable name must begin with a letter, <code>{{c1::$}}</code>, or an underscore.",
+   "extra": "The convention is to always start with a letter: <code>$</code> is never used by convention, and a leading <code>_</code> is legal but discouraged. White space is not permitted anywhere in the name.",
+   "tags": ["type::syntax"]
+  },
+  {
+   "type": "cloze",
+   "text": "In <code>static final int NUM_GEARS = 6;</code> the name uses {{c1::all}} caps with words separated by {{c2::underscores}}.",
+   "extra": "That is the convention for a constant. For an ordinary multi-word variable the style is camelCase, as in <code>gearRatio</code> and <code>currentGear</code>, with no underscores.",
+   "tags": ["type::convention"]
+  },
+  {
+   "type": "basic",
+   "front": "Is <code>gearRatio</code> a valid Java variable name, and is <code>gear-ratio</code>?",
+   "back": "<code>gearRatio</code> is valid; <code>gear-ratio</code> is <b>not</b>",
+   "extra": "Names are case-sensitive and are unlimited-length Unicode letters and digits after the first character; only <code>$</code> and <code>_</code> may follow a letter. A hyphen is not a legal identifier character, and a name may not be a keyword or reserved word.",
+   "tags": ["type::gotcha"]
+  }
+ ]
+}

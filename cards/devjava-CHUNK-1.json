@@ -1,0 +1,3193 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Reflection lets a running program examine or modify the runtime behaviour of code in the JVM. What is the main performance cost of reflective calls?",
+     "back": "<b>Slower</b> execution - JVM optimizations can't apply",
+     "extra": "Reflective types are resolved dynamically, so the JIT cannot optimise them the way it does direct calls. Use reflection sparingly on hot code paths and prefer direct calls wherever possible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is reflection considered a security and maintainability concern?",
+     "back": "It <b>breaks abstraction</b> and can reach private members",
+     "extra": "Reflective code can perform operations illegal in non-reflective code, such as touching private fields and methods, causing unexpected side effects. Reflective code is therefore not portable across upgrades and modules may block it outright.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For which three kinds of tool does reflection routinely supply functionality?",
+     "back": "<b>Extensibility</b> (plugins), class browsers/IDE, and debuggers/test tools",
+     "extra": "Extensibility: instantiate user-supplied classes from their fully-qualified names. IDEs and class browsers enumerate members. Debuggers inspect private members and test harnesses call discovered APIs to raise coverage.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "By what default rule should you choose reflective vs direct access?",
+     "back": "If an operation can be done <b>without reflection, avoid reflection</b>",
+     "extra": "do not use reflection indiscriminately. Only reach for it when direct code cannot express the operation, such as loading a class unknown at compile time.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/methods/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which <code>Class</code> method finds one method by name and parameter types, <b>including inherited</b> ones, but only public ones?",
+     "back": "<code>Class.getMethod(String, Class...)</code>",
+     "extra": "Its <code>getDeclaredMethod</code> sibling looks only at the class itself but does return private methods. Use <code>int.class</code> for primitive parameters: <code>Integer.class</code> gives a NoSuchMethodException.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>Class</code> method returns an array of <b>all methods declared in the class only</b>, private ones included?",
+     "back": "<code>Class.getDeclaredMethods()</code>",
+     "extra": "<code>getMethods()</code> instead returns public methods including inherited ones. <code>getDeclaredMethods()</code> never walks up to Object, so <code>toString()</code> appears only if the class overrides it.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Method.getReturnType()</code> return for <code>List.get(int)</code> on a <code>List&lt;String&gt;</code>?",
+     "back": "<code>Object</code> (or the raw type) - <b>erased</b>",
+     "extra": "<code>getGenericReturnType()</code> instead returns a <code>Type</code> that still records the type variable, so you can see the element type is <code>E</code>. Generics live in the signature, not in the raw return type.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Why does <code>Class.getDeclaredMethod(\"add\", String.class)</code> fail on a <code>List&lt;String&gt;</code>?",
+     "back": "The parameter is <b>erased to Object</b>",
+     "extra": "Type parameters of a method are erased at compile time, so the compiled signature takes <code>Object</code>, not <code>String</code>. Look the method up with <code>Object.class</code>; invoke it with a String and you lose type safety.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When invoking a method reflectively, what must the first argument of <code>invoke()</code> be for a <b>static</b> method?",
+     "back": "<b><code>null</code></b>",
+     "extra": "<code>invoke</code> takes the target object followed by a vararg of arguments. A static method has no receiver, so you pass <code>null</code> for the target, and then one argument per parameter.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where does an exception thrown by the invoked method itself end up?",
+     "back": "Wrapped in an <b>InvocationTargetException</b>",
+     "extra": "The reflection machinery does not let the target's exception propagate directly. Catch <code>InvocationTargetException</code> and call <code>getTargetException()</code> (or <code>getCause()</code>) to reach the real exception.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does calling <code>setAccessible(true)</code> on a private <code>Method</code> actually change?",
+     "back": "It <b>suppresses access checks</b>; the method stays private",
+     "extra": "Without it, invoking a non-visible method throws IllegalAccessException. With it you may invoke the method, but its modifiers are unchanged and module boundaries may still restrict the package.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you obtain the <b>names</b> of a method's formal parameters via reflection?",
+     "back": "Compile with <code>javac -parameters</code>, then use <code>getParameters()</code>",
+     "extra": "Class files do not store parameter names by default, because that costs memory and can leak names like <code>password</code>. Without the flag, <code>Parameter.getName()</code> returns a synthetic name such as <code>arg0</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two methods give you the exceptions a method declares it can throw?",
+     "back": "<code>getExceptionTypes()</code> (Class[]) and <code>getGenericExceptionTypes()</code> (Type[])",
+     "extra": "Both live on <code>Method</code> and return an array, empty when nothing is declared. The generic variant preserves type information for parameterised exception types.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/modifiers/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>getModifiers()</code> return on <code>Class</code> and on <code>Member</code>?",
+     "back": "An <b>int</b> where each bit encodes one modifier",
+     "extra": "Bit 0 set means public, bit 3 set means static, and so on. Decode it with the static helper methods of <code>java.lang.reflect.Modifier</code> rather than testing bits yourself.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class decodes the modifier bit-mask into readable flags?",
+     "back": "<code>java.lang.reflect.Modifier</code>",
+     "extra": "It offers one static test per modifier, such as <code>Modifier.isFinal(m)</code> and <code>isStatic</code>. It was written before sealed classes, so it has no <code>sealed</code> or <code>non-sealed</code> checks.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface do <code>Field</code>, <code>Method</code> and <code>Constructor</code> share to expose <code>getModifiers()</code>?",
+     "back": "<code>java.lang.reflect.Member</code>",
+     "extra": "<code>Class</code> declares its own <code>getModifiers()</code>; the three member types inherit theirs from <code>Member</code>. Both return the same bit-mask.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Since which release can you read modifiers as a set of <code>AccessFlag</code> values?",
+     "back": "Java SE <b>20</b>",
+     "extra": "<code>Class.accessFlags()</code> and <code>Member.accessFlags()</code> return a <code>Set&lt;AccessFlag&gt;</code>. Correspondences with the int flags are not one-to-one: some access flags have no matching modifier.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What modifier does the compiler add to every interface, and why does <code>getModifiers()</code> on <code>Collection</code> show it?",
+     "back": "<b><code>abstract</code></b>",
+     "extra": "Interfaces are implicitly abstract, so the compiler records the bit even though you never wrote it. This is why reflective code reports <code>Collection</code> as abstract and not final.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/names/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "compare",
+     "front": "What is the difference between <code>getSimpleName()</code> and <code>getCanonicalName()</code>?",
+     "back": "Simple: the name as written, no package. Canonical: the <b>fully qualified</b> name",
+     "extra": "For <code>java.lang.String</code> these are <code>String</code> and <code>java.lang.String</code>. Canonical names are defined by the language spec, simple names by what the source code actually said.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>getCanonicalName()</code> return <b>null</b>?",
+     "back": "For <b>local, anonymous and hidden</b> classes",
+     "extra": "Those classes have no name you could write in source, so no canonical form exists. Use <code>getTypeName()</code> or <code>getName()</code> if you just need an informative string for such a class.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Lambda expressions belong to a class with no source name. What does <code>getSimpleName()</code> of that class print?",
+     "back": "The name of the <b>enclosing</b> class that declared the lambda",
+     "extra": "The lambda's class is generated by the compiler and has no simple name, so the JVM reports the containing class, e.g. <code>Main</code>. The value therefore varies with where you declare the lambda.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method returns a <b>synthetic, compiler-generated</b> name for anonymous classes and lambdas?",
+     "back": "<code>getTypeName()</code>",
+     "extra": "<code>getTypeName()</code> comes from <code>Type</code> (Java SE 8) and is informative rather than normative. <code>getName()</code> also works, but differs for arrays.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Class.getName()</code> return for a two-dimensional array of <code>String</code>?",
+     "back": "<code>[[Ljava.lang.String;</code>",
+     "extra": "One <code>[</code> per array dimension, then for a reference type an <code>L</code>, the type name, and a <code>;</code>. This is also the exact string <code>Class.forName</code> accepts to get the class back.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "In <code>Class.getName()</code> encodings, which letter stands for <b>long</b>?",
+     "back": "<code>J</code> - not <code>L</code>",
+     "extra": "<code>L</code> is reserved for reference types in the <code>Ljava.lang.String;</code> form. The primitive letters are Z, B, S, I, J, C, F, D for boolean, byte, short, int, long, char, float and double.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/records/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which <code>Class</code> method tests whether a given class is a record class?",
+     "back": "<code>Class.isRecord()</code>",
+     "extra": "Added in Java SE 16 alongside the record type itself. It returns true only for classes declared with the <code>record</code> keyword, not for plain immutable classes.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which reflection class models a single element declared in a record header?",
+     "back": "<code>java.lang.reflect.RecordComponent</code>",
+     "extra": "Get them with <code>Class.getRecordComponents()</code>, which returns an array. Each component exposes its name, type, generic type, accessor and declaring record.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>RecordComponent</code> method returns the generated accessor <b>method</b>?",
+     "back": "<code>getAccessor()</code>",
+     "extra": "Returns the <code>Method</code> modelling e.g. <code>x()</code> for component <code>x</code>. Companions are <code>getType()</code> (Class), <code>getGenericType()</code> (Type) and <code>getDeclaringRecord()</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>RecordComponent</code> have a method giving you the backing <code>Field</code>?",
+     "back": "<b>No</b> - use <code>Class.getDeclaredFields()</code>",
+     "extra": "Record components are not fields in the reflection model. To read the value you must go through the fields, which bring the record's own restriction with them.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you set a record's field after calling <code>Field.setAccessible(true)</code>?",
+     "back": "<b>No</b> - you get an <b>IllegalAccessException</b>",
+     "extra": "This is specific to records: their fields are final and reflexively locked. You can still read them, e.g. with <code>getInt(obj)</code>, once the private field is made accessible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::02 Object Model::21 Reflection",
+   "source": "https://dev.java/learn/api/reflection-method-handles/reflection/interceptor/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::02-object-model",
+    "topic::21-reflection"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the core idea of an interceptor as described for service methods?",
+     "back": "A method call is <b>replaced</b> by another method that decides whether to proceed",
+     "extra": "The interceptor also sees the arguments before and the result after, so it can validate arguments, enforce security rules, skip the call, modify the result, or act on exceptions. Enterprise frameworks implement this with proxies.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "An annotation taking a <code>Class</code> attribute points at an interceptor implementation. Why must that value be cast when read?",
+     "back": "<b>Annotations don't support generics</b>",
+     "extra": "If <code>value()</code> is declared to return <code>Class&lt;? extends Interceptor&gt;</code> you still get a raw <code>Class</code> from the annotation, so the cast is unchecked and the compiler warns about it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "To reflectively call <code>service.message(\"hi\")</code>, which three things does the interceptor tell <code>invoke</code>?",
+     "back": "The <b>Method</b>, the target <b>object</b>, and the <b>arguments</b>",
+     "extra": "Those are exactly the pieces <code>Method.invoke</code> needs. Because the Method travels as a parameter, the same interceptor class can intercept any service method without knowing it at compile time.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A <code>ServiceFactory</code> looks up <code>message(String)</code> but the service declares <code>message(CharSequence)</code>. What happens?",
+     "back": "The lookup <b>fails</b> - no match is found",
+     "extra": "<code>getDeclaredMethod</code> needs an exact parameter-type match and derives the type from the argument you passed. <code>String</code> does not match <code>CharSequence</code>, so the MyService lookup misses even though String is a subtype.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "If no interceptor annotation is found on the service method, what should the factory do?",
+     "back": "Call the service method <b>directly</b>, with no interception",
+     "extra": "Interception is opt-in per method. Skipping the interceptor for unannotated methods lets the same factory handle plain services and intercepted ones without the caller knowing the difference.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/what-is-an-exception/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is an <b>exception</b>?",
+     "back": "An event during execution that <b>disrupts the normal flow</b>",
+     "extra": "The short form of 'exceptional event'. When one occurs, the method creates an exception object describing the type and program state, and hands it to the runtime; that act is called throwing.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>call stack</b> when searching for an exception handler?",
+     "back": "The <b>ordered list of methods</b> called to reach the failing one",
+     "extra": "The runtime walks it in reverse: it starts at the method where the error occurred and works back through the callers, looking for a handler whose type matches the thrown object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is an exception handler considered <b>appropriate</b>?",
+     "back": "When the thrown type can be <b>assigned</b> to the handler's parameter type",
+     "extra": "Matching is by subtype, not exact class. A handler for <code>IOException</code> also catches <code>FileNotFoundException</code>, because the thrown object can legally be assigned to that argument.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If no handler anywhere on the call stack matches, what happens?",
+     "back": "The <b>thread terminates</b> - and if it is main, the program ends",
+     "extra": "The runtime searches every frame exhaustively. Reaching the bottom without a match kills that thread, printing the uncaught exception and its stack trace, which is the familiar 'Exception in thread main' output.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What are the two ways to honour the <b>Catch or Specify</b> requirement for a checked exception?",
+     "back": "A <code>try</code> that <b>catches</b> it, or a <code>throws</code> clause that <b>specifies</b> it",
+     "extra": "Code that does neither does not compile. <code>throws</code> declares the exception in the method signature; <code>try/catch</code> handles it locally. Only checked exceptions are subject to this requirement.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which exception category holds preventable conditions that a well-written app should <b>anticipate and recover from</b>?",
+     "back": "<b>Checked</b> exceptions (not Error or RuntimeException)",
+     "extra": "Example: <code>FileNotFoundException</code> from <code>new FileReader(name)</code>. The app should catch it and prompt the user for a corrected file name, which is exactly what the checked category exists for.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What kind of exceptions are <code>Error</code> and its subclasses?",
+     "back": "<b>Unchecked</b> - external, usually unrecoverable",
+     "extra": "Example: <code>IOError</code> after a hardware or system malfunction. An app may catch one to inform the user, but printing a stack trace and exiting is equally defensible.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What kind of exceptions are <code>RuntimeException</code> and its subclasses?",
+     "back": "<b>Unchecked</b> - internal bugs, usually unrecoverable",
+     "extra": "Example: <code>NullPointerException</code> when a logic error passes null to <code>FileReader</code>. Catching is legal, but removing the bug is the usual answer.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "GitHub-style summary: which exceptions are <b>unchecked</b>?",
+     "back": "<code>Error</code> and <code>RuntimeException</code> and all their subclasses",
+     "extra": "Everything else extending <code>Throwable</code> is checked and must be caught or declared. This single rule is the whole of the catch-or-specify boundary.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/throwing/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Where does the <code>throws</code> clause go in a method declaration?",
+     "back": "After the <b>parameter list, before the body brace</b>",
+     "extra": "Form: <code>void writeList() throws IOException, IndexOutOfBoundsException { ... }</code>. The exceptions are a comma-separated list after the keyword <code>throws</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Is listing an <b>unchecked</b> exception like <code>IndexOutOfBoundsException</code> in <code>throws</code> mandatory?",
+     "back": "<b>No</b> - it is optional documentation",
+     "extra": "Only checked exceptions must be declared. Naming an unchecked one is legal and can document intent, but omitting it does not break compilation.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What single argument does a <code>throw</code> statement take?",
+     "back": "A <b>throwable object</b>, i.e. any <code>Throwable</code> subclass instance",
+     "extra": "Form: <code>throw new EmptyStackException();</code>. The keyword is <code>throw</code> for throwing at runtime; <code>throws</code> is the declaration.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the two <b>direct</b> descendants of <code>Throwable</code>?",
+     "back": "<b><code>Error</code></b> and <b><code>Exception</code></b>",
+     "extra": "All throwable types sit somewhere under these two. Everything else, <code>RuntimeException</code> and <code>IOException</code> included, is an indirect descendant.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception class does the JVM throw on a dynamic linking or other hard VM failure?",
+     "back": "<code>Error</code> (e.g. <code>LinkageError</code>)",
+     "extra": "Simple programs typically neither catch nor throw <code>Error</code>. They signal problems external to the application that it usually cannot anticipate or recover from.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Throwable</code> methods support <b>chained exceptions</b>?",
+     "back": "<code>initCause(Throwable)</code> and <code>getCause()</code>",
+     "extra": "<code>getCause()</code> returns the exception that caused this one; <code>initCause()</code> sets it, and can be called only once. The <code>Throwable</code> constructors taking a cause do the same at construction time.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>stack trace</b>?",
+     "back": "The <b>execution history</b> of the current thread at throw time",
+     "extra": "It lists the classes and methods that were on the call stack, so you can see the path that led to the exception. Retrieve it with <code>getStackTrace()</code> to log in your own format.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "For a method that throws no checked exceptions, does its declaration need a <code>throws</code> clause?",
+     "back": "<b>No</b> - only uncaught checked exceptions must be declared",
+     "extra": "For example, a <code>pop()</code> throwing <code>EmptyStackException</code>, which is a RuntimeException, compiles without one.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Should you write your own exception class when your class throws <b>more than one related</b> exception?",
+     "back": "<b>Yes</b> - so callers can catch them with one handler",
+     "extra": "no existing type fits, users need to tell your exceptions from other vendors', you throw several related ones, or users may not have access to the third-party exception types.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which superclass should a package's custom exception extend, if none of the specific subclasses fit?",
+     "back": "<b><code>Exception</code></b>",
+     "extra": "For a <code>LinkedListException</code>, both <code>RuntimeException</code> and more specific types are inappropriate, so the generic parent is <code>Exception</code>. By convention, names of Exception descendants end in the string Exception.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/unchecked-exception-controversy/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Bottom line: when should an exception be <b>checked</b>?",
+     "back": "When a client <b>can reasonably recover</b> from it",
+     "extra": "Recoverable conditions (file not found, retryable I/O) belong in the checked family so the compiler forces callers to deal with them.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When should an exception be <b>unchecked</b>?",
+     "back": "When the client can do <b>nothing</b> to recover",
+     "extra": "Null dereferences, divide-by-zero and bad indexes are programming bugs. Forcing every caller to handle them would clutter the API without helping.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are exceptions part of a method's <b>public API</b>?",
+     "back": "Callers must know what can be thrown to <b>decide how to handle</b> it",
+     "extra": "That is why checked exceptions must be declared: a method's throws clause is as much a part of its contract as its parameters and return type.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the compiler not require runtime exceptions to be caught or declared?",
+     "back": "They can happen <b>anywhere</b> and declaring them everywhere would obscure code",
+     "extra": "A typical program would list NullPointerException, ArithmeticException and IndexOutOfBoundsException on nearly every method, adding noise with no information.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is it <b>common practice</b> to throw a RuntimeException deliberately?",
+     "back": "When a caller <b>used the method incorrectly</b>",
+     "extra": "E.g. rejecting an invalid null argument with <code>NullPointerException</code> or an unusable value with IllegalArgumentException. It marks a contract violation by the caller.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does exception handling separate error-handling code from?",
+     "back": "The <b>main logic</b> of a program",
+     "extra": "The try block reads as the happy path and the catch blocks hold the exceptional path. Traditional error codes interleave detection and reporting with the main flow, producing spaghetti code.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How do exceptions propagate up the call stack?",
+     "back": "A method <b>ducks</b> them and the runtime searches backward for a handler",
+     "extra": "Intermediate methods need no error-handling logic, but each that lets a checked exception through must still list it in its <code>throws</code> clause.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which handler type catches every I/O exception regardless of subtype?",
+     "back": "A <b><code>catch (IOException e)</code></b>",
+     "extra": "<code>FileNotFoundException</code>, <code>EOFException</code> and the rest are subtypes of <code>IOException</code>, so one handler covers them. Query the caught object to learn the specific cause.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>catch (Exception e)</code> usually a bad default?",
+     "back": "It is <b>too general</b> and can hide unanticipated exceptions",
+     "extra": "It also catches programming errors you never intended to handle, and the handler must accommodate any possibility. Catching <code>Exception</code> is fine when you just print and exit.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/catching-handling/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What must directly follow a <code>try</code> block's closing brace?",
+     "back": "A <code>catch</code> block - <b>no code in between</b>",
+     "extra": "Order matters: handlers are tested top to bottom, so a supertype first makes every subtype handler unreachable.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Catch order for <code>IOException</code> before <code>FileNotFoundException</code> - what does javac say?",
+     "back": "Compile error: the specific type is <b>already caught</b>",
+     "extra": "<code>FileNotFoundException</code> is a subtype of <code>IOException</code>, so the second handler can never run. Write the more specific type first.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which catch-block type must the handler's argument have?",
+     "back": "Any class that <b>inherits from <code>Throwable</code></b>",
+     "extra": "Unrelated types do not compile. The handler is invoked when the runtime object can legally be assigned to that parameter type.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>multi-catch</b> syntax for two disjoint exception types?",
+     "back": "Types separated by <code>|</code>: <code>catch (A | B e)</code>",
+     "extra": "Available since Java SE 7 and it saves duplicating the handler body. Apart from the types joined by the pipe, it is an ordinary catch clause.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a multi-catch block, what modifier does the catch parameter implicitly get?",
+     "back": "<b><code>final</code></b>",
+     "extra": "You cannot reassign <code>ex</code> inside the block, because the variable stands for several possible exception objects. Assigning to it is a compile error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What constraint applies to the types listed in one multi-catch?",
+     "back": "They must be <b>disjoint</b> - none may extend another",
+     "extra": "Otherwise the error reads 'Types in multi-catch must be disjoint'. Keeping the types unrelated guarantees each alternative is reachable.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When does the <code>finally</code> block run?",
+     "back": "Whenever the <code>try</code> block <b>exits</b>, normally or abruptly",
+     "extra": "So it runs after the try body finishes, after a matching catch runs, after a <code>return</code>, <code>break</code> or <code>continue</code>, and even after an uncaught exception propagates.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When might <code>finally</code> <b>not</b> run at all?",
+     "back": "When the <b>JVM exits</b> during the <code>try</code> or <code>catch</code>",
+     "extra": "A call to <code>System.exit</code> stops the process before cleanup matters. Otherwise finally is guaranteed, which is why it is the place for releasing resources.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception propagates when both the <code>try</code> and its <code>finally</code> throw?",
+     "back": "The <b>finally</b> exception - the try one is discarded",
+     "extra": "Common when <code>close()</code> in finally fails. This is a strong argument for try-with-resources, which suppresses instead of discarding, so the original failure survives.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two interfaces mark a class as usable in try-with-resources?",
+     "back": "<code>AutoCloseable</code> and its sub-interface <code>Closeable</code>",
+     "extra": "<code>Closeable</code> is the older java.io one; its <code>close()</code> throws <code>IOException</code>, while <code>AutoCloseable.close()</code> declares <code>Exception</code>. Every Closeable is thus AutoCloseable.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What state must a variable already have to be reused as a try-with-resources resource?",
+     "back": "It must be <b>final or effectively final</b> and assigned before the try",
+     "extra": "Resources declared inside the parentheses are implicitly final; the compiler adds the modifier for you. Either way the variable must implement <code>AutoCloseable</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "In try-with-resources, if both the body and <code>close()</code> throw, which exception is propagated?",
+     "back": "The one from the <b>body</b> - close exceptions are <i>suppressed</i>",
+     "extra": "Retrieve them via <code>Throwable.getSuppressed()</code>. This reverses plain try/finally, where the close exception wins and the body exception is lost.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In what order are the resources of a try-with-resources statement closed?",
+     "back": "The <b>opposite</b> order to their creation",
+     "extra": "<code>ZipFile</code> declared first and <code>BufferedWriter</code> second means BufferedWriter closes first. That mirrors nesting, so a resource is never closed while a resource depending on it is open.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does try-with-resources still allow <code>catch</code> and <code>finally</code> blocks?",
+     "back": "<b>Yes</b>, and they run <b>after</b> the resources are closed",
+     "extra": "So a failure in <code>close()</code> happens before your catch block sees the body's exception. The catch handles the primary exception, with close failures attached as suppressed.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "source": "https://dev.java/learn/language/annotations-exceptions/annotations/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::02-annotations"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What character marks something as an annotation rather than a call or member access?",
+     "back": "The <b>at sign</b> <code>@</code>",
+     "extra": "It appears directly before the annotation type, as in <code>@Override</code>. The compiler reads the name after it as an annotation type, which is why annotations and interfaces share a namespace.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>@SuppressWarnings(\"unchecked\")</code>, the element name <code>value</code> is missing. Why is that legal?",
+     "back": "With a <b>single element named value</b>, the name can be omitted",
+     "extra": "Writing <code>@SuppressWarnings(value = \"unchecked\")</code> is equivalent. The shorthand is only for <code>value</code>; any other element name must always be written.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When may an annotation be written <b>without parentheses</b>?",
+     "back": "When its type declares <b>no elements</b>",
+     "extra": "Hence <code>@Override</code> and <code>@Deprecated</code> appear bare. The moment an element exists you need <code>@Name(...)</code>, even if you supply no value.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How does an annotation <b>type declaration</b> begin?",
+     "back": "<code>@interface</code> - an interface preceded by <code>@</code>",
+     "extra": "It looks like an interface whose keyword is <code>interface</code> with a leading at sign. Its body holds element declarations that resemble methods and may have default values. <code>@</code> reads as 'AT', i.e. annotation type.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where must you annotate an annotation type's own definition to get it into Javadoc?",
+     "back": "The definition needs <b><code>@Documented</code></b>",
+     "extra": "By default annotations on program elements are omitted from generated documentation. Putting <code>@Documented</code> on the annotation type tells javadoc to publish them.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which three <code>java.lang</code> annotations are <b>used by the language and compiler</b>?",
+     "back": "<code>@Deprecated</code>, <code>@Override</code>, <code>@SuppressWarnings</code>",
+     "extra": "They are predefined in every JDK. <code>@Override</code> and <code>@SuppressWarnings</code> steer compiler checks, <code>@Deprecated</code> both warns and documents.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>@Override</code> do when the marked method does <b>not</b> actually override anything?",
+     "back": "The compiler generates an <b>error</b>",
+     "extra": "Using it is optional but catching typos in the method name or signature. Without it, a misspelt override silently becomes a new method in the subclass.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>@Deprecated</code> attribute, added in Java SE 9, marks that the element will be <b>removed</b> in future?",
+     "back": "<code>forRemoval</code> - default <code>false</code>",
+     "extra": "The companion compiler warning category is <code>removal</code>. When an element is deprecated you should also document it with the Javadoc tag <code>@deprecated</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which four warning categories can <code>@SuppressWarnings</code> name?",
+     "back": "<code>unchecked</code>, <code>deprecation</code>, <code>removal</code>, <code>preview</code>",
+     "extra": "The array form suppresses several at once: <code>@SuppressWarnings({\"unchecked\", \"deprecation\"})</code>. The <code>unchecked</code> warnings arise when mixing with pre-generics legacy code.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>@SafeVarargs</code> assert about a method or constructor?",
+     "back": "Its <b>varargs body is safe</b>, so no unchecked varargs warning",
+     "extra": "Applied to a generic varargs method you promise not to store arbitrary types into the array. Java suppresses the heap-pollution warning it would otherwise report at the call site.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Java SE release introduced <code>@FunctionalInterface</code>?",
+     "back": "Java SE <b>8</b>",
+     "extra": "It marks a type declaration as intended to be a functional interface, meaning one abstract method. It is documentation plus a compiler check against accidental extra abstract methods.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "<code>RetentionPolicy.SOURCE</code> keeps an annotation where?",
+     "back": "<b>Source level only</b> - the compiler ignores it",
+     "extra": "The annotation is available while compiling but never recorded in the class file. <code>@Override</code> is typically SOURCE-retained, since only javac needs to see it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "<code>RetentionPolicy.CLASS</code> keeps an annotation where?",
+     "back": "In the <b>class file</b> - the JVM ignores it",
+     "extra": "This is the default retention when <code>@Retention</code> is not specified. Bytecode tools can read the annotation, but reflection at runtime cannot see it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "<code>RetentionPolicy.RUNTIME</code> keeps an annotation where?",
+     "back": "<b>Readable by the JVM at runtime</b>",
+     "extra": "Only RUNTIME-retained annotations are visible through reflection, which is why frameworks that inspect annotations at runtime (JPA, Jackson, JUnit) declare it.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which Java SE release made annotations applicable to <b>type uses</b>, not just declarations?",
+     "back": "Java SE <b>8</b>",
+     "extra": "That is a <b>type annotation</b>: usable on <code>new</code>, on casts, on implements clauses and on <code>throws</code>. It lets a pluggable type checker see where a type is used, not only where a variable is declared.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <b>type annotations</b> used for?",
+     "back": "Feed <b>pluggable type checkers</b> that run alongside javac",
+     "extra": "E.g. declare a variable <code>@NonNull String s</code>. A checker module plugged into the compiler then warns when null could flow in. The JDK ships no checker, only the ability to accept one.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which meta-annotation restricts the <b>element kinds</b> an annotation may be applied to?",
+     "back": "<code>@Target</code>",
+     "extra": "Its value is one or more <code>ElementType</code> constants: TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, PACKAGE, MODULE, TYPE_PARAMETER, ANNOTATION_TYPE, TYPE_USE, RECORD_COMPONENT. The compiler rejects an annotation used in the wrong place.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>ElementType</code> value allows an annotation wherever a <b>type is used</b>?",
+     "back": "<code>ElementType.TYPE_USE</code>",
+     "extra": "That covers <code>new</code>, casts, implements and throws clauses. <code>TYPE</code> instead means class, interface, enum, annotation or record declarations.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>@Inherited</code> do when a subclass has no annotation of that type?",
+     "back": "The <b>superclass</b> is queried for it",
+     "extra": "Inheritance of annotations is off by default, so without it <code>getAnnotation</code> returns null on the subclass. <code>@Inherited</code> applies only to class declarations, never to methods or fields.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "To make your annotation apply twice on one element, which meta-annotation declares it repeatable?",
+     "back": "<code>@Repeatable</code>",
+     "extra": "Its value names the <b>container</b> annotation the compiler generates to hold the repeats. Applying an annotation twice without it is a compile-time error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A repeatable annotation needs a container. What must the container declare?",
+     "back": "A <code>value</code> element whose type is an <b>array of the repeatable type</b>",
+     "extra": "E.g. <code>Schedules</code> holds <code>Schedule[] value()</code>. The compiler then wraps repeated <code>@Schedule</code> annotations into one <code>@Schedules</code> automatically.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>AnnotatedElement</code> method returns all repeated annotations at once?",
+     "back": "<code>getAnnotationsByType(Class)</code>",
+     "extra": "Added in Java SE 8; it scans the container annotation for you. The older <code>getAnnotation(Class)</code> still returns only one and unchanged, so legacy code keeps working.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the source file that declares a module and all its properties?",
+     "back": "<code>module-info.java</code>",
+     "extra": "Placed in the project's source root, e.g. <code>src/main/java</code>, so tools pick it up. It compiles to <code>module-info.class</code>, the module descriptor, which goes at the JAR root.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which four directives make up the body of a typical module declaration?",
+     "back": "<code>requires</code>, <code>exports</code>, <code>uses</code>, <code>provides</code>",
+     "extra": "<code>requires</code> lists dependencies by module name, <code>exports</code> names packages that form the public API, <code>uses</code> names service types consumed, <code>provides ... with ...</code> names service implementations offered.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By default, which types in a module's packages can code <b>outside</b> the module use?",
+     "back": "<b>None</b> - even public types are internal",
+     "extra": "A module has a real boundary the compiler and JVM enforce. To expose a type you must export or open the package that contains it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What is the effect of <code>exports</code> versus <code>opens</code> on a package?",
+     "back": "<code>exports</code>: <b>compile and run</b>. <code>opens</code>: <b>runtime reflection</b>",
+     "extra": "Exports make the package part of the public API. Opens leaves it invisible to the compiler but lets reflection reach private members. A package may be both.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>requires transitive</code> express?",
+     "back": "A dependency that is <b>part of the module's own API</b>",
+     "extra": "Any module reading this module automatically reads the required one. Needed when a public signature exposes types from the dependency, as <code>java.sql</code> does with <code>java.xml</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What is a <b>modular JAR</b>?",
+     "back": "A JAR that <b>contains <code>module-info.class</code></b>",
+     "extra": "Without the descriptor it is a plain JAR. On the module path a modular JAR becomes a module; on the class path it still merges into the unnamed module.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>module path</b>, and what does it do to plain JARs?",
+     "back": "A list of artifacts; plain JARs become <b>automatic modules</b>",
+     "extra": "It parallels the class path but makes every artifact on it a module, enabling incremental modularisation. <code>javac</code> and <code>java</code> both understand it.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does a JAR having a module descriptor decide whether it is treated as a module?",
+     "back": "<b>No</b> - the path it is placed on decides",
+     "extra": "All JARs on the class path form the single unnamed module; all JARs on the module path become modules. So the project owner, not the dependency's maintainer, decides what is an individual module.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How does <b>module resolution</b> work?",
+     "back": "Start at the initial module, follow each <code>requires</code>, error if one is missing",
+     "extra": "Repeat until nothing new is found; observe it with <code>--show-module-resolution</code>. The result is the module graph, whose edges are readability relations.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which module is the <b>base module</b>, and must you <code>requires</code> it?",
+     "back": "<code>java.base</code> - it is required <b>implicitly</b>, no clause needed",
+     "extra": "It holds <code>Class</code>, <code>ClassLoader</code>, <code>java.lang</code>, <code>java.util</code> and the module system itself. Resolution bootstraps it first, before any other module.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which three conditions must hold for module A to use a type from module B?",
+     "back": "Type is <b>public</b>, package is <b>exported</b>, A <b>reads</b> B",
+     "extra": "That third condition is the new part compared with plain JARs. Reading normally comes from <code>requires</code>, but <code>--add-reads</code> can add it at launch.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two <b>reliable-configuration</b> errors does the module system detect at launch?",
+     "back": "<b>Duplicate modules</b> and <b>split packages</b>",
+     "extra": "There is no notion of version beyond a string, so two versions of one module are a duplicate and rejected. A package living in two modules is a split package, also rejected. Static dependency cycles are the third check.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>static dependency cycle</b> between modules?",
+     "back": "A <b>compile-time</b> <code>requires</code> loop between modules",
+     "extra": "Cycles are fine at runtime, e.g. Spring reflecting over code that uses Spring annotations, but the modules must not require each other to compile. The module system rejects static cycles.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/strong-encapsulation/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Which rule summarises which JDK namespaces are safe to use?",
+     "back": "Use <code>java.*</code>, <b>avoid</b> <code>sun.*</code>, wary of <code>com.sun.*</code>",
+     "extra": "In <code>sun.*</code> only <code>sun.misc</code> and <code>sun.reflect</code> are exempt, exported by <code>jdk.unsupported</code>. In <code>com.sun.*</code> roughly 90% is internal and the exported remainder belongs to <code>jdk.*</code> modules.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which module exports <code>sun.misc</code> and <code>sun.reflect</code>, and why?",
+     "back": "<code>jdk.unsupported</code> - they are <b>needed</b> with no feasible replacement",
+     "extra": "Chiefly for <code>sun.misc.Unsafe</code>. These are the deliberate exceptions: the rest of <code>sun.*</code> is internal and inaccessible.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What proportion of <code>com.sun.*</code> packages is internal?",
+     "back": "About <b>90%</b>",
+     "extra": "The namespace is JDK-specific rather than standard. Roughly a tenth is exported by <code>jdk.*</code> modules and supported, evolving with compatibility in mind, so each usage warrants a look.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What happens to non-exported internal types when a module is on the module path?",
+     "back": "Compilation <b>fails</b>, then runtime access <b>fails</b> too",
+     "extra": "E.g. <code>sun.util.BuddhistCalendar</code> lives in <code>java.base</code> which does not export <code>sun.util</code>. Both the compile error and the reflective runtime exception point at strong encapsulation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which JDK release changed <code>--illegal-access</code> default from <code>permit</code> to <code>deny</code>?",
+     "back": "JDK <b>16</b>",
+     "extra": "JDK 9 to 15 permitted deep reflective access from the class path by default. JDK 16 flipped the default, and JDK 17 removed the option entirely.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "From JDK 17 onwards, which options allow access to internal APIs?",
+     "back": "<b><code>--add-exports</code></b> and <b><code>--add-opens</code></b>",
+     "extra": "Nothing else works: illegal-access is gone. Both act per module/package pair and must be supplied at launch, by whoever runs the application.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/add-exports-opens/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is the syntax of <code>--add-exports</code>?",
+     "back": "<code>--add-exports $MODULE/$PACKAGE=$READING_MODULE</code>",
+     "extra": "E.g. <code>--add-exports java.base/sun.util=ALL-UNNAMED</code>. The space can be an equals sign to suit build tools such as Maven.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <code>ALL-UNNAMED</code> in <code>--add-exports</code> or <code>--add-opens</code>?",
+     "back": "The placeholder meaning <b>all class-path code</b>",
+     "extra": "Use it while your project is not modularised. Once your code runs as a module you can name that module and expose internals to it alone.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which kinds of member does <code>--add-exports</code> expose in the target package?",
+     "back": "<b>Public</b> types and members only",
+     "extra": "Same visibility as a real <code>exports</code>: the compiler can resolve the package and code can call public API in it. Non-public types remain out of reach.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which kinds of member does <code>--add-opens</code> expose?",
+     "back": "<b>All</b> types and members, public or not, <b>via reflection</b>",
+     "extra": "It works like an <code>opens</code> directive applied at launch. Compilation gains nothing, so code must reach the classes reflectively, usually with <code>setAccessible(true)</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Is <code>--add-exports</code> needed at compile time, at run time, or both?",
+     "back": "<b>Both</b> - repeat it on <code>java</code> after using it on <code>javac</code>",
+     "extra": "Compiling against an internal package only grants compile access. Launching on JDK 17+ without the flag fails again at runtime.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What happens if you pass <code>--add-opens</code> to <code>javac</code>?",
+     "back": "A <b>warning</b>: it has no effect at compile time",
+     "extra": "It is a pure runtime concept bound to reflection, so javac does not reject the option. It merely reports that nothing will happen, which helps when one option string is fed to several tools.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/add-modules-reads/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>--add-modules</code> add to module resolution?",
+     "back": "<b>Extra root modules</b>, plus their dependencies",
+     "extra": "Resolution starts from root modules, so adding one brings it and its transitive requires into the graph even though the initial module never mentions it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which three special values does <code>--add-modules</code> accept?",
+     "back": "<code>ALL-DEFAULT</code>, <code>ALL-SYSTEM</code>, <code>ALL-MODULE-PATH</code>",
+     "extra": "ALL-DEFAULT is the set picked for class-path launches, for container apps. ALL-SYSTEM adds every system module, used by test harnesses. ALL-MODULE-PATH adds every module found on the module path.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>--add-reads $MODULE=$TARGETS</code> add?",
+     "back": "<b>Readability edges</b> from one module to a comma-separated list",
+     "extra": "The module can then use public types in the targets' exported packages without a <code>requires</code> clause. <code>ALL-UNNAMED</code> as target lets a module read the unnamed module.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which tool accepts <code>--add-modules</code>?",
+     "back": "<code>javac</code>, <code>jlink</code> and <code>java</code>",
+     "extra": "It is a resolution-time option, so each tool that resolves modules honours it. <code>--add-reads</code>, by contrast, is documented for the compiler and runtime.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Give a realistic use for <code>--add-modules</code>.",
+     "back": "Pull in an <b>optional dependency</b> not otherwise required",
+     "extra": "If a module only sometimes needs <code>java.sql</code> it never enters the graph on its own. Listing it in <code>--add-modules</code> at launch adds it, usually alongside <code>--add-reads</code> for readability.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/implied-readability/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Which modifier on <code>requires</code> gives <b>implied readability</b>?",
+     "back": "<b><code>transitive</code></b>",
+     "extra": "Any module that reads the declaring module automatically reads the required one too. Written <code>requires transitive java.xml;</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When should you use <code>requires transitive</code> for module B?",
+     "back": "When <b>public signatures</b> of your API refer to B's packages",
+     "extra": "Otherwise every client would have to add its own <code>requires B</code> to compile against your API. That is a hidden dependency clients could easily miss.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which class exposes <code>java.sql</code>'s dependency on <code>java.xml</code> through its API?",
+     "back": "<code>java.sql.SQLXML</code>",
+     "extra": "It maps the SQL XML type, so <code>java.xml</code> types appear in a public signature. <code>Driver.getParentLogger()</code> likewise returns a <code>java.util.logging.Logger</code>, hence the transitive requires on java.logging.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Contrast: <code>java.prefs</code> vs <code>java.sql</code> on <code>java.xml</code>.",
+     "back": "<code>java.prefs</code>: <b>internal</b> use. <code>java.sql</code>: <b>exposed</b> in its API",
+     "extra": "Both declare <code>requires java.xml</code>, but only java.sql needs it transitive, because its public API mentions <code>java.xml</code> types such as SQLXML.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Should a module rely on implied readability of B if it uses B's types <b>throughout</b> its own code?",
+     "back": "<b>No</b> - it should explicitly <code>requires B</code>",
+     "extra": "Implied readability is for types used only at the boundary to the module that grants it. Using them everywhere is a genuine dependency; declaring it documents the architecture and survives refactoring.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/opening-for-reflection/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What are the two reasons <code>exports</code> is a poor fit for reflection frameworks?",
+     "back": "It <b>publishes</b> the package as API, and only <b>public</b> members become reachable",
+     "extra": "Frameworks touch non-public types, constructors, accessors and fields. And exporting a package that handles HTTP requests or database access wrongly advertises it as a stable contract.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How does <code>opens</code> differ from <code>exports</code> at <b>compile time</b>?",
+     "back": "The package stays <b>fully encapsulated</b> - outside code cannot compile against it",
+     "extra": "No exports means no compile-time access at all. Reflection is the only way in, which is exactly the intent: express that this package exists for a reflection-based framework.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How does <code>opens</code> differ from <code>exports</code> with respect to <b>non-public</b> members?",
+     "back": "<code>opens</code>: <b>all</b> members. <code>exports</code>: <b>public</b> only",
+     "extra": "For non-public members reflection still needs <code>setAccessible(true)</code>. The point of opens is that the module has authorised the deep access, so no exception is thrown.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you open <b>every package</b> of a module at once?",
+     "back": "Write <code>open module</code> instead of <code>module</code>",
+     "extra": "An open module behaves as if each package had its own <code>opens</code>. There is no wildcard form, so this keyword is the equivalent of <code>opens com.example.*</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "In an <b>open module</b>, what happens to an explicit <code>opens</code> directive?",
+     "back": "<b>Compile error</b> - all packages are already open",
+     "extra": "Writing <code>opens p;</code> is redundant by definition, so the compiler rejects it. <code>exports</code> directives are still allowed and still mean what they say.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/qualified-exports-opens/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which keyword qualifies <code>exports</code> or <code>opens</code> to specific modules?",
+     "back": "<b><code>to</code></b> followed by a comma-separated module list",
+     "extra": "E.g. <code>exports com.example.internal to com.example.friend;</code>. The named modules get full access; every other module sees strong encapsulation as if the directive had no effect.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JDK module qualifies exports of <code>com.sun.org.apache.xml.internal*</code> to <code>java.xml.crypto</code>?",
+     "back": "<code>java.xml</code>",
+     "extra": "Six internal packages of the JAXP module are needed by XML cryptography, so they are exported to <code>java.xml.crypto</code> and nothing else. A textbook case of controlled sharing inside the JDK.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a package appear in both <code>exports p</code> and <code>exports p to M</code>?",
+     "back": "<b>No</b> - compile error",
+     "extra": "The plain exports already grants everyone access, which makes the qualified one pointless. The module system treats this contradiction as an implementation error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does javac report when a qualified export names a module that cannot be found?",
+     "back": "A <b>warning</b>, not an error",
+     "extra": "The target is mentioned but not required, so it may simply not be on the path at compile time. Failing the build would break builds for optional targets.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Who must change when a new module needs access to a qualified-exported package?",
+     "back": "The <b>exporting module</b> - it must add the new target",
+     "extra": "That control is the feature's point: the owner decides who shares. It is also its cost, since every new friend forces an edit to the exporting module's declaration.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is the use case for <b>qualified opens</b> much smaller than for qualified exports?",
+     "back": "Open targets are <b>frameworks</b> that won't start depending on you",
+     "extra": "A framework never develops a compile dependency on a package it reflects over, so unqualified opens risk little. Qualified opens add fragility when API and implementation split, such as JPA and Hibernate.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why can qualified opens force you to mention an implementation in your code?",
+     "back": "Reflection needs opening to <b>the module that actually reflects</b>",
+     "extra": "Until frameworks adopt Lookup/VarHandle forwarding, JPA plus Hibernate means opening entity packages to the Hibernate module, not the JPA module. That leaks an implementation detail into the declaration.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/optional-dependencies/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "What does <code>requires static</code> demand at <b>compile time</b>?",
+     "back": "The module <b>must be present</b>, and is readable",
+     "extra": "Identical to a normal <code>requires</code> during compilation, so you can freely use its types in source. Absence is a compile error.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What does <code>requires static</code> allow at <b>run time</b>?",
+     "back": "The module <b>may be absent</b>, with no error or warning",
+     "extra": "If it is present on the graph the requiring module reads it. If not, you simply must not reach its types, or you get a NoClassDefFoundError.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "During resolution, does the module system try to find a <code>requires static</code> target?",
+     "back": "<b>No</b> - it is ignored, never pulled into the graph",
+     "extra": "Even a matching module on the module path is not added just for the optional dependency. It enters only via another module's regular requires or via <code>--add-modules</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What error do you get when code touches an absent optional dependency at runtime?",
+     "back": "<code>NoClassDefFoundError</code>",
+     "extra": "The type check fails while loading. With a normal requires the launch would have failed early; opting out of that check means the failure can surface late instead.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which API tells you at runtime whether a module is present?",
+     "back": "<code>ModuleLayer.boot().findModule(\"name\")</code>, returning an <code>Optional</code>",
+     "extra": "Map it to a boolean and branch before calling into the optional dependency. A library cannot check for you; the decision belongs to the code that knows whether the feature is in use.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can you skip the presence check for an optional dependency?",
+     "back": "When the <b>only callers already need</b> that dependency",
+     "extra": "A JDBC helper inside a library is reached only from code that already uses <code>java.sql</code>, so <code>java.sql</code> is guaranteed in the graph. No check is needed there.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/services/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class acts as the central <b>service registry</b> in Java?",
+     "back": "<code>java.util.ServiceLoader</code>",
+     "extra": "It implements the service locator pattern. Call <code>ServiceLoader.load(Service.class)</code> to get a <code>ServiceLoader</code> that yields every provided implementation.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two directives express the consumer and provider side of a service?",
+     "back": "<code>uses $SERVICE</code> and <code>provides $SERVICE with $PROVIDER</code>",
+     "extra": "The consumer names the service type it will look up; the provider names which of its classes is the implementation. Services let a module call behaviour from a module it does not depend on.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What may a <code>provides ... with</code> class be besides an implementor with a no-arg constructor?",
+     "back": "A type with a <b>public static no-arg <code>provider()</code></b> method",
+     "extra": "That is the provider method form. Otherwise the provider is a concrete class extending or implementing the service with a public parameterless constructor.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which JDK module uses <code>java.sql.Driver</code> as a service of its own?",
+     "back": "<code>java.sql</code>",
+     "extra": "A module may use one of its own types as a service. It means JDBC drivers can be supplied by other modules without java.sql depending on any vendor.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "After switching to services, why can the implementation module <b>stop exporting</b> its package?",
+     "back": "ServiceLoader needs <b>no exported package</b>",
+     "extra": "The loader instantiates providers through the descriptor, not through public API. Dropping the export shrinks the module's API surface, a bonus of the pattern.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>service binding</b> during resolution?",
+     "back": "Resolving every module that <b>provides</b> a service some resolved module uses",
+     "extra": "It explains why simple apps resolve so many platform modules: providers are added so they are available at runtime. It is a second edge type in the module graph besides requires.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which JDK service lets logging frameworks receive the JDK's messages?",
+     "back": "<code>java.lang.System.LoggerFinder</code>",
+     "extra": "The JDK asks a LoggerFinder for Logger instances instead of writing to stdout, so a framework such as Logback can provide an implementation. Same mechanism as the JDBC Driver service.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/learn/organizing/modules/unnamed-module/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <b>unnamed module</b> contain?",
+     "back": "All classes loaded from the <b>class path</b>",
+     "extra": "Every JAR on the class path, modular or not, ends up bundled into one unnamed module. It exists so the module system can apply its rules uniformly without forcing anyone to modularise.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the unnamed module's <b>name</b>?",
+     "back": "<b>None</b> - hence nothing can reference it",
+     "extra": "No name means it cannot appear in a <code>requires</code> clause, so no explicit module can depend on class-path code. That refusal is precisely the design goal, not an oversight.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which other modules does the unnamed module <b>read</b>?",
+     "back": "Every module that <b>makes it into the graph</b>",
+     "extra": "It exports all its packages and opens them for reflection too. Both are the loosest settings in the module system, which is what keeps legacy class-path code working.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A library ships a modular JAR. Does that force its users to run it as a module?",
+     "back": "<b>No</b> - a modular JAR on the class path joins the unnamed module",
+     "extra": "Whether a JAR is modular does not decide how it is treated; its location does. This is what lets the ecosystem modularise independently of each other.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Code in an unnamed module prints <code>getModule().getName()</code>. What is the output?",
+     "back": "<code>null</code>",
+     "extra": "From the module path the same call prints the module name. That contrast is the quickest way to confirm which path a JAR was launched from.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If the initial module is the unnamed one, where does module resolution start?",
+     "back": "A <b>predefined set of root modules from the runtime</b>",
+     "extra": "Roughly, java.se if observable, else every java.* module exporting a package unqualified. Non-incubating runtime modules exporting unqualified packages are roots too; module-path modules never are unless --add-modules names them.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Why does Java provide <b>no</b> <code>requires class-path</code>?",
+     "back": "Any class-path content would fulfil it, so it <b>guarantees nothing</b>",
+     "extra": "Reliable configuration demands that dependencies be checkable. A dependency satisfiable by any JAR is unverifiable, and two modules could disagree about where a shared library belongs.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::05 Modules and Linking",
+   "source": "https://dev.java/organizing/jlink/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::05-modules-and-linking"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jlink</code> produce?",
+     "back": "A <b>runtime image</b> containing only the modules you picked",
+     "extra": "It links modules and their transitive dependencies into a JDK-like directory tree. Include your own modules and the image is a self-contained application deliverable.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>jlink</code> compile bytecode to machine code?",
+     "back": "<b>No</b> - it only links, no ahead-of-time compilation",
+     "extra": "Your classes stay bytecode; the image just carries an OS-specific JVM plus the modules. That is why images are bound to one operating system.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two options are mandatory to create an image?",
+     "back": "<code>--add-modules</code> and <code>--output</code>",
+     "extra": "The first names the initial modules, the second the target folder. jlink verifies that no module is missing or duplicated, then writes the image.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How does <code>jlink</code> treat services by default?",
+     "back": "<b>No service binding</b> - providers must be listed",
+     "extra": "Deliberate, to keep images small. Add providers with <code>--add-modules</code>, or bind them all with <code>--bind-services</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which option lists the modules that provide a given service?",
+     "back": "<code>--suggest-providers $SERVICE</code>",
+     "extra": "Useful before building an image with <code>jlink</code>: it shows what is available in the runtime or on the module path. Then add the ones you need to <code>--add-modules</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>jlink</code> resolve optional (<code>requires static</code>) dependencies?",
+     "back": "<b>No</b> - they must be added manually",
+     "extra": "A static dependency would otherwise pull a module into the image only by accident. Explicitly adding it with <code>--add-modules</code> makes the choice deliberate.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can <code>jlink</code> link an application that depends on <b>automatic modules</b>?",
+     "back": "<b>No</b> - only explicit modules",
+     "extra": "An automatic module has no descriptor to link against. The app and its dependencies must be modular JARs, which is a real reason to push dependencies towards modular artefacts.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What do you need so <code>jlink</code> can find your application modules?",
+     "back": "<code>--module-path</code> pointing at the folder holding them",
+     "extra": "Then <code>--add-modules</code> names the app's main module. Platform and application modules together are called the image's <b>system modules</b>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>--launcher $NAME=$MODULE/$MAIN-CLASS</code> generate?",
+     "back": "A script in the image's <code>bin</code> that starts that module",
+     "extra": "Shell script on Unix, batch file on Windows. The <code>/$MAIN-CLASS</code> part may be omitted if the descriptor already names a main class.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the downside of launching through a <code>jlink</code> launcher?",
+     "back": "JVM options become <b>program arguments</b>",
+     "extra": "The launcher passes them after <code>--module</code>, so you cannot add <code>--add-modules</code> ad hoc. Put options in <code>JLINK_VM_OPTIONS</code> or call <code>java</code> from the image directly.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Does the module path on an image's launch override system modules?",
+     "back": "<b>No</b> - system modules shadow same-named module-path modules",
+     "extra": "A module-path entry with a system module's name is simply ignored. You can still supply extra modules, typically service providers, so users can extend the image.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How do you generate an image for a <b>different</b> operating system?",
+     "back": "Put that OS's <b>jmods</b> folder on the module path",
+     "extra": "Run it with your own <code>jlink</code>; it sees foreign platform modules and links for that OS. Verify by checking for <code>java.exe</code> in <code>bin</code>, and keep JDK versions in step.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which two interfaces are the roots of the Collections Framework's two main categories?",
+     "back": "<code>Collection</code> (collections) and <code>Map</code> (maps)",
+     "extra": "Collections store objects for iteration. Maps bind each value to a key that represents it, like a primary key in a table. There is no inheritance relation between the two hierarchies.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which interface is the root of the iterator hierarchy in the Collections Framework?",
+     "back": "<code>java.util.Iterator</code>",
+     "extra": "An iterator walks over a collection. It is the fourth hierarchy, alongside Collection, Map and the Queue subcategory; <code>Iterable</code> sits above Collection but is not itself part of the framework.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>Queue</code> an odd member of the <code>Collection</code> hierarchy?",
+     "back": "Queues and stacks are <b>not really about iteration</b>",
+     "extra": "They exist for pushing and popping, not for walking the contents. They were nonetheless placed under Collection, so iteration happens to work on them as well.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What should replace the legacy <code>Vector</code> class in non-concurrent code?",
+     "back": "<code>ArrayList</code>",
+     "extra": "<code>Vector</code> was retrofitted to implement <code>List</code>. In a concurrent environment you would use a concurrent list instead, but for ordinary single-threaded code ArrayList is the substitute.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What should replace the legacy <code>Stack</code> class in non-concurrent code?",
+     "back": "<code>ArrayDeque</code>",
+     "extra": "<code>Stack</code> extends <code>Vector</code> and remains in the JDK only for backward compatibility. <code>ArrayDeque</code> provides the push/pop operations without Vector's synchronisation.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which legacy interface should no longer be used in place of <code>Iterator</code>?",
+     "back": "<code>Enumeration</code>",
+     "extra": "<code>Vector</code> uses it to model its iterator. It predates the collections redesign and lacks remove() and the for-each protocol, so <code>Iterator</code> replaced it.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What should replace <code>Hashtable</code> in non-concurrent code?",
+     "back": "<code>HashMap</code>",
+     "extra": "<code>Hashtable</code> was retrofitted to implement <code>Map</code>. In a concurrent setting <code>ConcurrentHashMap</code> is the replacement instead.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Name two capabilities a collection has that a plain array does not.",
+     "back": "<b>Tracks its size</b> and can <b>grow</b> beyond a fixed capacity",
+     "extra": "An array's length is fixed once created; a collection tracks how many elements it holds and lets you keep adding. Collections can also reject nulls, test for presence, and intersect or merge with another collection.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which single fact most clearly separates a <code>Collection</code> from a <code>Map</code>?",
+     "back": "A <b>map stores each value with a key</b>; a collection stores bare elements",
+     "extra": "In a collection elements are the values themselves. In a map every value is bound to a key, so lookup happens by key rather than by position or presence.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In which two releases was the Collections Framework substantially rewritten after Java SE 2?",
+     "back": "Java SE <b>5</b> (generics) and Java <b>8</b> (lambdas and default methods)",
+     "extra": "Generics made the containers type-safe; lambdas plus default methods made them functional, adding methods like <code>forEach</code>, <code>removeIf</code> and <code>computeIfAbsent</code> without breaking implementors.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/collection-interface/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "What must <code>add(element)</code> guarantee when it returns, even if it returns false?",
+     "back": "The element <b>is in the collection</b>; <code>contains</code> returns true",
+     "extra": "Returning false only signals a set-like collection already holding it. If the element would not be added at all, throw: UnsupportedOperationException, NullPointerException, ClassCastException or IllegalArgumentException.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which exception must a <b>non-modifiable</b> implementation throw from <code>add</code>?",
+     "back": "<code>UnsupportedOperationException</code>",
+     "extra": "The other cases: <code>NullPointerException</code> for an implementation rejecting nulls, <code>ClassCastException</code> for a wrong type, <code>IllegalArgumentException</code> for an element refused on its properties.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Collection method models set <b>union</b>?",
+     "back": "<code>addAll(other)</code>",
+     "extra": "The four bulk operations map onto set algebra: <code>containsAll</code> inclusion, <code>addAll</code> union, <code>removeAll</code> complement, <code>retainAll</code> intersection.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Collection method models set <b>intersection</b>?",
+     "back": "<code>retainAll(other)</code>",
+     "extra": "It keeps only the elements also present in the argument and removes the rest. The argument need not be the same element type as this collection.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Collection method models set <b>complement</b>?",
+     "back": "<code>removeAll(other)</code>",
+     "extra": "It removes every element of this collection that is present in the argument. Note this is directional: it does not compute a symmetric difference.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>true</code> return from <code>addAll(other)</code> actually tell you?",
+     "back": "That <b>at least one</b> element was added, not all of them",
+     "extra": "The call reports whether this collection changed at all. Individual elements may still have been rejected, for instance duplicates in a Set, so success does not mean the other collection was fully absorbed.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you call <code>contains(new User())</code> on a <code>Collection&lt;String&gt;</code>?",
+     "back": "Yes - it <b>compiles</b>, and an IDE may warn",
+     "extra": "The check is legal even though it can never be true; the implementation may also throw <code>ClassCastException</code>. This looseness is deliberate, so algorithms can probe heterogeneous content.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does the no-arg <code>toArray()</code> return?",
+     "back": "An <b><code>Object[]</code></b>",
+     "extra": "Casting it to <code>String[]</code> would compile but can fail at runtime. For a typed array use <code>toArray(T[] a)</code> or <code>toArray(IntFunction&lt;T[]&gt;)</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>toArray(T[] a)</code>, what happens if the array is <b>too small</b>?",
+     "back": "A <b>new array of the correct size</b> is allocated and returned",
+     "extra": "If it is big enough, the elements are copied in and the same array is returned, with the first spare cell set to null. So <code>new String[0]</code> is safe and allocation-free when the collection is empty.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Where is the <b>unused tail</b> of a large array passed to <code>toArray(T[])</code> handled?",
+     "back": "The first unused cell is set to <b><code>null</code></b>",
+     "extra": "Cells after that are left untouched. The returned reference is the very array you supplied, so its tail may still hold your previous contents beyond the terminator.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Collection method filters elements out in place using a predicate?",
+     "back": "<code>removeIf(Predicate)</code>",
+     "extra": "Added in Java SE 8. It replaces the older pattern of an explicit <code>Iterator</code> plus <code>iterator.remove()</code> inside an if statement, and is far easier to read.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which implementation should you pick by default when coding to the <code>Collection</code> interface?",
+     "back": "<code>ArrayList</code>",
+     "extra": "The framework ships no direct implementation of <code>Collection</code>. ArrayList implements <code>List</code>, and since List extends Collection it is a usable Collection, and the sane default most of the time.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/organization/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which interface sits above <code>Collection</code> and enables the for-each loop?",
+     "back": "<code>java.lang.Iterable</code>",
+     "extra": "Added in Java SE 5 together with the for-each pattern. Any instance of <code>Iterable</code> can be used in a for-each, arrays included. It is not itself part of the Collections Framework.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does implementing <code>Iterable</code> require you to provide?",
+     "back": "An <b><code>Iterator</code></b> instance",
+     "extra": "A single <code>iterator()</code> method returning one. That is why Iterable is described as a bridge to Iterator rather than a container in its own right.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What does a <code>List</code> add over a plain <code>Collection</code>?",
+     "back": "<b>Remembered insertion order</b>, which also gives elements an <b>index</b>",
+     "extra": "Iteration always yields the first-added element first, and you can ask for element 3 directly. A plain Collection or a Set offers neither guarantee.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should you not rely on the iteration order of an arbitrary <code>Set</code>?",
+     "back": "A stable order there is <b>accidental</b>, not guaranteed",
+     "extra": "Some implementations happen to iterate in a repeatable order, but the interface does not promise it. Only implementations that document a stable encounter order may be relied upon.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "Is a container with no duplicates <b>and</b> indexes available in the framework?",
+     "back": "<b>No</b> - SortedSet orders elements but gives them no index",
+     "extra": "The closest is a set with a guaranteed iteration order. Because it has no index, it does not implement <code>List</code>, so index access is unavailable.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which comparison mechanisms can a <code>SortedSet</code> use?",
+     "back": "<code>Comparable.compareTo</code> on the elements, or a supplied <code>Comparator</code>",
+     "extra": "If you supply a Comparator it wins even when the elements are Comparable, letting you sort differently from their natural order. Without one, elements must be Comparable or a ClassCastException arises.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "What is the difference between <b>ordering</b> and <b>sorting</b>?",
+     "back": "Ordering keeps <b>insertion order</b>; sorting orders by a <b>comparison</b>",
+     "extra": "A List is ordered: first element is the first added. A SortedSet is sorted: first element is the smallest under the comparison logic, and iteration runs lowest to greatest.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>SortedSet</code> methods return the lowest and the greatest element?",
+     "back": "<code>first()</code> / <code>getFirst()</code> and <code>last()</code> / <code>getLast()</code>",
+     "extra": "SortedSet also adds <code>headSet</code> and <code>tailSet</code> for everything below or at-or-above a given element.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>NavigableSet</code> add on top of <code>SortedSet</code>?",
+     "back": "Descending iteration, plus nearest-match lookups",
+     "extra": "It changes no existing SortedSet behaviour. The additions include <code>descendingSet()</code>, <code>descendingIterator()</code>, and the ceiling/floor/higher/lower family of methods.",
+     "tags": [
+      "type::definition"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/factory-methods/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Since which release do <code>List.of()</code> and <code>Set.of()</code> exist?",
+     "back": "Java SE <b>9</b>",
+     "extra": "They are the convenience factory methods for collections. In Java SE 10 the family was joined by <code>List.copyOf()</code> and <code>Set.copyOf()</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can you add to or modify a list returned by <code>List.of()</code>?",
+     "back": "<b>No</b> - the structure is unmodifiable",
+     "extra": "Calling <code>add</code>, <code>remove</code> or <code>set</code> throws. If the contained objects themselves are mutable, however, you can still mutate them: only the structure is frozen.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you pass a <code>null</code> to <code>List.of()</code> or <code>Set.of()</code>?",
+     "back": "An <b>exception</b> - nulls are rejected",
+     "extra": "These implementations do not accept null elements, unlike some mutable collections such as ArrayList. Adding or copying a null is treated as a bug.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you pass duplicate elements to <code>Set.of()</code>?",
+     "back": "An <b>exception</b> - duplicates are treated as a bug",
+     "extra": "A set cannot hold duplicates, so asking for one is a programming error rather than a silently ignored argument. The call fails at creation.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Is the implementation returned by <code>List.of()</code> or <code>Set.of()</code> an <code>ArrayList</code>?",
+     "back": "<b>No</b> - an unspecified, size-dependent implementation",
+     "extra": "It may even differ with element count, and none is ArrayList or HashSet. Code must rely only on the <code>List</code> or <code>Set</code> contract, never on the concrete class.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are <code>List.copyOf()</code> and <code>Set.copyOf()</code> for?",
+     "back": "An <b>unmodifiable copy</b> of an existing collection",
+     "extra": "Added in Java SE 10. Later changes to the source collection do not show up in the copy, unlike a wrapper, which stays backed by the original.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What does <code>Set.copyOf()</code> do with a source collection that holds duplicates?",
+     "back": "Keeps <b>one</b> of each - the result is a set",
+     "extra": "The other elements are dropped. A null source or a source containing null does not get this leniency: it throws <code>NullPointerException</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>Arrays.asList()</code> support <code>add</code> and <code>remove</code>?",
+     "back": "<b>No</b> - <code>UnsupportedOperationException</code>",
+     "extra": "The returned List wraps a fixed-size array, so its size cannot change, directly or through its iterator. It is therefore not unmodifiable: <code>set</code> and replacement still work.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>Collections</code> methods find the minimum or maximum of a collection?",
+     "back": "<code>Collections.min()</code> and <code>Collections.max()</code>",
+     "extra": "Both take the collection and an optional comparator. Without one the elements must be Comparable or a ClassCastException is thrown. An empty collection raises <code>NoSuchElementException</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which two <code>Collections</code> methods locate a sublist inside a larger list?",
+     "back": "<code>indexOfSublist</code> and <code>lastIndexOfSublist</code>",
+     "extra": "Each returns the first or last index where the target list starts in the source, or -1 when the target does not occur.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Collections</code> method rotates a list's elements, and where does index 0 move?",
+     "back": "<code>rotate(list, d)</code> - element 0 moves to index <b>d</b>",
+     "extra": "Elements wrap around the end back to the front. Combining <code>subList</code> and <code>rotate</code> lets you move an element from one index to another position.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A wrapper from <code>Collections.unmodifiableList</code> - can the underlying list still change?",
+     "back": "Yes, and the change <b>shows through</b> the wrapper",
+     "extra": "The wrapper does not copy: it delegates reads to the original and blocks writes at its own surface. To be safe, defensively copy the collection before wrapping.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which prefix names the <code>Collections</code> methods that wrap a collection in a synchronized view?",
+     "back": "<code>synchronized</code> + the type, e.g. <code>synchronizedList</code>",
+     "extra": "The <code>unmodifiable</code> family follows the same naming pattern. Two cautions apply: route every access through the wrapper, and synchronize manually on the list while iterating it.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Are <code>Collections.synchronizedXxx</code> wrappers the recommended way to get concurrency?",
+     "back": "<b>No</b> - prefer <code>java.util.concurrent</code>",
+     "extra": "The wrapper locks the whole structure and still leaves iteration unsafe. The concurrent collections give better throughput and give you consistent iteration semantics.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::00 Overview",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/lists/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::00-overview"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which two implementations of <code>List</code> does the framework provide?",
+     "back": "<code>ArrayList</code> (array) and <code>LinkedList</code> (doubly linked)",
+     "extra": "If you are unsure which to pick, the advice is ArrayList. LinkedList's theoretical edge on insert and delete is largely erased by cache misses and pointer chasing on modern hardware.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "For which kind of use is <code>LinkedList</code> genuinely a good fit?",
+     "back": "A <b>stack or queue</b> - LIFO or FIFO access at the ends",
+     "extra": "A doubly linked list reaches its first and last node directly, faster than an ArrayList. If you use only those operations, LinkedList wins; <code>ArrayDeque</code> is another option, though it rejects nulls.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which List methods insert, read, replace and delete <b>by index</b>?",
+     "back": "<code>add(i,e)</code>, <code>get(i)</code>, <code>set(i,e)</code>, <code>remove(i)</code>",
+     "extra": "Each shifts the following elements as needed, except get and set. An invalid index throws <code>IndexOutOfBoundsException</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>indexOf(e)</code> return when the element is absent?",
+     "back": "<b><code>-1</code></b>",
+     "extra": "<code>lastIndexOf(e)</code> uses the same convention and returns the highest matching index. Neither throws.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which indexes does <code>subList(start, end)</code> actually cover?",
+     "back": "<code>start</code> inclusive to <code>end - 1</code> inclusive",
+     "extra": "So <code>subList(1, 3)</code> returns two elements. The result is a <b>view</b>: changes either way are reflected, which makes <code>list.subList(a, b).clear()</code> an idiom for removing a range.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>subList()</code> return a copy of the elements?",
+     "back": "<b>No</b> - a view backed by the original list",
+     "extra": "Modifying the sublist modifies the main list and vice versa. That aliasing is what makes in-place range operations possible, and also what makes holding onto a sublist risky.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which method sorts a list in place, and since which release?",
+     "back": "<code>List.sort(Comparator)</code> - Java SE <b>8</b>",
+     "extra": "Before that you called <code>Collections.sort(list, cmp)</code>. There is no no-arg overload: pass <code>null</code> or, preferably, <code>Comparator.naturalOrder()</code> to mean natural ordering.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>list.sort(null)</code> assume about the elements?",
+     "back": "That they implement <b><code>Comparable</code></b>",
+     "extra": "If they do not, a <code>ClassCastException</code> is thrown. Writing <code>Comparator.naturalOrder()</code> expresses the same intent without a null argument.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which iterator type lets you walk a list backwards and insert elements?",
+     "back": "<code>ListIterator</code>",
+     "extra": "Obtained via <code>listIterator()</code> or <code>listIterator(index)</code>. It extends <code>Iterator</code> with <code>hasPrevious</code>, <code>previous</code>, <code>nextIndex</code>, <code>previousIndex</code>, <code>add</code> and <code>set</code>.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>ListIterator.set(e)</code> throw if neither <code>next</code> nor <code>previous</code> was called?",
+     "back": "<code>IllegalStateException</code>",
+     "extra": "<code>set</code> replaces the element most recently returned by a traversal step. With no such element there is nothing to replace, so it is a state error rather than an index error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>LinkedList</code> reach its first and last element so quickly?",
+     "back": "It holds <b>direct references to both end nodes</b>",
+     "extra": "Each node holds next, prev and item references, and the list holds first and last. Reaching the middle must follow next or prev links, which is where the cost appears.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>List.reversed()</code> return?",
+     "back": "A <b>view</b> on the original list, in reverse order",
+     "extra": "Not a new list with copied elements, so changes are visible in both directions. The same view-versus-copy distinction applies to <code>subList</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::01 Array vs ArrayList",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/arraylist-vs-linkedlist/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::01-array-vs-arraylist"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Complexity of <b>reading a middle element</b>: ArrayList vs LinkedList?",
+     "back": "ArrayList <b>O(1)</b>; LinkedList <b>O(n)</b>",
+     "extra": "ArrayList computes an offset; LinkedList must walk nodes. Reading first and last is O(1) for both, because LinkedList keeps references to both ends.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Complexity of <b>inserting at the first position</b>: ArrayList vs LinkedList?",
+     "back": "ArrayList <b>O(n)</b>; LinkedList <b>O(1)</b>",
+     "extra": "ArrayList shifts every element right; LinkedList relinks two references. In practice the linked-list advantage is diminished by cache misses on the way to the node.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Complexity of <b>inserting in the middle</b>: ArrayList vs LinkedList?",
+     "back": "<b>Both O(n)</b>",
+     "extra": "ArrayList copies part of the array. LinkedList looks simple but must first find the node of the middle element, which is the O(n) part and usually dominates.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the actual cost that spoils <code>LinkedList</code> on modern hardware?",
+     "back": "<b>Pointer chasing and cache misses</b>",
+     "extra": "Following a next/prev reference loads unrelated memory, often not in cache. ArrayList merely adds an offset to one base address, so locality makes it far faster in practice.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By how much does a sparse (non-contiguous) linked list slow random reads?",
+     "back": "About <b>3x</b> slower than a contiguous one",
+     "extra": "When nodes are scattered in the heap every step is a fresh cache miss. Real applications that keep adding and removing nodes are close to the scattered case.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Iterating a <code>LinkedList</code> by index - what is the complexity?",
+     "back": "<b>O(n&sup2;)</b>",
+     "extra": "Each <code>get(i)</code> restarts from an end and walks i nodes. On a 1,000-element list that is about half a millisecond versus roughly 4 microseconds with an iterator, so never use this pattern.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>LinkedList</code> still beat <code>ArrayList</code> when adding at the front?",
+     "back": "Insertion cost <b>doesn't depend on size</b>, at most one pointer hop",
+     "extra": "A direct reference to the first node means inserting at index 0 touches one node. ArrayList must copy the whole array one slot right, whose cost grows with n.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "By what factor does <code>ArrayList</code> grow its internal array when full?",
+     "back": "<b>1.5x</b>",
+     "extra": "Growth is geometric, so reallocations become rarer as the list grows. Each one allocates a new array and copies the old, which is why pre-sizing with <code>new ArrayList&lt;&gt;(n)</code> pays off.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Does <code>ArrayList</code> shrink its internal array when you remove elements?",
+     "back": "<b>No</b> - it never shrinks automatically",
+     "extra": "Removing can leave a large, mostly empty array. Call <code>trimToSize()</code> to copy it down, remembering that the next add may then have to grow again.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "How much memory does one <code>LinkedList</code> element cost?",
+     "back": "About <b>24 bytes</b> per element (one Node object)",
+     "extra": "Each node holds next, prev and item plus a header. For 1,000 elements a LinkedList needs roughly 24 kB against roughly 5 kB for an ArrayList.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When can a one-element <code>ArrayList</code> cost <b>more</b> memory than a one-element <code>LinkedList</code>?",
+     "back": "When it wraps a stale array of capacity <b>10</b>",
+     "extra": "A default-constructed ArrayList with one element can take about 80 bytes against 56 for the LinkedList node. Fix it with <code>trimToSize()</code>, <code>new ArrayList&lt;&gt;(2)</code>, or <code>List.of()</code> (26 bytes).",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which list representation uses the least memory for a single element?",
+     "back": "<code>List.of()</code> - about <b>26 bytes</b>",
+     "extra": "Cheaper than LinkedList (56) and a trimmed ArrayList (44). The trade-off is that it is unmodifiable, so it suits small fixed collections rather than growing ones.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which implementation should be your default for a regular list?",
+     "back": "<b><code>ArrayList</code></b>",
+     "extra": "It wins almost every ordinary list operation including insert and delete, because the winning algorithm still has to reach the right element first. LinkedList only wins on stack/queue use at the ends.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which interfaces does <code>LinkedList</code> implement that justify it as a queue?",
+     "back": "<code>Queue</code> and <code>Deque</code>",
+     "extra": "For a double-ended queue, prefer <code>ArrayDeque</code> over LinkedList. LinkedList remains reasonable when you also need List behaviour.",
+     "tags": [
+      "type::syntax"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::02 Set",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/sets/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::02-set"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which class is the main <code>Set</code> implementation, and what does it wrap internally?",
+     "back": "<code>HashSet</code>, wrapping a <b><code>HashMap</code></b>",
+     "extra": "The elements are the map's keys and a shared placeholder object is the value. That is why HashSet behaves like HashMap with respect to hashing and equals.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Set</code> forbid that <code>List</code> allows?",
+     "back": "<b>Duplicate elements</b>",
+     "extra": "Only one element equal to another may exist. As a consequence, <code>add</code> can fail and return false for an equal element already present.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Set</code> implementation guarantees a reproducible iteration order?",
+     "back": "<code>LinkedHashSet</code>",
+     "extra": "It combines a set with an internal linked list that records insertion order. Plain HashSet stores elements in no particular order you may rely on.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which class implements <code>SortedSet</code> in the framework?",
+     "back": "<code>TreeSet</code>",
+     "extra": "It keeps elements sorted by natural ordering or a Comparator, and requires a way to compare elements at insertion time.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A <code>TreeSet</code> has both a <code>Comparable</code> element type and a supplied <code>Comparator</code>. Which wins?",
+     "back": "The <b><code>Comparator</code></b>",
+     "extra": "The comparator defines equality for the sorted structure too, so two elements it calls equal collide even if <code>equals</code> disagrees. This is a classic source of surprising duplicates.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>SortedSet</code> method returns the elements strictly below a boundary?",
+     "back": "<code>headSet(toElement)</code>",
+     "extra": "<code>tailSet(fromElement)</code> is from-inclusive. When the boundary element exists, toElement is excluded and fromElement included, matching the usual half-open convention.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are the subsets returned by <code>headSet</code>, <code>tailSet</code> and <code>subSet</code> views or copies?",
+     "back": "<b>Views</b> backed by the main set",
+     "extra": "Changes flow in both directions. They remember their limits and reject additions outside them with <code>IllegalArgumentException</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Adding past a <code>headSet</code>'s bound - which exception?",
+     "back": "<code>IllegalArgumentException</code>",
+     "extra": "The subset refuses any element at or above <code>toElement</code>. The bound protects the view's own definition, so it cannot become inconsistent with the main set.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableSet</code> methods return the nearest element <b>including</b> the argument?",
+     "back": "<code>ceiling(e)</code> and <code>floor(e)</code>",
+     "extra": "Ceiling is the least element &gt;= e, floor the greatest &lt;= e. <code>higher</code> and <code>lower</code> are the strict variants. They return null when no such element exists.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableSet</code> methods return and remove the extremes?",
+     "back": "<code>pollFirst()</code> and <code>pollLast()</code>",
+     "extra": "They combine a read with a removal, returning null on an empty set. They are the queue-like operations of the interface.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What can the boolean argument of the <code>NavigableSet</code> <code>subSet</code> overload control?",
+     "back": "Whether each <b>boundary is included</b>",
+     "extra": "So <code>subSet(a, true, b, false)</code> includes a and excludes b. <code>headSet</code> and <code>tailSet</code> gained the same inclusiveness flag.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>descendingSet()</code> return?",
+     "back": "A <b>view</b> of the same set in reversed order",
+     "extra": "Not a copy: it is another NavigableSet sharing content, so removals propagate. <code>descendingIterator()</code> gives the same traversal without a new set object.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/choosing-keys/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Why is a mutable key an anti-pattern in a hash-based map?",
+     "back": "Mutating changes <b>hashCode</b>, so the entry becomes unreachable",
+     "extra": "The bucket chosen at insertion no longer matches the bucket computed at lookup, so even <code>get(sameObject)</code> misses. The key-value pair is effectively lost.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "A key is mutated to equal <b>another existing key</b>. What does <code>get</code> return?",
+     "back": "The <b>other key's value</b>",
+     "extra": "Both keys now hash and compare equally, so the lookup lands on the other entry. Values are effectively overwritten or shadowed, and the unrelated key can no longer find its own value.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which type should you choose for map keys?",
+     "back": "<b>Immutable</b> types, such as String or Integer",
+     "extra": "If immutability is impossible, at minimum never mutate a key after insertion. Immutable keys keep hashCode and equality stable for the entry's whole life.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>HashSet.add</code> actually delegate to?",
+     "back": "<b><code>HashMap.put</code></b>",
+     "extra": "The element becomes a key and a shared placeholder object is stored as the value. That is why mutating an element already in a HashSet breaks it exactly as mutating a map key would.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You mutate an object <b>after</b> adding it to a <code>HashSet</code>. What can the set now contain?",
+     "back": "The <b>same object twice</b>",
+     "extra": "Its hash no longer matches the stored bucket, so a re-add sees no duplicate and inserts again. Iteration then reveals the object at two positions.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/maps/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "What is the most widely used <code>Map</code> implementation in the JDK?",
+     "back": "<code>HashMap</code>",
+     "extra": "It stores key-value pairs using hashing, detecting duplicates via a key's equals and hashCode. Both must be consistent for correctness.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which map implementation preserves <b>insertion order</b>?",
+     "back": "<code>LinkedHashMap</code>",
+     "extra": "It is a HashMap with an extra internal structure so iteration over keys or entries follows the order of insertion.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "How does <code>IdentityHashMap</code> compare its keys?",
+     "back": "By <b>reference</b> with <code>==</code>, not equals/hashCode",
+     "extra": "It is a specialised implementation for very precise cases, not general use. Two equal-but-distinct objects are different keys there.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What is the practical limit on the number of key-value pairs for <code>Map.of()</code>?",
+     "back": "<b>10</b> - use <code>ofEntries</code> beyond that",
+     "extra": "The varargs form returns an <code>Map.Entry</code>-based map for more pairs: <code>Map.ofEntries(entry(k, v), ...)</code>. Both are immutable and reject null keys or values.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>Map</code> factory produces an immutable single entry?",
+     "back": "<code>Map.entry(k, v)</code>",
+     "extra": "Together with <code>Map.of</code> and <code>Map.ofEntries</code> it belongs to the Java SE 9 factory methods. Duplicate keys raise IllegalArgumentException at creation.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can a <code>Map.of()</code> map hold null keys or null values?",
+     "back": "<b>No</b> - nulls are rejected",
+     "extra": "The factory maps and their entries are immutable and null-hostile. A duplicate key is treated as a bug and fails at creation with IllegalArgumentException.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which collection shape does the set of map keys have?",
+     "back": "A <b><code>Set</code></b> - no duplicates",
+     "extra": "Every key binds exactly one value, so keys are a set. Key-value entries are also a set, while values may repeat and so form a plain <code>Collection</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can two keys in one map bind the same value?",
+     "back": "<b>Yes</b> - a value may be bound to several keys",
+     "extra": "The rules are asymmetric: each key has at most one value, but many keys can point at one object. That is why <code>values()</code> is not a Set.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Can you call <code>setKey()</code> on a <code>Map.Entry</code>?",
+     "back": "<b>No</b> - only the value is writable",
+     "extra": "Entries offer <code>getKey</code>, <code>getValue</code> and <code>setValue</code>. Changing a key in place would move the entry to another bucket and corrupt the map.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are <code>Map.Entry</code> objects from a map copies or views?",
+     "back": "<b>Views</b> backed by the map",
+     "extra": "Calling <code>setValue</code> on an entry updates the map, and updating the map shows in the entry. That is why removing a key breaks the entry you hold.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a multimap, and does the framework provide one?",
+     "back": "One key mapped to <b>several values</b>; <b>not directly</b>",
+     "extra": "The framework offers no Multimap type. The idiom is a map whose values are collections, e.g. <code>Map&lt;K, List&lt;V&gt;&gt;</code>, usually populated with <code>computeIfAbsent</code>.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/maps-and-lambdas/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which functional interface does <code>Map.forEach</code> take?",
+     "back": "<code>BiConsumer&lt;K,V&gt;</code>",
+     "extra": "Each entry is delivered as two arguments rather than as a <code>Map.Entry</code>. That is the one difference from <code>Iterable.forEach</code>, which takes a plain <code>Consumer</code>.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>replace(key, value)</code> do, and what does it return?",
+     "back": "Replaces <b>unconditionally</b>; returns the <b>old value</b>",
+     "extra": "Semantically it is put-if-present: with no existing mapping nothing happens and null comes back. It never creates an entry.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>replace(key, oldValue, newValue)</code> return?",
+     "back": "<b><code>true</code></b> if the replacement happened",
+     "extra": "It replaces only when the current value equals the given old value, a compare-and-set for maps. Otherwise nothing changes and false is returned.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which Map method transforms <b>every</b> value in one call?",
+     "back": "<code>replaceAll(BiFunction)</code>",
+     "extra": "The function receives key and old value and returns the new one. It iterates all entries internally; an exception aborts the traversal partway.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if a <code>compute</code>-family remapping function returns <code>null</code>?",
+     "back": "The <b>key is removed</b> from the map",
+     "extra": "No entry with a null value is created. This gives the compute methods a natural delete semantics: return null to drop the mapping.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What do the <code>compute</code> methods return?",
+     "back": "The <b>new</b> value - unlike <code>put</code>, which returns the old one",
+     "extra": "If the function returned null there is no new value and null is returned instead. Mixing up the two return conventions is a common source of bugs.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "<code>computeIfPresent</code> vs <code>compute</code>: which one may call the function with a null value?",
+     "back": "<code>compute</code> may; <code>computeIfPresent</code> <b>never</b> does",
+     "extra": "<code>computeIfPresent</code> runs only when a non-null value is already bound, so the function is skipped for an absent key. <code>compute</code> runs unconditionally, so it sees null there.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When exactly does <code>computeIfAbsent</code> call its function?",
+     "back": "When the key is <b>absent or maps to null</b>",
+     "extra": "The function is a plain <code>Function</code> taking only the key, since there is no current value. That is why it is the idiom for building map-of-collections structures.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why prefer <code>computeIfAbsent(k, k -> new ArrayList&lt;&gt;())</code> over <code>putIfAbsent</code>?",
+     "back": "The list is <b>created only when needed</b>",
+     "extra": "With putIfAbsent you must build the empty list up front, even if the key exists, wasting an allocation every call. The compute form allocates only for new keys.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Map method merges a value into an <b>immutable</b> aggregate such as a String?",
+     "back": "<code>merge(key, value, BiFunction)</code>",
+     "extra": "<code>computeIfAbsent</code> cannot help here because a String cannot be appended to in place. merge supplies the new value and the function combines it with the existing one.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In <code>merge</code>, when is the remapping function <b>not</b> called?",
+     "back": "When the key is <b>absent</b> or maps to null",
+     "extra": "The new value is simply bound and stored. Only when a non-null value already exists does the function receive old and new values.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why should the lambdas passed to <code>computeIfAbsent</code> and <code>merge</code> be <b>non-capturing</b>?",
+     "back": "For <b>performance</b> - a capturing lambda allocates per call",
+     "extra": "A lambda that captures a local must create a new object each time it is evaluated, while a non-capturing one is a cached singleton. Taking the key as a parameter avoids the capture entirely.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/sorted-maps/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Which data structure backs <code>TreeMap</code>?",
+     "back": "A <b>red-black tree</b>",
+     "extra": "It implements both SortedMap and NavigableMap and offers O(log n) lookups. <code>ConcurrentSkipListMap</code> is the thread-safe counterpart, built on a skip list.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What must you provide to a <code>TreeMap</code> so it can sort keys?",
+     "back": "A <b>Comparator</b>, or <code>Comparable</code> keys",
+     "extra": "A supplied comparator takes precedence even over comparable keys. Without either, insertion fails with <code>ClassCastException</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>SortedMap</code> methods return the lowest and greatest key?",
+     "back": "<code>firstKey()</code> and <code>lastKey()</code>",
+     "extra": "Their entry-level siblings on NavigableMap are <code>firstEntry()</code> and <code>lastEntry()</code>, which return the whole key-value pair.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>headMap(toKey)</code> contain?",
+     "back": "Keys <b>strictly less</b> than toKey",
+     "extra": "SortedMap has no inclusive variant: <code>tailMap(fromKey)</code> starts at fromKey, but headMap excludes its bound. NavigableMap adds the inclusive boolean overloads.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Are the maps from <code>headMap</code>, <code>tailMap</code>, <code>subMap</code> copies?",
+     "back": "<b>Views</b> backed by the original map",
+     "extra": "Changes propagate both ways. You may remove from a view, but inserting a key outside its bounds is rejected.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "compare",
+     "front": "<code>ceilingKey</code> vs <code>higherKey</code>: which includes the argument?",
+     "back": "<code>ceilingKey</code> <b>includes</b> it; <code>higherKey</code> is strict",
+     "extra": "The same pair exists for floor/lower: <code>floorKey</code> may return the argument itself, <code>lowerKey</code> returns a strictly smaller key. Both return null when nothing qualifies.",
+     "tags": [
+      "type::compare"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableMap</code> methods return <b>and remove</b> an entry?",
+     "back": "<code>pollFirstEntry()</code> and <code>pollLastEntry()</code>",
+     "extra": "They pull the lowest or highest entry out of the map, returning it. On an empty map they return null rather than throwing.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which <code>NavigableMap</code> method returns a descending-order view?",
+     "back": "<code>descendingMap()</code>",
+     "extra": "<code>descendingKeySet()</code> gives the key-only view. Both are backed by the map but allow removal only, not insertion.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Can you cast the result of <code>TreeMap.keySet()</code> to <code>NavigableSet</code>?",
+     "back": "<b>Yes</b> - for a TreeMap",
+     "extra": "<code>navigableKeySet()</code> does the cast for you and returns the same object. The cast is only safe because TreeMap's keys are navigable; on a HashMap it is not.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::04 Collections::03 Map",
+   "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/working-with-keys-and-values/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::04-collections",
+    "topic::03-map"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "What does <code>put(k, v)</code> return for a <b>new</b> key?",
+     "back": "<b><code>null</code></b>",
+     "extra": "put returns the previous value bound to the key, so a null result means there was none. On an existing key it returns the value being replaced.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does <code>putIfAbsent(k, v)</code> replace an existing <b>null</b> value?",
+     "back": "<b>Yes</b> - it treats a null mapping as absent",
+     "extra": "That is what makes it useful for fixing faulty maps that acquired null values, unlike <code>containsKey</code>, which would report the key as present.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does iterating <code>map.values()</code> into an <code>int</code> throw NPE on a null value?",
+     "back": "Auto-unboxing a <b>null Integer</b> fails",
+     "extra": "The values are <code>Integer</code> objects, and assigning one to an <code>int</code> unboxes it. A null Integer cannot be unboxed, so the NPE comes from boxing rather than from the map.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>getOrDefault(k, def)</code> return?",
+     "back": "<code>def</code> when the key is <b>absent</b>, else the mapped value",
+     "extra": "Added in Java SE 8. Note it does not change the map: no entry is created for the default.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>remove(k, v)</code> return, and when does it remove?",
+     "back": "<b><code>true</code></b> if the pair matched and was removed",
+     "extra": "It removes only when the current value equals v, so a blind <code>remove(k)</code> that might clobber a fresh value is avoided. That overload returns the removed value instead.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which Map method reports whether a <b>value</b> occurs anywhere in the map?",
+     "back": "<code>containsValue(v)</code>",
+     "extra": "It scans for a match and is not a key lookup, so on a hash map it is typically linear. <code>containsKey(k)</code> is the hashed, fast counterpart.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What does <code>putAll(other)</code> do with <b>colliding keys</b>?",
+     "back": "The other map's values <b>overwrite</b> the existing ones",
+     "extra": "Merging is last-writer-wins per key rather than a union of values. Expect data loss if you were trying to accumulate.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>keySet()</code> return?",
+     "back": "A <b><code>Set</code></b> view of the keys",
+     "extra": "<code>entrySet()</code> returns <code>Set&lt;Map.Entry&gt;</code> and <code>values()</code> a <code>Collection</code>. All three are views, so map changes appear in them immediately.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What happens if you call <code>add</code> on the set from <code>keySet()</code>?",
+     "back": "<b><code>UnsupportedOperationException</code></b>",
+     "extra": "These views are fixed: you cannot add keys or values through them. Removal is supported and propagates to the map, because a key alone identifies an entry.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "You remove a key from <code>keySet()</code>. What happens to the map?",
+     "back": "The whole <b>key-value pair</b> is removed from the map",
+     "extra": "The set is a view, so its removals delete the corresponding entries. The same is true of removing an entry from <code>entrySet()</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which entry is removed if you drop a value from <code>values()</code>, and the value repeats?",
+     "back": "Only the <b>first matching</b> entry - order is unspecified",
+     "extra": "A value can occur under several keys, so removing cannot be unambiguous. On a HashMap you cannot predict which entry will be hit.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why iterate <code>entrySet()</code> rather than <code>keySet()</code> plus <code>get</code>?",
+     "back": "Entry iteration is <b>one pass</b> with no extra lookups",
+     "extra": "Getting each value from the key re-hashes and re-searches. Iterating entries delivers both halves of each pair in a single traversal.",
+     "tags": [
+      "type::mental-model"
+     ]
+    }
+   ]
+  }
+ ]
+}

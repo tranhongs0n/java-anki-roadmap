@@ -1,0 +1,430 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/what-is-an-exception/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is an <b>exception</b>?",
+     "back": "An event during execution that <b>disrupts the normal flow</b>",
+     "extra": "The short form of 'exceptional event'. When one occurs, the method creates an exception object describing the type and program state, and hands it to the runtime; that act is called throwing.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>call stack</b> when searching for an exception handler?",
+     "back": "The <b>ordered list of methods</b> called to reach the failing one",
+     "extra": "The runtime walks it in reverse: it starts at the method where the error occurred and works back through the callers, looking for a handler whose type matches the thrown object.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is an exception handler considered <b>appropriate</b>?",
+     "back": "When the thrown type can be <b>assigned</b> to the handler's parameter type",
+     "extra": "Matching is by subtype, not exact class. A handler for <code>IOException</code> also catches <code>FileNotFoundException</code>, because the thrown object can legally be assigned to that argument.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "If no handler anywhere on the call stack matches, what happens?",
+     "back": "The <b>thread terminates</b> - and if it is main, the program ends",
+     "extra": "The runtime searches every frame exhaustively. Reaching the bottom without a match kills that thread, printing the uncaught exception and its stack trace, which is the familiar 'Exception in thread main' output.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What are the two ways to honour the <b>Catch or Specify</b> requirement for a checked exception?",
+     "back": "A <code>try</code> that <b>catches</b> it, or a <code>throws</code> clause that <b>specifies</b> it",
+     "extra": "Code that does neither does not compile. <code>throws</code> declares the exception in the method signature; <code>try/catch</code> handles it locally. Only checked exceptions are subject to this requirement.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which exception category holds preventable conditions that a well-written app should <b>anticipate and recover from</b>?",
+     "back": "<b>Checked</b> exceptions (not Error or RuntimeException)",
+     "extra": "Example: <code>FileNotFoundException</code> from <code>new FileReader(name)</code>. The app should catch it and prompt the user for a corrected file name, which is exactly what the checked category exists for.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What kind of exceptions are <code>Error</code> and its subclasses?",
+     "back": "<b>Unchecked</b> - external, usually unrecoverable",
+     "extra": "Example: <code>IOError</code> after a hardware or system malfunction. An app may catch one to inform the user, but printing a stack trace and exiting is equally defensible.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "What kind of exceptions are <code>RuntimeException</code> and its subclasses?",
+     "back": "<b>Unchecked</b> - internal bugs, usually unrecoverable",
+     "extra": "Example: <code>NullPointerException</code> when a logic error passes null to <code>FileReader</code>. Catching is legal, but removing the bug is the usual answer.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "GitHub-style summary: which exceptions are <b>unchecked</b>?",
+     "back": "<code>Error</code> and <code>RuntimeException</code> and all their subclasses",
+     "extra": "Everything else extending <code>Throwable</code> is checked and must be caught or declared. This single rule is the whole of the catch-or-specify boundary.",
+     "tags": [
+      "type::rule"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/throwing/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "table",
+     "front": "Where does the <code>throws</code> clause go in a method declaration?",
+     "back": "After the <b>parameter list, before the body brace</b>",
+     "extra": "Form: <code>void writeList() throws IOException, IndexOutOfBoundsException { ... }</code>. The exceptions are a comma-separated list after the keyword <code>throws</code>.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Is listing an <b>unchecked</b> exception like <code>IndexOutOfBoundsException</code> in <code>throws</code> mandatory?",
+     "back": "<b>No</b> - it is optional documentation",
+     "extra": "Only checked exceptions must be declared. Naming an unchecked one is legal and can document intent, but omitting it does not break compilation.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What single argument does a <code>throw</code> statement take?",
+     "back": "A <b>throwable object</b>, i.e. any <code>Throwable</code> subclass instance",
+     "extra": "Form: <code>throw new EmptyStackException();</code>. The keyword is <code>throw</code> for throwing at runtime; <code>throws</code> is the declaration.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What are the two <b>direct</b> descendants of <code>Throwable</code>?",
+     "back": "<b><code>Error</code></b> and <b><code>Exception</code></b>",
+     "extra": "All throwable types sit somewhere under these two. Everything else, <code>RuntimeException</code> and <code>IOException</code> included, is an indirect descendant.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception class does the JVM throw on a dynamic linking or other hard VM failure?",
+     "back": "<code>Error</code> (e.g. <code>LinkageError</code>)",
+     "extra": "Simple programs typically neither catch nor throw <code>Error</code>. They signal problems external to the application that it usually cannot anticipate or recover from.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Throwable</code> methods support <b>chained exceptions</b>?",
+     "back": "<code>initCause(Throwable)</code> and <code>getCause()</code>",
+     "extra": "<code>getCause()</code> returns the exception that caused this one; <code>initCause()</code> sets it, and can be called only once. The <code>Throwable</code> constructors taking a cause do the same at construction time.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>stack trace</b>?",
+     "back": "The <b>execution history</b> of the current thread at throw time",
+     "extra": "It lists the classes and methods that were on the call stack, so you can see the path that led to the exception. Retrieve it with <code>getStackTrace()</code> to log in your own format.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "For a method that throws no checked exceptions, does its declaration need a <code>throws</code> clause?",
+     "back": "<b>No</b> - only uncaught checked exceptions must be declared",
+     "extra": "For example, a <code>pop()</code> throwing <code>EmptyStackException</code>, which is a RuntimeException, compiles without one.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Should you write your own exception class when your class throws <b>more than one related</b> exception?",
+     "back": "<b>Yes</b> - so callers can catch them with one handler",
+     "extra": "The article's test questions: no existing type fits, users need to tell your exceptions from other vendors', you throw several related ones, or users may not have access to the third-party exception types.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which superclass should a package's custom exception extend, if none of the specific subclasses fit?",
+     "back": "<b><code>Exception</code></b>",
+     "extra": "For a <code>LinkedListException</code>, both <code>RuntimeException</code> and more specific types are inappropriate, so the generic parent is <code>Exception</code>. By convention, names of Exception descendants end in the string Exception.",
+     "tags": [
+      "type::convention"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/unchecked-exception-controversy/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "rule",
+     "front": "Bottom line: when should an exception be <b>checked</b>?",
+     "back": "When a client <b>can reasonably recover</b> from it",
+     "extra": "Recoverable conditions (file not found, retryable I/O) belong in the checked family so the compiler forces callers to deal with them.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When should an exception be <b>unchecked</b>?",
+     "back": "When the client can do <b>nothing</b> to recover",
+     "extra": "Null dereferences, divide-by-zero and bad indexes are programming bugs. Forcing every caller to handle them would clutter the API without helping.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why are exceptions part of a method's <b>public API</b>?",
+     "back": "Callers must know what can be thrown to <b>decide how to handle</b> it",
+     "extra": "That is why checked exceptions must be declared: a method's throws clause is as much a part of its contract as its parameters and return type.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why does the compiler not require runtime exceptions to be caught or declared?",
+     "back": "They can happen <b>anywhere</b> and declaring them everywhere would obscure code",
+     "extra": "A typical program would list NullPointerException, ArithmeticException and IndexOutOfBoundsException on nearly every method, adding noise with no information.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When is it <b>common practice</b> to throw a RuntimeException deliberately?",
+     "back": "When a caller <b>used the method incorrectly</b>",
+     "extra": "E.g. rejecting an invalid null argument with <code>NullPointerException</code> or an unusable value with IllegalArgumentException. It marks a contract violation by the caller.",
+     "tags": [
+      "type::convention"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What does exception handling separate error-handling code from?",
+     "back": "The <b>main logic</b> of a program",
+     "extra": "The try block reads as the happy path and the catch blocks hold the exceptional path. Traditional error codes interleave detection and reporting with the main flow, producing spaghetti code.",
+     "tags": [
+      "type::mental-model"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "How do exceptions propagate up the call stack?",
+     "back": "A method <b>ducks</b> them and the runtime searches backward for a handler",
+     "extra": "Intermediate methods need no error-handling logic, but each that lets a checked exception through must still list it in its <code>throws</code> clause.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "table",
+     "front": "Which handler type catches every I/O exception regardless of subtype?",
+     "back": "A <b><code>catch (IOException e)</code></b>",
+     "extra": "<code>FileNotFoundException</code>, <code>EOFException</code> and the rest are subtypes of <code>IOException</code>, so one handler covers them. Query the caught object to learn the specific cause.",
+     "tags": [
+      "type::table"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>catch (Exception e)</code> usually a bad default?",
+     "back": "It is <b>too general</b> and can hide unanticipated exceptions",
+     "extra": "It also catches programming errors you never intended to handle, and the handler must accommodate any possibility. Catching <code>Exception</code> is fine when you just print and exit.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "source": "https://dev.java/learn/language/annotations-exceptions/exceptions/catching-handling/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::03-language-features",
+    "topic::01-exception-handling"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What must directly follow a <code>try</code> block's closing brace?",
+     "back": "A <code>catch</code> block - <b>no code in between</b>",
+     "extra": "Order matters: handlers are tested top to bottom, so a supertype first makes every subtype handler unreachable.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Catch order for <code>IOException</code> before <code>FileNotFoundException</code> - what does javac say?",
+     "back": "Compile error: the specific type is <b>already caught</b>",
+     "extra": "<code>FileNotFoundException</code> is a subtype of <code>IOException</code>, so the second handler can never run. Write the more specific type first.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "Which catch-block type must the handler's argument have?",
+     "back": "Any class that <b>inherits from <code>Throwable</code></b>",
+     "extra": "Unrelated types do not compile. The handler is invoked when the runtime object can legally be assigned to that parameter type.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What is the <b>multi-catch</b> syntax for two disjoint exception types?",
+     "back": "Types separated by <code>|</code>: <code>catch (A | B e)</code>",
+     "extra": "Available since Java SE 7 and it saves duplicating the handler body. Apart from the types joined by the pipe, it is an ordinary catch clause.",
+     "tags": [
+      "type::syntax"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In a multi-catch block, what modifier does the catch parameter implicitly get?",
+     "back": "<b><code>final</code></b>",
+     "extra": "You cannot reassign <code>ex</code> inside the block, because the variable stands for several possible exception objects. Assigning to it is a compile error.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "What constraint applies to the types listed in one multi-catch?",
+     "back": "They must be <b>disjoint</b> - none may extend another",
+     "extra": "Otherwise the error reads 'Types in multi-catch must be disjoint'. Keeping the types unrelated guarantees each alternative is reachable.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "When does the <code>finally</code> block run?",
+     "back": "Whenever the <code>try</code> block <b>exits</b>, normally or abruptly",
+     "extra": "So it runs after the try body finishes, after a matching catch runs, after a <code>return</code>, <code>break</code> or <code>continue</code>, and even after an uncaught exception propagates.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "When might <code>finally</code> <b>not</b> run at all?",
+     "back": "When the <b>JVM exits</b> during the <code>try</code> or <code>catch</code>",
+     "extra": "A call to <code>System.exit</code> stops the process before cleanup matters. Otherwise finally is guaranteed, which is why it is the place for releasing resources.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which exception propagates when both the <code>try</code> and its <code>finally</code> throw?",
+     "back": "The <b>finally</b> exception - the try one is discarded",
+     "extra": "Common when <code>close()</code> in finally fails. This is a strong argument for try-with-resources, which suppresses instead of discarding, so the original failure survives.",
+     "tags": [
+      "type::gotcha"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Which two interfaces mark a class as usable in try-with-resources?",
+     "back": "<code>AutoCloseable</code> and its sub-interface <code>Closeable</code>",
+     "extra": "<code>Closeable</code> is the older java.io one; its <code>close()</code> throws <code>IOException</code>, while <code>AutoCloseable.close()</code> declares <code>Exception</code>. Every Closeable is thus AutoCloseable.",
+     "tags": [
+      "type::definition"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "What state must a variable already have to be reused as a try-with-resources resource?",
+     "back": "It must be <b>final or effectively final</b> and assigned before the try",
+     "extra": "Resources declared inside the parentheses are implicitly final; the compiler adds the modifier for you. Either way the variable must implement <code>AutoCloseable</code>.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "rule",
+     "front": "In try-with-resources, if both the body and <code>close()</code> throw, which exception is propagated?",
+     "back": "The one from the <b>body</b> - close exceptions are <i>suppressed</i>",
+     "extra": "Retrieve them via <code>Throwable.getSuppressed()</code>. This reverses plain try/finally, where the close exception wins and the body exception is lost.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "In what order are the resources of a try-with-resources statement closed?",
+     "back": "The <b>opposite</b> order to their creation",
+     "extra": "<code>ZipFile</code> declared first and <code>BufferedWriter</code> second means BufferedWriter closes first. That mirrors nesting, so a resource is never closed while a resource depending on it is open.",
+     "tags": [
+      "type::rule"
+     ]
+    },
+    {
+     "type": "basic",
+     "front": "Does try-with-resources still allow <code>catch</code> and <code>finally</code> blocks?",
+     "back": "<b>Yes</b>, and they run <b>after</b> the resources are closed",
+     "extra": "So a failure in <code>close()</code> happens before your catch block sees the body's exception. The catch handles the primary exception, with close failures attached as suppressed.",
+     "tags": [
+      "type::gotcha"
+     ]
+    }
+   ]
+  }
+ ]
+}

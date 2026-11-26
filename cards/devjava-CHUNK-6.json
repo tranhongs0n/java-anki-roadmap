@@ -1,0 +1,2238 @@
+{
+ "source": "https://dev.java",
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/core/structure/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "In the JavaFX theater metaphor, name the container chain from window down to the rendered tree.",
+     "back": "<b>Stage</b> → <b>Scene</b> → scene graph",
+     "extra": "The platform builds the Stage (the window). You supply a Scene holding a root node, and that root anchors the tree of Nodes the runtime renders. The metaphor is stage, scene, cast.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "Which thread must construct and modify a JavaFX <code>Stage</code> and its scene objects?",
+     "back": "The <b>JavaFX Application Thread</b>",
+     "extra": "JavaFX, like Swing, is a single-threaded UI model. Long-running work belongs on background threads; only the code that touches the scene graph must run back on the FX thread, which is why JavaFX ships a concurrency API.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "How many parents may a JavaFX <code>Node</code> have, and how many scenes may it belong to?",
+     "back": "Exactly one parent; <b>one scene</b> at a time",
+     "extra": "Only the root node is parentless. A node participates in rendering only once added to the scene graph, and it cannot be in two scenes — you must remove it before adding it elsewhere.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "In JavaFX's 2D coordinate system, where is the origin and which way do the axes grow?",
+     "back": "Upper-left origin; <b>x grows right, y grows down</b>",
+     "extra": "JavaFX uses an absolute coordinate system plus local systems relative to each parent, both anchored at the parent's upper-left corner. A z-axis adds depth for 3D.",
+     "tags": [
+      "type::mental-model"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "What parent type manages children but provides <b>no</b> layout capability?",
+     "back": "<code>Group</code>",
+     "extra": "Group places every child at the origin (0,0) using default alignment — text is anchored at its bottom-left, shapes are centered — so content ends up clipped. Use layout panes instead and let them react to resizes.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "Which class is the entry point the JavaFX runtime instantiates and whose <code>start()</code> it invokes?",
+     "back": "A subclass of <code>javafx.application.Application</code>",
+     "extra": "The runtime constructs your Application subclass and the primary Stage, then calls your overridden start(Stage) — you never call main's logic yourself in a JavaFX app.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "AWT/Swing <code>Rectangle</code> and JavaFX <code>Rectangle</code> clash — what package rule keeps the imports straight?",
+     "back": "All JavaFX classes live under <b><code>javafx.*</code></b>",
+     "extra": "JavaFX shares many class names with AWT/Swing (Rectangle, Text, Button). Importing from javafx.scene.* avoids silently binding to the wrong widget.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "In JavaFX, what can a Shape's <code>fill</code> property be set to?",
+     "back": "A <b>Color</b>, linear/radial gradient, or image",
+     "extra": "Thankfully a shapes' fill is a Paint, so a gradient (built by interpolating color stops) or an image pattern can replace a flat Color.LIGHTBLUE.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "In JavaFX <code>Color</code> alpha, what do 1.0 and 0.0 mean?",
+     "back": "1.0 = <b>fully opaque</b>; 0.0 = fully transparent",
+     "extra": "Alpha is the fourth channel alongside red, green and blue. A value like 0.5 shows the color while letting whatever is behind it bleed through.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Text</code> add over a plain <code>Shape</code> in JavaFX?",
+     "back": "Font, text alignment, wrap width, and the string",
+     "extra": "Text extends Shape, so it inherits fill, stroke and effects, then adds text-specific properties. The constructor takes the string; setFont() picks the typeface.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "Which JavaFX layout control matches: \"stacks children back-to-front in insertion order, centered by default\"?",
+     "back": "<code>StackPane</code>",
+     "extra": "First child added is drawn first, so it sits behind later children — add the background shape before the label, or the shape hides it. Per-node alignment and margin can be set through the pane's static setters.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>FlowPane</code> vs <code>TilePane</code> — what is the difference in cell sizing?",
+     "back": "FlowPane: <b>variable</b> cells; TilePane: <b>equal</b> cells",
+     "extra": "Both wrap children along a configurable boundary (horizontal by default). FlowPane's cells follow node size, so mixed-size content flows naturally; TilePane forces a uniform grid.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "Which layout pane anchors children to a pane edge at a configurable pixel offset, surviving resizes?",
+     "back": "<code>AnchorPane</code>",
+     "extra": "You set an offset from each edge per child, and the pane re-applies those anchors when the container resizes — making it a common top-level manager for margins.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "What are the five named regions of a <code>BorderPane</code>?",
+     "back": "<b>Top, Bottom, Left, Right, Center</b>",
+     "extra": "Each region is optional. The center area defaults to center alignment while top defaults to left, so a centered title needs an explicit Pos.CENTER.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "What makes <code>GridPane</code> different from HBox/VBox?",
+     "back": "It lays out in a <b>2D grid</b> with row/column spans",
+     "extra": "Row height is uniform across a row and column width uniform across a column, but nodes may span several cells. Cells are addressed by column and row index, with optional span arguments.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "What special capability does <code>SplitPane</code> add over a plain pane?",
+     "back": "A <b>movable divider</b> between resizable areas",
+     "extra": "SplitPane carves its space into horizontally or vertically arranged areas separated by a draggable divider, and you usually nest other panes inside each area.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "Changing the <code>Scene</code>'s width/height or <code>fill</code> requires what constructor arguments?",
+     "back": "Root node, <b>width, height</b>, and an optional fill color",
+     "extra": "new Scene(root, 350, 230, Color.LIGHTYELLOW) — the root defines the scene graph, the dimensions set the viewport, and the third argument paints the background.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    },
+    {
+     "type": "basic",
+     "front": "What decides where a layout pane puts each child?",
+     "back": "The pane's own rules <b>plus your configured constraints</b>",
+     "extra": "Each pane type has a placement policy (stacking, grid cells, anchors, flow) and exposes per-pane and per-node settings — alignment, margin, span — that refine it.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/structure/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/core/properties/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "JavaFX property listeners: <b>invalidation</b> vs <b>change</b> — what does each provide?",
+     "back": "Invalidation: <b>notified, no values</b>; change: <b>old + new value</b>",
+     "extra": "An invalidation listener only learns the value went stale; it must read the property (or call the getter) to see the new value. A change listener is handed observable, oldValue and newValue, so it costs more to maintain.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "Why must an invalidation listener cast the <code>Observable</code> it receives?",
+     "back": "The parameter is <b>non-generic</b>",
+     "extra": "The listener signature hands you Observable, not ObservableValue<T>, so getting at the concrete value needs a downcast — or skip the observable entirely and call the property's getter such as getStatus().",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "After <code>a.bind(b)</code>, what happens if you call <code>a.set(...)</code>?",
+     "back": "It throws — a bound property <b>cannot be set</b>",
+     "extra": "You must unbind() first. The bound property is now driven by its source, so an explicit set would silently be overwritten or rejected.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>bind()</code> vs <code>bindBidirectional()</code> regarding explicit <code>set()</code> calls?",
+     "back": "bind(): setting fails; bindBidirectional(): <b>setting is allowed</b>",
+     "extra": "Unidirectional binding takes full control of the target. A bidirectional pair is a live two-way mirror, so either side may be set and the other follows.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "For <code>a.bindBidirectional(b)</code>, which side's value wins as the shared initial value?",
+     "back": "The value of the <b>argument</b>, i.e. <code>b</code>",
+     "extra": "Bidirectional binding is not symmetric at creation: both properties adopt the argument's current value, overwriting the receiver. That surprise is the most common bidirectional bug.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "Which property API converts a <code>double</code> property to a formatted <code>String</code> for display?",
+     "back": "<code>asString()</code> on the numeric binding",
+     "extra": "Fluent API methods like Bindings.format or DoubleBinding.asString(\"%.1f\") let a String-typed property such as text mirror a numeric one, with the number formatted to one decimal place.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "What three roles does a change listener's callback receive?",
+     "back": "<b>observable, oldValue, newValue</b>",
+     "extra": "Because change listeners are generic, the value parameters arrive correctly typed and need no cast — unlike the invalidation listener's raw Observable.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "What JavaFX mechanism links a property's value to one or more other properties without writing a listener?",
+     "back": "<b>Binding</b>",
+     "extra": "Bindings express 'this value is derived from those values' declaratively, so updates propagate automatically. When types differ or a computation is needed, the fluent/bindings APIs build the expression.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    },
+    {
+     "type": "basic",
+     "front": "Which observer is used to trigger logic when a <code>Transition</code> stops running?",
+     "back": "A <b>change listener</b> on <code>statusProperty()</code>",
+     "extra": "The status property is read-only and swings between RUNNING, PAUSED and STOPPED; a change listener can react to each transition, e.g. recoloring a label by state.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/properties/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/core/layout/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Why prefer a layout pane over placing nodes at fixed coordinates?",
+     "back": "The pane <b>re-arranges on resize</b>; coordinates don't",
+     "extra": "Coordinates stay where you put them, so resizing clips or uncenters content unless you write resize-handling code. A layout control responds to resizing, insertion/removal, and children changing size.",
+     "tags": [
+      "type::mental-model"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    },
+    {
+     "type": "basic",
+     "front": "Which two <code>ObservableList</code> methods add children to a layout pane's <code>getChildren()</code>?",
+     "back": "<code>add()</code> and <code>addAll()</code>",
+     "extra": "Some panes also expose specialised add helpers (GridPane by row/column, BorderPane by region), but every pane's children list accepts add/addAll directly.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>StackPane</code> children are added ellipse-then-text. Which is on top?",
+     "back": "The <b>text</b> — later children render in front",
+     "extra": "StackPane stacks from back to front in insertion order, so adding the shape first keeps it behind and visible; reversing the order would let the ellipse hide the text.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    },
+    {
+     "type": "basic",
+     "front": "In a <code>StackPane</code>, per-node alignment vs pane-wide alignment?",
+     "back": "Per-node: <code>setAlignment(node, pos)</code>; pane-wide: <code>setAlignment(pos)</code>",
+     "extra": "Overriding one child's alignment leaves siblings where the pane default puts them, e.g. a bottom-anchored label over a still-centered shape.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    },
+    {
+     "type": "basic",
+     "front": "In <code>BorderPane</code>, what does <code>setMargin(node, insets)</code> do?",
+     "back": "Adds <b>space around one node</b> inside its region",
+     "extra": "Insets are given as top, right, bottom, left. Margins are the counterpart to the pane's own padding and apply to any layout pane via the same static method.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>SplitPane</code> divide its space into?",
+     "back": "Resizable areas split by a <b>draggable divider</b>",
+     "extra": "Orientation is horizontal or vertical; each area typically hosts another layout pane. Users drag the divider to rebalance the areas at runtime.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    },
+    {
+     "type": "basic",
+     "front": "Which layout pane gives a fixed single-direction row or column of children?",
+     "back": "<code>HBox</code> (row) / <code>VBox</code> (column)",
+     "extra": "Nesting one inside the other yields a grid-like structure without GridPane's cell model — a VBox of HBoxes is a common form layout.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/layout/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/core/effects/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does a linear gradient <code>Stop</code> consist of?",
+     "back": "A <b>color plus an offset in 0..1</b>",
+     "extra": "The offset positions the color along the gradient axis. JavaFX interpolates proportionally between neighbouring stops, which is how a three-stop blue→lightblue→green wash is built.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>new LinearGradient(...)</code> takes an x-range then a y-range. Which combination makes a <b>vertical</b> gradient?",
+     "back": "Constant x, <b>varying y</b>",
+     "extra": "Varying x with constant y gives a horizontal gradient; varying both gives a diagonal one. Reversing either range flips the color order.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "The <code>proportional</code> boolean of a gradient — what does <code>true</code> mean?",
+     "back": "Gradient coordinates are <b>relative to the shape</b> (0..1)",
+     "extra": "With true, 0 and 1 map to the shape's own edges, so the gradient stretches to fit. With false, the values are absolute in the parent's local coordinate system.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>CycleMethod</code> of a gradient control?",
+     "back": "Whether the pattern <b>repeats</b> (NO_CYCLE, REFLECT, REPEAT)",
+     "extra": "NO_CYCLE paints the stop pattern once and clamps beyond it. REFLECT and REPEAT tile it, which is why CycleMethod sits beside the proportional flag in the constructor.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "What parameters define a <code>DropShadow</code>, and what do the x/y offsets simulate?",
+     "back": "Color, radius, and x/y offsets — simulating a <b>light source direction</b>",
+     "extra": "Offsets place the shadow relative to the shape's outer edge. Positive x and y shift it right and down, i.e. light from the upper left; zero offsets wrap the shadow evenly around the shape.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>Reflection</code> effect do, and what is its <code>fraction</code>?",
+     "back": "Mirrors the child downward, fading out; fraction = <b>reflect height share</b>",
+     "extra": "A fraction of 0.8 reflects eight-tenths of the component's height. Top and bottom opacity set the fade, and the offset sets how many pixels below the shape the mirror starts.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "A click handler is attached to the front <code>Text</code> of a <code>StackPane</code>. The user clicks the ellipse behind it — does the handler fire?",
+     "back": "No — they are <b>sibling leaf nodes</b>, not nested",
+     "extra": "Though they visually overlap, the ellipse is not a child of the text, so events don't bubble through it. Attach handlers to both, or once to the StackPane to catch any click inside.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>ParallelTransition</code> vs <code>SequentialTransition</code>?",
+     "back": "Parallel runs animations <b>at once</b>; Sequential <b>one after another</b>",
+     "extra": "Sequential chains each child's end to the next one's start, so total time is the sum. Parallel overlaps them, so total time is the longest child's duration.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>play()</code> vs <code>playFromStart()</code> on a paused transition?",
+     "back": "play() <b>resumes</b> from current time; playFromStart() restarts at 0",
+     "extra": "That distinction makes a pause/resume toggle work: pause() then play() continues where it stopped, whereas playFromStart() jumps back to the beginning.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "What are the three values of <code>Animation.Status</code>?",
+     "back": "<b>RUNNING, PAUSED, STOPPED</b>",
+     "extra": "getStatus() returns them, and the read-only status property fires change events as the animation crosses between them — handy for driving UI state.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>autoReverse</code> do to a transition?",
+     "back": "Plays the animation <b>backwards on alternating cycles</b>",
+     "extra": "Combined with cycleCount it produces a there-and-back-again loop: cycle 1 forward, cycle 2 in reverse, and so on, instead of snapping back to the start.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>RotateTransition</code> modify on a node, and in what unit?",
+     "back": "The <code>rotate</code> property, in <b>degrees</b>",
+     "extra": "A 0→360 rotation over 2500 ms is one full turn. Because the property lives on the node, it affects the node's children and its effects too.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "Applying a transition to a parent <code>StackPane</code> — what else moves besides its children?",
+     "back": "Everything drawn with the node, including its <b>effects</b>",
+     "extra": "Effects such as drop shadow and reflection are rendered as part of that node, so rotating or translating the parent carries them along, which keeps the visual coherent.",
+     "tags": [
+      "type::mental-model"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    },
+    {
+     "type": "basic",
+     "front": "Which JavaFX class schedules per-frame work and is the lowest-level animation tool?",
+     "back": "<code>AnimationTimer</code>",
+     "extra": "Its handle(long now) runs once per frame on the JavaFX Application Thread, giving frame-accurate control that transitions and timelines do not. Remember to call stop() to end it.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/effects/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/core/fxml/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is FXML?",
+     "back": "An <b>XML</b> markup language for declaring JavaFX scene graphs",
+     "extra": "Instead of building nodes in Java, you describe the hierarchy declaratively, which mirrors the scene graph's own tree and keeps view code separate from behaviour.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "Which class parses an FXML file and builds the scene graph?",
+     "back": "<code>FXMLLoader</code>",
+     "extra": "The loader instantiates the elements, wires attributes and events, and returns the root node, which the application then wraps in a Scene. Each FXML file is usually paired with one controller class.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "Which FXML attribute names the controller class for a view?",
+     "back": "<code>fx:controller</code>",
+     "extra": "It is set on the top-level (root) element. The loader instantiates that class and injects fields or event handlers marked with @FXML.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "How does a controller class access a node declared in FXML?",
+     "back": "A field annotated <code>@FXML</code> with the name from <code>fx:id</code>",
+     "extra": "The name must match exactly; a typo leaves the field null at runtime with no compile error. The loader performs the injection after constructing the controller.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "How does an FXML attribute point an event at a controller method?",
+     "back": "<code>onXxx=\"#methodName\"</code>",
+     "extra": "For example onMouseClicked=\"#handleMouseClick\". The method must be accessible to the loader and annotated @FXML; the leading # marks it as a controller method reference.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "Which interface lets a controller run setup code after FXML injection?",
+     "back": "<code>Initializable</code> with its <code>initialize()</code>",
+     "extra": "The loader calls initialize() once the @FXML fields are populated, making it the right place for bindings, listeners, and configuring objects the FXML did not create.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the one @FXML node that is not required to have an <code>fx:id</code>?",
+     "back": "A node the controller <b>never accesses</b>",
+     "extra": "Leave fx:id off children the controller doesn't touch — for example decorative shapes inside a pane. Only nodes referenced in Java need the attribute.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the name of the default JavaFX stylesheet?",
+     "back": "<code>Modena.css</code>",
+     "extra": "It ships inside the platform's runtime JAR and supplies the default look. Custom stylesheets can be added to the scene's stylesheets list to augment or override it.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>Scene</code> list accepts stylesheets at runtime?",
+     "back": "<code>scene.getStylesheets()</code>",
+     "extra": "Adding a file URL there applies its style classes to the whole scene. You then call getStyleClass().add(...) on individual nodes to attach a class.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "Which node method applies a CSS style class defined in a stylesheet?",
+     "back": "<code>getStyleClass().add(\"myclass\")</code>",
+     "extra": "The class name must match the selector in the CSS without the dot. Multiple classes can be attached, and the most specific selector wins, much like the web.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "Declaring the stylesheet in FXML rather than in <code>start()</code> — what is the benefit?",
+     "back": "Styles appear <b>inside Scene Builder</b>",
+     "extra": "Loading the CSS from the FXML file makes the designer render with those styles, so the visual preview matches the running app instead of showing unstyled defaults.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "What kind of tool is Scene Builder?",
+     "back": "A <b>stand-alone drag-and-drop</b> JavaFX UI designer",
+     "extra": "It renders the scene visually and generates FXML, with an inspector for properties, layout and event handlers. It started at Oracle and is now open source, distributed by Gluon.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    },
+    {
+     "type": "basic",
+     "front": "What architectural pattern does separating FXML (view) from a controller class promote?",
+     "back": "<b>Model-View-Controller</b> (MVC)",
+     "extra": "FXML holds structure, the controller holds behaviour, and the model holds data and business logic — which keeps larger interfaces maintainable and testable.",
+     "tags": [
+      "type::mental-model"
+     ],
+     "source": "https://dev.java/learn/javafx/core/fxml/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/install/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "How does a JavaFX release relate to a JDK release version-wise?",
+     "back": "Pair <b>the same major version</b> (JavaFX 21 → JDK 21)",
+     "extra": "JavaFX is a standalone component layered on the JDK, so pick a JDK the chosen JavaFX version supports. Newer JavaFX releases set a minimum JDK — e.g. JavaFX 26 needs JDK 24+.",
+     "tags": [
+      "type::mental-model"
+     ],
+     "source": "https://dev.java/learn/javafx/install/"
+    },
+    {
+     "type": "basic",
+     "front": "How is JavaFX distributed — is it part of the JDK?",
+     "back": "No — it's a <b>standalone SDK</b> with jmod files",
+     "extra": "Since Oracle removed it from the JDK, you download a JavaFX SDK archive (or jmods) separately and point the launcher at it. Licensing is GPL v2 with the Classpath Exception.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/install/"
+    },
+    {
+     "type": "basic",
+     "front": "Which JavaFX module must be added to compile a basic Controls application?",
+     "back": "<code>javafx.controls</code>",
+     "extra": "It transitively pulls in javafx.graphics, so listing controls alone resolves the graphics dependency. Add it to both the javac and java invocations via --module-path and --add-modules.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/install/"
+    },
+    {
+     "type": "basic",
+     "front": "Which additional module do you need when the UI uses FXML?",
+     "back": "<code>javafx.fxml</code>",
+     "extra": "Add it to both the compile and run command lines alongside javafx.controls. Without it the loader class is missing at runtime, not at compile time in every case.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/javafx/install/"
+    },
+    {
+     "type": "basic",
+     "front": "What do the jmod files in a JavaFX archive let you do with <code>jlink</code>?",
+     "back": "Build a <b>custom runtime image</b> bundling JavaFX",
+     "extra": "Use the jmods on the jlink module path to link a trimmed JDK that already contains the JavaFX modules (and optionally your app). Your project must then be modular, with module-info.java requiring them.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/install/"
+    },
+    {
+     "type": "basic",
+     "front": "Since JDK 24 (JEP 472), what must JavaFX apps do about native access?",
+     "back": "<b>Enable native access explicitly</b> at startup",
+     "extra": "Three JavaFX modules (javafx.graphics, media, web) load native libraries. Relying on the default is deprecated and emits warnings; --enable-native-access makes the intent explicit and future-proofs the run.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/install/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::01 JavaFX Core",
+   "source": "https://dev.java/learn/javafx/javafx-animations/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::01-javafx-core"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What interface does the JavaFX animation framework manipulate values through?",
+     "back": "<code>WritableValue&lt;T&gt;</code>",
+     "extra": "A WritableValue is anything with a readable, settable value. Because node properties implement it, animations can drive width, opacity, translateX and similar properties uniformly.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Can <code>Animation</code> be extended directly?",
+     "back": "No — extend <code>Transition</code> or <code>Timeline</code>",
+     "extra": "Animation is abstract and holds shared machinery: rate, cycleCount, delay, status and the play/pause/stop controls. Its two concrete families cover preset effects and free-form keyframes.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What does an Animation's <code>rate</code> property control?",
+     "back": "The <b>direction and speed</b> of playback",
+     "extra": "A rate of 2 plays twice as fast, 0.5 at half speed, and a negative rate plays backwards. It pairs with targetFramerate, which caps how many frames per second are rendered.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the relationship between <code>cycleDuration</code> and <code>totalDuration</code>?",
+     "back": "totalDuration = <b>cycleDuration × cycleCount</b>",
+     "extra": "cycleDuration is one pass from start to end at rate 1.0. totalDuration includes the repeats, or is Duration.INDEFINITE for a looping animation.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Which property must be positive and cannot change while an animation runs?",
+     "back": "<code>cycleCount</code>",
+     "extra": "Changing the repeat count mid-run has no defined meaning, so the framework forbids it. Stop the animation and set it, then play again.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Which transition animates opacity, and what does it interpolate?",
+     "back": "<code>FadeTransition</code> — the <b>opacity</b> property",
+     "extra": "It steps opacity from 1 (opaque) to 0 (transparent) over the duration, at each frame. Fading out to 0 and back in is the standard way to reveal UI.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Which transition changes a shape's fill color over time?",
+     "back": "<code>FillTransition</code> (Shape's <code>fill</code>)",
+     "extra": "Use StrokeTransition for the outline instead. Both operate on Shape, whereas the generic node transitions work on any Node.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Which transition moves a node along a predefined path built from shapes?",
+     "back": "<code>PathTransition</code>",
+     "extra": "It updates translateX/translateY along the path, and can also rotate the node when orientation is set to ORTHOGONAL_TO_TANGENT so the node turns with the curve.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Which transition animates <code>scaleX</code>, <code>scaleY</code>, <code>scaleZ</code>?",
+     "back": "<code>ScaleTransition</code>",
+     "extra": "Scaling above 1.0 enlarges and below 1.0 shrinks, pivoting around the node's center unless the pivot is changed. Pair it with rotate for a pop effect.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "In a <code>SequentialTransition</code>, what does an <code>INDEFINITE</code> child do?",
+     "back": "<b>Blocks</b> every later animation in the sequence",
+     "extra": "The sequence never reaches the next child, so any following step silently never runs. Only the final child may be indefinite.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What is a <code>PauseTransition</code> used for?",
+     "back": "A <b>delay with no property change</b>",
+     "extra": "It occupies time in a sequential chain so a later animation starts after a wait. A child transition with no node of its own inherits its parent's node.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "When you set a Node on a <code>SequentialTransition</code>, what happens to children without one?",
+     "back": "They <b>implicitly inherit</b> the parent's node",
+     "extra": "That means you can build a multi-step animation over one node and set its node only once, on the parent transition.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>Timeline</code> hold, and why choose it over transitions?",
+     "back": "A series of <b>KeyFrames</b> over any WritableValue",
+     "extra": "Use a Timeline when no built-in transition targets the properties you need, or when the animation does not follow a simple from-to shape. It offers more control at the cost of more verbosity.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What memory risk does an <b>infinite</b> <code>Timeline</code> create?",
+     "back": "Animated objects are <b>never garbage collected</b>",
+     "extra": "The FX runtime holds a reference to a running Timeline, so an indefinite one keeps its targets alive. Call stop() when the animation is no longer needed.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>KeyFrame</code> contain?",
+     "back": "A time (cue point) and a set of <b>KeyValues</b>",
+     "extra": "Each KeyValue maps one WritableValue to its target value at that moment. A named KeyFrame can be jumped to with playFrom(name) and can run an onFinished handler.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What does a <code>KeyValue</code> bind together?",
+     "back": "One <b>WritableValue&lt;T&gt;</b> and its target value of type T",
+     "extra": "An optional Interpolator sets the rate of change for that value. KeyValue instances are immutable, so you create a new one to change the target.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>Interpolator.LINEAR</code> vs <code>DISCRETE</code> — how do they differ?",
+     "back": "LINEAR: <b>constant rate</b>; DISCRETE: <b>instant jumps</b>",
+     "extra": "Discrete holds each value until the next one and then snaps, with no intermediate frames. Linear moves at an unchanging pace across the whole interval.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "Which interpolator do JavaFX transitions use by default?",
+     "back": "<code>Interpolator.EASE_BOTH</code>",
+     "extra": "It starts slowly, speeds up in the middle and slows at the end. The exception is ParallelTransition and SequentialTransition, which have no single interpolation of their own.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the signature of <code>AnimationTimer</code>'s per-frame method, and in what unit is <code>now</code>?",
+     "back": "<code>handle(long now)</code>, in <b>nanoseconds</b>",
+     "extra": "It is called every frame while active, and all AnimationTimers invoked in that frame receive the same timestamp. start() and stop() manage its lifetime.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    },
+    {
+     "type": "basic",
+     "front": "To sustain 30 fps, how much time can a JavaFX frame take in total?",
+     "back": "About <b>33 ms</b> per frame",
+     "extra": "1000 ms ÷ 30 ≈ 33.3 ms. The handle() method runs on the JavaFX Application Thread, so blocking or heavy work there directly causes dropped frames.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/javafx-animations/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::02 JavaFX Accessibility",
+   "source": "https://dev.java/learn/javafx/a11y/intro/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::02-javafx-accessibility"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "In JavaFX, which property tells assistive technology <b>what kind</b> of control a node is?",
+     "back": "<code>accessibleRole</code> (an <code>AccessibleRole</code> enum)",
+     "extra": "It is an enumeration property on Node. Built-in controls such as Button and TextField already set theirs; only custom elements need you to assign one explicitly.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "Which JavaFX controls need no manual <code>accessibleRole</code>?",
+     "back": "The <b>built-in</b> ones (Button, TextField, Slider…)",
+     "extra": "The platform already declares their roles, so overriding is only for refinement. Custom nodes must choose the closest matching AccessibleRole or screen readers see nothing meaningful.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "Why does <code>accessibleRoleDescription</code> exist if roles already carry meaning?",
+     "back": "The enum has <b>no user-defined roles</b> — this refines one",
+     "extra": "You keep a valid standard role but describe it more precisely. Leave it null (the built-in default) and the screen reader announces the platform's native description.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "Which Node property specifies the text a screen reader <b>speaks as the node's content</b>?",
+     "back": "<code>accessibleText</code>",
+     "extra": "It defaults to null on built-in controls, which then derive their spoken content from the control (a button's label). Set it to say something the visual label cannot, like a field's expected format.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "Which Node property supplies a <b>longer explanation</b> of how a control works?",
+     "back": "<code>accessibleHelp</code>",
+     "extra": "Use it when the label alone is ambiguous. If it is unset and the node has a tooltip, the tooltip text is handed to the screen reader as the help instead.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "<code>accessibleHelp</code> is null and the node has a tooltip — what does the screen reader receive?",
+     "back": "The <b>tooltip text</b> as help",
+     "extra": "That fallback means an existing tooltip silently doubles as accessibility help, which is convenient but can leak inappropriate phrasing into the spoken help.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>Label.labelFor</code> connect?",
+     "back": "A label to the <b>control it describes</b>",
+     "extra": "Setting it makes the screen reader announce the label text together with the control, which is how form fields become self-describing. Default is null.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "How does JavaFX store accessibility information?",
+     "back": "In the <b>scene graph itself</b>, no shadow tree",
+     "extra": "There is no parallel accessibility hierarchy to keep in sync, so CSS and FXML can describe accessible properties like any other. That avoids duplicated data and stale copies.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "When does JavaFX activate its accessibility machinery?",
+     "back": "Only when a <b>screen reader is active</b>",
+     "extra": "Keeping the mechanism dormant otherwise holds runtime overhead low. Apps can observe activation through Platform.accessibilityActiveProperty.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    },
+    {
+     "type": "basic",
+     "front": "What is software accessibility?",
+     "back": "Design so software is usable <b>with disabilities</b>",
+     "extra": "It covers visual, auditory, motor and cognitive needs — screen readers, keyboard-only use, high contrast, zoom. The platform exposes semantics; the application must supply the meaning.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/intro/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::02 JavaFX Accessibility",
+   "source": "https://dev.java/learn/javafx/a11y/example/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::02-javafx-accessibility"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Where should accessibility metadata for a form be attached in an FXML/CSS/controller app?",
+     "back": "In the <b>controller</b>, near the behaviour",
+     "extra": "The controller already owns interaction, so keeping accessibleText, accessibleHelp and tooltips there keeps visual and non-visual guidance aligned as the UI evolves.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "Tooltip vs <code>accessibleHelp</code> — who each is for?",
+     "back": "Tooltip: <b>pointer</b> users; accessibleHelp: <b>screen readers</b>",
+     "extra": "A tooltip shows on hover and is mouse-centric; accessibleHelp is spoken context for assistive tech. Providing both near each other keeps them from contradicting each other.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "A custom <code>Rectangle</code> acting as a preview slider indicator — what is it to a screen reader?",
+     "back": "A <b>meaningless shape</b> unless given semantics",
+     "extra": "Sighteds infer meaning from context; the reader gets nothing. Assign a role, a role description, accessible text and accessible help so the shape carries the same meaning.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>setFocusTraversable(true)</code> do for a custom node?",
+     "back": "Puts it in the <b>Tab traversal order</b>",
+     "extra": "Without it, keyboard users cannot reach the node at all, even if it handles keys. Also needs a key handler, because custom nodes do not inherit control behaviour.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "Why split normal and high-contrast styling into two stylesheets?",
+     "back": "Themes switch by <b>swapping stylesheets</b> at runtime",
+     "extra": "The controller reacts to the checkbox by adding or removing high-contrast.css; it never knows color values. CSS remains the single source of truth for appearance.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "In <code>module-info.java</code>, which directive lets the FXML loader reach controller fields?",
+     "back": "<code>opens ... to javafx.fxml</code>",
+     "extra": "FXML injects @FXML fields and calls handler methods reflectively, so the package must be open to javafx.fxml specifically. Without it loading fails at runtime.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "Which shortcuts and handlers must a custom interactive node get that standard controls already have?",
+     "back": "Focus traversal <b>plus a key handler</b>",
+     "extra": "Built-in controls arrive with keyboard behaviour; a custom node does not. If it matters to the user, key handling must be added deliberately.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "When UI state changes visually, what else should change?",
+     "back": "The <b>accessible text</b> alongside",
+     "extra": "A status label that only updates its pixels leaves the reader stale. Update accessibleText in the same code path as the visible change.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "Package name, <code>fx:controller</code> value and FXML/CSS resource paths must all agree on what?",
+     "back": "The same <b>package structure</b>",
+     "extra": "A mismatch doesn't fail at compile time; the loader throws at runtime. Aligning them keeps resource lookup predictable as the project grows.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "Which action gets a keyboard accelerator in the accessible form example, and why?",
+     "back": "<b>Ctrl+S</b> for save — keyboard-only workflows",
+     "extra": "Accelerators give efficient keyboard-only operation to users who cannot use a mouse. Custom keyboard access on nodes plus shortcuts on actions cover both.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    },
+    {
+     "type": "basic",
+     "front": "Why declare dependencies in a module descriptor for an FXML app?",
+     "back": "Explicit <code>requires</code> + <code>opens</code> boundaries",
+     "extra": "Spelling out requires javafx.controls and javafx.fxml (and opening the controller package) makes FXML loading and controller access predictable, and enforces architecture as the app grows.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/example/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::14 JavaFX::02 JavaFX Accessibility",
+   "source": "https://dev.java/learn/javafx/a11y/advanced/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::14-javafx",
+    "topic::02-javafx-accessibility"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which three accessibility members are defined on <code>javafx.scene.Node</code> for talking to a screen reader?",
+     "back": "<code>queryAccessibleAttribute</code>, <code>executeAccessibleAction</code>, <code>notifyAccessibleAttributeChanged</code>",
+     "extra": "The first two are overridden by your control to answer queries and perform actions. The third is called by your code to announce a change. Controls, shapes and canvas share them.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Who calls <code>queryAccessibleAttribute</code>?",
+     "back": "The <b>JavaFX accessibility bridge</b>",
+     "extra": "It fires when assistive technology asks about the node; your override returns the requested information. Handle unknown attributes by delegating to super so default behaviour survives.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Who calls <code>notifyAccessibleAttributeChanged</code>?",
+     "back": "<b>Your code</b>, after changing a value",
+     "extra": "It tells the bridge that a value the screen reader may have cached is stale, so the tool can re-query it. Whereever the change originates, one call in the setter covers every input path.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "In an <code>executeAccessibleAction</code> override, what must you do for actions you do not handle?",
+     "back": "Delegate to <code>super</code>",
+     "extra": "The Node contract requires superclass delegation for unhandled queries and actions, so generic behaviour such as focus handling keeps working. Swallow them and the control seems broken to assistive tech.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>AccessibleAttribute</code> name?",
+     "back": "A <b>piece of information</b> about a node (TEXT, SELECTED…)",
+     "extra": "The bridge passes one when querying; your override switches on it and returns the matching value. Some attributes take parameters, e.g. an item lookup needs an index.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>AccessibleAction</code> name?",
+     "back": "An <b>operation</b> requested by assistive tech (FIRE, EXPAND…)",
+     "extra": "It is the input side, the counterpart to queryable attributes. Your override performs the action against the control's existing state.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "What determines which attributes and actions a node must support?",
+     "back": "Its <code>AccessibleRole</code>",
+     "extra": "Pick the role that matches the interaction, then implement the attributes and actions that role documents. The role is the contract, not an arbitrary label.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "A toggleable seat should use which role, with which attributes and action?",
+     "back": "<code>TOGGLE_BUTTON</code>: TEXT, SELECTED, FIRE",
+     "extra": "SELECTED exposes on/off state, TEXT gives the reader its name, and FIRE is the activation the screen reader sends. The same role also tells the reader it toggles.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Where should an accessibility action apply selection rules?",
+     "back": "Inside <code>executeAccessibleAction</code>, <b>before</b> changing state",
+     "extra": "Reject unavailable or disabled elements exactly as mouse and keyboard paths do. Otherwise a screen reader could bypass a rule that visual input cannot.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Where should <code>notifyAccessibleAttributeChanged</code> be called for a selection change?",
+     "back": "Inside the <b>setter</b> (<code>setSelected()</code>)",
+     "extra": "Placing it there covers clicks, Space/Enter, accessibility actions and a Clear button alike. One notification point, no path forgotten.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Which API reports whether accessibility is active, and which property can you bind to?",
+     "back": "<code>Platform.isAccessibilityActive</code> / <code>Platform.accessibilityActiveProperty</code>",
+     "extra": "Bind UI that only helps assistive tech — like a copyable summary — to the property so it appears the moment a screen reader starts, not at launch.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>AccessibleAttribute.DISABLED</code> query report?",
+     "back": "Whether the node is <b>unavailable or disabled</b>",
+     "extra": "Return true when the element cannot be operated, so the reader announces it as such. In the seat map that is an occupied seat or a disabled node.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Why keep unavailable elements focusable in a custom control?",
+     "back": "So keyboard users can <b>inspect</b> location and status",
+     "extra": "Focus and selection are separate: arrow keys move focus without selecting, and the reader announces why the element cannot be chosen. Defensive skipping hides information.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    },
+    {
+     "type": "basic",
+     "front": "Reading accessibility information must have what side effect?",
+     "back": "<b>None</b> — no selection, no focus movement",
+     "extra": "Queries are pure reads. If querying mutates state, a screen reader merely browsing the map would select seats, which is a serious usability bug.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::01 First Java Code",
+   "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::01-first-java-code"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does the <code>javac</code> compiler turn a <code>.java</code> file into?",
+     "back": "<b>Bytecode</b> (a <code>.class</code> file)",
+     "extra": "Bytecode is binary aimed at the JVM instruction set, not at your CPU, which is why one compiled artifact runs on any machine with a suitable JVM.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "cloze",
+     "text": "A {{c1::public}} top-level class must live in a file named after it, with the {{c2::.java}} extension.",
+     "extra": "The compiler enforces the public-class rule, case included; a non-public class may use any legal file name. Plain text only — smart quotes from a word processor break compilation.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "What case convention applies to Java source file names?",
+     "back": "Start with a <b>capital letter</b> (matching the class)",
+     "extra": "It is not enforced by the compiler beyond the public-class rule, but every convention follows it. The first character should be a letter; a word processor's smart quotes will break the file.",
+     "tags": [
+      "type::convention"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the exact signature of the <code>main</code> method the launcher looks for?",
+     "back": "<code>public static void main(String[] args)</code>",
+     "extra": "Public so the launcher can call it, static so no instance is needed, void because there is no return value, and a String array parameter — the entry point Java starts from.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the <code>JAVA_HOME</code> environment variable meant to point to?",
+     "back": "The <b>root directory of the JDK</b>",
+     "extra": "Tools and build systems read it to locate the JDK; <code>bin</code> is appended to find javac and java. <code>PATH</code> is separate — it must contain that bin directory for the bare commands to resolve.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "JDK vs JRE — what can the JRE not do?",
+     "back": "The JRE <b>cannot compile</b> — runtime only",
+     "extra": "The JRE held the JVM and libraries needed to run an app but had no compiler. It is no longer distributed by OpenJDK or Oracle, so downloading 'Java' today means the JDK.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "What does the error telling you the launcher cannot find <code>MyFirstJavaApp</code> usually mean?",
+     "back": "The <code>.java</code> suffix was omitted",
+     "extra": "The source-launcher form is <code>java MyFirstJavaApp.java</code>. Dropping the extension makes the launcher look for a compiled class with that name instead.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "Syntax error vs semantic error at compile time — give the classic trigger of each?",
+     "back": "Syntax: <b>missing semicolon</b>; semantic: <b>uninitialised variable</b>",
+     "extra": "The parser rejects malformed code and reports line and column. Past parsing, the compiler still checks correctness — like definite assignment — and refuses to compile.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "Since which Java SE version can the <code>java</code> launcher run a <code>.java</code> file without a separate compile step?",
+     "back": "Java SE <b>11</b> (single-file source launching)",
+     "extra": "The launcher compiles in memory and runs the result, collapsing the two steps. From Java SE 22 it can also resolve a program spread over several source files.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "What kind of files does the JDK's compiler produce, and are they human-readable?",
+     "back": "Binary <b><code>.class</code></b> files — not readable",
+     "extra": "Source is written for people; class files are for the machine. javac performs the transformation, and a source error prevents any class file being written.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "Which two tools from the JDK perform compilation and execution respectively?",
+     "back": "<code>javac</code> compiles; <code>java</code> runs",
+     "extra": "javac turns source into class files; the java launcher starts the JVM with those classes. Both live in the JDK's bin directory, which must be on PATH.",
+     "tags": [
+      "type::mental-model"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    },
+    {
+     "type": "basic",
+     "front": "When you set <code>JAVA_HOME</code> and <code>PATH</code> in a shell, what happens on closing it?",
+     "back": "The variables <b>are lost</b> with the shell",
+     "extra": "Shell environment changes are per-session; a new terminal starts clean. Make them persistent by editing the shell profile, not by retyping them in each window.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::01 First Java Code",
+   "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::01-first-java-code"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>jshell</code> stand for in practice — what loop does it run?",
+     "back": "A <b>read-eval-print loop (REPL)</b>",
+     "extra": "It reads a snippet, evaluates it, prints the result, and repeats — ideal for learning syntax, probing APIs, and prototyping before writing a class.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "What does jshell do with a snippet that is missing its terminating semicolon?",
+     "back": "It <b>adds the semicolon automatically</b>",
+     "extra": "A complete snippet is evaluated once the input reads as finished; the tool appends the missing terminator so quick prototyping stays frictionless.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "In jshell, what does the <code>/vars</code> command list?",
+     "back": "Name, type and value of <b>variables</b>",
+     "extra": "Siblings exist for other snippet kinds: /methods for methods, /types for classes and interfaces, /list for all snippets with their IDs.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command shows every snippet with its ID, including failed and dropped ones?",
+     "back": "<code>/list -all</code>",
+     "extra": "Startup snippets get IDs beginning with <code>s</code> and failed snippets IDs beginning with <code>e</code>. Without -all only active snippets are shown.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "How do you drop a snippet in jshell, and what does dropping do?",
+     "back": "<code>/drop id</code> — makes it <b>inactive</b>",
+     "extra": "You can pass a name, an ID or an ID range with a hyphen. Dependencies on dropped snippets become invalid, which usually surfaces immediately as an error.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "jshell <code>/reset</code> vs <code>/reload</code>?",
+     "back": "/reset: <b>history not replayed</b>; /reload: history replayed",
+     "extra": "Reset discards all entered code. Reload restarts the session, reruns startup scripts, and silently replays the valid history, so prior work survives a restart.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "What does the <code>/save</code> command write, and where?",
+     "back": "Snippets and commands → a <b>file</b>",
+     "extra": "By default active snippets are saved; -all includes startup, failed and overwritten ones, and -history saves the sequential input log. The file can later be loaded with /open.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which predefined jshell script defines <code>print</code>, <code>println</code> and <code>printf</code> as methods?",
+     "back": "<code>PRINTING</code>",
+     "extra": "DEFAULT loads common imports, JAVASE imports every Java SE package, and TOOLING defines methods to drive javac, jar and friends from inside the shell.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which <code>/exit</code> argument supplies the process exit status?",
+     "back": "An <b>integer expression</b> snippet",
+     "extra": "With no argument the status is 0. If the snippet's result is not an integer or errors, the tool reports it and stays open — useful for scripting jshell in pipelines.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell feedback modes exist, and which is the default?",
+     "back": "verbose, normal, concise, silent, custom — default <b>normal</b>",
+     "extra": "Switch at startup with --feedback or -v/-q/-s, or inside a session with /set feedback. Errors are reported in every mode.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which flag makes jshell read from standard input, fitting into a pipe chain?",
+     "back": "A hyphen (<code>-</code>) in place of load-files",
+     "extra": "That suppresses interactive I/O. It turns jshell into a filter, so a stream of statements can be piped in and its results examined.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which keystroke converts an expression into a variable declaration of the inferred type?",
+     "back": "<b>Shift+V</b>",
+     "extra": "Shift+M converts an expression or statement into a method declaration, and Shift+I offers imports for an identifier that does not resolve.",
+     "tags": [
+      "type::syntax"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which jshell command abbreviation is invalid, and why?",
+     "back": "<code>/s</code> — <b>ambiguous</b> between /set and /save",
+     "extra": "Unique prefixes work, e.g. /l for /list. For the ambiguous ones use /se for /set and /sa for /save. Subcommands and options accept abbreviations too.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "With 15 snippets entered, which one does <code>/-4</code> rerun?",
+     "back": "The <b>11th</b> snippet",
+     "extra": "<code>/-n</code> counts n back from the most recent, and /-1 is the last one. Commands are excluded from the count, so typing /list between snippets does not shift the numbering.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Where does the result of an expression go when no variable is assigned?",
+     "back": "A <b>scratch variable</b>",
+     "extra": "jshell creates one automatically and shows its value, so you need not name it. It is a real variable and appears in /vars afterwards.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "In which environment variables does jshell look for an external editor?",
+     "back": "<code>JSHELLEDITOR</code>, <code>VISUAL</code>, then <code>EDITOR</code>",
+     "extra": "The first match wins. Among these, JSHELLEDITOR takes precedence, then VISUAL, then EDITOR; if none is set, a simple built-in editor opens.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which flag disables jshell's startup scripts, and which flag conflicts with it?",
+     "back": "<code>--no-startup</code>; it clashes with <code>--startup</code>",
+     "extra": "Use --no-startup to begin with nothing preloaded, or to run only scripts named on the command line. Jshell refuses the combination of both.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "What do startup scripts do in jshell, and when do they rerun?",
+     "back": "Preload code/imports at start; rerun on <b>/reset, /reload, /env</b>",
+     "extra": "Default startup snippets are imports of common packages, hence s-prefixed IDs. The rerun matters: a restart replays your environment rather than starting from zero.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    },
+    {
+     "type": "basic",
+     "front": "Which flag adds root modules when jshell resolves the module graph?",
+     "back": "<code>--add-modules</code>",
+     "extra": "It works at startup and in /env, /reset, /reload. Modules and classpath both apply: --module-path says where modules live, --class-path says where class files are.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::01 First Java Code",
+   "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::01-first-java-code"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "For a single-file source program, which class must contain <code>main</code>?",
+     "back": "The <b>first</b> class defined in the file",
+     "extra": "The launcher scans to find the entry point; if no class in the file declares main, the launch fails. Other classes may follow in any order.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "Which JEP added multi-file source-code launching, and in which JDK?",
+     "back": "JEP 458 in <b>JDK 22</b>",
+     "extra": "It lets the launcher compile and run a program spread over several .java files, giving a gradual step up from one-file experiments to real projects.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "For multi-file launching, where must the source files live relative to the main class?",
+     "back": "Directories matching the <b>package structure</b>",
+     "extra": "A class <code>model.Person</code> must sit in <code>model/Person.java</code> beside the main class. When the layout matches the packages, the launcher finds, compiles and loads them.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "Which classes must be put on the classpath for a source-launched program?",
+     "back": "Only <b>non-JDK</b> classes (e.g. external JARs)",
+     "extra": "Core JDK classes such as Scanner or MatchResult resolve without a classpath. A third-party library such as Apache Commons Lang's RandomUtils needs its JAR added explicitly.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "What must the first line of a shebang .java file contain?",
+     "back": "<code>#!/path/to/java --source &lt;version&gt;</code>",
+     "extra": "It names the launcher, not the compiler. The file must not end in .java and must be chmod +x, then it can be run as a script on a Unix-like OS.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "A shebang Java script reads arguments — what happens if none are supplied?",
+     "back": "An <b>ArrayIndexOutOfBoundsException</b>",
+     "extra": "The script indexes into args assuming an argument exists, so a bare run throws. Check args.length before touching the array in real scripts.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "Why use source-code launching at all?",
+     "back": "Skip <b>explicit compilation</b> while learning",
+     "extra": "The launcher compiles in memory automatically, so one command runs the file. It is great for trying language features and API calls, less suited to shipping applications.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    },
+    {
+     "type": "basic",
+     "front": "Can a single-file source program still receive command-line arguments?",
+     "back": "Yes — arguments pass through <b>as normal</b>",
+     "extra": "Anything after the file name lands in main's String[] exactly as for a compiled class, so testing argument handling needs no extra setup.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::02 Using IDEs",
+   "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::02-using-ides"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is an Eclipse <b>workspace</b>?",
+     "back": "The <b>directory</b> holding most projects",
+     "extra": "Chosen when Eclipse starts, it scopes the projects, settings and metadata you can see. Switching workspace switches the set of projects entirely.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "What is Eclipse's built-in completion feature called, and what trigger key does it use?",
+     "back": "<b>Content Assist</b>, on Ctrl+Space",
+     "extra": "It completes class and method names and also expands idiom shorthands such as <code>sysout</code>. Suggestions are confirmed with Enter or a double-click.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "What does Content Assist's <code>sysout</code> expansion produce?",
+     "back": "<code>System.out.println();</code>",
+     "extra": "Entry of <code>main</code> plus Ctrl+Space similarly offers the main method skeleton. These are template expansions, not textual edits to your source.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "What list does Eclipse use to collect every compile error and warning in the workspace?",
+     "back": "The <b>Problems</b> view",
+     "extra": "Errors also appear underlined in red in the editor, with Quick Fix suggestions on hover. Warnings flag code that compiles but is likely wrong or pointless.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "Eclipse offers a Quick Fix for an error — should you accept it blindly?",
+     "back": "No — several fixes exist, only one <b>matches your intent</b>",
+     "extra": "Adds an unused import, declares a variable, or something else entirely: an IDE cannot know intent. The cheapest way to a new bug is pressing the first suggestion.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "Eclipse's <b>Refactor ▸ Rename</b> differs from a text replace how?",
+     "back": "It updates every <b>reference</b> to the symbol",
+     "extra": "The rename is semantic and scoped to the symbol, so same-named strings and comments are left alone, and bindings that would break are flagged. Ensure you rename the code, not just the typo you spotted.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "What method set does Eclipse's Source ▸ Generate Getters and Setters produce?",
+     "back": "Accessors for the <b>fields you select</b>",
+     "extra": "Generate hashCode() and equals() and Generate toString() work the same way. Records are often preferable, but the generator helps on legacy or mutable classes.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "Eclipse run mode vs debug mode regarding breakpoints?",
+     "back": "Run mode <b>ignores</b> all breakpoints",
+     "extra": "Debug mode suspends at each hit breakpoint and switches you to the Debug perspective, where the Variables view lists current values.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    },
+    {
+     "type": "basic",
+     "front": "In the Eclipse Debug perspective, what does a line shown with a green background mark?",
+     "back": "The next <b>statement to execute</b>",
+     "extra": "Use it to reason about what comes next, then Step Over (F6) to advance one line within the current method, Step Into (F5) to descend, or Resume (F8) to continue.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::02 Using IDEs",
+   "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::02-using-ides"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "In IntelliJ, which shortcut <b>steps into</b> a method?",
+     "back": "<b>F7</b>",
+     "extra": "Stepping over a line is F8. IntelliJ's default debugger keys mirror the latter half of the classic set, whereas Eclipse binds into=5 / over=6 / resume=8.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>compact source file</b> in Java 25?",
+     "back": "A file with <b>no class declaration</b>, just code",
+     "extra": "It removes the boilerplate wrapping and gives you a runnable main by default. IntelliJ can convert one to a regular class via Alt+Enter or command completion.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "What does IntelliJ's Run/Debug configuration let you change about a launch?",
+     "back": "Program arguments, <b>VM options</b>, env vars, working dir",
+     "extra": "What belongs in the run configuration is anything default settings cannot express about a particular launch, rather than in code.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "Evaluating <code>sum / numbers.length</code> in a debugger with an empty int array throws which exception?",
+     "back": "<code>ArithmeticException: / by zero</code>",
+     "extra": "The int division performs the / before the cast; the empty array's length is 0. Casting earlier to double, like (double) sum / numbers.length, divides by 0.0 and yields NaN (not an exception).",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "A test expects 0 as the average of an empty array but gets <code>NaN</code>. Which arithmetic produced it?",
+     "back": "The float divide of <b>0 by 0</b>",
+     "extra": "In floating point, 0.0/0.0 is NaN, not an exception. The lesson in the example: NaN fails an equality assertion because NaN is not equal to anything, itself included.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "What is <b>Search Everywhere</b>, and its trigger?",
+     "back": "Search files, settings and actions — <b>double Shift</b>",
+     "extra": "Tabs narrow the scope to Classes, Files, Symbols, Actions or Text. Find in Files (Ctrl+Shift+F / ⌘⇧F) searches content and can narrow to module, directory or scope.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "In IntelliJ on Windows/Linux, which shortcut runs the <b>current file</b>?",
+     "back": "<code>Ctrl+F10</code> (macOS: <code>⌃R</code>)",
+     "extra": "Running the file in focus is distinct from running the run configuration, whose keystroke is Shift+F10 on Windows/Linux.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "Where does IntelliJ place a newly generated test class?",
+     "back": "<code>src/test/java</code>",
+     "extra": "Maven's layout keeps tests separate from production code. The Generate Tests picker also writes the imports for the chosen test library.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "What does IntelliJ's <b>Evaluate Expression</b> let you do at a breakpoint?",
+     "back": "Run arbitrary Java <b>in the paused frame</b>",
+     "extra": "You can call methods on in-scope variables and read the result before the program moves. That is how sum / numbers.length was pinned to a division by zero.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    },
+    {
+     "type": "basic",
+     "front": "In IntelliJ, which shortcut renames a class, variable or method?",
+     "back": "<b>Shift+F6</b> (<code>⇧F6</code> on macOS)",
+     "extra": "Extract variable is Ctrl+Alt+V and extract method Ctrl+Alt+M on Windows/Linux. Every refactoring should be followed by a test run.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::02 Using IDEs",
+   "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::02-using-ides"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Which extension enables Java development in VS Code per dev.java?",
+     "back": "The <b>Oracle Java Platform Extension</b>",
+     "extra": "It is on the VS Code Marketplace and brings project creation, building via Maven/Gradle, debugging, refactoring and testing into the editor.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "In VS Code, where can the launch and debugger configurations be customised?",
+     "back": "<code>launch.json</code>",
+     "extra": "Default launch configurations live there; the Run and Debug view's Run Configuration panel edits arguments, VM options, environment variables and working directory.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the VS Code <b>Project Explorer</b> provided by the extension?",
+     "back": "A <b>project-structure</b> overview for Java packages",
+     "extra": "It layers Maven/Gradle awareness over the plain file explorer, so you can clean, compile, test, debug and run by project rather than by folder.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "Which JDK does the Oracle Java Platform Extension require at minimum?",
+     "back": "JDK <b>11</b>",
+     "extra": "Both the extension and its debugger support JDK 11 and newer — so the debugger cannot target pre-modular JDK 8 runtimes.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "Which settings do you edit to point the extension at another JDK?",
+     "back": "<code>jdk.jdkhome</code> in user settings",
+     "extra": "The extension checks jdk.jdkhome, then java.home, JDK_HOME, JAVA_HOME, and finally the system path. A per-version profile can override jdk.jdkhome in its own settings.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "How do you attach the VS Code debugger to a <b>running</b> JVM?",
+     "back": "Pick the process or a <b>JDWP port</b>",
+     "extra": "A configured JDWP listener lets the debugger connect to a JVM already running. On Windows, Attach to Shared Memory is offered as an additional route.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "What does VS Code's source action for JavaDoc generate?",
+     "back": "A <b>pre-populated</b> JavaDoc comment",
+     "extra": "Typing /** above a method signature offers to complete it, with tags for parameters and return already in place. The parser does the tedious part.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "A generated test method is empty or failing — how do you keep it from running?",
+     "back": "Annotate it with <b><code>@Disabled</code></b>",
+     "extra": "That skips the test until you implement it, so the suite isn't permanently red. Replace it by writing assertions as soon as you know the expected behaviour.",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "What is the role of <code>pom.xml</code> for a Maven project?",
+     "back": "The <b>single build configuration</b> file",
+     "extra": "It states coordinates, dependencies, plugins and build settings. VS Code and IntelliJ both generate a starter pom.xml when creating a Maven project.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    },
+    {
+     "type": "basic",
+     "front": "What refactoring does the extension offer for <code>get(0)</code> on Java 21+?",
+     "back": "Replace with <b><code>SequencedCollection.getFirst()</code></b>",
+     "extra": "Similarly get(size()-1) becomes getLast(). The replacement expresses intent instead of arithmetic, which is why the collection API added them.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+    }
+   ]
+  },
+  {
+   "deck": "00 Java Roadmap::15 Getting Started::03 Debugging",
+   "source": "https://dev.java/learn/validate/debugging/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::15-getting-started",
+    "topic::03-debugging"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a breakpoint?",
+     "back": "A marker that <b>pauses</b> the program at a line",
+     "extra": "It tells the debugger to suspend execution there, freezing the state so you can inspect variables and step through from that point.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What happens to breakpoints when you run in normal (non-debug) mode?",
+     "back": "They are <b>ignored</b>",
+     "extra": "The VM only suspends for breakpoints under a debug launch. Running normally is faster precisely because no debug hooks are installed.",
+     "tags": [
+      "type::rule"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>step into</b> do?",
+     "back": "Executes, entering the <b>first line of the callee</b>",
+     "extra": "You land inside the called method so you can watch its internals. Use it when the bug might be in the method being invoked.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>step over</b> do?",
+     "back": "Executes the line <b>without entering</b> callees",
+     "extra": "The whole call is treated as one step, so you stay in the current method. Prefer it when the callee is known-good or not relevant.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>step out</b> (step return) do?",
+     "back": "Runs to the <b>end of the current method</b>",
+     "extra": "Control returns to the caller with the method's result. Some IDEs call it step return; the behaviour is the same.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>resume</b> do?",
+     "back": "Continues until the <b>next breakpoint</b> or exit",
+     "extra": "Use it to skip over code that has already been verified. It stops early only if another breakpoint is hit.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What is a <b>conditional breakpoint</b>?",
+     "back": "A breakpoint that suspends only when a <b>condition is true</b>",
+     "extra": "You attach a Java expression and the debugger evaluates it on each arrival. In a loop it stops only on the interesting iteration, saving repeated resumes.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does the debugger's <b>Evaluate</b> facility allow at a breakpoint?",
+     "back": "Running <b>arbitrary Java</b> against live state",
+     "extra": "You can call methods on in-scope variables and inspect the result. This makes it an interactive probe rather than a passive viewer.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does <b>changing data</b> in the debugger let you test?",
+     "back": "The effect of a value <b>without editing code</b>",
+     "extra": "Overwrite a variable and let execution continue, which is a cheap way to preview a candidate fix before committing it to source.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "When the debugger shows the <b>call stack</b>, what does each entry represent?",
+     "back": "A <b>method call</b> that led to that point",
+     "extra": "You can click a frame to inspect the variables in scope for that call, which traces the path of execution rather than guessing it.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "Why prefer a debugger over <code>println</code> in a big program?",
+     "back": "Println <b>pollutes and scales badly</b>",
+     "extra": "Output scatters through logs, needs cleanup, and re-running for a new question means editing code. A debugger asks fresh questions against the same run.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "What does a unit test do that a debugger cannot, and vice versa?",
+     "back": "Tests <b>detect</b> a wrong value; the debugger <b>explains</b> why",
+     "extra": "Until then, a test tells you a value is wrong; the debugger shows why inside the method. Tests then guard the fix against regression.",
+     "tags": [
+      "type::compare"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    },
+    {
+     "type": "basic",
+     "front": "Where does the term <b>debugging</b> come from?",
+     "back": "A <b>moth</b> found inside a computer (1940s)",
+     "extra": "Grace Hopper's log popularised 'bug' for a defect. The word stuck even though the bugs today are our own logic.",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/validate/debugging/"
+    }
+   ]
+  }
+ ]
+}
