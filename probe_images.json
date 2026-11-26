@@ -1,0 +1,314 @@
+[
+ {
+  "url": "https://jenkov.com/tutorials/java/collections.html",
+  "status": 404,
+  "total": 0,
+  "imgs": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/abstract-classes.html",
+  "status": 200,
+  "total": 20,
+  "imgs": [
+   {
+    "src": "https://jenkov.com/images/java-concurrency-utils/java-concurrentmap-vi",
+    "alt": "Java ConcurrentMap + ConcurrentHashMap",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/java-generics/java-generics-video-screenshot",
+    "alt": "Java Generics",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/java-concurrency-utils/java-forkjoinpool-vid",
+    "alt": "Java ForkJoinPool",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/p2p/p2p-networks-introduction-video-screensh",
+    "alt": "P2P Networks Introduction",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/software-design/conscious-software-design-vi",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/software-design/structural-software-design-v",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/software-design/software-design-goals-video-",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/software-design/software-design-video-screen",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/software-performance/designing-for-performan",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/software-performance/compound-performance-pe",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/java-concurrency-utils/java-executorservice-",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/java-concurrency/java-virtual-threads-video-",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/images/java-concurrency/java-concurrency-video-scre",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA",
+    "alt": "All Tutorial Trails",
+    "w": 24,
+    "svg": false
+   },
+   {
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA",
+    "alt": "Table of contents (TOC) for this tutoria",
+    "w": 24,
+    "svg": false
+   },
+   {
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA",
+    "alt": "Table of contents (TOC) for this tutoria",
+    "w": 24,
+    "svg": false
+   },
+   {
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA",
+    "alt": "Previous tutorial in this tutorial trail",
+    "w": 24,
+    "svg": false
+   },
+   {
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA",
+    "alt": "Next tutorial in this tutorial trail",
+    "w": 24,
+    "svg": false
+   },
+   {
+    "src": "https://jenkov.com/tutorials/java/'+src+'",
+    "alt": "'+title+'",
+    "w": 24,
+    "svg": false
+   },
+   {
+    "src": "",
+    "alt": "",
+    "w": null,
+    "svg": false
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-concurrency/threads.html",
+  "status": 404,
+  "total": 0,
+  "imgs": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-8-date-time-intro",
+  "status": 200,
+  "total": 4,
+  "imgs": [
+   {
+    "src": "https://secure.gravatar.com/avatar/f7bfa7ac878afa29edaf04960cdc924cd1d",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2022/04/announcement-icon.",
+    "alt": "announcement - icon",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2022/04/announcement-icon.",
+    "alt": "announcement - icon",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2022/04/announcement-icon.",
+    "alt": "announcement - icon",
+    "w": null,
+    "svg": false
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/java-streams",
+  "status": 200,
+  "total": 8,
+  "imgs": [
+   {
+    "src": "https://secure.gravatar.com/avatar/f7bfa7ac878afa29edaf04960cdc924cd1d",
+    "alt": "",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2022/04/announcement-icon.",
+    "alt": "announcement - icon",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2022/04/announcement-icon.",
+    "alt": "announcement - icon",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2022/04/announcement-icon.",
+    "alt": "announcement - icon",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/12/icon_streambasics.",
+    "alt": "Stream Basics",
+    "w": 52,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/12/icon_streamcollect",
+    "alt": "Stream Collectors",
+    "w": 52,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/12/icon_streamoper.pn",
+    "alt": "Operations with Streams",
+    "w": 52,
+    "svg": false
+   },
+   {
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/05/icon_java8-1.png",
+    "alt": "Java 8 Streams with Other Tools",
+    "w": 52,
+    "svg": false
+   }
+  ]
+ },
+ {
+  "url": "https://www.programiz.com/java-programming/class-objects",
+  "status": 200,
+  "total": 7,
+  "imgs": [
+   {
+    "src": "https://www.programiz.com/sites/default/files/sp_logo.svg",
+    "alt": "Programiz",
+    "w": 28,
+    "svg": true
+   },
+   {
+    "src": "https://www.programiz.com/sites/default/files/pc_logo.svg",
+    "alt": "Programiz",
+    "w": 84,
+    "svg": true
+   },
+   {
+    "src": "https://www.programiz.com/themes/custom/programiz/assets/programiz-pro",
+    "alt": "Programiz Pro Logo",
+    "w": null,
+    "svg": true
+   },
+   {
+    "src": "https://www.programiz.com/modules/custom/programiz_rate_share/images/f",
+    "alt": "Share on Facebook",
+    "w": 32,
+    "svg": true
+   },
+   {
+    "src": "https://www.programiz.com/modules/custom/programiz_rate_share/images/t",
+    "alt": "Share on X (Twitter)",
+    "w": 32,
+    "svg": true
+   },
+   {
+    "src": "https://www.programiz.com/modules/custom/programiz_rate_share/images/w",
+    "alt": "Share on WhatsApp",
+    "w": 32,
+    "svg": true
+   },
+   {
+    "src": "https://www.programiz.com/modules/custom/programiz_rate_share/images/l",
+    "alt": "Share on LinkedIn",
+    "w": 32,
+    "svg": true
+   }
+  ]
+ },
+ {
+  "url": "https://www.marcobehler.com/guides/java-databases",
+  "status": 200,
+  "total": 2,
+  "imgs": [
+   {
+    "src": "https://www.marcobehler.com/images/guides/undraw_server_status_5pbv-5c",
+    "alt": "Java &amp; Databases: An Overview of Lib",
+    "w": null,
+    "svg": true
+   },
+   {
+    "src": "https://www.marcobehler.com/images/marcobehler_2021_400-7f8ec2c6.jpg",
+    "alt": "",
+    "w": null,
+    "svg": false
+   }
+  ]
+ },
+ {
+  "url": "https://www.tutorialspoint.com/java/java_encapsulation.htm",
+  "status": 200,
+  "total": 2,
+  "imgs": [
+   {
+    "src": "https://www.tutorialspoint.com/java/images/java-mini-logo.jpg",
+    "alt": "Java Tutorial",
+    "w": null,
+    "svg": false
+   },
+   {
+    "src": "https://www.tutorialspoint.com/images/tutorix_banner_920x250_v3.png",
+    "alt": "Tutorix - AI Tutor",
+    "w": null,
+    "svg": false
+   }
+  ]
+ }
+]

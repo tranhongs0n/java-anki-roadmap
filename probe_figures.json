@@ -1,0 +1,1133 @@
+[
+ {
+  "url": "https://jenkov.com/tutorials/java/abstract-classes.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/interfaces-vs-abstract-classes.html",
+  "kept": [
+   {
+    "alt": "The blue class knows only the interface. The abstract class implements the inter",
+    "w": 452,
+    "h": 195,
+    "src": "https://jenkov.com/images/java/interfaces-vs-abstract-classes-1.png",
+    "sha": "cd303b31"
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/access-modifiers.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/annotations.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/arrays.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/list.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/arrays.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/classes.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/methods.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/properties.html",
+  "kept": []
+ },
+ {
+  "url": "https://dev.java/learn/language-basics",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/classes.html",
+  "kept": []
+ },
+ {
+  "url": "https://bazel.build/start",
+  "kept": [
+   {
+    "alt": "Dependency graph for hello-world displays how the target in the main package dep",
+    "w": 550,
+    "h": 259,
+    "src": "https://mintcdn.com/bazel/bQLJmftpsaCHxjA2/docs/images/cpp-tutorial-stage3.png?fit=max&auto=format&n=bQLJmftpsaCHxjA2&q=85&s=ce15b035cf0007a89134d97e7fa89bce",
+    "sha": "acbcf978"
+   }
+  ]
+ },
+ {
+  "url": "https://earthly.dev/blog/build-java-projects-with-bazel/",
+  "kept": [
+   {
+    "alt": "Adding",
+    "w": 2240,
+    "h": 1260,
+    "src": "https://earthly.dev/.netlify/images?url=/blog/assets/images/build-java-projects-with-bazel/adding.png",
+    "sha": "93c06172"
+   },
+   {
+    "alt": "",
+    "w": 1481,
+    "h": 790,
+    "src": "https://earthly.dev/.netlify/images?url=/blog/assets/images/build-java-projects-with-bazel/JbKsrTB.jpeg",
+    "sha": "aa78c7a8"
+   },
+   {
+    "alt": "",
+    "w": 1481,
+    "h": 728,
+    "src": "https://earthly.dev/.netlify/images?url=/blog/assets/images/build-java-projects-with-bazel/lUgZEV9.jpeg",
+    "sha": "28c7f221"
+   },
+   {
+    "alt": "",
+    "w": 1931,
+    "h": 992,
+    "src": "https://earthly.dev/.netlify/images?url=/blog/assets/images/build-java-projects-with-bazel/RMXpaaU.jpeg",
+    "sha": "89ff854d"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/bazel-build-tool",
+  "kept": []
+ },
+ {
+  "url": "https://www.programiz.com/java-programming/class-objects",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-concurrency/index.html",
+  "kept": [
+   {
+    "alt": "Multiple applications with threads being executed by different threads.",
+    "w": 500,
+    "h": 341,
+    "src": "https://jenkov.com/images/java-concurrency/introduction-2.png",
+    "sha": "74be98a9"
+   },
+   {
+    "alt": "Multithreading on a multi-CPU computer",
+    "w": 489,
+    "h": 302,
+    "src": "https://jenkov.com/images/java-concurrency/java-concurrency-tutorial-introduction-1.png",
+    "sha": "969dc8a9"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/java-concurrency",
+  "kept": []
+ },
+ {
+  "url": "https://www.educative.io/answers/what-are-conditional-statements-in-programming",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-cryptography/index.html",
+  "kept": []
+ },
+ {
+  "url": "https://cucumber.io/",
+  "kept": []
+ },
+ {
+  "url": "https://cucumber.io/docs/cucumber/",
+  "kept": []
+ },
+ {
+  "url": "https://automationpanda.com/2017/10/24/cucumber-jvm-for-java/",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/variables.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/data-types.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.altexsoft.com/blog/object-relational-mapping/",
+  "kept": [
+   {
+    "alt": "mia liang copy",
+    "w": 522,
+    "h": 522,
+    "src": "https://www.altexsoft.com/media/2021/03/mia-liang-copy.png",
+    "sha": "fd1cef12"
+   }
+  ]
+ },
+ {
+  "url": "https://www.marcobehler.com/guides/java-databases",
+  "kept": [
+   {
+    "alt": "",
+    "w": 400,
+    "h": 433,
+    "src": "https://www.marcobehler.com/images/marcobehler_2021_400-7f8ec2c6.jpg",
+    "sha": "7f8ec2c6"
+   }
+  ]
+ },
+ {
+  "url": "https://chamalwr.medium.com/datetime-api-in-java-2aef5df1c39b",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-8-date-time-intro",
+  "kept": []
+ },
+ {
+  "url": "https://www.oracle.com/technical-resources/articles/java/jf14-date-time.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/dependency-injection/index.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.digitalocean.com/community/tutorials/java-dependency-injection-design-pattern-example-tutorial",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/deque.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.programiz.com/java-programming/deque",
+  "kept": [
+   {
+    "alt": "Working of deque (double-ended queue) data structure",
+    "w": 976,
+    "h": 226,
+    "src": "https://www.programiz.com/sites/default/files/working-of-deque.png",
+    "sha": "af0ca774"
+   },
+   {
+    "alt": "ArrayDeque and Linkedlist implements Deque",
+    "w": 840,
+    "h": 430,
+    "src": "https://www.programiz.com/sites/default/files/deque-implemention-classes.png",
+    "sha": "d7b7f529"
+   }
+  ]
+ },
+ {
+  "url": "https://ebean.io/",
+  "kept": []
+ },
+ {
+  "url": "https://ebean.io/docs/",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/ebean-orm",
+  "kept": []
+ },
+ {
+  "url": "https://www.tutorialspoint.com/java/java_encapsulation.htm",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/enums.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.programiz.com/java-programming/enums",
+  "kept": []
+ },
+ {
+  "url": "https://www.marcobehler.com/guides/java-files",
+  "kept": [
+   {
+    "alt": "",
+    "w": 400,
+    "h": 433,
+    "src": "https://www.marcobehler.com/images/marcobehler_2021_400-7f8ec2c6.jpg",
+    "sha": "7f8ec2c6"
+   }
+  ]
+ },
+ {
+  "url": "https://www.digitalocean.com/community/tutorials/java-httpurlconnection-example-java-http-request-get-post",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-9-http-client",
+  "kept": []
+ },
+ {
+  "url": "https://www.twilio.com/blog/5-ways-to-make-http-requests-in-java",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-final",
+  "kept": []
+ },
+ {
+  "url": "https://stackoverflow.com/questions/15655012/how-does-the-final-keyword-in-java-work-i-can-still-modify-an-object",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-functional-programming/functional-composition.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-functional-programming",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-functional-programming/functional-interfaces.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-8-functional-interfaces",
+  "kept": []
+ },
+ {
+  "url": "https://www.tutorialspoint.com/java/java_generics.htm",
+  "kept": []
+ },
+ {
+  "url": "https://gradle.org/",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/spring-boot-gradle-plugin",
+  "kept": []
+ },
+ {
+  "url": "https://hibernate.org/",
+  "kept": []
+ },
+ {
+  "url": "https://hazelcast.com/glossary/hibernate-second-level-cache/",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-functional-programming/higher-order-functions.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/inheritance.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.digitalocean.com/community/tutorials/inheritance-java-example",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-static-instance-initializer-blocks",
+  "kept": []
+ },
+ {
+  "url": "https://blogs.oracle.com/javamagazine/post/java-instance-initializer-block",
+  "kept": []
+ },
+ {
+  "url": "https://stackoverflow.com/questions/3987428/what-is-an-initialization-block",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/interfaces.html",
+  "kept": [
+   {
+    "alt": "Two parallel class hierarchies used in the same application.",
+    "w": 500,
+    "h": 196,
+    "src": "https://jenkov.com/images/java/interfaces-1.png",
+    "sha": "0e7a7726"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/java-interfaces",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-io/index.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/iterator.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/iterable.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-concurrency/java-memory-model.html",
+  "kept": [
+   {
+    "alt": "The Java Memory Model showing where local variables and objects are stored in me",
+    "w": 486,
+    "h": 435,
+    "src": "https://jenkov.com/images/java-concurrency/java-memory-model-2.png",
+    "sha": "e3778a78"
+   },
+   {
+    "alt": "The Java Memory Model showing references from local variables to objects, and fr",
+    "w": 505,
+    "h": 427,
+    "src": "https://jenkov.com/images/java-concurrency/java-memory-model-3.png",
+    "sha": "e66d7479"
+   },
+   {
+    "alt": "Modern hardware memory architecture.",
+    "w": 452,
+    "h": 398,
+    "src": "https://jenkov.com/images/java-concurrency/java-memory-model-4.png",
+    "sha": "238c6d11"
+   },
+   {
+    "alt": "The division of thread stack and heap among CPU internal registers, CPU cache an",
+    "w": 817,
+    "h": 384,
+    "src": "https://jenkov.com/images/java-concurrency/java-memory-model-5.png",
+    "sha": "6a5e42b8"
+   },
+   {
+    "alt": "Visibility Issues in the Java Memory Model.",
+    "w": 520,
+    "h": 393,
+    "src": "https://jenkov.com/images/java-concurrency/java-memory-model-6.png",
+    "sha": "065f0cc7"
+   },
+   {
+    "alt": "Race Condition Issues in the Java Memory Model.",
+    "w": 542,
+    "h": 374,
+    "src": "https://jenkov.com/images/java-concurrency/java-memory-model-7.png",
+    "sha": "8661f9ca"
+   }
+  ]
+ },
+ {
+  "url": "https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.jetbrains.com/help/idea/javadocs.html",
+  "kept": [
+   {
+    "alt": "Example of a traditional Javadoc comment Example of a traditional Javadoc commen",
+    "w": 1604,
+    "h": 586,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/javadoc_comment_example.png",
+    "sha": "659272b9"
+   },
+   {
+    "alt": "Automatically adding a Javadoc comment in the editor",
+    "w": 1352,
+    "h": 578,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/fix-doc-comment.png",
+    "sha": "31b23351"
+   },
+   {
+    "alt": "Automatically adding a markdown Javadoc comment in the editor",
+    "w": 1280,
+    "h": 588,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/javadoc-markdown-completion.png",
+    "sha": "170bba37"
+   },
+   {
+    "alt": "Adding a Javadoc using the 'Add Javadoc' context action Adding a Javadoc using t",
+    "w": 1582,
+    "h": 684,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/javadoc-with-altenter.png",
+    "sha": "4400f58f"
+   },
+   {
+    "alt": "Adding a Javadoc using the 'Add Javadoc' context action Adding a Javadoc using t",
+    "w": 1644,
+    "h": 466,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/javadoc-with-commandcompletion.png",
+    "sha": "9a64e054"
+   },
+   {
+    "alt": "Matching Javadoc comments are listed in the Problems tool window Matching Javado",
+    "w": 2670,
+    "h": 730,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/javadoc_global_inspection_results.png",
+    "sha": "39a3bd58"
+   },
+   {
+    "alt": "Traditional Javadoc comment in edit mode Traditional Javadoc comment in edit mod",
+    "w": 2050,
+    "h": 762,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/doc-comments-simple.png",
+    "sha": "d98115fd"
+   },
+   {
+    "alt": "Markdown Javadoc comment in edit mode Markdown Javadoc comment in edit mode",
+    "w": 2050,
+    "h": 452,
+    "src": "https://resources.jetbrains.com/help/img/idea/2026.3/doc-comments-markdown.png",
+    "sha": "3856f30f"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/javadoc",
+  "kept": [
+   {
+    "alt": "overview",
+    "w": 500,
+    "h": 504,
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/01/overview.png",
+    "sha": "400a5e2c"
+   },
+   {
+    "alt": "ss javadoc",
+    "w": 1024,
+    "h": 579,
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/01/ss_javadoc-1024x579-1024x579.png",
+    "sha": "0c860159"
+   }
+  ]
+ },
+ {
+  "url": "https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html",
+  "kept": []
+ },
+ {
+  "url": "https://javalin.io/",
+  "kept": [
+   {
+    "alt": "Microsoft",
+    "w": 400,
+    "h": 190,
+    "src": "https://javalin.io/img/used-by/microsoft.png",
+    "sha": "c3f1d9b9"
+   },
+   {
+    "alt": "Redhat",
+    "w": 400,
+    "h": 190,
+    "src": "https://javalin.io/img/used-by/redhat.png",
+    "sha": "69601175"
+   },
+   {
+    "alt": "Uber",
+    "w": 400,
+    "h": 189,
+    "src": "https://javalin.io/img/used-by/uber.png",
+    "sha": "aa3e50a2"
+   },
+   {
+    "alt": "Telenor",
+    "w": 400,
+    "h": 190,
+    "src": "https://javalin.io/img/used-by/telenor.png",
+    "sha": "38f4b7cb"
+   },
+   {
+    "alt": "Revolut",
+    "w": 400,
+    "h": 190,
+    "src": "https://javalin.io/img/used-by/revolut.png",
+    "sha": "768a2fad"
+   },
+   {
+    "alt": "C6 Bank",
+    "w": 400,
+    "h": 189,
+    "src": "https://javalin.io/img/used-by/c6bank.png",
+    "sha": "e6c57c19"
+   },
+   {
+    "alt": "Nordstrom",
+    "w": 400,
+    "h": 189,
+    "src": "https://javalin.io/img/used-by/nordstrom.png",
+    "sha": "4fee36d4"
+   },
+   {
+    "alt": "Deutsche Kreditbank",
+    "w": 400,
+    "h": 190,
+    "src": "https://javalin.io/img/used-by/dkb.png",
+    "sha": "8ecb2b31"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/javalin-rest-microservices",
+  "kept": []
+ },
+ {
+  "url": "https://www.ibm.com/docs/en/informix-servers/12.10?topic=started-what-is-jdbc",
+  "kept": []
+ },
+ {
+  "url": "https://jmeter.apache.org/",
+  "kept": []
+ },
+ {
+  "url": "https://junit.org/junit5/",
+  "kept": []
+ },
+ {
+  "url": "https://junit.org/junit5/docs/current/user-guide/",
+  "kept": []
+ },
+ {
+  "url": "https://www.guru99.com/junit-tutorial.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/junit-5",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/lambda-expressions.html",
+  "kept": []
+ },
+ {
+  "url": "https://hyperskill.org/tracks/8",
+  "kept": []
+ },
+ {
+  "url": "https://www.amazon.co.uk/Head-First-Java-3rd-Brain-Friendly/dp/1491910771",
+  "kept": []
+ },
+ {
+  "url": "https://www.amazon.co.uk/Thinking-Java-Eckel-Bruce-February/dp/B00IBON6C6",
+  "kept": []
+ },
+ {
+  "url": "https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997",
+  "kept": []
+ },
+ {
+  "url": "https://www.startertutorials.com/corejava/life-cycle-java-program.html",
+  "kept": [
+   {
+    "alt": "life cycle of a java program life cycle of a java program",
+    "w": 650,
+    "h": 450,
+    "src": "https://www.startertutorials.com/corejava/wp-content/uploads/2014/09/Java-life-cycle.jpg",
+    "sha": "7321d1a5"
+   }
+  ]
+ },
+ {
+  "url": "https://www.cesarsotovalero.net/blog/how-the-jvm-executes-java-code.html",
+  "kept": [
+   {
+    "alt": "A statue representing learning.",
+    "w": 640,
+    "h": 373,
+    "src": "https://www.cesarsotovalero.net/assets/resized/statue-640x373.jpg",
+    "sha": "6879bb04"
+   }
+  ]
+ },
+ {
+  "url": "https://bell-sw.com/blog/compilation-in-java-jit-vs-aot/",
+  "kept": []
+ },
+ {
+  "url": "https://logging.apache.org/log4j/2.x/manual/configuration.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.techtarget.com/whatis/feature/Log4j-explained-Everything-you-need-to-know",
+  "kept": []
+ },
+ {
+  "url": "https://logback.qos.ch/manual/configuration.html",
+  "kept": [
+   {
+    "alt": "click to enlarge",
+    "w": 1195,
+    "h": 353,
+    "src": "https://logback.qos.ch/manual/images/chapters/configuration/lbClassicStatus.jpg",
+    "sha": "1b98da07"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/java-logging-intro",
+  "kept": []
+ },
+ {
+  "url": "https://en.wikipedia.org/wiki/Java_logging_framework",
+  "kept": []
+ },
+ {
+  "url": "https://www.marcobehler.com/guides/java-logging",
+  "kept": [
+   {
+    "alt": "",
+    "w": 800,
+    "h": 460,
+    "src": "https://global-uploads.webflow.com/5ac133a161e365de41ae40d3/5ac133a161e365e54cae414c_overview_selfservice-p-800.png",
+    "sha": "681d4f55"
+   },
+   {
+    "alt": "",
+    "w": 400,
+    "h": 433,
+    "src": "https://www.marcobehler.com/images/marcobehler_2021_400-7f8ec2c6.jpg",
+    "sha": "7f8ec2c6"
+   }
+  ]
+ },
+ {
+  "url": "https://www.programiz.com/java-programming/for-loop",
+  "kept": [
+   {
+    "alt": "Working of for loop in Java Working of for loop in Java with flowchart",
+    "w": 778,
+    "h": 1200,
+    "src": "https://www.programiz.com/sites/default/files/java-for-loop.png",
+    "sha": "7c5a6894"
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-generics/generic-map.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/map.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-util-concurrent/concurrentmap.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/sortedmap.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/math-operators-and-math-class.html",
+  "kept": []
+ },
+ {
+  "url": "https://maven.apache.org/guides/getting-started/",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/spring-with-maven",
+  "kept": []
+ },
+ {
+  "url": "https://stackoverflow.com/questions/21180269/how-to-achieve-method-chaining-in-java",
+  "kept": []
+ },
+ {
+  "url": "https://www.digitalocean.com/community/tutorials/overriding-vs-overloading-in-java",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/inheritance.html",
+  "kept": []
+ },
+ {
+  "url": "https://site.mockito.org/",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/modules.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-modularity",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/nested-classes.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-nested-classes",
+  "kept": []
+ },
+ {
+  "url": "https://docs.oracle.com/javase/tutorial/networking/sockets/index.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.tutorialspoint.com/java/java_networking.htm",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-optional",
+  "kept": []
+ },
+ {
+  "url": "https://dzone.com/articles/optional-in-java",
+  "kept": []
+ },
+ {
+  "url": "https://docs.oracle.com/javase/8/docs/api/java/lang/Package.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-pass-by-value-or-pass-by-reference",
+  "kept": [
+   {
+    "alt": "baeldung - pass by value - passing primitives",
+    "w": 932,
+    "h": 437,
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/05/baeldung_-_pass_by_value_-_passing_primitives.jpg",
+    "sha": "f48d0d42"
+   },
+   {
+    "alt": "baeldung - pass by value - passing primitives - initial",
+    "w": 827,
+    "h": 414,
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/05/baeldung_-_pass_by_value_-_passing_primitives_-_initial.jpg",
+    "sha": "00543240"
+   },
+   {
+    "alt": "baeldung - pass by value - passing primitives - before method ca",
+    "w": 820,
+    "h": 525,
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/05/baeldung_-_pass_by_value_-_passing_primitives_-_before_method_ca.jpg",
+    "sha": "c4665042"
+   },
+   {
+    "alt": "baeldung - pass by value - passing primitives - after method cal",
+    "w": 833,
+    "h": 535,
+    "src": "https://www.baeldung.com/wp-content/uploads/2018/05/baeldung_-_pass_by_value_-_passing_primitives_-_after_method_cal.jpg",
+    "sha": "3300d417"
+   }
+  ]
+ },
+ {
+  "url": "https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value",
+  "kept": []
+ },
+ {
+  "url": "https://www.playframework.com/",
+  "kept": []
+ },
+ {
+  "url": "https://en.wikipedia.org/wiki/Play_Framework",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-intro-to-the-play-framework",
+  "kept": []
+ },
+ {
+  "url": "https://quarkus.io/",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/queue.html",
+  "kept": [
+   {
+    "alt": "Illustration of a Queue",
+    "w": 600,
+    "h": 208,
+    "src": "https://jenkov.com/images/java-collections/java-queue.png",
+    "sha": "8f716153"
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/record.html",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-regex/index.html",
+  "kept": []
+ },
+ {
+  "url": "https://rest-assured.io/",
+  "kept": []
+ },
+ {
+  "url": "https://github.com/rest-assured/rest-assured/wiki",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/rest-assured-tutorial",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/set.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.digitalocean.com/community/tutorials/java-set",
+  "kept": []
+ },
+ {
+  "url": "https://www.slf4j.org/",
+  "kept": []
+ },
+ {
+  "url": "https://spring.io/projects/spring-data-jpa",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa",
+  "kept": []
+ },
+ {
+  "url": "https://roadmap.sh/spring-boot",
+  "kept": []
+ },
+ {
+  "url": "https://spring.io/projects/spring-boot/",
+  "kept": []
+ },
+ {
+  "url": "https://www.ibm.com/cloud/learn/java-spring-boot",
+  "kept": []
+ },
+ {
+  "url": "https://www.javaguides.net/2021/07/spring-boot-tutorial-for-beginners.html",
+  "kept": [
+   {
+    "alt": "",
+    "w": 1280,
+    "h": 720,
+    "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEibk-GM1Ejyba2cAlUElzQaiwzbUOvp0NMVesuddVWqfWf-TdQeSs405FMzpo0bQuHbnNVTUg0wAAEM56791Q2dQqrMlRI09PjXRearnYkI0rrNTjb0ltpjoRES2jFUWM0k3x7Brvb8ZDaS/s16000/Spring+Boot+Project+Structure.PNG",
+    "sha": "13f717b2"
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-collections/stack.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-stack",
+  "kept": []
+ },
+ {
+  "url": "https://www.freecodecamp.org/news/java-static-keyword-explained/",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/fields.html#static-and-non-static-fields",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-static",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-static-dynamic-binding",
+  "kept": []
+ },
+ {
+  "url": "https://beginnersbook.com/2013/04/java-static-dynamic-binding/",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-8-streams",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/strings.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.guru99.com/software-testing-introduction-importance.html",
+  "kept": [
+   {
+    "alt": "What is Software Testing",
+    "w": 700,
+    "h": 250,
+    "src": "https://www.guru99.com/images/what-is-software-testing-1.png",
+    "sha": "90a9e903"
+   },
+   {
+    "alt": "Types of Software Testing in Software Engineering",
+    "w": 628,
+    "h": 275,
+    "src": "https://www.guru99.com/images/2/061920_1310_Whatissoftwaretesting1.png",
+    "sha": "3d476f31"
+   }
+  ]
+ },
+ {
+  "url": "https://www.browserstack.com/guide/testing-pyramid-for-test-automation",
+  "kept": [
+   {
+    "alt": "Testing Pyramid Testing Pyramid",
+    "w": 1920,
+    "h": 1080,
+    "src": "https://bstackprod.kinsta.cloud/wp-content/uploads/2026/08/Testing-Pyramid.webp",
+    "sha": "f937cc98"
+   }
+  ]
+ },
+ {
+  "url": "https://testng.org",
+  "kept": []
+ },
+ {
+  "url": "https://www.guru99.com/all-about-testng-and-selenium.html",
+  "kept": [
+   {
+    "alt": "TestNG Tutorial",
+    "w": 699,
+    "h": 250,
+    "src": "https://www.guru99.com/images/all-about-testng-and-selenium.png",
+    "sha": "9a8ded66"
+   },
+   {
+    "alt": "TestNG test class structure using annotations",
+    "w": 423,
+    "h": 471,
+    "src": "https://www.guru99.com/images/testng_structure-0058.png",
+    "sha": "dc224b0c"
+   },
+   {
+    "alt": "Example TestNG annotation above a Java method",
+    "w": 515,
+    "h": 364,
+    "src": "https://www.guru99.com/images/annotations_1-0000.png",
+    "sha": "5b1f8274"
+   },
+   {
+    "alt": "New Java project wizard with name FirstTestNGProject",
+    "w": 543,
+    "h": 284,
+    "src": "https://www.guru99.com/images/step_2-0037.png",
+    "sha": "47e2aa77"
+   },
+   {
+    "alt": "Libraries tab with Add Library option in Eclipse",
+    "w": 495,
+    "h": 229,
+    "src": "https://www.guru99.com/images/step_3-0038.png",
+    "sha": "3722542f"
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-concurrency/index.html",
+  "kept": [
+   {
+    "alt": "Multiple applications with threads being executed by different threads.",
+    "w": 500,
+    "h": 341,
+    "src": "https://jenkov.com/images/java-concurrency/introduction-2.png",
+    "sha": "74be98a9"
+   },
+   {
+    "alt": "Multithreading on a multi-CPU computer",
+    "w": 489,
+    "h": 302,
+    "src": "https://jenkov.com/images/java-concurrency/java-concurrency-tutorial-introduction-1.png",
+    "sha": "969dc8a9"
+   }
+  ]
+ },
+ {
+  "url": "https://tinylog.org/v1/",
+  "kept": []
+ },
+ {
+  "url": "https://tinylog.org/v2/",
+  "kept": []
+ },
+ {
+  "url": "https://www.simplilearn.com/tutorials/java-tutorial/type-casting-in-java",
+  "kept": []
+ },
+ {
+  "url": "https://www.programiz.com/java-programming/typecasting",
+  "kept": []
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java/variables.html",
+  "kept": []
+ },
+ {
+  "url": "https://www.baeldung.com/java-variable-scope",
+  "kept": []
+ },
+ {
+  "url": "https://netflixtechblog.com/java-21-virtual-threads-dude-wheres-my-lock-3052540e231d",
+  "kept": [],
+  "err": "ConnectError"
+ },
+ {
+  "url": "https://www.baeldung.com/java-virtual-thread-vs-thread",
+  "kept": []
+ },
+ {
+  "url": "https://rockthejvm.com/articles/the-ultimate-guide-to-java-virtual-threads",
+  "kept": [
+   {
+    "alt": "Diagram showing the relationship between java virtual threads and platform threa",
+    "w": 1345,
+    "h": 956,
+    "src": "https://rockthejvm.com/_astro/java-virtual-threads-relationship-with-platform-threads.DqfGBXL7_1PkQCx.webp",
+    "sha": "50a20942"
+   },
+   {
+    "alt": "Java virtual thread state machine diagram",
+    "w": 2048,
+    "h": 1536,
+    "src": "https://rockthejvm.com/_astro/java-virtual-thread-state-machine-diagram.CRGJJdo8_dkIEv.webp",
+    "sha": "e714a21c"
+   }
+  ]
+ },
+ {
+  "url": "https://jenkov.com/tutorials/java-concurrency/volatile.html",
+  "kept": [
+   {
+    "alt": "Threads may hold copies of variables from main memory in CPU caches.",
+    "w": 400,
+    "h": 386,
+    "src": "https://jenkov.com/images/java-concurrency/java-volatile-1.png",
+    "sha": "44dde70e"
+   },
+   {
+    "alt": "The CPU cache used by Thread 1 and main memory contains different values for the",
+    "w": 400,
+    "h": 394,
+    "src": "https://jenkov.com/images/java-concurrency/java-volatile-2.png",
+    "sha": "734e5686"
+   },
+   {
+    "alt": "Two threads have read a shared counter variable into their local CPU caches and ",
+    "w": 400,
+    "h": 395,
+    "src": "https://jenkov.com/images/java-concurrency/java-volatile-3.png",
+    "sha": "4abf8823"
+   }
+  ]
+ },
+ {
+  "url": "https://www.baeldung.com/java-volatile",
+  "kept": [
+   {
+    "alt": "cpu",
+    "w": 402,
+    "h": 404,
+    "src": "https://www.baeldung.com/wp-content/uploads/2017/08/cpu.png",
+    "sha": "814fafdc"
+   }
+  ]
+ }
+]

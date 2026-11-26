@@ -1,0 +1,31 @@
+{
+ "deck": "00 Roadmap::01-Section::02 Topic",
+ "tags": ["roadmap::x", "sec::01-section", "topic::02-topic"],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What does <code>javac</code> produce?",
+   "back": "<b>Bytecode</b> (<code>.class</code> files)",
+   "extra": "javac translates source into platform-neutral bytecode; the JVM then loads, verifies and executes it, which is what lets one build run on any OS.",
+   "source": "https://roadmap.sh/java",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "cloze",
+   "text": "A <code>char</code> literal uses {{c1::single}} quotes: <code>'a'</code>.",
+   "extra": "A String uses double quotes instead; swapping the two is a compile error, not a runtime one.",
+   "source": "https://roadmap.sh/java",
+   "tags": ["type::syntax"]
+  },
+  {
+   "type": "visual",
+   "image": "topic-01-diagram.png",
+   "question": "Name the layers shown, outermost first.",
+   "back": "<b>JDK</b> ⊃ <b>JRE</b> ⊃ <b>JVM</b>",
+   "extra": "JDK = JRE + tools (javac, jar, javadoc); JRE = JVM + core libraries; the JVM runs the bytecode.",
+   "source": "https://roadmap.sh/java",
+   "tags": ["type::visual"]
+  }
+ ],
+ "_note": "extra is mandatory and must stand alone; every card carries type::; deck must match decks.json exactly"
+}

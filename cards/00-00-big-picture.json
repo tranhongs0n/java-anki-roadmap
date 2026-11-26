@@ -1,0 +1,215 @@
+{
+ "deck": "00 Java Roadmap::00 Big Picture",
+ "tags": [
+  "roadmap::java",
+  "sec::00-map",
+  "topic::big-picture"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Which component must exist for an operating system to execute Java bytecode?",
+   "back": "A <b>JVM</b> for that operating system",
+   "extra": "javac compiles to bytecode aimed at the JVM instruction set, not at a CPU. Each OS/architecture needs its own JVM build to execute that bytecode, which is why the installer is OS-specific even though your .class files are not.",
+   "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which single installation gives you <code>javac</code>, the JVM and the standard library?",
+   "back": "The <b>JDK</b>",
+   "extra": "The JDK bundles the compiler <code>javac</code>, the launcher <code>java</code>, the standard library and tools such as <code>jar</code> and <code>javadoc</code>. Since JDK 11 no separate JRE is published, so 'install the JRE' is no longer the way you set up a machine.",
+   "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "visual",
+   "image": "jdk-jre-jvm.png",
+   "question": "Name the three layers, outermost first.",
+   "back": "<b>JDK</b> ⊃ <b>JRE</b> ⊃ <b>JVM</b>",
+   "extra": "Read the nesting outward-in: the JDK contains the JRE, which contains the JVM. A developer installs the JDK; a production container can ship a smaller runtime built with <code>jlink</code>.",
+   "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+   "tags": [
+    "type::visual"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does the JVM do that makes \"write once, run anywhere\" true?",
+   "back": "It executes the same portable <b>bytecode</b> on every platform",
+   "extra": "Compiling to bytecode means the same .class file runs on Linux, Windows and macOS. Only the JVM is platform-specific; the compiled artifact is not.",
+   "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "visual",
+   "image": "stack-heap.png",
+   "question": "Which region holds the object, and which holds the reference to it?",
+   "back": "Object → <b>heap</b>. Reference → <b>stack</b> (in the local variable)",
+   "extra": "Each thread gets its own stack of frames, and a frame holds primitives plus references. Objects and arrays live on the shared heap, and the reference on the stack points at one.",
+   "source": "https://dev.java/learn/creating-and-using-objects/",
+   "tags": [
+    "type::visual"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "When you assign one object variable to another, what is copied?",
+   "back": "The <b>reference</b>, never the object",
+   "extra": "<code>Person b = a;</code> copies the pointer, not the object. Both names now target the same instance, so a change through one is visible through the other.",
+   "source": "https://dev.java/learn/creating-and-using-objects/",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "cloze",
+   "text": "An object becomes eligible for garbage collection when {{c1::no live reference reaches it}}.",
+   "extra": "Eligibility is about reachability: the collector follows references from GC roots (stack frames, static fields). Once no path reaches the object it may be reclaimed, and nothing tells you exactly when.",
+   "source": "https://dev.java/learn/creating-and-using-objects/",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which memory area is per thread, and which is shared?",
+   "back": "Stack per thread; heap shared by all threads",
+   "extra": "Stacks are private, so a local variable is invisible to other threads; the heap is shared, so two threads can touch the same object. Data races live in that overlap.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/java-memory-model@wEc7pSVU5G2c6Zqmtb_1k.md",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "visual",
+   "image": "java-landscape.png",
+   "question": "Collections and Concurrency sit in the same band. Which one?",
+   "back": "<b>02 Data and flow</b> — the band above the language core",
+   "extra": "Band 02 sits on the language core: collections, lambdas and threads all manipulate objects, so they only make sense once classes, references and interfaces are clear. Band 01 is pure language; band 04 is engineering practice.",
+   "source": "https://roadmap.sh/java",
+   "tags": [
+    "type::visual",
+    "scope::map"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does the roadmap put Collections <i>after</i> the object model?",
+   "back": "Collections store and compare <b>object references</b>, relying on <code>equals</code> / <code>hashCode</code>",
+   "extra": "<code>HashSet</code> and <code>HashMap</code> decide where an entry goes with <code>hashCode</code> and whether two entries are the same with <code>equals</code> — both inherited methods you can override. That is why the object model comes first.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/set@XjkNd5WJ9yxW48dwHQNkZ.md",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which roadmap area owns <code>new</code>, constructors, inheritance and interfaces?",
+   "back": "<b>02 Object Model</b>",
+   "extra": "This area is where the language stops being syntax: classes, constructors, fields, inheritance, interfaces, encapsulation, records, packages and access control all live here.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/classes-and-objects@LenPrQwxFsE1UVbXO_dE7.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which roadmap area owns <code>HashSet</code>, <code>HashMap</code> and iterators?",
+   "back": "<b>04 Collections</b>",
+   "extra": "Collections is the standard library's data-structure layer: List, Set, Map, Queue and Deque implementations, plus iterators, generics and Optional.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/set@XjkNd5WJ9yxW48dwHQNkZ.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which roadmap area explains why <code>synchronized</code> alone may not make a write visible to another thread?",
+   "back": "<b>06 Concurrency</b> — the Java Memory Model, <code>volatile</code>",
+   "extra": "<code>synchronized</code> gives mutual exclusion, but visibility between threads also needs a happens-before edge. Writing through <code>volatile</code> or the same lock creates that edge, and the Java Memory Model defines it.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/java-memory-model@wEc7pSVU5G2c6Zqmtb_1k.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which roadmap area owns Maven, Gradle and Spring Boot?",
+   "back": "<b>09 Build and Frameworks</b>",
+   "extra": "Build tools compile, test and package; frameworks supply the runtime structure (dependency-injection container, HTTP layer). Spring Boot is the recommended default, with Quarkus, Play and Javalin as alternatives — Bazel is the exotic third build tool.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/build-tools@81N1cZLue_Ii0uD5CV6kZ.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which logging facade do Logback, Log4j2 and TinyLog all plug into?",
+   "back": "<b>SLF4J</b>",
+   "extra": "Your code calls the SLF4J API; a binding (Logback, Log4j2, TinyLog) does the actual logging at runtime. Swapping implementations then needs no source change, which is why the roadmap shows them as siblings.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/slf4j@LGlZHKqyQ-aWtHnhklhgn.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which Spring API replaced hand-written JDBC boilerplate?",
+   "back": "<b>Spring Data JPA</b> (on top of JPA / Hibernate)",
+   "extra": "Instead of Connection/Statement/ResultSet by hand, you declare a repository interface and Spring generates the implementation, with JPA/Hibernate mapping objects to tables. JDBC still runs underneath.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/spring-data-jpa@WzWOxBUKKg6LeuBmVesc2.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which JDK 21 feature runs blocking code on very many lightweight threads?",
+   "back": "<b>Virtual threads</b>",
+   "extra": "A virtual thread is scheduled by the JVM onto a small pool of carrier threads. Blocking it is cheap, so thread-per-request code scales to hundreds of thousands of tasks without reactive plumbing.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/virtual-threads@vJSq1GJLIMQ6IIB8CMK8g.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which framework does the roadmap recommend for Java web applications?",
+   "back": "<b>Spring Boot</b>",
+   "extra": "Spring Boot packages the Spring ecosystem with auto-configuration and an embedded server, which is why the roadmap marks it recommended. Quarkus targets fast startup and native images; Play and Javalin are lighter.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/spring-spring-boot@xoryfi4SpJlkz-PV05ql6.md",
+   "tags": [
+    "type::navigation"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Where does the Java roadmap send you for the backend topics it deliberately skips?",
+   "back": "The <b>Backend roadmap</b>",
+   "extra": "The Java roadmap leaves generic backend topics — HTTP semantics, database design, authentication — to the Backend roadmap so it can stay Java-specific.",
+   "source": "https://roadmap.sh/java",
+   "tags": [
+    "type::navigation",
+    "scope::map"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<p>What does this print?</p><pre>Person a = new Person(\"Ana\");\nPerson b = a;\nb.name = \"Bea\";\nSystem.out.println(a.name);</pre>",
+   "back": "<code>Bea</code>",
+   "extra": "<code>b</code> is not a copy: both variables hold the same reference, so writing through <code>b</code> changes the one Person that <code>a</code> points at.",
+   "source": "https://dev.java/learn/creating-and-using-objects/",
+   "tags": [
+    "type::trace",
+    "type::gotcha"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,118 @@
+{
+ "deck": "00 Java Roadmap::01-Foundations::02 Basic Syntax",
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::basic-syntax"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Every Java <b>statement</b> must end with which character?",
+   "back": "<code>;</code> (semicolon)",
+   "extra": "A statement is a complete unit of execution and ends with <code>;</code>. Control-flow headers (<code>if</code>, <code>for</code>, <code>while</code>) and blocks <code>{ ... }</code> are not statements themselves, so they take no semicolon — <code>if (x) return;</code> needs one only because of the <code>return</code> inside.",
+   "source": "https://dev.java/learn/language/constructs/basics/expressions-statements-blocks/",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "cloze",
+   "text": "Java is {{c1::case-sensitive}}: <code>Name</code> and <code>name</code> are two different identifiers.",
+   "extra": "Java distinguishes <code>Name</code> from <code>name</code> everywhere — variables, methods, classes, even file names. <code>System</code> resolves; <code>system</code> does not.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/basic-syntax@OlbQNB6YXZjO1J7D0lZU1.md",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which comment syntax does Java use for a single line?",
+   "back": "<code>// rest of line</code>",
+   "extra": "<code>//</code> runs to the end of the line; <code>/* ... */</code> spans lines but does not nest; <code>/** ... */</code> is a Javadoc comment that the javadoc tool turns into HTML documentation.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.7",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Naming convention for <b>class</b> and <b>interface</b> names?",
+   "back": "PascalCase: <code>BankAccount</code>, <code>Runnable</code>",
+   "extra": "Class and interface names are nouns in PascalCase — <code>BankAccount</code>, <code>Runnable</code>. It is convention, not a compiler rule: <code>class bankAccount</code> compiles and still makes reviewers unhappy.",
+   "source": "https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html",
+   "tags": [
+    "type::convention"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Naming convention for <b>variables</b> and <b>methods</b>?",
+   "back": "camelCase: <code>accountBalance</code>, <code>withdraw()</code>",
+   "extra": "Variables and methods start lowercase and capitalise each later word — <code>accountBalance</code>, <code>withdraw()</code>. Underscores are reserved for constants.",
+   "source": "https://dev.java/learn/language-basics/variables/",
+   "tags": [
+    "type::convention"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Naming convention for <b>constants</b> (<code>static final</code> fields)?",
+   "back": "UPPER_SNAKE_CASE: <code>MAX_RETRIES</code>, <code>DEFAULT_TIMEOUT_MS</code>",
+   "extra": "A <code>static final</code> field is a constant, so it is written in capitals with underscores — <code>MAX_RETRIES</code>. That makes constants visually distinct from ordinary fields.",
+   "source": "https://dev.java/learn/language-basics/variables/",
+   "tags": [
+    "type::convention"
+   ]
+  },
+  {
+   "type": "cloze",
+   "text": "A <code>char</code> literal uses {{c1::single}} quotes: <code>'a'</code>. A <code>String</code> literal uses {{c2::double}} quotes: <code>\"a\"</code>.",
+   "extra": "A <code>char</code> is one UTF-16 code unit in single quotes; a <code>String</code> is an object in double quotes. <code>''</code> is empty and illegal, <code>\"\"</code> is an empty String and perfectly fine.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is the entry-point signature of a Java application?",
+   "back": "<code>public static void main(String[] args)</code>",
+   "extra": "<code>public</code> so the launcher can call it, <code>static</code> so no instance is needed, <code>void</code> so nothing is returned, and <code>String[] args</code> carries command-line arguments. The launcher looks for exactly <code>main(String[])</code> and silently skips anything else.",
+   "source": "https://dev.java/learn/jvm/core-tools/java/",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "cloze",
+   "text": "<code>javac</code> compiles source into {{c1::bytecode}} (<code>.class</code> files); the {{c2::JVM}} executes that bytecode.",
+   "extra": "<code>javac</code> turns source into platform-neutral bytecode in .class files; the JVM loads, verifies and runs it. That indirection is what lets one build run everywhere.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/lifecycle-of-a-program@QgWalJLIb6Fw0HhN1wb02.md",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "visual",
+   "image": "jdk-jre-jvm.png",
+   "question": "Which three layers does this diagram show, outermost to innermost?",
+   "back": "<b>JDK</b> ⊃ <b>JRE</b> ⊃ <b>JVM</b>",
+   "extra": "JDK = JRE + development tools; JRE = JVM + core class libraries; the JVM loads, verifies, interprets/JITs and garbage-collects.",
+   "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+   "tags": [
+    "type::visual"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<p>What does this print?</p><pre>int sum = 0;\nfor (int i = 1; i &lt;= 4; i++) {\n    sum += i;\n}\nSystem.out.println(sum);</pre>",
+   "back": "<code>10</code>",
+   "extra": "The loop adds 1+2+3+4. The condition <code>i &lt;= 4</code> is tested before each iteration, so the body runs while <code>i</code> is 1..4 and then exits.",
+   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/loops@JHUhVEjWFXTn6-wKcKevg.md",
+   "tags": [
+    "type::trace"
+   ]
+  }
+ ]
+}

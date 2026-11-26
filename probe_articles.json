@@ -1,0 +1,142 @@
+[
+ {
+  "slug": "abstraction",
+  "url": "https://jenkov.com/tutorials/java/abstract-classes.html",
+  "status": "ERR URLError",
+  "chars": 0,
+  "pre": 0,
+  "imgs": 0,
+  "secs": 1.3,
+  "head": ""
+ },
+ {
+  "slug": "abstraction",
+  "url": "https://jenkov.com/tutorials/java/interfaces-vs-abstract-classes.html",
+  "status": "ERR URLError",
+  "chars": 0,
+  "pre": 0,
+  "imgs": 0,
+  "secs": 0.5,
+  "head": ""
+ },
+ {
+  "slug": "access-specifiers",
+  "url": "https://jenkov.com/tutorials/java/access-modifiers.html",
+  "status": "ERR URLError",
+  "chars": 0,
+  "pre": 0,
+  "imgs": 0,
+  "secs": 0.5,
+  "head": ""
+ },
+ {
+  "slug": "bazel",
+  "url": "https://www.baeldung.com/bazel-build-tool",
+  "status": 200,
+  "chars": 8287,
+  "pre": 14,
+  "imgs": 16,
+  "secs": 0.6,
+  "head": "1. Overview Bazel is an open-source tool for building and testing source code, similar to "
+ },
+ {
+  "slug": "concurrency",
+  "url": "https://www.baeldung.com/java-concurrency",
+  "status": 200,
+  "chars": 723,
+  "pre": 0,
+  "imgs": 18,
+  "secs": 0.4,
+  "head": "Partner \u2013 Moderne \u2013 NPI EA (cat=Spring Boot) Refactor Java code safely \u2014 and automatically"
+ },
+ {
+  "slug": "date-and-time",
+  "url": "https://www.baeldung.com/java-8-date-time-intro",
+  "status": 200,
+  "chars": 13588,
+  "pre": 42,
+  "imgs": 15,
+  "secs": 0.5,
+  "head": "1. Overview Java 8 introduced new APIs for Date and Time to address the shortcomings of th"
+ },
+ {
+  "slug": "basic-syntax",
+  "url": "https://dev.java/learn/language-basics",
+  "status": 200,
+  "chars": 0,
+  "pre": 0,
+  "imgs": 0,
+  "secs": 1.4,
+  "head": ""
+ },
+ {
+  "slug": "javadoc",
+  "url": "https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html",
+  "status": 200,
+  "chars": 136458,
+  "pre": 70,
+  "imgs": 1,
+  "secs": 1.1,
+  "head": "Generates HTML pages of API documentation from Java source files. javadoc {packages|source"
+ },
+ {
+  "slug": "classes-and-objects",
+  "url": "https://www.programiz.com/java-programming/class-objects",
+  "status": 200,
+  "chars": 6184,
+  "pre": 9,
+  "imgs": 7,
+  "secs": 0.9,
+  "head": "Popular Tutorials Start Learning Java Certification Courses Created with over a decade of "
+ },
+ {
+  "slug": "dependency-injection",
+  "url": "https://www.digitalocean.com/community/tutorials/java-dependency-injection-design-pattern-example-tutorial",
+  "status": 200,
+  "chars": 945,
+  "pre": 0,
+  "imgs": 5,
+  "secs": 1.4,
+  "head": "Featured AI Products Compute Build, deploy, and scale cloud compute resources Containers a"
+ },
+ {
+  "slug": "spring-data-jpa",
+  "url": "https://spring.io/projects/spring-data-jpa",
+  "status": 200,
+  "chars": 1716,
+  "pre": 0,
+  "imgs": 3,
+  "secs": 0.6,
+  "head": "Get ahead VMware offers training and certification to turbo-charge your progress. Learn mo"
+ },
+ {
+  "slug": "database-access",
+  "url": "https://www.marcobehler.com/guides/java-databases",
+  "status": 200,
+  "chars": 44448,
+  "pre": 33,
+  "imgs": 3,
+  "secs": 1.8,
+  "head": "public class User {     private Integer id;     private String firstName;     private Stri"
+ },
+ {
+  "slug": "final-keyword",
+  "url": "https://stackoverflow.com/questions/15655012/how-does-the-final-keyword-in-java-work-i-can-still-modify-an-object",
+  "status": "ERR HTTPError",
+  "chars": 0,
+  "pre": 0,
+  "imgs": 0,
+  "secs": 0.3,
+  "head": ""
+ },
+ {
+  "slug": "encapsulation",
+  "url": "https://www.tutorialspoint.com/java/java_encapsulation.htm",
+  "status": "ERR URLError",
+  "chars": 0,
+  "pre": 0,
+  "imgs": 0,
+  "secs": 0.2,
+  "head": ""
+ }
+]
