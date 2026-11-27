@@ -1,0 +1,526 @@
+{
+ "deck": "70 Articles::Baeldung Core Java",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why is <code>b &amp; 0xFF</code> needed when converting a byte to an int?",
+   "back": "Because a <code>byte</code> is <b>sign-extended</b> to int — <code>0xFF</code> masks off the sign bits, giving 0–255",
+   "extra": "Without the mask, -1 becomes 0xFFFFFFFF instead of 255. Every byte-array-to-hex routine depends on this.",
+   "source": "baeldung.com — java-and-0xff",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>System.console()</code> give you that <code>System.out</code> does not?",
+   "back": "The ability to read input without echo (<code>readPassword</code>), and <b>null</b> when there is no terminal",
+   "extra": "It returns null in an IDE or when output is redirected — which is why password prompts must handle it.",
+   "source": "baeldung.com — java-system-console-vs-system-out",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is headless mode?",
+   "back": "A JVM setting (<code>java.awt.headless=true</code>) that forbids creating windows, for servers with no display",
+   "extra": "AWT/Swing classes still load, but any attempt to show a frame throws HeadlessException.",
+   "source": "baeldung.com — java-headless-mode",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you detect the operating system in Java?",
+   "back": "<code>System.getProperty(\"os.name\")</code>, usually with <code>File.separator</code> for path differences",
+   "extra": "<code>os.version</code> and <code>os.arch</code> complete the picture; there is no enum of operating systems in the JDK.",
+   "source": "baeldung.com — java-detect-os",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is \"sneaky throws\"?",
+   "back": "Throwing a <b>checked</b> exception from a method that does not declare it, via a generic cast trick",
+   "extra": "<code>static &lt;T extends Throwable&gt; void sneakyThrow(Throwable t) throws T</code> defeats the compiler's check; the JVM does not verify declared exceptions.",
+   "source": "baeldung.com — java-sneaky-throws",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "How do you turn a stack trace into a String?",
+   "back": "<code>StringWriter sw = new StringWriter(); e.printStackTrace(new PrintWriter(sw));</code>",
+   "extra": "That is the only reliable way to capture it; <code>getStackTrace()</code> gives frames, not the formatted text.",
+   "source": "baeldung.com — java-stacktrace-to-string",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What causes <code>NoSuchFieldError</code>?",
+   "back": "A field that existed at compile time is missing or renamed at run time — a <b>binary compatibility</b> break",
+   "extra": "Nothing in the source is wrong. Rebuild everything against the same version of the dependency.",
+   "source": "baeldung.com — java-nosuchfielderror",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What causes <code>AbstractMethodError</code>?",
+   "back": "A concrete class was compiled against an older interface that did not have the method, then ran against the newer one",
+   "extra": "The class never implemented the method because it did not exist when the class was compiled.",
+   "source": "baeldung.com — java-abstractmethoderror",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What causes <code>IllegalAccessError</code>?",
+   "back": "A member's access changed after compilation — for example a public method became private",
+   "extra": "Like the other linkage errors, it means the compiled code and the loaded class disagree.",
+   "source": "baeldung.com — java-illegalaccesserror",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ExceptionInInitializerError</code> wrap?",
+   "back": "The exception thrown by a <b>static initializer</b> — the class failed to initialise",
+   "extra": "The class is then unusable; the original cause is in <code>getCause()</code>, and the first failure is what matters.",
+   "source": "baeldung.com — java-exceptionininitializererror",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does \"cannot find symbol\" always mean?",
+   "back": "The compiler cannot resolve a <b>name</b>: a typo, a missing import, or the wrong scope",
+   "extra": "Read the symbol it names — variable, method or class — and the line number; the cause is always a naming problem.",
+   "source": "baeldung.com — java-cannot-find-symbol-error",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Why does the JVM say it cannot find or load the main class?",
+   "back": "The class is not on the classpath, the name is wrong (package prefix missing), or the static <code>main</code> signature is not recognised",
+   "extra": "Run <code>java -cp out com.example.Main</code>, not just <code>java Main</code>, when the class is in a package.",
+   "source": "baeldung.com — java-could-not-find-load-main-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What is doclint?",
+   "back": "Javadoc's built-in <b>validator</b> for malformed HTML and invalid tags, on by default",
+   "extra": "It fails builds on things like an unclosed &lt;p&gt;. Disable selectively with <code>-Xdoclint:none</code>.",
+   "source": "baeldung.com — java-doclint",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc"
+  },
+  {
+   "type": "basic",
+   "front": "What is a synthetic member?",
+   "back": "One the <b>compiler</b> generates — e.g. <code>this$0</code> for an inner class, or <code>access$000</code> for private access",
+   "extra": "They are marked with the ACC_SYNTHETIC flag and mostly invisible to reflection unless you ask for them.",
+   "source": "baeldung.com — java-synthetic",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why is double-brace initialization an anti-pattern?",
+   "back": "<code>new HashMap&lt;&gt;() {{ put(...); }}</code> creates an <b>anonymous subclass</b> plus an instance initializer",
+   "extra": "It costs a class per use, breaks serialization and equality assumptions, and is opaque to readers.",
+   "source": "baeldung.com — java-double-brace-initialization",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Objects.hash</code> and <code>Objects.hashCode</code>?",
+   "back": "<code>Objects.hash(a, b)</code> builds a combined hash from <b>several</b> values; <code>Objects.hashCode(o)</code> hashes <b>one</b>",
+   "extra": "Objects.hash allocates and varargs-boxes, so it is fine in equals/hashCode but not in hot loops.",
+   "source": "baeldung.com — java-objects-hash-vs-objects-hashcode",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What does the StackWalker API (Java 9) add over <code>Thread.getStackTrace()</code>?",
+   "back": "<b>Lazy, streaming</b> access to stack frames, with options to skip frames and keep class references",
+   "extra": "<code>getStackTrace()</code> materialises the whole array; StackWalker can stop after the frame it needs.",
+   "source": "baeldung.com — java-9-stackwalking-api",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>System.Logger</code> API?",
+   "back": "A <b>platform logging facade</b> in <code>java.lang</code> that delegates to whatever logging framework is present",
+   "extra": "Libraries can log without depending on SLF4J; the JDK routes it to java.util.logging by default.",
+   "source": "baeldung.com — java-9-logging-api",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "Which methods did <code>Objects</code> gain in Java 9?",
+   "back": "<code>requireNonNullElse</code>, <code>requireNonNullElseGet</code>, <code>checkIndex</code>, <code>checkFromToIndex</code>, <code>checkFromIndexSize</code>",
+   "extra": "The check methods throw IndexOutOfBoundsException with a useful message — ideal for Collections implementations.",
+   "source": "baeldung.com — java-9-objects-new",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>var</code> in Java 10?",
+   "back": "Local variable <b>type inference</b> — the compiler infers the type from the initialiser; it is still static typing",
+   "extra": "It is not dynamic typing and cannot be used for fields, parameters, return types or without an initialiser.",
+   "source": "baeldung.com — java-10-local-variable-type-inference",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 11 standardise for HTTP?",
+   "back": "The new <code>java.net.http.HttpClient</code>, replacing HttpURLConnection for new code",
+   "extra": "It supports HTTP/2, WebSocket and async calls with CompletableFuture.",
+   "source": "baeldung.com — java-11-new-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "How do preview features work?",
+   "back": "They ship in a release but require <code>--enable-preview</code>, and they expire in the <b>next</b> release",
+   "extra": "Code using them is not future-proof: it must be recompiled and may change before standardisation.",
+   "source": "baeldung.com — java-preview-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What rule applies to <code>var</code> in lambda parameters?",
+   "back": "Either <b>all</b> parameters use <code>var</code> or none do — mixing is a compile error",
+   "extra": "It exists so annotations can be applied to lambda parameters: <code>(@NonNull var x) -&gt; ...</code>.",
+   "source": "baeldung.com — java-var-lambda-params",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How do constructors delegate to each other?",
+   "back": "With <code>this(...)</code> as the <b>first statement</b>, so one constructor does the real work",
+   "extra": "A constructor cannot call both <code>this()</code> and <code>super()</code> — only one, and only first.",
+   "source": "baeldung.com — java-chain-constructors",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is a copy constructor?",
+   "back": "A constructor that takes an instance of the same type and copies its state",
+   "extra": "It gives you control over shallow vs deep copying, which <code>clone()</code> does not.",
+   "source": "baeldung.com — java-copy-constructor",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is a lossy conversion in Java?",
+   "back": "A narrowing conversion that can lose information — <code>long</code> to <code>int</code>, <code>double</code> to <code>float</code>",
+   "extra": "Java requires an explicit cast for it, and the compiler warns when the value clearly does not fit.",
+   "source": "baeldung.com — java-lossy-conversion",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>byte b = 1; b += 1;</code> compile while <code>b = b + 1;</code> does not?",
+   "back": "Compound assignment operators contain an <b>implicit cast</b> back to the left-hand type",
+   "extra": "That is why <code>i += 1.5</code> on an int compiles and silently truncates.",
+   "source": "baeldung.com — java-compound-operators",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What does the xor operator do on booleans versus integers?",
+   "back": "On booleans it is true when exactly one operand is true; on integers it is a <b>bitwise</b> exclusive or",
+   "extra": "There is no short-circuit version of xor — both operands are always evaluated.",
+   "source": "baeldung.com — java-xor-operator",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is bit masking used for?",
+   "back": "Isolating, setting or clearing specific bits with AND, OR and XOR against a mask",
+   "extra": "<code>n | (1 &lt;&lt; k)</code> sets bit k, <code>n &amp; ~(1 &lt;&lt; k)</code> clears it, <code>(n &gt;&gt; k) &amp; 1</code> reads it.",
+   "source": "baeldung.com — java-bitmasking",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What must <code>compareTo</code> return?",
+   "back": "A negative, zero or positive int — only the <b>sign</b> is specified, never the magnitude",
+   "extra": "Returning a difference can overflow: <code>a - b</code> on large ints gives the wrong sign. Use <code>Integer.compare</code>.",
+   "source": "baeldung.com — java-compareto",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is a covariant return type?",
+   "back": "An override may return a <b>subtype</b> of the superclass's return type",
+   "extra": "It is why <code>clone()</code> can be declared to return the concrete type, and why builders return their own class.",
+   "source": "baeldung.com — java-covariant-return-type",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What does \"effectively final\" mean?",
+   "back": "A variable that is never reassigned after initialisation, even without the <code>final</code> keyword",
+   "extra": "Java 8 requires it for lambda and anonymous-class capture, which is why the compiler complains about reassigned locals.",
+   "source": "baeldung.com — java-effectively-final",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What is an unchecked cast warning?",
+   "back": "The compiler cannot prove the cast is type-safe, because generics are <b>erased</b> at runtime",
+   "extra": "<code>(List&lt;String&gt;) obj</code> compiles with a warning; the cast is only checked at the raw type level.",
+   "source": "baeldung.com — java-warning-unchecked-cast",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "In what order are static variables initialised?",
+   "back": "In <b>text order</b>, along with static blocks, after the class is loaded",
+   "extra": "A static initialiser that reads a field declared below it sees the default value.",
+   "source": "baeldung.com — java-static-variables-initialization",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Is the return type part of a method's signature?",
+   "back": "<b>No</b> — the signature is name plus parameter types only",
+   "extra": "That is why you cannot overload on return type alone: <code>int f()</code> and <code>String f()</code> clash.",
+   "source": "baeldung.com — java-method-signature-return-type",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Externalizable</code> do better than <code>Serializable</code>?",
+   "back": "You write the state yourself in <code>writeExternal</code>/<code>readExternal</code>, so it is <b>faster and smaller</b> — and needs a public no-arg constructor",
+   "extra": "Serializable serialises the whole graph reflectively; Externalizable serialises exactly what you choose.",
+   "source": "baeldung.com — java-externalizable",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>serialVersionUID</code> for?",
+   "back": "A version stamp: if the receiver's value differs from the sender's, deserialization fails with <code>InvalidClassException</code>",
+   "extra": "Declare it explicitly — the computed default changes whenever the class's shape changes, silently breaking compatibility.",
+   "source": "baeldung.com — java-serial-version-uid",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>transient</code> do?",
+   "back": "Excludes a field from default serialization",
+   "extra": "The field is restored as its default value (null/0) on deserialization, so any invariant involving it must be re-established in readObject.",
+   "source": "baeldung.com — java-transient-keyword",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>||</code> and <code>|</code> on booleans?",
+   "back": "<code>||</code> <b>short-circuits</b> (right side skipped when left is true); <code>|</code> always evaluates both",
+   "extra": "Use || for conditions; the eager form is only right when both sides must run for side effects.",
+   "source": "baeldung.com — java-logical-vs-bitwise-or-operator",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>catch (Throwable t)</code> bad practice?",
+   "back": "It swallows <code>Error</code> too — OutOfMemoryError, StackOverflowError — which the JVM cannot recover from",
+   "extra": "Catch Exception for recoverable failures, and let Errors propagate.",
+   "source": "baeldung.com — java-catch-throwable-bad-practice",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is a suppressed exception?",
+   "back": "An exception attached to another (via <code>addSuppressed</code>) instead of replacing it",
+   "extra": "try-with-resources does this automatically: the body's exception is primary and the close() failure is suppressed.",
+   "source": "baeldung.com — java-suppressed-exceptions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "When should you wrap an exception rather than rethrow it?",
+   "back": "Wrap when the failure must be expressed in your abstraction's terms; rethrow when the caller can act on the original",
+   "extra": "Always pass the cause — wrapping without it destroys the stack trace that explains the failure.",
+   "source": "baeldung.com — java-wrapping-vs-rethrowing-exceptions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Why does reflective invocation throw <code>InvocationTargetException</code>?",
+   "back": "It <b>wraps</b> whatever the target method threw, so the reflective call itself never appears to throw it",
+   "extra": "Call <code>getCause()</code> to get the real exception; forgetting this is the classic reflection debugging trap.",
+   "source": "baeldung.com — java-lang-reflect-invocationtargetexception",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Does the compiler validate <code>@SuppressWarnings</code> values?",
+   "back": "<b>No</b> — unknown names are ignored silently, and each IDE understands its own set",
+   "extra": "<code>unchecked</code>, <code>rawtypes</code> and <code>deprecation</code> are the portable ones; a typo simply suppresses nothing.",
+   "source": "baeldung.com — java-suppresswarnings-valid-names",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "Does Java have a built-in <code>Pair</code> class?",
+   "back": "<b>No</b> — the JDK offers <code>Map.Entry</code>, <code>AbstractMap.SimpleEntry</code>, or your own record",
+   "extra": "A record <code>record Pair&lt;A, B&gt;(A first, B second) {}</code> is clearer than a framework tuple, which has no names.",
+   "source": "baeldung.com — java-pairs",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Should a method return <code>null</code> instead of an empty Optional?",
+   "back": "Never — an Optional-returning method must always return a real Optional",
+   "extra": "Returning null breaks the entire point of the type and produces NPEs where the caller expected empty().",
+   "source": "baeldung.com — java-optional-return",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you get the name of the currently executing method?",
+   "back": "<code>StackWalker</code> (Java 9) or <code>new Throwable().getStackTrace()[0]</code> — there is no direct API",
+   "extra": "Both are approximations: the JIT may inline, and reflection/ lambdas change the frame name.",
+   "source": "baeldung.com — java-name-of-executing-method",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  }
+ ]
+}
