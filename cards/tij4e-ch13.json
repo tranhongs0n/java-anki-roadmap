@@ -1,0 +1,98 @@
+{
+ "deck": "30 Thinking in Java::13 Strings",
+ "tags": [
+  "book::tij4e",
+  "ch::13",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What does it mean that <code>String</code> is immutable?",
+   "back": "Every method that looks like it modifies a String actually <b>returns a new one</b>",
+   "extra": "The original is untouched, so it is safe to alias freely: no reference can change what another sees. That is the guarantee behind String's use as a map key.",
+   "source": "Thinking in Java 4e — ch 13, p. 377",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Why can you use <code>+</code> on Strings when Java has no operator overloading?",
+   "back": "String concatenation is the single built-in exception — it is the only overloaded operator",
+   "extra": "The compiler converts the other operand to text and joins them. No user-defined overloads exist, in contrast with C++.",
+   "source": "Thinking in Java 4e — ch 13, p. 378",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Why is concatenating with <code>+=</code> inside a loop expensive?",
+   "back": "Each pass creates a new String and abandons the old one",
+   "extra": "Every intermediate result is a full copy waiting to be collected. <code>StringBuilder</code> keeps one growable buffer instead.",
+   "source": "Thinking in Java 4e — ch 13, p. 379",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>StringBuilder</code> give you that <code>String</code> does not?",
+   "back": "A <b>mutable</b> buffer: append, insert, reverse, then one <code>toString()</code>",
+   "extra": "One allocation instead of one per concatenation. The book demonstrates the difference by decompiling <code>+</code> with javap.",
+   "source": "Thinking in Java 4e — ch 13, p. 380",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>String.format</code> add over <code>printf</code>?",
+   "back": "It <b>returns</b> the formatted String instead of printing it",
+   "extra": "That makes formatting reusable: build the text once, then log it, show it in a dialog, or put it in a table cell.",
+   "source": "Thinking in Java 4e — ch 13, p. 391",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>CharSequence</code>?",
+   "back": "An interface implemented by String, StringBuilder and StringBuffer for read access to characters",
+   "extra": "A method taking CharSequence accepts any of them. It is the abstraction for \"some characters\", without promising immutability.",
+   "source": "Thinking in Java 4e — ch 13, p. 401",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What are the two objects behind regular expressions in Java?",
+   "back": "<code>Pattern</code> (the compiled expression) and <code>Matcher</code> (a match against one input)",
+   "extra": "Compile once, match many times. The convenience methods on String (matches, split, replaceAll) hide this for one-off use.",
+   "source": "Thinking in Java 4e — ch 13, p. 405",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>String.split()</code> take as its argument?",
+   "back": "A <b>regular expression</b>, not a literal delimiter",
+   "extra": "Splitting on \"|\" splits on every character boundary unless you escape it — the classic bug. Use <code>Pattern.quote</code> for literal text.",
+   "source": "Thinking in Java 4e — ch 13, p. 402",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  }
+ ]
+}

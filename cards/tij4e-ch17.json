@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::17 Containers in Depth",
+ "tags": [
+  "book::tij4e",
+  "ch::17",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why does the containers library contain classes named <code>AbstractSet</code>, <code>AbstractList</code>…?",
+   "back": "They are <b>skeletons</b> that implement most of an interface, so your own container only fills the gaps",
+   "extra": "The book's advice: you almost never need them. They are scaffolding for people writing a new collection type, not part of normal use.",
+   "source": "Thinking in Java 4e — ch 17, p. 611",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+  },
+  {
+   "type": "basic",
+   "front": "Which two methods must agree for a hashed container to work?",
+   "back": "<code>equals()</code> and <code>hashCode()</code> — equal objects must return the same hash",
+   "extra": "HashSet/HashMap find a bucket by hash, then confirm identity by equals. Break the contract and a stored object becomes unfindable even though it is still inside.",
+   "source": "Thinking in Java 4e — ch 17, p. 622",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What breaks if you override <code>equals</code> but not <code>hashCode</code>?",
+   "back": "Lookups fail: the object lands in one bucket but is searched for in another",
+   "extra": "Two equal objects then hash differently, so <code>map.get</code> misses. This is why IDEs generate both together, always.",
+   "source": "Thinking in Java 4e — ch 17, p. 623",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>LinkedHashMap</code> preserve that <code>HashMap</code> does not?",
+   "back": "<b>Insertion order</b> (or access order, if you configure it that way)",
+   "extra": "HashMap gives no ordering guarantee at all. LinkedHashMap costs a little memory for the links and is the usual choice when iteration order matters.",
+   "source": "Thinking in Java 4e — ch 17, p. 632",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>SortedMap</code> guarantee?",
+   "back": "Keys iterate in <b>sorted</b> order, by natural ordering or a Comparator",
+   "extra": "TreeMap is the implementation. Sorting costs O(log n) per operation instead of the O(1) average of hashing.",
+   "source": "Thinking in Java 4e — ch 17, p. 634",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Collections.fill()</code> do?",
+   "back": "Replaces every element of a List with the <b>same object reference</b>",
+   "extra": "It does not copy. Five slots pointing at one mutable object is rarely what you want — use a generator or a loop that creates new instances.",
+   "source": "Thinking in Java 4e — ch 17, p. 614",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+  }
+ ]
+}

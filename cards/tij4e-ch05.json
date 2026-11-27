@@ -1,0 +1,109 @@
+{
+ "deck": "30 Thinking in Java::05 Initialization and Cleanup",
+ "tags": [
+  "book::tij4e",
+  "ch::05",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why does Java use a constructor instead of an <code>initialize()</code> method?",
+   "back": "So initialisation is <b>guaranteed</b> — nobody can create the object without it running",
+   "extra": "An ordinary method relies on the caller remembering to call it. The constructor runs before the new object can be used at all.",
+   "source": "Thinking in Java 4e — ch 5, p. 129",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What is unusual about a constructor's signature?",
+   "back": "It has the <b>class's name</b> and <b>no return type at all</b> — not even void",
+   "extra": "A return type would turn it into an ordinary method. That is why <code>void Foo()</code> in class Foo silently fails to initialise anything.",
+   "source": "Thinking in Java 4e — ch 5, p. 129",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "A class defines only <code>Tree(int height)</code>. Can you still build a Tree with no arguments?",
+   "back": "No — the constructor set is exactly what you declare",
+   "extra": "There is no implicit no-arg constructor once you write any constructor. Callers must supply the argument or you must add a second constructor.",
+   "source": "Thinking in Java 4e — ch 5, p. 131",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>this</code> refer to inside a method?",
+   "back": "The <b>current object</b> — the one the method was called on",
+   "extra": "It is how a method returns itself for chaining, and how a constructor calls a sibling constructor. Without it you could not tell a field from a parameter of the same name.",
+   "source": "Thinking in Java 4e — ch 5, p. 134",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "When does an instance initialisation block run?",
+   "back": "Before the constructor body, after the fields are set to their defaults",
+   "extra": "Blocks execute in declaration order, every time an object is created. The book uses them for initialisation shared by several constructors.",
+   "source": "Thinking in Java 4e — ch 5, p. 140",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "What is a static block for?",
+   "back": "One-time initialisation of class-level state, run when the class is loaded",
+   "extra": "It executes once, before any instance exists. That makes it the place for filling a static table or reading configuration that every instance will need.",
+   "source": "Thinking in Java 4e — ch 5, p. 143",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Can you rely on <code>finalize()</code> to clean up?",
+   "back": "No — the GC may never call it, and the book calls it unreliable",
+   "extra": "There is no guarantee of when, or whether, finalisation happens. Resources are released with explicit close/try-with-resources, not with finalize.",
+   "source": "Thinking in Java 4e — ch 5, p. 149",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> mean on a field?",
+   "back": "It can be assigned <b>exactly once</b> — at declaration or in a constructor",
+   "extra": "A blank final is the common pattern: <code>final int id;</code> set in the constructor. After that, assigning to it is a compile error.",
+   "source": "Thinking in Java 4e — ch 5, p. 154",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What happens if a constructor calls a method that a subclass overrides?",
+   "back": "The <b>subclass</b> version runs — before the subclass's fields are initialised",
+   "extra": "Late binding applies during construction too. The override sees default (0/null) values for fields the subclass has not set yet — a classic source of subtle bugs.",
+   "source": "Thinking in Java 4e — ch 5, p. 154",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  }
+ ]
+}

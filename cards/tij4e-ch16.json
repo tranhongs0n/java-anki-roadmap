@@ -1,0 +1,65 @@
+{
+ "deck": "30 Thinking in Java::16 Arrays",
+ "tags": [
+  "book::tij4e",
+  "ch::16",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What three properties make arrays special?",
+   "back": "Efficiency, compile-time <b>type checking</b>, and the ability to hold <b>primitives</b>",
+   "extra": "An array is a linear block with O(1) indexed access and a fixed length. Generics give containers the type checking; autoboxing fakes the primitives.",
+   "source": "Thinking in Java 4e — ch 16, p. 579",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "What happens when you index past the end of an array?",
+   "back": "<code>ArrayIndexOutOfBoundsException</code> at run time",
+   "extra": "The check is on every access — that is part of what you pay for the safety. It is a RuntimeException, so the compiler will not force a catch.",
+   "source": "Thinking in Java 4e — ch 16, p. 580",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>int[][]</code> actually?",
+   "back": "An array whose elements are references to <b>arrays</b>",
+   "extra": "Rows can differ in length, and the outer array can hold null rows. Nothing about the type forces a rectangular shape.",
+   "source": "Thinking in Java 4e — ch 16, p. 582",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "Which utility class provides <code>fill</code>, <code>sort</code>, <code>binarySearch</code> and <code>equals</code> for arrays?",
+   "back": "<code>java.util.Arrays</code>",
+   "extra": "All static, all type-specific overloads. <code>Arrays.toString</code> is the quickest way to see an array's contents in a log.",
+   "source": "Thinking in Java 4e — ch 16, p. 584",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "When should you still choose an array over an ArrayList?",
+   "back": "When the size is fixed and you need raw speed or primitive storage",
+   "extra": "An ArrayList boxes primitives and grows by copying. The book's rule is: prefer containers, keep arrays for performance-critical, fixed-size cases.",
+   "source": "Thinking in Java 4e — ch 16, p. 579",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  }
+ ]
+}

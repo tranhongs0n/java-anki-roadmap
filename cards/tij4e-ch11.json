@@ -1,0 +1,109 @@
+{
+ "deck": "30 Thinking in Java::11 Holding Your Objects",
+ "tags": [
+  "book::tij4e",
+  "ch::11",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why do containers exist when arrays already hold objects?",
+   "back": "Containers <b>resize themselves</b>; arrays have a fixed length chosen at creation",
+   "extra": "You rarely know how many objects a program will need. The book's point: an array is the most efficient container, but only when the count is known and fixed.",
+   "source": "Thinking in Java 4e — ch 11, p. 297",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What are the four basic container types in <code>java.util</code>?",
+   "back": "<code>List</code>, <code>Set</code>, <code>Queue</code>, <code>Map</code>",
+   "extra": "List keeps order and allows duplicates; Set forbids duplicates; Queue is for processing order; Map associates keys with values. Each answers a different question.",
+   "source": "Thinking in Java 4e — ch 11, p. 297",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>Set</code> guarantee?",
+   "back": "At most <b>one</b> element for each value",
+   "extra": "Adding a duplicate leaves the set unchanged. Uniqueness is decided by equals/hashCode, which is why those methods matter so much for elements.",
+   "source": "Thinking in Java 4e — ch 11, p. 299",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>Map</code>?",
+   "back": "An associative array: it stores <b>key → value</b> pairs",
+   "extra": "You look values up by key rather than by index. Keys are unique, values may repeat, and iteration order depends on the implementation.",
+   "source": "Thinking in Java 4e — ch 11, p. 299",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What is an <code>Iterator</code> for?",
+   "back": "Walking a container element by element without knowing its structure",
+   "extra": "<code>hasNext()</code>, <code>next()</code>, and <code>remove()</code> are the whole contract. It is the Iterator design pattern, which is why it works the same across containers.",
+   "source": "Thinking in Java 4e — ch 11, p. 301",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::07 Iterator"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ListIterator</code> add over <code>Iterator</code>?",
+   "back": "Movement in <b>both directions</b>, plus <code>set()</code> and <code>add()</code>",
+   "extra": "Iterator can only go forward and remove. ListIterator is List-specific because indexed order is what makes backwards movement meaningful.",
+   "source": "Thinking in Java 4e — ch 11, p. 303",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::07 Iterator"
+  },
+  {
+   "type": "basic",
+   "front": "Why did generics matter for containers?",
+   "back": "They make the compiler reject the wrong type at <b>compile time</b>",
+   "extra": "Before Java SE5 a container held Object, so an Apple could be stored in a list of Oranges and only fail when you cast on retrieval.",
+   "source": "Thinking in Java 4e — ch 11, p. 299",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "<code>ArrayList</code> versus <code>LinkedList</code>: what is the real trade-off?",
+   "back": "Array-backed random access versus node-based cheap insertion",
+   "extra": "ArrayList gives O(1) get by index and is usually faster in practice; LinkedList wins only for frequent insert/remove in the middle and for Deque behaviour.",
+   "source": "Thinking in Java 4e — ch 11, p. 307",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
+  },
+  {
+   "type": "basic",
+   "front": "What behaviour does a <code>Queue</code> add to a collection?",
+   "back": "Elements are removed in a defined order — typically first-in, first-out",
+   "extra": "PriorityQueue instead orders by comparison, so the \"next\" element is the smallest by your comparator, not the oldest.",
+   "source": "Thinking in Java 4e — ch 11, p. 312",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "deck": "30 Thinking in Java::04 Controlling Execution",
+ "tags": [
+  "book::tij4e",
+  "ch::04",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Can you write <code>if (a)</code> when <code>a</code> is an int?",
+   "back": "No — Java requires a <b>boolean</b>; write <code>if (a != 0)</code>",
+   "extra": "Unlike C, there is no notion of non-zero being true. The book notes this restriction exists to catch mistakes at compile time.",
+   "source": "Thinking in Java 4e — ch 4, p. 115",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the one difference between <code>while</code> and <code>do-while</code>?",
+   "back": "<code>do-while</code> runs the body <b>at least once</b>",
+   "extra": "The condition is tested after the body. In a while, a false first test means the body never runs at all.",
+   "source": "Thinking in Java 4e — ch 4, p. 117",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three parts of a <code>for</code> loop, and when do they run?",
+   "back": "Initialisation once; test before every iteration; step after every iteration",
+   "extra": "Any of the three may be empty, which is how an infinite <code>for(;;)</code> is written. The test is checked before the body, not after.",
+   "source": "Thinking in Java 4e — ch 4, p. 118",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "A variable is declared in the <code>for</code> initialisation. What is its scope?",
+   "back": "The loop statement itself — it disappears after the loop",
+   "extra": "Declaring <code>int i = 0</code> inside the for header keeps the counter out of the enclosing method, which is why two loops can reuse the same name.",
+   "source": "Thinking in Java 4e — ch 4, p. 118",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>break</code> and <code>continue</code>?",
+   "back": "<code>break</code> leaves the loop; <code>continue</code> skips to the next iteration",
+   "extra": "Both abandon the rest of the current pass. break exits entirely, continue re-tests the condition and goes round again.",
+   "source": "Thinking in Java 4e — ch 4, p. 122",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "Does Java have <code>goto</code>?",
+   "back": "No — but it has labelled <code>break</code> and <code>continue</code>",
+   "extra": "A label before a loop lets an inner loop exit the outer one: <code>outer: for(...) { ... break outer; }</code>. It is the only jump Java kept.",
+   "source": "Thinking in Java 4e — ch 4, p. 123",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>switch</code> select on?",
+   "back": "An integral or enum value (and, in newer Java, a String)",
+   "extra": "It compares for equality against case labels and jumps. Unlike if-else it never evaluates a range or a boolean expression.",
+   "source": "Thinking in Java 4e — ch 4, p. 125",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+  }
+ ]
+}

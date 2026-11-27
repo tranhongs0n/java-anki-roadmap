@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::08 Polymorphism",
+ "tags": [
+  "book::tij4e",
+  "ch::08",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is dynamic (late) binding?",
+   "back": "The method that runs is chosen from the object's <b>actual type</b> at runtime, not the reference type",
+   "extra": "The compiler only checks that the method exists on the declared type; the JVM dispatches to the override. It is what makes polymorphism work.",
+   "source": "Thinking in Java 4e — ch 8, p. 215",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "What does upcasting buy you in <code>tune(Instrument i)</code>?",
+   "back": "One method serves every Instrument subtype, including ones written later",
+   "extra": "The alternative is a type-specific method per subclass, and the compiler will not warn you when you forget one. Upcasting is what makes the code extensible.",
+   "source": "Thinking in Java 4e — ch 8, p. 217",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Are <b>private</b> methods polymorphic?",
+   "back": "No — they are statically bound and cannot be overridden",
+   "extra": "A subclass method with the same name is a different method entirely. Calling it through a base reference runs the base version.",
+   "source": "Thinking in Java 4e — ch 8, p. 224",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "Are <b>fields</b> polymorphic?",
+   "back": "No — field access is resolved at compile time from the reference type",
+   "extra": "Two classes can declare the same field name and both exist in the object; which one you see depends on the static type of the reference.",
+   "source": "Thinking in Java 4e — ch 8, p. 225",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "Are <b>static</b> methods polymorphic?",
+   "back": "No — they belong to the class, so the reference type decides",
+   "extra": "Static methods are not overridden, only hidden. Calling one through an instance is legal but misleading.",
+   "source": "Thinking in Java 4e — ch 8, p. 225",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "What is the design payoff of polymorphism?",
+   "back": "New code can be added without modifying the code that uses the base type",
+   "extra": "The book frames it as decoupling types: the caller knows the base contract only, so a new subclass slots in with no edits — the open/closed principle.",
+   "source": "Thinking in Java 4e — ch 8, p. 216",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  }
+ ]
+}

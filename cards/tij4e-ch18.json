@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::18 I-O",
+ "tags": [
+  "book::tij4e",
+  "ch::18",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "The <code>File</code> class is misleadingly named. What does it actually represent?",
+   "back": "A <b>pathname</b> — a file or a directory — not an open file",
+   "extra": "It answers questions about the filesystem: does it exist, is it a directory, list its contents. Reading and writing happen through streams.",
+   "source": "Thinking in Java 4e — ch 18, p. 669",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>File.list()</code> return?",
+   "back": "A <code>String[]</code> of names, not File objects",
+   "extra": "An array because the set is fixed at the moment you ask. Use <code>listFiles()</code> for File objects, and a FilenameFilter to restrict the listing.",
+   "source": "Thinking in Java 4e — ch 18, p. 669",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between an <code>InputStream</code> and a <code>Reader</code>?",
+   "back": "<code>InputStream</code> reads <b>bytes</b>; <code>Reader</code> reads <b>characters</b>",
+   "extra": "Readers decode bytes using a charset, which is what you want for text. Using a byte stream for text is the classic encoding bug.",
+   "source": "Thinking in Java 4e — ch 18, p. 678",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>FilterInputStream</code> do?",
+   "back": "Wraps another stream and adds behaviour — buffering, compression, counting — without changing the interface",
+   "extra": "This is the Decorator pattern: you compose streams by nesting them. That design is why Java has many small I/O classes instead of one giant one.",
+   "source": "Thinking in Java 4e — ch 18, p. 681",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Why does Java's I/O library use so many small classes?",
+   "back": "Because streams are <b>composed</b>: source + buffering + formatting, combined by wrapping",
+   "extra": "Each class does one thing and delegates to the one inside it. The alternative — a class per combination — would explode combinatorially.",
+   "source": "Thinking in Java 4e — ch 18, p. 681",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>RandomAccessFile</code> allow that other streams do not?",
+   "back": "Reading and writing at an arbitrary position via <code>seek()</code>",
+   "extra": "Normal streams are sequential. RandomAccessFile treats the file as an array of bytes, which suits fixed-size record files.",
+   "source": "Thinking in Java 4e — ch 18, p. 695",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  }
+ ]
+}

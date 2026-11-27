@@ -1,0 +1,87 @@
+{
+ "deck": "30 Thinking in Java::07 Reusing Classes",
+ "tags": [
+  "book::tij4e",
+  "ch::07",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the difference between composition and inheritance?",
+   "back": "Composition puts an existing object <b>inside</b> the new class; inheritance makes the new class a <b>type of</b> the old one",
+   "extra": "Composition reuses behaviour without accepting the base type's interface. Inheritance reuses it and becomes substitutable for the base.",
+   "source": "Thinking in Java 4e — ch 7, p. 187",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "When should you prefer composition to inheritance?",
+   "back": "When the relationship is <b>has-a</b>, or when you want to reuse code without committing to the base type's interface",
+   "extra": "Inheritance is a permanent, structural claim: everything public in the base becomes part of your API. Composition can be changed later, even at runtime.",
+   "source": "Thinking in Java 4e — ch 7, p. 188",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "How does an object become a String when you concatenate it?",
+   "back": "The compiler calls its <code>toString()</code>",
+   "extra": "Every object has one, inherited from Object. Overriding it is what turns <code>Dog@1b6d3586</code> into something readable in logs.",
+   "source": "Thinking in Java 4e — ch 7, p. 190",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Object references inside a new class start as what?",
+   "back": "<code>null</code> — only primitives get 0/false defaults",
+   "extra": "You must attach an object before use: at the declaration, in the constructor, lazily on demand, or in an instance initialisation block.",
+   "source": "Thinking in Java 4e — ch 7, p. 191",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What is lazy initialisation?",
+   "back": "Creating the object only when it is first needed, not in the constructor",
+   "extra": "It avoids paying for objects that may never be used, and it is the usual answer for expensive or optional collaborators.",
+   "source": "Thinking in Java 4e — ch 7, p. 192",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> on a class prevent?",
+   "back": "<b>Inheritance</b> from it",
+   "extra": "String and the wrapper classes are final. It is how a class promises its behaviour cannot be altered by subclassing.",
+   "source": "Thinking in Java 4e — ch 7, p. 209",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is the trap with <code>final</code> and <code>private</code> methods?",
+   "back": "A private method cannot be overridden, so <code>final</code> on it is redundant",
+   "extra": "Private methods are invisible to subclasses, so the compiler binds them statically. Any \"override\" is just a new, unrelated method.",
+   "source": "Thinking in Java 4e — ch 7, p. 210",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  }
+ ]
+}

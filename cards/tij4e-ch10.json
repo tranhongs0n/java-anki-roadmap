@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::10 Inner Classes",
+ "tags": [
+  "book::tij4e",
+  "ch::10",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is an inner class?",
+   "back": "A class defined <b>inside</b> another class",
+   "extra": "It is more than a naming trick: every inner instance is tied to an instance of the enclosing class, which is what gives it access to the outer object's members.",
+   "source": "Thinking in Java 4e — ch 10, p. 265",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What can an inner-class object reach that a separate class cannot?",
+   "back": "The <b>private members of the enclosing object</b>, with no qualification",
+   "extra": "The link is implicit and per-object. That access is the actual reason inner classes exist — the book calls it the valuable twist behind the syntax.",
+   "source": "Thinking in Java 4e — ch 10, p. 267",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "From outside, how do you name an inner class's type?",
+   "back": "<code>OuterClassName.InnerClassName</code>",
+   "extra": "The full name includes the enclosing type, which is why two inner classes can share a simple name in different outers.",
+   "source": "Thinking in Java 4e — ch 10, p. 266",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "How do you create an inner object from outside the outer class?",
+   "back": "<code>outer.new Inner()</code>",
+   "extra": "The syntax mirrors the dependency: an inner object needs an enclosing instance. Inside the outer class, plain <code>new Inner()</code> borrows <code>this</code>.",
+   "source": "Thinking in Java 4e — ch 10, p. 274",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Outer.this</code> mean inside an inner class?",
+   "back": "The enclosing instance, not the inner one",
+   "extra": "Plain <code>this</code> is the inner object. When both have a field of the same name, <code>Outer.this.field</code> is the only way to say which you mean.",
+   "source": "Thinking in Java 4e — ch 10, p. 275",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What is an anonymous inner class?",
+   "back": "A class declared and instantiated in one expression, with no name",
+   "extra": "<code>new Runnable() { public void run() {...} }</code> — used for one-off implementations, and the direct ancestor of the lambda syntax that replaced it in most cases.",
+   "source": "Thinking in Java 4e — ch 10, p. 280",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  }
+ ]
+}

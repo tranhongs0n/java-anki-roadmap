@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::22 Graphical User Interfaces",
+ "tags": [
+  "book::tij4e",
+  "ch::22",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why was Java 1.0's AWT replaced by Swing?",
+   "back": "AWT looked equally mediocre everywhere and exposed only the lowest-common-denominator widgets",
+   "extra": "It was designed and built in a month. Swing (JFC) draws its own components, so it looks the same on every platform and offers far more widgets.",
+   "source": "Thinking in Java 4e — ch 22, p. 977",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>BorderLayout</code> do with components?",
+   "back": "Arranges them at <b>five regions</b>: NORTH, SOUTH, EAST, WEST and CENTER",
+   "extra": "CENTER absorbs the remaining space. Adding a second component to a region silently replaces the first, which is a common early bug.",
+   "source": "Thinking in Java 4e — ch 22, p. 962",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>FlowLayout</code> do?",
+   "back": "Lays components left to right, wrapping when the row is full",
+   "extra": "It respects each component's preferred size, so it is the usual layout for toolbars and button rows.",
+   "source": "Thinking in Java 4e — ch 22, p. 962",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>GridBagLayout</code> for?",
+   "back": "Precise control through constraints — grid position, weight, fill, insets",
+   "extra": "It is the most powerful standard layout and the most verbose. The book treats it as the answer when nothing simpler fits.",
+   "source": "Thinking in Java 4e — ch 22, p. 965",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "How does Swing deliver a button click to your code?",
+   "back": "Through a <b>listener</b> you register on the component",
+   "extra": "<code>button.addActionListener(e -&gt; ...)</code>. The event thread calls you back; the component knows nothing about your class beyond the interface.",
+   "source": "Thinking in Java 4e — ch 22, p. 967",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "Why must GUI updates happen on the event dispatch thread?",
+   "back": "Swing components are not thread-safe; touching them from another thread corrupts layout and repaint",
+   "extra": "Use <code>SwingUtilities.invokeLater</code> to hand work to the EDT. Background work goes on a worker thread and reports back through it.",
+   "source": "Thinking in Java 4e — ch 22, p. 970",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  }
+ ]
+}

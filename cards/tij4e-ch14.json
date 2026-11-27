@@ -1,0 +1,87 @@
+{
+ "deck": "30 Thinking in Java::14 Type Information",
+ "tags": [
+  "book::tij4e",
+  "ch::14",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are the two forms of type information in Java?",
+   "back": "Compile-time RTTI (casts, <code>instanceof</code>) and <b>reflection</b> (types discovered at run time)",
+   "extra": "Traditional RTTI assumes every type is known when you compile. Reflection lets a program open a class it has never seen and inspect or invoke it.",
+   "source": "Thinking in Java 4e — ch 14, p. 437",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What does an object's <code>getClass()</code> return?",
+   "back": "The <code>Class</code> object representing its actual runtime type",
+   "extra": "It ignores the reference type — a Shape reference to a Circle returns Circle.class. That object is the entry point to all reflection.",
+   "source": "Thinking in Java 4e — ch 14, p. 437",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "When is a cast checked?",
+   "back": "At <b>runtime</b>; a wrong cast throws <code>ClassCastException</code>",
+   "extra": "The compiler only knows the reference type, so it cannot prove the object's real class. That runtime check is the most basic form of RTTI.",
+   "source": "Thinking in Java 4e — ch 14, p. 438",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>instanceof</code> test, and how does it differ from comparing Class objects?",
+   "back": "<code>instanceof</code> includes <b>subclasses</b>; Class equality is the exact type only",
+   "extra": "<code>circle instanceof Shape</code> is true because Circle IS-A Shape. <code>circle.getClass() == Shape.class</code> is false — a different question.",
+   "source": "Thinking in Java 4e — ch 14, p. 441",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Class.forName(\"com.x.Foo\")</code> do?",
+   "back": "Loads and initialises that class from a string at run time",
+   "extra": "The compiler never saw the name, which is the point: configuration files, plugin names and JDBC drivers are loaded this way.",
+   "source": "Thinking in Java 4e — ch 14, p. 443",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What is reflection actually used for?",
+   "back": "Discovering methods and fields, and invoking them, without compile-time knowledge of the class",
+   "extra": "Frameworks rely on it: Spring wires beans by name, JUnit finds @Test methods, serialisers read fields. The cost is safety and speed.",
+   "source": "Thinking in Java 4e — ch 14, p. 447",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Why does reflection feel dangerous compared to normal code?",
+   "back": "Every mistake moves from compile time to runtime — no type checking, no refactoring support",
+   "extra": "A misspelled method name compiles fine and fails when invoked. That is the trade for extensibility without recompilation.",
+   "source": "Thinking in Java 4e — ch 14, p. 450",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  }
+ ]
+}

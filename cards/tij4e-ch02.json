@@ -1,0 +1,98 @@
+{
+ "deck": "30 Thinking in Java::02 Everything Is an Object",
+ "tags": [
+  "book::tij4e",
+  "ch::02",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "When you write <code>String s;</code>, what have you actually created?",
+   "back": "A <b>reference</b>, not an object",
+   "extra": "The book's television/remote model: the reference can exist with no television attached. Sending a message to it then fails at runtime, not at compile time.",
+   "source": "Thinking in Java 4e — ch 2, p. 63",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What happens if you call a method on a reference that was never attached to an object?",
+   "back": "A <b>NullPointerException</b> at runtime",
+   "extra": "The compiler cannot tell whether the remote is pointed at anything, so <code>s.length()</code> compiles and then fails when the program runs.",
+   "source": "Thinking in Java 4e — ch 2, p. 63",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Why can a <code>String</code> be written as a quoted literal when other objects cannot?",
+   "back": "Strings are a special case: the compiler builds the object for you",
+   "extra": "<code>String s = \"asdf\";</code> is legal shorthand; every other type needs <code>new</code>. The quotes create the object, not just a reference.",
+   "source": "Thinking in Java 4e — ch 2, p. 63",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Do primitives work by reference too?",
+   "back": "No — a primitive variable holds the <b>value</b> itself",
+   "extra": "That is why <code>int a = 5; int b = a;</code> gives two independent numbers, while assigning one object variable to another gives two references to one object.",
+   "source": "Thinking in Java 4e — ch 2, p. 66",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "In Thinking in Java's framing, what does <code>static</code> mean?",
+   "back": "The member exists <b>independently of any object</b> — one per class",
+   "extra": "A static field is shared by every instance and reachable through the class name. A static method can be called without constructing anything.",
+   "source": "Thinking in Java 4e — ch 2, p. 70",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What do fields get if you never initialise them?",
+   "back": "Type defaults: <code>0</code>, <code>0.0</code>, <code>false</code>, <code>'\\u0000'</code>, <code>null</code>",
+   "extra": "The book uses this to contrast fields with locals: locals must be assigned before use, fields never are.",
+   "source": "Thinking in Java 4e — ch 2, p. 72",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "A block <code>{ ... }</code> introduces what?",
+   "back": "A new <b>scope</b>: names declared inside are invisible outside",
+   "extra": "Scoping is lexical, decided by braces. That is why a variable declared inside a loop body cannot be used after the loop.",
+   "source": "Thinking in Java 4e — ch 2, p. 74",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "A method creates an object inside a block and the block ends. Does the object die?",
+   "back": "No — only the <b>reference</b> dies; the object lives on the heap",
+   "extra": "Scope governs names, not lifetimes. The object stays until nothing references it, which is the whole reason the garbage collector exists.",
+   "source": "Thinking in Java 4e — ch 2, p. 75",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  }
+ ]
+}

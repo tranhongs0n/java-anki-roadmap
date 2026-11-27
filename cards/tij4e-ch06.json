@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::06 Access Control",
+ "tags": [
+  "book::tij4e",
+  "ch::06",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "List the access levels from most open to most restrictive.",
+   "back": "<code>public</code> → <code>protected</code> → package (no keyword) → <code>private</code>",
+   "extra": "Package access is what you get when you write nothing. Each level adds another group of code that can see the member.",
+   "source": "Thinking in Java 4e — ch 6, p. 167",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+  },
+  {
+   "type": "basic",
+   "front": "What is package access, and how do you request it?",
+   "back": "Visibility to classes in the same package only — you request it by writing <b>no modifier</b>",
+   "extra": "It is the default, not a keyword. In practice it means \"this is an internal detail shared by the package\".",
+   "source": "Thinking in Java 4e — ch 6, p. 167",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+  },
+  {
+   "type": "basic",
+   "front": "Why does Java have access control at all?",
+   "back": "To separate the parts that may change from the parts clients depend on",
+   "extra": "A library author must be able to rewrite internals without breaking callers. Without specifiers, every field you expose is frozen forever.",
+   "source": "Thinking in Java 4e — ch 6, p. 167",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>protected</code> add to package access?",
+   "back": "Access from <b>subclasses</b>, even in another package",
+   "extra": "It is the only level that reaches across packages by inheritance. protected plus package access together are why the level feels unusual.",
+   "source": "Thinking in Java 4e — ch 6, p. 171",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>package</code> statement do, and where must it go?",
+   "back": "Declares the library unit the class belongs to; it must be the first statement in the file",
+   "extra": "The package name becomes part of the class's fully qualified name and matches the directory structure. One file can declare only one package.",
+   "source": "Thinking in Java 4e — ch 6, p. 167",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "A class has no <code>package</code> statement. Where does it live?",
+   "back": "In the <b>unnamed (default) package</b>",
+   "extra": "Fine for experiments, impossible to import from a named package. Production code always declares one.",
+   "source": "Thinking in Java 4e — ch 6, p. 170",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  }
+ ]
+}

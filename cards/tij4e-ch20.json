@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::20 Annotations",
+ "tags": [
+  "book::tij4e",
+  "ch::20",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What problem do annotations solve?",
+   "back": "They attach <b>metadata</b> to code in a form the compiler checks, instead of in comments or external files",
+   "extra": "Comments cannot be validated or processed. An annotation is a type, so a misspelled or misapplied one fails at compile time.",
+   "source": "Thinking in Java 4e — ch 20, p. 783",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>@Override</code> actually protect you from?",
+   "back": "A <b>signature mistake</b> that would otherwise silently create a new method",
+   "extra": "Without it, <code>tostring()</code> compiles as an unrelated method and your override never runs. With it, the compiler says there is nothing to override.",
+   "source": "Thinking in Java 4e — ch 20, p. 784",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>@SuppressWarnings</code> for, and what is the risk?",
+   "back": "Silencing a compiler warning at a specific scope — at the risk of hiding a real problem",
+   "extra": "It should be narrow and justified. Suppressing at class level turns off the warning everywhere, including where it was right.",
+   "source": "Thinking in Java 4e — ch 20, p. 784",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "What is a meta-annotation?",
+   "back": "An annotation that configures <b>another annotation</b>: @Target, @Retention, @Documented, @Inherited",
+   "extra": "@Target says where it may be applied; @Retention says whether it survives to the class file or runtime. Without retention RUNTIME, reflection cannot see it.",
+   "source": "Thinking in Java 4e — ch 20, p. 785",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "Are annotations inherited by subclasses?",
+   "back": "No — Java annotations do not inherit, even with <code>@Inherited</code> on classes only",
+   "extra": "The book calls this out explicitly. Frameworks that look like they inherit do so by walking the hierarchy themselves.",
+   "source": "Thinking in Java 4e — ch 20, p. 791",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "What can an annotation element's type be?",
+   "back": "Primitives, String, Class, enums, annotations, or arrays of those — never a general object",
+   "extra": "Elements are compile-time constants, which is why <code>default</code> values must be literals. This restriction is what lets annotations live in the class file.",
+   "source": "Thinking in Java 4e — ch 20, p. 787",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  }
+ ]
+}

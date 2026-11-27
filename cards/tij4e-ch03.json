@@ -1,0 +1,120 @@
+{
+ "deck": "30 Thinking in Java::03 Operators",
+ "tags": [
+  "book::tij4e",
+  "ch::03",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Every operator produces what?",
+   "back": "A <b>value</b> — and some also change an operand (a side effect)",
+   "extra": "Assignment returns the assigned value, which is why <code>a = b = c</code> works. Operators that only produce values leave their operands alone.",
+   "source": "Thinking in Java 4e — ch 3, p. 85",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "You are unsure of operator precedence. What should you do?",
+   "back": "Add <b>parentheses</b> — say what you mean rather than testing what the compiler does",
+   "extra": "The book's two near-identical expressions give different results purely from grouping. Multiplication before addition is the only rule most people reliably remember.",
+   "source": "Thinking in Java 4e — ch 3, p. 87",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "When you assign one object variable to another, what is copied?",
+   "back": "The <b>reference</b> — both variables now name the same object",
+   "extra": "The book calls this <i>aliasing</i>: modifying through either name changes the single object. There is no automatic copy of the object.",
+   "source": "Thinking in Java 4e — ch 3, p. 88",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>==</code> compare on two objects?",
+   "back": "The <b>references</b> — whether they point at the same object",
+   "extra": "It never looks at contents. Two separately built Strings holding \"x\" are not <code>==</code>; the book's title for this is \"testing object equivalence\".",
+   "source": "Thinking in Java 4e — ch 3, p. 92",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>equals()</code> do by default, and what must you do to change that?",
+   "back": "By default it is identity; override it to compare contents",
+   "extra": "Object.equals behaves like ==. Classes such as String override it, which is why <code>\"a\".equals(x)</code> tests characters while <code>==</code> tests identity.",
+   "source": "Thinking in Java 4e — ch 3, p. 93",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>&amp;&amp;</code> guarantee that <code>&amp;</code> does not?",
+   "back": "The right operand is <b>not evaluated</b> when the left is false",
+   "extra": "Short-circuiting is what makes null guards work: <code>s != null &amp;&amp; s.length() &gt; 0</code>. With <code>&amp;</code> both sides always run.",
+   "source": "Thinking in Java 4e — ch 3, p. 94",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "Integer division: what is <code>7 / 2</code> and how do you get 3.5?",
+   "back": "<code>3</code>; use a floating-point operand, e.g. <code>7 / 2.0</code>",
+   "extra": "Both operands int means int arithmetic, truncated toward zero. This is the single most common surprise in numeric code.",
+   "source": "Thinking in Java 4e — ch 3, p. 98",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does a narrowing cast such as <code>(int) 3.9</code> do?",
+   "back": "<b>Truncates</b> toward zero — it does not round",
+   "extra": "3.9 becomes 3, and −3.9 becomes −3. Rounding needs <code>Math.round</code>, which returns a long.",
+   "source": "Thinking in Java 4e — ch 3, p. 104",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::08 Type Casting"
+  },
+  {
+   "type": "basic",
+   "front": "Which types are promoted to <code>int</code> before arithmetic?",
+   "back": "<code>byte</code>, <code>short</code> and <code>char</code>",
+   "extra": "So <code>byte b = 1; b = b + 1;</code> fails — the addition produces an int. This promotion is why small integer arithmetic never overflows in place.",
+   "source": "Thinking in Java 4e — ch 3, p. 105",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>&gt;&gt;</code> do differently from <code>&gt;&gt;&gt;</code>?",
+   "back": "<code>&gt;&gt;</code> fills with the sign bit; <code>&gt;&gt;&gt;</code> fills with zeros",
+   "extra": "For negative numbers they diverge sharply: −8 &gt;&gt; 1 is −4, while −8 &gt;&gt;&gt; 1 is a large positive int.",
+   "source": "Thinking in Java 4e — ch 3, p. 98",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  }
+ ]
+}

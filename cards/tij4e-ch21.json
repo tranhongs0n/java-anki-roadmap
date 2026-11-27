@@ -1,0 +1,142 @@
+{
+ "deck": "30 Thinking in Java::21 Concurrency",
+ "tags": [
+  "book::tij4e",
+  "ch::21",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why is concurrency described as \"arguably deterministic but effectively nondeterministic\"?",
+   "back": "Correct code is possible in principle, but failures depend on timing and may never reproduce",
+   "extra": "The book's warning is that a program can pass every test and still be broken. Absence of a failure is not evidence of correctness here.",
+   "source": "Thinking in Java 4e — ch 21, p. 841",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Thread.sleep()</code> guarantee?",
+   "back": "<b>Nothing</b> about when the thread resumes after the delay — only that it does not run for at least that long",
+   "extra": "The OS scheduler decides when to wake it, and the thread may wait much longer. Sleep is for pacing, never for coordination.",
+   "source": "Thinking in Java 4e — ch 21, p. 852",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>synchronized</code> needed on a shared counter?",
+   "back": "<code>i++</code> is three steps (read, add, write), so two threads can interleave and lose an update",
+   "extra": "The lock makes the three steps atomic with respect to other synchronized code. Without it the final value is silently less than expected.",
+   "source": "Thinking in Java 4e — ch 21, p. 862",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>Lock</code> object give you that <code>synchronized</code> does not?",
+   "back": "<b>Try-lock, timed lock, interruptible lock</b>, and the ability to lock across methods",
+   "extra": "synchronized releases only when the block exits; a Lock is explicit, so you must release it in a finally block or you deadlock yourself.",
+   "source": "Thinking in Java 4e — ch 21, p. 874",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>notify()</code> and <code>notifyAll()</code>?",
+   "back": "<code>notify</code> wakes <b>one</b> waiting thread; <code>notifyAll</code> wakes all of them to re-check their condition",
+   "extra": "Waking the wrong thread with notify leaves a valid waiter asleep forever. The safe default is notifyAll plus a while loop around wait().",
+   "source": "Thinking in Java 4e — ch 21, p. 880",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "Why must <code>wait()</code> be called inside a <code>while</code> loop?",
+   "back": "Because the thread can wake up without the condition being true — spurious wakeups and competing threads",
+   "extra": "Always re-test the condition after waking. An <code>if</code> around wait() is the classic concurrency bug in this chapter.",
+   "source": "Thinking in Java 4e — ch 21, p. 878",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>BlockingQueue</code> for?",
+   "back": "Producer/consumer handoff: <code>put</code> blocks when full, <code>take</code> blocks when empty",
+   "extra": "It removes the need to write wait/notify by hand. The queue becomes the only shared state, and its own locking is already correct.",
+   "source": "Thinking in Java 4e — ch 21, p. 886",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>CountDownLatch</code> do?",
+   "back": "Blocks threads until a counter reaches zero, then releases them all at once",
+   "extra": "One-shot: it counts down, never up. Use it to wait for N tasks to finish before continuing, or to start N threads simultaneously.",
+   "source": "Thinking in Java 4e — ch 21, p. 900",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "How does <code>CyclicBarrier</code> differ from <code>CountDownLatch</code>?",
+   "back": "It is <b>reusable</b> — threads meet, then the barrier resets for the next round",
+   "extra": "Latch is one-shot and counts completions; barrier is a rendezvous point that can be crossed repeatedly, which suits iterative parallel algorithms.",
+   "source": "Thinking in Java 4e — ch 21, p. 906",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does an <code>ExecutorService</code> change about starting threads?",
+   "back": "You submit tasks instead of managing threads; a pool reuses them",
+   "extra": "<code>Executors.newFixedThreadPool(n)</code> decouples task count from thread count, which is what makes a server survive many requests.",
+   "source": "Thinking in Java 4e — ch 21, p. 858",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is a deadlock, in this book's terms?",
+   "back": "Two threads each holding a lock the other needs, waiting forever",
+   "extra": "It happens with two locks acquired in opposite orders. The fix is a global lock ordering, or a single lock guarding both resources.",
+   "source": "Thinking in Java 4e — ch 21, p. 912",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>volatile</code> not enough for a counter?",
+   "back": "It guarantees <b>visibility</b>, not atomicity of read-modify-write",
+   "extra": "<code>count++</code> on a volatile field still loses updates. Volatile suits a flag one thread writes and another reads; counting needs atomic or a lock.",
+   "source": "Thinking in Java 4e — ch 21, p. 870",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::05 Volatile Keyword"
+  }
+ ]
+}

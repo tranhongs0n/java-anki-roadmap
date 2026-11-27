@@ -1,0 +1,76 @@
+{
+ "deck": "30 Thinking in Java::09 Interfaces",
+ "tags": [
+  "book::tij4e",
+  "ch::09",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why is it better to make a method <b>abstract</b> than to give it a body that throws an error?",
+   "back": "The compiler catches the mistake; a runtime throw waits until the method is called",
+   "extra": "An error-throwing stub only fails when someone runs it, and only if the test suite happens to reach it. abstract fails at compile time, for every subclass.",
+   "source": "Thinking in Java 4e — ch 9, p. 241",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "A subclass of an abstract class does not implement every abstract method. What happens?",
+   "back": "It stays abstract itself, and must say so",
+   "extra": "You may deliberately leave the job to a further subclass, but then the compiler requires the <code>abstract</code> keyword on this one too.",
+   "source": "Thinking in Java 4e — ch 9, p. 243",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "Can a class be abstract without any abstract methods?",
+   "back": "Yes — it simply cannot be instantiated",
+   "extra": "The book uses it to prevent objects of a class whose only purpose is to be a common base. No unimplemented methods are required.",
+   "source": "Thinking in Java 4e — ch 9, p. 244",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "When would you choose an abstract class over an interface?",
+   "back": "When subclasses must share <b>state or partial implementation</b>",
+   "extra": "An abstract class can hold fields and finished methods; an interface is a pure contract. That is why the book calls the abstract class the midway step.",
+   "source": "Thinking in Java 4e — ch 9, p. 246",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What does an interface contain, conceptually?",
+   "back": "Only the contract — method signatures with no implementation",
+   "extra": "A class that implements it promises those methods exist. Callers can then be written against the interface and work with every implementation.",
+   "source": "Thinking in Java 4e — ch 9, p. 248",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "A class implements two interfaces with the same method signature. How many methods must it write?",
+   "back": "One — a single implementation satisfies both contracts",
+   "extra": "Signatures are identical, so one method fulfils two promises. This is why multiple interface inheritance avoids C++'s diamond problem: there is no state to duplicate.",
+   "source": "Thinking in Java 4e — ch 9, p. 252",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  }
+ ]
+}

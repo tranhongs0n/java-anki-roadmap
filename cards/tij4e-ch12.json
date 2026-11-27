@@ -1,0 +1,109 @@
+{
+ "deck": "30 Thinking in Java::12 Error Handling with Exceptions",
+ "tags": [
+  "book::tij4e",
+  "ch::12",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What was wrong with the pre-exception style of error reporting?",
+   "back": "Callers ignored return codes and flags, and checking every call made code unreadable",
+   "extra": "Errors were reported by convention, not enforced by the compiler. The book's phrase: programmers assumed errors happen to other people, so they stopped checking.",
+   "source": "Thinking in Java 4e — ch 12, p. 357",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>throw</code> actually do?",
+   "back": "Creates the exception object and hands control to the nearest matching handler",
+   "extra": "Execution leaves the current method immediately; the stack unwinds until a catch matches. If none does, the thread dies with a stack trace.",
+   "source": "Thinking in Java 4e — ch 12, p. 359",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is an exception specification?",
+   "back": "The <code>throws</code> clause listing the checked exceptions a method may pass on",
+   "extra": "It is part of the method's contract: callers must handle or propagate them. The compiler enforces it, which is what makes checked exceptions checked.",
+   "source": "Thinking in Java 4e — ch 12, p. 366",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>RuntimeException</code> a special case?",
+   "back": "It is <b>unchecked</b> — it needs no throws clause and no try/catch",
+   "extra": "NullPointerException, IndexOutOfBounds and friends represent programming errors. Forcing a handler for each would bury the code in boilerplate.",
+   "source": "Thinking in Java 4e — ch 12, p. 366",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>finally</code> guarantee?",
+   "back": "Its block runs whether the try succeeds, throws, or returns",
+   "extra": "It is for cleanup — closing files, releasing locks. The only way to skip it is to kill the JVM.",
+   "source": "Thinking in Java 4e — ch 12, p. 368",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What happens if both the <code>try</code> and the <code>finally</code> block return a value?",
+   "back": "The <code>finally</code> return wins, and the try's value is discarded",
+   "extra": "The book flags this as a trap: returning from finally silently overwrites real results and can swallow exceptions on the way out.",
+   "source": "Thinking in Java 4e — ch 12, p. 370",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is exception chaining?",
+   "back": "Wrapping the original exception as the <b>cause</b> of a new one",
+   "extra": "It preserves the original stack trace and message while adding context. Without it, the useful error disappears when you translate the exception type.",
+   "source": "Thinking in Java 4e — ch 12, p. 372",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is the \"lost exception\" pitfall?",
+   "back": "An exception thrown inside <code>finally</code> replaces the one from the try block",
+   "extra": "The original is gone — no chain, no trace. Anything that can throw in finally should be guarded or moved into try-with-resources.",
+   "source": "Thinking in Java 4e — ch 12, p. 371",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>catch (Exception e)</code> cost you?",
+   "back": "It catches every exception type, including ones you cannot handle, and hides what went wrong",
+   "extra": "The book treats it as a last resort. Catching specific types lets each handler do something meaningful and keeps real bugs visible.",
+   "source": "Thinking in Java 4e — ch 12, p. 363",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  }
+ ]
+}

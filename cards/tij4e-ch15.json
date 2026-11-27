@@ -1,0 +1,87 @@
+{
+ "deck": "30 Thinking in Java::15 Generics",
+ "tags": [
+  "book::tij4e",
+  "ch::15",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What do generics add beyond interfaces for reuse?",
+   "back": "Type <b>parameters</b>: code works with some unspecified type while the compiler still checks it",
+   "extra": "An interface fixes the type to that interface. A generic method fixes nothing, and each caller chooses — with full compile-time checking at the call site.",
+   "source": "Thinking in Java 4e — ch 15, p. 461",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What does a generic container give you that a pre-SE5 one did not?",
+   "back": "The compiler rejects the wrong element type, and casts disappear from your code",
+   "extra": "Before generics everything was Object, so an Apple could enter a list of Oranges and only fail on retrieval. Now the error is at the insertion site.",
+   "source": "Thinking in Java 4e — ch 15, p. 463",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "How are Java generics implemented?",
+   "back": "By <b>erasure</b>: type parameters are removed and replaced by their bounds (or Object)",
+   "extra": "One class file serves every instantiation, which is why old code and new code interoperate. C++ instead generates a separate class per type.",
+   "source": "Thinking in Java 4e — ch 15, p. 484",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What does erasure make impossible?",
+   "back": "Anything needing the type at runtime: <code>new T()</code>, <code>instanceof T</code>, <code>T[]</code>, <code>T.class</code>",
+   "extra": "The type only exists to the compiler. That is why generic code passes a Class token or a factory when it needs to construct elements.",
+   "source": "Thinking in Java 4e — ch 15, p. 485",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Can a primitive be a type argument?",
+   "back": "No — use the wrapper, and autoboxing hides the difference",
+   "extra": "<code>List&lt;int&gt;</code> is illegal; <code>List&lt;Integer&gt;</code> works. Erasure is the reason: there is no primitive type left at runtime.",
+   "source": "Thinking in Java 4e — ch 15, p. 515",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is a bounded type parameter for?",
+   "back": "Guaranteeing capabilities: <code>&lt;T extends Number&gt;</code> lets the body call Number methods",
+   "extra": "Without a bound, the compiler treats T as Object and allows only Object's methods. The bound is also what erasure substitutes.",
+   "source": "Thinking in Java 4e — ch 15, p. 501",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What does a wildcard such as <code>? extends Shape</code> express?",
+   "back": "\"Some subtype of Shape, unknown\" — read from it, but you cannot add to it safely",
+   "extra": "<code>List&lt;? extends Shape&gt;</code> accepts a List of Circles; you can read Shapes out, but adding is refused because the exact element type is unknown.",
+   "source": "Thinking in Java 4e — ch 15, p. 504",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  }
+ ]
+}
