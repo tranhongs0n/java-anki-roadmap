@@ -1,0 +1,40 @@
+{
+ "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::basic-syntax"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Which delimiters does a <code>char</code> literal use?",
+   "back": "ASCII <b>single quotes</b>, e.g. <code>'a'</code>",
+   "extra": "A character literal is a character or an escape sequence enclosed in single quotes. The literal is always of type <code>char</code>, never <code>String</code>, so <code>'a'</code> and <code>\"a\"</code> are values of two unrelated types.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.4",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How many characters may sit between the quotes of a <code>char</code> literal?",
+   "back": "Exactly one — <code>''</code> and <code>'ab'</code> are both compile errors",
+   "extra": "The JLS makes it an error for anything other than the closing quote to follow the single character, so the pair must enclose one character or one escape such as <code>'\\n'</code>. An empty literal has no character left to store.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.4",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Is an empty string literal <code>\"\"</code> legal?",
+   "back": "Yes — it is a String of length 0",
+   "extra": "A string literal consists of zero or more characters enclosed in double quotes, so <code>\"\"</code> is a real object with <code>length() == 0</code>. The char form <code>''</code> has no zero-length case and does not compile.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.5",
+   "tags": [
+    "type::gotcha"
+   ]
+  }
+ ]
+}

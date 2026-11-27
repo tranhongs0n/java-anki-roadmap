@@ -66,29 +66,11 @@
    ]
   },
   {
-   "type": "cloze",
-   "text": "A <code>char</code> literal uses {{c1::single}} quotes: <code>'a'</code>. A <code>String</code> literal uses {{c2::double}} quotes: <code>\"a\"</code>.",
-   "extra": "A <code>char</code> is one UTF-16 code unit in single quotes; a <code>String</code> is an object in double quotes. <code>''</code> is empty and illegal, <code>\"\"</code> is an empty String and perfectly fine.",
-   "source": "https://dev.java/learn/language-basics/primitive-types/",
-   "tags": [
-    "type::syntax"
-   ]
-  },
-  {
    "type": "basic",
    "front": "What is the entry-point signature of a Java application?",
    "back": "<code>public static void main(String[] args)</code>",
    "extra": "<code>public</code> so the launcher can call it, <code>static</code> so no instance is needed, <code>void</code> so nothing is returned, and <code>String[] args</code> carries command-line arguments. The launcher looks for exactly <code>main(String[])</code> and silently skips anything else.",
    "source": "https://dev.java/learn/jvm/core-tools/java/",
-   "tags": [
-    "type::definition"
-   ]
-  },
-  {
-   "type": "cloze",
-   "text": "<code>javac</code> compiles source into {{c1::bytecode}} (<code>.class</code> files); the {{c2::JVM}} executes that bytecode.",
-   "extra": "<code>javac</code> turns source into platform-neutral bytecode in .class files; the JVM loads, verifies and runs it. That indirection is what lets one build run everywhere.",
-   "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/lifecycle-of-a-program@QgWalJLIb6Fw0HhN1wb02.md",
    "tags": [
     "type::definition"
    ]
