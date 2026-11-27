@@ -1,0 +1,141 @@
+{
+ "deck": "70 Articles::Core Java Facts",
+ "tags": [
+  "roadmap::java",
+  "topic::semantics"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "If you run <code>java Main</code> with no arguments, is <code>args</code> null?",
+   "back": "<b>No</b> — it is an <b>empty array</b>, so <code>args.length == 0</code>",
+   "extra": "The JVM always passes a real array. Reading <code>args[0]</code> then throws ArrayIndexOutOfBoundsException, not NullPointerException.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>args[0]</code> hold the program name, as in C's <code>argv[0]</code>?",
+   "back": "<b>No</b> — <code>args[0]</code> is the first real argument; Java passes no program name",
+   "extra": "<code>java Main hello</code> gives args.length == 1 and args[0] == \"hello\". In C the same command gives argc == 2.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "Are command-line arguments numbers when you type digits?",
+   "back": "<b>No</b> — they are always <code>String</code>; converting is your job",
+   "extra": "<code>java Main 42</code> gives <code>\"42\"</code>. Use <code>Integer.parseInt(args[0])</code> and be ready for NumberFormatException.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "In <code>java -Dmode=fast Main a b</code>, what does <code>args</code> contain?",
+   "back": "Only <code>[\"a\", \"b\"]</code> — <code>-D</code> is a <b>JVM property</b>, not a program argument",
+   "extra": "Everything before the class name configures the JVM (<code>System.getProperty</code>); everything after goes to main.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "How do you pass an argument that contains spaces?",
+   "back": "Quote it in the shell — Java receives one element, not several",
+   "extra": "<code>java Main \"hello world\"</code> gives args.length == 1. The JVM does no splitting of its own; the shell already did.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "Can <code>main</code> be declared with varargs instead of an array?",
+   "back": "<b>Yes</b> — <code>main(String... args)</code> is the same method after erasure",
+   "extra": "The launcher finds it because the erased signature matches String[]. Only the source form differs.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>null</code> and an empty string?",
+   "back": "<code>null</code> means <b>no object at all</b>; <code>\"\"</code> is a real String of length 0",
+   "extra": "Calling any method on null throws NullPointerException; calling length() on \"\" returns 0.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Is <code>s.isEmpty()</code> safe when <code>s</code> is null?",
+   "back": "<b>No</b> — it throws NullPointerException; use <code>\"\".equals(s)</code> or <code>Objects.isNull</code> first",
+   "extra": "This is the classic reason to put the constant on the left, or to normalise null to empty early.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>isEmpty()</code> and <code>isBlank()</code>?",
+   "back": "<code>isEmpty</code> checks length 0; <code>isBlank</code> (Java 11) also treats whitespace-only strings as blank",
+   "extra": "<code>\"  \"</code> is not empty but is blank — the distinction matters when validating user input.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between a null collection and an empty one?",
+   "back": "An empty collection is safe to iterate, size and stream; a null one throws NullPointerException",
+   "extra": "Return <code>Collections.emptyList()</code> instead of null so callers never need a check.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between a null array and an empty array?",
+   "back": "<code>new int[0]</code> has length 0 and can be iterated; <code>null</code> throws on <code>.length</code>",
+   "extra": "Empty arrays are the safe default for \"no elements\" — same reason empty collections are.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Optional.empty()</code> for, compared with null?",
+   "back": "It is an explicit, typed \"no value\" that callers must handle, instead of a silently missing null",
+   "extra": "<code>optional.isPresent()</code> is checked by reading the code; a null return is invisible until it explodes.",
+   "source": "java-language reference (main method / String / collections)",
+   "tags": [
+    "type::semantics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
+  }
+ ]
+}
