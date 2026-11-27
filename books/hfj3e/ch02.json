@@ -1,0 +1,6672 @@
+{
+ "chapter": 2,
+ "start": 65,
+ "end": 86,
+ "headings": [
+  [
+   "Chair Wars (or How Objects Can Change Your Life)",
+   66
+  ],
+  [
+   "What’s the difference betweena class and an object?",
+   73
+  ],
+  [
+   "Making your first object",
+   74
+  ],
+  [
+   "Making and testing Movie objects",
+   75
+  ],
+  [
+   "Quick! Get out of main!",
+   76
+  ],
+  [
+   "Running the Guessing Game",
+   78
+  ]
+ ],
+ "pages": [
+  {
+   "page": 65,
+   "lines": [
+    {
+     "t": "this is a new chapter",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "2classes and objects",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "I was told there would be objects. In Chapter 1, we put all of our code in",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "the main() method.  That’s not exactly object-oriented. In fact, that’s not object-oriented at",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "all.  Well, we did use a few objects, like the String arrays for the Phrase-O-Matic, but we didn’t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "actually develop any of our own object types.  So now we’ve got to leave that procedural world",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "behind, get the heck out of main(), and start making some objects of our own.  We’ll look at",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "what makes object-oriented (OO) development in Java so much fun.  We’ll look at the difference",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "between a class and an object.  We’ll look at how objects can give you a better life (at least the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "programming part of your life.  Not much we can do about your fashion sense).  Warning: once",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you get to Objectville, you might never go back.  Send us a postcard.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A Trip to Objectville",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "We’re going to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Objectville!  We’re",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "leaving this dusty ol’",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "procedural town for good.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "I’ll send you a postcard.",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 66,
+   "lines": [
+    {
+     "t": "once upon a time in Objectville",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the spec",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "nce upon a time in a software shop, two programmers",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "were given the same spec and told to “build it.” The",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Really Annoying Project Manager forced the two",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "coders to compete, by promising that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "whoever delivers first gets a cool Aeron™",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "chair and adjustable height standing desk like",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "all the Silicon Valley techies have. Laura, the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "procedural programmer, and Brad, the OO",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "developer, both knew this would be a piece of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "cake.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Laura, sitting at her (non-adjustable) desk,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "thought to herself, “What are the things this",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "program has to do? What procedures do we",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "need?” And she answered herself, “rotate",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and playSound.” So off she went to build the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "procedures. After all, what is a program if not a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "pile of procedures?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Brad, meanwhile, kicked back at the coffee shop",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and thought to himself, “What are the things in",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "this program...who are the key players?” He first",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "thought of The Shapes. Of course, there were",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "other things he thought of like the User, the Sound, and the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Clicking Event. But he already had a library of code for those",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "pieces, so he focused on building Shapes. Read on to see how",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Brad and Laura built their programs, and for the answer to your",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "burning question, “So, who got the Aeron and the desk?”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Chair Wars",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "(or How Objects Can Change Your Life)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "the chair",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "At Brad’s laptop at the cafe",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Brad wrote a class for each of the three shapes.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "At Laura’s desk",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "As she had done a gazillion times before, Laura",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "set about writing her Important Procedures.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "She wrote rotate and playSound in no time.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "rotate(shapeNum) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// make the shape rotate 360º",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "playSound(shapeNum) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// use shapeNum to lookup which",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// AIF sound to play, and play it",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 43.2
+    }
+   ]
+  },
+  {
+   "page": 67,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "There will be an amoeba shape",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "on the screen, with the others.",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "When the user clicks on the",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "amoeba, it will rotate like the",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "others, and play a .hif sound file",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "But wait! There’s been a spec change.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "“OK, technically you were first, Laura,” said the Manager, “but we have to add just one tiny",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "thing to the program. It’ll be no problem for crack programmers like you two.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“If I had a dime for every time I’ve heard that one,” thought Laura, knowing that spec-change-no-",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "problem was a fantasy. “And yet Brad looks strangely serene. What’s up with that?” Still, Laura held",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tight to her core belief that the OO way, while cute, was just slow. And that if you wanted to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "change her mind, you’d have to pry it from her cold, dead, carpal-tunnelled hands.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Laura thought she’d nailed it. She could almost feel the",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "rolled steel of the Aeron beneath her...",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "what got added to the spec",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Back at Laura’s desk",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "The rotate procedure would still work; the code used a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "lookup table to match a shapeNum to an actual shape",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "graphic. But playSound would have to change.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "playSound(shapeNum) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// if the shape is not an amoeba,",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// use shapeNum to lookup which",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// AIF sound to play, and play it",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// else",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// play amoeba .mp3 sound",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "It turned out not to be such a big deal, but it still made",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "her queasy to touch previously tested code. Of all",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "people, she should know that no matter what the project",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "manager says, the spec always changes.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "At Brad’s laptop at the beach",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Brad smiled, sipped his fruit frappe, and wrote one new",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class. Sometimes the thing he loved most about OO was",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that he didn’t have to touch code he’d already tested",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and delivered. “Flexibility, extensibility, ...” he mused,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "reflecting on the benefits of OO.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Amoeba",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "rotate() {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// code to rotate an amoeba",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "playSound() {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// code to play the new",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// .mp3 file for an amoeba",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": ".",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "There will be an amoeba shape",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "on the screen, with the others.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "When the user clicks on the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "amoeba, it will rotate like the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "others, and play an .mp3 sound",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "file.",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 68,
+   "lines": [
+    {
+     "t": "once upon a time in Objectville",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Ameoba rotation point in Larry",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "and Brad’s version:",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "Where the ameba rotation",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "point should be:",
+     "mono": false,
+     "size": 10.5
+    },
+    {
+     "t": "What the spec conveniently",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "forgot to mention",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "(Hah! So much for that foofy OO nonsense.) But the smirk on Laura’s face melted when the Really",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Annoying Project Manager said (with that tone of disappointment), “Oh, no, that’s not how the amoeba",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "is supposed to rotate...”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Turns out, both programmers had written their rotate code like this:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "1. determine the rectangle that surrounds the shape.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "2. calculate the center of that rectangle, and rotate the shape around that point.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "But the amoeba shape was supposed to rotate around a point on one end, like a clock hand.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“I’m toast,” thought Laura, visualizing charred Wonderbread™. “Although, hmmmm. I could just add",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "another if/else to the rotate procedure and then just hard-code the rotation point code for the amoeba.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "That probably won’t break anything.” But the little voice at the back of her head said, “Big Mistake. Do",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you honestly think the spec won’t change again?”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Laura delivered just moments ahead of Brad",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Back at Laura’s desk",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "She figured she better add rotation point arguments",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to the rotate procedure. A lot of code was affected.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Testing, recompiling, the whole nine yards all over again.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Things that used to work, didn’t.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "rotate(shapeNum, xPt, yPt) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// if the shape is not an amoeba,",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// calculate the center point",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// based on a rectangle,",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// then rotate",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// else",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// use the xPt and yPt as",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// the rotation point offset",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// and then rotate",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "At Brad’s laptop on his lawn",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "chair at the Telluride Bluegrass Festival",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Without missing a beat, Brad modified the rotate",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "method, but only in the Amoeba class. He never",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "touched the tested,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "working, compiled",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "code for the other parts of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the program. To give the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Amoeba a rotation point, he",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "added an attribute that all",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Amoebas would have. He",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "modified, tested, and deliv­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ered (via free festival WiFi)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the revised program during",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "a single Bela Fleck set.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Amoeba",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int xPoint",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int yPoint",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rotate() {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// code to rotate an amoeba",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// using amoeba’s x and y",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "playSound() {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// code to play the new",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// .mp3 file for an amoeba",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Amoeba rotation point in Laura",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and Brad’s version:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Where the amoeba rotation",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "point should be:",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 69,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "So, Brad the OO guy got the chair and desk, right?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Not so fast. Laura found a flaw in Brad’s approach. And,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "since she was sure that if she got the chair and desk, she’d",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "also be next in line for a promotion, she had to turn this thing",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "around.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "LAURA: You’ve got duplicated code! The rotate procedure is",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "in all four Shape things.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "BRAD: It’s a method, not a procedure. And they’re classes,",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "not things.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "LAURA: Whatever. It’s a stupid design. You have to maintain",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "four different rotate “methods.” How can that ever be good?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "BRAD: Oh, I guess you didn’t see the final design. Let me",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "show you how OO inheritance works, Laura.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "They’re Shapes, and they all rotate and",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "playSound.  So I abstracted out the",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "common features and put them into a",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "new class called Shape.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Shape",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Triangle",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Square",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Circle",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Amoeba",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Shape",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "superclass",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "subclasses",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Then I linked the other",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "four shape classes to",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "the new Shape class,",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "in a relationship called",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "inheritance.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Triangle",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Square",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Circle",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "I looked at what all four",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "classes have in common.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Amoeba",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "You can read this as, “Square inherits from Shape,”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "“Circle inherits from Shape,” and so on. I removed",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rotate() and playSound() from the other shapes, so now",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "there’s only one copy to maintain.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The Shape class is called the superclassof the other four",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes. The other four are the subclasses of Shape. The",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "subclasses inherit the methods of the superclass. In other",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "words, if the Shape class has the functionality, then the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "subclasses automatically get that same functionality.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "What Laura really wanted",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "(figured the chair was a step closer",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to that promotion and the big bucks)",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 70,
+   "lines": [
+    {
+     "t": "once upon a time in Objectville",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "What about the Amoeba rotate()?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "LAURA: Wasn’t that the whole problem here—that the amoeba shape had a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "completely different rotate and playSound procedure?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "BRAD:Method.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "LAURA: Whatever. How can Amoeba do something different if it",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“inherits” its functionality from the Shape class?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "BRAD: That’s the last step. The Amoeba class overrides the methods",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of the Shape class. Then at runtime, the JVM knows exactly which rotate()",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "method to run when someone tells the Amoeba to rotate.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "d",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "N",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "w",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "s",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "M",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "H",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "w",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "I made the Amoeba class override",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "the rotate() method of the",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "superclass Shape.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Overriding just means that a",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "subclass redefines one of its",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "inherited methods when it needs",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "to change or extend the behavior",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "of that method.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Triangle",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Square",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Circle",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Amoeba",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "// amoeba-specific     \u0000",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "// rotate code",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "// amoeba-specific",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "// sound code",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "Shape",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "rotate()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "playSound()",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "superclass",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "(more abstract)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "subclasses",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "(more specific)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Overriding methods",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "LAURA: How do you “tell” an Amoeba to do",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "something? Don’t you have to call the procedure,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "sorry—method, and then tell it which thing to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "rotate?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "BRAD: That’s the really cool thing about OO.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "When it’s time for, say, the triangle to rotate, the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "program code invokes (calls) the rotate() method",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "on the triangle object. The rest of the program really",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "doesn’t know or care how the triangle does it.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "And when you need to add something new to the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "program, you just write a new class for the new",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "object type, so the new objects will have their",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "own behavior.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "can take care of",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "myself. I know how",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "an Amoeba is supposed to",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "rotate and play a",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "sound.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "I know how a Shape is",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "supposed to behave. Your",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "job is to tell me whatto",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "do, and my job is to make it happen.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Don’t you worry your little program­",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "mer head about how I do it.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "I made the Amoeba class override",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "the rotate() and playSound()",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "methods of the superclass Shape.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Overriding just means that a",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "subclass redefines one of its",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "inherited methods when it needs",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "to change or extend the behavior",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "of that method.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "{",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "{",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "{",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "{",
+     "mono": false,
+     "size": 8.0
+    }
+   ]
+  },
+  {
+   "page": 71,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The suspense is killing me.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Who got the chair and desk?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Amy from the second floor.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(Unbeknownst to all, the Project",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Manager had given the spec to three",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "programmers. Amy completed",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the project faster since she got on",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "with OO programming without",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "arguing with her co-workers).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“It helps me design in a more natural way. Things",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "have a way of evolving.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-Joy, 27, software architect",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "“Not messing around with code I’ve already",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "tested, just to add a new feature.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-Brad, 32, programmer",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "“I like that the data and the methods that oper­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ate on that data are together in one class.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-Jess, 22, foosball champion",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "“Reusing code in other applications. When I write",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a new class, I can make it flexible enough to be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "used in something new, later.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-Chris, 39, project manager",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "“I can’t believe Chris, who hasn’t written a line of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "code in 5 years, just said that.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-Daryl, 44, works for Chris",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "“Besides the chair?”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-Amy, 34, programmer",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "What do you like about OO?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Time to pump some neurons.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "You just read a story about a procedural",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "programmer going head-to-head with an OO",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "programmer. You got a quick overview of some",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "key OO concepts including classes, methods,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and attributes.  We’ll spend the rest of the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "chapter looking at classes and objects (we’ll",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "return to inheritance and overriding in later",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "chapters).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Based on what you’ve seen so far (and what you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "may know from a previous OO language you’ve",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "worked with), take a moment to think about",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "these questions:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "What are the fundamental things you need to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "think about when you design a Java class?  What",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "are the questions you need to ask yourself?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "If you could design a checklist to use when",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you’re designing a class, what would be on the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "checklist?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "brain",
+     "mono": false,
+     "size": 15.0
+    },
+    {
+     "t": "power",
+     "mono": false,
+     "size": 15.0
+    },
+    {
+     "t": "?",
+     "mono": false,
+     "size": 45.0
+    },
+    {
+     "t": "metacognitive tip",
+     "mono": false,
+     "size": 20.0
+    },
+    {
+     "t": "If you’re stuck on an exercise, try talking about",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "it out loud. Speaking (and hearing) activates",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a different part of your brain. Although it",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "works best if you have another person to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "discuss it with, pets work too. That’s how",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "our dog learned polymorphism.",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 72,
+   "lines": [
+    {
+     "t": "thinking about objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ShoppingCart",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "cartContents",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "addToCart()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "removeFromCart()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "checkOut()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "knows",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "does",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Button",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "label",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "color",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setColor()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setLabel()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "dePress()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "unDepress()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "knows",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "does",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Alarm",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "alarmTime",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "alarmMode",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setAlarmTime()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setAlarm()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "isAlarmSet()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "snooze()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "knows",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "does",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "When you design a class, think about the objects that",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "will be created from that class type. Think about:",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "  things the object knows",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "  things the object does",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Things an object knows about itself are called",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "  instance variables",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Things an object can do are called",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "  methods",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Song",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "title",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "artist",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setTitle()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setArtist()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "play()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "instance",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "variables",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "(state)",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "methods",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "(behavior)",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "knows",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "does",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Things an object knows about itself are called instance",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variables. They represent an object’s state (the data) and can",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "have unique values for each object of that type.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Think of instance as another way of saying object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Things an object can do are called methods. When you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "design a class, you think about the data an object will need to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "know about itself, and you also design the methods that operate",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "on that data. It’s common for an object to have methods that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "read or write the values of the instance variables. For example,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Alarm objects have an instance variable to hold the alarmTime,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and two methods for getting and setting the alarmTime.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "So objects have instance variables and methods, but those",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "instance variables and methods are designed as part of the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Fill in what a television object",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "might need to know and do.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Alarm",
+     "mono": false,
+     "size": 8.2
+    },
+    {
+     "t": "alarmTime",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "alarmMode",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "setAlarmTime()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "getAlarmTime()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "isAlarmSet()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "snooze()",
+     "mono": false,
+     "size": 9.2
+    },
+    {
+     "t": "knows",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "does",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Television",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "instance",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variables",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "methods",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Button",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "label",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "color",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "setColor()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "setLabel()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "push()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "release()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Yours to solve.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 73,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "What’s the difference between",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "a class and an object?",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "A class is a blueprint for an object. It tells",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the virtual machine how to make an object of that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "particular type. Each object made from that class",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "can have its own values for the instance",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variables of that class. For example,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you might use the Button class to make",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "dozens of different buttons, and each",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "button might have its own color, size, shape,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "label, and so on. Each one of these different",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "buttons would be a button object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A class is not an object",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "(but it’s used to construct them)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "JVM",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "One analogy for classes and objects is your phone’s contact list.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Each contact has the same blank fields (the instance variables).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "When you create a new contact, you are creating an instance",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(object), and the entries you make for that contact represent its",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "state.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The methods of the class are the things you do to a particular",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "contact; getName( ), changeName( ), setName( ) could all be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "methods for class Contact.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "So, each contact can do the same things (getName( ),",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "changeName( ), etc.), but each individual contact knows things",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "unique to that particular contact.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "An object is like one entry in your contacts list.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Look at it this way...",
+     "mono": false,
+     "size": 18.0
+    }
+   ]
+  },
+  {
+   "page": 74,
+   "lines": [
+    {
+     "t": "class DogTestDrive {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Dog d = new Dog();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.size = 40;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.bark();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "making objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class Dog {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int size;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String breed;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String name;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "void bark() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"Ruff! Ruff!\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Making your first object",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "So what does it take to create and use an object? You need two classes. One class",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "for the type of object you want to use (Dog, AlarmClock, Television, etc.) and an­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "other class to test your new class. The tester class is where you put the main method,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and in that main() method you create and access objects of your new class type.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The tester class has only one job: to try out the methods and variables of your new",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "From this point forward in the book, you’ll see two classes in many of our",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "examples. One will be the real class—the class whose objects we really want to use,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and the other class will be the tester class, which we call <WhateverYourClassNameIs>",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "TestDrive. For example, if we make a Bungee class, we’ll need a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "BungeeTestDrive class as well. Only the <SomeClassName>TestDrive",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class will have a main() method, and its sole purpose is to create objects of your",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "new class (the not-the-tester class), and then use the dot operator (.) to access the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "methods and variables of the new objects. This will all be made stunningly clear by",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the following examples. No, really.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Write your class",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "class DogTestDrive {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// Dog test code goes  here",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Write a tester (TestDrive) class",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "In your tester, make an object and access",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "the object’s variables and methods",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Instance variables",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "A method",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Just a main method",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "(we’re gonna put code",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "in it in the next step)",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Make a Dog object",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Use the dot operator (.)",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "to set the size of the Dog",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "and to call its bark() method",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Dot",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "operator",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The dot operator (.) gives",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you access to an object’s",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "state and behavior (instance",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variables and methods).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// make a new object",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Dog d = new Dog();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// tell it to bark by using the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// dot operator on the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// variable d to call bark()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "d.bark();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// set its size using the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "// dot operator",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "d.size = 40;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The Dot Operator (.)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "If you already have some OO savvy,",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "you’ll know we’re not using encapsulation.",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "We’ll get there in Chapter 4, How",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "Objects Behave.",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "size",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "breed",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "name",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "bark()",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 75,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "object 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object 3",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "title",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "genre",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rating",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "title",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "genre",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rating",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "title",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "genre",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rating",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "MOVIE",
+     "mono": false,
+     "size": 8.3
+    },
+    {
+     "t": "title",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "genre",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rating",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "playIt()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "class Movie {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String title;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String genre;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int rating;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "void playIt() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"Playing the movie\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public class MovieTestDrive {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Movie one = new Movie();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "one.title = \"Gone with the Stock\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "one.genre = \"Tragic\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "one.rating = -2;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Movie two = new Movie();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "two.title = \"Lost in Cubicle Space\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "two.genre = \"Comedy\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "two.rating = 5;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "two.playIt();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Movie three = new Movie();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "three.title = \"Byte Club\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "three.genre = \"Tragic but ultimately uplifting\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "three.rating = 127;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Making and testing Movie objects",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "The MovieTestDrive class creates objects (instances) of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the Movie class and uses the dot operator (.) to set the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "instance variables to a specific value. The MovieTest­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Drive class also invokes (calls) a method on one of the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "objects. Fill in the chart to the right with the values the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "three objects  have at the end of main().",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Yours to solve.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 76,
+   "lines": [
+    {
+     "t": "GuessGame",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "p1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p3",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "startGame()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "get the heck out of main",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Quick! Get out of main!",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "As long as you’re in main(), you’re not really in Objectville. It’s fine for a test program",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to run within the main method, but in a true OO application, you need objects talk­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ing to other objects, as opposed to a static main() method creating and testing objects.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The two uses of main:",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "  to test your real class",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "  to launch/start your Java application",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "A real Java application is nothing but objects talking to other objects. In this case,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "talking means objects calling methods on one another. On the previous page, and in",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Chapter 4, How Objects Behave, we look at using a main() method from a separate",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "TestDrive class to create and test the methods and variables of another class. In",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Chapter 6, Using the Java Library, we look at using a class with a main() method to start",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the ball rolling on a real Java application (by making objects and then turning those",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "objects loose to interact with other objects, etc.)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "As a “sneak preview,” though, of how a real Java application might behave, here’s a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "little example. Because we’re still at the earliest stages of learning Java, we’re work­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ing with a small toolkit, so you’ll find this program a little clunky and inefficient. You",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "might want to think about what you could do to improve it, and in later chapters",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that’s exactly what we’ll do. Don’t worry if some of the code is confusing; the key",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "point of this example is that objects talk to objects.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The Guessing Game",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Summary:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The Guessing Game involves a game object and three player objects. The game gen­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "erates a random number between 0 and 9, and the three player objects try to guess",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "it. (We didn’t say it was a really exciting game.)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Classes:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "GuessGame.class    Player.class   GameLauncher.class",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "The Logic:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "1. The GameLauncher class is where the application starts; it has the main() method.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "2. In the main() method, a GuessGame object is created, and its startGame() method",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "is called.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "3. The GuessGame object’s startGame() method is where the entire game plays out. It",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "creates three players and then “thinks” of a random number (the target for the play­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ers to guess). It then asks each player to guess, checks the result, and either prints",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "out information about the winning player(s) or asks them to guess again.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Player",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "number",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "guess()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Instance",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "variables",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "forthe three",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "players",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The number",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "this player",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "guessed",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Method for",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "making a",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "guess",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "GameLauncher",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "main(String[] args)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Makes a",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "GuessGame",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "object and",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "tells it to",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "startGame",
+     "mono": false,
+     "size": 13.0
+    }
+   ]
+  },
+  {
+   "page": 77,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public class GuessGame {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "Player p1;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "Player p2;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "Player p3;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "public void startGame() {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p1 = new Player();",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p2 = new Player();",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p3 = new Player();",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "int guessp1 = 0;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "int guessp2 = 0;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "int guessp3 = 0;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "boolean p1isRight = false;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "boolean p2isRight = false;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "boolean p3isRight = false;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "int targetNumber = (int) (Math.random() * 10);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"I'm thinking of a number between 0 and 9...\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "while (true) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Number to guess is \" + targetNumber);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p1.guess();",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p2.guess();",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p3.guess();",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "guessp1 = p1.number;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Player one guessed \" + guessp1);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "guessp2 = p2.number;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Player two guessed \" + guessp2);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "guessp3 = p3.number;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Player three guessed \" + guessp3);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "if (guessp1 == targetNumber) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p1isRight = true;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "if (guessp2 == targetNumber) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p2isRight = true;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "if (guessp3 == targetNumber) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "p3isRight = true;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "if (p1isRight || p2isRight || p3isRight) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"We have a winner!\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Player one got it right? \" + p1isRight);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Player two got it right? \" + p2isRight);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Player three got it right? \" + p3isRight);",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Game is over.\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "break; // game over, so break out of the loop",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "} else {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "// we must keep going because nobody got it right!",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"Players will have to try again.\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "} // end if/else",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "} // end loop",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "} // end method",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "} // end class",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "GuessGame has three instance",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "variables for the three Player",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "objects.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Create three Player objects and",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "assign them to the three Player",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "instance variables.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Declare three variables to hold the",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "three guesses the Players make.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Declare three variables to hold a true or",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "false based on the player’s answer.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Make a ‘target’ number that",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "the players have to guess.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Call each player’s guess() method.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Get each player’s guess (the result of their",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "guess() method running) by accessing the",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "number variable of each player.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Check each player’s guess to see if it",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "matches the target number. If a player is",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "right, then set that player’s variable to be",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "true (remember, we set it false by default).",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "If player one OR player two OR player three is right",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "(the || operator means OR).",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Otherwise, stay in the loop and ask the",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "players for another guess.",
+     "mono": false,
+     "size": 13.0
+    }
+   ]
+  },
+  {
+   "page": 78,
+   "lines": [
+    {
+     "t": "File   Edit   Window  Help   Explode",
+     "mono": false,
+     "size": 5.9
+    },
+    {
+     "t": "%java GameLauncher",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "I’m thinking of a number between 0 and 9...",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Number to guess is 7",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 1",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 9",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 9",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player one guessed 1",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player two guessed 9",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player three guessed 9",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Players will have to try again.",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Number to guess is 7",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 3",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 0",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 9",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player one guessed 3",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player two guessed 0",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player three guessed 9",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Players will have to try again.",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Number to guess is 7",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 7",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 5",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "I’m guessing 0",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player one guessed 7",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player two guessed 5",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player three guessed 0",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "We have a winner!",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player one got it right? true",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player two got it right? false",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Player three got it right? false",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Game is over.",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "Output (it will be different each time you run it)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Running the Guessing Game",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Guessing Game",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Java takes out the",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Garbage",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Each time an object is created",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "in Java, it goes into an area of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "memory known as The Heap. All",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "objects—no matter when, where, or how",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "they’re created—live on the heap. But it’s",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "not just any old memory heap; the Java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "heap is actually called the Garbage-",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Collectible Heap. When you create an",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object, Java allocates memory space on",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the heap according to how much that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "particular object needs. An object with,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "say, 15 instance variables, will probably",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "need more space than an object with",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "only two instance variables. But what",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "happens when you need to reclaim",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that space? How do you get an object",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "out of the heap when you’re done with",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "it? Java manages that memory for you!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "When the JVM can “see” that an object",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "can never be used again, that object",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "becomes eligible for garbage collection.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "And if you’re running low on memory,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the Garbage Collector will run, throw out",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the unreachable objects, and free up the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "space so that the space can be reused.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "In later chapters you’ll learn more about",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "how this works.",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 79,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Make it Stick",
+     "mono": false,
+     "size": 22.0
+    },
+    {
+     "t": "A class is like a recipe.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Objects are like",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "­cookies.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "BULLET POINTS",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Object-oriented programming lets you extend",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "a program without having to touch previously",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tested, working code.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "All Java code is defined in a class.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A class describes how to make an object of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that class type. A class is like a blueprint.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "An object can take care of itself; you don’t",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "have to know or care how the object does it.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "An object knows things and does things.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Things an object knows about itself are called",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "instance variables. They represent the state",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of an object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Things an object does are called methods.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "They represent the behavior of an object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "When you create a class, you may also want",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to create a separate test class that you’ll use",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to create objects of your new class type.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A class can inherit instance variables and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "methods from a more abstract superclass.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "At runtime, a Java program is nothing more",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "than objects “talking” to other objects.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Q: What if I need global",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "variables and methods? How",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "do I do that if everything has to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "go in a class?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: There isn’t a concept of",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "“global” variables and methods",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "in a Java OO program. In",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "practical use, however, there",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "are times when you want a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "method (or a constant) to be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "available to any code running in",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "any part of your program. Think",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of the random() method in",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the Phrase-O-Matic app; it’s a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "method that should be callable",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "from anywhere. Or what about",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a constant like pi? You’ll learn",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "in Chapter 10 that marking",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a method as public and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "static makes it behave much",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "like a “global.” Any code, in any",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "class of your application, can",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "access a public static method.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "And if you mark a variable as",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public, static, and final,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you have essentially made a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "globally available constant.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q: Then how is this object-",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "oriented if you can still make",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "global functions and global",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "data?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: First of all, everything",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "in Java goes in a class. So the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "constant for pi and the method",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "for random(), although both",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public and static, are defined",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "within the Math class.  And you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "must keep in mind that these",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "static (global-like) things are the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "exception rather than the rule",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "in Java. They represent a very",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "special case, where you don’t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "have multiple instances/objects.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q: What is a Java program?",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "What do you actually deliver?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: A Java program is a pile",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "of classes (or at least one class).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "In a Java application, one of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the classes must have a main",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "method, used to start up the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "program. So as a programmer,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you write one or more classes.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "And those classes are what you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "deliver. If the end user doesn’t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "have a JVM, then you’ll also",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "need to include that with your",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "application’s classes so that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "they can run your program.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "There are a number of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "programs that let you bundle",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "your classes with a JVM and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "create a folder or file you can",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "share however you want (e.g., via",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the internet). Then the end user",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "can install the correct version",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of the JVM (assuming they don’t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "already have it on their machine).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q: What if I have a hundred",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "classes? Or a thousand? Isn’t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that a big pain to deliver",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "all those individual files?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Can I bundle them into one",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Application Thing?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: Yes, it would be a big",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "pain to deliver a huge bunch of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "individual files to your end users,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "but you won’t have to. You can",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "put all of your application files",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "into a Java ARchive—a .jar file—",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that’s based on the pkzip format.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "In the jar file, you can include",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a simple text file formatted as",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "something called a manifest, that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "defines which class in that jar",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "holds the main() method that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "should run.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "there are no",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Dumb Questions",
+     "mono": false,
+     "size": 21.0
+    }
+   ]
+  },
+  {
+   "page": 80,
+   "lines": [
+    {
+     "t": "class StreamingSong {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String title;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String artist;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int duration;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "void play() {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"Playing song\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "void printDetails() {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"This is \" + title +",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "\" by \" + artist);",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class StreamingSongTestDrive {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "song.artist = \"The Beatles\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "song.title = \"Come Together\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "song.play();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "song.printDetails();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class Episode {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int seriesNumber;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int episodeNumber;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "void skipIntro() {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"Skipping intro...\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "void skipToNext() {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"Loading next episode...\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class EpisodeTestDrive {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Episode episode = new Episode();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "episode.seriesNumber = 4;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "episode.play();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "episode.skipIntro();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Each of the Java files on this page",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "represents a complete source file.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Your job is to play compiler and",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "determine whether each of",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "these files will compile.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "If they won’t compile,",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "how would you fix them,",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "and if they do compile, what",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "would be their output?",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "BE the Compiler",
+     "mono": false,
+     "size": 19.0
+    },
+    {
+     "t": "exercise: Be the Compiler",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Exercise",
+     "mono": false,
+     "size": 14.6
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Answers on page 46.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 81,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A Java program is all scrambled up on",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the fridge.  Can you reconstruct the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "code snippets to make a working Java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "program that produces the output listed",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "below?  Some of the curly braces fell on",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the floor and they were too small to pick",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "up, so feel free to add as many of those",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "as you need.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "boolean topHat = true;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "boolean snare = true;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "void playSnare() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"bang bang ba-bang\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (d.snare == true) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.playSnare();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.snare = false;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class DrumKitTestDrive {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.playTopHat();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 8.5
+    },
+    {
+     "t": "File   Edit   Window  Help   Dance",
+     "mono": false,
+     "size": 4.1
+    },
+    {
+     "t": "% java DrumKitTestDrive",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "bang bang ba-bang",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "ding ding da-ding",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "void playTopHat () {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"ding ding da-ding\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class DrumKit {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "DrumKit d = new DrumKit();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Code Magnets",
+     "mono": false,
+     "size": 21.0
+    },
+    {
+     "t": "d.playSnare();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Exercise",
+     "mono": false,
+     "size": 14.6
+    },
+    {
+     "t": "Answers on page 46.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 82,
+   "lines": [
+    {
+     "t": "x == 3",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x == 4",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x < 4",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x < 5",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x > 0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x > 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Pool Puzzle",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Your job is to take code snippets from",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the pool and place them into the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "blank lines in the code. You may",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "use the same snippet more than",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "once, and you won’t need to use",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "all the snippets. Your goal is to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "make classes that will compile and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "run and produce the output listed be­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "low. Some of the exercises and puzzles",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "in this book might have more than one",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "correct answer. If you find another cor­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rect answer, give yourself bonus points!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public class EchoTestDrive {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "public static void main(String []",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "args) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Echo e1 = new Echo();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "_________________________",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "while ( ___________ ) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "e1.hello();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "__________________________",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "if ( ____________ ) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "e2.count = e2.count + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "if ( ____________ ) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "e2.count = e2.count + e1.count;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "System.out.println(e2.count);",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Note:  Each snippet",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "from the pool can be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "used more than once!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "File   Edit   Window  Help  Implode",
+     "mono": false,
+     "size": 6.9
+    },
+    {
+     "t": "%java EchoTestDrive",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Output",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e1 = e1 + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e1 = count + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e1.count = count + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e1.count = e1.count + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e2 = e1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Echo e2;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Echo e2 = e1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Echo e2 = new Echo( );",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "y",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "count",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Echo",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Tester",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "echo( )",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "count( )",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "hello( )",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Bonus Question !",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "If the last line of output was",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "24 instead of 10, how would",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you complete the puzzle?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "puzzle: Pool Puzzle",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class ____________ {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "int _________ = 0;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "void ___________ {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "System.out.println(\"helloooo... \");",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Answers on page 47.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 83,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Who Am I?",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "I am compiled from a .java file.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "My instance variable values can",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "be different from my buddy’s",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "values.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I behave like a template.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I like to do stuff.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I can have many methods.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I represent “state.”",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I have behaviors.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I am located in objects.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I live on the heap.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I am used to create object instances.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "My state can change.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I declare methods.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "I can change at runtime.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "A bunch of Java components, in full costume, are playing a party",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "game, “Who am I?”  They give you a clue, and you try to guess who",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "they are, based on what they say. Assume they always tell the truth",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "about themselves.  If they happen to say something that could be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "true for more than one of them,  choose all for whom that sentence",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "can apply. Fill in the blanks next to the sentence with the names of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "one or more attendees. The first one’s on us.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Tonight’s attendees:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Class     Method      Object       Instance variable",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Answers on page 47.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 84,
+   "lines": [
+    {
+     "t": "A",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Code Magnets (from page 43)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "File   Edit   Window  Help   Dance",
+     "mono": false,
+     "size": 4.1
+    },
+    {
+     "t": "% java DrumKitTestDrive",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "bang bang ba-bang",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "ding ding da-ding",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "class DrumKit {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "boolean topHat = true;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "boolean snare = true;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "void playTopHat() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"ding ding da-ding\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "void playSnare() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"bang bang ba-bang\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class DrumKitTestDrive {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "DrumKit d = new DrumKit();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.playSnare();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.snare = false;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.playTopHat();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (d.snare == true) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "d.playSnare();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class StreamingSong {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "String title;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "String artist;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "int duration;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "void play() {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"Playing song\");",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "void printDetails() {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"This is \" + title +",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "\" by \" + artist);",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "class StreamingSongTestDrive {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "StreamingSong song = new StreamingSong();",
+     "mono": false,
+     "size": 8.1
+    },
+    {
+     "t": "song.artist = \"The Beatles\";",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "song.title = \"Come Together\";",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "song.play();",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "song.printDetails();",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "class Episode {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "int seriesNumber;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "int episodeNumber;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "void play() {",
+     "mono": false,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"Playing episode \" + episodeNumber);",
+     "mono": false,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 8.1
+    },
+    {
+     "t": "void skipIntro() {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"Skipping intro...\");",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "void skipToNext() {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"Loading next episode...\");",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "class EpisodeTestDrive {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "Episode episode = new Episode();",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "episode.seriesNumber = 4;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "episode.play();",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "episode.skipIntro();",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "BE the Compiler (from page 42)",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "exercise solutions",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Exercise Solutions",
+     "mono": false,
+     "size": 11.8
+    },
+    {
+     "t": "The line:  episode.play();",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "wouldn’t compile without a play",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "method in the episode class!",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "We’ve got the template, now we",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "have to make an object!",
+     "mono": false,
+     "size": 13.0
+    }
+   ]
+  },
+  {
+   "page": 85,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "classes and objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public class EchoTestDrive {",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "public static void main(String[]",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "args) {",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "Echo e1 = new Echo();",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "Echo e2 = new Echo();",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "// correct answer",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "- or -",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "Echo e2 = e1;  // bonus \"24\" answer",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "while (x < 4) {",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "e1.hello();",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "e1.count = e1.count + 1;",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "if (x == 3) {",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "e2.count = e2.count + 1;",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "if (x > 0) {",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "e2.count = e2.count + e1.count;",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "System.out.println(e2.count);",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "class Echo {",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "int count = 0;",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "void hello() {",
+     "mono": false,
+     "size": 8.8
+    },
+    {
+     "t": "System.out.println(\"helloooo... \");",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "File   Edit   Window  Help  Assimilate",
+     "mono": false,
+     "size": 6.0
+    },
+    {
+     "t": "%java EchoTestDrive",
+     "mono": true,
+     "size": 7.7
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 7.7
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 7.7
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 7.7
+    },
+    {
+     "t": "helloooo...",
+     "mono": true,
+     "size": 7.7
+    },
+    {
+     "t": "I am compiled from a .java file.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "My instance variable values can be",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "different from my buddy’s values.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I behave like a template.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I like to do stuff.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I can have many methods.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I represent “state.”",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I have behaviors.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I am located in objects.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I live on the heap.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I am used to create object",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "instances.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "My state can change.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I declare methods.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I can change at runtime.",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "object",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "object, method",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class, object",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "instance variable",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "object, class",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "method, instance variable",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "object",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "object, instance variable",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "object, instance variable",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Pool Puzzle (from page 44)",
+     "mono": false,
+     "size": 15.0
+    },
+    {
+     "t": "Who Am I?(from page 45)",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Note: both classes and objects are said to have state and behavior.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "They’re defined in the class, but the object is also said to “have”",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "them. Right now, we don’t care where they technically live.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Puzzle Solutions",
+     "mono": false,
+     "size": 14.0
+    }
+   ]
+  },
+  {
+   "page": 86,
+   "lines": []
+  }
+ ]
+}

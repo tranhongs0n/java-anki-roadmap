@@ -1,0 +1,110 @@
+{
+ "deck": "20 Head First Java::02 A Trip to Objectville",
+ "tags": [
+  "book::hfj3e",
+  "ch::02",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the relationship between a class and an object?",
+   "back": "A class is a <b>blueprint</b>; an object is one instance the JVM builds from it",
+   "extra": "The class says what an object of that type will have and can do. A class is not itself an object — it is the instructions for making them, which is why one class can produce thousands of objects.",
+   "source": "Head First Java 3E — ch 2, p. 73",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Two objects came from the same class. What do their instance variables have in common?",
+   "back": "The <b>names and types</b>; the <b>values are independent</b>",
+   "extra": "Each object carries its own copy of every instance variable, so changing one object's field never touches another's. Three Movie objects can hold three different titles and ratings.",
+   "source": "Head First Java 3E — ch 2, p. 73",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does a first OO program need two classes?",
+   "back": "One defines the object type, the other holds <code>main()</code> to create and test it",
+   "extra": "The tester class has a single job: try out the methods and variables of the new type. Mixing test code into the domain class is what makes small programs hard to grow.",
+   "source": "Head First Java 3E — ch 2, p. 74",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "In <code>Dog d = new Dog();</code>, what does <code>d</code> hold?",
+   "back": "A <b>reference</b> to the object, not the object itself",
+   "extra": "The object is created on the heap; the variable holds the bits the JVM uses to find it. Copying <code>d</code> into another variable gives two names for one dog, not two dogs.",
+   "source": "Head First Java 3E — ch 2, p. 74",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How do you reach an object's field or call its method?",
+   "back": "Through the <b>dot operator</b> on a reference: <code>d.size = 40;</code>, <code>d.bark();</code>",
+   "extra": "The reference is the remote control; the dot is the button. Fields are assigned, methods are called with parentheses — forgetting them calls nothing.",
+   "source": "Head First Java 3E — ch 2, p. 74",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "In Head First's terms, what do an object's instance variables and methods represent?",
+   "back": "<b>State</b> (what it knows) and <b>behaviour</b> (what it does)",
+   "extra": "Instance variables hold the object's own data; methods are the things it can do. This split is the mental model behind encapsulation later in the book.",
+   "source": "Head First Java 3E — ch 2, p. 79",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What are the two legitimate uses of <code>main()</code>?",
+   "back": "To <b>test</b> a class, and to <b>launch</b> the application",
+   "extra": "A test-drive main creates objects and exercises them. Business logic living in main means you never left the procedural world.",
+   "source": "Head First Java 3E — ch 2, p. 76",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "In a real OO application, what replaces a <code>main()</code> that does all the work?",
+   "back": "Objects calling methods on each other",
+   "extra": "The application is a set of collaborating objects; main only starts the first one. If everything still happens inside main, the objects exist but nothing talks.",
+   "source": "Head First Java 3E — ch 2, p. 76",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does object orientation let you extend a program without breaking tested code?",
+   "back": "New behaviour goes into new or subclassed classes; existing classes are left untouched",
+   "extra": "You add rather than edit. That is the claim behind reusable, tested components — the alternative is changing working code and re-testing everything.",
+   "source": "Head First Java 3E — ch 2, p. 79",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Where do objects live in memory?",
+   "back": "On the <b>heap</b>",
+   "extra": "References sit in variables on the stack or inside other objects; the objects themselves are heap allocations, which is why they can outlive the method that created them.",
+   "source": "Head First Java 3E — ch 2, p. 95",
+   "tags": [
+    "type::definition"
+   ]
+  }
+ ]
+}

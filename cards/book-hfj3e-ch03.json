@@ -1,0 +1,110 @@
+{
+ "deck": "20 Head First Java::03 Know Your Variables",
+ "tags": [
+  "book::hfj3e",
+  "ch::03",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What must every variable declaration contain?",
+   "back": "A <b>type</b> and a <b>name</b>",
+   "extra": "Java is statically typed, so <code>int size;</code> tells the compiler the cup's shape before any value exists. Without the type the compiler cannot check assignments.",
+   "source": "Head First Java 3E — ch 3, p. 88",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>int x = 24; byte b = x;</code> — why does this not compile?",
+   "back": "The compiler checks <b>types</b>, not the current value; a cast is required",
+   "extra": "It knows an int may hold values that do not fit a byte, and refuses to guess. <code>byte b = (byte) x;</code> compiles — and silently truncates for larger values.",
+   "source": "Head First Java 3E — ch 3, p. 90",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does a primitive variable hold, and what does a reference variable hold?",
+   "back": "Primitive: the <b>value itself</b>. Reference: <b>bits that get you to an object</b>",
+   "extra": "<code>5</code>, <code>-26.7</code>, <code>'a'</code> are values. A reference is more like a remote control: you cannot see inside it, and you cannot do arithmetic on it.",
+   "source": "Head First Java 3E — ch 3, p. 93",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Is there such a thing as an object variable in Java?",
+   "back": "No — only <b>object reference variables</b>",
+   "extra": "The variable holds a way to access an object, never the object's bytes. That is why two variables can name the same object and why assignment never copies it.",
+   "source": "Head First Java 3E — ch 3, p. 92",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>Book c = new Book(); Book d = c;</code> — how many objects exist?",
+   "back": "One — <code>d</code> copies the reference, not the object",
+   "extra": "Both variables hold identical bits pointing at the same heap object. Changing a field through <code>d</code> is visible through <code>c</code>.",
+   "source": "Head First Java 3E — ch 3, p. 95",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>Book b = new Book(); Book c = new Book(); b = c;</code> — count references and objects afterwards",
+   "back": "<b>2 references, 1 reachable object, 1 abandoned object</b>",
+   "extra": "The first object loses its only name when <code>b</code> is overwritten, so it becomes collectable. The reference count is unchanged; the reachable object count dropped.",
+   "source": "Head First Java 3E — ch 3, p. 96",
+   "tags": [
+    "type::trace"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "An array variable such as <code>int[] nums</code> holds what?",
+   "back": "A <b>reference</b> to an array object on the heap",
+   "extra": "<code>nums = new int[7];</code> creates the array object and points the variable at it. The variable itself is still just a remote control.",
+   "source": "Head First Java 3E — ch 3, p. 97",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>new Dog[7]</code> — how many <code>Dog</code> objects have been created?",
+   "back": "<b>Zero</b> — seven <code>null</code> references",
+   "extra": "Creating the array allocates the tray, not the dogs. Each slot must be filled with <code>new Dog()</code> before use, otherwise you get a NullPointerException.",
+   "source": "Head First Java 3E — ch 3, p. 98",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How do you call a method on a Dog stored in an array?",
+   "back": "<code>myDogs[0].bark();</code> — index first, then dot",
+   "extra": "The element expression evaluates to a reference, and the dot works on that. The classic bug is <code>myDogs.bark()</code>, which treats the array itself as the object.",
+   "source": "Head First Java 3E — ch 3, p. 99",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Do the elements of a <code>Dog[]</code> hold Dog objects or references?",
+   "back": "<b>References</b> — the objects live elsewhere on the heap",
+   "extra": "This is why two slots can point at the same dog and why assigning <code>myDogs[2] = dog1;</code> creates no new object.",
+   "source": "Head First Java 3E — ch 3, p. 98",
+   "tags": [
+    "type::definition"
+   ]
+  }
+ ]
+}

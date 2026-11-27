@@ -1,0 +1,26 @@
+{
+ "ch2": [
+  "What is the relationship between a class and an object?",
+  "Two objects came from the same class. What do their instance variables have in common?",
+  "Why does a first OO program need two classes?",
+  "In <code>Dog d = new Dog();</code>, what does <code>d</code> hold?",
+  "How do you reach an object's field or call its method?",
+  "In Head First's terms, what do an object's instance variables and methods represent?",
+  "What are the two legitimate uses of <code>main()</code>?",
+  "In a real OO application, what replaces a <code>main()</code> that does all the work?",
+  "Why does object orientation let you extend a program without breaking tested code?",
+  "Where do objects live in memory?"
+ ],
+ "ch3": [
+  "What must every variable declaration contain?",
+  "<code>int x = 24; byte b = x;</code> — why does this not compile?",
+  "What does a primitive variable hold, and what does a reference variable hold?",
+  "Is there such a thing as an object variable in Java?",
+  "<code>Book c = new Book(); Book d = c;</code> — how many objects exist?",
+  "<code>Book b = new Book(); Book c = new Book(); b = c;</code> — count references and objects afterwards",
+  "An array variable such as <code>int[] nums</code> holds what?",
+  "<code>new Dog[7]</code> — how many <code>Dog</code> objects have been created?",
+  "How do you call a method on a Dog stored in an array?",
+  "Do the elements of a <code>Dog[]</code> hold Dog objects or references?"
+ ]
+}

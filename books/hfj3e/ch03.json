@@ -1,0 +1,8013 @@
+{
+ "chapter": 3,
+ "start": 87,
+ "end": 108,
+ "headings": [
+  [
+   "Declaring a variable",
+   88
+  ],
+  [
+   "“I’d like a double mocha, no, make it an int.”",
+   89
+  ],
+  [
+   "You really don’t want to spill that...",
+   90
+  ],
+  [
+   "Back away from that keyword!",
+   91
+  ],
+  [
+   "Controlling your Dog object",
+   92
+  ],
+  [
+   "An object reference is justanother variable value",
+   93
+  ],
+  [
+   "Life on the garbage-collectible heap",
+   95
+  ],
+  [
+   "An array is like a tray of cups",
+   97
+  ],
+  [
+   "Make an array of Dogs",
+   98
+  ],
+  [
+   "Control your Dog(with a reference variable)",
+   99
+  ]
+ ],
+ "pages": [
+  {
+   "page": 87,
+   "lines": [
+    {
+     "t": "this is a new chapter",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "3primitives and references",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Variables can store two types of things:primitives and references.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "So far you’ve used variables in two places—as object state (instance variables) and as local",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variables (variables declared within a method). Later, we’ll use variables as arguments (values",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "sent to a method by the calling code), and as return types (values sent back to the caller of the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "method).  You’ve seen variables declared as simple primitive integer values (type int). You’ve",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "seen variables declared as something more complex like a String or an array.  But there’s gotta",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "be more to life than integers, Strings, and arrays. What if you have a PetOwner object with a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Dog instance variable? Or a Car with an Engine? In this chapter we’ll unwrap the mysteries of Java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "types (like the difference between primited and references) and look at what you can declare as a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variable, what you can put in a variable, and what you can do with a variable. And we’ll finally see",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "what life is truly like on the garbage-collectible heap.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Know Your Variables",
+     "mono": false,
+     "size": 24.0
+    }
+   ]
+  },
+  {
+   "page": 88,
+   "lines": [
+    {
+     "t": "declaring a variable",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Declaring a variable",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Java cares about type. It won’t let you do",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "something bizarre and dangerous like stuff a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Giraffe reference into a Rabbit variable—what",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "happens when someone tries to ask the so-called",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Rabbit to hop()? And it won’t let you put a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "floating-point number into an integer variable,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "unless you tell the compiler that you know you might",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "lose precision (like, everything after the decimal",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "point).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The compiler can spot most problems:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Rabbit hopper = new Giraffe();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Don’t expect that to compile. Thankfully.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "For all this type-safety to work, you must declare",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the type of your variable. Is it an integer? a Dog?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A single character? Variables come in two flavors:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "primitive and object reference. Primitives hold",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "fundamental values (think: simple bit patterns)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "including integers, booleans, and floating-point num­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "bers. Object references hold, well, references to objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(gee, didn’t that clear it up).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "We’ll look at primitives first and then move on",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to what an object reference really means. But",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "regardless of the type, you must follow two",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "declaration rules:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Besides a type, a variable needs a name so that you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "can use that name in code.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variables must have a type",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "int count;",
+     "mono": true,
+     "size": 14.0
+    },
+    {
+     "t": "type",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "name",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Java cares about type.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "You can’t put a Giraffe",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "reference in a Rabbit",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "variable.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "variables must have a name",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Note: When you see a statement like: “an object of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "type X,” think of type and class as synonyms. (We’ll",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "refine that a little more in later chapters.)",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 89,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“I’d like a double mocha, no, make it an int.”",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "When you think of Java variables, think of cups. Coffee cups, tea cups, giant cups",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that hold lots and lots of your favorite drink, those big cups the popcorn comes in",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "at the movies, cups with wonderful tactile handles, and cups with metallic trim that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you learned can never, ever go in the microwave.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A variable is just a cup. A container. It holds something.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "It has a size and a type. In this chapter, we’re going to look first at the variables",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(cups) that hold primitives: then a little later we’ll look at cups that hold references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to objects. Stay with us here on the whole cup analogy—as simple as it is right",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "now, it’ll give us a common way to look at things when the discussion gets more",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "complex. And that’ll happen soon.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Primitives are like the cups they have at the coffee shop. If you’ve been to a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Starbucks, you know what we’re talking about here. They come in different sizes,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and each has a name like “short,” “tall,” and, “I’d like a ‘grande’ mocha half-caff",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "with extra whipped cream.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You might see the cups displayed on the counter so you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "can order appropriately:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "And in Java, primitives come in different sizes, and those sizes have",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "names. When you declare any variable in Java, you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "must declare it with a specific type. The four",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "containers here are for the four integer",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "primitives in Java.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Each cup holds a value, so for Java primitives, rather than saying, “I’d like a tall",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "french roast,” you say to the compiler, “I’d like an int variable with the number 90",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "please.” Except for one tiny difference...in Java you also have to give your cup a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "name. So it’s actually, “I’d like an int please, with the value of 2486, and name the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable height.” Each primitive variable has a fixed number of bits (cup size).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The sizes for the six numeric primitives in Java are shown below:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "small    short      tall           grande",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "long            int         short   byte",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "byte  short   int         long",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "float      double",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "8         16           32               64                                                    32               64",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Type        Bit Depth \t  Value Range",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "boolean and char",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "boolean   (JVM-specific)true or false",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "char",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "16 bits",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "0 to 65535",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "numeric (all are signed)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "integer",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "byte",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "8 bits",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-128 to 127",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "short",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "16 bits",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-32768 to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "32767",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "32 bits",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-2147483648",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to 2147483647",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "long",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "64 bits     -huge to huge",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "floating point",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "float",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "32 bits",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "varies",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "double\t64 bits",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "varies",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Primitive declarations",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "with assignments:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int x;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = 234;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "byte b = 89;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "boolean isFun = true;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "double d = 3456.98;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "char c = ‘f’;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int z = x;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "boolean isPunkRock;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "isPunkRock = false;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "boolean powerOn;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "powerOn = isFun;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "long big = 3456789L;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "float f = 32.5f;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Note the ‘f’ and ‘L’. With",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "some number types, you have to",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "specifically tell the compiler",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "what you mean, or it might",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "get confused between similar-",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "looking number types. You can",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "use upper or lowercase.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Primitive Types",
+     "mono": false,
+     "size": 14.0
+    }
+   ]
+  },
+  {
+   "page": 90,
+   "lines": [
+    {
+     "t": "primitive assignment",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You really don’t want to spill that...",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Be sure the value can fit into the variable.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can’t put a large value into a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "small cup.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Well, OK, you can, but you’ll lose",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "some. You’ll get, as we say, spillage.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The compiler tries to help prevent",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "this if it can tell from your code",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that something’s not going to fit in",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the container (variable/cup) you’re",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "using.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "For example, you can’t pour an",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int-full of stuff into a byte-sized",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "container, as follows:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int x = 24;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "byte b = x;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "//won’t work!!",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Why doesn’t this work, you ask? After all, the value of x is 24, and 24 is definitely small",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "enough to fit into a byte. You know that, and we know that, but all the compiler cares",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "about is that you’re trying to put a big thing into a small thing, and there’s the possibility",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of spilling. Don’t expect the compiler to know what the value of x is, even if you happen",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to be able to see it literally in your code.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can assign a value to a variable in one of several ways including:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "  type a literal value after the equals sign (x=12, isGood = true, etc.)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "  assign the value of one variable to another (x = y)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "  use an expression combining the two (x = y + 43)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "In the examples below, the literal values are in bold italics:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int size = 32;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "declare an int named size, assign it the value 32",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "char initial = 'j';",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "declare a char named initial, assign it the value ‘j’",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "double d = 456.709;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "declare a double named d, assign it the value 456.709",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "boolean isLearning;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "declare a boolean named isCrazy (no assignment)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "isLearning = true;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "assign the value true to the previously declared isCrazy",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int y = x + 456;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "declare an int named y, assign it the value that is the sum",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of whatever x is now plus 456",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "The compiler won’t let you put",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a value from a large cup into",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a small one. But what about",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the other way—pouring a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "small cup into a big one? No",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "problem.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Based on what you know",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "about the size and type of the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitive variables, see if you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "can figure out which of these",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "are legal and which aren’t.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "We haven’t covered all the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "rules yet, so on some of these",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you’ll have to use your best",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "judgment. Tip: The compiler",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "always errs on the side of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "safety.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "From the following list, Circle",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the statements that would be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "legal if these lines were in a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "single method:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "1. int x = 34.5;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "2. boolean boo = x;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "3. int g = 17;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "4. int y = g;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "5. y = y + 10;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "6. short s;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "7. s = y;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "8. byte b = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "9. byte v = b;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "10. short n = 12;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "11. v = n;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "12. byte k = 128;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Answers on page 68.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 91,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Make it Stick",
+     "mono": false,
+     "size": 21.8
+    },
+    {
+     "t": "The eight primitive types are:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "boolean char byte short int long float double",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "And here’s a mnemonic for remembering them:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Be Careful! Bears Shouldn’t Ingest Large",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Furry Dogs",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "If you make up your own, it’ll stick even better.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "B_  C_  B_  S_  I_  L_  F_  D_",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Back away from that keyword!",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "You know you need a name and a type for your variables.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You already know the primitive types.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "But what can you use as names? The rules are simple.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can name a class, method, or variable according to the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "following rules (the real rules are slightly more flexible, but",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "these will keep you safe):",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "■\tIt must start with a letter, underscore (_), or",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "dollar sign ($). You can’t start a name with a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "number.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "■\tAfter the first character, you can use numbers as",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "well. Just don’t start it with a number.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "■It can be anything you like, subject to those two",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "rules, just so long as it isn’t one of Java’s reserved",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "words.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Reserved words are keywords (and other things) that the compiler",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "recognizes. And if you really want to play confuse-a-compiler, then",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "just try using a reserved word as a name.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You’ve already seen some reserved words:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public   static   void",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "And the primitive types are reserved as well:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "boolean char byte short int long float double",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "But there are a lot more we haven’t discussed yet. Even if you don’t",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "need to know what they mean, you still need to know you can’t use ’em",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "yourself. Do not—under any circumstances—try to memorize these",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "now. To make room for these in your head, you’d probably have to lose",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "something else. Like where your car is parked. Don’t worry, by the end of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the book you’ll have most of them down cold.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "don’t use any of these",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "for your own names.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "This table reserved",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Java’s keywords, reserved words, and special identifiers. If you use these for names, the compiler will probably be very, very upset.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "No matter what",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "you hear, do not, I",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "repeat, do not let me",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ingest another large",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "furry dog.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "_",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "catch",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "double",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "float",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "private",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "super",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "true",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "abstract",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "char",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "else",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "for",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "interface",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "protected",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "switch",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "try",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "assert",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "enum",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "goto",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "long",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "synchronized",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "void",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "boolean",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "const",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "extends",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "if",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "native",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "return",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "this",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "volatile",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "break",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "continue",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "false",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "implements",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "new",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "short",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "throw",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "while",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "byte",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "default",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "final",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "import",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "null",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "static",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "throws",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "case",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "do",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "finally",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "instanceof",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "package",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "strictfp",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "transient",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 92,
+   "lines": [
+    {
+     "t": "object references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Controlling your Dog object",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "You know how to declare a primitive variable and assign it a value.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "But now what about non-primitive variables? In other words, what",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "about objects?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "There is actually no such thing as an object variable.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": " There’s only an object reference variable.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": " An object reference variable holds bits that represent a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "way to access an object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "\tIt doesn’t hold the object itself, but it holds something",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "like a pointer. Or an address. Except, in Java we don’t",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "really know what is inside a reference variable. We do",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "know that whatever it is, it represents one and only one",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "object. And the JVM knows how to use the reference to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "get to the object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can’t stuff an object into a variable. We often think of it that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "way...we say things like, “I passed the String to the System.out.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "println() method.” Or, “The method returns a Dog” or, “I put a new",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Foo object into the variable named myFoo.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "But that’s not what happens. There aren’t giant expand­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "able cups that can grow to the size of any object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Objects live in one place and one place only—the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "garbage-collectible heap! (You’ll learn more about",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that later in this chapter.)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Although a primitive variable is full of bits",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "representing the actual value of the variable,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "an object reference variable is full of bits",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "representing a way to get to the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You use the dot operator (.) on a ref­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "erence variable to say, “use the thing",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "before the dot to get me the thing after",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the dot.” For example:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "myDog.bark();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "means, “use the object referenced by the variable myDog to invoke",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the bark() method.” When you use the dot operator on an object",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "reference variable, think of it like pressing a button on the remote",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "control for that object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog d = new Dog();",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "d.bark();",
+     "mono": false,
+     "size": 30.0
+    },
+    {
+     "t": "think of this",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "like this",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Think of a Dog",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "reference variable as",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "a Dog remote control.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "You use it to get the",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "object to do something",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "(invoke methods).",
+     "mono": false,
+     "size": 13.0
+    }
+   ]
+  },
+  {
+   "page": 93,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "byte   short     int         long           reference",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "8         16           32              64        (bit depth not relevant)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "An object reference is just",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "another variable value",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Something that goes in a cup.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Only this time, the value is a remote control.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "With primitive variables, the value of the vari­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "able is...the value (5, -26.7, ‘a’).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "With reference variables, the value of the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable is...bits representing a way to get to a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "specific object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You don’t know (or care) how any particular",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "JVM implements object references. Sure, they",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "might be a pointer to a pointer to...but even",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "if you know, you still can’t use the bits for",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "anything other than accessing an object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog myDog = new Dog();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Tells the JVM to allocate space for a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "reference variable, and names that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variable myDog. The reference variable",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "is, forever, of type Dog. In other words,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a remote control that has buttons to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "control a Dog, but not a Cat or a Button",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "or a Socket.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Declare a reference",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "variable",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "myDog",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog myDog = new Dog();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Tells the JVM to allocate space for a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "new Dog object on the heap (we’ll",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "learn a lot more about that process,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "especially in Chapter 9, Life and Death",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of an Object).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Create an object",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog myDog = new Dog();",
+     "mono": true,
+     "size": 14.0
+    },
+    {
+     "t": "The 3 steps of object",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "declaration, creation and",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "assignment",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Dog object",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Dog myDog=new Dog();",
+     "mono": true,
+     "size": 14.0
+    },
+    {
+     "t": "Assigns the new Dog to the reference",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variable myDog. In other words,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "programs the remote control.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Link the object",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "and the reference",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog object",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "myDog",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "We don’t care how many 1s and 0s there are in a reference variable. It’s",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "up to each JVM and the phase of the moon.",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "byte x = 7;",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "The bits representing 7 go",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "into the variable (00000111).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "00000111",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Dog myDog = new Dog();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "The bits representing a way to get to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the Dog object go into the variable.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The Dog object itself does not go into",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the variable!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitive",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "value",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "reference",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "value",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Reference Variable",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Primitive Variable",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "D",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "ct",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "byte",
+     "mono": false,
+     "size": 8.0
+    }
+   ]
+  },
+  {
+   "page": 94,
+   "lines": [
+    {
+     "t": "Q:How big is a reference",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "variable?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A:You don’t know. Unless",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "you’re cozy with someone on the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "JVM’s development team, you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "don’t know how a reference is",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "represented. There are pointers",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "in there somewhere, but you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "can’t access them. You won’t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "need to. (OK, if you insist, you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "might as well just imagine it",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to be a 64-bit value.) But when",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you’re talking about memory",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "allocation issues, your Big",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Concern should be about how",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "many objects (as opposed to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object references) you’re creating",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and how big they (the objects)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "really are.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q:So, does that mean that",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "all object references are the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "same size, regardless of the size",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of the actual objects to which",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "they refer?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A:Yep. All references for a",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "given JVM will be the same",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "size regardless of the objects",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "they reference, but each JVM",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "might have a different way of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "representing references, so",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "references on one JVM may be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "smaller or larger than references",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "on another JVM.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q:Can I do arithmetic on a",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "reference variable, increment",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "it, you know—C stuff?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A:Nope. Say it with me again,",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "“Java is not C.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: So, tell us, what’s life like for an object reference?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: Pretty simple, really. I’m a remote control, and I can be programmed to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "control different objects.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: Do you mean different objects even while you’re running? Like, can you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "refer to a Dog and then five minutes later refer to a Car?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: Of course not. Once I’m declared, that’s it. If I’m a Dog remote control,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "then I’ll never be able to point (oops—my bad, we’re not supposed to say point), I mean,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "refer to anything but a Dog.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: Does that mean you can refer to only one Dog?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: No. I can be referring to one Dog, and then five minutes later I can refer to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "some other Dog. As long as it’s a Dog, I can be redirected (like reprogramming your remote",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to a different TV) to it. Unless...no never mind.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: No, tell me. What were you gonna say?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference:I don’t think you want to get into this now, but I’ll just give you the short",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "version—if I’m marked as final, then once I am assigned a Dog, I can never be repro­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "grammed to anything else but that one and only Dog. In other words, no other object can",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "be assigned to me.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: You’re right, we don’t want to talk about that now. OK, so unless you’re",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "final, then you can refer to one Dog and then refer to a different Dog later. Can you ever",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "refer to nothing at all? Is it possible to not be programmed to anything?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: Yes, but it disturbs me to talk about it.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: Why is that?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: Because it means I’m null, and that’s upsetting to me.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst: You mean, because then you have no value?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: Oh, nullis a value. I’m still a remote control, but it’s like you brought",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "home a new universal remote control and you don’t have a TV. I’m not programmed to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "control anything. They can press my buttons all day long, but nothing good happens. I",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "just feel so...useless. A waste of bits. Granted, not that many bits, but still. And that’s not",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the worst part. If I am the only reference to a particular object and then I’m set to null",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(deprogrammed), it means that now nobody can get to that object I had been referring to.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HeadFirst:And that’s bad because...",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Reference: You have to ask? Here I’ve developed a relationship with this object, an",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "intimate connection, and then the tie is suddenly, cruelly, severed. And I will never see",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that object again, because now it’s eligible for [producer, cue tragic music] garbage collection.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Sniff. But do you think programmers ever consider that? Snif. Why, why can’t I be a primi­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tive? I hate being a reference. The responsibility, all the broken attachments...",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "This week’s interview:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Object Reference",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Java Exposed",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "there are no",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Dumb Questions",
+     "mono": false,
+     "size": 21.0
+    }
+   ]
+  },
+  {
+   "page": 95,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Book b = new Book();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Book c = new Book();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Book d = c;",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Declare two Book reference",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variables. Create two new Book",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "objects. Assign the Book objects to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the reference variables.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The two Book objects are now living",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "on the heap.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "References: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Objects: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Declare a new Book reference variable.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Rather than creating a new, third Book",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object, assign the value of variable c to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variable d.  But what does this mean?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "It’s like saying “Take the bits in c, make a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "copy of them, and stick that copy into d.”",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Both c and d refer to the same",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The c and d variables hold",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "two different copies of the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "same value. Two remotes",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "programmed to one TV.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "References: 3",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Objects: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "d",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "c = b;",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Assign the value of variable b to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variable c.  By now you know what",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "this means. The bits inside variable",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b are copied, and that new copy is",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "stuffed into variable c.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Both b and c refer to the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "same object.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The c variable no longer",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "refers to its old Book",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "References: 3",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Objects: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "d",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 30.0
+    },
+    {
+     "t": "Life on the garbage-collectible heap",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eh",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eh",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eh",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 96,
+   "lines": [
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Book b = new Book();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Book c = new Book();",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "b = c;",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Declare two Book reference variables.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Create two new Book objects. Assign",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the Book objects to the reference",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variables.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The two book objects are now living",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "on the heap.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Active References: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Reachable Objects: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Assign the value of variable c to variable b.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The bits inside variable c are copied, and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that new copy is stuffed into variable b.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Both variables hold identical values.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Both b and c refer to the same",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object.  Object 1 is abandoned",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and eligible for Garbage Collec­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "tion (GC).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Active References: 2",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Reachable Objects: 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Abandoned Objects: 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The first object that b referenced, Object 1,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "has no more references. It’s unreachable.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "c = null;",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "Assign the value null to variable c.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "This makes c a null reference, meaning",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "it doesn’t refer to anything. But it’s still",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a reference variable, and another Book",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "object can still be assigned to it.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Object 2 still has an active",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "reference (b), and as long",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "as it does, the object is not",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eligible for GC.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Active References: 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "null References: 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Reachable Objects: 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Abandoned Objects: 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Life and death on the heap",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eh",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eh",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "-c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ib",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "l",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "h",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "p",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "objects on the heap",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "This dude is toast.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Garbage-collector bait.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Still toast",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Book",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 30.0
+    },
+    {
+     "t": "null reference",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "(not programmed to anything)",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Not yet toast",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "(safe as long as b",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "refers to it)",
+     "mono": false,
+     "size": 14.0
+    }
+   ]
+  },
+  {
+   "page": 97,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int array object (int[])",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "int[]",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "nums",
+     "mono": false,
+     "size": 11.3
+    },
+    {
+     "t": "nums[0] = 6;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums[1] = 19;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums[2] = 44;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums[3] = 42;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums[4] = 10;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums[5] = 20;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums[6] = 1;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "Declare an int array variable. An array variable is",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "a remote control to an array object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int[] nums;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "nums = new int[7];",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "Create a new int array with a length",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of 7, and assign it to the previously",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "declared int[] variable nums",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Give each element in the array",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "some int value.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Remember, elements in an int",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "array are just int variables.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "An array is like a tray of cups",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "int        int         int         int       int        int       int",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Notice that the array itself is an object,",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "even though the 7 elements are primitives.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "7 int variables",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "7 int variables",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Arrays are objects too",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "The Java standard library includes lots of sophisticated",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "data structures including maps, trees, and sets (see",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Appendix B), but arrays are great when you just want a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "quick, ordered, efficient list of things. Arrays give you fast",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "random access by letting you use an index position to get",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to any element in the array.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Every element in an array is just a variable. In other",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "words, one of the eight primitive variable types (think:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Large Furry Dog) or a reference variable. Anything you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "would put in a variable of that type can be assigned to an",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "array element of that type. So in an array of type int (int[]),",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "each element can hold an int. In a Dog array (Dog[]) each",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "element can hold...a Dog? No, remember that a reference",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable just holds a reference (a remote control), not the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "object itself. So in a Dog array, each element can hold a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "remote control to a Dog. Of course, we still have to make the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog objects...and you’ll see all that on the next page.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Be sure to notice one key thing in the picture—the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "array is an object, even though it’s an array of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "primitives.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can have an array object that’s declared to hold primitive values. In other words, the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "array object can have elements that are primitives, but the array itself is never a primitive.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Regardless of what the array holds, the array itself is always an object!",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Arrays are always objects,",
+     "mono": false,
+     "size": 16.0
+    },
+    {
+     "t": "whether they’re declared to",
+     "mono": false,
+     "size": 16.0
+    },
+    {
+     "t": "hold primitives or object",
+     "mono": false,
+     "size": 16.0
+    },
+    {
+     "t": "references.",
+     "mono": false,
+     "size": 16.0
+    }
+   ]
+  },
+  {
+   "page": 98,
+   "lines": [
+    {
+     "t": "Dog array object (Dog[])",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog[]",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "pets",
+     "mono": false,
+     "size": 11.3
+    },
+    {
+     "t": "pets[0] = new Dog();",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "pets[1] = new Dog();",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "Declare a Dog array variable",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog[] pets;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "pets = new Dog[7];",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "Create a new Dog array with",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "a length of 7, and assign it to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the previously declared Dog[]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable pets",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Create new Dog objects, and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "assign them to the array",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "elements.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Remember, elements in a Dog",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "array are just Dog reference",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variables.  We still need Dogs!",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Make an array of Dogs",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Dog      Dog       Dog      Dog      Dog      Dog      Dog",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "an array of objects",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "What’s missing?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Dogs! We  have an array",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of Dog references, but no",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "actual Dog objects!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Dog array object (Dog[])",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog[]",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "pets",
+     "mono": false,
+     "size": 11.3
+    },
+    {
+     "t": "Dog      Dog       Dog      Dog      Dog      Dog      Dog",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "D",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "og",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "D",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "og",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ec",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "What is the current value of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "pets[2]? ___________",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "What code would make",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "pets[3] refer to one of the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "two existing Dog objects?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "_______________________",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Yours to solve.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 99,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "name",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "bark()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eat()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "chaseCat()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Control your Dog",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "(with a reference variable)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Dog fido = new Dog();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "fido.name = \"Fido\";",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "D",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "g",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "o",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "b",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "j",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "ct",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "name",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "String",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "We created a Dog object and used",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the dot operator on the reference",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable fido to access the name",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable.*",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "We can use the fido reference to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "get the dog to bark() or eat() or",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "chaseCat().",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "fido.bark();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "fido.chaseCat();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "fido",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "What happens if the Dog is in",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "a Dog array?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "We know we can access the Dog’s instance",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variables and methods using the dot",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "operator, but on what?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "When the Dog is in an array, we don’t have",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "an actual variable name (like fido). Instead",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "we use array notation and push the remote",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "control button (dot operator) on an object",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "at a particular index (position) in the array:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog[] myDogs = new Dog[3];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "myDogs[0] = new Dog();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "myDogs[0].name = \"Fido\";",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "myDogs[0].bark();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "*Yes we know we’re not demonstrating encapsulation here, but we’re",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "trying to keep it simple. For now. We’ll do encapsulation in Chapter 4.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Java cares about type.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Once you’ve declared an array, you",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "can’t put anything in it except things",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that are of a compatible array type.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "For example, you can’t put a Cat into a Dog",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "array (it would be pretty awful if someone",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "thinks that only Dogs are in the array, so",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "they ask each one to bark, and then to their",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "horror discover there’s a cat lurking.)  And",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you can’t stick a double into an int array",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(spillage, remember?). You can, however, put",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a byte into an int array, because a byte",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "will always fit into an int-sized cup. This is",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "known as an implicit widening. We’ll get into",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the details later; for now just remember",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that the compiler won’t let you put the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "wrong thing in an array, based on the array’s",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "declared type.",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 100,
+   "lines": [
+    {
+     "t": "using references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class Dog {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String name;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// make a Dog object and access it",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Dog dog1 = new Dog();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "dog1.bark();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "dog1.name = \"Bart\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// now make a Dog array",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Dog[] myDogs = new Dog[3];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// and put some dogs in it",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDogs[0] = new Dog();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDogs[1] = new Dog();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDogs[2] = dog1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// now access the Dogs using the array",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// references",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDogs[0].name = \"Fred\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDogs[1].name = \"Marge\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// Hmmmm... what is myDogs[2] name?",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"last dog’s name is \");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(myDogs[2].name);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// now loop through the array",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// and tell all dogs to bark",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x < myDogs.length) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDogs[x].bark();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public void bark() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(name + \" says Ruff!\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public void eat() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public void chaseCat() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Dog",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "name",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "bark()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "eat()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "chaseCat()",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A Dog example",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "File   Edit   Window  Help  Howl",
+     "mono": false,
+     "size": 5.9
+    },
+    {
+     "t": "%java Dog",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "null says Ruff!",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "last dog’s name is Bart",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "Fred says Ruff!",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "Marge says Ruff!",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "Bart says Ruff!",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "Output",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "BULLET POINTS",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Variables come in two flavors: primitive and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "reference.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Variables must always be declared with a name",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and a type.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A primitive variable value is the bits representing",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the value (5, ‘a’, true, 3.1416, etc.).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A reference variable value is the bits",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "representing a way to get to an object on the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "heap.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A reference variable is like a remote control.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Using the dot operator (.) on a reference",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable is like pressing a button on the remote",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "control to access a method or instance variable.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A reference variable has a value of null when",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "it is not referencing any object.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "An array is always an object, even if the array",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "is declared to hold primitives. There is no such",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "thing as a primitive array, only an array that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "holds primitives.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Arrays have a variable ‘length’",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "that gives you the number of",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "elements in the array.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Strings are a special type",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "of object. You can create",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "and assign them as if they",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "were primitives (even though",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "they're references).",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 101,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Each of the Java files on this page",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "represents a complete source file.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Your job is to play compiler and",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "determine whether each of these",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "files will compile and run",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "without exception. If",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "they won’t, how would",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "you fix them?",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class Books {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String title;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String author;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class BooksTestDrive {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Books[] myBooks = new Books[3];",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[0].title = \"The Grapes of Java\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[1].title = \"The Java Gatsby\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[2].title = \"The Java Cookbook\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[0].author = \"bob\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[1].author = \"sue\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[2].author = \"ian\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "while (x < 3) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.print(myBooks[x].title);",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.print(\" by \");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(myBooks[x].author);",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class Hobbits {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String name;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Hobbits[] h = new Hobbits[3];",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int z = 0;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "while (z < 4) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "z = z + 1;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z] = new Hobbits();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z].name = \"bilbo\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "if (z == 1) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z].name = \"frodo\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "if (z == 2) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z].name = \"sam\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.print(h[z].name + \" is a \");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"good Hobbit name\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Exercise",
+     "mono": false,
+     "size": 16.7
+    },
+    {
+     "t": "BE the Compiler",
+     "mono": false,
+     "size": 19.0
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Answers on page 68.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 102,
+   "lines": [
+    {
+     "t": "A working Java program is all scrambled up",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "on the fridge.  Can you reconstruct the code",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "snippets to make a working Java program",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that produces the output listed below?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Some of the curly braces fell on the floor",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and they were too small to pick up, so feel",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "free to add as many of those as you need!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "islands[0] = \"Bermuda\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[1] = \"Fiji\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[2] = \"Azores\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[3] = \"Cozumel\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class TestArrays {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int ref;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (y < 4) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String [] islands = new String[4];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"island = \");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int [] index = new int[4];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(islands[ref]);",
+     "mono": true,
+     "size": 8.5
+    },
+    {
+     "t": "File   Edit   Window  Help   Sunscreen",
+     "mono": false,
+     "size": 6.0
+    },
+    {
+     "t": "% java TestArrays",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Fiji",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Cozumel",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Bermuda",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Azores",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "index[0] = 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[1] = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[2] = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[3] = 2;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "y = y + 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int y = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "ref = index[y];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Exercise",
+     "mono": false,
+     "size": 14.4
+    },
+    {
+     "t": "Code Magnets",
+     "mono": false,
+     "size": 21.0
+    },
+    {
+     "t": "exercise: Code Magnets",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Answers on page 68.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 103,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 2;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x  - 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x < 4",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x < 5",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Pool Puzzle",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Your job is to take code snippets from",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the pool and place them into the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "blank lines in the code. You may",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "use the same snippet more than",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "once, and you won’t need to use",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "all the snippets. Your goal is to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "make a class that will compile and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "run and produce the output listed.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "class Triangle {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "double area;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int height;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int length;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "____________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "_______________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while ( __________ ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "__________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "________.height = (x + 1) * 2;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "________.length = x + 4;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "__________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"triangle \" + x + \", area\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\" = \" + _______.area);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "______________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = 27;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Triangle t5 = ta[2];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "ta[2].area = 343;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"y = \" + y);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\", t5 area = \" + t5.area);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "void setArea() {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "____________ = (height * length) / 2;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Note:  Each snippet",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "from the pool can be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "used more than once!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "File   Edit   Window  Help  Bermuda",
+     "mono": false,
+     "size": 6.9
+    },
+    {
+     "t": "%java Triangle",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "triangle 0, area = 4.0",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "triangle 1, area = 10.0",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "triangle 2, area = 18.0",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "triangle 3, area = ____",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "y = ______________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Output",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Triangle [ ] ta = new Triangle(4);",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Triangle ta = new [ ] Triangle[4];",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Triangle [ ] ta = new Triangle[4];",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta = new Triangle();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta[x] = new Triangle();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta.x = new Triangle();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta[x] = setArea();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta.x = setArea();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta[x].setArea();",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int x;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int y;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int y = x;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "area",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta.area",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta.x.area",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta[x].area",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta.x",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta(x)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ta[x]",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "y",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Bonus Question!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "For extra bonus points, use snippets",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "from the pool to fill in the missing",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "output (above).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "28.0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "30.0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "4,  t5 area = 18.0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "4,  t5 area = 343.0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "27, t5 area = 18.0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "27, t5 area = 343.0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(Sometimes we don’t use a separate",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "test class, because we’re trying to",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "save space on the page.)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Answers on page 69.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 104,
+   "lines": [
+    {
+     "t": "A short Java program is listed to the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "right.   When “// do stuff” is reached,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "some objects and some reference vari­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ables will have been created.  Your task",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "is to determine which of the reference",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "variables refer to which objects.  Not all",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the reference variables will be used, and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "some objects might be referred to more",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "than once.   Draw lines connecting the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "reference variables with their matching",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "objects.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Tip: Unless you’re way smarter than we",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "are, you probably need to draw dia­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "grams like the ones on page 57–60 of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "this chapter.  Use a pencil so you can",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "draw and then erase reference links (the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "arrows going from a reference remote",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "control to an object).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A Heap o’ Trouble",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Match each  reference",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "variable with matching",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "object(s).",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "You might not have to",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "use every reference.",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Reference Variables:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "HeapQuiz  Objects:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "id = 0",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "id = 1",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "id = 2",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "class HeapQuiz {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "int id = 0;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "HeapQuiz[] hq = new HeapQuiz[5];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "while (x < 3) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[x] = new HeapQuiz();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[x].id = x;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[3] = hq[1];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[4] = hq[1];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[3] = null;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[4] = hq[0];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[0] = hq[3];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[3] = hq[2];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[2] = hq[0];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "// do stuff",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "hq[0]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[1]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[2]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[3]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[4]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "puzzle: Heap o’ Trouble",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Answers on page 69.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 105,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The case of the pilfered references",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "It was a dark and stormy night. Tawny strolled into the programmers’ bullpen like she owned",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the place. She knew that all the programmers would still be hard at work, and she wanted help.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "She needed a new method added to the pivotal class that was to be loaded into the client’s",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "new top-secret Java-enabled cell phone. Heap space in the cell phone’s memory was tight, and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "everyone knew it. The normally raucous buzz in the bullpen fell to silence as Tawny eased her",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "way to the white board. She sketched a quick overview of the new method’s functionality and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "slowly scanned the room. “Well folks, it’s crunch time,” she purred. “Whoever creates the most",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "memory efficient version of this method is coming with me to the client’s launch party on Maui",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tomorrow...to help me install the new software.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The next morning Tawny glided into the bullpen. “Ladies and Gentlemen,” she smiled,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“the plane leaves in a few hours, show me what you’ve got!” Bob went first; as he",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "began to sketch his design on the white board, Tawny said, “Let’s get to the point Bob,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "show me how you handled updating the list of contact objects.” Bob quickly drew a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "code fragment on the board:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Contact [] contacts = new Contact[10];",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "while (x < 10 ) {   // make 10 contact objects",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "contacts[x] = new Contact();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "// do complicated Contact list updating with contacts",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "“Tawny, I know we’re tight on memory, but your spec said that we had to be able to access",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "individual contact information for all ten allowable contacts; this was the best scheme I could",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "cook up,” said Bob. Kate was next, already imagining coconut cocktails at the party, “Bob,”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "she said, “your solution’s a bit kludgy, don’t you think?” Kate smirked, “Take a look at this",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "baby”:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Contact contactRef;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "while ( x < 10 ) {   // make 10 contact objects",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "contactRef = new Contact();",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "// do complicated Contact list updating with contactRef",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "“I saved a bunch of reference variables worth of memory, Bob-o-rino, so put away your",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "sunscreen,” mocked Kate. “Not so fast Kate!” said Tawny, “you’ve saved a little memory, but",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Bob’s coming with me.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Why did Tawny choose Bob’s method over Kate’s, when Kate’s used less memory?",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Five-Minute",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Mystery",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Answers on page 69.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 106,
+   "lines": [
+    {
+     "t": "A",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Code Magnets (from page 64)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "class Books {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String title;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String author;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class BooksTestDrive {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Books[] myBooks = new Books[3];",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[0] = new Books();",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[1] = new Books();",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[2] = new Books();",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[0].title = \"The Grapes of Java\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[1].title = \"The Java Gatsby\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[2].title = \"The Java Cookbook\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[0].author = \"bob\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[1].author = \"sue\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "myBooks[2].author = \"ian\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "while (x < 3) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.print(myBooks[x].title);",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.print(\" by \");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(myBooks[x].author);",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "class TestArrays {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int[] index = new int[4];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[0] = 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[1] = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[2] = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "index[3] = 2;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String[] islands = new String[4];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[0] = \"Bermuda\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[1] = \"Fiji\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[2] = \"Azores\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "islands[3] = \"Cozumel\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int y = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int ref;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (y < 4) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "ref = index[y];",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"island = \");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(islands[ref]);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "y = y + 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "File   Edit   Window  Help   Sunscreen",
+     "mono": false,
+     "size": 6.0
+    },
+    {
+     "t": "% java TestArrays",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Fiji",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Cozumel",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Bermuda",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "island = Azores",
+     "mono": true,
+     "size": 9.6
+    },
+    {
+     "t": "exercise solutions",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Exercise Solutions",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "class Hobbits {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "String name;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Hobbits[] h = new Hobbits[3];",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int z = -1;",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "while (z < 2) {",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "z = z + 1;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z] = new Hobbits();",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z].name = \"bilbo\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "if (z == 1) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z].name = \"frodo\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "if (z == 2) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "h[z].name = \"sam\";",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.print(h[z].name + \" is a \");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"good Hobbit name\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Remember:  We have to",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "actually make the Book",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "objects !",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Remember:  arrays start",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "with element 0 !",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Sharpen your pencil (from page 52)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "1. int x = 34.5;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "2. boolean boo = x;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "3. int g = 17;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "4. int y = g;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "5. y = y + 10;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "6. short s;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "7. s = y;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "8. byte b = 3;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "9. byte v = b;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "10. short n = 12;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "11. v = n;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "12. byte k = 128;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "BE the Compiler (from page 63)",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 107,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "primitives and references",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class Triangle {",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "double area;",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "int height;",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "int length;",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "int x = 0;",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "Triangle[] ta = new Triangle[4];",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "while (x < 4) {",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "ta[x] = new Triangle();",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "ta[x].height = (x + 1) * 2;",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "ta[x].length = x + 4;",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "ta[x].setArea();",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "System.out.print(\"triangle \" + x +",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "\", area\");",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "System.out.println(\" = \" + ta[x].area);",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "int y = x;",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "x = 27;",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "Triangle t5 = ta[2];",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "ta[2].area = 343;",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "System.out.print(\"y = \" + y);",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "System.out.println(\", t5 area = \" +",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "t5.area);",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "void setArea() {",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "area = (height * length) / 2;",
+     "mono": false,
+     "size": 8.7
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.7
+    },
+    {
+     "t": "File   Edit   Window  Help   Bermuda",
+     "mono": false,
+     "size": 4.1
+    },
+    {
+     "t": "%java Triangle",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "triangle 0, area = 4.0",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "triangle 1, area = 10.0",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "triangle 2, area = 18.0",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "triangle 3, area = 28.0",
+     "mono": false,
+     "size": 7.3
+    },
+    {
+     "t": "y = 4, t5 area = 343.0",
+     "mono": false,
+     "size": 7.3
+    },
+    {
+     "t": "Reference Variables:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "HeapQuiz  Objects:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "id = 0",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "id = 1",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "id = 2",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "The case of the pilfered references",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Tawny could see that Kate’s method had a serious flaw.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "It’s true that she didn’t use as many reference variables",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "as Bob, but there was no way to access any but the last",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of the Contact objects that her method created. With each",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "trip through the loop, she was assigning a new object",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to the one reference variable, so the previously refer­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "enced object was abandoned on the heap—unreachable.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Without access to nine of the ten objects created, Kate’s",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "method was useless.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(The software was a huge success, and the client gave Tawny and Bob an extra",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "week in Hawaii. We’d like to tell you that by finishing this book you too will get stuff",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "like that.)",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "hq[0]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[1]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[2]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[3]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hq[4]",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Puzzle Solutions",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Five-Minute Mystery",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "(from page 67)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Pool Puzzle (from page 65)",
+     "mono": false,
+     "size": 15.0
+    },
+    {
+     "t": "A Heap o’ Trouble (from page 66)",
+     "mono": false,
+     "size": 14.0
+    }
+   ]
+  },
+  {
+   "page": 108,
+   "lines": []
+  }
+ ]
+}
