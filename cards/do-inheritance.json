@@ -1,0 +1,108 @@
+{
+ "deck": "70 Articles::DigitalOcean",
+ "tags": [
+  "article::digitalocean",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What does it mean that inheritance is <b>transitive</b>?",
+   "back": "If Sedan extends Car and Car extends Vehicle, Sedan is also a Vehicle",
+   "extra": "The chain is real: Sedan inherits from Vehicle indirectly, and a Sedan reference can be assigned to a Vehicle variable.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Does every class extend <code>Object</code>?",
+   "back": "Yes, implicitly — <code>Object</code> is the root of every hierarchy",
+   "extra": "<code>class Cat {}</code> is really <code>class Cat extends Object</code>. That is why toString, equals and hashCode are available on everything.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Are private superclass members inherited by a subclass?",
+   "back": "They <b>exist</b> in the subclass instance but are <b>not accessible</b> from the subclass's code",
+   "extra": "So the state is carried along, but only reachable through inherited public or protected accessors.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Is a package-private (default) superclass member inherited?",
+   "back": "Only if the subclass is in the <b>same package</b>",
+   "extra": "A subclass in another package loses access entirely — protected is the modifier that grants package-plus-subclass access.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Can a Java class extend more than one class?",
+   "back": "<b>No</b> — a single superclass only; multiple inheritance of <i>type</i> comes from interfaces",
+   "extra": "The diamond problem of C++ is avoided by restricting classes to one parent; interfaces carry no state.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is upcasting, and does it need a cast?",
+   "back": "Assigning a subclass instance to a superclass variable — <b>implicit</b>, no cast needed",
+   "extra": "<code>Animal a = new Cat();</code> always works, because the instance really is an Animal.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is downcasting, and when does it fail?",
+   "back": "Assigning a superclass reference to a subclass variable with an explicit cast — it compiles, but throws <code>ClassCastException</code> if the object is not actually that type",
+   "extra": "The compiler cannot know the runtime type, so the check moves to run time. <code>instanceof</code> first, or use a pattern-matching cast.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Why annotate an overriding method with <code>@Override</code>?",
+   "back": "So the compiler verifies that a method really is overriding something",
+   "extra": "A typo in the signature that would otherwise silently create a new method becomes a compile error instead.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "When should a base class be abstract rather than concrete?",
+   "back": "When it is only a home for reusable code and nobody should instantiate it",
+   "extra": "Making it abstract prevents <code>new Base()</code> outright, which is stronger than a comment saying not to.",
+   "source": "digitalocean.com — Inheritance in Java Example",
+   "tags": [
+    "type::inheritance"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  }
+ ]
+}
