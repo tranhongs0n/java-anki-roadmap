@@ -1,0 +1,97 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are the three reasons to nest a class?",
+   "back": "Grouping classes used in one place, <b>readability</b>, and <b>encapsulation</b>",
+   "extra": "A helper that only this class needs is better kept inside it than exposed as a second top-level type.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "Which members of the outer class can a <b>static nested</b> class use?",
+   "back": "Only the outer class's <b>static</b> members",
+   "extra": "It has no enclosing instance, so instance fields and methods are unreachable without an explicit object reference.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "Can a static nested class define instance methods and fields?",
+   "back": "<b>Yes</b> — it can define both static and non-static members",
+   "extra": "It behaves like a top-level class that happens to be packaged inside another one.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "Which members of the outer class can an <b>inner</b> class use?",
+   "back": "<b>All of them</b> — static and instance, including private ones",
+   "extra": "It holds a hidden reference to its enclosing instance, which is exactly what gives it that access.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "How do you instantiate an inner class?",
+   "back": "From an <b>existing</b> outer instance: <code>outer.new Inner()</code>",
+   "extra": "You cannot create the inner object alone — it must be bound to an enclosing instance at creation.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What is the one thing an anonymous class cannot do?",
+   "back": "Declare a <b>constructor</b> — and it cannot extend or implement anything beyond the single type it is created for",
+   "extra": "It is instantiated at the same moment it is defined, so there is nothing to name and no second use to construct for.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "If an inner class declares a field with the same name as the outer's, how do you reach the outer one?",
+   "back": "<code>Outer.this.field</code> for an instance field, <code>Outer.field</code> for a static one",
+   "extra": "A bare name resolves to the nearest declaration — the inner class's own. <code>this</code> alone also means the inner instance.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What must be true for a nested class to be serializable?",
+   "back": "It must be <b>static</b>, and both it and the enclosing class must implement <code>Serializable</code>",
+   "extra": "A non-static inner class holds an implicit reference to the outer object, which must then be serializable too — otherwise <code>NotSerializableException</code>.",
+   "source": "baeldung.com — Nested Classes in Java",
+   "tags": [
+    "type::nested"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  }
+ ]
+}
