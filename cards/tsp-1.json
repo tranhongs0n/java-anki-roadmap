@@ -1,0 +1,130 @@
+{
+ "deck": "70 Articles::Tutorialspoint",
+ "tags": [
+  "article::tutorialspoint",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What does the <code>Base64</code> class provide, and since which version?",
+   "back": "Encoders and decoders for Base64 — <code>getEncoder()</code>, <code>getDecoder()</code>, URL and MIME variants — since <b>Java 8</b>",
+   "extra": "Before that you needed a third-party library or <code>sun.misc.BASE64</code>. Base64 encodes bytes, it does not encrypt.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>CompactNumberFormat</code> for?",
+   "back": "Formatting large numbers into short forms per locale — \"1K\", \"1M\" — added in <b>Java 12</b>",
+   "extra": "<code>NumberFormat.getCompactNumberInstance(locale, Style.SHORT)</code>. The mapping differs by language, which is why it takes a Locale.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Files.mismatch(path1, path2)</code> return?",
+   "back": "The index of the <b>first differing byte</b>, or <code>-1</code> if the files are identical — Java 12",
+   "extra": "Before this you had to read both streams and compare by hand. It is the cheap way to answer \"are these the same file?\".",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What do <code>List.of</code>, <code>Set.of</code> and <code>Map.of</code> add over <code>Arrays.asList</code>?",
+   "back": "<b>Truly immutable</b> collections — any mutation throws <code>UnsupportedOperationException</code>",
+   "extra": "<code>Arrays.asList</code> is fixed-size but element-assignable. The factory methods also reject nulls, which is a deliberate design choice.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What concurrency helpers did Java 9 add to <code>CompletableFuture</code>?",
+   "back": "<code>orTimeout</code>, <code>completeOnTimeout</code>, <code>failedFuture</code>, and <code>delayedExecutor</code>",
+   "extra": "Timeouts previously required a second executor and manual plumbing; these make deadline handling part of the pipeline.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "How do you chain a low-level exception to a high-level one?",
+   "back": "<code>new HighLevelException(msg, cause)</code> or <code>initCause()</code>, then read it with <code>getCause()</code>",
+   "extra": "The cause preserves the original stack trace and is what \"Caused by:\" prints. Without it the root failure is lost.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is a daemon thread?",
+   "back": "A background thread that <b>does not keep the JVM alive</b> — it dies when all user threads finish",
+   "extra": "Set with <code>setDaemon(true)</code> <b>before</b> <code>start()</code>. The garbage collector runs on daemon threads.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What are the two ways to create a thread?",
+   "back": "Extend <code>Thread</code> and override <code>run()</code>, or implement <code>Runnable</code> and pass it to a <code>Thread</code>",
+   "extra": "Runnable is preferred: it leaves the class free to extend something else and separates the task from the mechanism.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>Enumeration</code> interface, and why is it legacy?",
+   "back": "An older iteration interface with <code>hasMoreElements()</code> and <code>nextElement()</code>",
+   "extra": "It has no remove and no fail-fast guarantee. <code>Iterator</code> replaced it, but Vector and Hashtable still expose it.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::07 Iterator"
+  },
+  {
+   "type": "basic",
+   "front": "What distinguishes an aggregate (has-a) relationship from inheritance (is-a)?",
+   "back": "Aggregation <b>contains</b> another object; inheritance <b>is a</b> specialised form of it",
+   "extra": "A Car has an Engine rather than being one. The article's example is a department that contains employees.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What problems did the Java 8 date-time API fix?",
+   "back": "Immutability, thread safety, a clear separation of date/time/zone types, and proper time-zone handling",
+   "extra": "The old <code>Date</code> and <code>Calendar</code> are mutable, not thread-safe, and confusingly zero-based for months.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details"
+  }
+ ]
+}

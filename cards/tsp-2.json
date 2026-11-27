@@ -1,0 +1,262 @@
+{
+ "deck": "70 Articles::Tutorialspoint",
+ "tags": [
+  "article::tutorialspoint",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are <b>sealed</b> classes for, and since when?",
+   "back": "They restrict <b>who may extend</b> them via <code>permits</code>; preview in Java 15, standard in Java 17",
+   "extra": "A sealed hierarchy is a closed set of subtypes, which lets the compiler check exhaustiveness in switch and prevents third-party subclassing.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>record</b>, and when did it become standard?",
+   "back": "A concise immutable data class — components become private final fields with a canonical constructor and accessors; standard since <b>Java 16</b>",
+   "extra": "Records also generate equals, hashCode and toString. They are shallowly immutable: a mutable component still needs care.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Record"
+  },
+  {
+   "type": "basic",
+   "front": "What does <b>pattern matching for instanceof</b> remove?",
+   "back": "The redundant cast — <code>if (o instanceof String s)</code> declares <code>s</code> already typed",
+   "extra": "Standard in Java 16. The variable's scope is limited to where the type test is known to have succeeded.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>text block</b>?",
+   "back": "A multi-line string literal delimited by triple quotes, with incidental indentation removed — final in Java 15",
+   "extra": "It removes the escaping and concatenation of long SQL or JSON literals while preserving indentation relative to the closing delimiter.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What did <b>switch expressions</b> change about switch?",
+   "back": "A switch can now produce a value, use arrow labels without fall-through, and <code>yield</code> from a block — final in Java 14",
+   "extra": "Arrow labels removed the most common switch bug: a missing break falling into the next case.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What are <b>hidden classes</b> (Java 15)?",
+   "back": "Classes that cannot be referenced by other classes' bytecode — created at run time for frameworks that generate code",
+   "extra": "Lambdas are implemented this way. They are not discoverable by name and can be unloaded independently, which helps frameworks that churn classes.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::05 Other JVM Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>multi-release JAR</b>?",
+   "back": "A JAR holding several versions of the same class, selected at run time by the JVM version — Java 9",
+   "extra": "The manifest attribute <code>Multi-Release: true</code> plus a versioned directory structure lets one artifact serve several Java versions.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::05 Other JVM Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What happened to the <b>Nashorn</b> JavaScript engine?",
+   "back": "Deprecated in Java 11 and <b>removed</b> in Java 15",
+   "extra": "It had been added in Java 8 to replace Rhino. GraalVM's JavaScript support is the successor for embedding.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::05 Other JVM Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <b>helpful NullPointerException</b>?",
+   "back": "JVM messages that name the exact expression that was null — Java 14, on by default since 15",
+   "extra": "Instead of a bare line number you get \"because 'user.address' is null\", which usually identifies the bug immediately.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What improvements did Java 9 make to the Process API?",
+   "back": "<code>ProcessHandle</code>: pid, parent, children, command line, start time, and <code>onExit()</code> as a <code>CompletableFuture</code>",
+   "extra": "Before this, querying or waiting on a process was awkward and platform-dependent.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why allow <b>private</b> methods in interfaces (Java 9)?",
+   "back": "So several default methods can <b>share code</b> without exposing the helper as part of the API",
+   "extra": "Before, a shared helper had to be public or duplicated. Private interface methods are not inherited.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>marker interface</b>?",
+   "back": "An interface with no methods, used to tag a class — <code>Serializable</code>, <code>Cloneable</code>",
+   "extra": "It gives the type system something to test with <code>instanceof</code>, and it can be combined with annotations.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>final</code> on an array freeze its elements?",
+   "back": "<b>No</b> — it freezes the reference; the elements remain assignable",
+   "extra": "<code>final int[] a = {1,2}; a[0] = 9;</code> compiles. Only <code>a = new int[]{}</code> is rejected.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "When does an <b>instance initializer block</b> run relative to the constructor?",
+   "back": "<b>Before</b> the constructor body, after <code>super()</code>, in source order for multiple blocks",
+   "extra": "It is the place for initialisation shared by every constructor — but it cannot see constructor parameters.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "What is the main thread?",
+   "back": "The thread the JVM creates to run <code>main()</code>; it is a <b>user</b> (non-daemon) thread",
+   "extra": "It is the last user thread to finish in a normal program — when it ends and no other user threads remain, the JVM exits.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Thread.join()</code> do?",
+   "back": "Blocks the calling thread until the target thread <b>terminates</b>",
+   "extra": "Overloads take a timeout. It is the standard way to wait for a worker before reading its result.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between interrupt and stop?",
+   "back": "<code>interrupt()</code> is <b>cooperative</b> — it sets a flag or throws <code>InterruptedException</code>; <code>stop()</code> was removed as unsafe",
+   "extra": "Code must check the flag or handle the exception. An interrupt does not by itself kill a running thread.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ThreadGroup</code> do?",
+   "back": "Groups threads into a tree so operations and limits can be applied to a set",
+   "extra": "It is largely obsolete: <code>uncaughtException</code> handling and <code>ExecutorService</code> replaced its useful parts.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Optional</code> express?",
+   "back": "That a value <b>may be absent</b>, forcing the caller to handle that case explicitly",
+   "extra": "Use it for return types, not fields or parameters. <code>orElseThrow</code> and <code>map</code> replace null checks readably.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "How does a method reference differ from a lambda?",
+   "back": "It is shorthand for a lambda that only <b>calls an existing method</b>: <code>System.out::println</code>",
+   "extra": "Four forms: static, bound instance, unbound instance (<code>String::length</code>), and constructor (<code>ArrayList::new</code>).",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>HttpURLConnection</code>?",
+   "back": "An abstract class for HTTP-specific URL connections: methods, headers, response codes, streaming bodies",
+   "extra": "It is the pre-Java-11 API; <code>java.net.http.HttpClient</code> is the modern replacement.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "What is JMH, and what problem does it solve?",
+   "back": "The Java Microbenchmark Harness — it warms up, forks JVMs and prevents dead-code elimination",
+   "extra": "Timing code by hand measures the JIT more than the code: early runs are slow, later ones may be optimised away entirely.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting"
+  },
+  {
+   "type": "basic",
+   "front": "What does the module system add over packages?",
+   "back": "Explicit <b>dependencies</b> and <b>exports</b>: a module states what it requires and what it makes visible — Java 9",
+   "extra": "Packages have no dependency declaration, and public members are visible to everyone. Modules add strong encapsulation on top.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules"
+  }
+ ]
+}

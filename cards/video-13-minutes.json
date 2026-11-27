@@ -161,12 +161,12 @@
   },
   {
    "type": "basic",
-   "front": "What is an API, in the video's terms?",
-   "back": "A published set of methods you can call from your own program",
-   "extra": "You add the provider's jar to the build path, import its classes, and call its methods — that is all \"using an API\" means at this level.",
-   "source": "YouTube — Java in 13 Minutes, 12:21 (youtu.be/RRubcjpTkks?t=741)",
+   "front": "What may a library change without breaking code already compiled against it?",
+   "back": "Only changes that are <b>binary compatible</b> — method bodies, plus added or reordered members",
+   "extra": "JLS §13 lists what is allowed: reimplementing an existing method to improve performance, adding new fields/methods/constructors, deleting <code>private</code> members, reordering declarations, moving a method up the hierarchy. Changing a signature is not on that list — pre-existing binaries stop linking. That gap is what \"an API is a contract\" means in practice.",
+   "source": "JLS SE 21 §13.2 — What Binary Compatibility Is and Is Not (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
    "tags": [
-    "type::overview"
+    "type::contract"
    ],
    "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
   }

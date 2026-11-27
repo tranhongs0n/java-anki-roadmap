@@ -1,0 +1,174 @@
+{
+ "deck": "70 Articles::Tutorialspoint",
+ "tags": [
+  "article::tutorialspoint",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What did Java 9 add to the Stream API?",
+   "back": "<code>takeWhile</code>, <code>dropWhile</code>, <code>ofNullable</code>, and a three-argument <code>iterate</code> with a predicate",
+   "extra": "takeWhile stops at the first non-matching element — unlike filter, which keeps scanning the whole stream.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Collectors.teeing</code> do?",
+   "back": "Runs <b>two</b> collectors over the same stream and merges their results with a function — Java 12",
+   "extra": "One pass, two aggregates: averages plus counts, min plus max, without materialising the stream twice.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "How do threads communicate with each other in classic Java?",
+   "back": "<code>wait()</code>, <code>notify()</code> and <code>notifyAll()</code> on a shared monitor, always inside a <code>synchronized</code> block",
+   "extra": "wait releases the lock and parks the thread; notifyAll wakes all waiters to re-check their condition in a loop.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What are the six states of a Java thread?",
+   "back": "<code>NEW</code>, <code>RUNNABLE</code>, <code>BLOCKED</code>, <code>WAITING</code>, <code>TIMED_WAITING</code>, <code>TERMINATED</code>",
+   "extra": "BLOCKED means waiting for a monitor; WAITING means waiting for another thread's signal. Read them with <code>getState()</code>.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What range do thread priorities have, and do they work?",
+   "back": "1 to 10 (<code>MIN_PRIORITY</code> to <code>MAX_PRIORITY</code>) — and they are <b>not portable</b>",
+   "extra": "The OS decides; on many systems priorities are ignored. Correctness must never depend on them.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What is the practical way to use thread pools?",
+   "back": "<code>ExecutorService</code> from <code>Executors</code>: submit tasks and reuse a bounded set of threads",
+   "extra": "Creating a thread per task is expensive and unbounded. A pool caps concurrency and reuses workers.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "Why are <code>suspend()</code>, <code>resume()</code> and <code>stop()</code> deprecated?",
+   "back": "They leave objects in an <b>inconsistent state</b> — the suspended thread may hold locks, and stop releases them mid-update",
+   "extra": "Interruption plus a flag is the safe replacement; the JVM cannot know where a safe suspension point is.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What is a JVM shutdown hook?",
+   "back": "<code>Runtime.getRuntime().addShutdownHook(Thread)</code> — code that runs when the JVM is terminating normally or on SIGTERM",
+   "extra": "It does not run on <code>kill -9</code> or a crash. Hooks run concurrently, so ordering between them is not guaranteed.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is static binding versus dynamic binding?",
+   "back": "Static: resolved at <b>compile time</b> (private, static, final methods). Dynamic: chosen at <b>run time</b> from the object's actual type",
+   "extra": "Overloaded methods are bound statically by parameter types; overridden methods are bound dynamically. That split is the source of the classic overload surprise.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>char</code> in Java's Unicode model?",
+   "back": "A <b>16-bit UTF-16 code unit</b> — not necessarily a whole character",
+   "extra": "Characters outside the BMP need two chars (a surrogate pair); use <code>codePointAt</code>, <code>codePointCount</code> and <code>Character.isSupplementaryCodePoint</code> to handle them.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>BitSet</code> for?",
+   "back": "A compact growable array of <b>bits</b>, with and/or/xor and cardinality operations",
+   "extra": "It is far smaller than a boolean array and is used for flags, filters and set arithmetic over integers.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "Why are <code>Dictionary</code>, <code>Hashtable</code> and <code>Vector</code> legacy?",
+   "back": "They predate the collections framework, are fully synchronized, and expose old-style APIs",
+   "extra": "Use HashMap, ArrayList and the concurrent collections instead; Iteration over Vector/Hashtable is not fail-fast in the modern sense.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Arrays.asList(array)</code> return?",
+   "back": "A <b>fixed-size view</b> of the array — element assignment works, add and remove throw",
+   "extra": "It is a bridge from array to List, not a copy. <code>List.of</code> is immutable; the two behave differently on set().",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Z Garbage Collector?",
+   "back": "A low-latency collector added in Java 11: concurrent, with pause times under a millisecond, at the cost of throughput",
+   "extra": "Pauses stay short regardless of heap size, which is why it suits large heaps with latency SLOs rather than batch throughput.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::02 Garbage Collection"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ArrayList</code> do when it runs out of capacity?",
+   "back": "Grows to about <b>1.5×</b> the current capacity, copying the elements into a new array",
+   "extra": "That amortises to O(1) per append, but the copy is a real cost — pre-size the list when you know the count.",
+   "source": "tutorialspoint.com — Java Tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
+  }
+ ]
+}
