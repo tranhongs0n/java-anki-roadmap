@@ -1,0 +1,174 @@
+{
+ "deck": "60 Videos::Java in 13 Minutes (Alex Lee)",
+ "tags": [
+  "video::alexlee",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What makes the primitive types primitive?",
+   "back": "They are <b>built into the language</b> — not objects, with no methods and no <code>new</code>",
+   "extra": "The eight of them (<code>byte short int long float double char boolean</code>) are keywords. Everything else you store is an object or a reference to one.",
+   "source": "YouTube — Java in 13 Minutes, 2:20 (youtu.be/RRubcjpTkks?t=140)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "How do you tell a primitive type from an object type in Java code?",
+   "back": "Primitives are lowercase keywords; object types start with a capital letter",
+   "extra": "<code>int x = 5;</code> versus <code>String name = \"Susan\";</code>. Convention, not syntax — but it holds for every class in the standard library.",
+   "source": "YouTube — Java in 13 Minutes, 3:18 (youtu.be/RRubcjpTkks?t=198)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What does the dot in <code>name.toUpperCase()</code> actually do?",
+   "back": "It reaches into the object and gives you its <b>members</b> — methods and fields",
+   "extra": "The IDE lists them after you type the dot. Everything an object can do is behind that dot.",
+   "source": "YouTube — Java in 13 Minutes, 4:16 (youtu.be/RRubcjpTkks?t=256)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "How do you define a method that takes a parameter?",
+   "back": "<code>public static void name(Type param)</code> followed by a body in braces",
+   "extra": "The parameter is a local variable inside the method. <code>public static</code> just makes it callable from <code>main</code> without an object.",
+   "source": "YouTube — Java in 13 Minutes, 5:43 (youtu.be/RRubcjpTkks?t=343)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>new</code> do?",
+   "back": "It <b>creates an object</b> — allocates it and runs a constructor",
+   "extra": "<code>Animal a = new Animal();</code> is the general shape: declare, allocate, assign the reference.",
+   "source": "YouTube — Java in 13 Minutes, 8:06 (youtu.be/RRubcjpTkks?t=486)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How does the video define a class?",
+   "back": "A Java file that helps you make objects",
+   "extra": "Each class represents one kind of object with its own fields and methods. That is the whole of object-oriented programming at this level.",
+   "source": "YouTube — Java in 13 Minutes, 8:35 (youtu.be/RRubcjpTkks?t=515)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What does an <code>import</code> statement do?",
+   "back": "Brings a class from a library into your file so you can name it",
+   "extra": "<code>import java.util.ArrayList;</code> — without it the compiler does not know the short name. The IDE offers the import when you hover a red type.",
+   "source": "YouTube — Java in 13 Minutes, 9:03 (youtu.be/RRubcjpTkks?t=543)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>ArrayList</code> need angle brackets?",
+   "back": "To state what it holds: <code>ArrayList&lt;String&gt;</code>",
+   "extra": "Without the type argument you get a raw list and every element comes back as Object. The angle brackets are the element type.",
+   "source": "YouTube — Java in 13 Minutes, 9:03 (youtu.be/RRubcjpTkks?t=543)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How does an <code>if / else if / else</code> chain decide what runs?",
+   "back": "Exactly one branch — the first condition that is true, otherwise the <code>else</code>",
+   "extra": "The conditions are tested in order and stop at the first match. Order matters when conditions overlap.",
+   "source": "YouTube — Java in 13 Minutes, 10:09 (youtu.be/RRubcjpTkks?t=609)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What does nesting a for loop inside another multiply?",
+   "back": "The number of executions — 8 outer iterations × 8 inner = <b>64</b>",
+   "extra": "The inner loop runs completely for each outer iteration, which is why nested loops get expensive fast.",
+   "source": "YouTube — Java in 13 Minutes, 10:57 (youtu.be/RRubcjpTkks?t=657)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>++</code> do in a loop?",
+   "back": "Adds one to the variable: <code>a++</code> is <code>a = a + 1</code>",
+   "extra": "A <code>while</code> loop needs something inside to move the condition toward false, or it never ends.",
+   "source": "YouTube — Java in 13 Minutes, 11:24 (youtu.be/RRubcjpTkks?t=684)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "Why does the <code>while</code> loop in the video stop at 49?",
+   "back": "The condition <code>a &lt; 50</code> is false once <code>a</code> reaches 50, so the body never runs for 50",
+   "extra": "The condition is checked <b>before</b> each pass; when it fails the loop exits and control moves on.",
+   "source": "YouTube — Java in 13 Minutes, 11:44 (youtu.be/RRubcjpTkks?t=704)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What does a try/catch block express?",
+   "back": "\"Something may go wrong here\" — the catch body runs if an exception is thrown",
+   "extra": "An exception means the normal path was interrupted. The catch receives the exception object describing what failed.",
+   "source": "YouTube — Java in 13 Minutes, 11:52 (youtu.be/RRubcjpTkks?t=712)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>main</code> method's role?",
+   "back": "It is the <b>entry point</b> — the JVM starts executing there",
+   "extra": "Nothing else in the file runs on its own. Methods are only executed when something calls them, starting from main.",
+   "source": "YouTube — Java in 13 Minutes, 11:24 (youtu.be/RRubcjpTkks?t=684)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What is an API, in the video's terms?",
+   "back": "A published set of methods you can call from your own program",
+   "extra": "You add the provider's jar to the build path, import its classes, and call its methods — that is all \"using an API\" means at this level.",
+   "source": "YouTube — Java in 13 Minutes, 12:21 (youtu.be/RRubcjpTkks?t=741)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  }
+ ]
+}
