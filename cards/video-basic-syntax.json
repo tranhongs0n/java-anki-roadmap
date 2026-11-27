@@ -8,8 +8,8 @@
   {
    "type": "basic",
    "front": "Which characters may a Java identifier start with?",
-   "back": "A letter, an underscore <code>_</code>, or a dollar sign <code>$</code>",
-   "extra": "Digits and symbols such as <code>-</code> cannot start an identifier. After the first character, digits are allowed.",
+   "back": "A Unicode letter, an underscore <code>_</code>, or a dollar sign <code>$</code>",
+   "extra": "Digits and symbols such as <code>-</code> cannot start an identifier; after the first character digits are allowed. The language rule is broader than a beginner summary suggests: any letter <code>Character.isJavaIdentifierStart</code> accepts counts, including non-Latin scripts and currency symbols.",
    "source": "YouTube — Java Basic Syntax, 0:51 (youtu.be/81piDKqPxjQ?t=51)",
    "tags": [
     "type::syntax"

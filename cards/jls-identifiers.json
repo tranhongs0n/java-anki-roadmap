@@ -1,0 +1,132 @@
+{
+ "deck": "70 Articles::Oracle Docs",
+ "tags": [
+  "roadmap::java",
+  "jls",
+  "sec::01-foundations",
+  "topic::basic-syntax"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Is there a limit to how long a Java identifier may be?",
+   "back": "No — its length is <b>unlimited</b>",
+   "extra": "The JLS defines an identifier as an unlimited-length sequence of Java letters and Java digits whose first character must be a Java letter. Nothing in the compiler truncates or penalises a long name, so readability is the only real limit.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Which characters may follow the first character of a Java identifier?",
+   "back": "Any Java letter or Java digit — digits are allowed from the second position on",
+   "extra": "IdentifierChars is one Java letter followed by zero or more Java letters-or-digits, so <code>i3</code>, <code>MAX_VALUE</code> and <code>x2</code> are legal. A digit in position one is still an error, which is why <code>1stPlace</code> does not compile.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Which two ASCII symbols count as Java letters for historical reasons?",
+   "back": "The dollar sign <code>$</code> and the underscore <code>_</code>",
+   "extra": "The Java letters are A–Z, a–z, plus <code>$</code> (U+0024) and <code>_</code> (U+005F), admitted only for historical reasons. Every other Java letter comes from Unicode, not from ASCII punctuation.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "When should a dollar sign appear in a Java identifier?",
+   "back": "Only in <b>mechanically generated</b> source, or to reach legacy names",
+   "extra": "The JLS says the dollar sign should be used only in mechanically generated source code or, rarely, to access pre-existing names on legacy systems. It compiles wherever a letter does, so this is a style rule that no compiler enforces.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::convention"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Why can a single underscore <code>_</code> no longer name a variable?",
+   "back": "Because <code>_</code> is a reserved <b>keyword</b> since Java 9",
+   "extra": "The JLS lists <code>_</code> among the reserved keywords, and it may appear in identifiers of two or more characters but not as a one-character identifier. Java 8 still accepted a lone underscore, so old code stops compiling on upgrade.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.9",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "May an identifier be spelled like a keyword, or like <code>true</code>, <code>false</code> or <code>null</code>?",
+   "back": "No — tokenization makes them a keyword or literal, and that is a compile error",
+   "extra": "An identifier is IdentifierChars but not a ReservedKeyword, BooleanLiteral or NullLiteral, and the check happens during tokenization. So <code>int class = 1;</code> and <code>int null = 1;</code> both fail before any type checking begins.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "May an identifier be spelled like a contextual keyword such as <code>var</code>?",
+   "back": "Yes in ordinary positions — the token stays an identifier where the grammar does not expect the keyword",
+   "extra": "Contextual keywords are reduced to keywords only in the constructs that use them, so <code>var</code> works as a field or parameter name. As a type name it fails, because there the sequence must be a TypeIdentifier.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.9",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Are two identifiers that look identical when rendered necessarily the same?",
+   "back": "No — every code point must match",
+   "extra": "Latin <code>A</code>, Greek <code>Α</code> and Cyrillic <code>а</code> render alike but are three identifiers. The JLS states plainly that identifiers with the same external appearance may yet be different, so a homoglyph typo compiles as a brand-new name.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Is <code>Á</code> typed as one character the same identifier as <code>A</code> followed by a combining accent?",
+   "back": "No — composed and decomposed forms are different identifiers",
+   "extra": "The JLS treats a precomposed LATIN CAPITAL LETTER A ACUTE as different from A followed by NON-SPACING ACUTE. A name pasted from another editor in a different normalisation form therefore fails to match the declaration, even though it looks identical.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Which methods does the JLS defer to for the definition of a Java letter?",
+   "back": "<code>Character.isJavaIdentifierStart(int)</code> and <code>Character.isJavaIdentifierPart(int)</code>",
+   "extra": "Instead of listing characters, the JLS makes a Java letter whatever <code>isJavaIdentifierStart</code> accepts, and a Java letter-or-digit whatever <code>isJavaIdentifierPart</code> accepts. <code>isJavaIdentifierStart</code> is true for letters, letter numbers and currency symbols, which is why <code>€</code> may begin an identifier.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Character.html#isJavaIdentifierStart(int)",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Can a Java identifier be written in Chinese, Greek or Cyrillic letters?",
+   "back": "Yes — any Unicode Java letter is accepted",
+   "extra": "Letters and digits may be drawn from the entire Unicode character set, so identifiers can be written in the programmer's native language. <code>変数</code> and <code>μέτρηση</code> both compile; only the ASCII convention keeps most production code Latin.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.8",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  }
+ ]
+}
