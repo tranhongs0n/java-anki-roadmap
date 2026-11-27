@@ -1,0 +1,108 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Can a static method be overridden?",
+   "back": "<b>No</b> — static methods are resolved at <b>compile time</b>, and overriding is a runtime concern",
+   "extra": "A subclass can declare a method with the same signature, but it hides rather than overrides. Called through the superclass type, the parent's version runs.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Can an instance method access static members directly?",
+   "back": "<b>Yes</b> — an instance method can use both instance and static members",
+   "extra": "The reverse is not true: a static method has no object, so instance members are out of reach without a reference.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What are the two legitimate reasons for a static block?",
+   "back": "Multi-statement initialisation, and initialisation that needs its own <b>exception handling</b>",
+   "extra": "A field initialiser is a single expression. If you need a loop, a try/catch or several dependent assignments, the block is the tool.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference in member access between an inner class and a static nested class?",
+   "back": "An <b>inner</b> class sees all members of the outer class, including private ones; a <b>static nested</b> class sees only the outer's static members",
+   "extra": "The static variant has no enclosing instance, so instance state can only be reached through an explicit reference.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What is the initialization-on-demand holder singleton?",
+   "back": "A private static nested class holding <code>public static final Singleton INSTANCE</code>, returned from a static accessor",
+   "extra": "The nested class is loaded only when the accessor is first called, so the instance is created lazily — and class initialisation is already thread-safe, so no synchronization is needed.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Why prefer a static nested class when it needs no outer instance?",
+   "back": "It avoids coupling to the outer instance and needs no enclosing-object memory",
+   "extra": "A non-static inner class carries a hidden reference to its outer object, which is pure overhead if it is never used.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What causes \"non-static variable cannot be referenced from a static context\"?",
+   "back": "Using an instance field or method inside a static method, where no object exists",
+   "extra": "The compiler cannot know which object you mean. Fix it by passing an instance in, or by making the member static.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What does a static nested class have in common with a top-level class?",
+   "back": "It behaves the same way — it is simply packaged inside the class that uses it",
+   "extra": "Same rules, same capabilities; the nesting is for encapsulation and readability, not for different semantics.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "Since when do static fields exist, and until when?",
+   "back": "For as long as the <b>class</b> is loaded — not for the lifetime of any object",
+   "extra": "They are created at class initialisation and shared by every instance; they disappear only when the class is unloaded.",
+   "source": "baeldung.com — A Guide to the Static Keyword in Java",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  }
+ ]
+}
