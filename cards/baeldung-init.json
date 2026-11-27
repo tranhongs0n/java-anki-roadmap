@@ -1,0 +1,86 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "When does a <b>static</b> initializer block run?",
+   "back": "Once, when the <b>class is loaded</b> — before <code>main()</code> and before any object exists",
+   "extra": "That is why static blocks can run code before the program's entry point, which was how pre-1.7 code sometimes started without main.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "In what order do multiple static blocks execute?",
+   "back": "In <b>source order</b>, top to bottom, interleaved with static field initialisers",
+   "extra": "Declaration order is the rule, not the position of main or the constructor.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "What can a static block reference?",
+   "back": "Only <b>static</b> members — no instance fields, and no <code>this</code>",
+   "extra": "There is no object at class-load time, so an instance reference would have nothing to point at.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is the output order for two instance blocks and a constructor?",
+   "back": "Block 1, block 2, then the constructor body",
+   "extra": "Both blocks and the constructor are one sequence. Multiple blocks run in source order.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "Why use an instance initializer block instead of a constructor?",
+   "back": "To share initialisation code across <b>several constructors</b> without duplicating it",
+   "extra": "Every constructor gets the block, so a class with three constructors still has one copy of the common setup.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "Which runs first: the parent's initializer blocks or the child's?",
+   "back": "The <b>parent's</b> — its static blocks at class load, its instance blocks during the <code>super()</code> call",
+   "extra": "Static initialisation walks up from Object; instance initialisation follows the constructor chain upward.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  },
+  {
+   "type": "basic",
+   "front": "What is the full initialisation order for creating an object of a subclass?",
+   "back": "Parent static blocks → child static blocks → parent instance blocks → parent constructor → child instance blocks → child constructor",
+   "extra": "Static happens once per class; the instance half happens on every <code>new</code>, alternating instance block and constructor body per level.",
+   "source": "baeldung.com — Static vs. Instance Initializer Block in Java",
+   "tags": [
+    "type::initialization"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+  }
+ ]
+}
