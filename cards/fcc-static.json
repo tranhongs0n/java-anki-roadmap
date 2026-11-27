@@ -1,0 +1,75 @@
+{
+ "deck": "70 Articles::freeCodeCamp",
+ "tags": [
+  "article::freecodecamp",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How many copies of a static variable exist?",
+   "back": "<b>One</b> — even with many objects, or none at all",
+   "extra": "It belongs to the class, not to any instance, so every object reads and writes the same storage.",
+   "source": "freecodecamp.org — Java Static Keyword Explained With Examples",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What are the four places <code>static</code> can be applied?",
+   "back": "Variables, methods, <b>code blocks</b> and <b>nested classes</b>",
+   "extra": "The same modifier with four different meanings: class-level state, class-level behaviour, class initialization and a nested type that needs no outer instance.",
+   "source": "freecodecamp.org — Java Static Keyword Explained With Examples",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What two things can a static method never use?",
+   "back": "Non-static members, and the <code>this</code> or <code>super</code> keywords",
+   "extra": "There is no object when a static method runs, so there is no instance state to read and no current object to refer to.",
+   "source": "freecodecamp.org — Java Static Keyword Explained With Examples",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "In what order do static field initialisers and static blocks run?",
+   "back": "In <b>source order</b>, top to bottom, as one sequence",
+   "extra": "Text order matters: a static block that reads a field declared below it sees the default value, not the initialised one.",
+   "source": "freecodecamp.org — Java Static Keyword Explained With Examples",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Is <code>obj.staticMember</code> legal in Java?",
+   "back": "<b>Yes</b>, but it is discouraged — the compiler warns about it",
+   "extra": "It compiles because the reference is resolved statically. Writing <code>ClassName.member</code> says what is really happening.",
+   "source": "freecodecamp.org — Java Static Keyword Explained With Examples",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "How do you instantiate a static nested class?",
+   "back": "<code>new Outer.Inner()</code> — no outer instance required",
+   "extra": "That is the difference from an inner class, which needs <code>outer.new Inner()</code>. The builder pattern's <code>Builder</code> class is the standard use.",
+   "source": "freecodecamp.org — Java Static Keyword Explained With Examples",
+   "tags": [
+    "type::static"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  }
+ ]
+}
