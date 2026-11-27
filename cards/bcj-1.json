@@ -1,0 +1,251 @@
+{
+ "deck": "70 Articles::Baeldung Core Java",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How do you get the current process ID in Java?",
+   "back": "<code>ProcessHandle.current().pid()</code> — the <code>ProcessHandle</code> API arrived in <b>Java 9</b>",
+   "extra": "Before Java 9 there was no standard API: people parsed the JVM name from <code>ManagementFactory</code> or shelled out to <code>ps</code>.",
+   "source": "baeldung.com (core-java category) — java-get-own-pid",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Objects.requireNonNull(obj)</code> do?",
+   "back": "Throws <code>NullPointerException</code> immediately if the argument is null, and otherwise <b>returns</b> it for chaining",
+   "extra": "Because it returns the value, it can be used inline: <code>this.name = Objects.requireNonNull(name);</code> — validation and assignment in one line.",
+   "source": "baeldung.com (core-java category) — java-objects-requirenonnull",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is the overload of <code>requireNonNull</code> with a message for?",
+   "back": "<code>requireNonNull(obj, \"name must not be null\")</code>, or a <code>Supplier&lt;String&gt;</code> for a lazily built message",
+   "extra": "The supplier form avoids building the message string on the success path, which matters in hot code.",
+   "source": "baeldung.com (core-java category) — java-objects-requirenonnull",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Which methods does every class inherit from <code>Object</code>?",
+   "back": "<code>equals</code>, <code>hashCode</code>, <code>toString</code>, <code>getClass</code>, <code>clone</code>, <code>finalize</code>, and the <code>wait</code>/<code>notify</code>/<code>notifyAll</code> trio",
+   "extra": "<code>getClass</code> is final; <code>wait</code>/<code>notify</code> are final too, which is why locking behaviour cannot be redefined by a subclass.",
+   "source": "baeldung.com (core-java category) — java-object-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you convert a <code>ByteBuffer</code> to a <code>byte[]</code>?",
+   "back": "Read into an array with <code>buffer.get(bytes)</code>, or call <code>buffer.array()</code> if <code>hasArray()</code> is true",
+   "extra": "<code>array()</code> returns the backing store, so it throws for direct buffers and ignores position/limit — copy instead if you need only the remaining bytes.",
+   "source": "baeldung.com (core-java category) — java-bytebuffer-byte-array-conversion",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you wrap a <code>byte[]</code> as a <code>ByteBuffer</code>?",
+   "back": "<code>ByteBuffer.wrap(bytes)</code> — zero-copy, shares the array",
+   "extra": "Use <code>ByteBuffer.allocate(n).put(bytes)</code> when you need an independent buffer with its own capacity.",
+   "source": "baeldung.com (core-java category) — java-bytebuffer-byte-array-conversion",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does the compiler error \"cannot instantiate the type X\" mean?",
+   "back": "You used <code>new</code> on an <b>interface</b> or an <b>abstract class</b>",
+   "extra": "Both are blueprints. Instantiate a concrete implementation, or an anonymous class if the type has a single method to implement.",
+   "source": "baeldung.com (core-java category) — java-cannot-instantiate-type-compilation-error",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Does Java have conditional compilation like <code>#ifdef</code>?",
+   "back": "<b>No</b> — there is no preprocessor; Java always compiles every branch",
+   "extra": "The nearest idiom is a <code>static final boolean</code> flag plus an <code>if</code>, which the compiler folds away, leaving dead code that will not compile if it references missing types.",
+   "source": "baeldung.com (core-java category) — java-compile-time-conditions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What normally causes <code>javac: package x does not exist</code>?",
+   "back": "A <b>classpath or module-path</b> problem — the dependency is not where javac looks, not a syntax error",
+   "extra": "Check that the jar is on <code>-cp</code>, that a modular project puts it on <code>--module-path</code>, and that the package name matches the dependency.",
+   "source": "baeldung.com (core-java category) — javac-error-package-x-does-not-exist-import",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "What causes <code>NotSerializableException</code>?",
+   "back": "The object graph contains a <b>non-transient field whose type is not Serializable</b>",
+   "extra": "Serialization walks the whole graph, so one bad field anywhere in it fails the write — not just the top-level object.",
+   "source": "baeldung.com (core-java category) — java-io-not-serializable-exception-fix",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "How do you serialize an object with a non-serializable field?",
+   "back": "Mark the field <code>transient</code>, or implement <code>writeObject</code>/<code>readObject</code> to save and restore it manually",
+   "extra": "Transient means \"do not persist\"; a custom writeObject means \"persist it in another form\" — for example as a string or a proxy object.",
+   "source": "baeldung.com (core-java category) — java-serialization-not-serializable-parts",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Why is a <code>String[]</code> assignable to <code>Object[]</code>?",
+   "back": "Arrays are <b>covariant</b> — <code>String[]</code> <i>is an</i> <code>Object[]</code>",
+   "extra": "The array carries its component type at runtime, so storing an Integer into that Object[] throws <code>ArrayStoreException</code>. Generics reject the same code at compile time.",
+   "source": "baeldung.com (core-java category) — java-object-array",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What does the compile error \"capture of ?\" mean?",
+   "back": "A wildcard type was turned into a <b>fresh, unknown type variable</b>, and you tried to use it in a way that requires a specific type",
+   "extra": "<code>List&lt;?&gt;.add(x)</code> cannot compile: the compiler knows the element type only as \"capture#1 of ?\". Passing the list to a generic method lets that method capture it.",
+   "source": "baeldung.com (core-java category) — java-generics-capture-of",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "How do you make the JVM prefer IPv4?",
+   "back": "Run with <code>-Djava.net.preferIPv4Stack=true</code>",
+   "extra": "The JVM otherwise uses whatever the OS prefers, which on dual-stack hosts is often IPv6 — a common cause of timeouts against IPv4-only services.",
+   "source": "baeldung.com (core-java category) — java-disable-ipv6",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "How do you copy text to the system clipboard?",
+   "back": "<code>Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(text), null)</code>",
+   "extra": "The AWT clipboard works from console applications too, though it needs a display on Linux; <code>DataFlavor.stringFlavor</code> is the format used.",
+   "source": "baeldung.com (core-java category) — java-clipboard-copy-paste-text",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "Does Java have function pointers?",
+   "back": "<b>No</b> — but functional interfaces plus method references give the same capability",
+   "extra": "<code>Function&lt;Integer,Integer&gt; f = Math::abs;</code> stores behaviour in a variable and passes it around. The difference is that the target type must be a functional interface.",
+   "source": "baeldung.com (core-java category) — java-function-pointers",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Objects.requireNonNullElse</code> for?",
+   "back": "Returning the first argument if it is non-null, otherwise the second — a null-safe default",
+   "extra": "It replaces the <code>x != null ? x : default</code> idiom, and the default must itself be non-null.",
+   "source": "baeldung.com (core-java category) — java-objects-requirenonnull",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you write multi-paragraph Javadoc?",
+   "back": "Use <code>&lt;p&gt;</code> to open each new paragraph and keep the first sentence as a summary",
+   "extra": "Blank lines alone do not create paragraphs in a doc comment; the HTML tag is what does it.",
+   "source": "baeldung.com (core-java category) — javadoc-paragraphs",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Java Class-File API?",
+   "back": "<code>java.lang.classfile</code> — a standard API for parsing and generating class files, final in <b>Java 24</b> (JEP 484)",
+   "extra": "It replaces the internal ASM-based machinery the JDK used for its own tools, so bytecode tools can drop a third-party dependency.",
+   "source": "baeldung.com (core-java category) — java-class-file-api",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is the standard way to store 2D coordinates in modern Java?",
+   "back": "A <code>record Point(double x, double y)</code>",
+   "extra": "A record gives you a named type, value equality, <code>toString</code>, and immutability with one line — far better than two loose ints or a <code>double[]</code>.",
+   "source": "baeldung.com (core-java category) — java-store-x-y-coordinates",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What are Java's naming conventions for packages, classes, methods and constants?",
+   "back": "Packages lowercase (reverse-domain), classes <b>PascalCase</b>, methods and variables <b>camelCase</b>, constants <b>UPPER_SNAKE_CASE</b>",
+   "extra": "Type parameters are single capital letters. Conventions are not enforced by the compiler, which is exactly why consistency matters.",
+   "source": "baeldung.com (core-java category) — java-naming-conventions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What released in Java 25?",
+   "back": "The next LTS release (September 2025) — language, library and runtime updates including flexible constructor bodies",
+   "extra": "LTS releases are the ones enterprises adopt; feature releases in between get 6 months of support.",
+   "source": "baeldung.com (core-java category) — java-25-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  }
+ ]
+}
