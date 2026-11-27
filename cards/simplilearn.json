@@ -1,0 +1,163 @@
+{
+ "deck": "70 Articles::Simplilearn",
+ "tags": [
+  "article::simplilearn",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is a Java servlet?",
+   "back": "A class that <b>extends a server's capabilities</b> and handles requests in a <b>request-response</b> model",
+   "extra": "It runs inside a servlet container, which manages its lifecycle and turns HTTP requests into Java objects.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three stages of a servlet's life cycle?",
+   "back": "<code>init()</code> → <code>service()</code> → <code>destroy()</code>",
+   "extra": "The container calls them; the servlet object lives between init and destroy, serving many requests concurrently.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "When is a servlet's <code>init()</code> called?",
+   "back": "On the <b>first request</b> to that servlet — or at server startup if it is configured to load eagerly",
+   "extra": "It runs once, not per request. That is why per-request state must not be stored in servlet fields.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>service()</code> do?",
+   "back": "Inspects the HTTP method and dispatches to <code>doGet</code>, <code>doPost</code>, <code>doPut</code> and so on",
+   "extra": "You normally override the <code>do*</code> methods and leave service() alone.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "When does <code>destroy()</code> run?",
+   "back": "Before the servlet is taken out of service — at context shutdown or reload",
+   "extra": "It is the place to release resources. After that the object is only waiting for the garbage collector.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "How do you write a servlet?",
+   "back": "Implement <code>javax.servlet.Servlet</code> — in practice by extending <code>HttpServlet</code>",
+   "extra": "HttpServlet already implements the interface and the HTTP plumbing, so you override doGet/doPost only.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What is Java EE?",
+   "back": "<b>Java Enterprise Edition</b> — the set of enterprise specifications built on top of Java SE",
+   "extra": "It targets server-side needs: web components, transactions, messaging and persistence, running inside an application server.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What is JUnit?",
+   "back": "An <b>open-source unit testing framework</b> for Java",
+   "extra": "It provides annotations to mark tests and assertions to compare expected with actual values.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::10 Testing::02 JUnit"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>unit</b> in unit testing?",
+   "back": "The <b>smallest piece of code</b> that can be tested in isolation — usually one method",
+   "extra": "Tests exercise that piece directly, without the database, network or UI around it.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::10 Testing::02 JUnit"
+  },
+  {
+   "type": "basic",
+   "front": "How does a JUnit assertion look?",
+   "back": "<code>assertEquals(expected, actual)</code> — it fails the test when the two differ",
+   "extra": "JUnit 5's <code>Assertions</code> class offers assertTrue, assertNull, assertThrows and more.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::10 Testing::02 JUnit"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Java API?",
+   "back": "The collection of <b>prewritten</b> classes, interfaces and methods shipped with the JDK, organised into packages",
+   "extra": "<code>System.out.println</code> and <code>ArrayList</code> are API calls: someone else wrote and tested that code.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What is an Armstrong number?",
+   "back": "A number equal to the sum of its digits each raised to the power of the <b>number of digits</b>",
+   "extra": "153 has three digits: 1³ + 5³ + 3³ = 1 + 125 + 27 = 153. Also called a narcissistic number.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is a prime number?",
+   "back": "A number greater than 1 whose only divisors are 1 and itself",
+   "extra": "2, 3, 5, 7, 11… The test is to try divisors up to the square root — beyond that, any factor would have a matching one below.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Which framework does Simplilearn call the most widely used Java framework?",
+   "back": "<b>Spring</b> — described as lightweight, for design, development and deployment",
+   "extra": "Spring Boot builds on it to remove most configuration; the collection's Spring Boot deck covers that.",
+   "source": "simplilearn.com — Java tutorial",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::07 Spring Boot"
+  }
+ ]
+}
