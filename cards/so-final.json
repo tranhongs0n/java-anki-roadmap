@@ -1,0 +1,75 @@
+{
+ "deck": "70 Articles::Stack Overflow",
+ "tags": [
+  "article::stackoverflow",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why can a <code>final</code> instance field be assigned inside a constructor?",
+   "back": "Because a constructor runs <b>exactly once per object</b>, and each object has its <b>own copy</b> of the field",
+   "extra": "The rule is \"assigned once per instance\", and one constructor call per instance satisfies it. The compiler enforces definite assignment on every path through every constructor.",
+   "source": "stackoverflow.com — Why can a final instance field be assigned in a constructor but a static final cannot?",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Why is assigning a <code>static final</code> field in a constructor a compile error?",
+   "back": "A static field is assigned once <b>per class</b>, but the constructor runs once <b>per object</b> — a second object would assign it again",
+   "extra": "The compiler does not try to prove you create only one object; it rejects the category outright. Static finals belong in a static initializer or at the declaration.",
+   "source": "stackoverflow.com — Why can a final instance field be assigned in a constructor but a static final cannot?",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>blank final</b> field?",
+   "back": "A final field declared without an initializer, which must be definitely assigned by the end of <b>every</b> constructor",
+   "extra": "<code>private final List foo;</code> is legal only if all constructors assign it exactly once. The compiler tracks this path by path.",
+   "source": "stackoverflow.com — Why can a final instance field be assigned in a constructor but a static final cannot?",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> on a reference variable actually forbid?",
+   "back": "Reassigning the variable — not modifying the object it points to",
+   "extra": "<code>foo.add(\"bar\")</code> mutates the list and is fine. Only <code>foo = new ArrayList()</code> is rejected, because that is a second assignment to the variable.",
+   "source": "stackoverflow.com — Why can a final instance field be assigned in a constructor but a static final cannot?",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Is <code>final</code> a runtime or a compile-time guarantee?",
+   "back": "Primarily <b>compile-time</b> — the compiler enforces definite single assignment",
+   "extra": "At runtime the JVM also treats final fields specially (they are frozen at the end of the constructor), but reflection with <code>setAccessible(true)</code> can still write to them.",
+   "source": "stackoverflow.com — Why can a final instance field be assigned in a constructor but a static final cannot?",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Why is the instance-field case legal even though the constructor could be called many times?",
+   "back": "Because \"many times\" means <b>many objects</b>, and the final field is a different variable in each of them",
+   "extra": "The static case differs because there is only one variable shared by all objects — so the same prohibition bites.",
+   "source": "stackoverflow.com — Why can a final instance field be assigned in a constructor but a static final cannot?",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  }
+ ]
+}
