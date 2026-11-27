@@ -1,0 +1,350 @@
+{
+ "deck": "70 Articles::Programiz",
+ "tags": [
+  "article::programiz",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Can you instantiate an abstract class?",
+   "back": "<b>No</b> — <code>new</code> on an abstract class is a compile error",
+   "extra": "It exists to be extended. Subclasses supply the abstract methods and become concrete.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "What keyword declares an abstract class or method?",
+   "back": "<code>abstract</code>",
+   "extra": "An abstract class may contain both abstract methods (no body) and ordinary methods with bodies.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "What are Java's four access levels?",
+   "back": "<code>private</code>, default (package-private), <code>protected</code>, <code>public</code>",
+   "extra": "Each widens visibility: class only → package → package plus subclasses → everywhere.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Access Modifiers"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>collections</code> framework provide?",
+   "back": "Reusable <b>interfaces and classes</b> for data structures and algorithms, instead of hand-written ones",
+   "extra": "List, Set, Queue, Map plus implementations such as ArrayList, HashSet and HashMap.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What are the <b>algorithms</b> in the collections framework?",
+   "back": "<b>Static methods</b> on <code>Collections</code> that operate on collections: sort, shuffle, reverse, binarySearch, min, max",
+   "extra": "They are generic: the same <code>Collections.sort</code> works on any List with comparable elements.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What are Java annotations?",
+   "back": "<b>Metadata</b> about source code — consumed by the compiler and tools, not executed as program logic",
+   "extra": "They do not change what the code does by themselves; something must read them.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "Name the common predefined Java annotations.",
+   "back": "<code>@Override</code>, <code>@Deprecated</code>, <code>@SuppressWarnings</code>, <code>@FunctionalInterface</code>",
+   "extra": "Each is checked by the compiler: @Override fails if there is nothing to override, @FunctionalInterface fails with two abstract methods.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ArrayBlockingQueue</code>?",
+   "back": "A <b>bounded</b> blocking queue backed by an array",
+   "extra": "Capacity is fixed at construction, so producers block when it fills — natural back-pressure.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What makes a <code>BlockingQueue</code> different from a <code>Queue</code>?",
+   "back": "Its operations <b>wait</b> until they can succeed: <code>put</code> blocks when full, <code>take</code> when empty",
+   "extra": "That waiting is the whole point — it replaces hand-written wait/notify between producer and consumer.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ArrayDeque</code>?",
+   "back": "A resizable-array implementation of <code>Deque</code> that also implements <code>Queue</code>",
+   "extra": "It can be used as a stack (faster than <code>Stack</code>) or a queue.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::06 Dequeue"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ArrayList</code>?",
+   "back": "A <b>resizable array</b> implementation of the <code>List</code> interface",
+   "extra": "Fast index access, slow middle insertion — the array has to shift.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
+  },
+  {
+   "type": "basic",
+   "front": "What is an array?",
+   "back": "A collection of a <b>fixed number</b> of elements of the <b>same type</b>",
+   "extra": "The length is set at creation and cannot change; access is by index from 0.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>int[] b = a;</code> copy an array?",
+   "back": "<b>No</b> — it copies the <b>reference</b>, so both variables point at the same array",
+   "extra": "Writing through either changes the one array. Use <code>Arrays.copyOf</code> or <code>clone()</code> for a real copy.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "What is unboxing, and what can it throw?",
+   "back": "Converting a wrapper back to a primitive; a <code>NullPointerException</code> if the wrapper is null",
+   "extra": "<code>int x = map.get(k);</code> on a missing key is the classic failure.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "How many bitwise operators does Java have, and what do they operate on?",
+   "back": "<b>Seven</b> — on integer types (<code>byte, short, int, long</code>) at the bit level",
+   "extra": "<code>&amp;, |, ^, ~, &lt;&lt;, &gt;&gt;, &gt;&gt;&gt;</code>. They are not for booleans except the first three, which are also logical short-circuit-free forms.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>break</code> do versus <code>continue</code>?",
+   "back": "<code>break</code> exits the loop; <code>continue</code> skips the rest of the iteration and re-tests the condition",
+   "extra": "Both act on the innermost loop unless a label is given: break jumps past the closing brace, continue jumps to the update/condition step and the loop carries on.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What guarantees does a <code>do...while</code> loop give?",
+   "back": "The body runs <b>at least once</b>, because the condition is tested after the body",
+   "extra": "A plain <code>while</code> may run zero times. Use do-while when the first pass must happen.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What does the enhanced <code>for</code> loop iterate?",
+   "back": "Arrays and anything implementing <code>Iterable</code> — one element per pass, no index",
+   "extra": "You cannot remove elements or know the index; use an explicit iterator or indexed loop when you need either.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What internal buffer size does <code>BufferedInputStream</code> use by default?",
+   "back": "<b>8192 bytes</b>",
+   "extra": "It reads a chunk at a time, so the underlying stream is hit far less often. The same default applies to the writer and reader variants.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What default buffer size does <code>BufferedReader</code> use?",
+   "back": "<b>8192 characters</b>",
+   "extra": "Char-based, unlike BufferedInputStream's bytes — the number matches, the unit does not.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ByteArrayInputStream</code> for?",
+   "back": "Reading from a <b>byte array in memory</b> as if it were a stream",
+   "extra": "Useful when an API demands an InputStream but your data is already a byte[].",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>Collection</code> interface?",
+   "back": "The <b>root</b> interface of the collections framework — extended by List, Set and Queue",
+   "extra": "It has no direct implementations; you always use one of its subinterfaces or their classes.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How is <code>ConcurrentHashMap</code> different from <code>HashMap</code>?",
+   "back": "It is <b>thread-safe</b> without locking the whole map, so readers and writers can proceed concurrently",
+   "extra": "HashMap under concurrent writes can corrupt or loop forever; Collections.synchronizedMap locks everything.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>ConcurrentMap</code> interface add?",
+   "back": "Atomic compound operations: <code>putIfAbsent</code>, <code>replace</code>, <code>remove(key, value)</code>, <code>computeIfAbsent</code>",
+   "extra": "A synchronized Map makes each call safe but not a check-then-act sequence — these methods close that gap.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "How are command-line arguments received in Java?",
+   "back": "As a <code>String[]</code> parameter of <code>main</code>",
+   "extra": "<code>java Main arg1 arg2</code> gives <code>args[0] = \"arg1\"</code>. They arrive as strings, already split by the shell.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three comment forms in Java?",
+   "back": "<code>//</code> line, <code>/* */</code> block, and <code>/** */</code> Javadoc",
+   "extra": "Javadoc comments are extracted by the tool into HTML documentation; the other two are ignored.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What is a constructor, and how is it named?",
+   "back": "A special method that runs when an object is created, with the <b>same name as the class</b> and <b>no return type</b>",
+   "extra": "Not even <code>void</code>. That is how the compiler distinguishes it from a method.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is encapsulation?",
+   "back": "Bundling fields and methods inside a class and <b>hiding the fields</b> behind controlled access",
+   "extra": "Private fields plus public getters/setters let the class enforce its own invariants.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Encapsulation"
+  },
+  {
+   "type": "basic",
+   "front": "What does an enum constructor do, and what access can it have?",
+   "back": "Initialises each constant's fields; it is implicitly <b>private</b>",
+   "extra": "You cannot call it directly — the constants themselves invoke it when the enum class initialises.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>name()</code> and <code>toString()</code> on an enum?",
+   "back": "<code>name()</code> is final and returns the constant's identifier; <code>toString()</code> can be overridden",
+   "extra": "Log-friendly output goes in <code>toString()</code>; <code>name()</code> is what <code>valueOf</code> matches.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>EnumMap</code>?",
+   "back": "A <code>Map</code> specialised for <b>enum keys</b>, backed by an array indexed by ordinal",
+   "extra": "Faster and more compact than a HashMap for enum keys, and it iterates in declaration order.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  }
+ ]
+}

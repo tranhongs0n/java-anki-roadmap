@@ -1,0 +1,273 @@
+{
+ "deck": "70 Articles::Programiz",
+ "tags": [
+  "article::programiz",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is an enum in Java?",
+   "back": "A type with a <b>fixed set</b> of constants, declared with the <code>enum</code> keyword",
+   "extra": "Each constant is a singleton instance of the enum class. You cannot create more instances at runtime.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What class does every enum implicitly extend?",
+   "back": "<code>java.lang.Enum</code>",
+   "extra": "Which is why an enum cannot extend another class — that slot is taken. It can still implement interfaces.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>EnumSet</code> for?",
+   "back": "A set of elements of a <b>single enum type</b>, stored as a bit vector",
+   "extra": "Very compact and fast, and it iterates in declaration order. It rejects null elements.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between an exception and an error condition here?",
+   "back": "An exception is an <b>unexpected event at run time</b> that disrupts normal instruction flow",
+   "extra": "Unhandled, it terminates the program and prints a stack trace starting from the throw site.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>File</code> class represent?",
+   "back": "A <b>path</b> to a file or directory, plus operations on it — exists, delete, mkdir, list",
+   "extra": "It is metadata only: File does not read or write contents. Streams and readers do that.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Which classes read bytes from a file, and which read characters?",
+   "back": "<code>FileInputStream</code>/<code>FileOutputStream</code> handle bytes; <code>FileReader</code>/<code>FileWriter</code> handle characters",
+   "extra": "Pick by content: images and archives on the byte side, text on the char side with an explicit charset.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> mean on a variable, a method and a class?",
+   "back": "Variable: cannot be reassigned. Method: cannot be overridden. Class: cannot be subclassed",
+   "extra": "For a reference variable it fixes the reference, not the object's contents.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is inheritance?",
+   "back": "Creating a new class from an existing one so it <b>reuses</b> fields and methods, and can add its own",
+   "extra": "The subclass gets the superclass's accessible members; <code>extends</code> declares the relationship.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>InputStream</code>?",
+   "back": "The <b>abstract superclass</b> of all byte input streams",
+   "extra": "It defines <code>read()</code> and is not useful by itself — you use a concrete subclass such as FileInputStream.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>instanceof</code> return?",
+   "back": "<code>true</code> if the object is an instance of the given class or interface, else <code>false</code>",
+   "extra": "It is a runtime check; false for null rather than an exception. Since Java 16 it can also declare a pattern variable.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  },
+  {
+   "type": "basic",
+   "front": "What is an interface, in this course's words?",
+   "back": "A <b>fully abstract</b> class: a group of abstract methods with no bodies",
+   "extra": "A class implements it with <code>implements</code> and must provide those methods. Since Java 8 it may also hold default and static methods.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between an input stream and an output stream?",
+   "back": "An input stream <b>reads</b> from a source; an output stream <b>writes</b> to a destination",
+   "extra": "The direction is from the program's point of view, not the file's.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What methods does <code>Iterator</code> define?",
+   "back": "<code>hasNext()</code>, <code>next()</code>, and <code>remove()</code>",
+   "extra": "Every collection returns one from <code>iterator()</code>. Removing through the iterator is the safe way to delete while looping.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::07 Iterator"
+  },
+  {
+   "type": "basic",
+   "front": "What is a keyword in Java?",
+   "back": "A <b>reserved word</b> with a special meaning to the compiler, which cannot be used as an identifier",
+   "extra": "<code>int</code>, <code>class</code>, <code>new</code>. Using one as a variable name is a compile error, not a warning.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What is the shape of a lambda expression?",
+   "back": "<code>(parameters) -&gt; body</code>",
+   "extra": "The body is an expression or a block. The lambda's type is inferred from the target functional interface.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::03 Lambda Expressions"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>LinkedBlockingQueue</code> and <code>ArrayBlockingQueue</code>?",
+   "back": "Linked is node-based and <b>optionally bounded</b>; array is fixed-capacity",
+   "extra": "An unbounded linked queue can grow until memory runs out, which hides a slow-consumer problem.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>LinkedHashSet</code> guarantee?",
+   "back": "<b>Insertion order</b> when iterating, unlike a plain <code>HashSet</code>",
+   "extra": "It costs a little memory for the linked list that maintains the order.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>LinkedList</code>?",
+   "back": "A <b>doubly linked list</b> implementing both <code>List</code> and <code>Deque</code>",
+   "extra": "Fast at the ends, slow for index access — it must walk the nodes.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>List</code> interface guarantee?",
+   "back": "An <b>ordered</b> collection with index access that <b>allows duplicates</b>",
+   "extra": "Unlike Set, position matters and the same element may appear twice.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>Map</code> interface store?",
+   "back": "<b>Key/value pairs</b>, with unique keys mapping to values",
+   "extra": "It is not a Collection: no iterator over elements, and it has its own hierarchy.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What is a method?",
+   "back": "A block of code that performs a specific task, callable by name",
+   "extra": "It keeps a program from being one long <code>main</code>: one task per method, reused and tested separately.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is a multidimensional array?",
+   "back": "An <b>array of arrays</b> — each element is itself an array",
+   "extra": "<code>int[][] grid = new int[3][4];</code>. Rows can have different lengths, since each is a separate array.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "What is multi-catch, and which version added it?",
+   "back": "<code>catch (IOException | SQLException e)</code> — <b>Java 7</b>",
+   "extra": "It removes duplicated handling blocks. The caught variable is implicitly final.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is the built-in Java logging framework, and its package?",
+   "back": "<code>java.util.logging</code> (JUL)",
+   "extra": "Available without any dependency; SLF4J with Logback or Log4j2 is more common in applications.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  }
+ ]
+}

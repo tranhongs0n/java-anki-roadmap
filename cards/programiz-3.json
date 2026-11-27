@@ -1,0 +1,361 @@
+{
+ "deck": "70 Articles::Programiz",
+ "tags": [
+  "article::programiz",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are the two kinds of nested class in Java?",
+   "back": "<b>Static nested classes</b> and <b>non-static inner classes</b>",
+   "extra": "A static nested class is a member like any other static member; an inner class carries a hidden reference to its outer instance.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What is a nested loop?",
+   "back": "A loop inside the body of another loop",
+   "extra": "The inner loop runs to completion for every single iteration of the outer one, so the counts multiply.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "Which stream writes objects so they can be read back?",
+   "back": "<code>ObjectOutputStream</code> writes; <code>ObjectInputStream</code> reads",
+   "extra": "The class must implement <code>Serializable</code>, or you get a <code>NotSerializableException</code> at write time.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What does operator precedence determine?",
+   "back": "The <b>order</b> in which operators in an expression are evaluated",
+   "extra": "<code>a + b * c</code> multiplies first. Parentheses override it, and when in doubt you should use them.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is polymorphism?",
+   "back": "The same entity — method, operator or object — behaving differently depending on context",
+   "extra": "For methods it means the call is dispatched by the object's runtime type, not the variable's declared type.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>PrintStream</code> do differently from other output streams?",
+   "back": "Writes <b>text</b> rather than raw bytes, and converts values to readable form",
+   "extra": "<code>System.out</code> is a PrintStream. It never throws IOException — it sets an internal error flag instead.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What data structure backs <code>PriorityQueue</code>?",
+   "back": "A <b>heap</b>, so elements come out in sorted order rather than insertion order",
+   "extra": "<code>poll()</code> returns the smallest (natural order) or the one your Comparator ranks first.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>Queue</code> interface model?",
+   "back": "A <b>first-in, first-out</b> collection; it extends <code>Collection</code>",
+   "extra": "<code>offer</code>/<code>add</code> to enqueue, <code>poll</code>/<code>remove</code> and <code>peek</code>/<code>element</code> to inspect — the two method sets differ only in how they report failure.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Reader</code> represent?",
+   "back": "The <b>abstract superclass</b> of streams of <b>characters</b>",
+   "extra": "It is to char data what InputStream is to bytes; you use a concrete subclass such as FileReader or StringReader.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What must a recursive method have to terminate?",
+   "back": "A <b>base case</b> that returns without recursing",
+   "extra": "Without one the calls nest until the stack overflows with <code>StackOverflowError</code>.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does reflection allow?",
+   "back": "<b>Inspecting and manipulating</b> classes, constructors, methods and fields at run time",
+   "extra": "Everything goes through the <code>Class</code> object: <code>getDeclaredMethods</code>, <code>newInstance</code>, <code>invoke</code>.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Scanner</code> for, and which package is it in?",
+   "back": "Reading input from streams, files and strings — <code>java.util</code>",
+   "extra": "<code>hasNext</code>/<code>next</code> per token, plus typed methods like <code>nextInt</code>. It is convenient but slow — not for large files.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What three things must a singleton class do?",
+   "back": "Private constructor, a private static instance, and a public static accessor",
+   "extra": "The constructor prevents new instances; the accessor hands out the one that exists.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>SortedSet</code> add to <code>Set</code>?",
+   "back": "Elements kept in <b>sorted order</b>, with <code>first</code>, <code>last</code>, <code>headSet</code>, <code>tailSet</code> views",
+   "extra": "<code>TreeSet</code> implements it. Elements need natural order or a Comparator.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>SortedMap</code> add to <code>Map</code>?",
+   "back": "Keys kept <b>sorted</b>, with <code>firstKey</code>, <code>lastKey</code> and range views",
+   "extra": "<code>TreeMap</code> implements it; NavigableMap extends it with nearest-match lookups.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What order does <code>Stack</code> use?",
+   "back": "<b>LIFO</b> — last in, first out: push adds to the top, pop removes from the top",
+   "extra": "It extends Vector, which is why it is synchronized and considered legacy; prefer Deque.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::05 Stack"
+  },
+  {
+   "type": "basic",
+   "front": "What is a static nested class able to do that an inner class cannot?",
+   "back": "Be instantiated <b>without an outer instance</b>",
+   "extra": "<code>new Outer.Nested()</code> works; an inner class needs <code>outer.new Inner()</code> because it carries the outer reference.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What does the <code>static</code> keyword allow?",
+   "back": "Accessing a member <b>without creating an instance</b> of the class",
+   "extra": "Static members belong to the class itself and are shared by every object.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "How is a String written in source code?",
+   "back": "Between <b>double quotes</b>: <code>\"hello\"</code>",
+   "extra": "Single quotes are for a char literal, which holds exactly one character.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>super</code> refer to?",
+   "back": "The <b>superclass</b>: its members are reachable as <code>super.method()</code> and its constructor as <code>super(...)</code>",
+   "extra": "Needed when a subclass overrides a method but still wants the parent behaviour, or when the parent has no no-arg constructor.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "How many times is a <code>switch</code> expression evaluated?",
+   "back": "<b>Once</b> — then compared against each case value",
+   "extra": "That is the difference from an if-else chain, where every condition is re-evaluated in turn.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What does the ternary operator replace?",
+   "back": "A simple <b>if...else</b> that assigns or returns a value",
+   "extra": "<code>cond ? a : b</code> is an expression, so it can be used inline — which an if statement cannot.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>this</code> refer to?",
+   "back": "The <b>current object</b> — the instance the method was called on",
+   "extra": "Used to disambiguate a field from a parameter, and to call another constructor as <code>this(...)</code>.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>throw</code> and <code>throws</code>?",
+   "back": "<code>throw</code> raises an exception; <code>throws</code> declares that a method may raise one",
+   "extra": "Checked exceptions must be declared in the signature or caught; unchecked ones need not be.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>TreeMap</code> guarantee?",
+   "back": "Entries ordered by <b>key</b>, so iteration is sorted",
+   "extra": "Same tree structure as TreeSet; lookups are O(log n) rather than O(1).",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What does try-catch prevent?",
+   "back": "<b>Abnormal termination</b> of the program: the catch block handles the exception and flow continues",
+   "extra": "Without it, an uncaught exception ends the thread and prints the stack trace.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What does try-with-resources do?",
+   "back": "Closes every declared resource <b>automatically</b> at the end of the statement",
+   "extra": "The resource must implement AutoCloseable. Closes happen in reverse order of declaration, even if the body throws.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is type casting?",
+   "back": "Converting a value from one data type to another",
+   "extra": "<b>Widening</b> (int to long) is automatic; <b>narrowing</b> (double to int) needs an explicit cast and can lose data.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::08 Type Casting"
+  },
+  {
+   "type": "basic",
+   "front": "What is a variable?",
+   "back": "A named location in memory that holds a value",
+   "extra": "Declared with a type, then assigned. The type fixes what can be stored and what operations are legal.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>ArrayList</code> and <code>Vector</code>?",
+   "back": "<code>Vector</code> is <b>synchronized</b>; <code>ArrayList</code> is not",
+   "extra": "Both are resizable arrays. Vector's locking makes it slower and is rarely what you want — use ArrayList and synchronize explicitly.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
+  },
+  {
+   "type": "basic",
+   "front": "What is special about <code>WeakHashMap</code>'s keys?",
+   "back": "They are held by <b>weak references</b>, so an entry disappears once nothing else refers to its key",
+   "extra": "Used for caches and metadata that must not keep objects alive.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What are the wrapper classes for?",
+   "back": "Converting each of the <b>eight primitives</b> into an object",
+   "extra": "<code>Integer, Long, Short, Byte, Double, Float, Character, Boolean</code> — needed for generics, collections and null representation.",
+   "source": "programiz.com — Java Programming",
+   "tags": [
+    "type::course"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  }
+ ]
+}
