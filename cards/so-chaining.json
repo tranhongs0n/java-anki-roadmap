@@ -1,0 +1,97 @@
+{
+ "deck": "70 Articles::Stack Overflow",
+ "tags": [
+  "article::stackoverflow",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How do you enable method chaining on a method?",
+   "back": "Return <code>this</code> from it, so the call yields the same object and another call can follow immediately",
+   "extra": "<code>public Dialog setTitle(String t) { this.title = t; return this; }</code> — the return value is what makes the next dot possible.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Builder pattern's relationship to chaining?",
+   "back": "The builder's setters return the <b>builder</b>; a final <code>build()</code> returns the finished object",
+   "extra": "Chaining configures the builder, then one call produces an immutable product — validation happens once, at build time.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "Why do builders exist when chaining setters already works?",
+   "back": "They allow <b>final fields</b> and validation before construction — the object is never in a half-configured state",
+   "extra": "A mutable object built by chained setters is invalid between calls. A builder keeps the mess outside the product.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "What breaks if you make ordinary JavaBean setters return <code>this</code>?",
+   "back": "Frameworks that expect <code>void</code> setters — some data mappers and drivers reflectively require the JavaBeans signature",
+   "extra": "Jackson, for instance, is tolerant, but several persistence libraries are not. Keep <code>void</code> setters and add <code>withX()</code> methods for chaining.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "Why does chaining break down with inheritance?",
+   "back": "A method declared to return <code>Base</code> returns a <code>Base</code> reference, so subclass-only methods are no longer callable in the chain",
+   "extra": "Fixes: covariant return types per class, or the self-type idiom <code>class Builder&lt;B extends Builder&lt;B&gt;&gt;</code> with <code>(B) this</code>.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "How does Lombok generate chained setters?",
+   "back": "<code>@Accessors(chain = true)</code> on the class, or <code>lombok.accessors.chain = true</code> project-wide",
+   "extra": "It generates <code>public Foo setX(T x) { this.x = x; return this; }</code> instead of the void setter.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "When is chaining the wrong choice?",
+   "back": "When the methods must return something meaningful, or when callers should not depend on mutation order",
+   "extra": "A chain reads as a single configured expression. If the calls are actually steps of an algorithm, a chain hides that.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::08 Method Chaining"
+  },
+  {
+   "type": "basic",
+   "front": "What does the fluent API style call this technique?",
+   "back": "<b>Fluent interface</b> — an API designed so calls read as a sentence: <code>dialog.title(\"x\").message(\"y\").show()</code>",
+   "extra": "The chaining is the syntax; fluency is the goal. It works best when each step returns the same configured object.",
+   "source": "stackoverflow.com — How to achieve method chaining in Java?",
+   "tags": [
+    "type::chaining"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  }
+ ]
+}
