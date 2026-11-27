@@ -1,0 +1,537 @@
+{
+ "deck": "70 Articles::Baeldung Core Java",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the value of labelled <code>break</code> in Java?",
+   "back": "<code>break outer;</code> exits the <b>labelled</b> loop, not just the innermost one",
+   "extra": "A label prefixes the loop: <code>outer: for(...)</code>. It is the only way out of nested loops without a flag variable.",
+   "source": "baeldung.com — java-labeled-break",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>(String[]) new Object[]{}</code> throw <code>ClassCastException</code>?",
+   "back": "The runtime check is on the <b>actual array type</b>, which is <code>Object[]</code> — not on the reference",
+   "extra": "Casting an array reference does not convert elements. The JVM verifies the component type at the cast.",
+   "source": "baeldung.com — java-fix-classcastexception-ljava-lang-object",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Can a <code>switch</code> match a range like <code>&gt;= 90</code>?",
+   "back": "<b>No</b> — case labels must be compile-time constants",
+   "extra": "For ranges use if/else, or divide the score by 10 and switch on that integer.",
+   "source": "baeldung.com — java-switch-greater-than-or-equal-condition",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you run an external JAR from inside a Java program?",
+   "back": "<code>new ProcessBuilder(\"java\", \"-jar\", path).redirectErrorStream(true).start()</code>",
+   "extra": "Read the merged stream and call <code>waitFor()</code> to get the exit code; without processing the output, the child can block on a full pipe.",
+   "source": "baeldung.com — java-execute-jar-file",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>super.super.method()</code> illegal?",
+   "back": "Java only allows one level up — grandparent access would break <b>encapsulation</b> of the immediate superclass",
+   "extra": "If you need the grandparent behaviour, that is a design signal: extract it, delegate, or use composition.",
+   "source": "baeldung.com — java-super-super-not-allowed",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What causes \"class X is public, should be declared in a file named X.java\"?",
+   "back": "A <b>public</b> top-level class whose name does not match its file name",
+   "extra": "Only non-public classes may share a file. Renaming either the file or the class fixes it.",
+   "source": "baeldung.com — java-error-class-x-is-public-declared",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>getMessage()</code> return for an exception thrown with no message?",
+   "back": "<code>null</code> — not an empty string",
+   "extra": "So a null check is needed before logging it; <code>toString()</code> at least includes the class name.",
+   "source": "baeldung.com — java-exception-null-message",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "How do you reliably compare two booleans?",
+   "back": "Use <code>==</code> on primitives; never <code>equals</code> on boxed values without a null check",
+   "extra": "<code>Boolean.TRUE.equals(b)</code> is null-safe. <code>b == TRUE</code> compares identity when b is boxed, which the cache only makes safe for the two constants.",
+   "source": "baeldung.com — java-check-two-booleans-equal",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "How do you read the classpath at runtime?",
+   "back": "<code>System.getProperty(\"java.class.path\")</code> — the ClassLoader API does not expose it",
+   "extra": "In modular applications that property describes only the unnamed module's path; the module path is not readable this way.",
+   "source": "baeldung.com — java-classloader-get-classpath",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is the JavaCompiler API?",
+   "back": "<code>javax.tools.JavaCompiler</code> from <code>ToolProvider.getSystemJavaCompiler()</code> — compiles source at runtime",
+   "extra": "You feed it <code>JavaFileObject</code> instances and collect <code>Diagnostic</code> objects, so compilation can happen in memory with no files.",
+   "source": "baeldung.com — java-compilation-compiler-api",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you compile and read source structure programmatically?",
+   "back": "The <b>Compiler Tree API</b> (<code>com.sun.source.*</code>) exposes the parsed syntax tree and method declarations",
+   "extra": "That is how tools extract method names, parameters and Javadoc without writing their own parser.",
+   "source": "baeldung.com — java-parse-code-extract-methods",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you instantiate an inner class reflectively?",
+   "back": "Get the constructor that takes the <b>outer instance</b>: <code>Inner.class.getDeclaredConstructor(Outer.class).newInstance(outer)</code>",
+   "extra": "A non-static inner class has a synthetic first parameter — the enclosing instance — which is easy to miss and throws IllegalArgumentException.",
+   "source": "baeldung.com — java-reflection-instantiate-inner-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "How do you read a record's components reflectively?",
+   "back": "<code>Class.getRecordComponents()</code>, then call each component's accessor",
+   "extra": "It gives name, type and accessor per component — the clean way to map a record to a map or JSON.",
+   "source": "baeldung.com — java-reflection-record-fields-values",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>Optional</code> a bad record component type?",
+   "back": "<code>Optional</code> is not <code>Serializable</code>, and it adds a wrapper where a nullable field would do",
+   "extra": "As a field or parameter type it hides absence behind another layer; Optional is designed for <b>return types</b>.",
+   "source": "baeldung.com — java-record-optional-param",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Optional.of</code> and <code>Optional.ofNullable</code>?",
+   "back": "<code>of(null)</code> throws <code>NullPointerException</code>; <code>ofNullable(null)</code> returns <code>Optional.empty()</code>",
+   "extra": "Use <code>of</code> when null would be a bug, <code>ofNullable</code> when wrapping an unknown reference.",
+   "source": "baeldung.com — java-optional-of-vs-optional-ofnullable",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you check whether an Optional holds a specific value?",
+   "back": "<code>optional.filter(v -&gt; v.equals(expected)).isPresent()</code>, or <code>optional.equals(Optional.of(expected))</code>",
+   "extra": "There is no <code>contains</code> method. filter is clearer and null-safe.",
+   "source": "baeldung.com — java-optional-check-contains",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you replace null with a default value?",
+   "back": "<code>Optional.ofNullable(x).orElse(default)</code>, or <code>Objects.requireNonNullElse(x, default)</code>",
+   "extra": "The second is shorter and needs no Optional; both handle only the direct null, not nested fields.",
+   "source": "baeldung.com — java-convert-null-default-value",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Elvis operator, and does Java have it?",
+   "back": "Groovy/Kotlin's <code>?:</code> — \"use this or that\". Java has <b>no</b> such operator",
+   "extra": "The idiom is the ternary <code>x != null ? x : default</code>, or <code>Optional.ofNullable(x).orElse(default)</code>.",
+   "source": "baeldung.com — java-8-elvis-operator-implementation",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>yield</code> do in a switch?",
+   "back": "Returns a value from a <b>block</b> inside a switch expression",
+   "extra": "<code>case 1 -&gt; { int x = f(); yield x * 2; }</code>. Arrow cases with a single expression need no yield.",
+   "source": "baeldung.com — java-yield-switch",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>x --&gt; 0</code> not an operator?",
+   "back": "It is <code>(x--) &gt; 0</code> — the \"goes to\" operator is a joke",
+   "extra": "The lexer takes the longest token, so <code>--</code> then <code>&gt;</code>. It is a classic readability trap.",
+   "source": "baeldung.com — java-minus-minus-greaterthan",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What are the five uses of the colon in Java?",
+   "back": "Ternary, enhanced for, labels, switch <code>case:</code>, and assertions (<code>assert x : \"msg\"</code>)",
+   "extra": "Java has no scope-resolution operator; knowing the five keeps unfamiliar code readable.",
+   "source": "baeldung.com — java-colon",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What makes a variable name illegal for a lambda parameter you do not use?",
+   "back": "Nothing — Java 21+ allows <code>_</code> as an <b>unnamed variable</b>",
+   "extra": "It documents intent: <code>catch (Exception _)</code> says \"not used\". Unnamed patterns extend this to record deconstruction.",
+   "source": "baeldung.com — java-unnamed-patterns-variables",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What is a compact source file?",
+   "back": "A single-file program with no class declaration and an instance <code>main</code> — preview in 21, standard in 25",
+   "extra": "It removes the boilerplate class/static for beginners; the file is implicitly a class and still compiles to normal bytecode.",
+   "source": "baeldung.com — java-21-unnamed-class-instance-main",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What did JEP 421 do to <code>finalize()</code>?",
+   "back": "Deprecated it <b>for removal</b> in Java 18, with <code>--finalization=disabled</code> to turn it off",
+   "extra": "Finalizers can resurrect objects and run unpredictably; the replacement is try-with-resources or Cleaner.",
+   "source": "baeldung.com — java-18-deprecate-finalization",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>readObject</code> and <code>readResolve</code>?",
+   "back": "<code>readObject</code> customises <b>how</b> an object is read; <code>readResolve</code> replaces the object that deserialization returns",
+   "extra": "<code>readResolve</code> is how you keep a singleton a singleton across serialization — return the canonical instance.",
+   "source": "baeldung.com — java-serialization-readobject-vs-readresolve",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What does a JEP 290 deserialization filter do?",
+   "back": "Rejects classes during deserialization, either JVM-wide (<code>jdk.serialFilter</code>) or per <code>ObjectInputStream</code>",
+   "extra": "It is the mitigation for gadget-chain attacks: the filter decides which types may be instantiated before any object is built.",
+   "source": "baeldung.com — java-context-specific-deserialization-filters",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>IncompatibleClassChangeError</code>?",
+   "back": "A <b>LinkageError</b> thrown when a class's shape changed between compilation and runtime — a class became an interface, or a field became static",
+   "extra": "Nothing in the source is wrong; the compiled class and the loaded class disagree. Rebuild from clean.",
+   "source": "baeldung.com — java-incompatibleclasschangeerror",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What causes <code>UnsatisfiedLinkError</code>?",
+   "back": "The native library cannot be loaded: wrong architecture, missing dependency, or the wrong file name for <code>System.loadLibrary</code>",
+   "extra": "On Linux the loader looks for <code>libNAME.so</code>; a mismatch in bitness or libc is the usual culprit.",
+   "source": "baeldung.com — java-custom-dll-load-fixing-the-java-lang-unsatisfiedlinkerror-error",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you limit how deep the call stack can go?",
+   "back": "The thread stack size — <code>-Xss</code> — determines when <code>StackOverflowError</code> is thrown",
+   "extra": "Deep recursion or large frames hit it sooner. Raising it moves the failure, it does not fix the recursion.",
+   "source": "baeldung.com — java-call-stack-max-depth",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>System.out.flush()</code> do that <code>println</code> does not guarantee?",
+   "back": "Forces buffered output to the underlying stream <b>now</b>",
+   "extra": "A PrintStream autoflushes on newline only if autoflush was enabled; after a bare print, the text may still sit in the buffer.",
+   "source": "baeldung.com — java-system-out-flush",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you get the current user's name in Java?",
+   "back": "<code>System.getProperty(\"user.name\")</code>",
+   "extra": "It comes from the OS login, so it reflects who started the JVM — not who is using the application.",
+   "source": "baeldung.com — java-get-username",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you clamp a value to a range?",
+   "back": "<code>Math.clamp(value, min, max)</code> (Java 21), or <code>Math.min(max, Math.max(min, value))</code>",
+   "extra": "The manual form has existed forever; Math.clamp adds the API and handles the argument ordering for you.",
+   "source": "baeldung.com — java-clamp-function",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between encapsulation and information hiding?",
+   "back": "Encapsulation <b>bundles</b> data with behaviour; information hiding <b>restricts access</b> to it",
+   "extra": "A class can be encapsulated (fields and methods together) and still expose everything. Only hiding protects invariants.",
+   "source": "baeldung.com — java-information-hiding-vs-encapsulation",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Encapsulation"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>static final</code> allowed in either order?",
+   "back": "Modifier order is not significant: <code>static final</code> and <code>final static</code> compile identically",
+   "extra": "The JLS defines no preferred order; convention puts <code>static</code> first, and every style guide agrees.",
+   "source": "baeldung.com — java-static-final-order",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is constant folding?",
+   "back": "A <code>static final</code> constant with a compile-time value is <b>inlined</b> into every user at compile time",
+   "extra": "Changing the constant then requires recompiling all dependants — the reason constants should be primitive/String and stable.",
+   "source": "baeldung.com — java-static-final-variables",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Why can an enum not be declared inside an inner class (before Java 16)?",
+   "back": "An enum is implicitly <b>static</b>, and inner classes could not declare static members",
+   "extra": "Java 16 relaxed that rule, so the restriction is historical — but the inner class's outer reference is still there for other reasons.",
+   "source": "baeldung.com — java-declare-enum-inner-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "How do you check whether an object is an enum constant?",
+   "back": "<code>obj.getClass().isEnum()</code>, or <code>obj instanceof Enum</code>",
+   "extra": "The first also returns true for a class containing no constants; <code>getClass().getEnumConstants()</code> lists them.",
+   "source": "baeldung.com — java-check-object-enum",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What is the recommended naming for interfaces?",
+   "back": "Adjectives or capability nouns — <code>Runnable</code>, <code>Comparable</code>, <code>List</code>",
+   "extra": "Java does not use an <code>I</code> prefix; the type reads better in <code>implements</code> clauses without it.",
+   "source": "baeldung.com — java-interface-naming-conventions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>interface</code> mean versus <code>@interface</code>?",
+   "back": "<code>interface</code> declares a type; <code>@interface</code> declares an <b>annotation type</b>",
+   "extra": "An annotation type implicitly extends <code>java.lang.annotation.Annotation</code>, and its methods are annotation elements with optional defaults.",
+   "source": "baeldung.com — java-interface-vs-annotation",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Class.cast</code> and the cast operator?",
+   "back": "<code>Class.cast(obj)</code> is a runtime check that throws a <code>ClassCastException</code> naming the target; the operator is checked by the compiler where possible",
+   "extra": "Reflection code uses <code>Class.cast</code> because the target type is only known at runtime.",
+   "source": "baeldung.com — java-class-cast-operator-difference",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "How do you mint a random hexadecimal string?",
+   "back": "Generate bytes with <code>SecureRandom</code> and hex-encode them",
+   "extra": "<code>String.format(\"%08x\", random.nextInt())</code> works for an 8-digit value, but SecureRandom is what you want for tokens.",
+   "source": "baeldung.com — java-draw-random-hexadecimal-number",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you create an object without running a constructor?",
+   "back": "With Objenesis or <code>Unsafe</code>/<code>ReflectionFactory</code> allocation — the frameworks' trick",
+   "extra": "Mocking and deserialization libraries need instances whose constructor would fail or have side effects.",
+   "source": "baeldung.com — java-objenesis-introduction",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you get a generic type's <code>Class</code> at runtime?",
+   "back": "Pass a <code>Class&lt;T&gt;</code> token into the constructor, or read <code>ParameterizedType</code> from a subclass's <code>getGenericSuperclass()</code>",
+   "extra": "Erasure removes the argument from the class itself; only signatures and explicit tokens keep it.",
+   "source": "baeldung.com — java-generic-type-find-class-runtime",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What <code>-Xlint</code> category flags raw types?",
+   "back": "<code>-Xlint:rawtypes</code> — plus <code>-Xlint:unchecked</code> for unchecked conversions",
+   "extra": "Raw type warnings are off by default, which is why they spread unnoticed in older codebases.",
+   "source": "baeldung.com — java-raw-type-references-generic-types-parameterized",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What are value-based classes?",
+   "back": "Classes the JDK says to treat as values — <code>Integer</code>, <code>Optional</code>, <code>LocalDate</code> — where identity is unspecified",
+   "extra": "They may be freely reused or cached, so <code>==</code>, <code>synchronized</code> on them and identityHashCode are incorrect.",
+   "source": "baeldung.com — java-value-based-classes",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Vector API?",
+   "back": "An <b>incubator</b> API for SIMD vector computation, expressing operations that map to CPU vector instructions",
+   "extra": "It is not standard yet; the JVM chooses the best instruction set at runtime.",
+   "source": "baeldung.com — java-vector-api",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you avoid a method with ten parameters?",
+   "back": "Introduce a <b>parameter object</b> or a builder",
+   "extra": "The signature stops being readable and every call site must know the order; grouping related parameters fixes both.",
+   "source": "baeldung.com — java-best-practices-many-parameters-method",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you run a method only once, safely?",
+   "back": "<code>AtomicBoolean.compareAndSet</code>, a <code>CountDownLatch</code>, or the holder-class idiom for static init",
+   "extra": "A plain boolean flag is racy; these give exactly-once semantics under concurrency.",
+   "source": "baeldung.com — java-execute-method-only-once",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  }
+ ]
+}
