@@ -1,0 +1,130 @@
+{
+ "deck": "70 Articles::BeginnersBook",
+ "tags": [
+  "article::beginnersbook",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the difference between association and aggregation?",
+   "back": "Association is any relationship between two classes; <b>aggregation</b> is a whole-part form of it (HAS-A)",
+   "extra": "A Driver is associated with Cars; a Car aggregates an Engine. Aggregation says the part belongs to the whole conceptually but can exist independently.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is a unidirectional association?",
+   "back": "A relationship where one class knows about the other but not vice versa",
+   "extra": "<code>Driver</code> holds a list of <code>Car</code>, while <code>Car</code> has no field pointing back — one arrow, one direction of knowledge.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between AWT and Swing?",
+   "back": "AWT is <b>platform-dependent</b> (native peers); Swing is lightweight, drawn by Java, and portable",
+   "extra": "AWT came first with heavier OS widgets; Swing components start with <code>J</code> and look the same everywhere.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::16 Swing GUI"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>StringBuffer</code> and <code>StringBuilder</code>?",
+   "back": "<code>StringBuffer</code> is <b>synchronized</b>; <code>StringBuilder</code> is not — and therefore faster",
+   "extra": "Same API. Use StringBuilder unless the builder is genuinely shared between threads, which is rare.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>StringBuilder</code> preferred to <code>String</code> concatenation in a loop?",
+   "back": "String is immutable, so each <code>+=</code> creates a new object; StringBuilder appends in place",
+   "extra": "The compiler turns a single expression into a builder, but a loop that reassigns a String still allocates per iteration.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is a varargs parameter?",
+   "back": "A parameter declared <code>Type...</code> that accepts zero or more arguments, packed into an array",
+   "extra": "It must be the <b>last</b> parameter. Each call allocates an array, so it is not free.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What do <code>Math.addExact</code>, <code>subtractExact</code> and <code>multiplyExact</code> do?",
+   "back": "They perform the operation but throw <code>ArithmeticException</code> on <b>overflow</b>, instead of silently wrapping",
+   "extra": "Java's <code>+</code> on ints wraps around silently. When an overflow must be detected, these are the correct methods.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is exception propagation?",
+   "back": "An uncaught exception travels up the call stack until some method catches it or the thread dies",
+   "extra": "Each frame is popped in turn; if nothing handles it, the default handler prints the stack trace and terminates the thread.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What are the headline features added in Java 8?",
+   "back": "Lambdas, the Stream API, default and static interface methods, <code>Optional</code>, and the new date-time API",
+   "extra": "It remains the most disruptive single release: it changed how Java code is written, not just what the library offers.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 9 add that changed everyday code?",
+   "back": "The module system, factory methods for immutable collections (<code>List.of</code>), private interface methods, and JShell",
+   "extra": "Modules matter for library authors; the collection factories matter for everyone.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What is a servlet, and where does it run?",
+   "back": "A Java class that extends a <b>web server</b> — it runs inside a servlet container on the server, handling HTTP requests",
+   "extra": "The container manages its life cycle and converts requests into Java objects. Servlet + JSP was the standard Java web stack before Spring.",
+   "source": "beginnersbook.com — Java Tutorial",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::06 Web Frameworks"
+  }
+ ]
+}
