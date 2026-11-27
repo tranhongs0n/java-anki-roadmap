@@ -1,0 +1,140 @@
+{
+ "deck": "20 Head First Java::05 Extra-Strength Methods",
+ "tags": [
+  "book::hfj3e",
+  "ch::05",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are the three parts inside a <code>for</code> loop's parentheses, in order?",
+   "back": "Initialisation; boolean condition; update",
+   "extra": "<code>for (int i = 0; i &lt; 10; i++)</code> — set up once, test before each pass, update after each pass. All the loop bookkeeping sits in one line, which is why counting loops prefer for over while.",
+   "source": "Head First Java 3E — ch 5, p. 143",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "After <code>int x = 0; int z = x++;</code>, what are <code>x</code> and <code>z</code>?",
+   "back": "<code>x = 1</code>, <code>z = 0</code>",
+   "extra": "Post-increment hands over the old value, then increments. <code>++x</code> increments first, so <code>z</code> would be 1. The difference only matters when the expression's value is used.",
+   "source": "Head First Java 3E — ch 5, p. 152",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "In an enhanced <code>for</code> loop, what must the iteration variable's type be?",
+   "back": "Compatible with the array's <b>element</b> type",
+   "extra": "<code>for (String s : names)</code> over a <code>String[]</code>. An <code>int</code> variable over a <code>String[]</code> is a compile error — the variable receives each element, not an index.",
+   "source": "Head First Java 3E — ch 5, p. 154",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does the enhanced <code>for</code> loop actually give you over a classic for?",
+   "back": "A simpler way to walk <b>every</b> element — no index, no counter",
+   "extra": "It hides the counter and the bounds check, which removes the classic off-by-one. The price is that you cannot skip elements, count by two, or stop at a particular index without a plain loop.",
+   "source": "Head First Java 3E — ch 5, p. 154",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>break</code> do inside a loop?",
+   "back": "Exits the loop immediately, skipping the remaining iterations",
+   "extra": "Execution continues after the closing brace. In <code>checkYourself()</code> it stops scanning cells as soon as a hit is found — without it the loop would keep comparing and could count the same guess twice.",
+   "source": "Head First Java 3E — ch 5, p. 142",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why write a test class before finishing the real class?",
+   "back": "To check the behaviour with a known input while the code is still small",
+   "extra": "The book builds <code>SimpleStartupTestDrive</code> with one guess of 2 and prints \"passed\" or \"failed\". Running it immediately is the closest thing to an automated test you get before JUnit.",
+   "source": "Head First Java 3E — ch 5, p. 140",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How do you read an integer typed at the command line?",
+   "back": "<code>new Scanner(System.in).nextInt()</code>",
+   "extra": "Scanner is in <code>java.util</code>, so it needs an import. <code>nextInt()</code> consumes the next token as an int; it throws if the user types something else.",
+   "source": "Head First Java 3E — ch 5, p. 150",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>(int) (Math.random() * 5)</code> produces which range?",
+   "back": "<code>0 … 4</code>",
+   "extra": "Math.random() returns 0.0 up to but not including 1.0, so multiplying by 5 gives 0.0–4.999…, and the cast truncates. Multiplying by 5 never yields 5.",
+   "source": "Head First Java 3E — ch 5, p. 146",
+   "tags": [
+    "type::trace"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is the point of writing pseudo-code before Java?",
+   "back": "It forces the design decisions — what methods exist, what they take, what they return — before syntax gets in the way",
+   "extra": "The book writes \"DECLARE a checkYourself() method that takes an int…\" first, then translates line by line. Bugs found at the pseudo-code stage cost nothing to fix.",
+   "source": "Head First Java 3E — ch 5, p. 135",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>while (isAlive) { … }</code> with <code>isAlive</code> set false inside the body — what pattern is that?",
+   "back": "Loop until a <b>state flag</b> flips, not until a counter runs out",
+   "extra": "The game ends when the last cell is hit, which has nothing to do with how many guesses were made. A boolean flag expresses that condition directly instead of encoding it in a count.",
+   "source": "Head First Java 3E — ch 5, p. 146",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Before writing a class, what do you decide first?",
+   "back": "Its <b>methods</b>: name, parameters, return type — plus what each one does in plain words",
+   "extra": "The book writes \"DECLARE a checkYourself() method that takes an int and returns hit/miss/kill\" before any Java exists. Responsibilities first, syntax later — otherwise you design around what is easy to type.",
+   "source": "Head First Java 3E — ch 5, p. 137",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does the game class get no test class of its own?",
+   "back": "It has a single <code>main()</code> — running it <b>is</b> the test",
+   "extra": "A test class earns its keep when there is behaviour worth calling with known inputs. Here main is the entry point, so the book just plays the game and watches the output.",
+   "source": "Head First Java 3E — ch 5, p. 148",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What exactly does <code>Math.random()</code> return?",
+   "back": "A <code>double</code> from <code>0.0</code> up to but <b>never including</b> <code>1.0</code>",
+   "extra": "That half-open range is why <code>(int)(Math.random() * n)</code> covers 0…n−1 exactly, and why it can never return n.",
+   "source": "Head First Java 3E — ch 5, p. 149",
+   "tags": [
+    "type::definition"
+   ]
+  }
+ ]
+}

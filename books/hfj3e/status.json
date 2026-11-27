@@ -1,0 +1,37 @@
+[
+ {
+  "ch": 1,
+  "title": "Chapter 1: Breaking the Surface",
+  "pages": 26,
+  "cards": 13,
+  "state": "done"
+ },
+ {
+  "ch": 2,
+  "title": "Chapter 2: A Trip to Objectville",
+  "pages": 22,
+  "cards": 10,
+  "state": "done"
+ },
+ {
+  "ch": 3,
+  "title": "Chapter 3: Know Your Variables",
+  "pages": 22,
+  "cards": 10,
+  "state": "done"
+ },
+ {
+  "ch": 4,
+  "title": "Chapter 4: How Objects Behave",
+  "pages": 24,
+  "cards": 14,
+  "state": "done"
+ },
+ {
+  "ch": 5,
+  "title": "Chapter 5: Extra-Strength Methods",
+  "pages": 30,
+  "cards": 10,
+  "state": "done"
+ }
+]

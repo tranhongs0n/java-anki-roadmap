@@ -1,0 +1,42 @@
+[
+ {
+  "ch": 1,
+  "title": "Chapter 1: Breaking the Surface",
+  "pages": 26,
+  "headings": 9,
+  "chars": 13005,
+  "codeblocks": 49
+ },
+ {
+  "ch": 2,
+  "title": "Chapter 2: A Trip to Objectville",
+  "pages": 22,
+  "headings": 4,
+  "chars": 10822,
+  "codeblocks": 21
+ },
+ {
+  "ch": 3,
+  "title": "Chapter 3: Know Your Variables",
+  "pages": 22,
+  "headings": 8,
+  "chars": 12455,
+  "codeblocks": 39
+ },
+ {
+  "ch": 4,
+  "title": "Chapter 4: How Objects Behave",
+  "pages": 24,
+  "headings": 6,
+  "chars": 13212,
+  "codeblocks": 44
+ },
+ {
+  "ch": 5,
+  "title": "Chapter 5: Extra-Strength Methods",
+  "pages": 30,
+  "headings": 15,
+  "chars": 10910,
+  "codeblocks": 38
+ }
+]

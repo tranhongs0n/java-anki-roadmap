@@ -1,0 +1,150 @@
+{
+ "deck": "20 Head First Java::04 How Objects Behave",
+ "tags": [
+  "book::hfj3e",
+  "ch::04",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "A class has state and behaviour. What do its methods usually act on?",
+   "back": "The object's <b>instance variables</b>",
+   "extra": "Behaviour reads and changes state: a Dog barks differently because its size field differs. That interaction is what makes the object more than a struct.",
+   "source": "Head First Java 3E — ch 4, p. 110",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "You pass an <code>int</code> to a method and the method changes the parameter. What does the caller see?",
+   "back": "<b>Nothing</b> — the parameter was a copy",
+   "extra": "Java passes primitives by value, always. Assigning a new value inside the method changes only the local copy, never the caller's variable.",
+   "source": "Head First Java 3E — ch 4, p. 113",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "You pass an object reference to a method and the method changes a field through it. What does the caller see?",
+   "back": "The change — both references point at the <b>same object</b>",
+   "extra": "The reference is still passed by value (a copy of the pointer), but copying a remote control does not copy the TV. That distinction is the source of the \"Java is pass-by-reference\" myth.",
+   "source": "Head First Java 3E — ch 4, p. 113",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>void</code> in a method signature mean?",
+   "back": "The method returns <b>no value</b>",
+   "extra": "You can still <code>return;</code> to leave early. A method that promises a type must return a value of that type on every path, or it will not compile.",
+   "source": "Head First Java 3E — ch 4, p. 114",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How does a method hand a value back to its caller?",
+   "back": "With a <code>return</code> expression matching the declared type",
+   "extra": "<code>int giveSecret() { return 42; }</code> — the declared type is a contract. Returning something incompatible is a compile error.",
+   "source": "Head First Java 3E — ch 4, p. 114",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is encapsulation in its concrete form?",
+   "back": "<code>private</code> fields plus <code>public</code> getters and setters",
+   "extra": "The fields are hidden behind methods, so every read and write goes through code you control. That is the whole mechanism; the theory follows from it.",
+   "source": "Head First Java 3E — ch 4, p. 118",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>private</code> plus a setter beat a public field?",
+   "back": "The setter can <b>validate</b>; direct assignment cannot",
+   "extra": "A setter can reject, clamp or transform a value — as in refusing a negative height. With a public field, any caller can write a value that breaks the object's invariant, and nothing runs in between.",
+   "source": "Head First Java 3E — ch 4, p. 118",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "An object's field is never assigned. What does it hold?",
+   "back": "The <b>type default</b>: 0, 0.0, false, <code>'\\u0000'</code>, or <code>null</code>",
+   "extra": "Instance variables are initialised by the JVM, so a new object's fields are never undefined — they are zero-ish. That is why a fresh object prints 0 and null.",
+   "source": "Head First Java 3E — ch 4, p. 121",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A local variable is declared but never assigned. What does it hold?",
+   "back": "<b>Nothing</b> — reading it is a compile error",
+   "extra": "The compiler refuses with \"variable x might not have been initialized\". Locals have no default, unlike fields; the compiler forces you to assign before use.",
+   "source": "Head First Java 3E — ch 4, p. 123",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>==</code> compare?",
+   "back": "The <b>bits</b>: a value for primitives, an identity for references",
+   "extra": "It never looks inside an object. Two different Integer objects holding 1000 are not <code>==</code>; two references to the same object always are.",
+   "source": "Head First Java 3E — ch 4, p. 124",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "When does <code>==</code> work on objects and when does it mislead?",
+   "back": "Works when you mean <i>same object</i>; misleads when you mean <i>same contents</i>",
+   "extra": "Use <code>.equals()</code> for value equality on Strings, wrappers and your own types. <code>==</code> on two separately built strings is almost always a bug.",
+   "source": "Head First Java 3E — ch 4, p. 124",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "<code>pets[0].setSize(30);</code> — what is the reference here?",
+   "back": "The array element, which holds a reference to a Dog object",
+   "extra": "Indexing returns the reference stored in the slot, then the dot calls the method on that object. The array is a tray of remote controls, not a tray of dogs.",
+   "source": "Head First Java 3E — ch 4, p. 130",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How does a method receive input?",
+   "back": "Through <b>parameters</b> in its signature; the caller supplies <b>arguments</b>",
+   "extra": "<code>void bark(int numOfBarks)</code> declares one parameter; <code>d.bark(3)</code> passes the argument 3, which is copied into the parameter. The method can only change its own copy.",
+   "source": "Head First Java 3E — ch 4, p. 112",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What must the argument count and types match?",
+   "back": "The method's <b>parameters</b>, or it will not compile",
+   "extra": "<code>bark()</code> and <code>bark(int)</code> are different methods, so the call decides which one runs. Widening is allowed (an int fits a long parameter); narrowing needs a cast.",
+   "source": "Head First Java 3E — ch 4, p. 112",
+   "tags": [
+    "type::rule"
+   ]
+  }
+ ]
+}
