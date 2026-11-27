@@ -1,0 +1,153 @@
+{
+ "deck": "70 Articles::Oracle Docs",
+ "tags": [
+  "article::oracle",
+  "roadmap::java",
+  "spec::jls"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What does it mean for code to be <b>compiled against</b> a library?",
+   "back": "That its class files hold direct references to that library's classes, members and <b>descriptors</b> — not to its source",
+   "extra": "The compiler writes the library's class name, member name and descriptor into the caller's constant pool. At run time the JVM resolves those references again; it never re-reads the library's source. So a library may change only in ways that keep those references resolvable and meaning the same thing.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::concept"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is a member's <b>descriptor</b> in a class file?",
+   "back": "The encoded <b>parameter types and return type</b> — part of the reference, not a comment",
+   "extra": "<code>String quux(int, char)</code> becomes <code>quux(IC)Ljava/lang/String;</code>. A caller's reference is name + descriptor, so changing parameter types or the return type leaves that reference dangling even though the source still compiles.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::concept"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Which part of a public method's declaration can a library change without breaking binaries compiled against it?",
+   "back": "Only the <b>body</b> — name, parameters and return type are frozen by every existing caller",
+   "extra": "Rewriting a body is the most common release change and always binary compatible; JLS §13 lists reimplementing methods to improve performance. What the code does can still break behaviour, but never linkage.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "A library renames <code>foo()</code> to <code>bar()</code> and changes nothing else. What happens to code compiled against the old version?",
+   "back": "<code>NoSuchMethodError</code> when that call site is linked",
+   "extra": "Nothing in the caller's source is wrong, so nobody sees the problem until the class is linked at run time. Deleting or renaming a public method is the classic binary incompatibility.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::failure"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "A library changes a method's <b>return type only</b>, leaving name and parameters untouched. Is that binary compatible?",
+   "back": "<b>No</b> — the return type is part of the descriptor, so old call sites no longer match",
+   "extra": "The caller holds <code>quux(I)Ljava/lang/String;</code>. Change the return type to <code>Integer</code> and the library declares <code>quux(I)Ljava/lang/Integer;</code>: the old reference resolves to nothing and throws <code>NoSuchMethodError</code>. Sources compile; binaries do not link.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::failure"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "A public field changes type from <code>int size</code> to <code>long size</code> under the same name. Can old binaries still resolve it?",
+   "back": "<b>No</b> — a field reference is name + type, so it fails exactly like a removed field",
+   "extra": "The caller's descriptor says <code>size:I</code>, the library now declares <code>size:J</code>. Same name, different reference. This is why changing a field's type is treated as deleting and re-adding it.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::failure"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why is deleting a <code>private</code> member binary compatible?",
+   "back": "No other class can hold a reference to it, so no pre-existing binary can depend on it",
+   "extra": "JLS §13 permits deleting private fields, methods and constructors outright. The same reasoning covers package-private members when the whole package ships together: only code inside that package could have referenced them.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <b>moving a method up</b> the class hierarchy binary compatible?",
+   "back": "Resolution walks the superclass chain, so the same name + descriptor is still found",
+   "extra": "A call site records 'invoke <code>m</code> on type C'; the JVM searches C and then its superclasses. Pulling <code>m</code> into a superclass — or inserting a new type into the hierarchy — keeps that search successful.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why does reordering fields or methods inside a class break nothing?",
+   "back": "References are by <b>name + descriptor</b>, never by position",
+   "extra": "The class file carries an index, so declaration order is not part of any reference. JLS §13 lists reordering declarations as binary compatible, which is why you can reorder source for readability.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why does adding an <b>overload</b> preserve compatibility when changing the existing signature does not?",
+   "back": "The old descriptor still exists for old binaries, while new code binds to the new one",
+   "extra": "This is the standard evolution idiom: keep <code>quux(int)</code>, add <code>quux(long)</code> and delegate to it. Changing <code>quux(int)</code> in place deletes a reference callers already hold — a break you can never reproduce on your own machine if you always rebuild.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::design"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "A method flips from <code>static</code> to an instance method with the same name and parameters. Is that binary compatible?",
+   "back": "Not guaranteed — JLS §13.4.12 says a <b>linkage error</b> may occur",
+   "extra": "The reference records whether the invocation is static or virtual, and the bytecode differs (<code>invokestatic</code> versus <code>invokevirtual</code>). Keeping the descriptor while changing the modifier leaves an opcode that no longer matches the member.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Is narrowing a member's accessibility (public → protected) binary compatible?",
+   "back": "<b>No</b> — a pre-existing binary that no longer has access fails with <code>IllegalAccessError</code>",
+   "extra": "Access is checked during resolution, against the actual calling class. Widening is safe because anything that linked before still links; narrowing is not, even though the member itself still exists with the same descriptor.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does <b>an API is a contract</b> mean, in binary terms?",
+   "back": "A promise to binaries you do not control, not to the source you can recompile",
+   "extra": "Rebuild every dependent and most signature changes look harmless — which is why the break stays invisible in your own repo. The contract is with the class files already shipped: they can only be satisfied by name and descriptor stability.",
+   "source": "JLS SE 21 §13 — Binary Compatibility (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
+   "tags": [
+    "type::concept"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  }
+ ]
+}
