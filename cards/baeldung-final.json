@@ -1,0 +1,108 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Does a <b>final class</b> mean its objects are immutable?",
+   "back": "<b>No</b> — <code>final</code> only blocks subclassing; the fields can still be changed through setters",
+   "extra": "Immutability needs final fields plus no mutators. A final class with a setter is perfectly mutable.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>String</code> declared final?",
+   "back": "So nobody can subclass it and override its methods, which would make behaviour unpredictable across the whole language",
+   "extra": "Strings are passed everywhere and used as map keys; a subclass with altered equals or hashCode would break collections invisibly.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> on a <b>method</b> prevent?",
+   "back": "Overriding it in a subclass — the method body is fixed",
+   "extra": "The class can still be extended and new methods added; only that method is locked.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between making every method final and making the class final?",
+   "back": "With final methods you can still subclass and <b>add</b> methods; with a final class you cannot subclass at all",
+   "extra": "The first restricts behaviour, the second restricts the type hierarchy.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "When should you mark a method final even in an extensible class?",
+   "back": "When other methods or the constructor <b>call</b> it — an override would silently change the caller's behaviour",
+   "extra": "This is why <code>Thread</code> is extensible but <code>isAlive()</code> is final: its contract cannot be reimplemented safely.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> mean on a reference variable?",
+   "back": "The <b>reference</b> cannot be reassigned; the object it points at stays fully mutable",
+   "extra": "<code>final List&lt;String&gt; l = new ArrayList&lt;&gt;();</code> still allows <code>l.add(...)</code> — only <code>l = other</code> is forbidden.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "When must a final instance field be assigned?",
+   "back": "<b>Before the constructor completes</b> — at declaration, in an instance initializer block, or in the constructor",
+   "extra": "That is what makes a final field safely published. Assigning it twice, or not at all, is a compile error.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Where can a <code>static final</code> field be assigned?",
+   "back": "At declaration or in a <b>static</b> initializer block",
+   "extra": "Not in a constructor — a static field belongs to the class, which is initialised once regardless of how many objects are made.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> on a method parameter do?",
+   "back": "Forbids reassigning the parameter inside the method body",
+   "extra": "It documents that the argument is not modified. The caller sees no difference; it is a local guarantee only.",
+   "source": "baeldung.com — The final Keyword in Java",
+   "tags": [
+    "type::final"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+  }
+ ]
+}
