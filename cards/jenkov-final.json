@@ -1,0 +1,240 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is exception wrapping?",
+   "back": "Catching a low-level exception and throwing a higher-level one that carries it as the <b>cause</b>",
+   "extra": "It preserves the stack trace while presenting an error in your abstraction's terms. Without the cause you lose the original failure.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is exception <b>enrichment</b>, and how does it differ from wrapping?",
+   "back": "Catching, adding information to the <b>same</b> exception, and rethrowing it — instead of creating a new one",
+   "extra": "Wrapping gives you a new type; enrichment keeps the original type and stack. Pick according to whether callers need the abstraction.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What makes exception handling code <b>fail-safe</b>?",
+   "back": "The cleanup code itself must not throw — a failure in finally or close would mask the original exception",
+   "extra": "Guard cleanup with its own try/catch, and keep it minimal. This is why close() is documented as suppressing exceptions.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "How do you catch several exception types in one block?",
+   "back": "<code>catch (IOException | SQLException e)</code> — Java 7 multi-catch",
+   "extra": "The caught variable is implicitly final. Use it when the handling is identical, not as a way to avoid thinking about each case.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between a checked and an unchecked exception?",
+   "back": "Checked must be declared or caught (recoverable); unchecked (RuntimeException) signal programming errors",
+   "extra": "The compiler enforces the first. Getting the split wrong makes an API either noisy or unsafe.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>pluggable exception handler</b>?",
+   "back": "A handler object injected into a component so callers decide how its exceptions are treated",
+   "extra": "The component stays free of logging or UI policy; the caller supplies a strategy. Useful for libraries.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Where should exceptions be logged?",
+   "back": "At the <b>boundary</b> of the application — not at every layer that catches",
+   "extra": "Log-and-rethrow at each level produces duplicate stack traces and hides where the failure actually originated.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>checked exception hierarchy</b> good for?",
+   "back": "Letting callers catch a family of failures with one catch, while throwing specific subtypes",
+   "extra": "Catch the supertype where the handling is the same; throw the subtype where the information matters.",
+   "source": "jenkov.com — Exception Handling",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Why is naive timing of Java code misleading?",
+   "back": "The JIT compiles and optimises while you measure, so the first runs are slower and later ones may be eliminated",
+   "extra": "That is why <b>JMH</b> exists: it warms up, forks JVMs, and prevents dead-code elimination.",
+   "source": "jenkov.com — Performance",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting"
+  },
+  {
+   "type": "basic",
+   "front": "What is a ring buffer, and why use one?",
+   "back": "A <b>preallocated</b> circular array with read/write indices — no allocation, no GC pressure",
+   "extra": "Used for high-throughput queues (disruptor-style). Capacity is fixed, so writes must handle a full buffer explicitly.",
+   "source": "jenkov.com — Performance",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting"
+  },
+  {
+   "type": "basic",
+   "front": "What is micro-batching?",
+   "back": "Grouping many small tasks into a batch so the per-task overhead is paid once",
+   "extra": "It trades latency for throughput — appropriate for writes, not for interactive work.",
+   "source": "jenkov.com — Performance",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting"
+  },
+  {
+   "type": "basic",
+   "front": "Is replacing a <code>for</code> loop with a <code>switch</code> faster?",
+   "back": "Sometimes, but not predictably — it depends on the JIT and the data distribution",
+   "extra": "Modern JVMs optimise both heavily. Measure with JMH before restructuring readable code.",
+   "source": "jenkov.com — Performance",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting"
+  },
+  {
+   "type": "basic",
+   "front": "Why does memory layout matter for Java performance?",
+   "back": "CPU caches work in <b>cache lines</b>, so traversing arrays sequentially is far faster than chasing pointers",
+   "extra": "A plain object graph scatters across the heap. That is the reason for primitive arrays, ring buffers and struct-of-arrays designs.",
+   "source": "jenkov.com — Performance",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::04 Monitoring and Troubleshooting"
+  },
+  {
+   "type": "basic",
+   "front": "What is a higher-order function?",
+   "back": "A function that takes a function as a parameter or returns one",
+   "extra": "In Java, that is a method taking a functional interface — <code>Function</code>, <code>Predicate</code>, <code>Supplier</code>.",
+   "source": "jenkov.com — Functional Programming",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "What is functional composition in Java?",
+   "back": "Combining functions into one: <code>f.andThen(g)</code> or <code>f.compose(g)</code>",
+   "extra": "<code>andThen</code> applies f first; <code>compose</code> applies the argument first. The order is the whole subtlety.",
+   "source": "jenkov.com — Functional Programming",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "What makes an interface a functional interface?",
+   "back": "It has exactly <b>one</b> abstract method — which is what allows a lambda to implement it",
+   "extra": "<code>@FunctionalInterface</code> enforces the shape. Default and static methods do not count toward the one.",
+   "source": "jenkov.com — Functional Programming",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "What are the two defining properties of a Java stream?",
+   "back": "It is <b>lazy</b> (nothing runs until a terminal operation) and it can be traversed only <b>once</b>",
+   "extra": "Reusing a consumed stream throws IllegalStateException. Laziness is what lets short-circuit operations skip work.",
+   "source": "jenkov.com — Functional Programming",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "How did Java 9 shrink <code>String</code>'s memory footprint?",
+   "back": "<b>Compact strings</b>: a <code>byte[]</code> plus a coder flag, using Latin-1 when every character fits",
+   "extra": "An all-ASCII string halves its storage versus UTF-16 char[]. The behaviour is unchanged; only the representation is.",
+   "source": "jenkov.com — Java String",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is scoped access, as opposed to method chaining?",
+   "back": "A method returns a <b>scope object</b> exposing the next set of operations, rather than returning <code>this</code>",
+   "extra": "It narrows what can be called next — the builder variant that prevents invalid sequences at compile time.",
+   "source": "jenkov.com — Java Scoped Access",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "When do you choose an interface over an abstract class?",
+   "back": "Interface for a <b>contract</b> many unrelated types can implement; abstract class when subclasses must <b>share state</b>",
+   "extra": "A class gets one superclass but many interfaces, so interfaces are the more flexible axis of variation.",
+   "source": "jenkov.com — Interfaces vs Abstract Classes",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What are the benefits of JPMS modules?",
+   "back": "Explicit dependencies, <b>strong encapsulation</b> (even reflection can be blocked), and a smaller runtime image",
+   "extra": "The module declares what it exports and what it requires; jlink then builds a runtime with only what is needed.",
+   "source": "jenkov.com — Java Modules",
+   "tags": [
+    "type::advanced"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules"
+  }
+ ]
+}

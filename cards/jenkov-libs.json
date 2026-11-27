@@ -1,0 +1,339 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>LocalDate</code>, <code>LocalTime</code> and <code>LocalDateTime</code>?",
+   "back": "Date only, time only, and both — none of them carry a time zone or offset",
+   "extra": "\"Local\" means \"no zone\": it is a wall-clock value, not an instant on the timeline.",
+   "source": "jenkov.com — Java Date Time tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
+  },
+  {
+   "type": "basic",
+   "front": "When do you need <code>ZonedDateTime</code> instead of <code>LocalDateTime</code>?",
+   "back": "When the moment must be unambiguous across zones — scheduling, timestamps, DST-sensitive logic",
+   "extra": "A LocalDateTime at 02:30 may not exist during a DST jump; a ZonedDateTime resolves to a real instant.",
+   "source": "jenkov.com — Java Date Time tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Duration</code> and <code>Period</code>?",
+   "back": "<code>Duration</code> is time-based (hours, seconds); <code>Period</code> is date-based (years, months, days)",
+   "extra": "Adding a Period of one month to 31 January gives 28/29 February; a Duration of 30 days gives something else.",
+   "source": "jenkov.com — Java Date Time tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
+  },
+  {
+   "type": "basic",
+   "front": "Is <code>DateTimeFormatter</code> thread-safe?",
+   "back": "<b>Yes</b> — it is immutable, unlike <code>SimpleDateFormat</code>",
+   "extra": "Build one with <code>ofPattern</code>, share it. Sharing a SimpleDateFormat across threads is a classic corruption bug.",
+   "source": "jenkov.com — Java Date Time tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
+  },
+  {
+   "type": "basic",
+   "front": "What is wrong with using <code>System.currentTimeMillis()</code> to measure elapsed time?",
+   "back": "It is <b>wall-clock</b> time — it can jump backwards when the system clock is adjusted",
+   "extra": "Use <code>System.nanoTime()</code> for durations and timeouts; it is monotonic.",
+   "source": "jenkov.com — Java Date Time tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
+  },
+  {
+   "type": "basic",
+   "front": "Which legacy date classes still appear in code?",
+   "back": "<code>java.util.Date</code>, <code>Calendar</code>, and <code>java.sql.Date</code>/<code>Timestamp</code>",
+   "extra": "Value types in the java.time API have conversion methods, so legacy boundaries are easy to isolate.",
+   "source": "jenkov.com — Java Date Time tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Socket</code> and <code>ServerSocket</code>?",
+   "back": "<code>Socket</code> is the <b>client</b> end of a TCP connection; <code>ServerSocket</code> waits and <code>accept()</code>s connections",
+   "extra": "The accept loop yields a new Socket per client — each one a separate connection on the server side.",
+   "source": "jenkov.com — Java Networking tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>DatagramSocket</code> for?",
+   "back": "<b>UDP</b>: connectionless datagrams with no delivery or ordering guarantee",
+   "extra": "Lower overhead than TCP; you must handle loss and reordering yourself.",
+   "source": "jenkov.com — Java Networking tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>InetAddress</code> represent?",
+   "back": "An IP address — host name resolution plus the numeric address",
+   "extra": "<code>InetAddress.getByName(\"example.com\")</code> resolves; DNS failures surface as <code>UnknownHostException</code>.",
+   "source": "jenkov.com — Java Networking tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "What replaced <code>HttpURLConnection</code> in modern Java?",
+   "back": "<code>java.net.http.HttpClient</code>, added in Java 11",
+   "extra": "Async, HTTP/2, and a cleaner API than the URL/URLConnection pair.",
+   "source": "jenkov.com — Java Networking tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>MessageDigest</code> for?",
+   "back": "A cryptographic <b>hash</b>: one-way digest of bytes, e.g. SHA-256",
+   "extra": "Hashing is not encryption — you cannot reverse it. Use it for integrity and password storage (with salt).",
+   "source": "jenkov.com — Java Cryptography tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Cipher</code> for?",
+   "back": "Encrypting and decrypting with a named transformation like <code>AES/GCM/NoPadding</code>",
+   "extra": "The transformation string is algorithm/mode/padding; choosing the mode matters as much as the algorithm.",
+   "source": "jenkov.com — Java Cryptography tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>KeyGenerator</code> and <code>KeyPairGenerator</code>?",
+   "back": "<code>KeyGenerator</code> makes <b>symmetric</b> keys (AES); <code>KeyPairGenerator</code> makes <b>asymmetric</b> pairs (RSA)",
+   "extra": "Symmetric is faster but needs a shared secret; asymmetric solves key distribution.",
+   "source": "jenkov.com — Java Cryptography tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Signature</code> do?",
+   "back": "Signs data with a private key and verifies with the public key",
+   "extra": "Signing is not encryption: the goal is authenticity and integrity, not secrecy.",
+   "source": "jenkov.com — Java Cryptography tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Mac</code> in the crypto API?",
+   "back": "A Message Authentication Code — keyed hash, e.g. HmacSHA256",
+   "extra": "Unlike a plain digest, it proves the message came from someone holding the key.",
+   "source": "jenkov.com — Java Cryptography tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>KeyStore</code>?",
+   "back": "A password-protected file holding keys and certificates, managed by <code>keytool</code>",
+   "extra": "JKS and PKCS12 are the common formats; it is how TLS servers hold their certificate and private key.",
+   "source": "jenkov.com — Java Cryptography tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>Class</code> object represent?",
+   "back": "The runtime description of a type — its name, fields, methods, constructors, annotations",
+   "extra": "Reflection starts here: <code>obj.getClass()</code>, <code>Type.class</code> or <code>Class.forName(name)</code>.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>getMethods()</code> and <code>getDeclaredMethods()</code>?",
+   "back": "<code>getMethods()</code> returns public members including inherited ones; <code>getDeclaredMethods()</code> returns <b>only</b> what this class declares, at any visibility",
+   "extra": "Getting at private members requires the declared variant plus <code>setAccessible(true)</code>.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "How do you bypass <code>private</code> with reflection?",
+   "back": "<code>field.setAccessible(true)</code> — unless a module or security manager forbids it",
+   "extra": "That is why strong encapsulation in JPMS exists: it can make this fail rather than silently work.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "How do you create an instance reflectively?",
+   "back": "<code>clazz.getDeclaredConstructor(...).newInstance(args)</code>",
+   "extra": "It throws <code>InvocationTargetException</code> wrapping whatever the constructor threw — a frequent source of confusing stack traces.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What is a dynamic proxy?",
+   "back": "A runtime-generated class implementing the interfaces you specify, routing every call to an <code>InvocationHandler</code>",
+   "extra": "The mechanism behind Spring AOP and many mocking frameworks.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Does reflection see generic type information?",
+   "back": "Partially — erasure removes it from the bytecode, but <b>signatures</b> of fields, methods and supertypes are retained",
+   "extra": "<code>getGenericType()</code> reads those signatures. A <code>List&lt;String&gt;</code> field keeps its parameter, a local variable does not.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Class.forName</code> do that <code>getClass()</code> cannot?",
+   "back": "Loads a class by <b>name</b> at runtime — and by default initialises it",
+   "extra": "<code>forName(name, false, loader)</code> loads without running static initializers. This is how plugins and JDBC drivers get loaded.",
+   "source": "jenkov.com — Java Reflection tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>Locale</code> describe?",
+   "back": "A language and region combination that drives formatting, parsing and collation",
+   "extra": "<code>Locale.FRANCE</code> vs <code>Locale.CANADA_FRENCH</code>: same language, different number and date conventions.",
+   "source": "jenkov.com — Java Internationalization tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::13 Internationalization"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>ResourceBundle</code>?",
+   "back": "A set of locale-specific property files resolved by name: <code>Messages_fr.properties</code>",
+   "extra": "Lookup walks from the most specific locale to the default, so you only translate what differs.",
+   "source": "jenkov.com — Java Internationalization tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::13 Internationalization"
+  },
+  {
+   "type": "basic",
+   "front": "Why not sort text with <code>String.compareTo</code> across locales?",
+   "back": "It compares UTF-16 code units, which is not alphabetical order in most languages",
+   "extra": "<code>Collator.getInstance(locale)</code> does locale-aware ordering — including accents and case rules.",
+   "source": "jenkov.com — Java Internationalization tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::13 Internationalization"
+  },
+  {
+   "type": "basic",
+   "front": "Why use <code>NumberFormat</code> instead of <code>String.format</code> for money?",
+   "back": "It applies the locale's grouping, decimal separators and currency symbol",
+   "extra": "<code>1,234.56</code> in the US is <code>1.234,56</code> in Germany — the same number formatted differently.",
+   "source": "jenkov.com — Java Internationalization tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::13 Internationalization"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ZipFile</code> for versus <code>ZipInputStream</code>?",
+   "back": "<code>ZipFile</code> opens a <b>random access</b> archive from disk and lists entries; <code>ZipInputStream</code> streams sequentially",
+   "extra": "The streaming version works on an InputStream and cannot jump backwards.",
+   "source": "jenkov.com — Java ZIP tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you create a ZIP archive in Java?",
+   "back": "<code>ZipOutputStream</code>: put an entry, write bytes, close the entry, repeat",
+   "extra": "Each entry needs <code>putNextEntry</code>/<code>closeEntry</code>; forgetting the close produces a corrupt archive.",
+   "source": "jenkov.com — Java ZIP tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between GZIP and ZIP in Java?",
+   "back": "GZIP compresses <b>a single stream</b>; ZIP holds <b>many named entries</b>",
+   "extra": "<code>GZIPInputStream</code> has no entry structure, which is why it is used for single files and HTTP bodies.",
+   "source": "jenkov.com — Java ZIP tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  }
+ ]
+}

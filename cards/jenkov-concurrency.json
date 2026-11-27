@@ -1,0 +1,372 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the difference between concurrency and parallelism?",
+   "back": "Concurrency is <b>dealing with</b> many tasks at once; parallelism is <b>doing</b> many at the same instant",
+   "extra": "A single-core CPU can be concurrent (interleaved) but not parallel. Parallelism needs several cores.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is Amdahl's Law about?",
+   "back": "The <b>maximum speedup</b> from parallelising a task, limited by its serial fraction",
+   "extra": "If 20% of the work cannot be parallelised, no number of cores gets you past 5×. The serial part dominates.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is a race condition?",
+   "back": "The result depends on the <b>timing</b> of thread interleavings inside a critical section",
+   "extra": "Same input, different output, depending on scheduling. It may pass a thousand runs and fail in production.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is a critical section?",
+   "back": "Code that must not be executed by two threads at the same time",
+   "extra": "Identified by shared mutable state plus read-modify-write. It is what you must guard.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What are the four conditions for deadlock?",
+   "back": "Mutual exclusion, hold-and-wait, no preemption, and circular wait",
+   "extra": "Break any one and deadlock is impossible. The book's usual advice: enforce lock ordering to kill circular wait.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is lock ordering, and why does it prevent deadlock?",
+   "back": "Every thread acquires locks in the same defined order, so no cycle can form",
+   "extra": "Without a global order, thread A waits for B's lock while B waits for A's.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>starvation</b>?",
+   "back": "A thread never gets CPU or a lock because others always win the contention",
+   "extra": "Priority misuse and unfair locks cause it. Fairness settings trade throughput for guaranteed progress.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>false sharing</b>?",
+   "back": "Two threads writing different variables that sit on the same <b>cache line</b>, so the line bounces between cores",
+   "extra": "The variables are independent, but the hardware invalidates the whole line. Padding fields apart can help.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <b>happens-before</b> relationship guarantee?",
+   "back": "That writes before it are <b>visible</b> to reads after it, in a defined order",
+   "extra": "It is the formal rule behind synchronized, volatile and thread start/join. Without it, visibility is undefined.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "What is the Java Memory Model, in one sentence?",
+   "back": "The rules that say when a write by one thread becomes visible to another",
+   "extra": "It allows each thread its own working copy of shared variables; happens-before is what forces a refresh.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>volatile</code> exist, given the JMM?",
+   "back": "It forces reads and writes to go to <b>main memory</b>, giving visibility without locking",
+   "extra": "It does not make <code>i++</code> atomic — it only fixes visibility and ordering, not compound operations.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::05 Volatile Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>reentrancy</b> in a lock?",
+   "back": "A thread that already holds the lock can acquire it again",
+   "extra": "Java's <code>synchronized</code> and <code>ReentrantLock</code> are reentrant; a naive spin lock is not, and self-deadlocks.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>slipped conditions</b>?",
+   "back": "A thread checks a condition, another thread changes it, and the first acts on the stale check",
+   "extra": "The check and the action must be inside the same lock; otherwise the gap is the bug.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>nested monitor lockout</b>?",
+   "back": "Each thread holds one lock and waits for the other's, with no circular dependency to break by ordering",
+   "extra": "It looks like deadlock but is a different failure: the wait/notify is inside a monitor that the other thread needs.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ThreadLocal</code> for?",
+   "back": "Per-thread storage: each thread sees its own value of the variable",
+   "extra": "The classic use is non-thread-safe objects reused per thread (formatters, connections). It leaks if threads are pooled and never cleared.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What is a thread pool for?",
+   "back": "<b>Reusing</b> threads to run tasks, so thread creation is not paid per task",
+   "extra": "Bounded worker count also protects the system from unbounded concurrency.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is thread congestion?",
+   "back": "Many threads competing for the same lock, so most of the time is spent waiting and context-switching",
+   "extra": "Throughput collapses even though nothing is broken. Fix by reducing the critical section or partitioning the state.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is the producer-consumer pattern?",
+   "back": "Producers put items into a <b>queue</b>; consumers take them out, decoupling the two rates",
+   "extra": "The queue is the synchronisation point: bound it and producers block when the consumer is slow.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>ArrayBlockingQueue</code> and <code>LinkedBlockingQueue</code>?",
+   "back": "Array-backed with a <b>fixed</b> capacity versus linked nodes with optional capacity",
+   "extra": "The array version is bounded by construction; the linked one defaults to Integer.MAX_VALUE, which is effectively unbounded.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>SynchronousQueue</code>?",
+   "back": "A queue with <b>no capacity</b>: each put must wait for a matching take",
+   "extra": "It is a handoff, not a buffer — used by cached thread pools to pass a task straight to a waiting worker.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Semaphore</code>?",
+   "back": "A counter limiting how many threads may hold a permit at once",
+   "extra": "Acquire before the resource, release after. With 1 permit it behaves like a mutex.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>CountDownLatch</code> for?",
+   "back": "Waiting until <b>N events</b> have happened: each <code>countDown()</code> decrements, <code>await()</code> returns at zero",
+   "extra": "One-shot: it cannot be reset. Use it to wait for startup tasks to finish.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>CyclicBarrier</code> for?",
+   "back": "Making N threads <b>wait for each other</b> at a point, then continue together — and it can be reused",
+   "extra": "The reusable counterpart to CountDownLatch: rounds of work that must synchronise between phases.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Exchanger</code>?",
+   "back": "A rendezvous point where two threads <b>swap</b> objects",
+   "extra": "Both block until both arrive, then exchange — a two-party handoff with no queue.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What do the <code>Atomic*</code> classes give you?",
+   "back": "Lock-free read-modify-write operations such as <code>incrementAndGet</code> and <code>compareAndSet</code>",
+   "extra": "They use CAS under the hood, so they scale better than a lock when contention is low.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is compare-and-swap (CAS)?",
+   "back": "An atomic instruction: \"set to new if still equal to expected\", returning whether it worked",
+   "extra": "The basis of lock-free algorithms. On failure you retry — hence the loop in every CAS-based method.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Callable</code> and <code>Runnable</code>?",
+   "back": "<code>Callable</code> returns a value and may throw checked exceptions; <code>Runnable</code> does neither",
+   "extra": "A <code>Callable</code> submitted to an executor gives you a <code>Future</code> to collect the result.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Future</code> represent?",
+   "back": "The result of an <b>asynchronous</b> computation — <code>get()</code> blocks until it is ready",
+   "extra": "<code>get()</code> also rethrows the task's exception, wrapped in <code>ExecutionException</code>.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ForkJoinPool</code> for?",
+   "back": "Divide-and-conquer work that splits into subtasks and <b>steals</b> them from other workers' queues",
+   "extra": "It shines for recursive, CPU-bound tasks with uneven subproblem sizes; parallel streams use it by default.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ReadWriteLock</code> allow that a plain lock does not?",
+   "back": "Many readers <b>at once</b>, or one writer alone",
+   "extra": "Good for read-heavy state. Watch for writer starvation if readers arrive continuously.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is the trade-off of virtual threads?",
+   "back": "Cheap blocking (millions of them), but no benefit for <b>CPU-bound</b> work",
+   "extra": "They let a thread-per-request style scale, because blocking parks a virtual thread instead of an OS thread.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::03 Virtual Threads"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>scheduleAtFixedRate</code> do?",
+   "back": "Runs a task repeatedly at a fixed <b>rate</b> from the start of each run",
+   "extra": "Fixed <i>rate</i> means a slow run can bunch up; <code>scheduleWithFixedDelay</code> waits between runs instead.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>ConcurrentMap</code> and a plain <code>Map</code> under concurrency?",
+   "back": "It defines atomic operations — <code>putIfAbsent</code>, <code>computeIfAbsent</code>, <code>replace</code>, <code>merge</code>",
+   "extra": "A synchronized Map makes each call safe but not a check-then-act sequence. These methods are the sequence.",
+   "source": "jenkov.com — Java Concurrency tutorial",
+   "tags": [
+    "type::concurrency"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  }
+ ]
+}

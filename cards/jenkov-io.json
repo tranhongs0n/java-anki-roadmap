@@ -1,0 +1,339 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the fundamental difference between <code>InputStream</code> and <code>Reader</code>?",
+   "back": "<code>InputStream</code> handles <b>bytes</b>; <code>Reader</code> handles <b>characters</b>",
+   "extra": "The byte side knows nothing about encoding. The char side is text-aware, which is why it needs a charset.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>OutputStream</code> and <code>Writer</code>?",
+   "back": "<code>OutputStream</code> writes bytes; <code>Writer</code> writes characters",
+   "extra": "Same split as the input side: one for binary data, one for text.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>BufferedReader</code> add to a <code>Reader</code>?",
+   "back": "An internal buffer, so reads hit the OS far less often — plus <code>readLine()</code>",
+   "extra": "Reading a char at a time from a file is slow; buffering turns thousands of syscalls into a handful. <code>readLine()</code> is the payoff.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "When would you use <code>BufferedInputStream</code> instead of <code>BufferedReader</code>?",
+   "back": "When the data is <b>binary</b>, not text",
+   "extra": "Buffering and byte-vs-char are independent choices: pick the byte variant for images, archives and protocol frames.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>FileInputStream</code> read?",
+   "back": "The raw <b>bytes</b> of a file",
+   "extra": "No charset, no line handling. Good for binary files, wrong for text if you care about encoding.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>FileReader</code> do differently from <code>FileInputStream</code>?",
+   "back": "It decodes the file's bytes into <b>characters</b> using a charset",
+   "extra": "It is a convenience wrapper. Because it relies on the default charset, prefer <code>InputStreamReader</code> with an explicit one.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>InputStreamReader</code> for?",
+   "back": "It <b>bridges</b> a byte stream to a character reader, applying a charset",
+   "extra": "This is the class that performs decoding; wrap a <code>FileInputStream</code> in it when you need a specific encoding.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>OutputStreamWriter</code> for?",
+   "back": "It bridges a character writer to a byte stream, encoding characters to bytes",
+   "extra": "The mirror image of <code>InputStreamReader</code>: it is where the charset is applied on output.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you append instead of overwrite with <code>FileWriter</code>?",
+   "back": "Pass <code>true</code> as the second constructor argument",
+   "extra": "The default overwrites the file from the start. Same pattern in <code>FileOutputStream</code>.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What can <code>RandomAccessFile</code> do that the stream classes cannot?",
+   "back": "<b>Seek</b> to any position, and both read and write",
+   "extra": "Called <code>seek(long)</code>; mode <code>\"r\"</code> or <code>\"rw\"</code>. This is how you edit a byte range in a large file without rewriting it.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>DataOutputStream</code> for?",
+   "back": "Writing Java <b>primitives</b> in a portable binary format",
+   "extra": "It writes int, double, boolean, UTF strings in a fixed layout, so <code>DataInputStream</code> can read them back on any platform.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>ObjectOutputStream</code> for?",
+   "back": "Serializing a whole <b>object graph</b> to a byte stream",
+   "extra": "Its counterpart <code>ObjectInputStream</code> reconstructs the graph — bypassing constructors, which is exactly why deserialization is a security risk.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What do piped streams connect?",
+   "back": "<b>Two threads in the same JVM</b> — one writes, the other reads",
+   "extra": "<code>PipedInputStream</code>/<code>PipedOutputStream</code> (or the Reader/Writer pair) are an in-process channel, not an OS pipe.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>SequenceInputStream</code> do?",
+   "back": "Concatenates two or more input streams into one logical stream",
+   "extra": "It reads the first to its end, then continues with the next — useful when you want to treat several sources as one.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>PushbackInputStream</code> for?",
+   "back": "Putting bytes <b>back</b> after reading them, so a parser can look ahead",
+   "extra": "You read a byte to decide what comes next, then unread it. It is the stream equivalent of peeking.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>ByteArrayOutputStream</code> good for?",
+   "back": "Building a byte buffer in memory instead of writing to a file or socket",
+   "extra": "You write to it, then call <code>toByteArray()</code>. Handy for assembling a payload or capturing output.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>StringWriter</code> for?",
+   "back": "Collecting character output into a <code>String</code>",
+   "extra": "It is a <code>Writer</code>, so any API that writes to a Writer can write into memory instead of a file.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>PrintWriter</code> for?",
+   "back": "Formatted text output: <code>print</code>, <code>println</code>, <code>printf</code>",
+   "extra": "It swallows IOExceptions — check <code>checkError()</code> if you need to know a write failed.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What kind of stream is <code>System.out</code>?",
+   "back": "A <code>PrintStream</code> — bytes, with print/println/printf",
+   "extra": "Which is why <code>System.out</code> is an OutputStream, not a Writer, and why it uses the platform's default encoding.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What are <code>System.in</code>, <code>System.out</code> and <code>System.err</code>?",
+   "back": "The three standard streams: input, output and error",
+   "extra": "They are set up by the JVM at startup and can be redirected or wrapped (for example <code>System.setOut</code>).",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>LineNumberReader</code> add?",
+   "back": "It counts lines as it reads, and can set the current line number",
+   "extra": "<code>getLineNumber()</code>/<code>setLineNumber()</code> — useful for error messages that cite a line.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>StreamTokenizer</code> do?",
+   "back": "Splits a character stream into <b>tokens</b>: words, numbers and punctuation",
+   "extra": "A low-level lexer for tiny parsing jobs: it yields words, numbers and single characters, but it has no grammar, so real languages need a hand-written parser or a generator.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What are the <code>Filter</code> stream classes for?",
+   "back": "They are <b>base classes</b> for implementing your own stream that wraps another",
+   "extra": "<code>FilterInputStream</code> and friends delegate to the wrapped stream — the template for custom decorators.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Why is closing a <code>BufferedReader</code> enough to close the underlying file?",
+   "back": "Closing a wrapper <b>delegates</b> to the stream it wraps",
+   "extra": "So try-with-resources on the outermost stream closes the chain. Closing twice is harmless.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How should streams be closed in modern Java?",
+   "back": "With <b>try-with-resources</b>, which closes them even if the body throws",
+   "extra": "Before Java 7 you needed finally blocks with null checks; the old idiom is a common source of leaks.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What does the IO tutorial mean by concurrent IO?",
+   "back": "Reading and writing at the same time, on <b>separate threads</b>",
+   "extra": "Needed for network protocols that interleave requests and responses: a single thread that reads then writes can deadlock.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is a Java IO pipe's limitation?",
+   "back": "Both ends must live in the <b>same JVM</b>",
+   "extra": "It transfers data between threads in one process. For anything across processes, use sockets or OS-level pipes.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>BufferedWriter.newLine()</code> for?",
+   "back": "Writing the platform's line separator portably",
+   "extra": "<code>\\n</code> is not correct on Windows. <code>newLine()</code> uses the right sequence for the platform.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Which is faster: reading a file byte by byte from <code>FileInputStream</code>, or through a buffer?",
+   "back": "Through a buffer — far fewer system calls",
+   "extra": "Every unbuffered read is a kernel call. Buffering amortises that cost, which is why <code>Buffered*</code> exists at all.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What must a class do before <code>ObjectOutputStream</code> can write it?",
+   "back": "Implement <code>Serializable</code> — a marker interface with no methods",
+   "extra": "It opts the class into default serialization. Ugh, but true; the marker is the whole contract.",
+   "source": "jenkov.com — Java IO tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  }
+ ]
+}

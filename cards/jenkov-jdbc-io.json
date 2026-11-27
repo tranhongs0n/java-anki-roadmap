@@ -1,0 +1,295 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why prefer <code>PreparedStatement</code> to <code>Statement</code>?",
+   "back": "It is <b>precompiled</b> and parameterised — faster on reuse, and safe from SQL injection",
+   "extra": "The parameters are sent separately from the SQL text, so a value can never be parsed as SQL syntax.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "How do you call a stored procedure from JDBC?",
+   "back": "With <code>CallableStatement</code>, prepared as <code>{call proc(?, ?)}</code>",
+   "extra": "Register output parameters with <code>registerOutParameter</code> before executing.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ResultSet</code> represent, and how do you iterate it?",
+   "back": "A <b>cursor</b> over the query result; <code>while (rs.next())</code> advances one row",
+   "extra": "Read columns by index or name; <code>next()</code> returns false at the end. Always close it.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "What is a JDBC batch update for?",
+   "back": "Sending many statements in <b>one round trip</b>: <code>addBatch()</code> then <code>executeBatch()</code>",
+   "extra": "Inserting 10,000 rows one at a time is dominated by network latency, not by the database.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "How do you run several statements as one transaction in JDBC?",
+   "back": "Turn off auto-commit, then <code>commit()</code> or <code>rollback()</code>",
+   "extra": "<code>conn.setAutoCommit(false)</code> begins the transaction implicitly; the connection controls the boundary, not the SQL.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>DatabaseMetaData</code> for?",
+   "back": "Discovering the database's capabilities and schema: tables, columns, driver version, supported features",
+   "extra": "The portable way to inspect a database without vendor-specific SQL.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "What are the four JDBC driver types?",
+   "back": "Type 1 bridge (JDBC-ODBC), Type 2 native API, Type 3 middleware, Type 4 <b>pure Java</b>",
+   "extra": "Type 4 is what every modern driver is: it speaks the database's wire protocol directly, no native code.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>Connection</code> in JDBC?",
+   "back": "A session with the database, from which you create statements",
+   "extra": "It is the unit of transaction scope. Connections are expensive — that is why pool is a thing.",
+   "source": "jenkov.com — JDBC tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::08 Persistence::02 Java JDBC"
+  },
+  {
+   "type": "basic",
+   "front": "What are the four pieces of the <code>java.util.logging</code> architecture?",
+   "back": "<b>Logger</b> (API), <b>Handler</b> (destination), <b>Formatter</b> (layout), <b>Filter</b> (accept/reject)",
+   "extra": "A Logger passes a LogRecord to its handlers; each handler formats and filters it independently.",
+   "source": "jenkov.com — Java Logging (java.util.logging)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What are JUL's log levels, in increasing severity?",
+   "back": "<code>FINEST, FINER, FINE, CONFIG, INFO, WARNING, SEVERE</code>",
+   "extra": "There are also the aliases <code>ALL</code> and <code>OFF</code> for configuring threshold. FINEST is the most verbose.",
+   "source": "jenkov.com — Java Logging (java.util.logging)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "Why is the logger name usually the class name?",
+   "back": "Loggers form a <b>hierarchy by dotted name</b>, so configuration and levels are inherited from parents",
+   "extra": "<code>com.example.Shop</code> inherits the settings of <code>com.example</code> — that is why \"set com.example to FINE\" works.",
+   "source": "jenkov.com — Java Logging (java.util.logging)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>Handler</code> do?",
+   "back": "Delivers a LogRecord to a destination: console, file, socket, memory",
+   "extra": "<code>ConsoleHandler</code>, <code>FileHandler</code>. A logger can have several, each with its own level and formatter.",
+   "source": "jenkov.com — Java Logging (java.util.logging)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>LogRecord</code>?",
+   "back": "The object carrying one log event: level, message, timestamp, source class and method, thrown exception",
+   "extra": "It is the single object that travels from the Logger through every Handler and Filter, carrying the level, message, timestamp, source class/method and the thrown exception.",
+   "source": "jenkov.com — Java Logging (java.util.logging)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>LogManager</code> do?",
+   "back": "Owns the logger hierarchy and reads the logging configuration file",
+   "extra": "You rarely touch it; it is how the configuration is loaded at startup.",
+   "source": "jenkov.com — Java Logging (java.util.logging)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::11 Logging::01 Logging Frameworks"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>ObjectMapper</code> in Jackson?",
+   "back": "The main entry point: converts Java objects to JSON and back",
+   "extra": "<code>writeValueAsString</code>, <code>readValue</code>. It is thread-safe once configured, so build one and share it.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>JsonNode</code> in Jackson?",
+   "back": "A JSON document held as a <b>tree</b> you can navigate and modify",
+   "extra": "For when the shape is not known ahead of time, or you only need a couple of fields.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "When would you use Jackson's <code>JsonParser</code> instead of <code>ObjectMapper</code>?",
+   "back": "For <b>streaming</b> very large documents where you do not want the whole tree in memory",
+   "extra": "It is the low-level token API; the ObjectMapper is built on it.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What is Gson, and how does it differ from Jackson?",
+   "back": "Google's JSON library, also object-to-JSON mapping",
+   "extra": "Same job, fewer features. It is still common in Android and legacy code.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three Java XML parsing approaches?",
+   "back": "<b>DOM</b> (tree in memory), <b>SAX</b> (streaming push callbacks), <b>StAX</b> (streaming pull)",
+   "extra": "DOM for manipulation, SAX for large documents you only read, StAX when you want to drive the loop yourself.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What is the cost of DOM?",
+   "back": "The <b>whole document</b> is built in memory as a node graph",
+   "extra": "Convenient for editing and XPath, impossible for a 2 GB file.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "How does SAX work?",
+   "back": "You register a handler and the parser <b>calls it</b> for each event: start element, characters, end element",
+   "extra": "Push model; no tree, no memory cost. <code>DefaultHandler</code> is the base class you extend.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What is the key difference between SAX and StAX?",
+   "back": "SAX <b>pushes</b> events at you; StAX lets you <b>pull</b> them one at a time",
+   "extra": "Pull parsing composes better: you can stop early, or hand the reader to another component.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What are StAX's two APIs?",
+   "back": "Cursor API (<code>XMLStreamReader</code>) and Iterator API (<code>XMLEventReader</code>)",
+   "extra": "The cursor is faster and lighter; the event iterator is nicer to read and allows peeking.",
+   "source": "jenkov.com — Java JSON / XML tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::12 JSON and XML"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Pattern</code> and <code>Matcher</code>?",
+   "back": "<code>Pattern</code> is the compiled regex (immutable, reusable); <code>Matcher</code> is one match attempt over one input",
+   "extra": "Compile once, then create a matcher per input — compiling in a loop is a common performance bug.",
+   "source": "jenkov.com — Java Regular Expressions",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::06 Regular Expressions"
+  },
+  {
+   "type": "basic",
+   "front": "Which <code>Matcher</code> method requires a full match?",
+   "back": "<code>matches()</code> — the whole input must match the pattern",
+   "extra": "<code>find()</code> searches for a match anywhere, and <code>lookingAt()</code> anchors at the start only.",
+   "source": "jenkov.com — Java Regular Expressions",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::06 Regular Expressions"
+  },
+  {
+   "type": "basic",
+   "front": "How do you read captured groups?",
+   "back": "<code>group(n)</code> after a successful match; group 0 is the whole match",
+   "extra": "<code>groupCount()</code> tells you how many groups exist. Named groups are <code>(?&lt;name&gt;...)</code> and read with <code>group(\"name\")</code>.",
+   "source": "jenkov.com — Java Regular Expressions",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::06 Regular Expressions"
+  }
+ ]
+}

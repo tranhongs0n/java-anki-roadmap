@@ -1,0 +1,262 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are the three levels of a JavaFX application's structure?",
+   "back": "<b>Stage</b> (window) → <b>Scene</b> (root of the graph) → <b>Node</b> tree",
+   "extra": "A Stage holds one Scene; the Scene holds a tree of Nodes. Swapping the Scene changes the whole screen at once.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is a JavaFX <code>Node</code>?",
+   "back": "The <b>base class</b> of every component in the scene graph",
+   "extra": "Controls, shapes, containers and canvas all extend it, so anything you add to the graph is a Node.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>Stage</code>?",
+   "back": "A <b>window</b> in a desktop application",
+   "extra": "<code>stage.setScene(...)</code> then <code>stage.show()</code>. The primary stage arrives as a parameter to <code>start(Stage)</code>.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>Region</code> in JavaFX?",
+   "back": "The base class for <b>layout panes</b> — components that arrange their children",
+   "extra": "<code>Pane</code>, <code>HBox</code>, <code>VBox</code>, <code>GridPane</code> extend it. Controls do too, which is why CSS padding and borders apply to both.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>HBox</code> do versus <code>VBox</code>?",
+   "back": "<code>HBox</code> lays children out horizontally; <code>VBox</code> vertically",
+   "extra": "Both are single-axis: for wrapping rows, use <code>FlowPane</code> instead.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>FlowPane</code> for?",
+   "back": "Laying children in a row (or column) and <b>wrapping</b> to the next line when space runs out",
+   "extra": "The layout for tag clouds, galleries and anything responsive without a fixed grid.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>GridPane</code> for?",
+   "back": "Placing children in a <b>grid</b> of rows and columns, with per-cell spanning",
+   "extra": "The most precise built-in layout, and the most verbose: you specify row/column indices for every node.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>TilePane</code> do?",
+   "back": "Lays children out in a grid of <b>equally sized</b> tiles",
+   "extra": "Unlike GridPane the cells are uniform, which makes it the choice for icon boards and keypads.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Group</code> and <code>Pane</code>?",
+   "back": "<code>Group</code> applies <b>no layout</b> and sizes itself to its children; <code>Pane</code> is a resizable region that can be styled",
+   "extra": "Group for fixed-position graphics, Pane when you want a styled container that takes part in layout.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What does JavaFX <code>Canvas</code> give you that the scene graph does not?",
+   "back": "<b>Immediate-mode drawing</b> through a <code>GraphicsContext</code>: paths, text, images, pixel-level control",
+   "extra": "Nodes are retained-mode objects; the canvas is a bitmap you repaint yourself. Use it for charts, games and custom visuals.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "How is JavaFX styled?",
+   "back": "With <b>CSS</b>, applied to nodes by type, id or style class",
+   "extra": "Same separation as HTML: <code>.button { -fx-background-color: ...; }</code>. JavaFX CSS is its own dialect with <code>-fx-</code> property names.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is a JavaFX <b>Property</b>?",
+   "back": "An <b>observable</b> value that can be listened to and bound to other properties",
+   "extra": "Binding is what keeps the UI in sync with the model: change the model, the control updates itself.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is the fundamental threading rule in JavaFX?",
+   "back": "Only the <b>JavaFX Application Thread</b> may modify the scene graph",
+   "extra": "Do work on a background thread and hand results back with <code>Platform.runLater</code>. Touching nodes off-thread throws or corrupts the UI.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "How do you run work in the background in JavaFX?",
+   "back": "A <code>Task</code> or <code>Service</code> on an <code>ExecutorService</code>, updating the UI from its handlers",
+   "extra": "<code>Task</code> exposes <code>updateProgress</code>/<code>updateMessage</code>, which are safe to call from the worker thread.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>CheckBox</code> and <code>RadioButton</code>?",
+   "back": "A checkbox toggles independently; radio buttons are grouped so only one is selected",
+   "extra": "JavaFX checkboxes also support an <b>indeterminate</b> third state, which is easy to forget when reading the state.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>ChoiceBox</code> and <code>ComboBox</code>?",
+   "back": "<code>ComboBox</code> is editable and richer; <code>ChoiceBox</code> is a simple fixed list",
+   "extra": "ChoiceBox is lighter; ComboBox lets the user type a value or filter the list.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "How does <code>TableView</code> get its values?",
+   "back": "From <code>TableColumn</code> cell value factories that read a property off the row object",
+   "extra": "The table knows nothing about your class: each column is told how to extract its field.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is a JavaFX <code>Transformation</code>?",
+   "back": "A geometric operation — translate, rotate, scale, shear — applied on top of a node's layout",
+   "extra": "Node convenience methods such as <code>setRotate</code> and <code>setScaleX</code> are shorthand; the Transform classes allow composition.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What are JavaFX <b>effects</b>?",
+   "back": "Visual post-processing on a node: drop shadow, blur, glow, reflection",
+   "extra": "They render in a separate pass, so they are not free — avoid them on large animated subtrees.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "How is animation done in JavaFX?",
+   "back": "<code>Timeline</code> with keyframes, or the transition classes such as <code>FadeTransition</code> and <code>TranslateTransition</code>",
+   "extra": "All of them drive properties over time, so animation and the property-binding system are the same machinery.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>WebView</code> do?",
+   "back": "Embeds a <b>web engine</b> so the app can render HTML and run JavaScript",
+   "extra": "Paired with <code>WebEngine</code> for navigation and script calls.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What are <code>FileChooser</code> and <code>DirectoryChooser</code>?",
+   "back": "Modal dialogs for picking a file or a directory",
+   "extra": "They live in <code>javafx.stage</code>, not the scene package, and can only be customised slightly.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  },
+  {
+   "type": "basic",
+   "front": "What is the JavaFX media package for?",
+   "back": "Playing <b>audio and video</b> through <code>Media</code>, <code>MediaPlayer</code> and <code>MediaView</code>",
+   "extra": "The player is the controller (play/pause/seek); the view is the node that displays frames.",
+   "source": "jenkov.com — JavaFX tutorial",
+   "tags": [
+    "type::javafx"
+   ],
+   "merge_into": "00 Java Roadmap::14 JavaFX::01 JavaFX Core"
+  }
+ ]
+}

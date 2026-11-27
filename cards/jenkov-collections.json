@@ -1,0 +1,185 @@
+{
+ "deck": "70 Articles::Jenkov",
+ "tags": [
+  "article::jenkov",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the root of the collection hierarchy?",
+   "back": "The <code>Collection</code> interface — extended by <code>List</code>, <code>Set</code> and <code>Queue</code>",
+   "extra": "<code>Map</code> is <b>not</b> a Collection: it is a separate hierarchy because it stores key/value pairs, not elements.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>NavigableSet</code> for?",
+   "back": "Sorted-set operations relative to a value: <code>floor</code>, <code>ceiling</code>, <code>higher</code>, <code>lower</code>, <code>headSet</code>, <code>tailSet</code>",
+   "extra": "<code>TreeSet</code> implements it. This is the API for \"nearest match\" queries on a sorted set.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>NavigableMap</code> add?",
+   "back": "Nearest-key lookups and range views: <code>floorKey</code>, <code>ceilingKey</code>, <code>subMap</code>",
+   "extra": "<code>TreeMap</code> implements it — the workhorse for sorted key/value data.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>Deque</code>?",
+   "back": "A <b>double-ended queue</b>: add and remove at both ends",
+   "extra": "<code>ArrayDeque</code> is the usual implementation. Use it instead of the legacy <code>Stack</code> class for LIFO work.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>java.util.Stack</code> considered legacy?",
+   "back": "It extends <code>Vector</code>, so every method is synchronized, and it exposes index-based access that breaks the stack abstraction",
+   "extra": "Use <code>Deque</code> (<code>ArrayDeque</code>) with <code>push</code>/<code>pop</code>/<code>peek</code> instead.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Iterable</code> and <code>Iterator</code>?",
+   "back": "<code>Iterable</code> can produce an <code>Iterator</code>; it is what makes a type usable in a for-each loop",
+   "extra": "Implement <code>Iterable</code> and you get for-each for free — that is the only thing the compiler requires.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>java.util.Collections</code> (plural)?",
+   "back": "A <b>utility class</b> of static methods for collections: sort, reverse, shuffle, unmodifiableList, emptyList, singletonList",
+   "extra": "Do not confuse it with the <code>Collection</code> interface. This one only holds static helpers.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How do you sort a list with a custom order?",
+   "back": "<code>list.sort(comparator)</code> or <code>Collections.sort(list, comparator)</code>",
+   "extra": "Natural order needs <code>Comparable</code>; any other order needs a <code>Comparator</code>.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What contract must a key of a hash-based map satisfy?",
+   "back": "<code>equals</code> and <code>hashCode</code> must agree: equal keys must have equal hash codes",
+   "extra": "Get it wrong and <code>get(key)</code> returns null for a key you know you put in — the classic HashMap bug.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>Properties</code> class for?",
+   "back": "A <code>Map&lt;String,String&gt;</code> that can load and store itself as a <code>.properties</code> text file",
+   "extra": "It is the historical configuration format; the API is old (it extends <code>Hashtable</code>) but it is still everywhere.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Collections.unmodifiableList(list)</code> actually guarantee?",
+   "back": "That callers cannot modify the list <b>through this view</b> — the underlying list is still mutable",
+   "extra": "It is a read-only view, not a copy. If the original changes, the view changes.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Comparable</code> and <code>Comparator</code>?",
+   "back": "<code>Comparable</code> is implemented <b>by the type</b> (natural order); <code>Comparator</code> is a <b>separate object</b> supplied at the call site",
+   "extra": "One type can have only one natural order but any number of Comparators.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How do you make your own class usable in a for-each loop?",
+   "back": "Implement <code>Iterable&lt;T&gt;</code> and return an <code>Iterator&lt;T&gt;</code>",
+   "extra": "The compiler desugars for-each into <code>iterator()</code>, <code>hasNext()</code>, <code>next()</code> — nothing else is needed.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <code>Class&lt;T&gt;</code> object good for in generics?",
+   "back": "Using a class as a <b>runtime type token</b>, so a container can check and cast per key",
+   "extra": "The pattern behind typesafe heterogeneous containers: <code>Map&lt;Class&lt;?&gt;, Object&gt;</code> plus casts inside <code>get</code>.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What do generic wildcards make possible?",
+   "back": "Writing a method that accepts <code>List&lt;Integer&gt;</code>, <code>List&lt;Double&gt;</code> and <code>List&lt;Number&gt;</code> with one signature",
+   "extra": "<code>List&lt;? extends Number&gt;</code> — needed because generics are invariant, unlike arrays.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>List</code> and <code>Collection</code> as a parameter type?",
+   "back": "<code>List</code> promises order and index access; <code>Collection</code> promises only iterability and size",
+   "extra": "Take the least specific type you actually use — often <code>Collection</code> or <code>Iterable</code>.",
+   "source": "jenkov.com — Java Collections / Generics tutorial",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  }
+ ]
+}
