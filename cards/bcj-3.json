@@ -1,0 +1,460 @@
+{
+ "deck": "70 Articles::Baeldung Core Java",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>JAVA_HOME</code> and <code>PATH</code>?",
+   "back": "<code>JAVA_HOME</code> names the JDK <b>directory</b>, used by tools like Maven and Gradle; <code>PATH</code> lets the shell find <code>java</code> and <code>javac</code>",
+   "extra": "Build tools read JAVA_HOME to locate the compiler; the shell uses PATH. Setting one and not the other is the classic \"mvn uses a different JDK\" bug.",
+   "source": "baeldung.com — java-home-vs-path-env-var",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between classpath and build path?",
+   "back": "Build path is what the <b>IDE/compiler</b> uses to compile; classpath is what the <b>JVM</b> uses at run time",
+   "extra": "They are configured separately and can disagree — which is why code compiles in the IDE and fails with NoClassDefFoundError from the command line.",
+   "source": "baeldung.com — java-classpath-vs-build-path",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>-sourcepath</code> and <code>-classpath</code>?",
+   "back": "<code>sourcepath</code> tells javac where to find <b>.java</b> sources; <code>classpath</code> points at compiled <b>.class</b> files and jars",
+   "extra": "javac compiles sources it finds via sourcepath on demand; classpath entries are used as-is.",
+   "source": "baeldung.com — java-classpath-sourcepath",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you derive a UUID from a string?",
+   "back": "<code>UUID.nameUUIDFromBytes(bytes)</code> — deterministic, version <b>3</b> (MD5-based)",
+   "extra": "Same input, same UUID, forever. Version 5 (SHA-1) is not in the JDK; it needs a library.",
+   "source": "baeldung.com — java-generate-same-uuid-from-string",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Does an enum's <code>toString()</code> affect <code>valueOf</code>?",
+   "back": "<b>No</b> — <code>valueOf</code> matches <code>name()</code>, which is final and is the declared identifier",
+   "extra": "Overriding toString for display is fine, but round-tripping through valueOf(toString()) then breaks.",
+   "source": "baeldung.com — java-enums-tostring",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What are the five ways to create an object in Java?",
+   "back": "<code>new</code>, reflection, <code>clone()</code>, deserialization, and a factory method",
+   "extra": "The last four bypass the constructor you can see, which is why they are also the ways to get an object in an invalid state.",
+   "source": "baeldung.com — java-different-ways-to-create-objects",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What does Project Panama bring to Java?",
+   "back": "The <b>Foreign Function &amp; Memory API</b> — calling native code and managing off-heap memory without JNI",
+   "extra": "It replaces hand-written C glue: <code>Linker</code>, <code>MemorySegment</code> and <code>FunctionDescriptor</code> are the entry points.",
+   "source": "baeldung.com — java-project-panama",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How does a record differ from a final class?",
+   "back": "A record gives you <b>components, accessors, equals, hashCode and toString</b> from one declaration; a final class only blocks subclassing",
+   "extra": "Both prevent extension. A record also documents that it is a transparent data carrier — and it cannot declare extra instance fields.",
+   "source": "baeldung.com — java-record-vs-final-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Record"
+  },
+  {
+   "type": "basic",
+   "front": "What is structured concurrency (JEP 428)?",
+   "back": "A scope, <code>StructuredTaskScope</code>, in which subtasks are forked and all complete — or are cancelled — before the scope exits",
+   "extra": "It makes task lifetimes follow the block structure, so a failed subtask cancels its siblings instead of leaking threads.",
+   "source": "baeldung.com — java-structured-concurrency",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "What is a record pattern?",
+   "back": "Destructuring a record in a type test: <code>if (o instanceof Point(int x, int y))</code> — preview in Java 19, standard in 21",
+   "extra": "It binds the components directly, removing the accessor calls and the nested instanceof chain.",
+   "source": "baeldung.com — java-19-record-patterns",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Record"
+  },
+  {
+   "type": "basic",
+   "front": "How does <code>String...</code> differ from <code>String[]</code> in a signature?",
+   "back": "<code>String...</code> accepts zero or more arguments at the call site; <code>String[]</code> requires an array",
+   "extra": "Both compile to an array parameter, so the two overloads cannot coexist — they clash.",
+   "source": "baeldung.com — varargs-vs-array",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What happened to the <code>javax</code> packages?",
+   "back": "<code>java.*</code> is the core platform; <code>javax.*</code> started as optional extensions and many moved to <code>jakarta.*</code>",
+   "extra": "That rename is why Spring 6 and Jakarta EE 9+ import <code>jakarta.servlet</code> instead of <code>javax.servlet</code>.",
+   "source": "baeldung.com — java-packages-vs-javax",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "Why declare a constructor <code>private</code>?",
+   "back": "To prevent instantiation: utility classes, singletons, and factories that control creation",
+   "extra": "A private constructor also blocks subclassing, since a subclass cannot call it.",
+   "source": "baeldung.com — java-private-constructor-access",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you test whether a class implements an interface?",
+   "back": "<code>MyInterface.class.isAssignableFrom(clazz)</code>, or <code>obj instanceof MyInterface</code> for an instance",
+   "extra": "isAssignableFrom walks the hierarchy, so it answers for superinterfaces too — getInterfaces() does not.",
+   "source": "baeldung.com — java-check-class-implements-interface",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What causes <code>IllegalArgumentException: No enum constant</code>?",
+   "back": "<code>Enum.valueOf(name)</code> with a string that does not match any constant <b>exactly</b>",
+   "extra": "The match is case-sensitive and uses the identifier, not toString(). Validate the input, or add a lookup by display name.",
+   "source": "baeldung.com — java-fix-no-enum-const-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Can you compile and run a String of Java source at runtime?",
+   "back": "<b>Yes</b> — <code>JavaCompiler</code> compiles it in memory, then a custom <code>ClassLoader</code> defines and instantiates the class",
+   "extra": "It is how rule engines and REPLs work; it also means untrusted source is a code-execution hole.",
+   "source": "baeldung.com — java-string-compile-execute-code",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How does a lambda differ from an anonymous class?",
+   "back": "A lambda has <b>no state and no identity</b>: <code>this</code> refers to the enclosing object, and no class file is generated",
+   "extra": "An anonymous class can hold fields and implement many methods, and its <code>this</code> is its own instance.",
+   "source": "baeldung.com — java-lambdas-vs-anonymous-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>Optional</code> often described as a monad?",
+   "back": "It supports <b>map</b> and <b>flatMap</b> and wraps a value, so functions can be composed over the absence case",
+   "extra": "map returns empty on null instead of short-circuiting an exception; flatMap avoids wrapping Optional inside Optional.",
+   "source": "baeldung.com — java-monads-optional",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Callable</code> and <code>Supplier</code>?",
+   "back": "<code>Callable.call()</code> may throw checked exceptions and is meant for tasks; <code>Supplier.get()</code> may not and is a plain value factory",
+   "extra": "Callable pairs with executors and returns a Future; Supplier is for lazy values.",
+   "source": "baeldung.com — java-callable-vs-supplier",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Error</code> and <code>Exception</code>?",
+   "back": "Both extend <code>Throwable</code>; <code>Error</code> signals a <b>JVM-level failure</b> (OutOfMemoryError, StackOverflowError) that applications are not expected to handle",
+   "extra": "Catching Error is almost always wrong — the JVM state is already compromised.",
+   "source": "baeldung.com — java-errors-vs-exceptions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "How do you make a singleton survive serialization?",
+   "back": "Add <code>readResolve()</code> returning the canonical instance — or use a single-element enum",
+   "extra": "Without it, deserialization creates a second instance, because it bypasses the private constructor.",
+   "source": "baeldung.com — java-serialize-singleton",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "What are the four reference types?",
+   "back": "<b>Strong</b>, <b>soft</b> (<code>SoftReference</code>), <b>weak</b> (<code>WeakReference</code>), <b>phantom</b> (<code>PhantomReference</code>)",
+   "extra": "Strong is the default; soft is cleared under memory pressure (caches); weak is cleared at the next GC; phantom is for post-mortem cleanup.",
+   "source": "baeldung.com — java-reference-types",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Class.getResource</code> and <code>ClassLoader.getResource</code>?",
+   "back": "<code>Class.getResource(\"x\")</code> is <b>relative to the class's package</b>; a leading <code>/</code> makes it absolute; <code>ClassLoader.getResource</code> is always absolute",
+   "extra": "The leading slash is the whole difference, and getting it wrong yields a null URL rather than an error.",
+   "source": "baeldung.com — java-class-vs-classloader-getresource",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why do static fields stop objects from being collected?",
+   "back": "Static fields belong to the <b>Class object</b>, which is a GC root — anything reachable from them stays alive",
+   "extra": "The class is unloaded only if its loader is unreachable, so a static collection is effectively a permanent cache.",
+   "source": "baeldung.com — java-static-fields-gc",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you get the stack trace of the current thread?",
+   "back": "<code>Thread.currentThread().getStackTrace()</code>, or <code>new Throwable().getStackTrace()</code>",
+   "extra": "The array's first element is getStackTrace itself; frame 0 of the throwable approach is where it was created.",
+   "source": "baeldung.com — java-get-current-stack-trace",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you find which JAR contains a class?",
+   "back": "<code>jar tf app.jar | grep ClassName</code>, or a loop over jars with <code>zipgrep</code>",
+   "extra": "The JDK has no tool for it; <code>-verbose:class</code> at run time prints where each class was loaded from.",
+   "source": "baeldung.com — java-find-jars-containing-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why does a stack trace show \"Unknown Source\"?",
+   "back": "The classes were compiled <b>without debug information</b> — no line numbers or file names in the class file",
+   "extra": "Compile with <code>-g</code> (or <code>-g:lines,source</code>) to restore them; build tools often strip them for size.",
+   "source": "baeldung.com — java-unknown-source-stack-trace",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What causes \"implicit super constructor is undefined\"?",
+   "back": "The superclass has <b>no no-argument constructor</b>, so the implicit <code>super()</code> cannot be called",
+   "extra": "Fix it by calling <code>super(args)</code> explicitly as the first statement of the subclass constructor.",
+   "source": "baeldung.com — java-implicit-super-constructor-is-undefined-error",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "How do you read bit <code>k</code> of an integer?",
+   "back": "<code>(n &gt;&gt; k) &amp; 1</code>, or <code>(n &amp; (1 &lt;&lt; k)) != 0</code>",
+   "extra": "Right-shift then mask is the shortest form; use <code>&gt;&gt;&gt;</code> for logical shifting of negatives.",
+   "source": "baeldung.com — java-get-bit-at-position",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What makes the \"illegal character\" compile error?",
+   "back": "An <b>encoding mismatch</b> — a UTF-8 file read as another charset (or a BOM at the start of the file)",
+   "extra": "Fix with <code>javac -encoding UTF-8</code> and a build tool configured for the same charset.",
+   "source": "baeldung.com — java-illegal-character-error",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>@see</code> and <code>{@link}</code> in Javadoc?",
+   "back": "<code>@see</code> is a <b>block tag</b> that adds a \"See Also\" entry; <code>{@link}</code> is an <b>inline</b> tag inside a sentence",
+   "extra": "Use @see for related-but-separate references, {@link} where the name belongs in the prose.",
+   "source": "baeldung.com — javadoc-see-vs-link",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc"
+  },
+  {
+   "type": "basic",
+   "front": "How do you write a multi-line code sample in Javadoc?",
+   "back": "<code>&lt;pre&gt;{@code ... }&lt;/pre&gt;</code>, or the <code>{@snippet}</code> tag added in Java 18",
+   "extra": "The code tag escapes HTML so <code>&lt;</code> is safe; @snippet adds highlighting and external file support.",
+   "source": "baeldung.com — javadoc-multi-line-code",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc"
+  },
+  {
+   "type": "basic",
+   "front": "How do you convert between a byte array and a UUID?",
+   "back": "<code>ByteBuffer.allocate(16).putLong(msb).putLong(lsb).array()</code>, and read back with two <code>getLong()</code> calls",
+   "extra": "A UUID is exactly 16 bytes; the two 64-bit halves are the most and least significant bits.",
+   "source": "baeldung.com — java-byte-array-to-uuid",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>RegisterNatives</code> do in JNI?",
+   "back": "Binds Java methods to native functions <b>explicitly</b> instead of relying on name-mangled symbols",
+   "extra": "It is faster and avoids long symbol names, at the cost of writing the registration table yourself.",
+   "source": "baeldung.com — jni-registernatives",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Arrays.toString</code> do for a nested array?",
+   "back": "Prints only the <b>identities</b> of the inner arrays — use <code>Arrays.deepToString</code>",
+   "extra": "<code>toString</code> on an Object[] calls toString on each element, and an array's toString is its type plus hashCode.",
+   "source": "baeldung.com — java-check-all-variables-object-null",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How do you toggle a boolean?",
+   "back": "<code>b = !b</code> — there is no xor-assignment operator for booleans in the JDK API",
+   "extra": "<code>b ^= true</code> compiles too, but it is a puzzle for the reader; prefer the negation.",
+   "source": "baeldung.com — java-toggle-boolean",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>implements</code> and <code>extends</code>?",
+   "back": "<code>extends</code> inherits from a <b>class</b> (one only); <code>implements</code> takes on an <b>interface</b> (many allowed)",
+   "extra": "Both create an is-a relationship; only extends brings implementation inheritance.",
+   "source": "baeldung.com — java-implements-vs-extends",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "How do you convert a boolean to an int in Java?",
+   "back": "Explicitly: <code>b ? 1 : 0</code> — there is no implicit conversion and no cast between them",
+   "extra": "C allows it; Java does not, which prevents a whole class of logic bugs.",
+   "source": "baeldung.com — java-boolean-to-int",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is a wildcard import, and is it good practice?",
+   "back": "<code>import java.util.*;</code> — imports every type in the package",
+   "extra": "It shortens the import block but hides where a type comes from, and two packages with the same class name then clash.",
+   "source": "baeldung.com — java-wildcard-imports",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "How do you get a random enum constant?",
+   "back": "<code>values()[(int)(Math.random() * values().length)]</code>, or a <code>Random</code> integer bound",
+   "extra": "values() copies the array on every call; cache it in a static field if this is in a hot path.",
+   "source": "baeldung.com — java-enum-random-value",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Why is serializing a lambda discouraged?",
+   "back": "The lambda's generated class is an implementation detail; its serialized form is not a stable contract",
+   "extra": "It may fail to deserialize across compilers or versions. Use a named class or a serializable functional interface with a method reference.",
+   "source": "baeldung.com — java-serialize-lambda",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  }
+ ]
+}
