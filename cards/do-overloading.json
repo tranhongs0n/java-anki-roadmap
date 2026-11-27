@@ -1,0 +1,75 @@
+{
+ "deck": "70 Articles::DigitalOcean",
+ "tags": [
+  "article::digitalocean",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What decides which overloaded method runs?",
+   "back": "The <b>static</b> types of the arguments, at compile time",
+   "extra": "Overload resolution never looks at the object — which is why passing a subtype reference can pick a different overload than the runtime type suggests.",
+   "source": "digitalocean.com — Overriding vs Overloading in Java",
+   "tags": [
+    "type::overloading"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Method Overloading and Overriding"
+  },
+  {
+   "type": "basic",
+   "front": "What decides which overridden method runs?",
+   "back": "The <b>runtime type</b> of the object, not the declared type of the variable",
+   "extra": "<code>Parent p = new Child(); p.work();</code> runs Child's version. That is dynamic dispatch.",
+   "source": "digitalocean.com — Overriding vs Overloading in Java",
+   "tags": [
+    "type::overloading"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  },
+  {
+   "type": "basic",
+   "front": "Where do mistakes surface for overloading versus overriding?",
+   "back": "Overloading: at <b>compile time</b> (no matching signature). Overriding: at <b>run time</b> (the wrong method is silently called)",
+   "extra": "A misspelled override is not an override at all — it compiles and the parent's method still runs, which is why @Override matters.",
+   "source": "digitalocean.com — Overriding vs Overloading in Java",
+   "tags": [
+    "type::overloading"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Method Overloading and Overriding"
+  },
+  {
+   "type": "basic",
+   "front": "Can overloading happen across a class hierarchy?",
+   "back": "<b>Yes</b> — a subclass method with the same name but different parameters overloads the inherited one",
+   "extra": "The article says overloading happens \"in the same class\", which is the common case but not the rule. Overriding, by contrast, requires a superclass/subclass pair.",
+   "source": "digitalocean.com — Overriding vs Overloading in Java",
+   "tags": [
+    "type::overloading"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Method Overloading and Overriding"
+  },
+  {
+   "type": "basic",
+   "front": "What must match for a method to be an override?",
+   "back": "The <b>entire signature</b> — name and parameter types — plus a compatible return type",
+   "extra": "Different parameter types make it an overload, not an override, even if the names are identical: <code>process(int[])</code> does not override <code>process(Object[])</code>.",
+   "source": "digitalocean.com — Overriding vs Overloading in Java",
+   "tags": [
+    "type::overloading"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Method Overloading and Overriding"
+  },
+  {
+   "type": "basic",
+   "front": "Why is overriding called runtime polymorphism and overloading compile-time polymorphism?",
+   "back": "Because the method body is chosen by the JVM at run time versus by the compiler from the declared types",
+   "extra": "Only overriding is polymorphism in the strict sense; overloading is static selection among distinct methods that share a name.",
+   "source": "digitalocean.com — Overriding vs Overloading in Java",
+   "tags": [
+    "type::overloading"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  }
+ ]
+}
