@@ -1,0 +1,130 @@
+{
+ "deck": "60 Videos::Kunal Kushwaha (Java + DSA)",
+ "tags": [
+  "video::kunal",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What type must an <code>if</code> condition be in Java?",
+   "back": "A <b>boolean</b> expression — <code>true</code> or <code>false</code>",
+   "extra": "There is no truthiness: <code>if (1)</code> is a compile error, unlike C. A non-boolean needs an explicit comparison.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=143)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "In an if / else-if chain, how many branches run?",
+   "back": "<b>Exactly one</b> — the first whose condition is true, then the rest are skipped",
+   "extra": "That is why order matters: a broad condition placed first shadows every later one.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=280)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What are Java's three loop statements?",
+   "back": "<code>for</code>, <code>while</code> and <code>do...while</code>",
+   "extra": "All three repeat a body; they differ in where the condition sits and what they make easy to express.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=530)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three parts of a <code>for</code> loop header?",
+   "back": "Initialisation; condition; update — <code>for (int i = 0; i &lt; n; i++)</code>",
+   "extra": "All three are optional. Omit the condition entirely and you get an infinite loop.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=530)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "When does a <code>while</code> loop's body never run?",
+   "back": "When the condition is false on the <b>first</b> check",
+   "extra": "The condition is tested before each pass, so zero iterations is a normal outcome.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=870)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <code>do...while</code> loop guarantee?",
+   "back": "The body runs <b>at least once</b>, because the condition is checked afterwards",
+   "extra": "Use it when the first pass must happen — a menu that has to be displayed before the user can choose Exit.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=1085)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "When should you choose <code>for</code> over <code>while</code>?",
+   "back": "<code>for</code> when the number of iterations is known; <code>while</code> when it depends on a condition",
+   "extra": "Both can do the same job, but the one that states the intent costs the reader less.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=805)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>continue</code> do inside a loop?",
+   "back": "Skips the rest of the <b>current iteration</b> and jumps to the update/condition step",
+   "extra": "The loop keeps running — unlike break, which ends it. Beware: in a while loop, forgetting the update before continue gives an infinite loop.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=2115)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "How does the menu-loop pattern in the calculator program work?",
+   "back": "<code>while (true)</code> around a menu plus a <code>break</code> for the Exit option",
+   "extra": "The loop is infinite by design; the exit branch is the only way out.",
+   "source": "Kunal Kushwaha — Conditionals and Loops (https://youtu.be/ldYLYRNaucM?t=3390)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "When does a switch's <code>default</code> branch run?",
+   "back": "Only when <b>no case matches</b>",
+   "extra": "It is optional, and its position is arbitrary — but placing it last is the convention readers expect.",
+   "source": "Kunal Kushwaha — Switch Statements (https://youtu.be/mA23x39DjbI)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "Can a <code>switch</code> be nested inside a case?",
+   "back": "Yes — a switch may appear inside a case body, and <code>break</code> then exits only the <b>inner</b> switch",
+   "extra": "The unlabelled break binds to the nearest enclosing switch or loop, which is a common source of fall-through bugs.",
+   "source": "Kunal Kushwaha — Switch Statements (https://youtu.be/mA23x39DjbI)",
+   "tags": [
+    "type::loops"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  }
+ ]
+}
