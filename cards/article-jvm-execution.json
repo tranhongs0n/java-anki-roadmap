@@ -1,0 +1,306 @@
+{
+ "deck": "70 Articles::JVM Execution and Compilation",
+ "tags": [
+  "article::jvm-internals",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What three phases make up an application's execution lifecycle?",
+   "back": "<b>Compilation</b>, <b>class loading</b>, <b>bytecode execution</b>",
+   "extra": "javac produces bytecode; the JVM loads classes and then executes them. Almost all of the complexity lives in the third phase.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does the JVM do during the <b>loading</b> phase?",
+   "back": "Finds the binary form of a class and builds a <code>Class</code> object from it",
+   "extra": "A ClassLoader locates the .class bytes; <code>defineClass</code> turns them into a <code>java.lang.Class</code> instance.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Which class loader loads the Java core classes?",
+   "back": "The <b>bootstrap</b> class loader",
+   "extra": "It is built into the JVM and loads from the runtime image (rt.jar on Java 8). Application class loaders load your own classes from the classpath.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three steps of linking?",
+   "back": "<b>Verification</b>, <b>preparation</b>, <b>resolution</b>",
+   "extra": "Verify the bytecode is well-formed, allocate static storage, then resolve symbolic references — the last step can be deferred.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does the verifier check?",
+   "back": "That the bytecode is well-formed and obeys the JVM's rules — valid opcodes, branches into instruction starts, correct signatures",
+   "extra": "This is the safety net that lets the JVM trust bytecode from elsewhere: malformed or hostile class files are rejected before they run.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What happens during <b>preparation</b>?",
+   "back": "Static fields are created and set to <b>default values</b> (0, false, null)",
+   "extra": "Not to their declared values — that happens later, in initialization. Preparation only allocates and zeroes the storage.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "When are symbolic references resolved?",
+   "back": "<b>Lazily</b> — at first actual use, or possibly never",
+   "extra": "Unlike a C executable, which is fully linked up front. A class that references twenty others may use only two of them.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "In what order does class initialization run?",
+   "back": "Superclasses first (up to <code>Object</code>), then static field initializers and static blocks <b>in source order</b>",
+   "extra": "A static initializer that reads a field declared later sees the default value, because the field's own initializer has not run yet.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What triggers class initialization?",
+   "back": "Creating an instance, calling a static method, assigning a static field, or using a non-constant static field",
+   "extra": "Reflection can also trigger it. Merely declaring a reference to the type does not.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Does reading a <code>static final</code> constant trigger class initialization?",
+   "back": "<b>No</b> — constants are inlined at compile time",
+   "extra": "The value is copied into the calling class by javac, so the defining class may never load. This is why changing a constant requires recompiling callers.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What are the steps of instantiation?",
+   "back": "Allocate memory on the heap, run the constructor, return the reference",
+   "extra": "<code>new</code> is explicit, but boxing, string concatenation, string literals and lambdas also create objects without <code>new</code> appearing.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why should you not rely on <code>finalize()</code>?",
+   "back": "It is not guaranteed to run, and not promptly when it does",
+   "extra": "It is deprecated for removal. Use try-with-resources or an explicit close for cleanup.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "When can a loaded class be unloaded?",
+   "back": "When its defining class loader becomes unreachable and is collected",
+   "extra": "Classes from the bootstrap loader are never unloaded, so in a normal application class unloading effectively does not happen.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How does a Java program terminate normally?",
+   "back": "When all <b>non-daemon</b> threads finish, or something calls <code>System.exit</code>",
+   "extra": "Daemon threads do not keep the JVM alive. <code>Runtime.exit</code> halts the VM with a status code.",
+   "source": "cesarsotovalero.net — The Execution Lifecycle of a Java Application",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "When does JIT compilation happen?",
+   "back": "<b>At run time</b>, after the program has started — hence \"just in time\"",
+   "extra": "The JVM converts bytecode to machine code while the program runs, and can recompile as it learns more.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is a <b>hotspot</b>?",
+   "back": "A region of code executed often enough to be worth compiling",
+   "extra": "The JIT profiles the running program and spends its optimisation effort where it will pay off, instead of compiling everything eagerly.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is JIT <b>warm-up</b>?",
+   "back": "The period at startup when code still runs interpreted or lightly optimised",
+   "extra": "It costs latency and extra CPU, and it repeats on every restart — which is why cold starts hurt in containers.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is HotSpot's <b>C1</b> compiler?",
+   "back": "The <b>client</b> compiler — compiles quickly with simple optimisations",
+   "extra": "Fast startup, less optimal code. Good for short-lived or UI-facing work.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is HotSpot's <b>C2</b> compiler?",
+   "back": "The <b>server</b> compiler — profiles first, then applies aggressive optimisations",
+   "extra": "Slower to warm up, faster at steady state. HotSpot can use both: C1 first, then recompile hot methods with C2.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is adaptive optimisation?",
+   "back": "Recompiling code <b>during execution</b> as the JIT learns which paths matter",
+   "extra": "A method that was cold at startup can be recompiled once it becomes hot, or deoptimised if an assumption breaks.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "When does AOT compilation happen?",
+   "back": "<b>At build time</b>, before the program ever runs",
+   "extra": "GraalVM Native Image analyses the bytecode and emits a single native executable for one OS and architecture.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <b>closed-world assumption</b>?",
+   "back": "AOT assumes every class needed at run time is reachable at build time",
+   "extra": "It lets the compiler strip unreachable code and build a small executable — but anything reached dynamically must be declared or it breaks.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What are AOT's main advantages?",
+   "back": "Near-instant startup, smaller images, no warm-up, smaller attack surface",
+   "extra": "There is no JVM to start and no interpreter to run the code first, so peak performance arrives immediately.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What does AOT give up compared with JIT?",
+   "back": "<b>Dynamic optimisation</b> — the code is fixed at build time",
+   "extra": "A native image cannot recompile hot paths, and it supports only a limited set of garbage collectors.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Why is reflection a problem for AOT?",
+   "back": "Reflective access is dynamic, so the closed-world analysis cannot see it",
+   "extra": "Classes reached only by reflection must be declared in metadata (the Tracing Agent helps produce it), or the native image fails at run time.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is CRaC?",
+   "back": "<b>Coordinated Restore at Checkpoint</b> — snapshot a warmed-up JVM and restore it in milliseconds",
+   "extra": "It keeps the JIT (unlike AOT) while removing repeated warm-up: start once, checkpoint, then restore many instances.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Which approach should you choose, JIT or AOT?",
+   "back": "Match it to the workload: AOT for fast-start, short-lived or scale-to-zero services; JIT for long-running, throughput-heavy ones",
+   "extra": "The trade is warm-up and footprint against peak performance and dynamic optimisation. Neither wins universally.",
+   "source": "bell-sw.com — Compilation in Java: JIT vs AOT",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  }
+ ]
+}
