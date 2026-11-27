@@ -1,0 +1,31 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Given <code>eat(Animal)</code> and <code>eat(Dog)</code>, which runs for <code>Animal a = new Dog(); eat(a);</code>?",
+   "back": "<code>eat(Animal)</code> — the <b>declared</b> type wins, even though the object is a Dog",
+   "extra": "Overload resolution happens at compile time on the static type, so the more specific overload is not chosen. This is the classic static-binding surprise.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "How does the JVM implement dynamic binding?",
+   "back": "It looks up the method in the object's <b>virtual table</b> (vtable) at the call site — the same approach as C++",
+   "extra": "The declared type fixes the slot index; the object supplies the implementation. Exact details are JVM-specific, but the shape is that lookup.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  }
+ ]
+}
