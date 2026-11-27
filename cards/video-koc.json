@@ -1,0 +1,130 @@
+{
+ "deck": "60 Videos::Keep On Coding (Java)",
+ "tags": [
+  "video::keeponcoding",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What two kinds of member can a class body contain?",
+   "back": "<b>Variables</b> and <b>methods</b>",
+   "extra": "Variables declared in a class are instance variables; methods define what the object can do. A class may have any number of either.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=86)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is an instance variable?",
+   "back": "A variable declared in the class body, of which <b>each object gets its own copy</b>",
+   "extra": "Two objects of the same class can hold different values for their fields — that is what makes them distinct instances.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=86)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you declare and create an object?",
+   "back": "<code>ClassName name = new ClassName();</code>",
+   "extra": "<code>new</code> allocates the object in memory, then the reference is assigned to the variable. Assignment is right-to-left: the object exists before the name points at it.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=189)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What does the dot operator do on an object?",
+   "back": "Reaches into the object to <b>access its fields and methods</b> — <code>p1.name</code>, <code>p1.attack()</code>",
+   "extra": "Every member access goes through the dot; it is how you tell one object's state from another's.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=243)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "If you change one object's field, what happens to another object of the same class?",
+   "back": "Nothing — each object has its <b>own copy</b> of the instance variables",
+   "extra": "This isolation is the point of objects: state and behaviour are encapsulated per instance.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=317)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What three rules identify a constructor?",
+   "back": "Same name as the class, <b>no return type</b> — not even <code>void</code> — and it runs automatically when the object is created",
+   "extra": "A method with a return type is not a constructor, even with the right name — the missing return type is what distinguishes it, and it is the reason a constructor is never inherited.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=370)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What value does an <code>int</code> instance field hold before any assignment?",
+   "back": "<code>0</code> — fields get default values automatically",
+   "extra": "Locals do not: an unassigned local is a compile error. A constructor that sets the field overrides the default.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=430)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you pass values into an object at creation?",
+   "back": "Through the constructor's parameters, supplied in the parentheses after <code>new</code>",
+   "extra": "<code>new Pokemon(\"Eevee\", 25)</code> — the arguments arrive as parameters and are typically assigned to the fields.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=442)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What happens if a constructor parameter has the same name as a field?",
+   "back": "The <b>parameter wins</b> — <code>name = name</code> assigns the parameter to itself and the field is never set",
+   "extra": "Java resolves a bare name to the most local declaration. The assignment compiles, does nothing, and leaves the field at its default.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=553)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How do you make a name refer to the field rather than a parameter of the same name?",
+   "back": "Prefix it with <code>this.</code> — <code>this.name = name;</code>",
+   "extra": "<code>this</code> means \"the object this code is running in\", so <code>this.name</code> is unambiguously the field.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=593)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Why should a class represent a single cohesive entity?",
+   "back": "Because mixing unrelated data — an age and the weather in a Person class — makes the code messy and the model meaningless",
+   "extra": "A class that holds only what belongs to one concept is easier to name, reuse and test.",
+   "source": "Keep On Coding — Java Classes & Objects (https://youtu.be/IUqKuGNasdM?t=115)",
+   "tags": [
+    "type::oop"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  }
+ ]
+}
