@@ -1,0 +1,97 @@
+{
+ "deck": "70 Articles::Oracle Docs",
+ "tags": [
+  "article::oracle",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What does the <code>Package</code> class actually hold?",
+   "back": "<b>Version metadata</b> about a package's specification and implementation — not the package's classes",
+   "extra": "The ClassLoader creates it from information typically stored in the JAR manifest: title, version and vendor strings.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "How do you get the <code>Package</code> object for a class?",
+   "back": "<code>someClass.getPackage()</code>, or <code>Package.getPackage(\"com.example\")</code>",
+   "extra": "The static method searches the <b>caller's</b> ClassLoader, so it can return null when that loader knows nothing about the package.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "How many <code>Package</code> objects exist for one package name?",
+   "back": "<b>One per ClassLoader</b> — all classes from the same package loaded by that loader share it",
+   "extra": "Two different loaders can each have their own Package object for the same name, which is why package identity in Java is loader-qualified.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "What syntax must a specification version follow?",
+   "back": "Non-negative decimal integers separated by dots — <code>\"1.2.3.4\"</code>",
+   "extra": "Comparison is numeric per component, most significant first, so <code>1.10</code> is greater than <code>1.9</code>.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Package.isCompatibleWith(desired)</code> guarantee?",
+   "back": "That this package's specification version is <b>greater than or equal to</b> the desired one",
+   "extra": "It throws <code>NumberFormatException</code> if either string is not in dotted-numeric form, so it cannot be used with arbitrary vendor versions.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "How should implementation versions be compared?",
+   "back": "Only for <b>equality</b> — they have no specified syntax",
+   "extra": "They are vendor strings. Treating them as ordered numbers is a portability bug.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "What does a <b>sealed</b> package mean?",
+   "back": "All classes in the package must come from the <b>same code source</b> (same JAR or directory)",
+   "extra": "It prevents an attacker from adding a class to an existing package and gaining its package-private access. <code>isSealed(URL)</code> tests it against a specific source.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "How do you annotate a whole package?",
+   "back": "In <code>package-info.java</code> — <code>Package</code> implements <code>AnnotatedElement</code>, so the annotations are readable at runtime",
+   "extra": "That is the only place package-level annotations and Javadoc can live; there is no syntax for annotating a package declaration inside a normal class file.",
+   "source": "docs.oracle.com — java.lang.Package (Java SE 8 API)",
+   "tags": [
+    "type::api"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  }
+ ]
+}
