@@ -1,0 +1,97 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is a variable's <b>scope</b>?",
+   "back": "The region of the program where the variable is <b>valid</b> — where it can be read or written",
+   "extra": "Outside that region the name does not resolve; the compiler rejects the reference rather than failing at runtime.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "What scope does a variable declared in the class body, outside any method, have?",
+   "back": "<b>Class scope</b> — usable anywhere in the class, and visible beyond it depending on the access modifier",
+   "extra": "<code>private</code> keeps it inside the class; no modifier makes it package-visible. It is one instance per object unless <code>static</code>.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "What scope does a variable declared inside a method have?",
+   "back": "<b>Method scope</b> — valid only inside that method's body",
+   "extra": "Another method cannot see it at all, even if the name is the same. This is the most common scope you work with.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "What is a loop variable's scope?",
+   "back": "Only the <b>loop body and header</b> — it does not exist after the loop",
+   "extra": "Declared in a for-each or in the <code>for</code> initialiser, it is gone at the closing brace. Referring to it afterwards is a compile error.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "Does a bare <code>{ }</code> block create a new scope?",
+   "back": "<b>Yes</b> — any pair of braces is a scope",
+   "extra": "Variables declared inside are invisible outside, and the block can reuse names that exist outside it. This is how you limit a temporary's lifetime.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "What is variable shadowing?",
+   "back": "A variable in an inner scope reusing the name of one in an outer scope, <b>hiding</b> it",
+   "extra": "Inside the inner block the outer variable can no longer be named directly. It is legal and usually a mistake.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "How do you reach a field that a local variable has shadowed?",
+   "back": "With <code>this.field</code>",
+   "extra": "The field is still there; only the unqualified name resolves to the local. The <code>this</code> prefix is also the idiomatic fix inside setters and constructors.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "Why is shadowing considered bad practice?",
+   "back": "The same name means different things in adjacent lines, so a reader cannot tell which variable a statement touches",
+   "extra": "Prefer distinct names. Where a parameter must match the field name, <code>this.field = field;</code> makes the intent explicit.",
+   "source": "baeldung.com — Variable Scope in Java",
+   "tags": [
+    "type::scope"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  }
+ ]
+}
