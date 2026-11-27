@@ -1,0 +1,97 @@
+{
+ "deck": "60 Videos::Java Basic Syntax (Simplilearn)",
+ "tags": [
+  "video::simplilearn",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Which characters may a Java identifier start with?",
+   "back": "A letter, an underscore <code>_</code>, or a dollar sign <code>$</code>",
+   "extra": "Digits and symbols such as <code>-</code> cannot start an identifier. After the first character, digits are allowed.",
+   "source": "YouTube — Java Basic Syntax, 0:51 (youtu.be/81piDKqPxjQ?t=51)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Why is <code>int 1stPlace = 1;</code> a compile error?",
+   "back": "An identifier cannot <b>start with a digit</b>",
+   "extra": "The compiler reads <code>1stPlace</code> as a numeric literal followed by junk. Same for <code>-total</code>, which parses as an operator.",
+   "source": "YouTube — Java Basic Syntax, 3:15 (youtu.be/81piDKqPxjQ?t=195)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What naming convention do Java class names follow?",
+   "back": "<b>PascalCase</b> — every word capitalised, e.g. <code>HumanBeing</code>",
+   "extra": "The language only enforces the syntax; the convention is what makes code readable. Class names start uppercase, everything else lowercase.",
+   "source": "YouTube — Java Basic Syntax, 0:25 (youtu.be/81piDKqPxjQ?t=25)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What naming convention do Java methods and variables follow?",
+   "back": "<b>camelCase</b> — lowercase first word, capitalised after, e.g. <code>sleepingHuman()</code>",
+   "extra": "The first letter lowercase is the signal that distinguishes a method from a class at a glance.",
+   "source": "YouTube — Java Basic Syntax, 1:37 (youtu.be/81piDKqPxjQ?t=97)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What are keywords?",
+   "back": "Reserved words with a fixed meaning that cannot be used as identifiers",
+   "extra": "<code>class</code>, <code>int</code>, <code>new</code>, <code>if</code>. You cannot redefine them, which is why <code>class</code> cannot name a variable.",
+   "source": "YouTube — Java Basic Syntax, 3:37 (youtu.be/81piDKqPxjQ?t=217)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "How does the compiler treat whitespace?",
+   "back": "As a <b>separator only</b> — any run of spaces, tabs or line breaks counts as one",
+   "extra": "<code>int  age</code> and <code>int\\nage</code> compile identically. Whitespace matters only when it separates tokens; inside a string literal it is data.",
+   "source": "YouTube — Java Basic Syntax, 5:12 (youtu.be/81piDKqPxjQ?t=312)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>//</code> and <code>/* */</code> comments?",
+   "back": "<code>//</code> comments to the end of the line; <code>/* */</code> spans lines and must be closed",
+   "extra": "An unclosed block comment swallows the rest of the file into a compile error. Block comments also cannot nest.",
+   "source": "YouTube — Java Basic Syntax, 6:20 (youtu.be/81piDKqPxjQ?t=380)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "Is Java case-sensitive?",
+   "back": "<b>Yes</b> — <code>Human</code>, <code>human</code> and <code>HUMAN</code> are three different identifiers",
+   "extra": "Consequences: <code>string</code> is not <code>String</code>, and a typo in capitalisation is a compile error, not a silent bug.",
+   "source": "YouTube — Java Basic Syntax, 0:25 (youtu.be/81piDKqPxjQ?t=25)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  }
+ ]
+}
