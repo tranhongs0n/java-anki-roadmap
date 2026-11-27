@@ -1,0 +1,86 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Which methods are <b>statically</b> bound?",
+   "back": "<code>private</code>, <code>static</code> and <code>final</code> methods — the compiler fixes the target",
+   "extra": "None of the three can be overridden, so the mapping cannot change at runtime. The call site and the code are decided at compile time.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "Which methods are <b>dynamically</b> bound?",
+   "back": "Every other method — ordinary instance methods that subclasses may override",
+   "extra": "They are virtual by default. The JVM looks up the implementation from the object's actual class at the call.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "Is overloading or overriding resolved at runtime?",
+   "back": "Overloading at <b>compile time</b>; overriding at <b>runtime</b>",
+   "extra": "Overload choice depends on the declared argument types, which are known when compiling — not on the objects involved.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "Why can a <code>static</code> method not be dynamically bound?",
+   "back": "Static methods are not inherited in the overriding sense — a subclass declaring the same signature <b>hides</b> it instead",
+   "extra": "There is no object to dispatch on, so the compiler binds the call to the declared type's version.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "Does static binding make a call faster?",
+   "back": "Marginally, because no runtime lookup is needed — but it is not the reason to choose a modifier",
+   "extra": "The JIT often removes the virtual lookup anyway through inlining. Design for semantics, not for this.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "If <code>Animal a = new Dog()</code> calls an overridden method, which version runs?",
+   "back": "<code>Dog</code>'s — the variable's declared type does not decide, the object's runtime type does",
+   "extra": "That single sentence is dynamic binding. It is also why the declared type only restricts which methods are <i>visible</i>, not which body runs.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "What does the declared type of a reference control?",
+   "back": "Which <b>members are visible</b> to the compiler — not which implementation executes",
+   "extra": "<code>Animal a = new Dog()</code> cannot call Dog-only methods without a cast, yet Dog's overrides still run.",
+   "source": "baeldung.com — Static and Dynamic Binding in Java",
+   "tags": [
+    "type::binding"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  }
+ ]
+}
