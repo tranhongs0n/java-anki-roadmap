@@ -174,7 +174,7 @@
    "type": "basic",
    "front": "What keyword does a class use to take on an interface?",
    "back": "<code>implements</code> — a class <code>extends</code> a class but <code>implements</code> an interface",
-   "extra": "A class may implement many interfaces but extend one class.",
+   "extra": "A class may implement many interfaces but extend only one class, which is how Java gets multiple inheritance of type without the diamond problem.",
    "source": "YouTube — Java Interface Tutorial, 0:00 (youtu.be/kTpp5n_CppQ?t=0)",
    "tags": [
     "type::overview"
