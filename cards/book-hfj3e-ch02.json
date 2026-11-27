@@ -106,5 +106,6 @@
     "type::definition"
    ]
   }
- ]
+ ],
+ "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
 }

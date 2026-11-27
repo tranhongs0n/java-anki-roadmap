@@ -6,11 +6,11 @@ the class, but state lives within each individual object. So what happens when i
 
 to a file, in a format you create. Or, you can do it the easy OO way—you simply freeze-dry/flatten/persist/ dehydrate the object itself, and reconstitute/inflate/restore/rehydrate it to get it back. But you’ll still have to do it the hard way sometimes, especially when the file your app saves has to be read by some other non-Java application, so we’ll look at both in this chapter. And since all I/O operations are risky, we’ll take a look at how
 
-## Capture the beat
+## Capture the beat <!--p578-->
 
-## Saving state
+## Saving state <!--p579-->
 
-## Writing a serialized object to a file
+## Writing a serialized object to a file <!--p580-->
 
 ```java
 FileOutputStream fileStream = new FileOutputStream("MyGame.ser");
@@ -28,7 +28,7 @@ OK, then why not have just a single stream that does exactly what you want? One 
 
 The ability to mix and match different combinations of connection and chain streams gives you tremendous flexibility! If you were forced to use only a single stream class, you’d be at the mercy of the API designers, hoping they’d thought of everything you might ever want to do. But with chaining, you can patch together your own custom chains.
 
-## Data moves in streams from one place to another
+## Data moves in streams from one place to another <!--p581-->
 
 ```java
 Foo myFoo = new Foo();
@@ -105,7 +105,7 @@ String userName;
 }
 ```
 
-## Deserialization: restoring an object
+## Deserialization: restoring an object <!--p589-->
 
 ```java
 FileInputStream fileStream = new FileInputStream("MyGame.ser");
@@ -123,9 +123,9 @@ GameCharacter troll = (GameCharacter) two;
 GameCharacter magician = (GameCharacter) three;
 ```
 
-## What happens during deserialization?
+## What happens during deserialization? <!--p590-->
 
-## Saving and restoring the game characters
+## Saving and restoring the game characters <!--p592-->
 
 ```java
 import java.io.*;
@@ -192,9 +192,9 @@ return Arrays.toString(weapons);
 }
 ```
 
-## The GameCharacter class
+## The GameCharacter class <!--p593-->
 
-## Version ID: A big serialization gotcha
+## Version ID: A big serialization gotcha <!--p594-->
 
 ```java
 101101
@@ -229,7 +229,7 @@ return Arrays.toString(weapons);
 1 0 1 10 10
 ```
 
-## Using the serialVersionUID
+## Using the serialVersionUID <!--p595-->
 
 ```java
 Dog: static final long
@@ -250,7 +250,7 @@ serialVersionUID =
 -5849794470654667210L;
 ```
 
-## Writing a String to a Text File
+## Writing a String to a Text File <!--p597-->
 
 ```java
 objectOutputStream.writeObject(someObject);
@@ -272,9 +272,9 @@ ex.printStackTrace();
 }
 ```
 
-## Text file example: e-Flashcards
+## Text file example: e-Flashcards <!--p598-->
 
-## Quiz Card Builder (code outline)
+## Quiz Card Builder (code outline) <!--p599-->
 
 ```java
 public class QuizCardBuilder {
@@ -398,7 +398,7 @@ System.out.println("Couldn't write the cardList out: " + e.getMessage());
 }
 ```
 
-## The java.io.File class
+## The java.io.File class <!--p602-->
 
 ```java
 File f = new File("MyCode.txt");
@@ -422,7 +422,7 @@ System.out.println(dirContent);
 boolean isDeleted = f.delete();
 ```
 
-## The beauty of buffers
+## The beauty of buffers <!--p603-->
 
 BufferedWriter will hold all the stuff you write to it until it’s full. Only when the buffer is fullwill the FileWriter actually be told to write to the file on disk. If you do want to send data before the buffer is full, you do have control. Just Flush It. Calls to writer.flush() say, “send whatever’s in the buffer, now!” Buffers give you a temporary holding place to group things until the holder (like the cart) is full. You get to make far fewer trips when you use a buffer.
 
@@ -430,7 +430,7 @@ BufferedWriter will hold all the stuff you write to it until it’s full. Only w
 BufferedWriter writer = new BufferedWriter(new FileWriter(aFile));
 ```
 
-## Reading from a text file
+## Reading from a text file <!--p604-->
 
 ```java
 import java.io.*;
@@ -457,7 +457,7 @@ Files.lines(Path.of("MyText.txt"))
 .forEach(line -> System.out.println(line));
 ```
 
-## Quiz Card Player (code outline)
+## Quiz Card Player (code outline) <!--p605-->
 
 ```java
 public class QuizCardPlayer {
@@ -586,7 +586,7 @@ isShowAnswer = true;
 }
 ```
 
-## Parsing with String split()
+## Parsing with String split() <!--p608-->
 
 ```java
 String toTest = "What is blue + yellow?/green";
@@ -596,7 +596,7 @@ System.out.println(token);
 }
 ```
 
-## NIO.2 and the java.nio.file package
+## NIO.2 and the java.nio.file package <!--p610-->
 
 ```java
 java.nio.file
@@ -623,7 +623,7 @@ In Appendix B, we’ll be discussing how to split your Java app into packages. T
 
 Suppose you wanted to make an installer program to install your killer app. You start with the directory and files on the left, and want to end up with the directory structure and files on the right.
 
-## Path, Paths, and Files (messing with directories)
+## Path, Paths, and Files (messing with directories) <!--p611-->
 
 ```java
 Lorper
@@ -694,7 +694,7 @@ System.out.println("Got an NIO Exception" + e.getMessage());
 }
 ```
 
-## Finally, a closer look at finally
+## Finally, a closer look at finally <!--p612-->
 
 ```java
 private void saveFile(File file) {
@@ -732,7 +732,7 @@ System.out.println("Couldn't close writer: " + e.getMessage());
 }
 ```
 
-## The try-with-resources (TWR), statement
+## The try-with-resources (TWR), statement <!--p614-->
 
 ```java
 private void saveFile(File file) {
@@ -769,7 +769,7 @@ System.out.println("Couldn't write the cardList out: " + e.getMessage());
 }
 ```
 
-## Autocloseable, the very small catch
+## Autocloseable, the very small catch <!--p615-->
 
 ```java
 try (BufferedWriter writer =
@@ -797,11 +797,9 @@ BufferedReader reader =
 new BufferedReader(new FileReader(file))) {
 ```
 
-## Code Kitchen
+## Code Kitchen <!--p616-->
 
-## Code Kitchen
-
-## Saving a BeatBox pattern
+## Saving a BeatBox pattern <!--p617-->
 
 ```java
 private void writeFile() {
@@ -821,7 +819,7 @@ e.printStackTrace();
 }
 ```
 
-## Restoring a BeatBox pattern
+## Restoring a BeatBox pattern <!--p618-->
 
 ```java
 private void readFile() {

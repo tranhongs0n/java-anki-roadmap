@@ -6,11 +6,11 @@ easy. Writing multithreaded code that works the way you expect can be much harde
 
 end of the chapter, you’ll have a lot of different tools in your toolkit for working with concurrency. this is a new chapter concurrency issues
 
-## What could possibly go wrong?
+## What could possibly go wrong? <!--p678-->
 
 At the end of the last chapter we hinted that things may not all be rainbows and sunshine when you’re working with multithreaded code. Well, actually, we did more than hint! We outright said: Shared object “It all comes down to one potentially deadly scenario: two or more threads have access to a single object’s data.” A B writing writing writing writing writing reading reading reading These two threads are merrily reading
 
-## The Ryan and Monica problem, in code
+## The Ryan and Monica problem, in code <!--p680-->
 
 ```java
 RyanAndMonicaJob ryan = new RyanAndMonicaJob("Ryan", account, 50);
@@ -97,7 +97,7 @@ Ryan finishes spending
 Sorry, not enough for Monica
 ```
 
-## They need a lock for account access!
+## They need a lock for account access! <!--p683-->
 
 ```java
 private void goShopping(int amount) {
@@ -113,9 +113,9 @@ System.out.println("Sorry, not enough for " + name);
 }
 ```
 
-## Using an object’s lock
+## Using an object’s lock <!--p685-->
 
-## Using synchronized methods
+## Using synchronized methods <!--p686-->
 
 ```java
 % java RyanAndMonicaTest
@@ -135,7 +135,7 @@ System.out.println("Sorry, not enough for " + name);
 }
 ```
 
-## It’s important to lock the correct object
+## It’s important to lock the correct object <!--p687-->
 
 ```java
 class RyanAndMonicaJob implements Runnable {
@@ -164,7 +164,7 @@ System.out.println("Sorry, not enough for " + name);
 
 Since it’s the BankAccount object that’s shared, you could argue it should be the BankAccount that’s in charge of making sure it is safe for multiple threads to use. The spend() method on BankAccount could make sure there’s enough money and debit the account in a single transaction. This would no longer need to check the balance before spending if we know the BankAccount spend() method checks for us.
 
-## The dreaded “Lost Update” problem
+## The dreaded “Lost Update” problem <!--p688-->
 
 ```java
 int i = balance;
@@ -200,7 +200,7 @@ balance++;
 
 In the “Lost Update” problem, we have many threads trying to increment the balance. Take a look at the code, and then we’ll look at the real problem: Probably not an atomic process Create a thread pool to run all the jobs. If you add more threads here, you may see even more missing updates. Run 1,000 attempts to update the balance, on different threads. Here’s the crucial part! We increment the balance by adding 1 to whatever the value of balance was AT THE TIME WE READ IT (rather than adding 1 to whatever the CURRENT value is). You might think that “++” is an atomic operation, but it is not.
 
-## Let’s run this code...
+## Let’s run this code... <!--p689-->
 
 ```java
 public synchronized void increment() {
@@ -218,9 +218,9 @@ moreCriticalStuff();
 }
 ```
 
-## Deadlock, a deadly side of synchronization
+## Deadlock, a deadly side of synchronization <!--p692-->
 
-## You don’t always have to use synchronized
+## You don’t always have to use synchronized <!--p693-->
 
 Since synchronization can come with some costs (like performance and potential deadlocks), you should know about other ways to manage data that’s shared between threads. The java.util.concurrent package has lots of classes and utilities for working with multithreaded code. Atomic variables If the shared data is an int, long, or boolean, we might be able to replace it with an atomic variable. These classes provide methods that are atomic, i.e., can safely be used by a thread without worrying about another thread changing the object’s values at the same time.
 
@@ -235,7 +235,7 @@ balance.incrementAndGet();
 
 Since Ryan and Monica were both trying to access an int value, the account balance, we could use an AtomicInteger to store that balance. We could then use compareAndSet to update the balance when someone wants to spend money.
 
-## Compare-and-swap with atomic variables
+## Compare-and-swap with atomic variables <!--p694-->
 
 ```java
 private AtomicInteger balance = new AtomicInteger(100);
@@ -266,7 +266,7 @@ System.out.println("Sorry, not enough for " + name);
 
 Let’s see the whole thing in action in Ryan and Monica’s bank account. We’ll put the balance in an AtomicInteger and use compareAndSet to make an atomic change to the balance. The balance will NOT be changed if the initial balance does not match the actual balance right now. If success was false, the money was NOT spent. Tell Ryan or Monica it didn’t work and they can decide what to do.
 
-## Ryan and Monica, going atomic
+## Ryan and Monica, going atomic <!--p695-->
 
 ```java
 % java RyanAndMonicaTest
@@ -277,7 +277,7 @@ Sorry Monica, you can’t buy this
 Monica finishes spending
 ```
 
-## Writing a class for immutable data
+## Writing a class for immutable data <!--p696-->
 
 ```java
 public final class ImmutableData {
@@ -292,11 +292,11 @@ public int getValue() { return value; }
 }
 ```
 
-## Using immutable objects
+## Using immutable objects <!--p697-->
 
-## Changing immutable data
+## Changing immutable data <!--p698-->
 
-## More problems with shared data
+## More problems with shared data <!--p700-->
 
 ```java
 public class ConcurrentReaders {
@@ -343,7 +343,7 @@ at java.base/java.io.PrintStream.println(PrintStream.java:897)
 at ConcurrentReaders.lambda$main$2(ConcurrentReaders.java:17)
 ```
 
-## Use a thread-safe data structure
+## Use a thread-safe data structure <!--p702-->
 
 Clearly good ol’ ArrayList just isn’t going to cut it if you have threads reading data that’s being changed at the same time. Luckily for us, there are other options. We want a thread-safe data structure, one that can be written to, and read from, by multiple threads at the same time. The java.util.concurrent package has a number of thread-safe data structures, and we’re going to look at CopyOnWriteArrayList to solve this specific problem.
 
@@ -377,7 +377,7 @@ executor.shutdown();
 Process finished with exit code 0
 ```
 
-## CopyOnWriteArrayList
+## CopyOnWriteArrayList <!--p703-->
 
 CopyOnWriteArrayList uses immutability to provide safe access for reading threads while other threads are writing. How does it work? Well, it does what it says on the tin: when a thread is writing to the list, it’s actually writing to a copy of the list. When the changes have been made, then the new copy replaces the original. In the meantime, any threads that were reading the list before the change are happily (and safely!) reading the original.
 

@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 8, p. 239",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
   },
   {
    "type": "basic",
@@ -84,7 +85,8 @@
    "source": "Head First Java 3E — ch 8, p. 242",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
   },
   {
    "type": "basic",
@@ -94,7 +96,8 @@
    "source": "Head First Java 3E — ch 8, p. 244",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
   },
   {
    "type": "basic",
@@ -126,5 +129,6 @@
     "type::gotcha"
    ]
   }
- ]
+ ],
+ "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
 }

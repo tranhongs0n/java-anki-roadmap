@@ -86,5 +86,6 @@
     "type::mental-model"
    ]
   }
- ]
+ ],
+ "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
 }

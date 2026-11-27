@@ -146,5 +146,6 @@
     "type::mental-model"
    ]
   }
- ]
+ ],
+ "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
 }

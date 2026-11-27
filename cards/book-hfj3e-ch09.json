@@ -1,0 +1,153 @@
+{
+ "deck": "20 Head First Java::09 Life and Death of an Object",
+ "tags": [
+  "book::hfj3e",
+  "ch::09",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Where do objects live, and where do local variables live?",
+   "back": "Objects on the <b>heap</b>; locals on the <b>stack</b>",
+   "extra": "The heap is shared and garbage-collected; the stack is per thread and method-scoped. That split explains both why objects outlive methods and why locals disappear with them.",
+   "source": "Head First Java 3E — ch 9, p. 276",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "How long does an instance variable live?",
+   "back": "As long as its object does",
+   "extra": "It sits inside the object on the heap, so it survives every method call on that object and dies only when the object is collected.",
+   "source": "Head First Java 3E — ch 9, p. 277",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "How long does a local variable live, and where is it visible?",
+   "back": "Only while its method is on the stack, and only inside that method",
+   "extra": "Another method cannot see it, even in the same class — <code>sleep()</code> cannot read a variable declared in <code>read()</code>. That is scope, and it follows the frame.",
+   "source": "Head First Java 3E — ch 9, p. 278",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "What distinguishes a constructor from a method?",
+   "back": "Same name as the class and <b>no return type</b>",
+   "extra": "Writing <code>void Duck()</code> creates an ordinary method that never runs at construction. The missing return type is the signal the compiler looks for.",
+   "source": "Head First Java 3E — ch 9, p. 282",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "When does the compiler supply a default no-arg constructor?",
+   "back": "Only when you declare <b>no constructor at all</b>",
+   "extra": "Write one constructor and the free no-arg one is gone. That is why adding <code>Duck(int size)</code> breaks every <code>new Duck()</code> in the codebase.",
+   "source": "Head First Java 3E — ch 9, p. 283",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "You wrote only <code>Duck(int size)</code>. Does <code>new Duck()</code> compile?",
+   "back": "No — you must add a no-arg constructor yourself",
+   "extra": "The compiler only fills in a constructor when the class declares none. This is one of the most common breaking changes when a class gains required state.",
+   "source": "Head First Java 3E — ch 9, p. 285",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "How do you call a superclass constructor from a subclass?",
+   "back": "<code>super()</code>, or <code>super(args)</code>",
+   "extra": "Calling <code>Animal()</code> is illegal — it looks like a method call and will not compile. super is the only route to the parent's constructor.",
+   "source": "Head First Java 3E — ch 9, p. 293",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Why must <code>super()</code> be the first statement in a constructor?",
+   "back": "The superclass part of the object must be built before the subclass part initialises",
+   "extra": "Until the parent's fields exist there is nothing for the subclass constructor to rely on. The compiler inserts the call automatically when you omit it.",
+   "source": "Head First Java 3E — ch 9, p. 295",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What does Java do instead of letting you destroy an object?",
+   "back": "You <b>abandon</b> it by dropping the last reference; the GC reclaims it",
+   "extra": "There is no free() or delete. Once an object is eligible the collector may destroy it at any time — and gives no notification when it does.",
+   "source": "Head First Java 3E — ch 9, p. 275",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "An object holds more than its own declared fields. What else is in it?",
+   "back": "The instance variables of <b>every superclass</b> up the inheritance tree",
+   "extra": "This is why a <code>private</code> field in the parent still occupies space in the child object, and why the parent's methods can read it through the child.",
+   "source": "Head First Java 3E — ch 9, p. 295",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Can a class have more than one constructor?",
+   "back": "Yes — constructors can be overloaded by parameter list",
+   "extra": "Two constructors with different parameters are both legal, and <code>new</code> picks one. That is how a class offers both <code>Duck()</code> and <code>Duck(int size)</code>.",
+   "source": "Head First Java 3E — ch 9, p. 285",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>new</code> actually do, step by step?",
+   "back": "Allocates heap space for the object (including every superclass's fields), then runs a constructor",
+   "extra": "Object creation is allocation plus initialisation. Fields get their defaults first, then the constructor chain runs from Object down to your class.",
+   "source": "Head First Java 3E — ch 9, p. 280",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "A method creates an object, keeps it in a local variable, and returns. What happens to the object?",
+   "back": "It becomes <b>eligible for GC</b> — the only reference died with the stack frame",
+   "extra": "The object is still on the heap, but nothing can reach it now. The collector may reclaim it at any point, or not until memory is needed.",
+   "source": "Head First Java 3E — ch 9, p. 300",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  }
+ ]
+}

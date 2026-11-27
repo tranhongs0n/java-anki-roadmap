@@ -6,7 +6,7 @@ arithmetic. You might want to get the absolute value of a number, or round a num
 
 objects. You’re in luck. Java and the Java API are full of handy number-tweaking capabilities and methods, ready and easy to use. But most of them are static, so we’ll start by learning what it means for a variable or method to be static, including constants in Java, also known as static final variables.
 
-## Math methods
+## Math methods <!--p326-->
 
 ```java
 TestMath.java:3: Math() has private
@@ -145,7 +145,7 @@ return size;
 }
 ```
 
-## Initializing a static variable
+## Initializing a static variable <!--p321-->
 
 ```java
 class Player {
@@ -169,7 +169,7 @@ System.out.println(Player.playerCount);
 % java PlayerTestDrive
 ```
 
-## static final variables are constants
+## static final variables are constants <!--p322-->
 
 ```java
 public static final double PI = 3.141592653589793;
@@ -283,7 +283,7 @@ System.out.println(x);
 }
 ```
 
-## Math methods
+## Math methods <!--p326-->
 
 ```java
 double r1 = Math.random();
@@ -294,8 +294,6 @@ int r2 = (int) (Math.random() * 5);
 int x = Math.abs(-240); // returns 240
 double d = Math.abs(240.45); // returns 240.45
 ```
-
-## Math methods
 
 ```java
 int x = Math.round(-24.8f); // returns -25
@@ -318,7 +316,7 @@ double x = Math.sqrt(9); //return 3
 double y = Math.sqrt(42.0); // returns 6.48074069840786
 ```
 
-## Wrapping a primitive
+## Wrapping a primitive <!--p328-->
 
 ```java
 int i = 288;
@@ -344,7 +342,7 @@ int num = list.get(0);
 
 A: Because...you can’t. At least, not in the versions of Java this book covers (the language is constantly evolving and things may change!). Remember, the rule for generic types is that you can specify only class or interface types, not primitives. So ArrayList<int> will not com­ pile. But as you can see from the code above, it doesn’t really matter, since the compiler lets you put ints into the ArrayList<Integer>. In fact, there’s really no way to prevent you from putting primitives into an ArrayList where the type of the list is the type of that primitive’s wrapper, since autoboxing will happen automatically. So, you can put boolean primitives in an ArrayList<Boolean> and chars into an ArrayList<Character>.
 
-## Java will Autobox primitives for you
+## Java will Autobox primitives for you <!--p329-->
 
 ```java
 void takeNumber(Integer i) { }
@@ -370,7 +368,7 @@ true
 true
 ```
 
-## Autoboxing works almost everywhere
+## Autoboxing works almost everywhere <!--p330-->
 
 ```java
 i++;
@@ -426,7 +424,7 @@ double d = 42.5;
 String doubleString = String.valueOf(d);
 ```
 
-## Number formatting
+## Number formatting <!--p334-->
 
 In Java, formatting numbers and dates doesn’t have to be coupled with I/O. Think about it. One of the most typical ways to display numbers to a user is through a GUI. You put Strings into a scrolling text area, or maybe a table. If formatting was built only into print statements, you’d never be able to format a number into a nice String to display in a GUI. The Java API provides powerful and flexible formatting using the Formatter class in java.util. But often you don’t need to create and call methods on the Formatter class yourself, because the Java API has convenience methods in some of the I/O classes (including printf()) and the String class. So it can be a simple matter of calling a static String.format() method and passing it the thing you want formatted along with formatting instructions.
 
@@ -446,8 +444,6 @@ System.out.println(s);
 1,000,000,000
 ```
 
-## number formatting
-
 ```java
 long hardToRead = 1000000000;
 long easierToRead = 1_000_000_000;
@@ -456,13 +452,13 @@ long legalButSilly = 10_0000_0000;
 
 Before we get into formatting numbers, let’s take a small, useful detour. Sometimes you’ll want to declare variables with large initial values. Let’s look at three declarations that assign the same large value, a billion, to long primitives: When you’re assigning large values, properly located underscores will make your life easier! numbers and statics
 
-## Formatting deconstructed...
+## Formatting deconstructed... <!--p335-->
 
 ```java
 format("%,d", 1_000_000_000);
 ```
 
-## The percent (%) says, “insert argument here”
+## The percent (%) says, “insert argument here” <!--p336-->
 
 ```java
 String.format("I have %.2f, bugs to fix.", 476578.09876);
@@ -481,7 +477,7 @@ I have 476,578.10 bugs to fix.
 String.format("I have %.2f, bugs to fix.", 476578.09876);
 ```
 
-## The format specifier
+## The format specifier <!--p338-->
 
 ```java
 %[argument number][flags][width][.precision]type
@@ -492,7 +488,7 @@ String.format("I have %.2f, bugs to fix.", 476578.09876);
 format("%,6.1f", 42.000);
 ```
 
-## The only required specifier is for TYPE
+## The only required specifier is for TYPE <!--p339-->
 
 ```java
 format("%d", 42);
@@ -513,7 +509,7 @@ format("%c", 42)
 *
 ```
 
-## What happens if I have more than one argument?
+## What happens if I have more than one argument? <!--p340-->
 
 after the format String (first argument), so that means your call to format() will have three arguments instead of two. And inside that first argument (the format String), you’ll have two different format specifiers (two things that start with “%”). The first format specifier will insert the second argument to the method, and the second format specifier will insert the third argument to the method. In other words, the variable insertions in the format String use the order in which the other arguments are passed into the format() method.
 
@@ -531,7 +527,7 @@ formatting specifiers to the same argument. That’s probably hard to imagine un
 
 pass? I mean, how many overloaded format() methods are IN the String class? So, what happens if I want to pass, say, ten different arguments to be formatted for a single output String? A: Good catch. Yes, there is something strange going on, and no there are not a bunch of overloaded format() methods to take a different number of possible arguments. In order to support this formatting (printf-like) API in Java, the language needed another feature—variable argument lists (called varargs for short). We’ll talk about varargs more in Appendix B.
 
-## Just one more thing...static imports
+## Just one more thing...static imports <!--p341-->
 
 ```java
 class NoStatic {

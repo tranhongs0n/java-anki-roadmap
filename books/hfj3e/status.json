@@ -1,23 +1,65 @@
 [
  {
-  "ch": 6,
-  "title": "Chapter 6: Using the Java Library",
-  "pages": 42,
-  "cards": 14,
+  "ch": 10,
+  "title": "Chapter 10: Numbers Matter",
+  "pages": 34,
+  "cards": 11,
   "state": "done"
  },
  {
-  "ch": 7,
-  "title": "Chapter 7: Better Living in Objectville",
-  "pages": 32,
-  "cards": 8,
-  "state": "done"
+  "ch": 11,
+  "title": "Chapter 11: Data Structures",
+  "pages": 60,
+  "cards": 0,
+  "state": "todo"
  },
  {
-  "ch": 8,
-  "title": "Chapter 8: Serious Polymorphism",
-  "pages": 38,
-  "cards": 12,
-  "state": "done"
+  "ch": 12,
+  "title": "Chapter 12: Lambdas and Streams: What, Not How",
+  "pages": 52,
+  "cards": 0,
+  "state": "todo"
+ },
+ {
+  "ch": 13,
+  "title": "Chapter 13: Risky Behavior",
+  "pages": 40,
+  "cards": 0,
+  "state": "todo"
+ },
+ {
+  "ch": 14,
+  "title": "Chapter 14: A Very Graphic Story",
+  "pages": 48,
+  "cards": 0,
+  "state": "todo"
+ },
+ {
+  "ch": 15,
+  "title": "Chapter 15: Work on Your Swing",
+  "pages": 30,
+  "cards": 0,
+  "state": "todo"
+ },
+ {
+  "ch": 16,
+  "title": "Chapter 16: Saving Objects (and Text)",
+  "pages": 48,
+  "cards": 0,
+  "state": "todo"
+ },
+ {
+  "ch": 17,
+  "title": "Chapter 17: Make a Connection",
+  "pages": 52,
+  "cards": 0,
+  "state": "todo"
+ },
+ {
+  "ch": 18,
+  "title": "Chapter 18: Dealing with Concurrency Issues",
+  "pages": 34,
+  "cards": 0,
+  "state": "todo"
  }
 ]

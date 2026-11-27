@@ -6,22 +6,22 @@ another machine. It’s easy. All the low-level networking details are taken car
 
 have to learn how to do more than one thing at once. Before the chapter’s done, you’ll have a fully functional, multithreaded chat client. Did we just say multithreaded? Yes, now you will learn the secret of how to talk to Bob while simultaneously listening to Suzy. this is a new chapter beatbox chat skyler4: fast and funky, good for sequence 12 evster2: like skyler2, but more Oakenfoldish skyler5: you WISH! Too perky
 
-## Real-time BeatBox chat
+## Real-time BeatBox chat <!--p626-->
 
-## Chat program overview
+## Chat program overview <!--p627-->
 
-## Connecting, sending, and receiving
+## Connecting, sending, and receiving <!--p628-->
 
 There’s a lot of low-level stuff that has to happen for these things to work. But we’re lucky, because the Java APIs make it a piece of cake for programmers. You’ll see a lot more GUI code than networking and I/O code in this chapter. And that’s not all. Lurking within the simple chat client is a problem we haven’t faced so far in this book: doing two things at the same time. Establishing a connection is a one-time operation (that either works or fails). But after that, a chat participant wants to send outgoing messages and simultaneously receive incoming messages from the other participants (via the server). Hmm...that one’s going to take a little thought, but we’ll get there in just a few pages.
 
-## 1. Connect
+## 1. Connect <!--p629-->
 
 ```java
 InetSocketAddress serverAddress = new InetSocketAddress("196.164.1.103", 5000);
 SocketChannel socketChannel = SocketChannel.open(serverAddress);
 ```
 
-## 2. Receive
+## 2. Receive <!--p632-->
 
 ```java
 SocketAddress serverAddr = new InetSocketAddress("127.0.0.1", 5000);
@@ -37,7 +37,7 @@ String message = bufferedReader.readLine();
 Reader reader = Channels.newReader(socketChannel, StandardCharsets.UTF_8);
 ```
 
-## 3. Send
+## 3. Send <!--p633-->
 
 ```java
 SocketAddress serverAddr = new InetSocketAddress("127.0.0.1", 5000);
@@ -64,7 +64,7 @@ writer.println("message to send");
 writer.print("another message");
 ```
 
-## The DailyAdviceClient
+## The DailyAdviceClient <!--p636-->
 
 ```java
 import java.io.*;
@@ -91,9 +91,9 @@ new DailyAdviceClient().go();
 }
 ```
 
-## DailyAdviceClient code
+## DailyAdviceClient code <!--p637-->
 
-## Writing a simple server application
+## Writing a simple server application <!--p639-->
 
 ```java
 ServerSocketChannel serverChannel = ServerSocketChannel.open();
@@ -146,7 +146,7 @@ new DailyAdviceServer().go();
 }
 ```
 
-## DailyAdviceServer code
+## DailyAdviceServer code <!--p640-->
 
 This program makes a ServerSocketChannel and waits for client requests. When it gets a client request (i.e., client created a new SocketChannel to this server), the server makes a new SocketChannel to that client. The server makes a PrintWriter (using a Writer created from the SocketChannel) and sends a message to the client. Remember the imports. Daily advice comes from this array. ServerSocketChannel makes this server
 
@@ -155,7 +155,7 @@ Writer writer = Channels.newWriter(sockCh,
 StandardCharsets.UTF_8);
 ```
 
-## Writing a Chat Client
+## Writing a Chat Client <!--p642-->
 
 ```java
 public class SimpleChatClientA {
@@ -320,7 +320,7 @@ public void run() {
 }
 ```
 
-## To create a new call stack you need a job to run
+## To create a new call stack you need a job to run <!--p650-->
 
 ```java
 public class MyRunnable implements Runnable {
@@ -364,7 +364,7 @@ Thread.dumpStack();
 }
 ```
 
-## How we used to launch a new thread
+## How we used to launch a new thread <!--p652-->
 
 ```java
 main: back in main
@@ -396,11 +396,9 @@ executor.shutdown();
 }
 ```
 
-## The three states of a new thread
+## The three states of a new thread <!--p654-->
 
-## The thread scheduler
-
-## The thread scheduler
+## The thread scheduler <!--p656-->
 
 ```java
 class ExecutorTestDrive {
@@ -447,13 +445,13 @@ back in main
 top o’ the stack
 ```
 
-## How did we end up with different results?
+## How did we end up with different results? <!--p658-->
 
 ```java
 executor.execute(() -> printMsg());
 ```
 
-## Putting a thread to sleep
+## Putting a thread to sleep <!--p660-->
 
 ```java
 Thread.sleep(2000);
@@ -517,7 +515,7 @@ If we put the thread to sleep for two seconds, the thread will be non-runnable f
 
 We put the new thread to sleep for two seconds, assuming that the main thread would be the running thread, and complete its work in that time. But what if the main thread took longer to finish than that? What if another thread, running a longer job, was scheduled instead? One of the ways people deal with this is to set sleep times that are much longer than they’d expect a job to take, but then our first problem becomes even more of a problem.
 
-## Counting down until ready
+## Counting down until ready <!--p663-->
 
 ```java
 import java.util.concurrent.*;
@@ -543,7 +541,7 @@ System.out.println("top o’ the stack");
 
 sleep() version just one time takes over 2 seconds (2000 milliseconds), imagine how long it took to run 100 times*.... * 200331 milliseconds. That’s over 4000x slower. Create a new CountDownLatch. This latch lets us "wait for the signal." We have one event we want to wait for (the main thread prints its message), so we set this up with a value of “1.” Tell the latch to count down when the main method has printed its message.
 
-## Pooling Threads
+## Pooling Threads <!--p665-->
 
 ```java
 ExecutorService threadPool =
@@ -558,7 +556,7 @@ threadPool.execute(() -> run("Job 1"));
 threadPool.execute(() -> run("Job 324"));
 ```
 
-## Running multiple threads
+## Running multiple threads <!--p666-->
 
 ```java
 import java.util.concurrent.ExecutorService;
@@ -598,7 +596,7 @@ Job 1 is running on pool-1-thread-1
 Job 1 is running on pool-1-thread-1
 ```
 
-## Closing time at the thread pool
+## Closing time at the thread pool <!--p667-->
 
 main methods. Although the thread pools will take care of our individual Threads, we do need to be responsible adults and close the pool when we’re finished with it. That way, the pool can empty its job queue and shut down all of its threads to free up system resources. ExecutorService has two shutdown methods. You can use either, but to be safe we’d use both: Calling shutdown() asks the ExecutorService nicely if it wouldn’t mind awfully wrapping things up
 
@@ -658,7 +656,7 @@ frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 }
 ```
 
-## New and improved SimpleChatClient
+## New and improved SimpleChatClient <!--p670-->
 
 Way back near the beginning of the chapter, we built the SimpleChatClient that could send outgoing messages to the server but couldn’t receive anything. Remember? That’s how we got onto this whole thread topic in the first place, because we needed a way to do two things at once: send messages to the server (interacting with the GUI) while simultaneously reading incoming messages from the server, displaying them in the scrolling text area.
 
@@ -788,6 +786,4 @@ e.printStackTrace();
 
 I can help you make your multithreaded code more predictableThread.sleep(), CountDownLatch I represent a job to run Runnable I store the IP address and port of the server InetSocketAddress (from pages 634–635) You should get the same output even if you move the sleep() to somewhere else inside this for loop. You can catch the InterruptedException thrown by sleep() inside the for loop, or you can catch all the Exceptions at the end of the method.
 
-## Code Kitchen
-
-## Code Kitchen
+## Code Kitchen <!--p675-->

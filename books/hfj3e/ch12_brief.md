@@ -11,7 +11,7 @@ allColors.forEach(color -> System.out.println(color));
 
 In this chapter we'll look at the Streams API. You’ll see how helpful lambda expressions can be when you're using streams, and you'll learn how to use the Streams API to query and transform the data in a collection.
 
-## Tell the computer WHAT you want
+## Tell the computer WHAT you want <!--p408-->
 
 ```java
 List<String> allColors = List.of("Red", "Blue", "Yellow");
@@ -26,7 +26,7 @@ Blue
 Yellow
 ```
 
-## When for loops go wrong
+## When for loops go wrong <!--p410-->
 
 ```java
 class MixForLoops {
@@ -61,19 +61,19 @@ Exception thrown
 1 2 3 4 5
 ```
 
-## Small errors in common code can be hard to spot
+## Small errors in common code can be hard to spot <!--p411-->
 
 like they would print out all the values in the List in order. Compiler errors can be easiest to spot, because your IDE or compiler will tell you the code is wrong, and Exceptions (which we’ll see in Chapter 13, Risky Behavior) can also point to a problem in the code. But it can be trickier to spot code that produces incorrect output just by looking at the code. Using a method like forEach takes care of the “boilerplate,” the repetitive and common code like the for loop. Using forEach, passing in only the thing we want to do, can reduce accidental errors in our code.
 
-## Building blocks of common operations
+## Building blocks of common operations <!--p412-->
 
 The ways we search our collections, and the types of information we want to output from those collections, can be quite similar even on different types of collections containing different types of Objects. Imagine what you might want do to with a Collection: “give me just the items that meet some crite­ ria,” “change all the items using these steps,” “remove all duplicates,” and the example we worked through in the previous chapter: “sort the elements in this way.”
 
 It’s not too hard to go one step further and assume each of these collection operations could be given a name that tells us what will happen to our collection. Changes the current element in the stream into something else filter We know this is all new, but have a go at matching each operation name to the description of what it does. Try not to look at the next page as you complete it, as that will give the game away!
 
-## Introducing the Streams API
+## Introducing the Streams API <!--p413-->
 
-## Getting started with Streams
+## Getting started with Streams <!--p414-->
 
 ```java
 List<String> strings = List.of("I", "am", "a", "list", "of", "Strings");
@@ -88,7 +88,7 @@ System.out.println("limit = " + limit);
 limit = java.util.stream.SliceOps$1@7a0ac6e3
 ```
 
-## Getting a result from a Stream
+## Getting a result from a Stream <!--p416-->
 
 ```java
 List<String> strings = List.of("I", "am", "a", "list", "of", "Strings");
@@ -115,7 +115,7 @@ result = [I, am, a, list]
 
 might seem intimidating with all the generic types, but the simplest case is straightforward: File Edit Window Help FinallyAResult %java LimitWithStream Finally, we have a result that looks like something we would have expected: we had a List of Strings, and we asked to limit that list to the first four items and then collect those four items into a new List. Terminal operation that will collect the output into some sort of Object.
 
-## Stream operations are building blocks
+## Stream operations are building blocks <!--p417-->
 
 ```java
 .stream()
@@ -129,7 +129,7 @@ List<String> result = strings.stream()
 System.out.println("result = " + result);
 ```
 
-## Building blocks can be stacked and combined
+## Building blocks can be stacked and combined <!--p418-->
 
 ```java
 List<String> strings = List.of("I", "am", "a", "list", "of", "Strings");
@@ -144,7 +144,7 @@ System.out.println("result = " + result);
 result = [I, Strings, a, am]
 ```
 
-## Customizing the building blocks
+## Customizing the building blocks <!--p419-->
 
 If we didn’t want to use the natural ordering to sort our Strings, we could define a specific way to sort them. It’s possible to set the sort criteria for the sorted method (remember, we did something similar in the previous chapter when we sorted Lou’s song list). This method from the String class compares the String with another String, in a way that ignores upper or lowercase. Lambda expression that tells the sorted method how to sort the strings in the stream. This lambda expression represents a Comparator, which we talked about in the previous chapter. We'll recap lambdas later in this chapter.
 
@@ -156,7 +156,7 @@ List<String> result = strings.stream()
 .collect(Collectors.toList());
 ```
 
-## Create complex pipelines block by block
+## Create complex pipelines block by block <!--p419-->
 
 ```java
 List<String> result = strings.stream()
@@ -170,9 +170,9 @@ List<String> result = strings.stream()
 result = [I, list, of, Strings]
 ```
 
-## Yes, because Streams are lazy
+## Yes, because Streams are lazy <!--p420-->
 
-## Collecting to a List
+## Collecting to a List <!--p421-->
 
 ```java
 List<String> result = strings.stream()
@@ -182,11 +182,11 @@ List<String> result = strings.stream()
 .collect(Collectors.toList());
 ```
 
-## Terminal operations do all the work
+## Terminal operations do all the work <!--p421-->
 
 Since intermediate operations are lazy, it’s up to the terminal operation to do everything. Perform all the intermediate operations as efficiently as possible. Ideally, just going through the original data once. Work out the result of the operation, which is defined by the terminal operation itself. For example, this could be a list of values, a single value, or a boolean (true/false). Return the result.
 
-## Guidelines for working with streams
+## Guidelines for working with streams <!--p422-->
 
 It might seem useful to store a Stream representing a query, and reuse it in multiple places, either because the query itself is useful or because you want to build on it and add to it. But once a terminal operation has been called on a stream, you can’t reuse any parts of that stream; you have to create a new one. Once a pipeline has executed, that stream is closed and can’t be used in another pipeline, even if you stored part of it in a variable for reusing elsewhere. If you try to reuse a stream in any way, you’ll get an Exception.
 
@@ -240,7 +240,7 @@ import java.util.stream.*;
 [Americano, Cappuccino, Cortado, Espresso]
 ```
 
-## Hello Lambda, my (not so) old friend
+## Hello Lambda, my (not so) old friend <!--p426-->
 
 ```java
 void forEach( ????? ) {
@@ -253,7 +253,7 @@ for (Element element : list) {
 forEach( item -> System.out.println(item) );
 ```
 
-## Passing behavior around
+## Passing behavior around <!--p426-->
 
 ```java
 void forEach( SomeFunctionalInterface lambda ) {
@@ -263,7 +263,7 @@ lambda.singleAbstractMethodName(element);
 }
 ```
 
-## The shape of lambda expressions
+## The shape of lambda expressions <!--p428-->
 
 ```java
 public interface Comparator<T> {
@@ -278,9 +278,9 @@ return s1.compareToIgnoreCase(s2);
 }
 ```
 
-## Anatomy of a lambda expression
+## Anatomy of a lambda expression <!--p429-->
 
-## Variety is the spice of life
+## Variety is the spice of life <!--p430-->
 
 ```java
 (str1, str2) -> {
@@ -339,7 +339,7 @@ int compare(T o1, T o2);
 }
 ```
 
-## How can I tell if a method takes a lambda?
+## How can I tell if a method takes a lambda? <!--p432-->
 
 ```java
 Comparator<String> comparator = (s1, s2) -> s1.compareToIgnoreCase(s2);
@@ -376,7 +376,7 @@ R apply(T t);
 }
 ```
 
-## Spotting Functional Interfaces
+## Spotting Functional Interfaces <!--p434-->
 
 So far we’ve seen Functional Interfaces that are marked with a @FunctionalInterfaceannotation (we’ll cover annotations in Appendix B), which conveniently tells us this interface has a Single Abstract Method and can be implemented with a lambda expression. Not all functional interfaces are tagged this way, particularly in older code, so it’s useful to understand how to spot a functional interface for yourself.
 
@@ -384,7 +384,7 @@ that need to be overridden by any class that implements this interface. But as o
 
 Both default and static methods have a method body, with defined behavior. With interfaces, any method that is not defined as default or static is an abstract method that must be overridden. How hard can it be? I just have to look for interfaces with only one method! lambdas andstreams
 
-## Functional interfaces in the wild
+## Functional interfaces in the wild <!--p435-->
 
 Now that we know interfaces can have non-abstract methods, we can see there’s a bit more of a trick to identifying interfaces with just one abstract method. Take a look at our old friend, Comparator. It has a lot of methods! And yet it’s still a SAM-type; it has only one Single Abstract Method. It’s a Functional Interface we can implement as a lambda expression. Here it is! This is our Single Abstract Method.
 
@@ -396,7 +396,7 @@ Iterator
 SocketOption
 ```
 
-## Lou’s back!
+## Lou’s back! <!--p436-->
 
 The code on the next page is your mock code; calling Songs.getSongs() will give you a List of Song objects that you can assume looks just like the real data from Lou’s jukebox. Type in the Ready-Bake Code on the next page, including filling out the rest of the Song class. When you’ve done that, create a main method that prints out all the songs. What do you expect the output to look like? But now that we know about the Streams API, we know there’s an easier way....
 
@@ -444,7 +444,7 @@ private final int timesPlayed;
 
 diner’s clientele seem to prefer variations on rock music, and he wants to see a list of all the songs that fall under some genre of “rock.” This is the Streams chapter, so clearly the solution is going to involve the Streams API. Remember, there are three types of pieces we can put together to form a solution. output collection Lou said he wants a List of all the Songs that match what he wants, so it sounds like we should use the magic incantation to collect the results to a List.
 
-## Filter a stream to keep certain elements
+## Filter a stream to keep certain elements <!--p439-->
 
 ```java
 .stream()
@@ -452,7 +452,7 @@ diner’s clientele seem to prefer variations on rock music, and he wants to see
 .filter( )
 ```
 
-## Let’s Rock!
+## Let’s Rock! <!--p440-->
 
 ```java
 @FunctionalInterface
@@ -509,11 +509,11 @@ Hurt, Johnny Cash, Soft Rock
 ...
 ```
 
-## Getting clever with filters
+## Getting clever with filters <!--p441-->
 
 sophisticated logic to filter elements in, or out, of the stream. Let’s take our filter one step further and actually do what Lou asked: He wants to see a list of all the songs that fall under some genre of “rock.” He doesn’t want to see just the songs that are classed as “Rock,” but any genre that is kinda Rock-like. We should search for any genre that has the word “Rock” in it somewhere. There’s a method in String that can help us with this, it’s called contains.
 
-## Lou’s Challenge #2: List all the genres
+## Lou’s Challenge #2: List all the genres <!--p442-->
 
 ```java
 .stream()
@@ -527,7 +527,7 @@ List<String> genres = songs.stream()
 .collect(toList());
 ```
 
-## Mapping from one type to another
+## Mapping from one type to another <!--p443-->
 
 ```java
 @FunctionalInterface
@@ -548,7 +548,7 @@ Pop, Alternative Rock, Latin, Latin, Rock]
 
 The map’s lambda expression is similar to the one for filter; it takes a song and turns it into something else. Instead of returning a boolean, it returns some other object, in this case a String containing the song’s genre. File Edit Window Help RoadToNowhere %java JukeboxStreams unique elements
 
-## Removing duplicates
+## Removing duplicates <!--p444-->
 
 ```java
 .stream()
@@ -569,7 +569,7 @@ List<String> genres = songs.stream()
 .collect(Collectors.toList());
 ```
 
-## Only one of every genre
+## Only one of every genre <!--p445-->
 
 ```java
 [Electronic, R&B, Rock, Soft Rock,
@@ -586,7 +586,7 @@ List<String> result = allSongs.stream()
 .collect(Collectors.toList());
 ```
 
-## Sometimes you don’t even need a lambda expression
+## Sometimes you don’t even need a lambda expression <!--p446-->
 
 ```java
 Function<Song, String> getGenre = song -> song.getGenre();
@@ -612,7 +612,7 @@ List<Song> result = allSongs.stream()
 
 Use a method reference combined with a static helper method from Comparator to state what the comparison should be: Method references can replace lambda expressions, but you don’t have to use them. Sometimes method references make the code easier to understand.  You don’t need to use method references if you don’t feel comfortable with them. What’s important is to be able to recognize the “::” syntax, especially in a stream pipeline.
 
-## Collecting results in different ways
+## Collecting results in different ways <!--p447-->
 
 While Collectors.toList is the most commonly used Collector, there are other useful Collectors. For example, instead of using distinct to solve the last challenge, we could collect the results into a Set, which does not allow duplicates. The advantage of using this approach is that anything else that uses the results knows that because it’s a Set, by definition there will be no duplicates. 0 1 2 3 List
 
@@ -622,7 +622,7 @@ Set<String> genres = songs.stream()
 .collect(Collectors.toSet());
 ```
 
-## But wait, there’s more!
+## But wait, there’s more! <!--p448-->
 
 ```java
 boolean result =
@@ -665,7 +665,7 @@ getIceCream("Strawberry");
 
 result is to return an Optional. This is an object that wraps the result, so you can ask “Did I get a result? Or is it empty?” Then you can make a decision about what to do next.
 
-## Optional is a wrapper
+## Optional is a wrapper <!--p450-->
 
 ```java
 Optional<IceCream> optional =
@@ -685,7 +685,7 @@ cream for you!");
 }
 ```
 
-## Don’t forget to talk to the Optional wrapper
+## Don’t forget to talk to the Optional wrapper <!--p452-->
 
 ```java
 %java OptionalExamples

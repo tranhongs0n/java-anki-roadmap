@@ -117,7 +117,7 @@ def run(args):
     if not batches:
         sys.exit("no matching card batches")
 
-    decks = {p["deck"] for _, p in batches}
+    decks = {c.get("merge_into") or p.get("merge_into") or p["deck"] for _, p in batches for c in p["cards"]}
     print("Anki reachable. Preparing models and decks.")
     ensure_models(args.dry_run)
     ensure_decks(decks, args.dry_run)
@@ -140,13 +140,15 @@ def run(args):
     pushed_decks = []
 
     for path, payload in batches:
-        deck = payload["deck"]
+        deck = payload["deck"]                       # identity (stable CardKey)
+        place = payload.get("merge_into") or deck     # where the note actually lives
         new_notes, updates, same, rejected = [], [], 0, []
         for c in payload["cards"]:
             kind = c.get("type", "basic")
             if kind not in KINDS:
                 kind = "basic"
             key = card_key(deck, kind, c)
+            target = c.get("merge_into") or place
             img = (f'<img src="{c["image"]}">' if kind == "visual" else None)
             fields = note_fields(kind, c, key, img, payload.get("source", ""))
             tags = c.get("tags", []) + payload.get("tags", [])
@@ -156,7 +158,7 @@ def run(args):
 
             hits = [] if args.dry_run else anki.find_notes(f'CardKey:"{key}"')
             if not hits:
-                new_notes.append({"deckName": deck, "modelName": TEMPLATE_OF[kind],
+                new_notes.append({"deckName": target, "modelName": TEMPLATE_OF[kind],
                                   "fields": fields, "tags": tags,
                                   "options": {"allowDuplicate": False,
                                               "duplicateScope": "deck"}})
@@ -175,7 +177,7 @@ def run(args):
                     updates.append((nid, fields, key))
 
         for nid, fields, key in updates:
-            print(f"  ~ {key} update {deck}")
+            print(f"  ~ {key} update {target}")
             if not args.dry_run:
                 anki.update_note_fields(nid, fields)
 

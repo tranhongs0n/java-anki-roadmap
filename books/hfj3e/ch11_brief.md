@@ -8,7 +8,7 @@ you’ll ever need to do. Want to keep a list that you can easily keep adding to
 
 generate reports, and manipulate the playlists. You’re not writing the entire app—some of the other software developers are involved as well, but you’re responsible for managing and sorting the data inside the Java app. And since Lou has a thing against databases, this is strictly an in- memory data collection. Another programmer will be writing the code to read the song data from a file and put the songs into a List. (In a few chapters you’ll learn how to read data from files, and write data to files.) All you’re going to get is a List with the song data the jukebox keeps adding to.
 
-## Tracking song popularity on your jukebox
+## Tracking song popularity on your jukebox <!--p348-->
 
 ```java
 class MockSongs {
@@ -25,7 +25,7 @@ return songs;
 }
 ```
 
-## Your first job, sort the songs in alphabetical order
+## Your first job, sort the songs in alphabetical order <!--p349-->
 
 ```java
 import java.util.*;
@@ -60,7 +60,7 @@ return songs;
 Cassidy, 50 Ways]
 ```
 
-## Great question! You spotted the diamond operator
+## Great question! You spotted the diamond operator <!--p350-->
 
 ```java
 ArrayList<String> songs = new ArrayList<String>();
@@ -75,7 +75,7 @@ ArrayList<String> songs;
 // lots of code between these lines...
 ```
 
-## Exploring the java.util API, List and Collections
+## Exploring the java.util API, List and Collections <!--p352-->
 
 We know that with an ArrayList, or any List, the elements are kept in the order in which they were added. So we’re going to need to sort the elements in the song list. In this chapter, we’ll be looking at some of the most important and commonly used collection classes in the java.util package, but for now, let’s limit ourselves to two classes: java.util.List and java.util.Collections. We’ve been using ArrayList for a while now. Because ArrayList IS-A List and because many of the methods we’re familiar with on ArrayList come from List, we can comfortably transfer most of what we know about working with ArrayLists to List.
 
@@ -85,7 +85,7 @@ sort(List, Comparator): Sorts the specified list according to the order defined 
 
 Since we know we have a List, it looks like we’ve found the perfect method, Collections.sort(). In the “Real-World”™ there are lots of ways to sort ArrayList API collections with generics
 
-## “Natural Ordering,” what Java means by alphabetical
+## “Natural Ordering,” what Java means by alphabetical <!--p353-->
 
 Lou wants you to sort songs “alphabetically,” but what exactly does that mean? The A–Z part is obvious, but how about lowercase versus uppercase letters? How about numbers and special characters? Well, this is another can-of-worms topic, but Java uses Unicode, and for many of us in “the West” that means that numbers sort before uppercase letters, uppercase letters sort before lowercase letters, and some special characters sort before numbers and some sort after numbers. That’s pretty clear, right? Ha! Well, the upshot is that, by default, sorting in Java happens in what’s called “natural order,” which is more or less alphabetical. Let’s take a look at what happens when we sort our list of songs:
 
@@ -105,7 +105,7 @@ System.out.println(songList);
 [$10, 50 Ways, Cassidy, cassidy, havana, somersault]
 ```
 
-## But now you need Song objects, not just simple Strings
+## But now you need Song objects, not just simple Strings <!--p354-->
 
 Now your boss Lou wants actual Song class instances in the list, not just Strings, so that each Song can have more data. The new jukebox device outputs more information, so the actual song file will have three pieces of information for each song. The Song class is really simple, with only one interesting feature—the overridden toString() method. Remember, the toString() method is defined in class Object, so every class in Java inherits the method. And since the toString() method is called on an object when it’s printed (System.out.println(anObject)), you should override it to print something more readable than the default unique identifier code. When you print a list, the toString() method will be called on each object.
 
@@ -165,7 +165,7 @@ System.out.println(songList);
 }
 ```
 
-## It won’t compile!
+## It won’t compile! <!--p356-->
 
 ```java
 %javac Jukebox2.java
@@ -177,13 +177,13 @@ Collections.sort(songList);
 1 error
 ```
 
-## The sort() method declaration
+## The sort() method declaration <!--p357-->
 
 From the API docs (looking up the java.util.Collections class and scrolling to the sort() method), it looks like the sort() method is declared...strangely. Or at least different from anything we’ve seen so far. That’s because the sort() method (along with other things in the whole collection framework in Java) makes heavy use of generics. Any time you see something with angle brackets in Java source code or documentation, it means generics—a feature added in Java 5. So it looks like we’ll have to learn how to interpret the documentation before we can figure out why we were able to sort String objects in a List, but not a List of Song objects.
 
-## Generics means more type-safety
+## Generics means more type-safety <!--p358-->
 
-## Learning generics
+## Learning generics <!--p359-->
 
 ```java
 new ArrayList<Song>()
@@ -194,7 +194,7 @@ void foo(List<Song> list)
 x.foo(songList)
 ```
 
-## Using generic CLASSES
+## Using generic CLASSES <!--p360-->
 
 ```java
 public boolean add(E o)
@@ -210,7 +210,7 @@ public class ArrayList<E> extends AbstractList<E> ... {
 }
 ```
 
-## Using type parameters with ArrayList
+## Using type parameters with ArrayList <!--p361-->
 
 ```java
 List<String> thisList = new ArrayList<>
@@ -227,7 +227,7 @@ In other words, the “E” is replaced by the real type (also called the type p
 
 see single letter used. Another convention is to use “T” (“Type”) unless you’re specifically writing a collection class, where you’d use “E” to represent the “type of the Element the collection will hold.” Sometimes you’ll see “R” for “Return type.”
 
-## Using generic METHODS
+## Using generic METHODS <!--p362-->
 
 ```java
 public boolean add(E o)
@@ -238,7 +238,7 @@ public class ArrayList<E> extends AbstractList<E> ... {
 public <T extends Animal> void takeThing(ArrayList<T> list)
 ```
 
-## Here’s where it gets weird...
+## Here’s where it gets weird... <!--p363-->
 
 ```java
 public <T extends Animal> void takeThing(ArrayList<T> list)
@@ -274,7 +274,7 @@ System.out.println(songList);
 public static <T extends Comparable<? super T>> void sort(List<T> list)
 ```
 
-## Revisiting the sort() method
+## Revisiting the sort() method <!--p365-->
 
 ```java
 public final class String
@@ -299,7 +299,7 @@ a positive integer if this object is
 greater than the specified object.
 ```
 
-## The new, improved, comparable Song class
+## The new, improved, comparable Song class <!--p368-->
 
 ```java
 [somersault, cassidy, $10, havana, Cassidy, 50
@@ -336,7 +336,7 @@ return title;
 }
 ```
 
-## We can sort the list, but...
+## We can sort the list, but... <!--p369-->
 
 ```java
 java.util.Collections
@@ -348,7 +348,7 @@ java.util.List
 
 sort(List): Sorts the specified list into ascending order, according to the natural ordering of its elements. sort(List, Comparator): Sorts the specified list according to the order induced by the specified Comparator. sort(Comparator): Sorts this list according to the order induced by the specified Comparator. Note to self: figure out how to get/make a Comparator that can compare and order the songs by artist instead of title.
 
-## Using a custom Comparator
+## Using a custom Comparator <!--p370-->
 
 ```java
 public interface Comparator<T> {
@@ -379,7 +379,7 @@ return one.getArtist().compareTo(two.getArtist());
 }
 ```
 
-## Updating the Jukebox to use a Comparator
+## Updating the Jukebox to use a Comparator <!--p371-->
 
 ```java
 [somersault, cassidy, $10, havana, Cassidy, 50 ways]
@@ -400,7 +400,7 @@ myArrayList.sort(myCompare);
 
 6. Must the class of the objects stored in myArrayList implement Comparable? ________________ 7. Must the class of the objects stored in myArrayList implement Comparator? ________________ 8. What must the class of the myCompare object implement? ________________ 9. What method must the class of the myCompare object implement? __________________ Possible Answers: Comparator, Comparable, compareTo( ),
 
-## But wait! We’re sorting in two different ways!
+## But wait! We’re sorting in two different ways! <!--p373-->
 
 ```java
 public void go() {
@@ -416,7 +416,7 @@ System.out.println(songList);
 
 2. Using songLists.sort(artistCompare) because the ArtistCompare class implements Comparator While our new code allows us to sort songs by title and by artist, it is reminiscent of Frankenstein’s monster, cobbled together bit by bit. This uses Comparable to sort This uses a custom Comparator to sort A better approach would be to handle all of the sorting definitions in classes that implement Comparator.
 
-## Sorting using only Comparators
+## Sorting using only Comparators <!--p374-->
 
 ```java
 public class Jukebox5 {
@@ -460,7 +460,7 @@ return one.getTitle().compareTo(two.getTitle());
 
 of the Comparator classes we wrote for Lou. The first thing to notice is that all we really want to sort our collection is the one line of code in the middle of the class. The rest of the code is just the long-winded syntax that’s necessary to let the compiler know what type of class this is and which method it implements.
 
-## Just the code that matters
+## Just the code that matters <!--p375-->
 
 ```java
 class TitleCompare implements Comparator<Song> {
@@ -470,7 +470,7 @@ return one.getTitle().compareTo(two.getTitle());
 }
 ```
 
-## What do we REALLY need in order to sort?
+## What do we REALLY need in order to sort? <!--p376-->
 
 ```java
 public class Jukebox5 {
@@ -501,15 +501,15 @@ return one.getTitle().compareTo(two.getTitle());
 ...
 ```
 
-## Enter lambdas! Leveraging what the compiler can infer
+## Enter lambdas! Leveraging what the compiler can infer <!--p378-->
 
 ```java
 songList.sort((one, two) -> one.getTitle().compareTo(two.getTitle()));
 ```
 
-## Where did all that code go?
+## Where did all that code go? <!--p379-->
 
-## Updating the Jukebox code with lambdas
+## Updating the Jukebox code with lambdas <!--p380-->
 
 ```java
 import java.util.*;
@@ -573,7 +573,7 @@ by height:
 [Elbert 14433, Castle 14265, Longs 14255, Maroon 14156]
 ```
 
-## Uh-oh. The sorting all works, but now we have duplicates...
+## Uh-oh. The sorting all works, but now we have duplicates... <!--p382-->
 
 The sorting works great; now we know how to sort on both title and artist. But there’s a new problem we didn’t notice with a test sample of the jukebox songs—the sorted list contains duplicates. Unlike the mock code, Lou’s real jukebox application appears to just keep writing to the file regardless of whether the same song has already been played (and thus written) to the text file. The SongListMore.txt jukebox text file is an example. It’s a complete record of every song that was played,
 
@@ -599,13 +599,13 @@ cassidy, grateful dead, 158
 50 ways, simon, 102
 ```
 
-## We need a Set instead of a List
+## We need a Set instead of a List <!--p383-->
 
-## The Collection API (part of it)
+## The Collection API (part of it) <!--p384-->
 
 We updated the Jukebox code to put the songs in a HashSet to try to eliminate our duplicate songs. (Note: we left out some of the Jukebox code, but you can copy it from earlier versions.)
 
-## Using a HashSet instead of ArrayList
+## Using a HashSet instead of ArrayList <!--p385-->
 
 ```java
 import java.util.*;
@@ -630,7 +630,7 @@ System.out.println(songSet);
 [$10, 50 ways, havana, cassidy, $10, cassidy, somersault]
 ```
 
-## What makes two objects equal?
+## What makes two objects equal? <!--p386-->
 
 ```java
 if (song1 == song2) {
@@ -643,7 +643,7 @@ if (song1.equals(song2) && song1.hashCode() == song2.hashCode()) {
 }
 ```
 
-## How a HashSet checks for duplicates: hashCode() and equals()
+## How a HashSet checks for duplicates: hashCode() and equals() <!--p387-->
 
 ```java
 class SongV4 implements Comparable<SongV4> {
@@ -712,7 +712,7 @@ Set<SongV4> songSet = new TreeSet<>((o1, o2) -> o1.getBpm() - o2.getBpm());
 songSet.addAll(songList);
 ```
 
-## What you MUST know about TreeSet...
+## What you MUST know about TreeSet... <!--p391-->
 
 ```java
 import java.util.*;
@@ -741,7 +741,7 @@ title = t;
 
 3. If there is a problem (either compile-time or runtime) with this code, how would you fix it? TreeSet looks easy, but make sure you really understand what you need to do to Answers on page 366.
 
-## TreeSet elements MUST be comparable
+## TreeSet elements MUST be comparable <!--p392-->
 
 ```java
 class Book implements Comparable<Book> {
@@ -776,7 +776,7 @@ System.out.println(tree);
 }
 ```
 
-## We’ve seen Lists and Sets, now we’ll use a Map
+## We’ve seen Lists and Sets, now we’ll use a Map <!--p393-->
 
 Lists and Sets are great, but sometimes a Map is the best collection (not Collection with a capital “C”—remember that Maps are part of Java collections but they don’t implement the Collection interface). Imagine you want a collection that acts like a property list, where you give it a name and it gives you back the value associated with that name. Keys can be any Java object (or, through autoboxing, a primitive), but you’ll often see String keys (i.e., property names) or Integer keys (representing unique IDs, for example).
 
@@ -847,11 +847,11 @@ Map.entry("Jay", "Homecase"));
 
 If you have more than 10 entries, or if you want to be clearer about how your keys are paired up to their values, you can use Map.ofEntries instead: To make the line shorter, you can use a static import on Map.entry (we talked about static imports in Chapter 10). é é
 
-## Convenience Factory Methods for Collections
+## Convenience Factory Methods for Collections <!--p395-->
 
 Convenience Factory Methods are just that—a convenience that will work for most of the cases where you want to create a collection prefilled with data. And for those cases where these factory methods don’t suit you, you can still use the Collections constructors and add() or put() methods instead. Convenience Factory Methods for Collections allow you to easily create a List, Set, or Map that’s been prefilled with known data. There are a couple of things to understand about using them:
 
-## Finally, back to generics
+## Finally, back to generics <!--p396-->
 
 ```java
 public class TestGenerics1 {
@@ -888,7 +888,7 @@ void meow() { }
 }
 ```
 
-## But will it work with List<Dog>?
+## But will it work with List<Dog>? <!--p397-->
 
 ```java
 public void go() {
@@ -913,7 +913,7 @@ takeAnimals(dogs);
 1 error
 ```
 
-## What could happen if it were allowed...?
+## What could happen if it were allowed...? <!--p398-->
 
 ```java
 public void takeAnimals(List<Animal> animals) {
@@ -929,7 +929,7 @@ animals.add(new Cat());
 }
 ```
 
-## We can do this with wildcards
+## We can do this with wildcards <!--p399-->
 
 ```java
 public void takeAnimals(List<? extends Animal> animals) {
@@ -939,7 +939,7 @@ a.eat();
 }
 ```
 
-## Using the method’s generic type parameter
+## Using the method’s generic type parameter <!--p400-->
 
 ```java
 public <T extends Animal> void takeAnimals(List<T> list) { }

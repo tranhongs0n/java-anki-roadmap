@@ -4,7 +4,7 @@ pages 275-312
 
 using. If you’re gonna write Java, you’re gonna create objects. Sooner or later, you’re gonna have to let some of them go, or risk running out of RAM. In this chapter we look at how objects are created, where they live while they’re alive, and how to keep or abandon them efficiently. That means we’ll talk about the heap, the stack, scope, constructors, superclass constructors, null references, and more. Warning: this chapter contains material about object death that
 
-## The Stack and the Heap: where things live
+## The Stack and the Heap: where things live <!--p276-->
 
 ```java
 public class Duck {
@@ -34,9 +34,9 @@ char c = 'a';
 }
 ```
 
-## Methods are stacked
+## Methods are stacked <!--p277-->
 
-## What about local variables that are objects?
+## What about local variables that are objects? <!--p278-->
 
 ```java
 public class StackRef {
@@ -66,7 +66,7 @@ private Antenna ant = new Antenna();
 }
 ```
 
-## The miracle of object creation
+## The miracle of object creation <!--p280-->
 
 ```java
 Duck myDuck = new Duck();
@@ -92,7 +92,7 @@ public Duck() {
 }
 ```
 
-## Construct a Duck
+## Construct a Duck <!--p282-->
 
 ```java
 public class UseADuck {
@@ -111,7 +111,7 @@ System.out.println("Quack");
 Quack
 ```
 
-## Initializing the state of a new Duck
+## Initializing the state of a new Duck <!--p283-->
 
 ```java
 public Duck() {
@@ -163,7 +163,7 @@ Quack
 size is 42
 ```
 
-## Make it easy to make a Duck
+## Make it easy to make a Duck <!--p285-->
 
 ```java
 public class Duck2 {
@@ -308,7 +308,7 @@ Making a Hippo
 Making an Animal
 ```
 
-## How do you invoke a superclass constructor?
+## How do you invoke a superclass constructor? <!--p293-->
 
 ```java
 public class Duck extends Animal {
@@ -362,7 +362,7 @@ super();
 }
 ```
 
-## Superclass constructors with arguments
+## Superclass constructors with arguments <!--p295-->
 
 super() call? Of course. If you couldn’t, you’d never be able to extend a class that didn’t have a no-arg constructor. Imagine this scenario: all animals have a name. There’s a getName() method in class Animal that returns the value of the name instance variable. The instance variable is marked private, but the subclass (in this case, Hippo) inherits the getName() method. So here’s the problem: Hippo has a getName() method (through inheritance) but does not have the name instance variable. Hippo has to depend on the Animal part of himself to keep the name instance variable, and return it when someone calls getName() on a Hippo object. But...how does the Animal part get the name? The only reference Hippo has to the Animal part of himself is through super(), so that’s the place where Hippo sends the Hippo’s name up to the Animal part of himself, so that the Animal part can store it in the private name instance variable.
 
@@ -518,7 +518,7 @@ char c = 'a';
 }
 ```
 
-## What about reference variables?
+## What about reference variables? <!--p300-->
 
 ```java
 void go() {

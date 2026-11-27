@@ -6,11 +6,11 @@ exceptional situation? So far in this book, we haven’t really taken any risks.
 
 this now. Because in this chapter, we’re going to build something that uses the risky JavaSound API. We’re going to build a MIDI Music Player. Risky Behavior Sure, it’s risky, but I can handle it if something goes wrong. 422chapter 13 building the MIDI Music Player
 
-## Let’s make a Music Machine
+## Let’s make a Music Machine <!--p460-->
 
-## We’ll start with the basics
+## We’ll start with the basics <!--p461-->
 
-## First we need a Sequencer
+## First we need a Sequencer <!--p462-->
 
 ```java
 import javax.sound.midi.*;
@@ -186,7 +186,7 @@ System.out.println("We made it!");
 We made it!
 ```
 
-## Flow control in try/catch blocks
+## Flow control in try/catch blocks <!--p470-->
 
 ```java
 try {
@@ -275,7 +275,7 @@ public void doLaundry() throws PantsException, LingerieException {
 }
 ```
 
-## Exceptions are polymorphic
+## Exceptions are polymorphic <!--p474-->
 
 ```java
 public void doLaundry()throws ClothingException {
@@ -366,7 +366,7 @@ a.foo();
 }
 ```
 
-## Handle or Declare. It’s the law.
+## Handle or Declare. It’s the law. <!--p481-->
 
 ```java
 try {
@@ -406,7 +406,7 @@ System.out.println("Bummer");
 }
 ```
 
-## Getting back to our music code...
+## Getting back to our music code... <!--p482-->
 
 ```java
 void go() {
@@ -440,11 +440,11 @@ x.doStuff();
 }
 ```
 
-## Code Kitchen
+## Code Kitchen <!--p483-->
 
 that MIDI data doesn’t actually create any sound that you hear. For sound to come out of the speakers, the MIDI data has to be sent through some kind of MIDI device that takes the MIDI instructions and renders them in sound, by triggering either a hardware in­ strument or a “virtual” instrument (software synthesizer). In this book, we’re using only software devices, so here’s how it works in JavaSound:
 
-## Making actual sound
+## Making actual sound <!--p484-->
 
 ```java
 Sequencer player = MidiSystem.getSequencer();
@@ -490,13 +490,13 @@ e.printStackTrace();
 }
 ```
 
-## Version 1: Your very first sound player app
+## Version 1: Your very first sound player app <!--p486-->
 
 ```java
 ShortMessage msg = new ShortMessage();
 ```
 
-## Making a MidiEvent (song data)
+## Making a MidiEvent (song data) <!--p487-->
 
 ```java
 msg.setMessage(144, 1, 44, 100);
@@ -514,7 +514,7 @@ A MIDI message holds the part of the event that says what to do. It’s the actu
 
 To make a MIDI message, make a ShortMessage instance and invoke setMessage(), passing in the four arguments for the message. But remember, the message says only what to do, so you still need to stuff the message into an event that adds when that message should “fire.”
 
-## MIDI message: the heart of a MidiEvent
+## MIDI message: the heart of a MidiEvent <!--p488-->
 
 ```java
 msg.setMessage(144, 1, 44, 100);
@@ -525,7 +525,7 @@ msg.setMessage(128, 1, 44, 100);
 MidiEvent noteOff = new MidiEvent(b, 3 );
 ```
 
-## Change a message
+## Change a message <!--p489-->
 
 ```java
 msg.setMessage(144, 1, 20, 100);

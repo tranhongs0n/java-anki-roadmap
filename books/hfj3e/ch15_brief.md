@@ -6,7 +6,7 @@ looks easy, but then you compile it, run it, look at it, and think, “hey, that
 
 long, but it’s nine. Or one. And under the label instead of next to it. But with a little work, you can get layout managers to submit to your will. Learning a little Swing will give you a head start for most GUI programming you’ll ever do. Wanna write an Android app? Working through this chapter will give you a head start. Work on Your Swing Why won’t the ball go where I want it to go (like, smack in Suzy Smith’s
 
-## Swing components
+## Swing components <!--p548-->
 
 ```java
 JButton button = new JButton("click me");
@@ -18,7 +18,7 @@ frame.setSize(300,300);
 frame.setVisible(true);
 ```
 
-## Layout Managers
+## Layout Managers <!--p549-->
 
 ```java
 myPanel.add(button);
@@ -33,9 +33,9 @@ panelB.add(new JButton("button 3"));
 panelA.add(panelB);
 ```
 
-## How does the layout manager decide?
+## How does the layout manager decide? <!--p550-->
 
-## layout managers
+## Layout Managers <!--p549-->
 
 ```java
 import javax.swing.*;
@@ -161,7 +161,7 @@ panel.add(buttonTwo);
 panel.add(buttonThree);
 ```
 
-## BoxLayout to the rescue!
+## BoxLayout to the rescue! <!--p559-->
 
 ```java
 public void go() {
@@ -179,9 +179,9 @@ frame.setVisible(true);
 }
 ```
 
-## layout managers
+## Layout Managers <!--p549-->
 
-## Playing with Swing components
+## Playing with Swing components <!--p561-->
 
 ```java
 JTextField field = new JTextField(20);
@@ -327,11 +327,9 @@ System.out.println(selection);
 list.setVisibleRowCount(4);
 ```
 
-## Code Kitchen
+## Code Kitchen <!--p566-->
 
-## Code Kitchen
-
-## Making the BeatBox
+## Making the BeatBox <!--p567-->
 
 ```java
 import javax.sound.midi.*;

@@ -1,0 +1,131 @@
+{
+ "deck": "20 Head First Java::10 Numbers Matter",
+ "tags": [
+  "book::hfj3e",
+  "ch::10",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is a <code>static final</code> field?",
+   "back": "A <b>constant</b>: one value shared by every instance, assigned once",
+   "extra": "static means it belongs to the class; final means it cannot be reassigned. Together they are Java's constant, and convention writes them in UPPER_SNAKE_CASE.",
+   "source": "Head First Java 3E — ch 10, p. 322",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "When is a static variable initialised?",
+   "back": "Once, when the class is first loaded — not per object",
+   "extra": "That is why static state survives between instances and why it is shared. Instance variables get their values per object; statics do not.",
+   "source": "Head First Java 3E — ch 10, p. 321",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "<code>Math.abs(-5)</code> returns what, and <code>Math.round(3.7)</code>?",
+   "back": "<code>5</code> (int) and <code>4</code> (a <b>long</b>)",
+   "extra": "Math.round returns long even for a float argument, which is why assigning it to an int needs a cast in older code. abs keeps the argument's type.",
+   "source": "Head First Java 3E — ch 10, p. 326",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>ArrayList&lt;int&gt;</code> not compile?",
+   "back": "Generics accept only <b>class and interface</b> types, not primitives",
+   "extra": "Use <code>ArrayList&lt;Integer&gt;</code>. Autoboxing then lets you add ints directly, so in practice the restriction costs you nothing.",
+   "source": "Head First Java 3E — ch 10, p. 329",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Why does Java separate number formatting from printing?",
+   "back": "So a formatted String can go anywhere — a GUI field, a table, a log — not just stdout",
+   "extra": "Formatting into a String first, then displaying it, keeps the two concerns apart. That is what <code>String.format</code> buys you over printf.",
+   "source": "Head First Java 3E — ch 10, p. 334",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "In <code>String.format(\"%.2f\", 3.14159)</code>, what does each part mean?",
+   "back": "<code>%</code> starts the specifier; <code>.2</code> is precision (2 decimals); <code>f</code> is the conversion",
+   "extra": "The result is \"3.14\" — rounded, not truncated. Drop the precision and you get the full default representation.",
+   "source": "Head First Java 3E — ch 10, p. 338",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Which part of a format specifier is mandatory?",
+   "back": "The <b>conversion</b> — the letter that says how to read the argument",
+   "extra": "<code>d</code> integer, <code>f</code> floating point, <code>s</code> string, <code>x</code> hex. Flags, width and precision are all optional extras.",
+   "source": "Head First Java 3E — ch 10, p. 339",
+   "tags": [
+    "type::rule"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you print 1234567 with grouping separators?",
+   "back": "<code>String.format(\"%,d\", 1234567)</code> → \"1,234,567\"",
+   "extra": "The comma flag is locale-sensitive, so on a German JVM you get dots. That is correct behaviour, not a bug.",
+   "source": "Head First Java 3E — ch 10, p. 340",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>import static java.lang.Math.*;</code> let you do?",
+   "back": "Call <code>round(...)</code>, <code>abs(...)</code> without writing <code>Math.</code>",
+   "extra": "It imports static members rather than a class. Handy for constants and maths, but it hides where a method comes from — use sparingly.",
+   "source": "Head First Java 3E — ch 10, p. 341",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "You must hand an <code>int</code> to code that only accepts an <code>Object</code>. What do you do?",
+   "back": "Wrap it: <code>Integer.valueOf(3)</code> — usually via autoboxing",
+   "extra": "Primitives are not objects, so they cannot go where Object is expected. The wrapper is a real heap object holding the value, which is also why a collection of Integers costs more memory than an int[].",
+   "source": "Head First Java 3E — ch 10, p. 328",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Two <code>%</code> specifiers, three arguments in <code>String.format</code>. What happens?",
+   "back": "The extra argument is <b>ignored</b> — no exception",
+   "extra": "Too few arguments throws (MissingFormatArgumentException); too many are silently dropped. One more reason to format with a specifier you can count.",
+   "source": "Head First Java 3E — ch 10, p. 336",
+   "tags": [
+    "type::gotcha"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  }
+ ]
+}

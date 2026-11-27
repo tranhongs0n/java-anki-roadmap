@@ -6,7 +6,7 @@ are going to use, you need a graphical interface. If you’re building programs 
 
 Handling and Inner Classes and lambdas. In this chapter, we’ll put a button on the screen, and make it do something when you click it. We’ll paint on the screen, we’ll display a JPEG image, and we’ll even do some (crude) animation. I heard your ex could only cook command-line meals. You don’t add things to the frame directly. Think of the frame as the trim around the window, and you add things to the window pane.
 
-## It all starts with a window
+## It all starts with a window <!--p500-->
 
 ```java
 JFrame frame = new JFrame();
@@ -36,11 +36,11 @@ frame.setVisible(true);
 }
 ```
 
-## Your first GUI: a button on a frame
+## Your first GUI: a button on a frame <!--p501-->
 
-## But nothing happens when I click it...
+## But nothing happens when I click it... <!--p502-->
 
-## Getting a user event
+## Getting a user event <!--p503-->
 
 ```java
 public void changeIt() {
@@ -72,15 +72,15 @@ button.setText("I've been clicked!");
 }
 ```
 
-## Getting a button’s ActionEvent
+## Getting a button’s ActionEvent <!--p506-->
 
-## Listeners, Sources, and Events
+## Listeners, Sources, and Events <!--p507-->
 
 ```java
 addKeyListener(KeyListener k)
 ```
 
-## Getting back to graphics...
+## Getting back to graphics... <!--p509-->
 
 ```java
 frame.getContentPane().add(myButton);
@@ -94,7 +94,7 @@ graphics.drawImage(myPic,10,10,this);
 graphics.fillOval(70,70,100,100);
 ```
 
-## Make your own drawing widget
+## Make your own drawing widget <!--p510-->
 
 ```java
 import javax.swing.*;
@@ -107,7 +107,7 @@ g.fillRect(20, 50, 100, 100);
 }
 ```
 
-## Fun things to do in paintComponent()
+## Fun things to do in paintComponent() <!--p511-->
 
 ```java
 public void paintComponent(Graphics g) {
@@ -215,7 +215,7 @@ public void paintComponent(Graphics g) {
 }
 ```
 
-## Let’s try it with TWO buttons
+## Let’s try it with TWO buttons <!--p518-->
 
 ```java
 class MyGui implements ActionListener {
@@ -275,7 +275,7 @@ label.setText("That hurt!");
 }
 ```
 
-## Inner class to the rescue!
+## Inner class to the rescue! <!--p522-->
 
 ```java
 class MyOuterClass {
@@ -314,7 +314,7 @@ x = 42;
 
 * There’s an exception to this, for a very special case—an inner class defined within a static method. But we’re not going there, and you might go your entire Java life without ever encountering one of these. The outer class has a private instance variable “x.” Make an instance of the inner class. The method in the inner class uses the outer class instance variable “x,” as if “x” belonged to the inner class.
 
-## How to make an instance of an inner class
+## How to make an instance of an inner class <!--p524-->
 
 ```java
 class Foo {
@@ -393,7 +393,7 @@ frame.repaint();
 
 Since ActionListener is a functional interface, you can replace the inner classes we saw on the previous page with lambda expressions.
 
-## ActionListener is a Functional Interface
+## ActionListener is a Functional Interface <!--p529-->
 
 ```java
 ...
@@ -422,7 +422,7 @@ frame.repaint();
 }
 ```
 
-## Using an inner class for animation
+## Using an inner class for animation <!--p530-->
 
 ```java
 g.fillOval(20,50,100,100);
@@ -481,7 +481,7 @@ g.fillOval(xPos, yPos, 40, 40);
 }
 ```
 
-## The complete simple animation code
+## The complete simple animation code <!--p532-->
 
 ```java
 public void paintComponent(Graphics g) {
@@ -492,11 +492,9 @@ g.fillOval(x, y, 40, 40);
 }
 ```
 
-## Code Kitchen
+## Code Kitchen <!--p534-->
 
-## Code Kitchen
-
-## Listening for a non-GUI event
+## Listening for a non-GUI event <!--p535-->
 
 ```java
 ShortMessage msg1 = new ShortMessage();
@@ -613,9 +611,9 @@ return event;
 }
 ```
 
-## Version Two: registering and getting ControllerEvents
+## Version Two: registering and getting ControllerEvents <!--p538-->
 
-## Version Three: drawing graphics in time with the music
+## Version Three: drawing graphics in time with the music <!--p539-->
 
 ```java
 class MyDrawPanel extends JPanel implements ControllerEventListener {

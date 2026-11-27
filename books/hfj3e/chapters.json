@@ -1,26 +1,74 @@
 [
  {
-  "ch": 6,
-  "title": "Chapter 6: Using the Java Library",
-  "pages": 42,
-  "headings": 15,
-  "chars": 20086,
-  "codeblocks": 37
+  "ch": 10,
+  "title": "Chapter 10: Numbers Matter",
+  "pages": 34,
+  "headings": 14,
+  "chars": 13388,
+  "codeblocks": 70
  },
  {
-  "ch": 7,
-  "title": "Chapter 7: Better Living in Objectville",
-  "pages": 32,
-  "headings": 8,
-  "chars": 5794,
-  "codeblocks": 22
+  "ch": 11,
+  "title": "Chapter 11: Data Structures",
+  "pages": 60,
+  "headings": 41,
+  "chars": 34624,
+  "codeblocks": 89
  },
  {
-  "ch": 8,
-  "title": "Chapter 8: Serious Polymorphism",
-  "pages": 38,
-  "headings": 12,
-  "chars": 7736,
-  "codeblocks": 40
+  "ch": 12,
+  "title": "Chapter 12: Lambdas and Streams: What, Not How",
+  "pages": 52,
+  "headings": 36,
+  "chars": 30096,
+  "codeblocks": 84
+ },
+ {
+  "ch": 13,
+  "title": "Chapter 13: Risky Behavior",
+  "pages": 40,
+  "headings": 13,
+  "chars": 13868,
+  "codeblocks": 57
+ },
+ {
+  "ch": 14,
+  "title": "Chapter 14: A Very Graphic Story",
+  "pages": 48,
+  "headings": 19,
+  "chars": 21585,
+  "codeblocks": 55
+ },
+ {
+  "ch": 15,
+  "title": "Chapter 15: Work on Your Swing",
+  "pages": 30,
+  "headings": 9,
+  "chars": 15093,
+  "codeblocks": 49
+ },
+ {
+  "ch": 16,
+  "title": "Chapter 16: Saving Objects (and Text)",
+  "pages": 48,
+  "headings": 26,
+  "chars": 25769,
+  "codeblocks": 60
+ },
+ {
+  "ch": 17,
+  "title": "Chapter 17: Make a Connection",
+  "pages": 52,
+  "headings": 23,
+  "chars": 27846,
+  "codeblocks": 49
+ },
+ {
+  "ch": 18,
+  "title": "Chapter 18: Dealing with Concurrency Issues",
+  "pages": 34,
+  "headings": 18,
+  "chars": 16427,
+  "codeblocks": 28
  }
 ]

@@ -19,10 +19,13 @@ def norm(s):
 def main(chapter):
     deck_prefix = "20 Head First Java"
     notes = []
-    own = [d for d in anki.deck_names() if d.startswith(deck_prefix) and d.split("::")[-1].startswith(f"{chapter:02d} ")]
     for d in anki.deck_names():
-        if d.startswith(deck_prefix) and "::" in d and d not in own:
-            notes.extend(anki.notes_info(anki.find_notes(f'deck:"{d}"')))
+        if d.startswith("00 Java Roadmap") and "::" in d:
+            for n in anki.notes_info(anki.find_notes(f'deck:"{d}"')):
+                src = n["fields"].get("Source", {}).get("value", "")
+                if f"ch {chapter}, p." in src:
+                    continue          # already this chapter's card
+                notes.append(n)
     fronts = {norm(n["fields"].get("Front", {}).get("value", "") or n["fields"].get("Text", {}).get("value", "")): n for n in notes}
     brief = open(f"books/hfj3e/ch{chapter:02d}_brief.md", encoding="utf-8").read()
     raw = [(t.strip(), int(pg)) for t, pg in re.findall(r"^## (.+?) <!--p(\d+)-->$", brief, re.M)]

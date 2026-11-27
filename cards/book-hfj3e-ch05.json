@@ -34,7 +34,8 @@
    "source": "Head First Java 3E — ch 5, p. 154",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
   },
   {
    "type": "basic",
@@ -44,7 +45,8 @@
    "source": "Head First Java 3E — ch 5, p. 154",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
   },
   {
    "type": "basic",
@@ -136,5 +138,6 @@
     "type::definition"
    ]
   }
- ]
+ ],
+ "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
 }
