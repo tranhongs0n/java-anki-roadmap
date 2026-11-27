@@ -1,0 +1,542 @@
+[
+ {
+  "n": 1,
+  "title": "Consider static factory methods instead of constructors",
+  "start": 26,
+  "end": 30
+ },
+ {
+  "n": 2,
+  "title": "Consider a builder when faced with many constructor parameters",
+  "start": 31,
+  "end": 37
+ },
+ {
+  "n": 3,
+  "title": "Enforce the singleton property with a private constructor or an enum type",
+  "start": 38,
+  "end": 39
+ },
+ {
+  "n": 4,
+  "title": "Enforce noninstantiability with a private constructor",
+  "start": 40,
+  "end": 40
+ },
+ {
+  "n": 5,
+  "title": "Prefer dependency injection to hardwiring resources",
+  "start": 41,
+  "end": 42
+ },
+ {
+  "n": 6,
+  "title": "Avoid creating unnecessary objects",
+  "start": 43,
+  "end": 46
+ },
+ {
+  "n": 7,
+  "title": "Eliminate obsolete object references",
+  "start": 47,
+  "end": 49
+ },
+ {
+  "n": 8,
+  "title": "Avoid finalizers and cleaners",
+  "start": 50,
+  "end": 54
+ },
+ {
+  "n": 9,
+  "title": "Prefer try-with-resources to try-finally",
+  "start": 55,
+  "end": 57
+ },
+ {
+  "n": 10,
+  "title": "Obey the general contract when overriding equals",
+  "start": 58,
+  "end": 70
+ },
+ {
+  "n": 11,
+  "title": "Always override hashCode when you override equals",
+  "start": 71,
+  "end": 75
+ },
+ {
+  "n": 12,
+  "title": "Always override toString",
+  "start": 76,
+  "end": 78
+ },
+ {
+  "n": 13,
+  "title": "Override clone judiciously",
+  "start": 79,
+  "end": 86
+ },
+ {
+  "n": 14,
+  "title": "Consider implementing Comparable",
+  "start": 87,
+  "end": 93
+ },
+ {
+  "n": 15,
+  "title": "Minimize the accessibility of classes and members",
+  "start": 94,
+  "end": 98
+ },
+ {
+  "n": 16,
+  "title": "In public classes, use accessor methods, not public fields",
+  "start": 99,
+  "end": 100
+ },
+ {
+  "n": 17,
+  "title": "Minimize mutability",
+  "start": 101,
+  "end": 107
+ },
+ {
+  "n": 18,
+  "title": "Favor composition over inheritance",
+  "start": 108,
+  "end": 113
+ },
+ {
+  "n": 19,
+  "title": "Design and document for inheritance or else prohibit it",
+  "start": 114,
+  "end": 119
+ },
+ {
+  "n": 20,
+  "title": "Prefer interfaces to abstract classes",
+  "start": 120,
+  "end": 124
+ },
+ {
+  "n": 21,
+  "title": "Design interfaces for posterity",
+  "start": 125,
+  "end": 127
+ },
+ {
+  "n": 22,
+  "title": "Use interfaces only to define types",
+  "start": 128,
+  "end": 129
+ },
+ {
+  "n": 23,
+  "title": "Prefer class hierarchies to tagged classes",
+  "start": 130,
+  "end": 132
+ },
+ {
+  "n": 24,
+  "title": "Favor static member classes over nonstatic",
+  "start": 133,
+  "end": 135
+ },
+ {
+  "n": 25,
+  "title": "Limit source files to a single top-level class",
+  "start": 136,
+  "end": 137
+ },
+ {
+  "n": 26,
+  "title": "Don\u2019t use raw types",
+  "start": 138,
+  "end": 143
+ },
+ {
+  "n": 27,
+  "title": "Eliminate unchecked warnings",
+  "start": 144,
+  "end": 146
+ },
+ {
+  "n": 28,
+  "title": "Prefer lists to arrays",
+  "start": 147,
+  "end": 150
+ },
+ {
+  "n": 29,
+  "title": "Favor generic types",
+  "start": 151,
+  "end": 155
+ },
+ {
+  "n": 30,
+  "title": "Favor generic methods",
+  "start": 156,
+  "end": 159
+ },
+ {
+  "n": 31,
+  "title": "Use bounded wildcards to increase API flexibility",
+  "start": 160,
+  "end": 166
+ },
+ {
+  "n": 32,
+  "title": "Combine generics and varargs judiciously",
+  "start": 167,
+  "end": 171
+ },
+ {
+  "n": 33,
+  "title": "Consider typesafe heterogeneous containers",
+  "start": 172,
+  "end": 177
+ },
+ {
+  "n": 34,
+  "title": "Use enums instead of int constants",
+  "start": 178,
+  "end": 188
+ },
+ {
+  "n": 35,
+  "title": "Use instance fields instead of ordinals",
+  "start": 189,
+  "end": 189
+ },
+ {
+  "n": 36,
+  "title": "Use EnumSet instead of bit fields",
+  "start": 190,
+  "end": 191
+ },
+ {
+  "n": 37,
+  "title": "Use EnumMap instead of ordinal indexing",
+  "start": 192,
+  "end": 196
+ },
+ {
+  "n": 38,
+  "title": "Emulate extensible enums with interfaces",
+  "start": 197,
+  "end": 200
+ },
+ {
+  "n": 39,
+  "title": "Prefer annotations to naming patterns",
+  "start": 201,
+  "end": 208
+ },
+ {
+  "n": 40,
+  "title": "Consistently use the Override annotation",
+  "start": 209,
+  "end": 211
+ },
+ {
+  "n": 41,
+  "title": "Use marker interfaces to define types",
+  "start": 212,
+  "end": 213
+ },
+ {
+  "n": 42,
+  "title": "Prefer lambdas to anonymous classes",
+  "start": 214,
+  "end": 217
+ },
+ {
+  "n": 43,
+  "title": "Prefer method references to lambdas",
+  "start": 218,
+  "end": 219
+ },
+ {
+  "n": 44,
+  "title": "Favor the use of standard functional interfaces",
+  "start": 220,
+  "end": 223
+ },
+ {
+  "n": 45,
+  "title": "Use streams judiciously",
+  "start": 224,
+  "end": 230
+ },
+ {
+  "n": 46,
+  "title": "Prefer side-effect-free functions in streams",
+  "start": 231,
+  "end": 236
+ },
+ {
+  "n": 47,
+  "title": "Prefer Collection to Stream as a return type",
+  "start": 237,
+  "end": 242
+ },
+ {
+  "n": 48,
+  "title": "Use caution when making streams parallel",
+  "start": 243,
+  "end": 247
+ },
+ {
+  "n": 49,
+  "title": "Check parameters for validity",
+  "start": 248,
+  "end": 251
+ },
+ {
+  "n": 50,
+  "title": "Make defensive copies when needed",
+  "start": 252,
+  "end": 256
+ },
+ {
+  "n": 51,
+  "title": "Design method signatures carefully",
+  "start": 257,
+  "end": 258
+ },
+ {
+  "n": 52,
+  "title": "Use overloading judiciously",
+  "start": 259,
+  "end": 265
+ },
+ {
+  "n": 53,
+  "title": "Use varargs judiciously",
+  "start": 266,
+  "end": 267
+ },
+ {
+  "n": 54,
+  "title": "Return empty collections or arrays, not nulls",
+  "start": 268,
+  "end": 269
+ },
+ {
+  "n": 55,
+  "title": "Return optionals judiciously",
+  "start": 270,
+  "end": 274
+ },
+ {
+  "n": 56,
+  "title": "Write doc comments for all exposed API elements",
+  "start": 275,
+  "end": 281
+ },
+ {
+  "n": 57,
+  "title": "Minimize the scope of local variables",
+  "start": 282,
+  "end": 284
+ },
+ {
+  "n": 58,
+  "title": "Prefer for-each loops to traditional for loops",
+  "start": 285,
+  "end": 287
+ },
+ {
+  "n": 59,
+  "title": "Know and use the libraries",
+  "start": 288,
+  "end": 290
+ },
+ {
+  "n": 60,
+  "title": "Avoid float and double if exact answers are required",
+  "start": 291,
+  "end": 293
+ },
+ {
+  "n": 61,
+  "title": "Prefer primitive types to boxed primitives",
+  "start": 294,
+  "end": 296
+ },
+ {
+  "n": 62,
+  "title": "Avoid strings where other types are more appropriate",
+  "start": 297,
+  "end": 299
+ },
+ {
+  "n": 63,
+  "title": "Beware the performance of string concatenation",
+  "start": 300,
+  "end": 300
+ },
+ {
+  "n": 64,
+  "title": "Refer to objects by their interfaces",
+  "start": 301,
+  "end": 302
+ },
+ {
+  "n": 65,
+  "title": "Prefer interfaces to reflection",
+  "start": 303,
+  "end": 305
+ },
+ {
+  "n": 66,
+  "title": "Use native methods judiciously",
+  "start": 306,
+  "end": 306
+ },
+ {
+  "n": 67,
+  "title": "Optimize judiciously",
+  "start": 307,
+  "end": 309
+ },
+ {
+  "n": 68,
+  "title": "Adhere to generally accepted naming conventions",
+  "start": 310,
+  "end": 313
+ },
+ {
+  "n": 69,
+  "title": "Use exceptions only for exceptional conditions",
+  "start": 314,
+  "end": 316
+ },
+ {
+  "n": 70,
+  "title": "Use checked exceptions for recoverable conditions and runtime exceptions for programming errors",
+  "start": 317,
+  "end": 318
+ },
+ {
+  "n": 71,
+  "title": "Avoid unnecessary use of checked exceptions",
+  "start": 319,
+  "end": 320
+ },
+ {
+  "n": 72,
+  "title": "Favor the use of standard exceptions",
+  "start": 321,
+  "end": 322
+ },
+ {
+  "n": 73,
+  "title": "Throw exceptions appropriate to the abstraction",
+  "start": 323,
+  "end": 324
+ },
+ {
+  "n": 74,
+  "title": "Document all exceptions thrown by each method",
+  "start": 325,
+  "end": 326
+ },
+ {
+  "n": 75,
+  "title": "Include failure-capture information in detail messages",
+  "start": 327,
+  "end": 328
+ },
+ {
+  "n": 76,
+  "title": "Strive for failure atomicity",
+  "start": 329,
+  "end": 330
+ },
+ {
+  "n": 77,
+  "title": "Don\u2019t ignore exceptions",
+  "start": 331,
+  "end": 331
+ },
+ {
+  "n": 78,
+  "title": "Synchronize access to shared mutable data",
+  "start": 332,
+  "end": 337
+ },
+ {
+  "n": 79,
+  "title": "Avoid excessive synchronization",
+  "start": 338,
+  "end": 343
+ },
+ {
+  "n": 80,
+  "title": "Prefer executors, tasks, and streams to threads",
+  "start": 344,
+  "end": 345
+ },
+ {
+  "n": 81,
+  "title": "Prefer concurrency utilities to wait and notify",
+  "start": 346,
+  "end": 350
+ },
+ {
+  "n": 82,
+  "title": "Document thread safety",
+  "start": 351,
+  "end": 353
+ },
+ {
+  "n": 83,
+  "title": "Use lazy initialization judiciously",
+  "start": 354,
+  "end": 356
+ },
+ {
+  "n": 84,
+  "title": "Don\u2019t depend on the thread scheduler",
+  "start": 357,
+  "end": 359
+ },
+ {
+  "n": 85,
+  "title": "Prefer alternatives to Java serialization",
+  "start": 360,
+  "end": 363
+ },
+ {
+  "n": 86,
+  "title": "Implement Serializable with great caution",
+  "start": 364,
+  "end": 366
+ },
+ {
+  "n": 87,
+  "title": "Consider using a custom serialized form",
+  "start": 367,
+  "end": 373
+ },
+ {
+  "n": 88,
+  "title": "Write readObject methods defensively",
+  "start": 374,
+  "end": 379
+ },
+ {
+  "n": 89,
+  "title": "For instance control, prefer enum types to readResolve",
+  "start": 380,
+  "end": 383
+ },
+ {
+  "n": 90,
+  "title": "Consider serialization proxies instead of serialized instances",
+  "start": 384,
+  "end": 412
+ }
+]

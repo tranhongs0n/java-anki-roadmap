@@ -1,0 +1,214 @@
+{
+ "deck": "40 Effective Java::02 Creating and Destroying Objects",
+ "tags": [
+  "book::ej3e",
+  "ch::02",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Effective Java Item 1 — what can a static factory do that a constructor cannot?",
+   "back": "Return an instance of <b>any subtype</b>, and reuse a cached instance",
+   "extra": "<code>Boolean.valueOf</code> returns the shared TRUE/FALSE constants. A constructor always returns a brand-new object of exactly that class.",
+   "source": "Effective Java 3e — Item 1, p. 26",
+   "tags": [
+    "type::rule",
+    "item::01"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 1 — what is the main drawback of static factories?",
+   "back": "A class with only a private constructor cannot be <b>subclassed</b>, and the methods are hard to find in Javadoc",
+   "extra": "Callers may not realise the factory exists. The book's fix is naming conventions: <code>of</code>, <code>from</code>, <code>valueOf</code>, <code>getInstance</code>.",
+   "source": "Effective Java 3e — Item 1, p. 27",
+   "tags": [
+    "type::rule",
+    "item::01"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 2 — when should you reach for a builder instead of constructors or setters?",
+   "back": "When the class has <b>many optional parameters</b>",
+   "extra": "Telescoping constructors become unreadable past a few options; the setter (JavaBeans) pattern leaves the object mutable during construction.",
+   "source": "Effective Java 3e — Item 2, p. 31",
+   "tags": [
+    "type::rule",
+    "item::02"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 2 — what does the JavaBeans setter pattern cost you?",
+   "back": "The object is <b>mutable and inconsistent</b> while being built, so it cannot be immutable or thread-safe",
+   "extra": "A builder keeps the built object immutable and validates once in <code>build()</code>.",
+   "source": "Effective Java 3e — Item 2, p. 32",
+   "tags": [
+    "type::rule",
+    "item::02"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 3 — which singleton implementation does Effective Java recommend?",
+   "back": "A <b>single-element enum</b> — immune to reflection and serialization attacks",
+   "extra": "The public-field and static-factory versions need extra code to survive serialization and reflection; the enum gets both for free.",
+   "source": "Effective Java 3e — Item 3, p. 39",
+   "tags": [
+    "type::rule",
+    "item::03"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 3 — what testability problem do singletons create?",
+   "back": "You cannot substitute a mock unless the singleton implements an interface",
+   "extra": "Hard-wired global state makes tests order-dependent. The book accepts singletons only for genuinely unique components.",
+   "source": "Effective Java 3e — Item 3, p. 38",
+   "tags": [
+    "type::rule",
+    "item::03"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 4 — how do you make a utility class non-instantiable?",
+   "back": "Give it a <b>private constructor</b>",
+   "extra": "The private constructor also prevents subclassing, which is exactly what you want for a class that is only a bag of static methods.",
+   "source": "Effective Java 3e — Item 4, p. 40",
+   "tags": [
+    "type::rule",
+    "item::04"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 5 — why is hard-wiring a resource in a static field or singleton a design error?",
+   "back": "The class becomes <b>inflexible and untestable</b>: the resource cannot be swapped",
+   "extra": "A spell checker bound to one dictionary cannot be tested with a stub. Dependency injection passes the resource in.",
+   "source": "Effective Java 3e — Item 5, p. 41",
+   "tags": [
+    "type::rule",
+    "item::05"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::05 Dependency Injection"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 5 — what form of dependency injection does the item recommend?",
+   "back": "Pass the resource into the <b>constructor</b>",
+   "extra": "Constructor injection makes the dependency visible in the signature and lets the field be final. A DI framework only automates the wiring.",
+   "source": "Effective Java 3e — Item 5, p. 42",
+   "tags": [
+    "type::rule",
+    "item::05"
+   ],
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::05 Dependency Injection"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 6 — why is <code>new String(\"bikini\")</code> a mistake?",
+   "back": "It creates a <b>new instance every time</b>, while the literal reuses one pooled object",
+   "extra": "In a loop it allocates millions of identical objects. The literal is shorter, faster and does the same job.",
+   "source": "Effective Java 3e — Item 6, p. 43",
+   "tags": [
+    "type::rule",
+    "item::06"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 6 — when is avoiding object creation the wrong optimisation?",
+   "back": "When it means hand-rolling a cache or pool for cheap objects",
+   "extra": "Caching costs memory and can leak. Modern JVMs allocate cheaply; the win is avoiding genuinely expensive work.",
+   "source": "Effective Java 3e — Item 6, p. 46",
+   "tags": [
+    "type::rule",
+    "item::06"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 7 — what causes the memory leak in the array-backed Stack?",
+   "back": "<code>pop()</code> shrinks the size but leaves the <b>stale reference</b> in the array",
+   "extra": "The element stays reachable while the array lives. Fix: <code>elements[--size] = null;</code> after reading the value.",
+   "source": "Effective Java 3e — Item 7, p. 47",
+   "tags": [
+    "type::rule",
+    "item::07"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 7 — when do you actually need to null out references?",
+   "back": "When the class manages its own memory — arrays used as caches, registries, listener lists",
+   "extra": "A variable going out of scope drops its own reference. Nulling everywhere else is noise.",
+   "source": "Effective Java 3e — Item 7, p. 49",
+   "tags": [
+    "type::rule",
+    "item::07"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 8 — why should you avoid finalizers and cleaners?",
+   "back": "They are <b>unpredictable and slow</b>: no guarantee they ever run, and they can resurrect objects",
+   "extra": "They are not C++ destructors. Java's GC already reclaims memory; a finalizer may run minutes later or never.",
+   "source": "Effective Java 3e — Item 8, p. 50",
+   "tags": [
+    "type::rule",
+    "item::08"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 8 — what should replace finalizers for releasing resources?",
+   "back": "An explicit <code>close()</code> method (AutoCloseable), used with try-with-resources",
+   "extra": "Explicit close puts cleanup at a known point in the program instead of in the collector's hands.",
+   "source": "Effective Java 3e — Item 8, p. 52",
+   "tags": [
+    "type::rule",
+    "item::08"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 9 — why is try-with-resources better than try-finally?",
+   "back": "It closes <b>every</b> resource automatically and keeps the primary exception",
+   "extra": "Two resources mean nested try-finally blocks that lose the second exception; try-with-resources attaches it as suppressed.",
+   "source": "Effective Java 3e — Item 9, p. 55",
+   "tags": [
+    "type::rule",
+    "item::09"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 9 — what must a resource implement to be used in try-with-resources?",
+   "back": "<code>AutoCloseable</code> — or its subinterface <code>Closeable</code>",
+   "extra": "Any type whose <code>close()</code> can throw works, which is why streams and JDBC connections support it.",
+   "source": "Effective Java 3e — Item 9, p. 56",
+   "tags": [
+    "type::rule",
+    "item::09"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  }
+ ]
+}

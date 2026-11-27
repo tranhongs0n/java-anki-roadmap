@@ -1,0 +1,226 @@
+{
+ "deck": "40 Effective Java::09-10 General Programming and Exceptions",
+ "tags": [
+  "book::ej3e",
+  "ch::09-10",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Effective Java Item 57 — what is the rule for local variable scope?",
+   "back": "Declare each variable where it is first used, and keep its scope minimal",
+   "extra": "A variable declared at the top lives too long — it can be misused after the block that needed it, and the reader has to hold it in mind for no reason.",
+   "source": "Effective Java 3e — Item 57, p. 307",
+   "tags": [
+    "type::rule",
+    "item::57"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 58 — why prefer for-each to an indexed or iterator loop?",
+   "back": "It hides the index/iterator, so there is no off-by-one and no <code>ConcurrentModificationException</code> from misuse",
+   "extra": "The book: if you need the index or to remove, use a plain loop deliberately — not by default.",
+   "source": "Effective Java 3e — Item 58, p. 309",
+   "tags": [
+    "type::rule",
+    "item::58"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 59 — what should you do before writing a utility method?",
+   "back": "Check whether the libraries already have it — and use theirs",
+   "extra": "The book's example: <code>Math.abs(rnd.nextInt()) % n</code> is biased and can return negative values; <code>Random.nextInt(n)</code> is correct. Library code is tested and improves over time.",
+   "source": "Effective Java 3e — Item 59, p. 288",
+   "tags": [
+    "type::rule",
+    "item::59"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 60 — why are float and double unsuitable for money?",
+   "back": "They cannot represent decimal fractions exactly — 0.1 has no finite binary form",
+   "extra": "Use <code>BigDecimal</code>, <code>int</code> cents or <code>long</code> for exact values. Binary floating point is for measurement, not accounting.",
+   "source": "Effective Java 3e — Item 60, p. 292",
+   "tags": [
+    "type::rule",
+    "item::60"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 61 — what are the three problems with boxed primitives?",
+   "back": "Identity comparisons are unreliable, unboxing null throws, and they cost memory and time",
+   "extra": "<code>Integer a = 1000, b = 1000; a == b</code> is false. Primitives have none of these traps.",
+   "source": "Effective Java 3e — Item 61, p. 294",
+   "tags": [
+    "type::rule",
+    "item::61"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 62 — when is a String the wrong type?",
+   "back": "For values with their own type — numbers, enums, aggregates, booleans",
+   "extra": "Parsing happens at every use, validation is lost, and the compiler cannot help. A String for a phone number is a String for every future bug.",
+   "source": "Effective Java 3e — Item 62, p. 297",
+   "tags": [
+    "type::rule",
+    "item::62"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 63 — what does the compiler actually do with <code>+</code> in a loop?",
+   "back": "Builds a StringBuilder per iteration (or creates a new String each time) — quadratic cost",
+   "extra": "Hoist one StringBuilder outside the loop, or use <code>String.join</code>. The operator is fine for a single expression, not for accumulation.",
+   "source": "Effective Java 3e — Item 63, p. 300",
+   "tags": [
+    "type::rule",
+    "item::63"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 64 — what type should variables, parameters and return types use?",
+   "back": "The most general <b>interface</b> that serves the purpose — <code>List</code>, not <code>ArrayList</code>",
+   "extra": "Only the constructor needs the concrete class. Declaring the interface keeps the implementation swappable.",
+   "source": "Effective Java 3e — Item 64, p. 301",
+   "tags": [
+    "type::rule",
+    "item::64"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 65 — why prefer interfaces to reflection?",
+   "back": "Reflection loses compile-time checking, is verbose, and is slower — mistakes become runtime errors",
+   "extra": "Use reflection only where the class cannot be known at compile time (frameworks, plugins), and keep it out of hot paths.",
+   "source": "Effective Java 3e — Item 65, p. 303",
+   "tags": [
+    "type::rule",
+    "item::65"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 66 — when are native methods justified?",
+   "back": "Almost never — only for platform-specific facilities or legacy libraries not yet ported",
+   "extra": "JNI is unsafe, unportable and hard to debug. The book advises against it for performance.",
+   "source": "Effective Java 3e — Item 66, p. 306",
+   "tags": [
+    "type::rule",
+    "item::66"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 67 — what is the first rule of optimisation?",
+   "back": "Don't do it — measure first, and design clean code before tuning",
+   "extra": "Knuth's line opens the item. Optimising without measurement moves complexity into the wrong place.",
+   "source": "Effective Java 3e — Item 67, p. 307",
+   "tags": [
+    "type::rule",
+    "item::67"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 68 — why follow naming conventions?",
+   "back": "They encode meaning: <code>getX</code> is a getter, <code>isX</code> returns boolean, <code>MAX_SIZE</code> is a constant",
+   "extra": "Consistency lets readers infer behaviour from the name. Violating it is a permanent tax on everyone who reads the code.",
+   "source": "Effective Java 3e — Item 68, p. 310",
+   "tags": [
+    "type::rule",
+    "item::68"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 69 — why should exceptions not drive normal control flow?",
+   "back": "They are slow, obscure the happy path, and can leave state half-updated",
+   "extra": "Use them for genuinely exceptional conditions. A loop that ends by throwing is a loop with the wrong exit condition.",
+   "source": "Effective Java 3e — Item 69, p. 314",
+   "tags": [
+    "type::rule",
+    "item::69"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 70 — when should an exception be checked and when unchecked?",
+   "back": "Checked for conditions the caller can recover from; unchecked (RuntimeException) for programming errors",
+   "extra": "A missing file is recoverable; a null argument is a bug. Getting this backwards makes APIs either noisy or unsafe.",
+   "source": "Effective Java 3e — Item 70, p. 317",
+   "tags": [
+    "type::rule",
+    "item::70"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 71 — what is the cost of an unnecessary checked exception?",
+   "back": "Every caller must catch or declare it, even when they can do nothing about it",
+   "extra": "The book: if there is a reasonable way to prevent the condition, don't make it checked — return a value or throw unchecked.",
+   "source": "Effective Java 3e — Item 71, p. 319",
+   "tags": [
+    "type::rule",
+    "item::71"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 72 — why reuse standard exceptions?",
+   "back": "Callers already know them, and the API stays consistent with the platform",
+   "extra": "<code>IllegalArgumentException</code>, <code>IllegalStateException</code>, <code>NullPointerException</code>, <code>IndexOutOfBoundsException</code>, <code>UnsupportedOperationException</code>.",
+   "source": "Effective Java 3e — Item 72, p. 321",
+   "tags": [
+    "type::rule",
+    "item::72"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 73 — what is exception translation?",
+   "back": "Catching a lower-level exception and throwing one expressed in your abstraction's terms",
+   "extra": "Leaking <code>SQLException</code> from a repository exposes implementation detail. Translate, and chain the cause so the original is not lost.",
+   "source": "Effective Java 3e — Item 73, p. 323",
+   "tags": [
+    "type::rule",
+    "item::73"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 74 — how should you document exceptions?",
+   "back": "Declare each checked exception individually and describe the conditions with <code>@throws</code>",
+   "extra": "Declaring a superclass hides which failures are possible. The doc comment is the contract callers program against.",
+   "source": "Effective Java 3e — Item 74, p. 325",
+   "tags": [
+    "type::rule",
+    "item::74"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  }
+ ]
+}

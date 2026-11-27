@@ -1,0 +1,190 @@
+{
+ "deck": "40 Effective Java::07-08 Lambdas and Methods",
+ "tags": [
+  "book::ej3e",
+  "ch::07-08",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Effective Java Item 42 — why prefer a lambda to an anonymous class?",
+   "back": "It says the same thing in far less code, and the compiler reads the target type from context",
+   "extra": "An anonymous class repeats the interface name, the method signature and the braces. A lambda keeps only the body — same semantics, less noise.",
+   "source": "Effective Java 3e — Item 42, p. 218",
+   "tags": [
+    "type::rule",
+    "item::42"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 43 — when is a method reference better than a lambda?",
+   "back": "When the lambda only calls an existing method — <code>String::length</code> instead of <code>s -&gt; s.length()</code>",
+   "extra": "Short and named. Use a lambda when you need to pass arguments or do anything beyond forwarding.",
+   "source": "Effective Java 3e — Item 43, p. 219",
+   "tags": [
+    "type::rule",
+    "item::43"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 44 — what should you use instead of defining your own functional interface?",
+   "back": "One of the 43 in <code>java.util.function</code> — <code>Function</code>, <code>Predicate</code>, <code>Supplier</code>, <code>Consumer</code>, …",
+   "extra": "Standard interfaces give you default methods (<code>andThen</code>, <code>compose</code>) and interoperability. Write your own only when the contract differs meaningfully.",
+   "source": "Effective Java 3e — Item 44, p. 222",
+   "tags": [
+    "type::rule",
+    "item::44"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 45 — what is the risk of rewriting every loop as a stream?",
+   "back": "Streams are a paradigm, not just an API — forcing them into everything makes code harder to read and can be slower",
+   "extra": "The book's advice: use streams where they express the computation, loops where they do not, and measure rather than assume.",
+   "source": "Effective Java 3e — Item 45, p. 224",
+   "tags": [
+    "type::rule",
+    "item::45"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 46 — why must functions passed to streams be side-effect-free?",
+   "back": "The stream may reorder, parallelise or skip work; side effects make results depend on execution order",
+   "extra": "Accumulating into an external list with <code>forEach</code> is the classic mistake. Use <code>collect</code> and let the collector do it.",
+   "source": "Effective Java 3e — Item 46, p. 231",
+   "tags": [
+    "type::rule",
+    "item::46"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 47 — what should a method return when it produces a sequence?",
+   "back": "A <code>Collection</code> where possible — it is iterable and offers the Collection API",
+   "extra": "Returning Stream forces callers to adapt; returning Collection gives both. Only return a Stream when laziness or infinite size matters.",
+   "source": "Effective Java 3e — Item 47, p. 237",
+   "tags": [
+    "type::rule",
+    "item::47"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 48 — when is a parallel stream a bad idea?",
+   "back": "With blocking I/O, small data, ordered results, or shared mutable state",
+   "extra": "Parallelism only pays for CPU-bound, independent, easily splittable work. Otherwise it adds overhead and bugs — and the common ForkJoinPool is shared with everything else.",
+   "source": "Effective Java 3e — Item 48, p. 243",
+   "tags": [
+    "type::rule",
+    "item::48"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 49 — what should a method do with an invalid argument?",
+   "back": "<b>Fail fast</b>: validate at the start and throw an unchecked exception such as <code>IllegalArgumentException</code>",
+   "extra": "Catching it early produces a clear stack trace at the call site instead of an obscure failure later inside the method.",
+   "source": "Effective Java 3e — Item 49, p. 248",
+   "tags": [
+    "type::rule",
+    "item::49"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 50 — what is a defensive copy and when is it required?",
+   "back": "Copying a mutable object on the way in and out so callers cannot change your state",
+   "extra": "A <code>Date</code> passed to a constructor and stored directly lets the caller mutate your field afterwards. Copy if the class promises immutability.",
+   "source": "Effective Java 3e — Item 50, p. 252",
+   "tags": [
+    "type::rule",
+    "item::50"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 51 — what is wrong with a method that takes a boolean parameter?",
+   "back": "The call site reads <code>foo(true)</code> with no idea what true means",
+   "extra": "Prefer an enum or two well-named methods. The same applies to long parameter lists: split into a builder or an object.",
+   "source": "Effective Java 3e — Item 51, p. 257",
+   "tags": [
+    "type::rule",
+    "item::51"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 52 — why is overloading dangerous when the overloads take different subtypes?",
+   "back": "Overload selection happens at <b>compile time</b>, based on the static type",
+   "extra": "Passing a <code>Set</code> into <code>classify(Set)</code>/<code>classify(List)</code> can pick a different method than you expect. The book's advice: avoid ambiguous overload sets.",
+   "source": "Effective Java 3e — Item 52, p. 259",
+   "tags": [
+    "type::rule",
+    "item::52"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 53 — what does a varargs method cost at the call site?",
+   "back": "An <b>array allocation</b> per call, even for zero arguments",
+   "extra": "Use varargs for genuinely variable argument counts. When you need at least one, take one ordinary parameter before the varargs.",
+   "source": "Effective Java 3e — Item 53, p. 266",
+   "tags": [
+    "type::rule",
+    "item::53"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 54 — why return an empty collection instead of null?",
+   "back": "Every caller would otherwise need a null check; an empty collection iterates and behaves normally",
+   "extra": "Returning null pushes a bug into every call site. Return <code>Collections.emptyList()</code> instead.",
+   "source": "Effective Java 3e — Item 54, p. 268",
+   "tags": [
+    "type::rule",
+    "item::54"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 55 — when should a method return <code>Optional</code>?",
+   "back": "When it may legitimately have no result and the caller must decide what to do",
+   "extra": "Never return null for an Optional, never use it for collections, and do not wrap primitives — OptionalInt exists for that.",
+   "source": "Effective Java 3e — Item 55, p. 270",
+   "tags": [
+    "type::rule",
+    "item::55"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 56 — what must every exposed API element have?",
+   "back": "A <b>doc comment</b> stating the contract: what it does, preconditions and postconditions, plus @param/@return/@throws",
+   "extra": "The doc comment is the contract; the code is one implementation of it. Undocumented public API is unfinished API.",
+   "source": "Effective Java 3e — Item 56, p. 275",
+   "tags": [
+    "type::rule",
+    "item::56"
+   ],
+   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc"
+  }
+ ]
+}

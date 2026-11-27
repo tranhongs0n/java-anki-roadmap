@@ -1,0 +1,238 @@
+{
+ "deck": "40 Effective Java::05-06 Generics and Enums",
+ "tags": [
+  "book::ej3e",
+  "ch::05-06",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Effective Java Item 26 — what is a raw type and why avoid it?",
+   "back": "A generic type used without type arguments (<code>List</code>) — it switches off type checking",
+   "extra": "Raw types exist for pre-Java-5 code. Use <code>List&lt;Object&gt;</code> when you mean any element type; the raw form only loses safety.",
+   "source": "Effective Java 3e — Item 26, p. 144",
+   "tags": [
+    "type::rule",
+    "item::26"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 26 — what is the difference between <code>List</code>, <code>List&lt;Object&gt;</code> and <code>List&lt;?&gt;</code>?",
+   "back": "Raw loses checking; <code>List&lt;Object&gt;</code> accepts any element; <code>List&lt;?&gt;</code> accepts any list but lets you add nothing",
+   "extra": "Only the wildcard version can accept a <code>List&lt;String&gt;</code>. That distinction is why <?> is the type for \"some list\".",
+   "source": "Effective Java 3e — Item 26, p. 144",
+   "tags": [
+    "type::rule",
+    "item::26"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 27 — why must you not ignore unchecked warnings?",
+   "back": "Each one is a potential <code>ClassCastException</code> at runtime",
+   "extra": "The compiler is telling you it could not verify a cast. Eliminate the warning, or suppress it at the smallest scope with a comment saying why it is safe.",
+   "source": "Effective Java 3e — Item 27, p. 146",
+   "tags": [
+    "type::rule",
+    "item::27"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 28 — how do arrays and generics differ on subtyping?",
+   "back": "Arrays are <b>covariant</b> (<code>String[]</code> is an <code>Object[]</code>); generics are <b>invariant</b> (<code>List&lt;String&gt;</code> is not a <code>List&lt;Object&gt;</code>)",
+   "extra": "Array covariance is why <code>Object[] x = new String[1]; x[0] = 1;</code> compiles and then throws at runtime. Generics refuse it at compile time.",
+   "source": "Effective Java 3e — Item 28, p. 147",
+   "tags": [
+    "type::rule",
+    "item::28"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 28 — why can you not create a generic array?",
+   "back": "Generics are erased, arrays are reified — the runtime knows the array's component type and would reject the mismatch",
+   "extra": "So <code>new List&lt;String&gt;[1]</code> is illegal, and mixing the two produces unchecked warnings. Prefer lists to arrays in generic code.",
+   "source": "Effective Java 3e — Item 28, p. 150",
+   "tags": [
+    "type::rule",
+    "item::28"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 29 — what does favouring generic types mean in practice?",
+   "back": "Parameterise your own classes instead of storing <code>Object</code>",
+   "extra": "A <code>Stack</code> holding Object needs a cast on every pop; <code>Stack&lt;E&gt;</code> moves that check to compile time.",
+   "source": "Effective Java 3e — Item 29, p. 151",
+   "tags": [
+    "type::rule",
+    "item::29"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 30 — what is a generic method?",
+   "back": "A method that declares its own type parameters, e.g. <code>static &lt;E&gt; Set&lt;E&gt; union(Set&lt;E&gt; a, Set&lt;E&gt; b)</code>",
+   "extra": "Static utility methods usually cannot use the class's type parameter, so they declare their own. The type is inferred at the call site.",
+   "source": "Effective Java 3e — Item 30, p. 156",
+   "tags": [
+    "type::rule",
+    "item::30"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 31 — what do bounded wildcards buy you?",
+   "back": "API flexibility: <code>List&lt;? extends Number&gt;</code> accepts <code>List&lt;Integer&gt;</code> and <code>List&lt;Double&gt;</code>",
+   "extra": "Without the wildcard, one method would need one overload per element type. This is the PECS rule's 'producer extends' half.",
+   "source": "Effective Java 3e — Item 31, p. 160",
+   "tags": [
+    "type::rule",
+    "item::31"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 31 — what is the PECS rule?",
+   "back": "<b>P</b>roducer <b>e</b>xtends, <b>C</b>onsumer <b>s</b>uper",
+   "extra": "A parameter that only reads from the collection uses <code>? extends T</code>; one that only writes uses <code>? super T</code>. Both at once means no wildcard.",
+   "source": "Effective Java 3e — Item 31, p. 161",
+   "tags": [
+    "type::rule",
+    "item::31"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 32 — what is heap pollution with generic varargs?",
+   "back": "A varargs parameter is really an array, so a call can put the wrong type into it",
+   "extra": "<code>@SafeVarargs</code> is the promise that the method does not store into the array. Do not mix varargs and generics casually.",
+   "source": "Effective Java 3e — Item 32, p. 167",
+   "tags": [
+    "type::rule",
+    "item::32"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 33 — what is a typesafe heterogeneous container?",
+   "back": "A map keyed by <code>Class&lt;T&gt;</code>, where each key checks the value's type at insert and cast at get",
+   "extra": "<code>Map&lt;Class&lt;?&gt;, Object&gt;</code> plus casts inside <code>put/get</code> gives one container that holds many unrelated types safely.",
+   "source": "Effective Java 3e — Item 33, p. 172",
+   "tags": [
+    "type::rule",
+    "item::33"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 34 — why use an enum instead of int constants?",
+   "back": "Type safety, printable names, and the ability to iterate over all values",
+   "extra": "int constants are unchecked: any int is accepted, and a wrong one fails silently. An enum makes the set closed and self-describing.",
+   "source": "Effective Java 3e — Item 34, p. 178",
+   "tags": [
+    "type::rule",
+    "item::34"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 35 — why is <code>ordinal()</code> a bad source of an associated value?",
+   "back": "Reordering or inserting constants silently changes every derived number",
+   "extra": "Store the value in an instance field, set through a constructor. The ordinal is for internal use, never for persisted or computed data.",
+   "source": "Effective Java 3e — Item 35, p. 189",
+   "tags": [
+    "type::rule",
+    "item::35"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 36 — what replaces a bit-field set of constants?",
+   "back": "<code>EnumSet</code>",
+   "extra": "It is as compact as a bit vector, type-safe, and iterates in declaration order. The book calls the bit-field idiom obsolete.",
+   "source": "Effective Java 3e — Item 36, p. 190",
+   "tags": [
+    "type::rule",
+    "item::36"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 37 — what replaces indexing an array by <code>ordinal()</code>?",
+   "back": "<code>EnumMap</code> — a map keyed by the enum constant",
+   "extra": "You get type safety and no dependency on declaration order, with array-like speed.",
+   "source": "Effective Java 3e — Item 37, p. 192",
+   "tags": [
+    "type::rule",
+    "item::37"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 38 — how do you emulate an extensible enum?",
+   "back": "Define an interface and have each \"extension\" enum implement it",
+   "extra": "Enums cannot be extended by design. The interface gives callers a common type while each enum stays closed.",
+   "source": "Effective Java 3e — Item 38, p. 197",
+   "tags": [
+    "type::rule",
+    "item::38"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 39 — what is wrong with the JUnit-3 style naming convention for tests?",
+   "back": "A typo silently skips the test — no compile error, no failure",
+   "extra": "Naming patterns are checked by nothing. Annotations (<code>@Test</code>) make the tool's expectations explicit and verified by the compiler.",
+   "source": "Effective Java 3e — Item 39, p. 201",
+   "tags": [
+    "type::rule",
+    "item::39"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 40 — what bug does <code>@Override</code> catch?",
+   "back": "A method that looks like an override but has a different signature, so it silently becomes a new method",
+   "extra": "The book's Bigram example: <code>equals(Bigram)</code> instead of <code>equals(Object)</code> compiles and never runs. @Override turns it into an error.",
+   "source": "Effective Java 3e — Item 40, p. 209",
+   "tags": [
+    "type::rule",
+    "item::40"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 41 — when is a marker interface better than a marker annotation?",
+   "back": "When the marker should define a <b>type</b> — it can then be used in method signatures and checked at compile time",
+   "extra": "<code>Serializable</code> is a type; an annotation is metadata. The book's rule: use an interface if you need to write code against the property.",
+   "source": "Effective Java 3e — Item 41, p. 212",
+   "tags": [
+    "type::rule",
+    "item::41"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  }
+ ]
+}

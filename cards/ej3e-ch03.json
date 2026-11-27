@@ -1,0 +1,298 @@
+{
+ "deck": "40 Effective Java::03 Methods and Classes",
+ "tags": [
+  "book::ej3e",
+  "ch::03-04",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Effective Java Item 10 — which property of the equals contract is most often violated?",
+   "back": "<b>Symmetry</b> — <code>a.equals(b)</code> must agree with <code>b.equals(a)</code>",
+   "extra": "A subclass that adds a field and compares it breaks symmetry against the base class. The book's example is a Point and a case-insensitive String.",
+   "source": "Effective Java 3e — Item 10, p. 58",
+   "tags": [
+    "type::rule",
+    "item::10"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 10 — when should you <b>not</b> override equals?",
+   "back": "When identity is the right meaning — each instance is inherently unique, or you never need value comparison",
+   "extra": "Overriding equals forces you into hashCode, immutability and symmetry questions. If value equality is not needed, leave the inherited identity version.",
+   "source": "Effective Java 3e — Item 10, p. 60",
+   "tags": [
+    "type::rule",
+    "item::10"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 10 — what must <code>x.equals(null)</code> return?",
+   "back": "<code>false</code>, never an exception",
+   "extra": "The contract requires it. A correct implementation checks <code>instanceof</code> first, which is null-safe and handles the type test in one step.",
+   "source": "Effective Java 3e — Item 10, p. 65",
+   "tags": [
+    "type::rule",
+    "item::10"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 11 — what breaks if you override equals but not hashCode?",
+   "back": "<code>HashMap</code> and <code>HashSet</code> — equal objects land in different buckets, so lookups fail",
+   "extra": "The contract: equal objects must have equal hash codes. The reverse is not required, and collisions are expected.",
+   "source": "Effective Java 3e — Item 11, p. 71",
+   "tags": [
+    "type::rule",
+    "item::11"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 11 — how do you write a correct hashCode?",
+   "back": "Start from a constant, combine each significant field's hash, and let the result overflow naturally",
+   "extra": "Modern answer: <code>Objects.hash(...)</code> or an IDE-generated version; the point is that every field used in equals must contribute.",
+   "source": "Effective Java 3e — Item 11, p. 72",
+   "tags": [
+    "type::rule",
+    "item::11"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 12 — what is wrong with the default toString?",
+   "back": "It prints <code>ClassName@1b6d3586</code> — useless in logs, IDE debuggers and error messages",
+   "extra": "The contract asks for a concise but informative representation. Overriding it makes failures readable.",
+   "source": "Effective Java 3e — Item 12, p. 76",
+   "tags": [
+    "type::rule",
+    "item::12"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 13 — why does Effective Java call Cloneable broken?",
+   "back": "It has no <code>clone</code> method, and Object's clone is protected — so implementing it may still leave you unable to call it",
+   "extra": "The book's advice: prefer a copy constructor or copy factory. Implement clone only if you must, and then deep-copy mutable fields.",
+   "source": "Effective Java 3e — Item 13, p. 79",
+   "tags": [
+    "type::rule",
+    "item::13"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 14 — what does implementing Comparable declare?",
+   "back": "That instances have a <b>natural ordering</b>",
+   "extra": "It enables <code>Arrays.sort</code>, <code>TreeSet</code>, <code>TreeMap</code> and max/min without a Comparator.",
+   "source": "Effective Java 3e — Item 14, p. 87",
+   "tags": [
+    "type::rule",
+    "item::14"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 14 — what is the usual bug in a compareTo implementation?",
+   "back": "Using <code>&lt;</code> or subtraction — overflow and wrong sign for negatives",
+   "extra": "Return negative, zero or positive. <code>Integer.compare</code> does it correctly; subtraction overflows.",
+   "source": "Effective Java 3e — Item 14, p. 89",
+   "tags": [
+    "type::rule",
+    "item::14"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 15 — what does Effective Java call the single most important factor in component quality?",
+   "back": "<b>Minimising accessibility</b> — every public member is a commitment",
+   "extra": "Start private and widen only with reason: private → package → protected → public. Each step exposes more of your design.",
+   "source": "Effective Java 3e — Item 15, p. 94",
+   "tags": [
+    "type::rule",
+    "item::15"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 15 — what is wrong with a public static final array field?",
+   "back": "It is mutable — clients can write into it",
+   "extra": "Arrays are always mutable, so a public static final array is a back door into your state. Return a defensive copy, or use <code>List.of</code>.",
+   "source": "Effective Java 3e — Item 15, p. 96",
+   "tags": [
+    "type::rule",
+    "item::15"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 16 — why prefer accessor methods to public fields in a public class?",
+   "back": "You cannot change the representation, enforce invariants, or take action on access",
+   "extra": "Once a field is public it is part of the API. Accessors keep the storage private and leave room to change it.",
+   "source": "Effective Java 3e — Item 16, p. 99",
+   "tags": [
+    "type::rule",
+    "item::16"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 17 — what are the five rules for making a class immutable?",
+   "back": "No mutators; the class is final; all fields final and private; no mutable component escapes; defensive copies on the way in",
+   "extra": "Immutable instances are thread-safe by construction and can be shared freely.",
+   "source": "Effective Java 3e — Item 17, p. 101",
+   "tags": [
+    "type::rule",
+    "item::17"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 18 — why does inheritance from a concrete, non-final class lead to fragile software?",
+   "back": "The subclass depends on the superclass's <b>implementation details</b>, which may change in a later release",
+   "extra": "The book's example: extending HashSet to count additions breaks when a future version adds an internal call to <code>add</code>.",
+   "source": "Effective Java 3e — Item 18, p. 108",
+   "tags": [
+    "type::rule",
+    "item::18"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 18 — what is the fix for that fragility?",
+   "back": "<b>Composition</b>: wrap the class and forward the calls you choose to expose",
+   "extra": "A wrapper does not depend on internals, and its API is yours. It is the decorator pattern applied to reuse.",
+   "source": "Effective Java 3e — Item 18, p. 110",
+   "tags": [
+    "type::rule",
+    "item::18"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 19 — what must a class that is designed for inheritance document?",
+   "back": "Its <b>self-use of overridable methods</b> — which methods call which, so subclasses know the consequences",
+   "extra": "Without that contract, subclasses override something innocuous and break invariants. The alternative is to forbid subclassing.",
+   "source": "Effective Java 3e — Item 19, p. 114",
+   "tags": [
+    "type::rule",
+    "item::19"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 19 — why must a constructor never call an overridable method?",
+   "back": "The override runs before the subclass's fields are initialised",
+   "extra": "Late binding applies during construction, so the override sees null/0. The book calls this a direct route to obscure failures.",
+   "source": "Effective Java 3e — Item 19, p. 117",
+   "tags": [
+    "type::rule",
+    "item::19"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 20 — why prefer an interface to an abstract class for defining a type?",
+   "back": "A class can implement <b>many interfaces</b> but extend only one class",
+   "extra": "Interfaces also let an existing class be retrofitted by implementing the interface, with no new superclass.",
+   "source": "Effective Java 3e — Item 20, p. 120",
+   "tags": [
+    "type::rule",
+    "item::20"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 20 — what is a skeletal implementation class for?",
+   "back": "To give implementors the convenience of an abstract class while the type stays an interface",
+   "extra": "AbstractCollection is the pattern: the interface defines the type, the skeletal class carries the boilerplate.",
+   "source": "Effective Java 3e — Item 20, p. 122",
+   "tags": [
+    "type::rule",
+    "item::20"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 21 — why is adding a method to a published interface dangerous, even with default methods?",
+   "back": "Existing implementations may inherit a default that does not hold their invariants",
+   "extra": "A default is a silent behaviour change. The book's advice: design interfaces for posterity and keep them small.",
+   "source": "Effective Java 3e — Item 21, p. 125",
+   "tags": [
+    "type::rule",
+    "item::21"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 22 — what is a constant interface and why is it wrong?",
+   "back": "An interface that only declares constants, so implementors can use them unqualified",
+   "extra": "It exposes implementation detail as API and pollutes the class's type hierarchy. Use an enum or a non-instantiable utility class.",
+   "source": "Effective Java 3e — Item 22, p. 128",
+   "tags": [
+    "type::rule",
+    "item::22"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 23 — why prefer a class hierarchy to a tagged class?",
+   "back": "A tag field means the object's behaviour depends on a field, so the type system cannot check it",
+   "extra": "Subclasses give per-flavour behaviour, compile-time checking and room to grow.",
+   "source": "Effective Java 3e — Item 23, p. 130",
+   "tags": [
+    "type::rule",
+    "item::23"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 24 — why prefer static member classes to nonstatic ones?",
+   "back": "A nonstatic inner class keeps a <b>hidden reference to its outer instance</b>",
+   "extra": "That reference keeps the outer object alive, which is a classic leak when inner objects are handed out. Use static unless you need the outer instance.",
+   "source": "Effective Java 3e — Item 24, p. 133",
+   "tags": [
+    "type::rule",
+    "item::24"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 25 — why put one top-level class per source file?",
+   "back": "Multiple top-level classes in one file can provide <b>multiple definitions</b>, and which one is used depends on the classpath",
+   "extra": "Nothing is gained and compilation order can silently decide behaviour. One file, one top-level type.",
+   "source": "Effective Java 3e — Item 25, p. 136",
+   "tags": [
+    "type::rule",
+    "item::25"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  }
+ ]
+}

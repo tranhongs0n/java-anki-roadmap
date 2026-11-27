@@ -1,0 +1,202 @@
+{
+ "deck": "40 Effective Java::11-12 Concurrency and Serialization",
+ "tags": [
+  "book::ej3e",
+  "ch::11-12",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Effective Java Item 75 — what should an exception's message contain?",
+   "back": "The <b>values of the parameters</b> that caused the failure",
+   "extra": "The message is often all an engineer has: a stack trace plus \"index 12\" is diagnosable, \"invalid index\" is not.",
+   "source": "Effective Java 3e — Item 75, p. 327",
+   "tags": [
+    "type::rule",
+    "item::75"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 76 — what is failure atomicity?",
+   "back": "A failed method leaves the object in the state it had before the call",
+   "extra": "Achieved by validating first, computing before mutating, or working on a copy. Half-applied updates are the worst kind of bug.",
+   "source": "Effective Java 3e — Item 76, p. 328",
+   "tags": [
+    "type::rule",
+    "item::76"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 77 — what does an empty catch block tell the reader?",
+   "back": "That the author did not think about the failure — and it hides real errors",
+   "extra": "If you cannot handle it, let it propagate. If you ignore it deliberately, log it and comment why.",
+   "source": "Effective Java 3e — Item 77, p. 330",
+   "tags": [
+    "type::rule",
+    "item::77"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 78 — what makes a field safely shared between threads?",
+   "back": "Synchronization (or <code>volatile</code>) on <b>every</b> read and write of the shared mutable state",
+   "extra": "Without it, threads may see stale values forever. The book's example is a flag that a compiler happily hoists out of the loop.",
+   "source": "Effective Java 3e — Item 78, p. 332",
+   "tags": [
+    "type::rule",
+    "item::78"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 79 — why should you avoid calling alien methods inside a synchronized block?",
+   "back": "You lose control of how long the lock is held, which invites deadlock and stalls",
+   "extra": "Do the minimum inside the lock: read the state, release, then call out. The book calls this open calls.",
+   "source": "Effective Java 3e — Item 79, p. 338",
+   "tags": [
+    "type::rule",
+    "item::79"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 80 — what replaced raw threads in modern Java?",
+   "back": "Executors and tasks (<code>ExecutorService</code>, <code>Runnable</code>/<code>Callable</code>), with streams and ForkJoin for data parallelism",
+   "extra": "A Thread is a scheduling primitive; an executor handles pooling, shutdown and error propagation.",
+   "source": "Effective Java 3e — Item 80, p. 344",
+   "tags": [
+    "type::rule",
+    "item::80"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 81 — why prefer <code>java.util.concurrent</code> to wait/notify?",
+   "back": "It gives you the correct patterns pre-built: BlockingQueue, CountDownLatch, ConcurrentHashMap, locks with conditions",
+   "extra": "Hand-written wait/notify loops are where most concurrency bugs live.",
+   "source": "Effective Java 3e — Item 81, p. 346",
+   "tags": [
+    "type::rule",
+    "item::81"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 82 — why must you document thread safety?",
+   "back": "Callers otherwise guess, and a wrong guess means too little or too much synchronization",
+   "extra": "State it explicitly: immutable, thread-safe, conditionally thread-safe, or not thread-safe. Synchronization is part of the contract.",
+   "source": "Effective Java 3e — Item 82, p. 351",
+   "tags": [
+    "type::rule",
+    "item::82"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 83 — when is lazy initialization worth it?",
+   "back": "Only when the value is expensive and may never be used — and then use the holder class idiom for statics",
+   "extra": "It adds synchronization complexity and a race if done carelessly. The double-checked idiom needs a volatile field to be correct.",
+   "source": "Effective Java 3e — Item 83, p. 354",
+   "tags": [
+    "type::rule",
+    "item::83"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 84 — why must you never rely on the thread scheduler?",
+   "back": "Its policy is unspecified and varies by platform — correctness would become non-portable",
+   "extra": "Do not use <code>Thread.yield</code> or priorities for correctness. Write code that is correct regardless of scheduling.",
+   "source": "Effective Java 3e — Item 84, p. 357",
+   "tags": [
+    "type::rule",
+    "item::84"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 85 — why prefer alternatives to Java serialization?",
+   "back": "It is a large attack surface and a long-term compatibility burden; JSON or a schema-based format is safer",
+   "extra": "Serialization bypasses constructors, so an attacker can craft an object that violates every invariant.",
+   "source": "Effective Java 3e — Item 85, p. 360",
+   "tags": [
+    "type::rule",
+    "item::85"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 86 — what does implementing <code>Serializable</code> cost you?",
+   "back": "The class's <b>private fields become part of the API</b>, forever, and the constructor is bypassed",
+   "extra": "It also exposes you to bugs and security holes. The book: do it deliberately, with a documented serial version UID.",
+   "source": "Effective Java 3e — Item 86, p. 364",
+   "tags": [
+    "type::rule",
+    "item::86"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 87 — when is the default serialized form a bad choice?",
+   "back": "When it freezes an internal representation you might want to change",
+   "extra": "Custom form (<code>writeObject</code>/<code>readObject</code>) decouples the wire format from the fields.",
+   "source": "Effective Java 3e — Item 87, p. 367",
+   "tags": [
+    "type::rule",
+    "item::87"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 88 — why must <code>readObject</code> be written defensively?",
+   "back": "Deserialization bypasses the constructor, so invariants must be re-established by hand",
+   "extra": "Treat the incoming stream as hostile: validate, defensively copy mutable fields, and check invariants before use.",
+   "source": "Effective Java 3e — Item 88, p. 374",
+   "tags": [
+    "type::rule",
+    "item::88"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 89 — for instance control across serialization, what should you use?",
+   "back": "An <b>enum</b> rather than <code>readResolve</code>",
+   "extra": "readResolve only works if you remember it and get it right; a single-element enum is immune.",
+   "source": "Effective Java 3e — Item 89, p. 380",
+   "tags": [
+    "type::rule",
+    "item::89"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Effective Java Item 90 — what is the serialization proxy pattern?",
+   "back": "Serialize a small private proxy object that reconstructs the real one in <code>readResolve</code>",
+   "extra": "It keeps the wire format separate from the implementation, and gives the deserializer a constructor to run validation through.",
+   "source": "Effective Java 3e — Item 90, p. 384",
+   "tags": [
+    "type::rule",
+    "item::90"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  }
+ ]
+}
