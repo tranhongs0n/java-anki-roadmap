@@ -22,6 +22,7 @@ import step. `build.py` remains as an offline fallback.
     lint.py             hard gate: mandatory self-contained Extra, real source, type tag
     highlight.py        Java tokeniser → span classes, cloze-safe
     build.py            offline fallback → out/Java-Roadmap.apkg
+    rehighlight.py      re-tokenise notes already in Anki (fixes monochrome code)
     decks.json          generated deck tree with per-topic resource URLs
     docs.json           scraped roadmap content (titles, summaries, 181 resources)
     probe_all.json      measured extraction results for the 160 article links
@@ -80,3 +81,20 @@ Hermes session picks it up.
 
 31 notes total, 3 note types, 3 diagrams, pushed and verified in Anki. Next: the ingester
 (§4 of the blueprint), then section 01 Foundations.
+
+## If code renders without colour
+
+Colour lives in the note type CSS, but it only applies to spans the highlighter
+emitted. A card pushed by a script that wrote raw `<code>` (instead of
+`highlight_fields(...)`) renders monochrome even though the CSS is correct.
+Backfill:
+
+```bash
+python rehighlight.py --dry-run          # count notes that would change
+python rehighlight.py                    # rewrite only the ones that change
+python rehighlight.py --deck "01 Foundations::02 Basic Syntax"
+```
+
+It is idempotent: existing spans inside `<code>` are stripped before re-tokenising.
+Notes whose code contains no keyword, type, string, number or comment (`$`, `0x`,
+`gearRatio`) stay plain on purpose — there is nothing to colour.

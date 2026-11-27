@@ -5,3 +5,5 @@ out/*.apkg
 out/pushed.json
 preview.html
 preview_body.txt
+_picked.json
+_css.txt
