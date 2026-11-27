@@ -22,7 +22,7 @@ import sys
 import anki
 from highlight import highlight_fields
 from keys import card_key
-from lint import lint_all
+from lint import batches_of, lint_all
 from models import CSS, SPECS
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -30,25 +30,26 @@ CARDS_DIR = os.path.join(BASE, "cards")
 MEDIA_DIR = os.path.join(BASE, "media")
 LEDGER = os.path.join(BASE, "out", "pushed.json")
 
+KINDS = {"basic", "cloze", "visual"}   # anything else (compare, rule, table…) is a basic card
 TEMPLATE_OF = {"basic": "JV Basic", "cloze": "JV Cloze", "visual": "JV Visual"}
 
 
-def note_fields(kind, card, key, image_tag=None):
+def note_fields(kind, card, key, image_tag=None, batch_src=""):
     if kind == "basic":
         return {"Front": highlight_fields(card["front"]),
                 "Back": highlight_fields(card["back"]),
                 "Extra": highlight_fields(card.get("extra", "")),
-                "Source": card.get("source", ""), "CardKey": key}
+                "Source": card.get("source") or batch_src, "CardKey": key}
     if kind == "cloze":
         return {"Text": highlight_fields(card["text"]),
                 "Extra": highlight_fields(card.get("extra", "")),
-                "Source": card.get("source", ""), "CardKey": key}
+                "Source": card.get("source") or batch_src, "CardKey": key}
     if kind == "visual":
         return {"Image": image_tag,
                 "Question": highlight_fields(card.get("question", "What does this show?")),
                 "Back": highlight_fields(card["back"]),
                 "Extra": highlight_fields(card.get("extra", "")),
-                "Source": card.get("source", ""), "CardKey": key}
+                "Source": card.get("source") or batch_src, "CardKey": key}
     raise SystemExit(f"unknown card type: {kind}")
 
 
@@ -99,18 +100,20 @@ def ensure_media(paths, dry):
                 anki.store_media(name, base64.b64encode(fh.read()).decode("ascii"))
 
 
-def load_batches(only=None):
-    for path in sorted(glob.glob(os.path.join(CARDS_DIR, "*.json"))):
+def load_batches(only=None, file_glob=None):
+    pattern = file_glob or "*.json"
+    for path in sorted(glob.glob(os.path.join(CARDS_DIR, pattern))):
         payload = json.load(open(path, encoding="utf-8"))
-        if only and only.lower() not in payload["deck"].lower():
-            continue
-        yield path, payload
+        for batch in batches_of(payload):
+            if only and only.lower() not in batch["deck"].lower():
+                continue
+            yield path, batch
 
 
 def run(args):
     anki.version()  # fail fast with a readable message
 
-    batches = list(load_batches(args.only))
+    batches = list(load_batches(args.only, args.file))
     if not batches:
         sys.exit("no matching card batches")
 
@@ -141,9 +144,11 @@ def run(args):
         new_notes, updates, same, rejected = [], [], 0, []
         for c in payload["cards"]:
             kind = c.get("type", "basic")
+            if kind not in KINDS:
+                kind = "basic"
             key = card_key(deck, kind, c)
             img = (f'<img src="{c["image"]}">' if kind == "visual" else None)
-            fields = note_fields(kind, c, key, img)
+            fields = note_fields(kind, c, key, img, payload.get("source", ""))
             tags = c.get("tags", []) + payload.get("tags", [])
 
             if args.limit and totals["new"] + totals["updated"] >= args.limit:
@@ -217,6 +222,7 @@ def main():
     ap.add_argument("--only", default=None)
     ap.add_argument("--browse", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--file", default=None, help="only this cards/*.json (glob)")
     args = ap.parse_args()
 
     problems = lint_all(CARDS_DIR)

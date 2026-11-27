@@ -7,9 +7,24 @@ POINTER = ("see the article", "read the article", "visit the", "see source", "re
 ROOT_SOURCES = {"https://roadmap.sh/java", "https://roadmap.sh/java/", "https://roadmap.sh/"}
 
 
+def batches_of(payload):
+    """Accept {"deck","cards"} and {"batches":[...]}, with a file-level source."""
+    root_src = payload.get("source", "") if isinstance(payload, dict) else ""
+    batches = payload["batches"] if isinstance(payload, dict) and "batches" in payload else [payload]
+    out = []
+    for b in batches:
+        if root_src and not b.get("source"):
+            b = dict(b, source=root_src)
+        out.append(b)
+    return out
+
+
 def lint_cards(path, payload, min_extra=MIN_EXTRA):
     problems = []
-    for i, c in enumerate(payload["cards"], start=1):
+    # a card may inherit its source from the batch wrapper
+    cards = [(i, c, b.get("source", "")) for b in batches_of(payload)
+             for i, c in enumerate(b.get("cards", []), start=1)]
+    for i, c, batch_src in cards:
         extra = (c.get("extra") or "").strip()
         label = (c.get("front") or c.get("question") or c.get("text") or "")[:60]
         if not extra:
@@ -18,7 +33,7 @@ def lint_cards(path, payload, min_extra=MIN_EXTRA):
             problems.append(f"  {path}#{i} extra too short ({len(extra)}): {label}")
         elif any(p in extra.lower() for p in POINTER):
             problems.append(f"  {path}#{i} extra points at a resource: {label}")
-        src = (c.get("source") or "").strip()
+        src = (c.get("source") or batch_src or "").strip()
         if not src:
             problems.append(f"  {path}#{i} missing source: {label}")
         elif src.rstrip("/") in {u.rstrip("/") for u in ROOT_SOURCES} and "scope::map" not in c.get("tags", []):

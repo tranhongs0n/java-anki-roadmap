@@ -1,0 +1,211 @@
+{
+ "deck": "00 Java Roadmap::01 Foundations::03 Data Types",
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::data-types",
+  "batch::core"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the exact value range of a <code>long</code>?",
+   "back": "<code>−9,223,372,036,854,775,808</code> … <code>9,223,372,036,854,775,807</code>",
+   "extra": "That is −2⁶³ to 2⁶³−1, the 64-bit two's complement range. Above about 9.2 quintillion you need <code>BigInteger</code>, because the addition silently wraps.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A numeric literal is an <code>int</code> by default. How do you write a <b>long</b> literal?",
+   "back": "Suffix <code>L</code>: <code>10_000_000_000L</code>",
+   "extra": "Without the suffix, a value above 2,147,483,647 is a compile error — <i>integer number too large</i>. The uppercase L is preferred because lowercase <code>l</code> reads like <code>1</code>.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Floating-point literals default to <code>double</code>. How do you make one a <code>float</code>?",
+   "back": "Suffix <code>f</code> or <code>F</code>: <code>3.14f</code>",
+   "extra": "<code>double</code> is 64-bit, <code>float</code> is 32-bit. Writing <code>float f = 3.14;</code> fails — you need the suffix (or a cast) because a double does not narrow implicitly.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which prefixes write an integer literal in hex, binary and octal?",
+   "back": "<code>0x</code> hex, <code>0b</code> binary, leading <code>0</code> octal",
+   "extra": "<code>0xFF</code> is 255, <code>0b1010</code> is 10, <code>010</code> is 8 — the octal form is the trap, since <code>010</code> does not mean ten.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>'a' + 1</code> evaluate to?",
+   "back": "The <code>int</code> <code>98</code>",
+   "extra": "<code>char</code> is an integral type, so arithmetic promotes it to <code>int</code>. Getting a char back needs a cast: <code>(char) ('a' + 1)</code> is <code>'b'</code>.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A field is left uninitialized. What value does an <code>int</code> field have — and a local variable?",
+   "back": "Field: <code>0</code>. Local: <b>no value</b> — the compiler refuses to read it",
+   "extra": "Fields get type defaults (0, 0.0, false, '\\u0000', null); locals have none, so <code>int x; print(x);</code> is a compile error, not a zero.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.12.5",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which Java escape sequences are used for newline, tab and a literal backslash?",
+   "back": "<code>\\n</code>, <code>\\t</code>, <code>\\\\</code>",
+   "extra": "Also <code>\\\"</code> for a quote inside a string and <code>\\'</code> inside a char literal. A Unicode escape such as <code>\\u0041</code> is different: it is translated before parsing and means <code>A</code>.",
+   "source": "https://dev.java/learn/language-basics/primitive-types/",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does <code>\"abc\".toUpperCase()</code> not change the original string?",
+   "back": "<code>String</code> is <b>immutable</b> — every \"modifying\" method returns a new object",
+   "extra": "The reference still points at the old content. That is why loops that concatenate build many intermediate strings, and why <code>StringBuilder</code> exists.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>==</code> and <code>.equals()</code> on strings?",
+   "back": "<code>==</code> compares references; <code>.equals()</code> compares characters",
+   "extra": "Two identical literals usually are the same pooled object, so <code>==</code> can accidentally be true — until one string comes from input or concatenation and it silently becomes false.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "You concatenate inside a loop thousands of times. What should you use instead of <code>String +=</code>?",
+   "back": "<code>StringBuilder</code> (or <code>StringBuffer</code> for shared state)",
+   "extra": "Each <code>+=</code> allocates a new String and copies everything, so the loop is quadratic. StringBuilder mutates one buffer and allocates once at <code>toString()</code>.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/StringBuilder.html",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Can an array's length change after it is created?",
+   "back": "No — the length is fixed at creation",
+   "extra": "<code>int[] a = new int[5];</code> always holds five elements; <code>a.length</code> is a field, not a method, and it is final. Growing means allocating a bigger array and copying.",
+   "source": "https://dev.java/learn/language-basics/arrays/",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What do the elements of <code>new int[3]</code> contain right after creation?",
+   "back": "<code>0, 0, 0</code> — arrays are zero-initialised",
+   "extra": "Object arrays get <code>null</code> in every slot, <code>boolean[]</code> gets false, and <code>char[]</code> gets '\\u0000'. Without this, reading a fresh array would be undefined.",
+   "source": "https://dev.java/learn/language-basics/arrays/",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "When does autoboxing throw a <code>NullPointerException</code>?",
+   "back": "When an <code>Integer</code> holding <code>null</code> is unboxed to <code>int</code>",
+   "extra": "<code>Integer count = null; int c = count;</code> compiles, then fails at runtime. The same trap appears in comparisons and ternaries that mix <code>Integer</code> and <code>int</code>.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which <code>Integer</code> values are guaranteed to be the same cached object?",
+   "back": "<code>−128 … 127</code>",
+   "extra": "Values in that range are returned from a cache, so <code>Integer a = 100, b = 100; a == b</code> is true, while 1000 gives two objects and false. Compare wrapper values with <code>.equals()</code>.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does the cast <code>(int) 3.99</code> produce?",
+   "back": "<code>3</code> — narrowing a floating-point value <b>truncates</b>, it does not round",
+   "extra": "Use <code>Math.round(3.99)</code> for 4. The same cast silently returns 2147483647 for values above <code>Integer.MAX_VALUE</code> instead of throwing.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>(byte) 200</code>?",
+   "back": "<code>-56</code>",
+   "extra": "Narrowing keeps the low 8 bits and reinterprets them: 200 is <code>0b11001000</code>, which as a signed byte is −56. Only <code>Math.toIntExact</code>-style checks catch this; a cast never does.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What type is the result of <code>byte + byte</code>?",
+   "back": "<code>int</code>",
+   "extra": "Binary numeric promotion widens both operands to <code>int</code> before the operation, so <code>byte b = 1; b = b + 1;</code> does not compile without a cast.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>7 / 2</code>, and why is the answer not 3.5?",
+   "back": "<code>3</code> — integer division truncates toward zero",
+   "extra": "Both operands are int, so the result is int. <code>7 / 2.0</code> or <code>(double) 7 / 2</code> gives 3.5. Negative values truncate toward zero too: <code>-7 / 2</code> is −3.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which type should represent money?",
+   "back": "<code>BigDecimal</code> — never <code>double</code> or <code>float</code>",
+   "extra": "Binary floating point cannot represent 0.1 exactly, so cents drift: <code>0.1 + 0.2 == 0.30000000000000004</code>. BigDecimal is exact decimal, immutable, and takes a scale for rounding.",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>var</code> declare, and where may it be used?",
+   "back": "A local variable whose type is inferred at compile time — locals only",
+   "extra": "Java 10+. <code>var list = new ArrayList&lt;String&gt;();</code> is still statically typed: the compiler fixes the type, the variable cannot change it, and fields, parameters and return types cannot use var.",
+   "source": "https://dev.java/learn/language-basics/using-var/",
+   "tags": [
+    "type::definition"
+   ]
+  }
+ ]
+}
