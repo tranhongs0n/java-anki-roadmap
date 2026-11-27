@@ -6,6 +6,7 @@ import anki
 from lint import lint_cards
 
 KINDS = {"basic", "cloze", "visual"}
+NARRATIVE = re.compile(r"(chair wars|so what happened|how do we fix|option one|let.s play|prep code|final code)", re.I)
 
 
 def norm(s):
@@ -45,7 +46,8 @@ def main(chapter):
     for i, (h, pg) in enumerate(headings):
         end = headings[i + 1][1] if i + 1 < len(headings) else 10 ** 6
         got = [c for c in cards if page_of(c) is not None and (pg - 1) <= page_of(c) < end]
-        print(f"   {'ok ' if got else 'GAP'}  p{pg:<4} {h[:62]}  ({len(got)})")
+        state = "ok " if got else ("-- " if NARRATIVE.search(h) else "GAP")
+        print(f"   {state} p{pg:<4} {h[:62]}  ({len(got)})")
     # 2. duplicates against every note already in the book tree
     for c in cards:
         k = norm(c.get("front", ""))

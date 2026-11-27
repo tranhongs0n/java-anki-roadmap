@@ -32,7 +32,7 @@ kill
 You took 3 guesses
 ```
 
-## So what happened?
+## So what happened? <!--p165-->
 
 ```java
 public String checkYourself(int guess) {
@@ -52,15 +52,15 @@ return result;
 } // end method
 ```
 
-## How do we fix it?
+## How do we fix it? <!--p166-->
 
-## Option one is too clunky
+## Option one is too clunky <!--p167-->
 
-## Option three
+## Option three <!--p168-->
 
-## Wake up and smell the library
+## Wake up and smell the library <!--p170-->
 
-## Some things you can do with ArrayList
+## Some things you can do with ArrayList <!--p171-->
 
 ```java
 myList.add(egg1);
@@ -133,13 +133,13 @@ new String[2]
 new ArrayList<String>()
 ```
 
-## Comparing ArrayList to a regular array
+## Comparing ArrayList to a regular array <!--p175-->
 
 ```java
 ArrayList<String>
 ```
 
-## Let’s fix the Startup code
+## Let’s fix the Startup code <!--p176-->
 
 ```java
 class Startup {
@@ -191,7 +191,7 @@ return result;
 } // close class
 ```
 
-## New and improved Startup class
+## New and improved Startup class <!--p177-->
 
 ```java
 Enter a guess A3
@@ -218,13 +218,13 @@ is now worthless
 Took you long enough. 62 guesses.
 ```
 
-## What needs to change?
+## What needs to change? <!--p179-->
 
 DECLARE and instantiate an ArrayList to hold the list of Startups (initially three) Call it startups. DECLARE an int variable to hold the number of user guesses (so that we can give the user a score at the end of the game). Name it numOfGuesses and set it to 0. DECLARE a setUpGame() method to create and initialize the Startup objects with names and locations. Display brief instructions to the user.
 
 location for this Startup (three cells, vertically or horizontally aligned, on a 7 X 7 grid). SET the location for each Startup based on the result of the placeStartup() call. END REPEAT END METHOD StartupBust The StartupBust class has three main jobs: set up the game, play the game until the Startups are dead, and end the game. Although we could map those three jobs directly into three methods, we split the middle job (play the game) into two methods to keep the granularity smaller. Smaller methods (meaning smaller chunks of func­ tionality) help us test, debug, and modify the code more easily.
 
-## Prep code for the real StartupBust class
+## Prep code for the real StartupBust class <!--p182-->
 
 SET the local result variable (a String) to “miss”, assuming that the user’s guess will be a miss. REPEAT with each of the Startup objects in the startups List. EVALUATE the user’s guess by calling the Startup object’s checkYourself() method. SET the result variable to “hit” or “kill” if appropriate. IF the result is “kill”, REMOVE the Startup from the startups List. END REPEAT DISPLAY the result value to the user.
 
@@ -392,7 +392,7 @@ return result;
 } // close class
 ```
 
-## Super powerful Boolean expressions
+## Super powerful Boolean expressions <!--p189-->
 
 ```java
 if (price >= 300 && price < 400) {
@@ -527,7 +527,7 @@ return VERTICAL_INCREMENT; // place vertically
 } //end class
 ```
 
-## Using the Library (the Java API)
+## Using the Library (the Java API) <!--p192-->
 
 ```java
 import java.util.ArrayList;
@@ -550,13 +550,13 @@ public void go(java.util.ArrayList<Dog> list) { }
 public java.util.ArrayList<Dog> foo() {...}
 ```
 
-## How to discover the API
+## How to discover the API <!--p196-->
 
 Java comes with a fabulous set of online docs called, strangely, the Java API. You (or your IDE) can also download the docs to have on your hard drive just in case your internet connection fails at the Worst Possible Moment. The API docs are the best reference for getting more details about what’s in a package, and what the classes and interfaces in the package provide (e.g., in terms of methods and functionality).
 
 Java 9 introduced the Java Module System, which we’re not going to cover in this book. What you do need to know to understand the docs is that the JDK is now split into modules. These modules group together related packages. This can make it easier to find the classes that interest you, because they’re grouped by function. All of the classes we’ve covered in this book so far are in the java.base module; this contains core Java packages like java.lang and java.util.
 
-## Using the class documentation
+## Using the class documentation <!--p200-->
 
 Whichever version of the Java docs you’re using, they all have a similar layout for showing information about a specific class. This is where the juicy details are. Let’s say you were browsing through the reference book and found a class called ArrayList, in java.util. The book tells you a little about it, enough to know that this is indeed what you want to use, but you still need to know more about the methods. In the reference book, you’ll find the method indexOf(). But if all you knew is that there is a method called indexOf() that takes an object and returns the index (an int) of that object, you still need to know one crucial thing: what happens if the object is not in the ArrayList? Looking at the method signature alone won’t tell you how that works. But the API docs will (most of the time, anyway). The API docs tell you that the indexOf() method returns a -1 if the object parameter is not in the ArrayList. So now we know we can use it both as a way to check if an object is even in the ArrayList, and to get its index at the same time, if the object was there. But without the API docs, we might have thought that the indexOf() method would blow up if the object wasn’t in the ArrayList.
 

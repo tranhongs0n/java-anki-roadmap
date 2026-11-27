@@ -1,0 +1,150 @@
+{
+ "deck": "20 Head First Java::06 Using the Java Library",
+ "tags": [
+  "book::hfj3e",
+  "ch::06",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Why choose an <code>ArrayList</code> over an array when the number of elements changes?",
+   "back": "An <code>ArrayList</code> <b>resizes itself</b>; an array's length is fixed at creation",
+   "extra": "You can add and remove without allocating and copying by hand. The cost is a wrapper around an array plus boxing for primitives — worth it unless you are measuring.",
+   "source": "Head First Java 3E — ch 6, p. 168",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How do you put an element in and take one out of an <code>ArrayList</code>?",
+   "back": "<code>list.add(x)</code> and <code>list.remove(x)</code>",
+   "extra": "Both are methods, which is the whole difference from an array. Removing shifts the later elements down, so it is O(n) — not free.",
+   "source": "Head First Java 3E — ch 6, p. 170",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Can an <code>ArrayList</code> hold <code>int</code> values directly?",
+   "back": "No — it holds objects; primitives are <b>autoboxed</b> into wrappers",
+   "extra": "<code>ArrayList&lt;Integer&gt; nums = new ArrayList&lt;&gt;(); nums.add(3);</code> boxes 3 into an Integer, and unboxes on the way out. Since Java 5 that happens automatically.",
+   "source": "Head First Java 3E — ch 6, p. 171",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ArrayList.indexOf(missingObject)</code> return?",
+   "back": "<code>-1</code>",
+   "extra": "It does not throw. That is why one call can both test membership and find the position: <code>if (i &gt;= 0)</code> means present at i. The signature alone does not tell you this — the API docs do.",
+   "source": "Head First Java 3E — ch 6, p. 200",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why can an array of primitives be faster than an <code>ArrayList</code> of the same numbers?",
+   "back": "No <b>boxing/unboxing</b> and no method call per access",
+   "extra": "Each element in an <code>ArrayList&lt;Integer&gt;</code> is a separate heap object, so a loop creates or dereferences wrappers. For hot numeric loops an <code>int[]</code> wins.",
+   "source": "Head First Java 3E — ch 6, p. 171",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is the point of reading the API docs for a method you already know the name of?",
+   "back": "The <b>edge-case behaviour</b> — what happens on empty, missing or null input",
+   "extra": "A signature says <code>int indexOf(Object)</code>; only the prose says it returns -1 when absent. Guessing here produces null checks and try/catch that were never needed.",
+   "source": "Head First Java 3E — ch 6, p. 200",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Which module contains <code>java.lang</code> and <code>java.util</code>?",
+   "back": "<code>java.base</code>",
+   "extra": "Since Java 9 the JDK is split into modules, and everything this book has used so far lives in java.base. That is why no import of the module is ever needed.",
+   "source": "Head First Java 3E — ch 6, p. 197",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>&amp;&amp;</code> give you that <code>&amp;</code> does not?",
+   "back": "<b>Short-circuiting</b>: the right side is not evaluated when the left is false",
+   "extra": "<code>if (ref != null &amp;&amp; ref.size &gt; 0)</code> is safe; with <code>&amp;</code> both sides always run and the null check is useless. Same idea for <code>||</code> versus <code>|</code>.",
+   "source": "Head First Java 3E — ch 6, p. 185",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does the book split a class into many small methods instead of one big one?",
+   "back": "Smaller units are easier to <b>test, debug and change</b>",
+   "extra": "Each method has one job, so a failure localises. The game class splits \"play\" into two methods purely for that reason, not for reuse.",
+   "source": "Head First Java 3E — ch 6, p. 176",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why is a plain array awkward when the list must grow?",
+   "back": "Its length is <b>fixed</b>: you must track the next free slot and copy into a bigger array",
+   "extra": "The book's three \"options\" are all variations of tracking an index and doubling manually. ArrayList exists so that bookkeeping is the library's job, not yours.",
+   "source": "Head First Java 3E — ch 6, p. 167",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>ArrayList</code> add that an array cannot do at all?",
+   "back": "<b>Remove and insert in the middle</b>, with the size adjusting itself",
+   "extra": "<code>remove(i)</code> shifts everything after i down and shrinks the size. An array cannot change length, so the last slot stays whatever it was.",
+   "source": "Head First Java 3E — ch 6, p. 175",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "You replace an <code>int[]</code> field with <code>ArrayList&lt;Integer&gt;</code>. What else must change?",
+   "back": "The loops: <code>length</code> becomes <code>size()</code>, and elements are objects, not ints",
+   "extra": "<code>for (int i = 0; i &lt; list.size(); i++)</code>, or an enhanced for. Indexing still works, but <code>list[i]</code> is <code>list.get(i)</code>.",
+   "source": "Head First Java 3E — ch 6, p. 179",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>||</code> do when the left side is already true?",
+   "back": "Skips the right side entirely and yields true",
+   "extra": "Short-circuit evaluation. That is why <code>if (o == null || o.isEmpty())</code> is safe and the mirror image with <code>|</code> throws.",
+   "source": "Head First Java 3E — ch 6, p. 189",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What is the fastest way to find out what a library class can do?",
+   "back": "Read its page in the <b>API documentation</b>",
+   "extra": "The docs list every method, its parameters, its return value and the exceptions it throws. Guessing from the class name costs more time than one lookup.",
+   "source": "Head First Java 3E — ch 6, p. 192",
+   "tags": [
+    "type::mental-model"
+   ]
+  }
+ ]
+}

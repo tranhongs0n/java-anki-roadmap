@@ -1,0 +1,90 @@
+{
+ "deck": "20 Head First Java::07 Better Living in Objectville",
+ "tags": [
+  "book::hfj3e",
+  "ch::07",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the difference between IS-A and HAS-A?",
+   "back": "IS-A = <b>inheritance</b> (Dog IS-A Animal); HAS-A = a <b>field reference</b> (Car HAS-A Engine)",
+   "extra": "IS-A lets a subclass be used where the superclass is expected. HAS-A just holds another object and does not inherit anything — misuse of one for the other is the classic inheritance bug.",
+   "source": "Head First Java 3E — ch 7, p. 211",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What does a subclass inherit from its superclass?",
+   "back": "<b>public and protected</b> members — not private members, not constructors",
+   "extra": "Inherited methods can be called on the subclass instance as if they were its own. Constructors are not inherited; the subclass calls <code>super(...)</code> instead.",
+   "source": "Head First Java 3E — ch 7, p. 208",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A superclass reference holds a subclass object and you call an overridden method. Which version runs?",
+   "back": "The <b>object's</b> version, decided at runtime",
+   "extra": "<code>Animal a = new Dog(); a.makeNoise();</code> barks. The reference type only decides what you are <i>allowed</i> to call; the object decides what actually runs.",
+   "source": "Head First Java 3E — ch 7, p. 215",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Name the three rules a valid override must satisfy.",
+   "back": "Same name and parameter list; compatible return type; no weaker access modifier",
+   "extra": "Changing the parameter list turns it into an overload, not an override. Making a public method protected or private in the subclass is a compile error.",
+   "source": "Head First Java 3E — ch 7, p. 230",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How does overloading differ from overriding?",
+   "back": "Overloading = same name, <b>different parameters</b>, same class, resolved at compile time",
+   "extra": "Overriding = same signature in a subclass, resolved at runtime. Overloads are picked by the compiler from the declared argument types, so the \"wrong\" one can be chosen for you.",
+   "source": "Head First Java 3E — ch 7, p. 231",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Two methods differ only in return type — <code>int get()</code> and <code>long get()</code>. Does that compile?",
+   "back": "No — return type alone is not a valid overload",
+   "extra": "The compiler picks an overload from the name and arguments, so it has no way to choose between two identical signatures. Return type is not part of the decision.",
+   "source": "Head First Java 3E — ch 7, p. 223",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why does polymorphism let you add a new subclass without editing the code that uses the superclass?",
+   "back": "The calling code only knows the <b>superclass type</b>; the new subclass fits it",
+   "extra": "A method taking <code>Animal</code> works for any future animal. That is the open/closed idea in practice: new behaviour arrives as a new class, not as an edit to a tested method.",
+   "source": "Head First Java 3E — ch 7, p. 214",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "One method must accept a Dog, a Cat and a Lion. What type should its parameter have?",
+   "back": "The common superclass — <code>Animal</code>",
+   "extra": "Each subclass IS-A Animal, so one method covers all of them, including subclasses that do not exist yet. This is the practical payoff of inheritance.",
+   "source": "Head First Java 3E — ch 7, p. 226",
+   "tags": [
+    "type::mental-model"
+   ]
+  }
+ ]
+}

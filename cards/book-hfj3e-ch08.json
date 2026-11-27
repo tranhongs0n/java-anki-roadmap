@@ -1,0 +1,130 @@
+{
+ "deck": "20 Head First Java::08 Serious Polymorphism",
+ "tags": [
+  "book::hfj3e",
+  "ch::08",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What makes a class <b>abstract</b>?",
+   "back": "It <b>cannot be instantiated</b> — <code>new</code> on it is a compile error",
+   "extra": "It exists to be extended. You can still declare variables of that type and hold subclass objects in them, which is what makes polymorphic collections possible.",
+   "source": "Head First Java 3E — ch 8, p. 239",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "In Head First's phrase, what is an interface?",
+   "back": "A <b>100% abstract class</b> — a pure contract with no implementation",
+   "extra": "It declares what a type can do and nothing about how. Since Java 8 it may hold default methods, but the mental model of \"contract only\" still explains why interfaces exist.",
+   "source": "Head First Java 3E — ch 8, p. 239",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How many classes can a Java class extend, and how many interfaces can it implement?",
+   "back": "One class; <b>many</b> interfaces",
+   "extra": "Single inheritance avoids the diamond problem for state. Multiple interfaces let a type promise several capabilities — Comparable, Runnable, Serializable — without sharing code.",
+   "source": "Head First Java 3E — ch 8, p. 252",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Every class implicitly extends which class?",
+   "back": "<code>Object</code>",
+   "extra": "That is where <code>equals</code>, <code>hashCode</code>, <code>toString</code> and <code>getClass</code> come from. If you do not override <code>toString</code>, printing an object gives a class name plus a hash.",
+   "source": "Head First Java 3E — ch 8, p. 249",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "You store a Dog in an <code>ArrayList&lt;Object&gt;</code> and pull it out. What is the static type of the result?",
+   "back": "<code>Object</code> — and calling <code>bark()</code> on it will not compile",
+   "extra": "Everything leaves an <code>ArrayList&lt;Object&gt;</code> as Object regardless of what went in. You need a cast, and a wrong cast throws <code>ClassCastException</code> at runtime.",
+   "source": "Head First Java 3E — ch 8, p. 251",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How do you run the superclass's version of a method from an override?",
+   "back": "<code>super.methodName(...)</code>",
+   "extra": "It calls the parent implementation, skipping your override. Calling <code>this.methodName()</code> would re-enter your own version and usually recurse forever.",
+   "source": "Head First Java 3E — ch 8, p. 268",
+   "tags": [
+    "type::syntax"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why prefer an interface over using <code>Object</code> for \"any type\" parameters?",
+   "back": "The interface states the <b>contract</b>, so the compiler can check the calls",
+   "extra": "With <code>Object</code> you must cast at every use and failures appear at runtime. With an interface, a type that does not implement it is rejected at compile time.",
+   "source": "Head First Java 3E — ch 8, p. 265",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "What distinguishes an abstract class from a concrete one?",
+   "back": "A concrete class can be <b>instantiated</b>; an abstract class cannot",
+   "extra": "Both can hold state and implemented methods. The abstract one exists to be extended and may leave some behaviour to subclasses.",
+   "source": "Head First Java 3E — ch 8, p. 242",
+   "tags": [
+    "type::compare"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A concrete subclass leaves one abstract method unimplemented. What happens?",
+   "back": "It does not compile — the subclass must implement it or be declared <code>abstract</code>",
+   "extra": "The compiler enforces the contract: you cannot produce a concrete class with holes in it.",
+   "source": "Head First Java 3E — ch 8, p. 244",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Why change a method's parameter from <code>Dog[]</code> to <code>Animal[]</code>?",
+   "back": "So one method serves <b>every</b> Animal subclass, not just Dogs",
+   "extra": "The array type is what limits reuse. The code inside works through the Animal contract, so Cats and Lions need no new method.",
+   "source": "Head First Java 3E — ch 8, p. 247",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A loop calls <code>makeNoise()</code> on a mix of <code>Dog</code> and <code>Cat</code> objects held as <code>Animal</code>. Why does each make a different sound?",
+   "back": "Each object's <b>actual class</b> decides which override runs",
+   "extra": "The array only knows they are Animals, which is enough to compile the call. At runtime the JVM dispatches to Dog's bark or Cat's meow — one loop, many behaviours.",
+   "source": "Head First Java 3E — ch 8, p. 246",
+   "tags": [
+    "type::mental-model"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "A class does not override <code>toString()</code>. What does printing its object show?",
+   "back": "The class name, <code>@</code>, and a hexadecimal hash code",
+   "extra": "That default comes from Object. It is an identity string, which is why logs full of <code>Dog@1b6d3586</code> mean somebody forgot to override toString.",
+   "source": "Head First Java 3E — ch 8, p. 254",
+   "tags": [
+    "type::gotcha"
+   ]
+  }
+ ]
+}

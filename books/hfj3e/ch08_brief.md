@@ -48,17 +48,17 @@ c = new Canine();
 1 error
 ```
 
-## Abstract vs. Concrete
+## Abstract vs. Concrete <!--p242-->
 
-## Abstract methods
+## Abstract methods <!--p243-->
 
 ```java
 public abstract void eat();
 ```
 
-## You MUST implement all abstract methods
+## You MUST implement all abstract methods <!--p244-->
 
-## Polymorphism in action
+## Polymorphism in action <!--p246-->
 
 ```java
 public class MyDogList {
@@ -88,7 +88,7 @@ nextIndex++;
 }
 ```
 
-## Uh-oh, now we need to keep Cats, too
+## Uh-oh, now we need to keep Cats, too <!--p247-->
 
 ```java
 public class AnimalTestDrive {
@@ -114,7 +114,7 @@ other kind of animal added as well). We like this option best, so let’s change
 public class Dog extends Object { }
 ```
 
-## So what’s in this ultra-super-megaclass Object?
+## So what’s in this ultra-super-megaclass Object? <!--p249-->
 
 ```java
 Dog a = new Dog();
@@ -181,7 +181,7 @@ Dog d = myDogArrayList.get(0);
 
 But what happens when you declare it as ArrayList<Object>? If you want to make an ArrayList that will literally take any kind of Object, you declare it like this: But what happens when you try to get the Dog object and assign it to a Dog reference? Everything comes out of an ArrayList<Object> as a reference of type Object, regardless of what the actual object is or what the reference type was when you added the object to the list.
 
-## Using polymorphic references of type Object has a price...
+## Using polymorphic references of type Object has a price... <!--p251-->
 
 ```java
 public void go() {
@@ -200,7 +200,7 @@ return o;
 }
 ```
 
-## When a Dog won’t act like a Dog
+## When a Dog won’t act like a Dog <!--p252-->
 
 ```java
 DogPolyTest.java:10: incompatible types
@@ -210,7 +210,7 @@ Dog sameDog = getObject(aDog);
 1 error ^
 ```
 
-## Objects don’t bark
+## Objects don’t bark <!--p253-->
 
 ```java
 Object o = al.get(index);
@@ -218,7 +218,7 @@ int i = o.hashCode();
 o.bark();
 ```
 
-## Get in touch with your inner Object
+## Get in touch with your inner Object <!--p254-->
 
 ```java
 Snowboard s = new Snowboard();
@@ -231,7 +231,7 @@ Dog d = (Dog) o;
 d.roam();
 ```
 
-## Interface to the rescue!
+## Interface to the rescue! <!--p264-->
 
 ```java
 public interface Pet {...}
@@ -267,7 +267,7 @@ void buzzwordCompliance() {...}
 }
 ```
 
-## Invoking the superclass version of a method
+## Invoking the superclass version of a method <!--p268-->
 
 ```java
 super.runReport();

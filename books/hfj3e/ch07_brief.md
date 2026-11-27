@@ -6,9 +6,9 @@ Java code such that you could take more vacations, how much would it be worth to
 
 ter class design, the 3 tricks to polymorphism, the 8 ways to make flexible code, and if you act now—a bonus lesson on the 4 tips for exploiting inheritance. Don’t delay, an offer this good will give you the design freedom and programming flexibility you deserve. It’s quick, it’s easy, and it’s available now. Start today, and we’ll throw in an extra level of abstraction! Better Living in Objectville
 
-## Chair Wars Revisited...
+## Chair Wars Revisited... <!--p206-->
 
-## Understanding Inheritance
+## Understanding Inheritance <!--p208-->
 
 ```java
 public class Doctor {
@@ -33,7 +33,7 @@ void makeIncision() {
 }
 ```
 
-## Do all animals eat the same way?
+## Do all animals eat the same way? <!--p212-->
 
 ```java
 Wolf w = new Wolf();
@@ -43,9 +43,9 @@ w.eat();
 w.sleep();
 ```
 
-## Which method is called?
+## Which method is called? <!--p215-->
 
-## Using IS-A and HAS-A
+## Using IS-A and HAS-A <!--p217-->
 
 ```java
 public void roam() {
@@ -74,7 +74,7 @@ Dog myDog=new Dog();
 Animal myDog = new Dog();
 ```
 
-## polymorphism in action
+## polymorphism in action <!--p226-->
 
 ```java
 Animal[] animals = new Animal[5];
@@ -112,9 +112,9 @@ vet.giveShot(hippo);
 Appliance appliance = new Toaster();
 ```
 
-## Keeping the contract: rules for overriding
+## Keeping the contract: rules for overriding <!--p230-->
 
-## Overloading a method
+## Overloading a method <!--p231-->
 
 ```java
 public class Overloads {
