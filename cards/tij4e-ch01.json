@@ -1,0 +1,164 @@
+{
+ "deck": "30 Thinking in Java::01 Introduction to Objects",
+ "tags": [
+  "book::tij4e",
+  "ch::01",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "In Thinking in Java, what is the <b>problem space</b> and what is the <b>solution space</b>?",
+   "back": "Problem space: where the problem lives (the business). Solution space: where you implement it (the machine)",
+   "extra": "The book's argument is that OOP shrinks the distance between them — you model the business's own vocabulary instead of the computer's structures, so the code reads like the problem.",
+   "source": "Thinking in Java 4e — ch 1, p. 37",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+  },
+  {
+   "type": "basic",
+   "front": "According to Alan Kay's five characteristics, what is a program?",
+   "back": "A bunch of objects telling each other what to do by <b>sending messages</b>",
+   "extra": "A message is just a request to call a method on a particular object. Java makes that literal: <code>shape.draw()</code> is a message to the shape object.",
+   "source": "Thinking in Java 4e — ch 1, p. 38",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+  },
+  {
+   "type": "basic",
+   "front": "What is the most important distinguishing characteristic of a class?",
+   "back": "The set of <b>messages</b> you can send it — its interface",
+   "extra": "Two classes with the same interface are interchangeable from the caller's point of view. That is why the book introduces interface before implementation detail.",
+   "source": "Thinking in Java 4e — ch 1, p. 38",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+  },
+  {
+   "type": "basic",
+   "front": "Booch's one-sentence definition of an object?",
+   "back": "An object has <b>state, behaviour and identity</b>",
+   "extra": "State = internal data, behaviour = methods, identity = a distinct address in memory. Two objects with identical fields are still two objects, which is exactly the <code>==</code> versus <code>equals</code> distinction.",
+   "source": "Thinking in Java 4e — ch 1, p. 39",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+  },
+  {
+   "type": "basic",
+   "front": "What does it mean that every object has an <b>interface</b>?",
+   "back": "It is the set of requests you are allowed to make of it — its public methods",
+   "extra": "The interface is the contract; the implementation is how it happens. Callers code against the interface, so the implementation can change underneath them.",
+   "source": "Thinking in Java 4e — ch 1, p. 39",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Encapsulation"
+  },
+  {
+   "type": "basic",
+   "front": "Why does thinking in Java insist on hiding the implementation?",
+   "back": "So the implementer can change it without breaking every caller, and so clients cannot depend on internals",
+   "extra": "Hiding gives two things at once: a boundary nobody can reach past, and the freedom to rewrite. Without it, every field is part of your public API forever.",
+   "source": "Thinking in Java 4e — ch 1, p. 40",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Encapsulation"
+  },
+  {
+   "type": "basic",
+   "front": "What relationship does inheritance express?",
+   "back": "An <b>is-a</b> relationship: the derived type is a subtype of the base type",
+   "extra": "The derived class keeps the base interface and may add methods and fields. It also inherits the base's implementation, which is the part that becomes a maintenance liability if the relationship is wrong.",
+   "source": "Thinking in Java 4e — ch 1, p. 41",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>overriding</b> a method?",
+   "back": "Replacing a base-class method with a subclass version that has the <b>same signature</b>",
+   "extra": "The book stresses that the subclass must keep the exact signature, otherwise you have overloaded rather than replaced it — a distinction that decides which method runs at runtime.",
+   "source": "Thinking in Java 4e — ch 1, p. 41",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "What mechanism lets one method that takes a <code>Shape</code> work with <code>Circle</code> and <code>Triangle</code>?",
+   "back": "<b>Polymorphism</b> — the call is bound to the object's actual type at runtime",
+   "extra": "The call site knows only the base type; late binding picks the derived implementation. That is what makes <code>doSomething(shape)</code> extensible without editing it.",
+   "source": "Thinking in Java 4e — ch 1, p. 42",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+  },
+  {
+   "type": "basic",
+   "front": "What is <b>upcasting</b> and why is it safe?",
+   "back": "Treating a derived object as its base type — always safe, so no cast is needed",
+   "extra": "Every Circle IS-A Shape, so any base method exists on the derived object. The reverse direction needs a cast and can fail, which is where ClassCastException comes from.",
+   "source": "Thinking in Java 4e — ch 1, p. 43",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "Why does Java need container classes rather than plain arrays?",
+   "back": "Containers hold <b>any number</b> of objects of a given type and expand as needed",
+   "extra": "<code>ArrayList&lt;Shape&gt; shapes</code> can grow while the program runs, and it enforces the element type. Arrays fix their length at creation and cannot grow.",
+   "source": "Thinking in Java 4e — ch 1, p. 46",
+   "tags": [
+    "type::compare"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "Where do Java objects live, and what does that make their lifetime?",
+   "back": "On the <b>heap</b>; they live until no reference reaches them",
+   "extra": "Creation is <code>new</code>, destruction is the garbage collector's decision. The book calls this the one place where you lose control compared with C++, and where most leaks disappear.",
+   "source": "Thinking in Java 4e — ch 1, p. 44",
+   "tags": [
+    "type::definition"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+  },
+  {
+   "type": "basic",
+   "front": "What does exception handling buy you, in Einstein's framing from this chapter?",
+   "back": "Error handling separated from the normal path — reported where it can actually be handled",
+   "extra": "Errors are thrown to a handler that knows what to do, instead of every call returning a status code. The normal flow stays readable; the recovery code lives in one place.",
+   "source": "Thinking in Java 4e — ch 1, p. 47",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Why is concurrency described as a fundamental difficulty, not a feature?",
+   "back": "Multiple threads act on <b>shared resources</b> at the same time, so correctness depends on coordination",
+   "extra": "The classic picture is many tasks running on one machine, each needing the same memory. Without a locking or message discipline, results depend on timing — the bugs are rare and hard to reproduce.",
+   "source": "Thinking in Java 4e — ch 1, p. 48",
+   "tags": [
+    "type::mental-model"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  }
+ ]
+}
