@@ -1,0 +1,64 @@
+{
+ "deck": "70 Articles::Starter Tutorials (Core Java)",
+ "tags": [
+  "article::startertutorials",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What are the three stages in the life cycle of a Java program?",
+   "back": "<b>Edit</b> the source, <b>compile</b> it, <b>execute</b> the bytecode",
+   "extra": "Source in a text editor → <code>javac</code> produces bytecode → the JVM turns bytecode into machine code the CPU runs.",
+   "source": "startertutorials.com — Life cycle of a Java program (https://www.startertutorials.com/corejava/life-cycle-java-program.html)",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What is the input and output of <code>javac</code>?",
+   "back": "Input <code>.java</code> source; output <code>.class</code> <b>bytecode</b>",
+   "extra": "The bytecode is machine-independent — that is the whole point of the design. It is not binary the CPU can run directly.",
+   "source": "startertutorials.com — Life cycle of a Java program (https://www.startertutorials.com/corejava/life-cycle-java-program.html)",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What is the JVM's input and output?",
+   "back": "Input <b>bytecode</b>; output <b>machine code</b> for the local CPU",
+   "extra": "This is the step that makes Java portable: the same .class file runs anywhere a JVM exists.",
+   "source": "startertutorials.com — Life cycle of a Java program (https://www.startertutorials.com/corejava/life-cycle-java-program.html)",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "Why is bytecode called platform-independent?",
+   "back": "It targets the JVM, not a CPU or operating system",
+   "extra": "Only the JVM is platform-specific. Write and compile once, run wherever a JVM is installed.",
+   "source": "startertutorials.com — Life cycle of a Java program (https://www.startertutorials.com/corejava/life-cycle-java-program.html)",
+   "tags": [
+    "type::jvm"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  },
+  {
+   "type": "basic",
+   "front": "What does the file name have to do with the class name?",
+   "back": "The convention is <code>ClassName.java</code>; for a <b>public</b> class it is mandatory",
+   "extra": "A public class named Sample must live in Sample.java, or javac refuses to compile it. Non-public classes may share a file with the public one.",
+   "source": "startertutorials.com — Life cycle of a Java program (https://www.startertutorials.com/corejava/life-cycle-java-program.html)",
+   "tags": [
+    "type::syntax"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+  }
+ ]
+}
