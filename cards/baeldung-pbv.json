@@ -1,0 +1,86 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What is the parameter passing mechanism in Java?",
+   "back": "<b>Strictly pass-by-value</b> — for primitives and for object references alike",
+   "extra": "There is no pass-by-reference in Java. The thing copied differs (a value or a reference), the mechanism does not.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "What exactly is copied when you pass an object to a method?",
+   "back": "The <b>reference</b> — a copy of the pointer, not the object it points to",
+   "extra": "Both the caller's variable and the parameter now refer to the same object on the heap. That is why mutations are visible.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "If a method mutates the object passed to it, does the caller see the change?",
+   "back": "<b>Yes</b> — because both references point at the same object",
+   "extra": "<code>modify(a)</code> calling <code>a1.num++</code> changes the caller's object. This is what makes people believe Java is pass-by-reference.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "If a method reassigns its object parameter, does the caller's variable change?",
+   "back": "<b>No</b> — the parameter is a separate variable holding a copy of the reference",
+   "extra": "<code>b1 = new Foo()</code> only repoints the local copy. The caller's variable still refers to the original object.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "Why can't you write a <code>swap(a, b)</code> method in Java?",
+   "back": "Because a method receives copies, so swapping the parameters has no effect on the caller's variables",
+   "extra": "This is the practical test of pass-by-reference: C++ can do it with <code>&amp;</code>, Java cannot, for primitives or for references.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "How do Java's object references differ from C++ references?",
+   "back": "A Java reference behaves like a C++ <b>pointer passed by value</b> — you can mutate through it, but you cannot reseat the caller's variable",
+   "extra": "There is no equivalent of <code>int&amp;</code> or <code>Foo*&amp;</code>. Mutation works; reseating does not.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  },
+  {
+   "type": "basic",
+   "front": "Where do parameter copies live?",
+   "back": "In the callee's <b>stack frame</b>, and they disappear when the method returns",
+   "extra": "A local variable copy is reclaimed with the frame; the object it pointed at survives as long as something else references it.",
+   "source": "baeldung.com — Pass-By-Value as a Parameter Passing Mechanism in Java",
+   "tags": [
+    "type::parameters"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+  }
+ ]
+}
