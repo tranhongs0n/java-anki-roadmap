@@ -1,0 +1,251 @@
+{
+ "deck": "60 Videos::Full Java Course (Alex Lee)",
+ "tags": [
+  "video::alexlee",
+  "playlist::full-java-course"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What type does <code>Math.pow</code> take and return?",
+   "back": "It takes two <b>doubles</b> and returns a double",
+   "extra": "Even <code>Math.pow(2, 3)</code> returns <code>8.0</code>. Cast or use a loop if you need integer results.",
+   "source": "YouTube — Math.pow Java Exponents Tutorial, 0:56 (youtu.be/NI2s1s1tCqE?t=56)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What do <code>Math.max</code>, <code>Math.min</code> and <code>Math.abs</code> do?",
+   "back": "Return the larger, the smaller, or the absolute value of their arguments",
+   "extra": "They are overloaded for int, long, float and double; the return type follows the argument type.",
+   "source": "YouTube — Java Math Library, 11:07 (youtu.be/ufegX5o8uc4?t=667)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What range does <code>Math.random()</code> return?",
+   "back": "<code>0.0</code> (inclusive) to <code>1.0</code> (<b>exclusive</b>)",
+   "extra": "So a die is <code>(int)(Math.random() * 6) + 1</code> — multiply to widen the range, add to shift it.",
+   "source": "YouTube — Simple Java Dice Program, 1:43 (youtu.be/ucS3vwP9jnk?t=103)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Integer.parseInt</code> do, and what can go wrong?",
+   "back": "Converts a String to an <code>int</code>; throws <code>NumberFormatException</code> if it is not a number",
+   "extra": "It does not trim or tolerate spaces, and it fails on overflow — <code>\"12a\"</code> throws rather than returning null.",
+   "source": "YouTube — parseInt Java Tutorial - String to Integer, 0:01 (youtu.be/Pnaqn6GOyzU?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What does casting a <code>double</code> to an <code>int</code> do?",
+   "back": "<b>Truncates</b> the fractional part — it does not round",
+   "extra": "<code>(int) 9.9</code> is <code>9</code>, not 10. Use <code>Math.round</code> when you want rounding.",
+   "source": "YouTube — Java Type Casting Tutorial, 0:03 (youtu.be/H0LNjF9PSeM?t=3)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "When is a cast required?",
+   "back": "Only for <b>narrowing</b> conversions — the compiler will not silently lose information",
+   "extra": "Widening (<code>int</code> to <code>double</code>) is automatic; narrowing back needs the explicit cast, which can lose precision.",
+   "source": "YouTube — Java Type Casting Tutorial, 0:03 (youtu.be/H0LNjF9PSeM?t=3)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is the ternary operator's shape?",
+   "back": "<code>condition ? valueIfTrue : valueIfFalse</code>",
+   "extra": "It is an expression, not a statement, so it can be assigned. Both branches must produce a compatible type.",
+   "source": "YouTube — Java Conditional Operator Tutorial, 0:01 (youtu.be/ln_vMXXXeDI?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What two classes does the video use to read a text file?",
+   "back": "<code>File</code> plus <code>Scanner</code> (or <code>BufferedReader</code>)",
+   "extra": "Both need closing; try-with-resources is the modern way to guarantee it.",
+   "source": "YouTube — Files In Java - Read Text File Easily, 0:00 (youtu.be/lHFlAYaNfdo?t=0)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 File IO"
+  },
+  {
+   "type": "basic",
+   "front": "How do you read a CSV file into an array?",
+   "back": "<code>line.split(\",\")</code> per line, into <code>String[]</code>",
+   "extra": "The split is on the literal comma — quoted fields containing commas break it, which is why real CSV needs a parser.",
+   "source": "YouTube — Java: Read a CSV File into an Array, 0:01 (youtu.be/-Aud0cDh-J8?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 File IO"
+  },
+  {
+   "type": "basic",
+   "front": "Which classes does the video use for dates and formatting?",
+   "back": "<code>Date</code> with <code>SimpleDateFormat</code>",
+   "extra": "Both are legacy; the modern API is <code>LocalDate</code>/<code>LocalDateTime</code> with <code>DateTimeFormatter</code>. Format patterns are strings like <code>\"dd/MM/yyyy\"</code>.",
+   "source": "YouTube — Java Date and Time Tutorial, 1:05 (youtu.be/6cp4P4XZ9hE?t=65)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 File IO"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>instanceof</code> test?",
+   "back": "Whether an object is an instance of a class or implements an interface, at <b>runtime</b>",
+   "extra": "It returns false for null rather than throwing, which makes it a safe type test before a cast.",
+   "source": "YouTube — instanceof Java Keyword Tutorial, 0:00 (youtu.be/wIvDgsUHQVo?t=0)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  },
+  {
+   "type": "basic",
+   "front": "Where must <code>super()</code> appear in a constructor?",
+   "back": "<b>First statement</b>, or the compiler inserts a no-argument <code>super()</code> for you",
+   "extra": "If the superclass has no no-arg constructor, the subclass will not compile until it calls one explicitly.",
+   "source": "YouTube — Java Super Keyword Tutorial, 0:01 (youtu.be/hLYOpvoM4vk?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>this</code> refer to, and what is its most common use?",
+   "back": "The <b>current object</b>; used to tell a field apart from a parameter of the same name",
+   "extra": "<code>this.name = name;</code> — left side is the field, right side the parameter.",
+   "source": "YouTube — This Keyword in Java Tutorial, 0:00 (youtu.be/CSWrefLneXE?t=0)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What is encapsulation in practice?",
+   "back": "<b>Private fields</b> with public getters/setters that control access",
+   "extra": "The point is not the getters but the control: validation, computed values, and the freedom to change storage later.",
+   "source": "YouTube — Encapsulation in Java Tutorial, 0:01 (youtu.be/cU94So54cr8?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "How does method chaining work?",
+   "back": "Each method returns <code>this</code>, so the next call can be appended",
+   "extra": "<code>b.setX(1).setY(2);</code> — the pattern behind builders and fluent APIs.",
+   "source": "YouTube — Java Method Chaining Tutorial, 0:06 (youtu.be/4Lu1oqQe3uE?t=6)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What keyword does a class use to take on an interface?",
+   "back": "<code>implements</code> — a class <code>extends</code> a class but <code>implements</code> an interface",
+   "extra": "A class may implement many interfaces but extend one class.",
+   "source": "YouTube — Java Interface Tutorial, 0:00 (youtu.be/kTpp5n_CppQ?t=0)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What can an abstract class do that an interface could not (pre-Java 8)?",
+   "back": "Declare <b>state</b> — fields and constructors — that subclasses share",
+   "extra": "It also cannot be instantiated. Interfaces carry no instance fields.",
+   "source": "YouTube — Abstract Class In Java Tutorial, 0:01 (youtu.be/52frlN8webg?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>final</code> mean in its three positions?",
+   "back": "Variable: cannot be reassigned. Method: cannot be overridden. Class: cannot be subclassed",
+   "extra": "For a reference variable it freezes the reference, not the object it points to.",
+   "source": "YouTube — Final Keyword In Java Tutorial, 0:01 (youtu.be/730BMKm4qYM?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What are Java's four access levels, from most to least open?",
+   "back": "<code>public</code>, <code>protected</code>, package-private (no keyword), <code>private</code>",
+   "extra": "<code>protected</code> means package plus subclasses; the missing keyword is a real level, not a typo.",
+   "source": "YouTube — Access Modifiers Java Tutorial, 0:00 (youtu.be/H0OetoieSDQ?t=0)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Access Modifiers"
+  },
+  {
+   "type": "basic",
+   "front": "When does the compiler stop giving you a default constructor?",
+   "back": "As soon as you declare <b>any</b> constructor yourself",
+   "extra": "Then <code>new Foo()</code> fails unless you add a no-arg constructor back.",
+   "source": "YouTube — Java Constructor Tutorial - How To Use A Constructor in Java, 0:00 (youtu.be/G1Iln3PSrUg?t=0)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Why can a <code>static</code> method not use instance fields?",
+   "back": "It runs with no object, so there is no <code>this</code> to read a field from",
+   "extra": "Static members belong to the class; access them as <code>ClassName.member</code>.",
+   "source": "YouTube — Static Method In Java Tutorial, 0:03 (youtu.be/xKZ3sMimQYM?t=3)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What happens in a <code>switch</code> when a <code>case</code> has no <code>break</code>?",
+   "back": "<b>Fall-through</b> — execution continues into the next case",
+   "extra": "Usually a bug, occasionally deliberate (grouped cases). Modern code uses arrow cases, which do not fall through.",
+   "source": "YouTube — Switch Case in Java, 0:01 (youtu.be/O4KGYGQvHmw?t=1)",
+   "tags": [
+    "type::overview"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  }
+ ]
+}
