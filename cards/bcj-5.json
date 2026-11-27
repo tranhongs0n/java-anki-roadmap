@@ -1,0 +1,504 @@
+{
+ "deck": "70 Articles::Baeldung Core Java",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How do you invoke a static method reflectively?",
+   "back": "<code>method.invoke(null, args)</code> — the instance argument is <b>null</b>",
+   "extra": "The receiver slot is ignored for static methods; passing an object instead throws IllegalArgumentException.",
+   "source": "baeldung.com — java-invoke-static-method-reflection",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What separates classpath entries?",
+   "back": "<b>;</b> on Windows and <b>:</b> on Unix — plus <code>*</code> to match every jar in a directory",
+   "extra": "The wrong separator silently yields a one-entry classpath pointing at a nonsense path.",
+   "source": "baeldung.com — java-classpath-syntax",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Does an abstract class have constructors?",
+   "back": "<b>Yes</b> — they are called by subclass constructors via <code>super()</code>; they just cannot be called with <code>new</code>",
+   "extra": "That is how an abstract class initialises the state it shares with its subclasses.",
+   "source": "baeldung.com — java-abstract-classes-constructors",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>javac --release</code> do that <code>-source</code> and <code>-target</code> do not?",
+   "back": "It compiles against the <b>API of that release</b>, not just its bytecode version",
+   "extra": "-source/-target let you call newer library methods that will not exist at run time; --release makes that a compile error.",
+   "source": "baeldung.com — java-compiler-release-option",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why can <code>-source 8 -target 8</code> compile code that fails on Java 8?",
+   "back": "Because javac still links against the <b>current</b> JDK's own class library",
+   "extra": "Only <code>--release 8</code> uses the historical API signatures. That is the option to trust for backward compatibility.",
+   "source": "baeldung.com — java-compiler-release-option",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why do field annotations sometimes return nothing at run time?",
+   "back": "The annotation's <b>retention</b> is not RUNTIME — CLASS or SOURCE annotations are discarded before reflection sees them",
+   "extra": "That is the usual reason a custom annotation appears to vanish.",
+   "source": "baeldung.com — java-get-field-annotations",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>package-info.java</code> for?",
+   "back": "Holding <b>package-level annotations</b> and Javadoc, since a package declaration cannot carry them elsewhere",
+   "extra": "It is compiled to a synthetic class named <code>package-info</code>.",
+   "source": "baeldung.com — java-package-info",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between a static class and a singleton?",
+   "back": "A static-only class holds <b>no state instance</b> and cannot implement interfaces or be passed around; a singleton is an object",
+   "extra": "That is why singletons can be mocked and injected while static utilities cannot.",
+   "source": "baeldung.com — java-static-class-vs-singleton",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "What is a deserialization gadget chain?",
+   "back": "A crafted byte stream whose classes, when deserialized, execute code through <b>their own readObject methods</b>",
+   "extra": "The defence is a serialization filter (JEP 290) or avoiding Java serialization for untrusted input entirely.",
+   "source": "baeldung.com — java-deserialization-vulnerabilities",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "When is a constant inlined into calling code?",
+   "back": "When it is a <code>static final</code> of a primitive or String type initialised with a <b>constant expression</b>",
+   "extra": "Changing it later does not affect already-compiled callers — the classic reason to avoid deep dependency on constants.",
+   "source": "baeldung.com — java-compile-time-constants",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "How do you call a private method reflectively?",
+   "back": "<code>getDeclaredMethod(...)</code> then <code>setAccessible(true)</code>",
+   "extra": "Java 9+ modules can refuse this with InaccessibleObjectException unless the package is opened.",
+   "source": "baeldung.com — java-call-private-method",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>Field.setAccessible(true)</code> actually bypass?",
+   "back": "The <b>access check</b> on that member, not the field's semantics — the value still belongs to the object",
+   "extra": "Final fields written this way are not guaranteed to be visible to other threads.",
+   "source": "baeldung.com — java-set-private-field-value",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "Can an enum extend a class?",
+   "back": "<b>No</b> — it already extends <code>java.lang.Enum</code>, but it can <b>implement interfaces</b>",
+   "extra": "Implementing an interface is how you get polymorphic behaviour across enum constants.",
+   "source": "baeldung.com — java-extending-enums",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>Character.isLetter</code> and <code>isAlphabetic</code>?",
+   "back": "<code>isLetter</code> is the general category L; <code>isAlphabetic</code> adds <b>letter numbers</b> and other alphabetic marks",
+   "extra": "They disagree for a handful of code points, which matters when validating identifiers.",
+   "source": "baeldung.com — java-character-isletter-isalphabetic",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is the <code>@Serial</code> annotation for?",
+   "back": "It marks serialization members — <code>serialVersionUID</code>, <code>writeObject</code>, <code>readResolve</code> — so the compiler can verify them",
+   "extra": "A typo in those method names otherwise fails silently at run time.",
+   "source": "baeldung.com — java-14-serial-annotation",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>System.exit</code> run finally blocks?",
+   "back": "<b>No</b> — it terminates the JVM immediately, though shutdown hooks do run",
+   "extra": "Any code after it is unreachable; use it at the top level only, in a defined exit path.",
+   "source": "baeldung.com — java-system-exit",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>System.gc()</code> force a collection?",
+   "back": "<b>No</b> — it is a suggestion the JVM may ignore, and <code>-XX:+DisableExplicitGC</code> can make it a no-op",
+   "extra": "HotSpot performs a full GC by default on the call, which is why production code should not call it.",
+   "source": "baeldung.com — java-system-gc",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>i++</code> and <code>++i</code>?",
+   "back": "Postfix returns the <b>old</b> value then increments; prefix increments then returns the new value",
+   "extra": "As a statement they are identical; the distinction only matters inside a larger expression.",
+   "source": "baeldung.com — java-unary-operators",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>BiFunction</code> for?",
+   "back": "A function taking <b>two</b> arguments: <code>apply(T, U)</code> returning R",
+   "extra": "There is no TriFunction in the JDK — beyond two arguments you define your own functional interface.",
+   "source": "baeldung.com — java-bifunction-interface",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How do you negate a <code>Predicate</code> in Java 11+?",
+   "back": "<code>Predicate.not(p)</code>, or <code>p.negate()</code>",
+   "extra": "<code>not(p)</code> reads better in a stream chain and works with method references, which negate() cannot.",
+   "source": "baeldung.com — java-negate-predicate-method-reference",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How do you combine predicates?",
+   "back": "<code>p1.and(p2)</code>, <code>p1.or(p2)</code>, <code>p1.negate()</code> — evaluated left to right, short-circuiting",
+   "extra": "Composition is why Predicate is a functional interface with defaults rather than a bare lambda type.",
+   "source": "baeldung.com — java-predicate-chain",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What is currying in Java?",
+   "back": "Turning a function of several arguments into a chain of single-argument functions: <code>f(a).apply(b)</code>",
+   "extra": "<code>IntFunction&lt;IntUnaryOperator&gt; add = a -&gt; b -&gt; a + b;</code>. Useful for partial application.",
+   "source": "baeldung.com — java-currying",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What are method handles and how do they compare to reflection?",
+   "back": "Typed, <b>direct</b> references to methods (<code>MethodHandle</code>) that the JIT can inline; reflection is introspective and slower",
+   "extra": "Handles are checked once at lookup and then invoked like a normal call.",
+   "source": "baeldung.com — java-method-handles",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What are variable handles?",
+   "back": "Typed references to a field, array element or static variable with <b>defined memory semantics</b>",
+   "extra": "They are the standard replacement for <code>Unsafe</code> for atomics and volatile access.",
+   "source": "baeldung.com — java-variable-handles",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How does a dynamic proxy work?",
+   "back": "A generated class implements the interfaces you list and routes every call to an <code>InvocationHandler</code>",
+   "extra": "It only works for interfaces — classes need bytecode libraries like CGLIB or ByteBuddy.",
+   "source": "baeldung.com — java-dynamic-proxies",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>ClassNotFoundException</code> and <code>NoClassDefFoundError</code>?",
+   "back": "The first is thrown by explicit loading (<code>Class.forName</code>) when the name cannot be found; the second when a class that was present at compile time fails to <b>initialise or link</b> at run time",
+   "extra": "NoClassDefFoundError often masks a static-initialiser failure whose real cause is elsewhere.",
+   "source": "baeldung.com — java-classnotfoundexception-and-noclassdeffounderror",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>values()</code> return a shared array?",
+   "back": "<b>No</b> — it returns a fresh copy on every call",
+   "extra": "That is why caching it in a static field is a common optimisation, and why mutating the result never affects the enum.",
+   "source": "baeldung.com — java-enum-iteration",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What does type erasure remove?",
+   "back": "The <b>type arguments</b> at runtime: <code>List&lt;String&gt;</code> and <code>List&lt;Integer&gt;</code> are the same class",
+   "extra": "Consequences: no <code>instanceof List&lt;String&gt;</code>, no generic array creation, and overloads that differ only in type arguments clash.",
+   "source": "baeldung.com — java-type-erasure",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What is a super type token?",
+   "back": "An <b>anonymous subclass</b> used to capture a generic type: <code>new TypeToken&lt;List&lt;String&gt;&gt;() {}</code>",
+   "extra": "The type argument survives in the subclass's generic superclass, which erasure does not remove.",
+   "source": "baeldung.com — java-super-type-tokens",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "Can a constructor declare its own type parameters?",
+   "back": "<b>Yes</b> — <code>&lt;T&gt; Box(T value)</code>, independent of the class's parameters",
+   "extra": "The type is inferred from the arguments; it is rare but legal.",
+   "source": "baeldung.com — java-generic-constructors",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What is the condition for two axis-aligned rectangles overlapping?",
+   "back": "They overlap when <code>r1.x &lt; r2.x + r2.w &amp;&amp; r2.x &lt; r1.x + r1.w</code> on both axes",
+   "extra": "Negating it is easier to read: separated means one is entirely left/right/above/below the other.",
+   "source": "baeldung.com — java-check-if-two-rectangles-overlap",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "Do <code>Math.sin</code> and friends take degrees?",
+   "back": "<b>No</b> — radians. Convert with <code>Math.toRadians(deg)</code>",
+   "extra": "Passing degrees is the classic silent bug: the result is a plausible-looking wrong number.",
+   "source": "baeldung.com — java-math-sin-degrees",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>final</code>, <code>finally</code> and <code>finalize</code>?",
+   "back": "<code>final</code> is a modifier (no reassign/override/extend); <code>finally</code> is a block that always runs; <code>finalize</code> was a GC hook, now deprecated",
+   "extra": "Three unrelated features whose names collide — a frequent interview trap.",
+   "source": "baeldung.com — java-final-finally-finalize",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "How do you install a global uncaught exception handler?",
+   "back": "<code>Thread.setDefaultUncaughtExceptionHandler(...)</code>, which catches anything not handled per-thread",
+   "extra": "It runs on the dying thread, so it can log but not recover; the thread is already terminating.",
+   "source": "baeldung.com — java-global-exception-handler",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "What are the common causes of memory leaks in Java?",
+   "back": "Static collections, unremoved listeners, <code>ThreadLocal</code> in pooled threads, and caches without eviction",
+   "extra": "The objects are still <b>reachable</b>, so the collector is behaving correctly — the reference is the bug.",
+   "source": "baeldung.com — java-memory-leaks",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "Does Java have a <code>sizeof</code> operator?",
+   "back": "<b>No</b> — only <code>Instrumentation.getObjectSize(obj)</code> in a Java agent, or profiling tools",
+   "extra": "Object size is an implementation detail: JVM, compressed oops and alignment all change it.",
+   "source": "baeldung.com — java-size-of-object",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you take a screenshot in Java?",
+   "back": "<code>new Robot().createScreenCapture(rect)</code> returns a <code>BufferedImage</code>",
+   "extra": "It needs a display; in headless mode it throws. Save with <code>ImageIO.write(img, \"png\", file)</code>.",
+   "source": "baeldung.com — java-taking-screenshots",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "How do you read and write an image in Java?",
+   "back": "<code>ImageIO.read(file)</code> → <code>BufferedImage</code>; <code>ImageIO.write(img, \"png\", file)</code>",
+   "extra": "The format is chosen by name, and write returns false (not an exception) if no writer supports it.",
+   "source": "baeldung.com — java-images",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What goes in a JAR manifest for an executable jar?",
+   "back": "<code>Main-Class</code> plus optional <code>Class-Path</code> for dependencies",
+   "extra": "The manifest is <code>META-INF/MANIFEST.MF</code>, and every line after the first must be under 72 bytes.",
+   "source": "baeldung.com — java-jar-manifest",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+  },
+  {
+   "type": "basic",
+   "front": "Why prefer <code>ScheduledExecutorService</code> to <code>Timer</code>?",
+   "back": "Timer runs tasks on a <b>single thread</b> and dies if a task throws; the executor pools and isolates failures",
+   "extra": "Timer runs every task on one thread, so one uncaught exception cancels the timer for good. A scheduled executor pools threads, isolates failures, and reports them through the Future.",
+   "source": "baeldung.com — java-timer-and-timertask",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+  },
+  {
+   "type": "basic",
+   "front": "How does RMI let you call a remote object?",
+   "back": "A stub on the client implements the interface and forwards calls to the server's skeleton over the network",
+   "extra": "It relies on Java serialization, which is why RMI is a classic deserialization attack surface.",
+   "source": "baeldung.com — java-rmi",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::03 Networking in Java"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>::</code> express?",
+   "back": "A <b>method reference</b> — shorthand for a lambda that forwards to that method",
+   "extra": "Four kinds: static, bound instance, unbound instance, constructor.",
+   "source": "baeldung.com — java-8-double-colon-operator",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How do you enable assertions?",
+   "back": "<code>-ea</code> (or <code>-esa</code> for system classes); they are <b>off by default</b>",
+   "extra": "Assertions are for internal invariants, not for validating public arguments — a disabled assertion must not break correctness.",
+   "source": "baeldung.com — java-assert",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What commonly breaks when migrating to Java 9+?",
+   "back": "Packages removed from the JDK — JAXB, JAX-WS, CORBA — must become explicit dependencies",
+   "extra": "The module system also blocks illegal reflective access by default, breaking older libraries.",
+   "source": "baeldung.com — java-9-migration-issue",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules"
+  },
+  {
+   "type": "basic",
+   "front": "Does <code>strictfp</code> still matter?",
+   "back": "Barely: since Java 17 all floating-point evaluation is strict, so the modifier is redundant",
+   "extra": "It used to force reproducible IEEE 754 results across platforms.",
+   "source": "baeldung.com — java-strictfp",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  }
+ ]
+}

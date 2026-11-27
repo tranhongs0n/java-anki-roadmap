@@ -1,0 +1,306 @@
+{
+ "deck": "70 Articles::Baeldung Core Java",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What did Java 17 make permanent?",
+   "back": "Sealed classes and interfaces, and pattern matching for <code>switch</code> (preview then) — plus it is the LTS after 11",
+   "extra": "Sealed types make exhaustive switch checking possible, which is the feature's real payoff.",
+   "source": "baeldung.com — java-17-new-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What does a pattern <code>switch</code> add over <code>instanceof</code> chains?",
+   "back": "Arms with <b>type patterns and guards</b> (<code>case String s when s.length() &gt; 5</code>), checked for exhaustiveness",
+   "extra": "The compiler verifies that every permitted subtype is covered — the reason sealed hierarchies pair with it.",
+   "source": "baeldung.com — java-switch-pattern-matching",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 16 finalise?",
+   "back": "<b>Records</b>, <b>pattern matching for instanceof</b>, sealed classes (second preview), and <code>Stream.toList()</code>",
+   "extra": "It is the release where records stopped being a preview and became usable in production.",
+   "source": "baeldung.com — java-16-new-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Record"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 15 deliver?",
+   "back": "Text blocks (final), hidden classes, and the sealed-classes preview",
+   "extra": "Text blocks ended the triple-escape era for SQL and JSON literals.",
+   "source": "baeldung.com — java-15-new",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 14 add that changes everyday debugging?",
+   "back": "Helpful NullPointerExceptions, switch expressions (final), records (preview) and <code>jpackage</code>",
+   "extra": "The NPE message names the exact expression that was null — the single largest quality-of-life change in years.",
+   "source": "baeldung.com — java-14-new-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 13 bring?",
+   "back": "Text blocks and switch expressions as <b>second previews</b> — no permanent language changes",
+   "extra": "Java 13 and 14 are where these features were refined before standardisation.",
+   "source": "baeldung.com — java-13-new-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What did Java 12 introduce?",
+   "back": "The <b>switch expression preview</b>, <code>Collectors.teeing</code>, <code>CompactNumberFormat</code> and <code>Files.mismatch</code>",
+   "extra": "Most of the API additions survive; the switch change needed two more releases.",
+   "source": "baeldung.com — java-12-new-features",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+  },
+  {
+   "type": "basic",
+   "front": "What was Java 10's headline feature?",
+   "back": "Local variable type inference — <code>var</code>",
+   "extra": "It is the only language change in 10; everything else was GC and runtime work.",
+   "source": "baeldung.com — java-10-overview",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "Why do static analysers ask you to hide the implicit constructor?",
+   "back": "A utility class with no explicit constructor can be instantiated and subclassed by mistake",
+   "extra": "A private no-arg constructor makes the intent explicit and blocks both.",
+   "source": "baeldung.com — java-sonar-hide-implicit-constructor",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+  },
+  {
+   "type": "basic",
+   "front": "When would you use a default method instead of an abstract class?",
+   "back": "When implementors already extend something else — an interface still lets them take the method",
+   "extra": "Default methods give behaviour without consuming the single superclass slot.",
+   "source": "baeldung.com — java-interface-default-method-vs-abstract-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Are static interface methods inherited?",
+   "back": "<b>No</b> — they are not inherited by implementing classes or subinterfaces",
+   "extra": "You must call them through the interface name: <code>MyInterface.helper()</code>.",
+   "source": "baeldung.com — java-static-default-methods",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How are interfaces declared inside a class or interface treated?",
+   "back": "They are implicitly <b>public static</b>",
+   "extra": "Nesting is purely for namespacing — there is no outer-instance relationship.",
+   "source": "baeldung.com — java-inner-interfaces",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What does the diamond operator infer?",
+   "back": "The type arguments of the constructor from the assignment target: <code>List&lt;String&gt; l = new ArrayList&lt;&gt;();</code>",
+   "extra": "With anonymous classes it required Java 9 — before that the diamond was illegal there.",
+   "source": "baeldung.com — java-diamond-operator",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+  },
+  {
+   "type": "basic",
+   "front": "What makes a class a POJO?",
+   "back": "Only that it is an ordinary Java object — no framework interfaces, no required superclass",
+   "extra": "It does not even require getters or a no-arg constructor; that is JavaBeans, a stricter idea.",
+   "source": "baeldung.com — java-pojo-class",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "What are the rules for an immutable class?",
+   "back": "Final class, all fields private final, no setters, defensive copies of mutable inputs and outputs",
+   "extra": "Records give shallow immutability only: a mutable component still lets state change.",
+   "source": "baeldung.com — java-immutable-object",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+  },
+  {
+   "type": "basic",
+   "front": "Does Java support default parameter values?",
+   "back": "<b>No</b> — the idiom is overloads delegating to one full method",
+   "extra": "The alternative is a builder or a parameter object when the count grows.",
+   "source": "baeldung.com — java-default-parameters-method-overloading",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is the difference between <code>!a</code> and <code>a != true</code>?",
+   "back": "Both invert a boolean, but <code>!a</code> is the idiom; comparing to true is noise",
+   "extra": "For boxed Booleans <code>!b</code> unboxes and can throw NPE — <code>Boolean.FALSE.equals(b)</code> is null-safe.",
+   "source": "baeldung.com — java-using-not-in-if-conditions",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "Why compile a regular expression once?",
+   "back": "<code>Pattern.compile</code> is expensive; a <code>static final Pattern</code> is reused across calls",
+   "extra": "Compiling inside a loop is one of the most common avoidable performance bugs.",
+   "source": "baeldung.com — java-regex-pre-compile",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you count regex matches in a string?",
+   "back": "Loop on <code>Matcher.find()</code>, or use <code>results().count()</code> (Java 9+)",
+   "extra": "split() gives you the parts, not the matches, and differs on trailing empty strings.",
+   "source": "baeldung.com — java-count-regex-matches",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you compute a checksum in Java?",
+   "back": "<code>CRC32</code> for speed, <code>MessageDigest</code> (SHA-256) for cryptographic integrity",
+   "extra": "A checksum detects accidental corruption; only a keyed digest or signature detects tampering.",
+   "source": "baeldung.com — java-checksums",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you generate an RSA key pair in Java?",
+   "back": "<code>KeyPairGenerator.getInstance(\"RSA\")</code> with a key size, then <code>generateKeyPair()</code>",
+   "extra": "Then <code>Cipher</code> with <code>RSA/ECB/OAEPWithSHA-256AndMGF1Padding</code> — never the bare \"RSA/ECB/PKCS1Padding\" default.",
+   "source": "baeldung.com — java-rsa",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>printf</code> give you over <code>println</code>?",
+   "back": "C-style <b>format specifiers</b>: <code>%s</code>, <code>%d</code>, <code>%f</code>, <code>%.2f</code>, <code>%n</code>",
+   "extra": "%n is the platform line separator; a literal \\n is not portable. It does not append a newline on its own.",
+   "source": "baeldung.com — java-printstream-printf",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you run a single Java source file without compiling it first?",
+   "back": "<code>java Hello.java</code> — the launcher compiles in memory and runs it (Java 11+)",
+   "extra": "No class file is produced; the file may even declare several classes.",
+   "source": "baeldung.com — java-single-file-source-code",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+  },
+  {
+   "type": "basic",
+   "front": "How do you query a module at run time?",
+   "back": "<code>Class.getModule()</code> / <code>ModuleLayer</code>, then <code>getName()</code>, <code>isExported()</code>, <code>canRead()</code>",
+   "extra": "That is how frameworks decide whether deep reflection is permitted.",
+   "source": "baeldung.com — java-9-module-api",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules"
+  },
+  {
+   "type": "basic",
+   "front": "What are the three built-in class loaders?",
+   "back": "<b>Bootstrap</b> (core JDK), <b>platform</b> (formerly extension), <b>application</b> (classpath)",
+   "extra": "Each delegates upward first, which is why a class cannot be shadowed by your own jar.",
+   "source": "baeldung.com — java-classloaders",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "What performance work landed in Java 10?",
+   "back": "Parallel full GC for G1, application class-data sharing, and thread-local handshakes",
+   "extra": "The handshakes removed the need for global safepoints on many operations.",
+   "source": "baeldung.com — java-10-performance-improvements",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+  },
+  {
+   "type": "basic",
+   "front": "How does <code>ResourceBundle</code> find the right file?",
+   "back": "By walking from the most specific locale to the default: <code>Messages_fr_CA</code> → <code>Messages_fr</code> → <code>Messages</code>",
+   "extra": "Lookup starts at the most specific locale and falls back one step at a time until a bundle is found, ending at the default locale, so translations only need to cover what differs.",
+   "source": "baeldung.com — java-resourcebundle",
+   "tags": [
+    "type::catalogue"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::13 Internationalization"
+  }
+ ]
+}
