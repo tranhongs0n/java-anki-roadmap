@@ -1,0 +1,119 @@
+{
+ "deck": "70 Articles::Baeldung",
+ "tags": [
+  "article::baeldung",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "What four kinds of member may an interface declare?",
+   "back": "Constants, abstract methods, <b>static</b> methods and <b>default</b> methods (private helpers since Java 9)",
+   "extra": "No instance fields and no constructors — an interface has no state to initialise.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What modifiers does an interface variable implicitly have?",
+   "back": "<code>public static final</code> — and its visibility cannot be changed",
+   "extra": "<code>String LED = \"LED\";</code> in an interface is a constant. Writing <code>private</code> or omitting <code>final</code> does not alter that.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What modifiers can an interface method never have?",
+   "back": "<code>protected</code> and <code>final</code> — both are compile errors",
+   "extra": "protected has no meaning without inheritance of state, and final contradicts the point of an abstract method.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "Can an interface be declared <code>final</code>?",
+   "back": "<b>No</b> — the compiler rejects it",
+   "extra": "An interface exists to be implemented; final would forbid the only thing it is for.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How does a class take on an interface, and how does an interface take on another?",
+   "back": "A class <code>implements</code>; an interface <code>extends</code> another interface",
+   "extra": "An interface can extend several interfaces at once; a class can implement any number of them.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "If <code>Box extends HasColor</code>, what must a class implementing <code>Box</code> provide?",
+   "back": "The methods of <b>both</b> — the inherited <code>getColor()</code> and its own <code>getHeight()</code>",
+   "extra": "Inheritance in interfaces is additive: the child interface's contract includes the parent's.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "What happens when an abstract class implements an interface?",
+   "back": "It inherits the abstract and default methods but may leave the abstract ones unimplemented",
+   "extra": "That is the standard way to provide a partial implementation — the abstract class absorbs the boilerplate, concrete subclasses finish it.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+  },
+  {
+   "type": "basic",
+   "front": "Why were default methods added in Java 8?",
+   "back": "<b>Backward compatibility</b>: adding an abstract method to a published interface would break every existing implementation",
+   "extra": "A default method supplies a body, so old classes keep compiling; the library can evolve without a major version break.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+  },
+  {
+   "type": "basic",
+   "front": "How do interfaces give Java multiple inheritance?",
+   "back": "A class can implement <b>many</b> interfaces, so it takes on many types — but still only one superclass",
+   "extra": "It inherits contracts, not state, which is why the diamond problem does not apply the same way.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  },
+  {
+   "type": "basic",
+   "front": "How does an interface produce polymorphism?",
+   "back": "One interface type, many implementations — the overridden method that runs is chosen by the object's runtime type",
+   "extra": "A <code>List&lt;Shape&gt;</code> holding Circle and Square prints differently per element without a type test.",
+   "source": "baeldung.com — Java Interfaces",
+   "tags": [
+    "type::interfaces"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+  }
+ ]
+}
