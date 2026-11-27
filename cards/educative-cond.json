@@ -1,0 +1,53 @@
+{
+ "deck": "70 Articles::Educative",
+ "tags": [
+  "article::educative",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "In an if / else-if chain, in which order are conditions checked?",
+   "back": "<b>Top-down</b>; the first condition that is true runs its block and the rest are skipped",
+   "extra": "The article calls this the defining behaviour of else-if: checking stops at the first true outcome, so specific cases must come before general ones.",
+   "source": "educative.io — What are conditional statements in programming?",
+   "tags": [
+    "type::conditional"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What role does the <code>else</code> block play in a conditional chain?",
+   "back": "It is the <b>default</b> — it runs only when every earlier condition returned false",
+   "extra": "It cannot have its own condition. Omit it and a non-matching value simply does nothing, which is sometimes the bug.",
+   "source": "educative.io — What are conditional statements in programming?",
+   "tags": [
+    "type::conditional"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "Why use <code>switch</code> instead of an if/else-if chain?",
+   "back": "It expresses <b>one value, many branches</b> more clearly than a repeated comparison",
+   "extra": "Each case ends with break; the default covers the no-match path. Readability is the whole argument — the semantics are equivalent.",
+   "source": "educative.io — What are conditional statements in programming?",
+   "tags": [
+    "type::conditional"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "What happens if no <code>switch</code> case matches and there is no <code>default</code>?",
+   "back": "Nothing runs — the switch simply falls through to the next statement after it",
+   "extra": "That silence hides bugs that a default branch with a thrown exception would surface immediately.",
+   "source": "educative.io — What are conditional statements in programming?",
+   "tags": [
+    "type::conditional"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  }
+ ]
+}
