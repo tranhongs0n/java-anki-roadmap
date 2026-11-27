@@ -37,7 +37,7 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
   },
   {
    "type": "basic",
@@ -48,7 +48,7 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
   },
   {
    "type": "basic",
@@ -59,7 +59,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
   },
   {
    "type": "basic",

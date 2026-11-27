@@ -2578,7 +2578,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography",
    "source": "https://dev.java/learn/security/intro/",
    "tags": [
     "roadmap::java",
@@ -2707,7 +2707,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography",
    "source": "https://dev.java/learn/security/app-integrity-tools/",
    "tags": [
     "roadmap::java",
@@ -2809,7 +2809,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography",
    "source": "https://dev.java/learn/security/digital-signature/",
    "tags": [
     "roadmap::java",
@@ -2911,7 +2911,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::09 Security and Cryptography Libraries",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::04 Cryptography",
    "source": "https://dev.java/learn/security/monitor/",
    "tags": [
     "roadmap::java",
@@ -3022,7 +3022,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/date/",
    "tags": [
     "roadmap::java",
@@ -3097,7 +3097,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/dayofweek-month/",
    "tags": [
     "roadmap::java",
@@ -3154,7 +3154,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/instant/",
    "tags": [
     "roadmap::java",
@@ -3229,7 +3229,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/intro/",
    "tags": [
     "roadmap::java",
@@ -3322,7 +3322,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/legacy-code/",
    "tags": [
     "roadmap::java",
@@ -3388,7 +3388,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/local-time/",
    "tags": [
     "roadmap::java",
@@ -3454,7 +3454,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/non-iso-conversion/",
    "tags": [
     "roadmap::java",
@@ -3520,7 +3520,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/parsing-formatting/",
    "tags": [
     "roadmap::java",
@@ -3586,7 +3586,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/period-duration/",
    "tags": [
     "roadmap::java",
@@ -3652,7 +3652,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/standard-calendar/",
    "tags": [
     "roadmap::java",
@@ -3727,7 +3727,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/temporal/",
    "tags": [
     "roadmap::java",
@@ -3811,7 +3811,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time",
    "source": "https://dev.java/learn/api/date-time-regex/date-time/zoneid-zone-offset/",
    "tags": [
     "roadmap::java",

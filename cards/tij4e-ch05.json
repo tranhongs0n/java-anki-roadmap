@@ -59,7 +59,7 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   },
   {
    "type": "basic",
@@ -103,7 +103,7 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::14 Static vs Dynamic Binding"
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding"
   }
  ]
 }

@@ -91,7 +91,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::17 Record"
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Record"
   },
   {
    "type": "basic",
@@ -113,7 +113,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::17 Record"
+   "merge_into": "00 Java Roadmap::02 Object Model::18 Record"
   },
   {
    "type": "basic",
@@ -135,7 +135,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
   },
   {
    "type": "basic",
@@ -157,7 +157,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -201,7 +201,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Optionals"
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
   },
   {
    "type": "basic",
@@ -432,7 +432,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
   },
   {
    "type": "basic",

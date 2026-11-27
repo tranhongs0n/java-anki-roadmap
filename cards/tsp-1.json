@@ -102,7 +102,7 @@
    "tags": [
     "type::api"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::07 Iterator"
+   "merge_into": "00 Java Roadmap::04 Collections::08 Iterator"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
    "tags": [
     "type::api"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::10 Date and Time API Details"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::05 Date and Time"
   }
  ]
 }

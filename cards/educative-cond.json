@@ -14,7 +14,7 @@
    "tags": [
     "type::conditional"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
   },
   {
    "type": "basic",
@@ -25,7 +25,7 @@
    "tags": [
     "type::conditional"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
   },
   {
    "type": "basic",
@@ -36,7 +36,7 @@
    "tags": [
     "type::conditional"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
   },
   {
    "type": "basic",
@@ -47,7 +47,7 @@
    "tags": [
     "type::conditional"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
   }
  ]
 }

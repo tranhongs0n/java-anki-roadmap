@@ -15,7 +15,7 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -26,7 +26,7 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -37,7 +37,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -48,7 +48,7 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -70,7 +70,7 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -81,7 +81,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   }
  ]
 }

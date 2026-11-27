@@ -15,7 +15,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -26,7 +26,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -37,7 +37,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -48,7 +48,7 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -59,7 +59,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -70,7 +70,7 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -81,7 +81,7 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   }
  ]
 }

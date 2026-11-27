@@ -100,7 +100,7 @@
     "type::rule",
     "item::64"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   },
   {
    "type": "basic",
@@ -112,7 +112,7 @@
     "type::rule",
     "item::65"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
     "type::rule",
     "item::66"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",

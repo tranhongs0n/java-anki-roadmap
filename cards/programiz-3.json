@@ -58,7 +58,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism"
   },
   {
    "type": "basic",
@@ -80,7 +80,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+   "merge_into": "00 Java Roadmap::04 Collections::05 Queue"
   },
   {
    "type": "basic",
@@ -91,7 +91,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Queue"
+   "merge_into": "00 Java Roadmap::04 Collections::05 Queue"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -157,7 +157,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
   },
   {
    "type": "basic",
@@ -168,7 +168,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",
@@ -179,7 +179,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::05 Stack"
+   "merge_into": "00 Java Roadmap::04 Collections::06 Stack"
   },
   {
    "type": "basic",
@@ -234,7 +234,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
   },
   {
    "type": "basic",
@@ -245,7 +245,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
   },
   {
    "type": "basic",
@@ -278,7 +278,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",
@@ -333,7 +333,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
+   "merge_into": "00 Java Roadmap::04 Collections::02 Array vs ArrayList"
   },
   {
    "type": "basic",
@@ -344,7 +344,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",

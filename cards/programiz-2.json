@@ -113,7 +113,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::13 Polymorphism"
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   },
   {
    "type": "basic",
@@ -146,7 +146,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::07 Iterator"
+   "merge_into": "00 Java Roadmap::04 Collections::08 Iterator"
   },
   {
    "type": "basic",
@@ -190,7 +190,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
   },
   {
    "type": "basic",
@@ -223,7 +223,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",

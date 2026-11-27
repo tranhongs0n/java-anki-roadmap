@@ -15,7 +15,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
   },
   {
    "type": "basic",
@@ -26,7 +26,7 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",
@@ -37,7 +37,7 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",
@@ -48,7 +48,7 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",
@@ -59,7 +59,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
   },
   {
    "type": "basic",
@@ -70,7 +70,7 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::02 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
   }
  ]
 }

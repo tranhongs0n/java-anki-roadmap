@@ -14,7 +14,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -80,7 +80,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -135,7 +135,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -256,7 +256,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -278,7 +278,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
   },
   {
    "type": "basic",
@@ -311,7 +311,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -322,7 +322,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -333,7 +333,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -487,7 +487,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules"
+   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules and Linking"
   },
   {
    "type": "basic",

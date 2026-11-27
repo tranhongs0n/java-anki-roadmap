@@ -14,7 +14,7 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   },
   {
    "type": "basic",
@@ -25,7 +25,7 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   },
   {
    "type": "basic",
@@ -47,7 +47,7 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   },
   {
    "type": "basic",
@@ -58,7 +58,7 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   },
   {
    "type": "basic",
@@ -69,7 +69,7 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   },
   {
    "type": "basic",
@@ -80,7 +80,7 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
   }
  ]
 }

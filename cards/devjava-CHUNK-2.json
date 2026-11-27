@@ -1,7 +1,7 @@
 {
  "batches": [
   {
-   "deck": "00 Java Roadmap::04 Collections::05 Stack",
+   "deck": "00 Java Roadmap::04 Collections::06 Stack",
    "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/stacks-queues/",
    "tags": [
     "roadmap::java",
@@ -143,7 +143,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::04 Collections::07 Iterator",
+   "deck": "00 Java Roadmap::04 Collections::08 Iterator",
    "source": "https://dev.java/learn/api/collections-and-streams/collections-framework/iterating/",
    "tags": [
     "roadmap::java",
@@ -234,7 +234,7 @@
    ]
   },
   {
-   "deck": "00 Java Roadmap::04 Collections::08 Generics",
+   "deck": "00 Java Roadmap::04 Collections::09 Generics",
    "source": "https://dev.java/learn/language/fp/generics/intro/",
    "tags": [
     "roadmap::java",

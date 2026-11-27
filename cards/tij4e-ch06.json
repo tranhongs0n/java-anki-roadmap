@@ -15,7 +15,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
   },
   {
    "type": "basic",
@@ -26,7 +26,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
   },
   {
    "type": "basic",
@@ -37,7 +37,7 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
   },
   {
    "type": "basic",
@@ -48,7 +48,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Specifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
   },
   {
    "type": "basic",
@@ -59,7 +59,7 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
   },
   {
    "type": "basic",
@@ -70,7 +70,7 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
   }
  ]
 }

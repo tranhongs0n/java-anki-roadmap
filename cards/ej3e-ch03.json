@@ -220,7 +220,7 @@
     "type::rule",
     "item::20"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   },
   {
    "type": "basic",
@@ -244,7 +244,7 @@
     "type::rule",
     "item::21"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   },
   {
    "type": "basic",
@@ -256,7 +256,7 @@
     "type::rule",
     "item::22"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   },
   {
    "type": "basic",
@@ -292,7 +292,7 @@
     "type::rule",
     "item::25"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::18 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
   }
  ]
 }

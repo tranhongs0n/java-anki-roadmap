@@ -16,7 +16,7 @@
     "type::rule",
     "item::26"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -28,7 +28,7 @@
     "type::rule",
     "item::26"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -40,7 +40,7 @@
     "type::rule",
     "item::27"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -52,7 +52,7 @@
     "type::rule",
     "item::28"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -64,7 +64,7 @@
     "type::rule",
     "item::28"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -76,7 +76,7 @@
     "type::rule",
     "item::29"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -88,7 +88,7 @@
     "type::rule",
     "item::30"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -100,7 +100,7 @@
     "type::rule",
     "item::31"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -112,7 +112,7 @@
     "type::rule",
     "item::31"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
     "type::rule",
     "item::32"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -136,7 +136,7 @@
     "type::rule",
     "item::33"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
   },
   {
    "type": "basic",
@@ -232,7 +232,7 @@
     "type::rule",
     "item::41"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   }
  ]
 }

@@ -223,7 +223,7 @@
    "tags": [
     "type::advanced"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
   },
   {
    "type": "basic",
@@ -234,7 +234,7 @@
    "tags": [
     "type::advanced"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules"
+   "merge_into": "00 Java Roadmap::03 Language Features::04 Modules and Linking"
   }
  ]
 }

@@ -36,7 +36,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Access Modifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
   },
   {
    "type": "basic",
@@ -113,7 +113,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::06 Dequeue"
+   "merge_into": "00 Java Roadmap::04 Collections::07 Deque"
   },
   {
    "type": "basic",
@@ -124,7 +124,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::01 Array vs ArrayList"
+   "merge_into": "00 Java Roadmap::04 Collections::02 Array vs ArrayList"
   },
   {
    "type": "basic",
@@ -311,7 +311,7 @@
    "tags": [
     "type::course"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Encapsulation"
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation"
   },
   {
    "type": "basic",

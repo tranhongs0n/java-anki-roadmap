@@ -2,7 +2,7 @@
  "chunk": "CHUNK-4",
  "batches": [
   {
-   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::11 Regular Expressions Details",
+   "deck": "00 Java Roadmap::07 IO, Network, Data Formats::06 Regular Expressions",
    "source": "https://dev.java/learn/api/date-time-regex/regex/boundary-matchers/",
    "tags": [
     "roadmap::java",
