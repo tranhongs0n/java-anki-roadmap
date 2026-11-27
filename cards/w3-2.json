@@ -1,0 +1,75 @@
+{
+ "deck": "70 Articles::W3Schools Java",
+ "tags": [
+  "article::w3schools",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How do you give each enum constant its own data?",
+   "back": "Declare fields, a constructor, and pass arguments after each constant name",
+   "extra": "The constructor is implicitly private; the constants supply the arguments at class initialisation.",
+   "source": "w3schools.com/java — enum_constructor",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "How do you sort an ArrayList of strings?",
+   "back": "<code>Collections.sort(list)</code>, or <code>list.sort(Comparator.naturalOrder())</code>",
+   "extra": "For custom order pass a Comparator; the list must be mutable, and nulls need an explicit policy.",
+   "source": "w3schools.com/java — sort_list",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What is the shorthand if-else called?",
+   "back": "The <b>ternary operator</b>: <code>variable = (condition) ? a : b;</code>",
+   "extra": "It is an expression, so it can be assigned; an if statement cannot.",
+   "source": "w3schools.com/java — conditions_shorthand",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Conditionals"
+  },
+  {
+   "type": "basic",
+   "front": "How do you declare a two-dimensional array?",
+   "back": "<code>int[][] grid = new int[3][4];</code> — an array of arrays",
+   "extra": "Rows may have different lengths because each is a separate array object.",
+   "source": "w3schools.com/java — arrays_multi",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "How do you validate input before using it?",
+   "back": "Check the condition and <code>throw new ArithmeticException(...)</code> or return early",
+   "extra": "The article's divide example: guard against 0 rather than letting the JVM throw a less informative error.",
+   "source": "w3schools.com/java — exceptions_multiple",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+  },
+  {
+   "type": "basic",
+   "front": "Why do wrapper classes exist?",
+   "back": "They turn primitives into objects for collections, generics and null, and provide parse/convert methods",
+   "extra": "<code>Integer.parseInt</code>, <code>Double.valueOf</code>; the boxing is automatic but allocates.",
+   "source": "w3schools.com/java — wrapper_classes",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  }
+ ]
+}

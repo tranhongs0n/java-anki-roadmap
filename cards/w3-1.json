@@ -1,0 +1,306 @@
+{
+ "deck": "70 Articles::W3Schools Java",
+ "tags": [
+  "article::w3schools",
+  "roadmap::java"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How do you reverse a string in Java?",
+   "back": "<b>No reverse method</b> on String — use <code>new StringBuilder(s).reverse().toString()</code>",
+   "extra": "String is immutable, so reversing means building a new one. A manual loop works, but the builder is the idiomatic answer.",
+   "source": "w3schools.com/java — howto_reverse_string",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you check whether a string is a palindrome?",
+   "back": "Compare characters from both ends inward until they meet or mismatch",
+   "extra": "Case and whitespace usually need normalising first; comparing against the reversed string is shorter but allocates.",
+   "source": "w3schools.com/java — howto_palindrome_check",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "What is the efficient way to test primality?",
+   "back": "Loop divisors from 2 up to <b>√n</b> — past that, any factor would have a matching one below",
+   "extra": "Checking to n-1 is correct but wasteful. 2 is the smallest prime, and values below 2 are not prime.",
+   "source": "w3schools.com/java — howto_check_prime_num",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you generate Fibonacci numbers iteratively?",
+   "back": "Track the previous two values and add them in a loop — O(n) time, O(1) space",
+   "extra": "The recursive version is exponential because it recomputes the same values; that is the point of the exercise.",
+   "source": "w3schools.com/java — howto_fibonacci",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you swap two variables?",
+   "back": "With a temporary variable: <code>temp = a; a = b; b = temp;</code>",
+   "extra": "Arithmetic or XOR tricks avoid the temp but break on overflow and are unreadable. Java has no tuple swap.",
+   "source": "w3schools.com/java — howto_swap_two_variables",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "How do you sort an array of numbers?",
+   "back": "<code>Arrays.sort(a)</code> — ascending order, in place",
+   "extra": "Descending order needs a boxed array, because the comparator overload does not accept primitives.",
+   "source": "w3schools.com/java — howto_sort_an_array",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "How do you turn a string into a character array?",
+   "back": "<code>str.toCharArray()</code>; for words use <code>split(\" \")</code>",
+   "extra": "toCharArray gives chars; split gives String[] and takes a regex, so a literal dot must be escaped.",
+   "source": "w3schools.com/java — howto_string_to_array",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you remove duplicates from an array?",
+   "back": "Copy into a <code>LinkedHashSet</code> (preserves order), then back to an array",
+   "extra": "A HashSet is faster but unordered; sorting first then skipping neighbours works with no extra memory.",
+   "source": "w3schools.com/java — howto_remove_duplicates_array",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How do you find the second largest element?",
+   "back": "One pass tracking the largest and the second largest separately",
+   "extra": "Sorting and taking length-2 is simpler but O(n log n), and wrong when the maximum value repeats.",
+   "source": "w3schools.com/java — howto_second_largest_array",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "How do you count character frequencies?",
+   "back": "A <code>Map&lt;Character,Integer&gt;</code> updated with <code>merge(ch, 1, Integer::sum)</code>",
+   "extra": "merge removes the get-or-default pattern: one call replaces containsKey, get and put.",
+   "source": "w3schools.com/java — howto_count_char_freq",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+  },
+  {
+   "type": "basic",
+   "front": "How do you check whether two strings are anagrams?",
+   "back": "Sort both char arrays and compare, or count characters into a 26-slot array",
+   "extra": "Sorting is O(n log n) and short; counting is O(n) but assumes a known alphabet.",
+   "source": "w3schools.com/java — howto_check_anagram_strings",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+  },
+  {
+   "type": "basic",
+   "front": "How do you find the GCD of two numbers?",
+   "back": "Euclid's algorithm: <code>while (b != 0) { int t = b; b = a % b; a = t; }</code>",
+   "extra": "Each remainder pair shrinks fast, so it converges in O(log n) instead of testing every divisor.",
+   "source": "w3schools.com/java — howto_find_gcd",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you sum the digits of a number?",
+   "back": "Repeatedly add <code>n % 10</code> and divide n by 10 until it reaches 0",
+   "extra": "For a String of digits, subtract '0' from each char instead.",
+   "source": "w3schools.com/java — howto_sum_of_digits",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you reverse the digits of a number?",
+   "back": "Accumulate <code>rev = rev * 10 + n % 10</code>, dividing n by 10 each round",
+   "extra": "Textbook integer reversal — it overflows for large inputs unless you accumulate in a long.",
+   "source": "w3schools.com/java — howto_reverse_number",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you generate a random integer in a range?",
+   "back": "<code>(int)(Math.random() * (max - min + 1)) + min</code>",
+   "extra": "Math.random returns [0,1): multiply by the width, cast, then shift by min. Random.nextInt(bound) is cleaner.",
+   "source": "w3schools.com/java — howto_random_number",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+  },
+  {
+   "type": "basic",
+   "front": "How do you shuffle an array?",
+   "back": "Wrap it with <code>Arrays.asList</code> and call <code>Collections.shuffle(list)</code>",
+   "extra": "That view is fixed-size but writable, which is exactly what shuffle needs; a manual Fisher-Yates loop avoids the wrapper.",
+   "source": "w3schools.com/java — howto_shuffle_array",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "How do you merge two arrays?",
+   "back": "<code>System.arraycopy(src, srcPos, dest, destPos, length)</code> twice into a preallocated array",
+   "extra": "It is a native bulk copy — much faster than a loop, and it copies references rather than deep-cloning.",
+   "source": "w3schools.com/java — howto_merge_two_arrays",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+  },
+  {
+   "type": "basic",
+   "front": "How do you iterate a HashMap?",
+   "back": "<code>for (Map.Entry&lt;K,V&gt; e : map.entrySet())</code>",
+   "extra": "entrySet avoids a second lookup per entry; keySet plus get does the work twice.",
+   "source": "w3schools.com/java — howto_loop_through_hashmap",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+  },
+  {
+   "type": "basic",
+   "front": "How do you loop over enum constants?",
+   "back": "<code>for (Type t : Type.values())</code>",
+   "extra": "values() returns a fresh copy on each call, so cache it in a static field in hot code.",
+   "source": "w3schools.com/java — howto_loop_through_enum",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+  },
+  {
+   "type": "basic",
+   "front": "What are the two groups of Java modifiers?",
+   "back": "<b>Access</b> (<code>public</code>, <code>private</code>, <code>protected</code>, default) and <b>non-access</b> (<code>static</code>, <code>final</code>, <code>abstract</code>, <code>synchronized</code>, <code>volatile</code>, <code>transient</code>, <code>native</code>, <code>strictfp</code>)",
+   "extra": "Access modifiers decide visibility; non-access ones change behaviour and memory semantics.",
+   "source": "w3schools.com/java — modifiers",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>transient</code> do to a field?",
+   "back": "Excludes it from serialization; on deserialization it comes back as its default value",
+   "extra": "Usually paired with a custom writeObject that persists the data in another form.",
+   "source": "w3schools.com/java — non_modifiers",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::17 Serialization"
+  },
+  {
+   "type": "basic",
+   "front": "Name the four core collection interfaces and their shapes.",
+   "back": "<code>List</code> (ordered, duplicates), <code>Set</code> (unique), <code>Queue</code> (FIFO), <code>Map</code> (key→value)",
+   "extra": "Map is not a Collection — it has no iterator over elements, only over entries.",
+   "source": "w3schools.com/java — data_structures",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+  },
+  {
+   "type": "basic",
+   "front": "What is <code>var</code>, and what is it not?",
+   "back": "Local-variable type inference (Java 10) — the type is still fixed at compile time",
+   "extra": "It cannot be used for fields, parameters or return types, and it needs an initialiser.",
+   "source": "w3schools.com/java — var",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+  },
+  {
+   "type": "basic",
+   "front": "Why wrap a <code>FileWriter</code> in a <code>BufferedWriter</code>?",
+   "back": "To batch writes and get <code>newLine()</code>, which writes the platform line separator",
+   "extra": "newLine() is the portable alternative to writing \\n by hand.",
+   "source": "w3schools.com/java — bufferedwriter",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+  },
+  {
+   "type": "basic",
+   "front": "Which class creates and writes files in modern Java?",
+   "back": "<code>java.nio.file.Files</code> — <code>createFile</code>, <code>writeString</code>, <code>delete</code>",
+   "extra": "The older <code>File.createNewFile()</code> still works but throws less descriptive errors.",
+   "source": "w3schools.com/java — files_create",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+  },
+  {
+   "type": "basic",
+   "front": "What separates an inner class from a static nested class?",
+   "back": "An inner class holds a <b>hidden reference</b> to the outer instance; a static nested class does not",
+   "extra": "That reference lets it touch outer fields, and is why inner objects leak the outer one.",
+   "source": "w3schools.com/java — inner_classes",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>TreeMap</code> give you that <code>HashMap</code> does not?",
+   "back": "Entries sorted by <b>key</b>, with O(log n) operations instead of O(1)",
+   "extra": "Keys must be Comparable or you supply a Comparator; null keys are rejected.",
+   "source": "w3schools.com/java — treemap",
+   "tags": [
+    "type::basics"
+   ],
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+  }
+ ]
+}
