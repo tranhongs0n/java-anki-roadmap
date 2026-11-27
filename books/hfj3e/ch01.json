@@ -1,0 +1,7247 @@
+{
+ "chapter": {
+  "n": 1,
+  "title": "Breaking the Surface",
+  "start": 39,
+  "end": 64
+ },
+ "headings": [
+  [
+   "The way Java works",
+   40
+  ],
+  [
+   "What you’ll do in Java",
+   41
+  ],
+  [
+   "A very brief history of Java",
+   42
+  ],
+  [
+   "Code structure in Java",
+   45
+  ],
+  [
+   "Anatomy of a class",
+   46
+  ],
+  [
+   "Writing a class with a main()",
+   47
+  ],
+  [
+   "Looping and looping and...",
+   51
+  ],
+  [
+   "Conditional branching",
+   53
+  ],
+  [
+   "Coding a serious business application",
+   54
+  ],
+  [
+   "Phrase-O-Matic",
+   57
+  ]
+ ],
+ "pages": [
+  {
+   "page": 39,
+   "lines": [
+    {
+     "t": "this is a new chapter",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "1dive in: a quick dip",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Java takes you to new places.From its humble release to the public as the (wimpy)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "version 1.02, Java seduced programmers with its friendly syntax, object-oriented features, memory",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "management, and best of all­—the promise of portability. The lure of write-once/run-anywhere",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "is just too strong.  A devoted following exploded, as programmers fought against bugs, limita­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "tions, and, oh yeah, the fact that it was dog slow. But that was ages ago.  If you’re just starting in",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Java, you’re lucky. Some of us had to walk five miles in the snow, uphill both ways (barefoot), to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "get even the most trivial application to work.  But you, why, you get to ride the sleeker, faster,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "easier-to-read-and-write Java of today.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "ea",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "k",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "ng",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "t",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "h",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "S",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "u",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "r",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "fa",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "c",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "e",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "Come on, the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "water’s great! We’ll",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "dive right in and write some code,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "then compile and run it. We’re",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "talking syntax, looping and branching,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and a look at what makes Java so",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "cool. You’ll be coding in no",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "time.",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 40,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The way Java works",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "source code for",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "the interactive",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "party invitation.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Method Party()",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "0 aload_0",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "1 invokespecial #1",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "<Method java.lang.",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "Object()>",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "4 return",
+     "mono": false,
+     "size": 7.0
+    },
+    {
+     "t": "Create a source",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "document. Use an",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "established protocol",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(in this case, the Java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "language).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Source",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Compiler",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Output",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "(code)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Virtual",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Machines",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "The goal is to write one application (in this",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "example, an interactive party invitation) and have",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "it work on whatever device your friends have.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Run your document",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "through a source code",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "compiler. The compiler",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "checks for errors and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "won’t let you compile",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "until it’s satisfied that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "everything will run",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "correctly.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The compiler creates a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "new document, coded",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "into Java bytecode.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Any device capable of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "running Java will be able",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to interpret/translate",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "this file into something",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "it can run. The compiled",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "bytecode is platform-",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "independent.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Your friends all have a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Java virtual machine",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(JVM), implemented in",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "software, running inside",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "their electronic gadgets.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "When your friends run",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "your program, the virtual",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "machine reads and runs",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the bytecode.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the way Java works",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 41,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "What you’ll do in Java",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "import java.awt.*;",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "import java.awt.event.*;",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "class Party {",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "public void buildInvite() {",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Frame f = new Frame();",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Label l = new Label(\"Party at Tim's\");",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Button b = new Button(\"You bet\");",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Button c = new Button(\"Shoot me\");",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Panel p = new Panel();",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "p.add(l);",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "}  // more code here...",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "File   Edit   Window  Help  Plead",
+     "mono": false,
+     "size": 5.3
+    },
+    {
+     "t": "%javac Party.java",
+     "mono": true,
+     "size": 9.5
+    },
+    {
+     "t": "Compile the Party.java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "file by running javac",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(the compiler application).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "If you don’t have  errors,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you’ll get a second docu­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "ment named Party.class.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The compiler-generated",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Party.class file is made up",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of bytecodes.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Type your source code.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Save as: Party.java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Method Party()",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "0 aload_0",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "1 invokespecial #1 <Method",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "java.lang.Object()>",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "4 return",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Method void buildInvite()",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "0 new #2 <Class java.awt.Frame>",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "3 dup",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "4 invokespecial #3 <Method",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "java.awt.Frame()>",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "Run the program by",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "starting the Java Virtual",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Machine (JVM) with the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Party.class file. The JVM",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "translates the bytecode",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "into something the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "underlying platform",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "understands, and runs",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "your program.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Compiled code: Party.class",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "File  Edit   Window  Help  Swear",
+     "mono": false,
+     "size": 5.0
+    },
+    {
+     "t": "%java Party",
+     "mono": true,
+     "size": 9.5
+    },
+    {
+     "t": "Source",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Compiler",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Output",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "(code)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Virtual",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Machines",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "You’ll type a source code file, compile it using",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the javac compiler, and then run the compiled",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "bytecode on a Java virtual machine.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(Note: this is not meant to be a tutorial...",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "you’ll be writing real code in a moment, but",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "for now, we just want you to get a feel for",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "how it all fits together.",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "In other words, the code on this page isn’t",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "quite real; don’t try to compile it .)",
+     "mono": false,
+     "size": 18.0
+    }
+   ]
+  },
+  {
+   "page": 42,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "history of Java",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A very brief history of Java",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Java was initially released (some would say “escaped”), on January 23, 1996. It’s over 25 years old! In",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the first 25 years, Java as a language evolved, and the Java API grew enormously. The best estimate we",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "have is that over 17 gazillion lines of Java code have been written in the last 25 years. As you spend time",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "programming in Java, you will most certainly come across Java code that’s quite old, and some that’s",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "much newer. Java is famous for its backward compatibility, so old code can run quite happily on new",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "JVMs.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "In this book we’ll generally start off by using older coding styles (remember, you’re likely to encounter",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "such code in the “real world”), and then we’ll introduce newer-style code.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "In a similar fashion, we will sometimes show you older classes in the Java API, and then show you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "newer alternatives.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "I’ve heard that",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Java isn’t very fast",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "compared to compiled",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "languages like C and",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Rust.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Speed and memory usage",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "When Java was first released, it was slow. But soon after, the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "HotSpot VM was created, as were other performance enhanc­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ers. While it’s true that Java isn’t the fastest language out there,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "it’s considered to be a very fast language—almost as fast as",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "languages like C and Rust, and much faster than most other",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "languages out there.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Java has a magic super-power—the JVM. The Java Virtual",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Machine can optimize your code while it’s running, so it’s possible",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "to create very fast applications without having to write special­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ized high-performance code.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "But—full disclosure—compared to C and Rust, Java uses a lot",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of memory.",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 43,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int size = 27;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String name = \"Fido\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Dog myDog = new Dog(name, size);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = size - 5;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x < 15) myDog.bark(8);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x > 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDog.play();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int[] numList = {2, 4, 6, 8};",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Hello\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Dog: \" + name);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String num = \"8\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int z = Integer.parseInt(num);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "try {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "readTheFile(\"myFile.txt\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "catch (FileNotFoundException ex) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"File not found.\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "declare an integer variable named ‘size’ and give it the value 27",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "if x (value of 22) is less than 15, tell the dog to bark 8 times",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "print out “Hello”... probably at the command line",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Try to guess what each line of code is doing...",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(answers are on the next page).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Look how easy it",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "is to write Java",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Q: The naming conventions for Java’s versions are",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "confusing. There was JDK 1.0, and 1.2, 1.3, 1.4, then a jump",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to J2SE 5.0, then it changed to Java 6, Java 7, and last time",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "I checked, Java was up to Java 18. What’s going on?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: The version numbers have varied a lot over the last",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "25+ years! We can ignore the letters (J2SE/SE) since these",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "are not really used now. The numbers are a little more",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "involved.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Technically Java SE 5.0 was actually Java 1.5. Same for 6",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(1.6), 7 (1.7), and 8 (1.8). In theory, Java is still on version",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "1.x because new versions are backward compatible, all the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "way back to 1.0.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "However, it was a bit confusing having a version number",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that was different to the name everyone used, so the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "official version number from Java 9 onward is just the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "number, without the “1” prefix; i.e., Java 9 really is version",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "9, not version 1.9.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "In this book we’ll use the common convention of 1.0–1.4,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "then from 5 onward we’ll drop the “1” prefix.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Also, since Java 9 was released in September 2017, there’s",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "been a release of Java every six months, each with a new",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "“major” version number, so we moved very quickly from 9",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to 18!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Answers on page 6.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 44,
+   "lines": [
+    {
+     "t": "why Java is cool",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int size = 27;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String name = \"Fido\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Dog myDog = new Dog(name, size);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = size - 5;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x < 15) myDog.bark(8);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x > 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "myDog.play();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int[] numList = {2, 4, 6, 8};",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Hello\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Dog: \" + name);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String num = \"8\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int z = Integer.parseInt(num);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "try {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "readTheFile(\"myFile.txt\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "catch (FileNotFoundException ex) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"File not found.\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "declare an integer variable named ‘size’ and give it the value 27",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "Don’t worry about whether you understand any of this yet!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Everything here is explained in great detail in the book (most",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "within the first 40 pages). If Java resembles a language you’ve",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "used in the past, some of this will be simple. If not, don’t worry",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "about it. We’ll get there...",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Look how easy it",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "is to write Java",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "declare a string of characters variable named ‘name’ and give it the value “Fido”",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "declare a new Dog variable ‘myDog’ and make the new Dog using ‘name’ and ‘size’",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "subtract 5 from 27 (value of ‘size’) and assign it to a variable named ‘x’",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "if x (value of 22) is less than 15, tell the dog to bark 8 times",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "keep looping as long as x is greater than 3...",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "tell the dog to play (whatever THAT means to a dog...)",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "this looks like the end of the loop -- everything in { } is done in the loop",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "declare a list of integers variable ‘numList’, and put 2,4,6,8 into the list.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "print out “Hello”... probably at the command line",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "print out “Dog: Fido” (the value of ‘name’ is “Fido”) at the command line",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "declare a character string variable ‘num’ and give it the value of “8”",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "convert the string of characters “8” into an actual numeric value 8",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "try to do something...maybe the thing we’re trying isn’t guaranteed to work...",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "read a text file named “myFile.txt” (or at least TRY to read the file...)",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "must be the end of the “things to try”, so I guess you could try many things...",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "this must be where you find out if the thing you tried didn’t work...",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "if the thing we tried failed, print “File not found” out at the command line",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "looks like everything in the { } is what to do if the ‘try’ didn’t work...",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "answers",
+     "mono": false,
+     "size": 23.0
+    }
+   ]
+  },
+  {
+   "page": 45,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "What goes in a",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "source file?",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "public class Dog {",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "What goes in a",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "class?",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "public class Dog {",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "void bark() {",
+     "mono": true,
+     "size": 9.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "What goes in a",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "method?",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "public class Dog {",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "void bark() {",
+     "mono": true,
+     "size": 9.8
+    },
+    {
+     "t": "statement1;",
+     "mono": true,
+     "size": 9.8
+    },
+    {
+     "t": "statement2;",
+     "mono": true,
+     "size": 9.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.8
+    },
+    {
+     "t": "A source code file (with the .java",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "extension) typically holds one class",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "definition. The class represents a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "piece of your program, although a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "very tiny application might need",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "just a single class. The class must go",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "within a pair of curly braces.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A class has one or more methods.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "In the Dog class, the bark method",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "will hold instructions for how the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Dog should bark. Your methods",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "must be declared inside a class (in",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "other words, within the curly braces",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of the class).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "method",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Within the curly braces of a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "method, write your instructions for",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "how that method should be per­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "formed. Method code is basically a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "set of statements, and for now you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "can think of a method kind of like a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "function or procedure.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Code structure in Java",
+     "mono": false,
+     "size": 19.0
+    },
+    {
+     "t": "statements",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "In a source file, put a class.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "In a class, put methods.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "In a method, put statements.",
+     "mono": false,
+     "size": 11.0
+    }
+   ]
+  },
+  {
+   "page": 46,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Opening brace",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "of the method",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "public class MyFirstApp {",
+     "mono": true,
+     "size": 16.8
+    },
+    {
+     "t": "public static void main (String[] args) {",
+     "mono": true,
+     "size": 16.8
+    },
+    {
+     "t": "System.out.print(\"I Rule!\");",
+     "mono": true,
+     "size": 16.8
+    },
+    {
+     "t": "Anatomy of a class",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "When the JVM starts running, it looks for the class you give it at the command",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "line. Then it starts looking for a specially written method that looks exactly like:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public static void main (String[] args) {",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "// your code goes here",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "Next, the JVM runs everything between the curly braces { } of your main",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "method. Every Java application has to have at least one class, and at least one",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "main method (not one main per class; just one main per application).",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Public so everyone",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "can access it",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "This is a",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "class (duh)",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The name of",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "this class",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Opening curly",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "brace of the class",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "(We’ll cover this",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "one later.)",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The return type.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "void means there’s",
+     "mono": false,
+     "size": 15.0
+    },
+    {
+     "t": "no return value.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The name of",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "this method",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Arguments to the method.",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "This method must be given",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "an array of Strings, and the",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "array will be called ‘args’",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "This says print to standard output",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "(defaults to command line)",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The String you",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "want to print",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Every statement MUST",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "end in a semicolon!!",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Closing brace of the main method",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Closing brace of the MyFirstApp class",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 16.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 16.8
+    },
+    {
+     "t": "a Java class",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Don’t worry about memorizing anything right now...",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "this chapter is just to get you started.",
+     "mono": false,
+     "size": 13.0
+    }
+   ]
+  },
+  {
+   "page": 47,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "MyFirstApp.class",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Writing a class with a main()",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "In Java, everything goes in a class. You’ll type your source code file (with a .java",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "extension), then compile it into a new class file (with a .class extension). When",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you run your program, you’re really running a class.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Running a program means telling the Java Virtual Machine (JVM) to “Load the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "MyFirstApp class, then start executing its main() method. Keep running",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "’til all the code in main is finished.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "In Chapter 2, A Trip to Objectville, we go deeper into the whole class thing, but for",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "now, the only question you need to ask is, how do I write Java code so that",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "it will run? And it all begins with main().",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The main() method is where your program starts running.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "No matter how big your program is (in other words, no matter how many classes",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "your program uses), there’s got to be a main() method to get the ball rolling.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public class MyFirstApp {",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "public static void main (String[] args) {",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "System.out.println(\"I Rule!\");",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "System.out.println(\"The World\");",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.6
+    },
+    {
+     "t": "public class MyFirstApp {",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "public static void main (String[] args) {",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "System.out.print(\"I Rule!\");",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "System.out.println(\"The World\");",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "MyFirstApp.java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Compiled from \"MyFirstApp.java\"",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "public class ch1.MyFirstApp {",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "public ch1.MyFirstApp();",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "Code:",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "0: aload_0",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "1: invokespecial #1",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "// Method java/lang/Object.\"<init>\":()V",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "4: return",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "public static void main(java.lang.",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "String[]);",
+     "mono": true,
+     "size": 3.6
+    },
+    {
+     "t": "compiler",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "File  Edit   Window  Help  Scream",
+     "mono": false,
+     "size": 5.8
+    },
+    {
+     "t": "%java MyFirstApp",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "I Rule!",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "The World",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "Compile",
+     "mono": false,
+     "size": 16.0
+    },
+    {
+     "t": "javac MyFirstApp.java",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Run",
+     "mono": false,
+     "size": 16.0
+    },
+    {
+     "t": "java MyFirstApp",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Save",
+     "mono": false,
+     "size": 16.0
+    },
+    {
+     "t": "MyFirstApp.java",
+     "mono": true,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 48,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "The Java Virtual Machine",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "What, are you kidding? HELLO. I am Java. I’m",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the one who actually makes a program run. The",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "compiler just gives you a file. That’s it. Just a file.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can print it out and use it for wallpaper, kin­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "dling, lining the bird cage, whatever, but the file",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "doesn’t do anything unless I’m there to run it.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "And that’s another thing, the compiler has no",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "sense of humor. Then again, if you had to spend",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "all day checking nitpicky little syntax violations...",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "I’m not saying you’re, like, completely useless. But",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "really, what is it that you do? Seriously. I have no",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "idea. A programmer could just write bytecode by",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "hand, and I’d take it. You might be out of a job",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "soon, buddy.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(I rest my case on the humor thing.) But you still",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "didn’t answer my question, what do you actually",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "do?",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The Compiler",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "I don’t appreciate that tone.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Excuse me, but without me, what exactly would",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you run? There’s a reason Java was designed to use",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "a bytecode compiler, for your information. If Java",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "were a purely interpreted language, where—at",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "runtime—the virtual machine had to translate",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "straight-from-a-text-editor source code, a Java",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "program would run at a ludicrously glacial pace.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Excuse me, but that’s quite an ignorant (not to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "mention arrogant) perspective. While it is true",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that­—theoretically—you can run any properly",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "formatted bytecode even if it didn’t come out of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "a Java compiler, in practice that’s absurd. A pro­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "grammer writing bytecode by hand is like paint­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ing pictures of your vacation instead of taking",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "photos—sure, it’s an art, but most people prefer to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "use their time differently. And I would appreciate",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "it if you would not refer to me as “buddy.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Remember that Java is a strongly typed language,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and that means I can’t allow variables to hold data",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of the wrong type. This is a crucial safety feature,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and I’m able to stop the vast majority of viola­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tions before they ever get to you. And I also—",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Tonight’s Talk:The compiler and",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "the JVM battle over the question,",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "“Who’s more important?”",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "the compiler and the JVM",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 49,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "But some still get through! I can throw ClassCast­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Exceptions and sometimes I get people trying to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "put the wrong type of thing in an array that was",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "declared to hold something else, and—",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "OK. Sure. But what about security? Look at all the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "security stuff I do, and you’re like, what, checking",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "for semicolons? Oooohhh big security risk! Thank",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "goodness for you!",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Whatever. I have to do that same stuff too, though,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "just to make sure nobody snuck in after you and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "changed the bytecode before running it.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Oh, you can count on it. Buddy.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Excuse me, but I wasn’t done. And yes, there are",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "some datatype exceptions that can emerge at",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "runtime, but some of those have to be allowed to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "support one of Java’s other important features—",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "dynamic binding. At runtime, a Java program can",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "include new objects that weren’t even known to the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "original programmer, so I have to allow a certain",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "amount of flexibility. But my job is to stop any­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "thing that would never—could never—succeed at",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "runtime. Usually I can tell when something won’t",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "work, for example, if a programmer accidentally",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tried to use a Button object as a Socket connec­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tion, I would detect that and thus protect them",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "from causing harm at runtime.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Excuse me, but I am the first line of defense, as",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "they say. The datatype violations I previously",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "described could wreak havoc in a program if they",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "were allowed to manifest. I am also the one who",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "prevents access violations, such as code trying to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "invoke a private method, or change a method",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "that—for security reasons—must never be",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "changed. I stop people from touching code they’re",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "not meant to see, including code trying to access",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "another class’ critical data. It would take hours,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "perhaps days even, to describe the significance of",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "my work.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Of course, but as I indicated previously, if I didn’t",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "prevent what amounts to perhaps 99% of the po­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "tential problems, you would grind to a halt. And it",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "looks like we’re out of time, so we’ll have to revisit",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "this in a later chat.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The Java Virtual Machine",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The Compiler",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 50,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Once you’re inside main (or any method), the fun begins.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "You can say all the normal things that you say in most",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "programming languages to make the computer do",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "something.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Your code can tell the JVM to:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "do something",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Statements: declarations, assignments,",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "method calls, etc.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "int x = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String name = \"Dirk\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x * 17;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"x is \" + x);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "double d = Math.random();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// this is a comment",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "do something again and again",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Loops: for and while",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "while (x > 12) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "for (int i = 0; i < 10; i = i + 1) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"i is now \" + i);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "do something under this condition",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Branching: if/else tests",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "if (x == 10) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"x must be 10\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} else {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"x isn't 10\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ((x < 3) && (name.equals(\"Dirk\"))) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"Gently\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"this line runs no matter what\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "±Each statement must end in a",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "semicolon.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 12.0
+    },
+    {
+     "t": "±A single-line comment begins",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "with two forward slashes.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = 22;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// this line disturbs me",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "±Most white space doesn’t matter.",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "x      =      3  ;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "±Variables are declared with a",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "name and a type (you’ll learn about",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "all the Java types in Chapter 3).",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int weight;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "//type: int, name: weight",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "±Classes and methods must be",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "defined within a pair of curly braces.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public void go() {",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "// amazing code here",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "What can you say in the main method?",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "loops",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "branching",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "statements",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Syntax",
+     "mono": false,
+     "size": 21.0
+    },
+    {
+     "t": "Fun",
+     "mono": false,
+     "size": 21.0
+    },
+    {
+     "t": "statements, looping, branching",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 51,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Looping and looping and...",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Java has a lot of looping constructs: while, do-while,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "and for, being the oldest. You’ll get the full loop scoop",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "later in the book, but not right now. Let’s start with",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "while.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The syntax (not to mention logic) is so simple you’re",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "probably asleep already. As long as some condition is",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "true, you do everything inside the loop block. The loop",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "block is bounded by a pair of curly braces, so whatever",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you want to repeat needs to be inside that block.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The key to a loop is the conditional test. In Java, a",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "conditional test is an expression that results in a boolean",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "value­—in other words, something that is either true",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "or false.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "If you say something like, “While iceCreamInTheTub",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "is true, keep scooping,” you have a clear boolean test.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "There either is ice cream in the tub or there isn’t. But",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "if you were to say, “While Bob keep scooping,” you",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "don’t have a real test. To make that work, you’d have to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "change it to something like, “While Bob is snoring...”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "or “While Bob is not wearing plaid...”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Simple boolean tests",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "You can do a simple boolean test by checking the value",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of a variable, using a comparison operator like:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "< (less than)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "> (greater than)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "== (equality) (yes, that’s two equals signs)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Notice the difference between the assignment operator",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(a single equals sign) and the equals operator (two equals",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "signs). Lots of programmers accidentally type = when",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "they want ==. (But not you.)",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int x = 4; // assign 4 to x",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x > 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// loop code will run because",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// x is greater than 3",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x - 1; // or we’d loop forever",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int z = 27; //",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (z == 17) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// loop code will not run because",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "// z is not equal to 17",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (moreBalls == true)  {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "keepJuggling( ) ;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 52,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public class Loopy {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"Before the Loop\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x < 4) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"In the loop\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"Value of x is \" + x);",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"This is after the loop\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "% java Loopy",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Before the Loop",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "In the loop",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Value of x is 1",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "In the loop",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Value of x is 2",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "In the loop",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Value of x is 3",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "This is after the loop",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "BULLET POINTS",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Statements end in a semicolon ;",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Code blocks are defined by a pair of curly braces { }",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Declare an int variable with a name and a type:  int x;",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "The assignment operator is one equals sign =",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "The equals operator uses two equals signs ==",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "A while loop runs everything within its block (defined by curly",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "braces) as long as the conditional test is true.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "If the conditional test is false, the while loop code block won’t",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "run, and execution will move down to the code immediately",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "after the loop block.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Put a boolean test inside parentheses:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "while (x == 4) { }",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Example of a while loop",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Q: Why does everything have",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "to be in a class?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: Java is an object-oriented",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "(OO) language. It’s not like the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "old days when you had steam-",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "driven compilers and wrote one",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "monolithic source file with a pile",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of procedures. In Chapter 2, A Trip",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "to Objectville, you’ll learn that a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "class is a blueprint for an object,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and that nearly everything in Java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "is an object.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q: Do I have to put a main in",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "every class I write?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "A: Nope. A Java program",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "might use dozens of classes (even",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "hundreds), but you might only",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "have one with a main method­—",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the one that starts the program",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "running.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Q: In my other language I can",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "do a boolean test on an integer.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "In Java, can I say something like:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x){ }",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "A: No. A boolean and an",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "integer are not compatible types in",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Java. Since the result of a condi­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "tional test must be a boolean, the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "only variable you can directly test",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(without using a comparison op­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "erator) is a boolean. For example,",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you can say:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "boolean isHot = true;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while(isHot) { }",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "This is the output",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Java basics",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "there are no",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Dumb Questions",
+     "mono": false,
+     "size": 21.0
+    }
+   ]
+  },
+  {
+   "page": 53,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Conditional branching",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "In Java, an if test is basically the same as the boolean test in a while",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "loop—except instead of saying, “while there’s still chocolate,”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you’ll say, “if there’s still chocolate...”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class IfTest {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main (String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"x must be 3\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"This runs no matter what\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "% java IfTest",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x must be 3",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "This runs no matter what",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Code output",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "The preceding code executes the line that prints “x must be 3” only if",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the condition (x is equal to 3) is true. Regardless of whether it’s true,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "though, the line that prints “This runs no matter what” will run. So",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "depending on the value of x, either one statement or two will print",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "out.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "But we can add an else to the condition so that we can say something",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "like, “If there’s still chocolate, keep coding, else (otherwise) get more",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "chocolate, and then continue on...”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "class IfTest2 {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 2;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"x must be 3\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} else {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"x is NOT 3\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"This runs no matter what\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "% java IfTest2",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "x is NOT 3",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "This runs no matter what",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "New output",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Sharpen your pencil",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Given the output:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "% java DooBee",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "DooBeeDooBeeDo",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "Fill in the missing code:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "public class DooBee {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "int x = 1;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "while (x < _____ ) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out._________(\"Doo\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out._________(\"Bee\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "if (x == ______  ) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.print(\"Do\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.print  vs.",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "System.out.println",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "If you’ve been paying attention (of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "course you have), then you’ve noticed us",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "switching between print and println.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Did you spot the difference?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println inserts a newline",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(think of println as printnewline), while",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print keeps printing to",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "the same line. If you want each thing",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you print out to be on its own line, use",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "println. If you want everything to stick",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "together on one line, use print.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Answers on page 25.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 54,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Coding a serious business",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "application",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Let’s put all your new Java skills to good use with something",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "practical. We need a class with a main(), an int and a String",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "variable, a while loop, and an if test. A little more polish, and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you’ll be building that business back-end in no time. But before",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "you look at the code on this page, think for a moment about",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "how you would code that classic children’s favorite, “10 green",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "bottles.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public class BottleSong {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int bottlesNum = 10;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "String word = \"bottles\";",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (bottlesNum > 0) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (bottlesNum == 1) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "word = \"bottle\"; // singular, as in ONE bottle.",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(bottlesNum + \" green \" + word + \", hanging on the wall\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(bottlesNum + \" green \" + word + \", hanging on the wall\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"And if one green bottle should accidentally fall,\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "bottlesNum = bottlesNum - 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (bottlesNum > 0) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"There'll be \" + bottlesNum +",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "\" green \" + word + \", hanging on the wall\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} else {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println(\"There'll be no green bottles, hanging on the wall\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} // end else",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} // end while loop",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} // end main method",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "} // end class",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "There’s still one little flaw in our",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "code.  It compiles and runs, but the",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "output isn’t 100% perfect. See if",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "you can spot the flaw and fix it.",
+     "mono": false,
+     "size": 8.0
+    },
+    {
+     "t": "serious Javaapp",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Q: Didn't this use to be \"99 Bottles of Beer\"?",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "A: Yes, but Trisha wanted us to use the UK version of",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "the song. If you'd prefer the 99 bottles version, take that as",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a fun exercise.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "there are no",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Dumb Questions",
+     "mono": false,
+     "size": 21.0
+    }
+   ]
+  },
+  {
+   "page": 55,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "First, the alarm clock sends a message to the coffee maker",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“Hey, the geek’s sleeping in again, delay the coffee 12 minutes.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The coffee maker sends a message to the Motorola™ toaster,",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "“Hold the toast, Bob’s snoozing.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "The alarm clock then sends a message to Bob’s",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Android, “Call Bob’s 9 o’clock and tell him we’re",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "running a little late.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Finally, the alarm clock sends a message to Sam’s",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(Sam is the dog) wireless collar, with the too-",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "familiar signal that means, “Get the paper, but",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "don’t expect a walk.”",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A few minutes later, the alarm goes off again. And again Bob hits SNOOZE and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "the appliances start chattering. Finally, the alarm rings a third",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "time. But just as Bob reaches for the snooze button, the clock",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "sends the “jump and bark” signal to Sam’s collar. Shocked to",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "full consciousness, Bob rises, grateful that his Java skills, and",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "spontaneous internet shopping purchases, have enhanced the daily",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "routines of his life.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "His toast is toasted.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "His coffee steams.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "His paper awaits.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Just another wonderful morning in The Java-Enabled House.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Java inside",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Java here too",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Sam’s collar",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "has Java",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "butter here",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Java",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "toaster",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Monday morning at Bob’s Java-enabled house",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Could this story be true? Mostly, yes! There are versions of Java running in devices",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "including cell phones (especially cell phones), ATMs, credit cards, home security",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "systems, parking meters, game consoles and more—but you might not find a Java",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dog collar...yet.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Java has multiple ways to use just a tiny part of the Java platform to run on smaller",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "devices (depending upon the version of Java you’re using). It’s very popular for IoT",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "(Internet of Things) development. And, of course, lots of Android development is",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "done with Java and JVM languages.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "TV",
+     "mono": false,
+     "size": 35.2
+    },
+    {
+     "t": "AS IF ON",
+     "mono": false,
+     "size": 11.6
+    },
+    {
+     "t": "Bob’s alarm clock rings at 8:30 Monday morning, just like every",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "other weekday. But Bob had a wild weekend and reaches for the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "SNOOZE button. And that’s when the action starts, and the",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Java-enabled appliances come to life...",
+     "mono": false,
+     "size": 10.0
+    }
+   ]
+  },
+  {
+   "page": 56,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "let’s write a program",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Try my new",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "phrase-o-matic and",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "you’ll be a slick talker",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "just like the boss or those",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "hotshots in marketing.",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "public class PhraseOMatic {",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "public static void main (String[] args) {",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "// make three sets of words to choose from. Add your own!",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "String[] wordListOne = {\"agnostic\", \"opinionated\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"voice activated\", \"haptically driven\", \"extensible\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"reactive\", \"agent based\", \"functional\", \"AI enabled\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"strongly typed\"};",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "String[] wordListTwo = {\"loosely coupled\", \"six sigma\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"asynchronous\", \"event driven\", \"pub-sub\", \"IoT\", \"cloud",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "native\", \"service oriented\", \"containerized\", \"serverless\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"microservices\", \"distributed ledger\"};",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "String[] wordListThree = {\"framework\", \"library\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"DSL\", \"REST API\", \"repository\", \"pipeline\", \"service",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "mesh\", \"architecture\", \"perspective\", \"design\",",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "\"orientation\"};",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "// find out how many words are in each list",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "int oneLength = wordListOne.length;",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "int twoLength = wordListTwo.length;",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "int threeLength = wordListThree.length;",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "// generate three random numbers",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "java.util.Random randomGenerator = new java.util.Random();",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "int rand1 = randomGenerator.nextInt(oneLength);",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "int rand2 = randomGenerator.nextInt(twoLength);",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "int rand3 = randomGenerator.nextInt(threeLength);",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "// now build a phrase",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "String phrase = wordListOne[rand1] + \" \" +",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "wordListTwo[rand2] + \" \" + wordListThree[rand3];",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "// print out the phrase",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "System.out.println(\"What we need is a \" + phrase);",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "OK, so the bottle song wasn’t really a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "serious business application. Still need",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "something practical to show the boss?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Check out the Phrase-O-Matic code.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Note: when you type this into an editor, let",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "the code do its own word/line-wrapping!",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Never hit the return key when you’re typing",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "a String (a thing between “quotes”) or it",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "won’t compile. So the hyphens you see on",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "this page are real, and you can type them,",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "but don’t hit the return key until AFTER",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "you’ve closed a String.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 57,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Phrase-O-Matic",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "How it works",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "In a nutshell, the program makes three lists of words, then randomly picks one word from each",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "of the three lists, and prints out the result. Don’t worry if you don’t understand exactly what’s",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "happening in each line. For goodness sake, you’ve got the whole book ahead of you, so relax.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "This is just a quick look from a 30,000-foot outside-the-box targeted leveraged paradigm.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "1. The first step is to create three String arrays—the containers that will hold all the words.",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "Declaring and creating an array is easy; here’s a small one:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "String[] pets = {\"Fido\", \"Zeus\", \"Bin\"};",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Each word is in quotes (as all good Strings must be) and separated by commas.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "2. For each of the three lists (arrays), the goal is to pick a random word, so we have to know",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "how many words are in each list. If there are 14 words in a list, then we need a random num­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ber between 0 and 13 (Java arrays are zero-based, so the first word is at position 0, the second",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "word position 1, and the last word is position 13 in a 14-element array). Quite handily, a Java",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "array is more than happy to tell you its length. You just have to ask. In the pets array, we’d say:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int x = pets.length;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "and x would now hold the value 3.",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "3. We need three random numbers. Java ships out of the box with several ways to generate",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "random numbers, including java.util.Random (we will see later why this class name is prefixed",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "with java.util). The nextInt() method returns a random number between 0 and some-num­",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "ber-we-give-it, not including the number that we give it. So we’ll give it the number of elements",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "(the array length) in the list we’re using. Then we assign each result to a new variable. We could",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "just as easily have asked for a random number between 0 and 5, not including 5:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "int x = randomGenerator.nextInt(5);",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "4. Now we get to build the phrase, by picking a word from each of the three lists and",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "smooshing them together (also inserting spaces between words). We use the “+” operator,",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "which concatenates (we prefer the more technical smooshes) the String objects together. To get an",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "element from an array, you give the array the index number (position) of the thing you want by",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "using:",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "String s = pets[0]; // s is now the String \"Fido\"",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "s = s + \" \" + \"is a dog\"; // s is now \"Fido is a dog\"",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "5. Finally, we print the phrase to the command line and...voilà! We’re in marketing.",
+     "mono": false,
+     "size": 24.0
+    },
+    {
+     "t": "what we need",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "here is a...",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "extensible microser­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "vices pipeline",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "opinionated loosely",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "coupled REST API",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "agent-based",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "microservices library",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "AI-enabled service",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "oriented orientation",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "agnostic pub-sub",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "DSL",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "functional IoT",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "perspective",
+     "mono": false,
+     "size": 9.0
+    }
+   ]
+  },
+  {
+   "page": 58,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 1) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"d\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 2) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"b c\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x > 2) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"a\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"-\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x > 0) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class Shuff le1 {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "File   Edit   Window  Help   Sleep",
+     "mono": false,
+     "size": 4.1
+    },
+    {
+     "t": "% java Shuffle1",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "a-b c-d",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "Exercise",
+     "mono": false,
+     "size": 14.6
+    },
+    {
+     "t": "Code Magnets",
+     "mono": false,
+     "size": 21.0
+    },
+    {
+     "t": "A working Java program is all scrambled up",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "on the fridge.  Can you rearrange the code",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "snippets to make a working Java program",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "that produces the output listed below?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Some of the curly braces fell on the floor",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "and they were too small to pick up, so feel",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "free to add as many of those as you need!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Output:",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "exercise: Code Magnets",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Answers on page 25.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 59,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 10.6
+    },
+    {
+     "t": "class Exercise1c {",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "int x = 5;",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "while (x > 1) {",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "if (x < 3) {",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "System.out.println(\"small x\");",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.9
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 10.9
+    },
+    {
+     "t": "class Exercise1a {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int x = 1;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "while (x < 10) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "if (x > 3) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"big x\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 10.9
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "int x = 5;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "while ( x > 1 ) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "if ( x < 3) {",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "System.out.println(\"small x\");",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.1
+    },
+    {
+     "t": "Each of the Java files on this page",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "represents a complete source file.",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Your job is to play compiler and",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "determine whether each of these files",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "will compile.  If they won’t",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "compile, how would you",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "fix them?",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "BE the Compiler",
+     "mono": false,
+     "size": 19.0
+    },
+    {
+     "t": "Exercise",
+     "mono": false,
+     "size": 14.6
+    },
+    {
+     "t": "Answers on page 25.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 60,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Let’s give your right brain something to do.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "It’s your standard crossword,  but almost all",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of the solution words are from Chapter 1.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Just to keep you awake,  we also threw in",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "a few (non-Java) words from the high-tech",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "world.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Across",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "4.  Command line invoker",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "6.  Back again?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "8.  Can’t go both ways",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "9.  Acronym for your laptop’s power",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "12.  Number variable type",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "13.  Acronym for a chip",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "14.  Say something",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "18.  Quite a crew of characters",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "19.  Announce a new class or method",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "21.  What’s a prompt good for?",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Down",
+     "mono": false,
+     "size": 11.0
+    },
+    {
+     "t": "1.  Not an integer (or _____ your boat)",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "2.  Come back empty-handed",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "3.  Open house",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "5.  ‘Things’  holders",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "7.  Until attitudes improve",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "10.  Source code consumer",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "11.  Can’t pin it down",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "13.  Department for programmers and operations",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "15.  Shocking modifier",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "16.  Just gotta have one",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "17.  How to get things done",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "20.  Bytecode consumer",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "JavaCross",
+     "mono": false,
+     "size": 30.0
+    },
+    {
+     "t": "puzzle: crossword",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Answers on page 26.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 61,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "A short Java program is listed below.  One block of the program",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "is missing.  Your challenge is to match the candidate block of",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "code (on the left) with the output that you’d see if the block",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "were inserted.  Not all the lines of output will be used, and some",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "of the lines of output might be used more than once.   Draw lines",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "connecting the candidate blocks of code with their matching",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "command-line output.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Candidate code",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "goes here",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "Mixed",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Messages",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Match each",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "candidate with",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "one of the",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "possible outputs",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "class Test {",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "int y = 0;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "while (x < 5) {",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "System.out.print(x + \"\" + y +\" \");",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 11.0
+    },
+    {
+     "t": "y = x - y;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "y = y + x;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "y = y + 2;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "if( y > 4 ) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "y = y - 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "y = y + x;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "if ( y < 5 ) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "if ( y < 3 ) {",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "y = y + 2;",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "22 46",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "11 34 59",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "02 14 26 38",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "02 14 36 48",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "00 11 21 32 42",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "11 21 32 42 53",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "00 11 23 36 410",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "02 14 25 36 47",
+     "mono": true,
+     "size": 10.0
+    },
+    {
+     "t": "Candidates:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Possible output:",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Answers on page 26.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 62,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"  \");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"a\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"n\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"an\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 2;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x  - 2;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x  - 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x > 0",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x < 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x > 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x > 3",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x < 4",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"noys \");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"oise \");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"  oyster \");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"annoys\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"noise\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Pool Puzzle",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Your job is to take code snippets from the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "pool and place them into the blank",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "lines in the code. You may not use the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "same snippet more than once, and",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "you won’t need to use all the snip­",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "pets. Your goal is to make a class that",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "will compile and run and produce the",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "output listed.   Don’t be fooled—this one’s",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "harder than it looks.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "class PoolPuzzleOne {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while ( __________ ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "_____________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ( x < 1 ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "___________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "_____________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ( __________ ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "____________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "___________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ( x == 1 ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "____________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ( ___________ ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "____________________________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "____________",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "Note:  Each snippet",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "from the pool can be",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "used only once!",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "File   Edit   Window  Help  Cheat",
+     "mono": false,
+     "size": 5.9
+    },
+    {
+     "t": "%java PoolPuzzleOne",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "a noise",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "annoys",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "an oyster",
+     "mono": true,
+     "size": 10.6
+    },
+    {
+     "t": "Output",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "puzzle: Pool Puzzle",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Answers on page 26.",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 63,
+   "lines": [
+    {
+     "t": "you are here\u0017",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "dive in:a quick dip",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "File   Edit   Window  Help   Poet",
+     "mono": false,
+     "size": 4.1
+    },
+    {
+     "t": "% java Shuffle1",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "a-b c-d",
+     "mono": true,
+     "size": 9.3
+    },
+    {
+     "t": "class Shuffle1 {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 3;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x > 0) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x > 2) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"a\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"-\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 2) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"b c\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 1) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"d\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "class Exercise1a {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "int x = 1;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "while ( x < 10 ) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "if ( x > 3) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"big x\");",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}     This will compile and run (no output), but",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "}  without a line added to the program, it",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "would run forever in an infinite while loop!",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "class Exercise1b {",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "int x = 5;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "while ( x > 1 ) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "if ( x < 3) {",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "System.out.println(\"small x\");",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.1
+    },
+    {
+     "t": "}    This file won’t compile without a",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "}         class declaration, and don’t forget",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "}the matching curly brace!",
+     "mono": false,
+     "size": 9.1
+    },
+    {
+     "t": "class Exercise1c {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": false,
+     "size": 9.8
+    },
+    {
+     "t": "int x = 5;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "while ( x > 1 ) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "if ( x < 3) {",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "System.out.println(\"small x\");",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "}",
+     "mono": false,
+     "size": 9.8
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 8.0
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Code Magnets (from page 20)",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Exercise Solutions",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "The while loop code must be inside a",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "method. It can’t just be hanging out",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "inside the class.",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "Add this line to prevent",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "it running forever...",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Needs a class declaration",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Needs a “main”",
+     "mono": false,
+     "size": 13.0
+    },
+    {
+     "t": "Sharpen your pencil(from page 14)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "public class DooBee {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String[] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while (x < 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Doo\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Bee\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if (x == 3) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"Do\");",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "BE the Compiler",
+     "mono": false,
+     "size": 14.0
+    },
+    {
+     "t": "(from page 21)",
+     "mono": false,
+     "size": 12.0
+    }
+   ]
+  },
+  {
+   "page": 64,
+   "lines": [
+    {
+     "t": "chapter 1",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "J  A   V    A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "R",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "R",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "Y",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "S",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "B          A   N   C    H",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "S",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "T",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "T",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "M",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "N",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "Y         T    E         O   U   T    P    R    I   N   T",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "W",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "L",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "N    T",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "S         R    I         G",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "D   E   C    L    A   R    E",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "C   O  M   M   A   N   D",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "J",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "V",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "M",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "T",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "H",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I    C",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "P",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "U",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "L",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "V",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "R",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "B",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "E",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "C",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "M",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "L",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "R",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "V",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "I",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "D",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "F",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "L",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "O",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "A",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "O         P",
+     "mono": false,
+     "size": 9.3
+    },
+    {
+     "t": "class PoolPuzzleOne {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "while ( x < 4 ) {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"a\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "if ( x < 1 ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\" \");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"n\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "if ( x > 1 ) {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\" oyster\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 2;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ( x == 1 ) {",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"noys\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "if ( x < 1 ) {",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.print(\"oise\");",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "System.out.println();",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": false,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 9.0
+    },
+    {
+     "t": "File   Edit   Window  Help  Cheat",
+     "mono": false,
+     "size": 4.1
+    },
+    {
+     "t": "%java PoolPuzzleOne",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "a noise",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "annoys",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "an oyster",
+     "mono": true,
+     "size": 7.3
+    },
+    {
+     "t": "class Test {",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "public static void main(String [] args) {",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "int x = 0;",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "int y = 0;",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "while ( x < 5 ) {",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "System.out.print(x + \"\" + y +\" \");",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 7.6
+    },
+    {
+     "t": "y = x - y;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "y = y + x;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "y = y + 2;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "if( y > 4 ) {",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "y = y - 1;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "y = y + x;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "if ( y < 5 ) {",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "x = x + 1;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "if ( y < 3 ) {",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "x = x - 1;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "}",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "y = y + 2;",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "22 46",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "11 34 59",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "02 14 26 38",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "02 14 36 48",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "00 11 21 32 42",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "11 21 32 42 53",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "00 11 23 36 410",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "02 14 25 36 47",
+     "mono": true,
+     "size": 6.9
+    },
+    {
+     "t": "Candidates:",
+     "mono": false,
+     "size": 6.2
+    },
+    {
+     "t": "Possible output:",
+     "mono": false,
+     "size": 6.2
+    },
+    {
+     "t": "puzzle answers",
+     "mono": false,
+     "size": 10.0
+    },
+    {
+     "t": "Pool Puzzle (from page 24)",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "Mixed",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "Messages",
+     "mono": false,
+     "size": 18.0
+    },
+    {
+     "t": "(from page 23)",
+     "mono": false,
+     "size": 12.0
+    },
+    {
+     "t": "JavaCross (from page 22)",
+     "mono": false,
+     "size": 20.0
+    }
+   ]
+  }
+ ]
+}

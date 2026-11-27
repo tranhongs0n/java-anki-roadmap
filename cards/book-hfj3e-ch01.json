@@ -1,0 +1,110 @@
+{
+ "deck": "20 Head First Java::01 Breaking the Surface",
+ "tags": ["book::hfj3e", "ch::01", "roadmap::java"],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "How many <code>main()</code> methods does a Java <b>application</b> need?",
+   "back": "One — and it is one <i>per application</i>, not one per class",
+   "extra": "Every application needs at least one class and at least one main method. Other classes can be completely main-free; the JVM looks for the single entry point it was told to start.",
+   "source": "Head First Java 3E — ch 1, p. 46",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "The JVM is told to run a class. How does it find where execution begins?",
+   "back": "It loads that class, then looks for a method written exactly as <code>public static void main(String[] args)</code>",
+   "extra": "The signature must match exactly — this is why <code>main(String args)</code> or a missing <code>static</code> compiles but the launcher refuses to start, with an error about no main method.",
+   "source": "Head First Java 3E — ch 1, p. 46",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "Where in a class may a statement appear?",
+   "back": "Inside a <b>method body</b> — never directly in the class body",
+   "extra": "The nesting is fixed: source file → class → method → statement. A statement sitting between fields is a compile error, because a class may only contain declarations.",
+   "source": "Head First Java 3E — ch 1, p. 45",
+   "tags": ["type::rule"]
+  },
+  {
+   "type": "basic",
+   "front": "What does one <code>.java</code> source file typically contain?",
+   "back": "One <b>class definition</b>",
+   "extra": "A tiny application can be a single class. The class, and every method in it, must sit inside curly braces — braces define what belongs to what.",
+   "source": "Head First Java 3E — ch 1, p. 45",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "What type must a Java conditional test evaluate to?",
+   "back": "A <code>boolean</code> — <code>true</code> or <code>false</code>",
+   "extra": "Java has no truthiness: an <code>int</code> is not a condition. <code>while (x)</code> is a compile error where <code>while (x &gt; 0)</code> is not — the test has to be a real question.",
+   "source": "Head First Java 3E — ch 1, p. 51",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "Which operator assigns, and which compares for equality?",
+   "back": "<code>=</code> assigns; <code>==</code> compares",
+   "extra": "<code>if (x = 3)</code> does not compile in Java for that reason — an assignment yields a value, not a boolean. This is one place Java protects you from a classic C bug.",
+   "source": "Head First Java 3E — ch 1, p. 52",
+   "tags": ["type::rule"]
+  },
+  {
+   "type": "basic",
+   "front": "What delimits a code block such as a loop or method body?",
+   "back": "A pair of curly braces <code>{ }</code>",
+   "extra": "Everything between the braces belongs to the block. Indentation is for humans — the braces decide scope, which is why code that looks aligned can still be inside the wrong block.",
+   "source": "Head First Java 3E — ch 1, p. 52",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "A <code>while</code> test is false on the very first check. What happens?",
+   "back": "The body never runs; execution continues at the first line after the loop",
+   "extra": "The test is evaluated before every iteration, including the first. That is the difference from <code>do-while</code>, whose body always runs once.",
+   "source": "Head First Java 3E — ch 1, p. 52",
+   "tags": ["type::rule"]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>javac</code> do about errors before it produces a <code>.class</code> file?",
+   "back": "It refuses to compile until the source is free of errors it can detect",
+   "extra": "javac checks the source and stops with an error list instead of emitting bytecode. This is why type errors and typos surface before anything runs, while casting mistakes can still escape to runtime.",
+   "source": "Head First Java 3E — ch 1, p. 40",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "What property of <b>bytecode</b> lets one compiled program run on any device that has a JVM?",
+   "back": "Bytecode is <b>platform-independent</b> — only the JVM is machine-specific",
+   "extra": "The compiler targets the JVM instruction set, not a CPU. Each device supplies its own JVM, which translates the same bytecode into what its hardware understands.",
+   "source": "Head First Java 3E — ch 1, p. 40",
+   "tags": ["type::mental-model"]
+  },
+  {
+   "type": "basic",
+   "front": "Why does Java code written in 1996 still run on a current JVM?",
+   "back": "<b>Backward compatibility</b> is a deliberate promise of the platform",
+   "extra": "New versions add APIs and language features without removing the old ones, which is why the book teaches old idioms first: you will meet 20-year-old Java in real codebases.",
+   "source": "Head First Java 3E — ch 1, p. 42",
+   "tags": ["type::mental-model"]
+  },
+  {
+   "type": "basic",
+   "front": "In <code>String[] pets = {\"Fido\", \"Zeus\", \"Bin\"};</code> at which index is <code>\"Zeus\"</code>?",
+   "back": "<code>1</code> — arrays are zero-based",
+   "extra": "The first element is index 0, so a three-element array runs 0…2. Picking a random element means <code>0 … length-1</code>, which is why the idiom is <code>random.nextInt(pets.length)</code>.",
+   "source": "Head First Java 3E — ch 1, p. 57",
+   "tags": ["type::definition"]
+  },
+  {
+   "type": "basic",
+   "front": "What does <code>pets.length</code> return for an array?",
+   "back": "The number of elements — a field, not a method",
+   "extra": "No parentheses: <code>pets.length</code> is correct, <code>pets.length()</code> is not. Strings differ: <code>s.length()</code> is a method call.",
+   "source": "Head First Java 3E — ch 1, p. 57",
+   "tags": ["type::gotcha"]
+  }
+ ]
+}
