@@ -2086,16 +2086,6 @@
     },
     {
      "type": "basic",
-     "front": "Since when do method names have to begin with a lowercase verb?",
-     "back": "It is a <b>convention</b>, not a language rule",
-     "extra": "Any legal identifier compiles, though the convention is universally expected. Multi-word names capitalise each later word, e.g. <code>getBalance</code>.",
-     "tags": [
-      "type::convention"
-     ],
-     "example": "<pre>class Account { void Withdraw() { } }   // compiles; convention says withdraw()</pre>"
-    },
-    {
-     "type": "basic",
      "front": "What is method overloading?",
      "back": "Several methods in one class sharing a name but with <b>different parameter lists</b>",
      "extra": "The compiler distinguishes them by the number and types of the arguments. They can differ in return type only if the parameters differ too.",
@@ -2459,16 +2449,6 @@
       "type::rule"
      ],
      "example": "<pre>class Config { static final int MAX = 10; }   // static final: static alone would leave it mutable</pre>"
-    },
-    {
-     "type": "basic",
-     "front": "Which naming convention applies to constants?",
-     "back": "ALL CAPS with <b>underscores</b> between words",
-     "extra": "<code>MAX_SPEED</code>, not <code>maxSpeed</code>. The uppercase signal from the declaration tells readers the value cannot change.",
-     "tags": [
-      "type::convention"
-     ],
-     "example": "<pre>class Loan { static final double INTEREST_RATE = 0.05; }   // ALL CAPS</pre>"
     },
     {
      "type": "basic",

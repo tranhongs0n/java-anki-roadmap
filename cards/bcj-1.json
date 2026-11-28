@@ -227,17 +227,6 @@
   },
   {
    "type": "basic",
-   "front": "What are Java's naming conventions for packages, classes, methods and constants?",
-   "back": "Packages lowercase (reverse-domain), classes <b>PascalCase</b>, methods and variables <b>camelCase</b>, constants <b>UPPER_SNAKE_CASE</b>",
-   "extra": "Type parameters are single capital letters. Conventions are not enforced by the compiler, which is exactly why consistency matters.",
-   "source": "baeldung.com (core-java category) — java-naming-conventions",
-   "tags": [
-    "type::catalogue"
-   ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
-  },
-  {
-   "type": "basic",
    "front": "What released in Java 25?",
    "back": "The next LTS release (September 2025) — language, library and runtime updates including flexible constructor bodies",
    "extra": "LTS releases are the ones enterprises adopt; feature releases in between get 6 months of support.",
