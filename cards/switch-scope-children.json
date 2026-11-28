@@ -1,0 +1,37 @@
+{
+ "deck": "00 Java Roadmap::01-Foundations::02 Basic Syntax",
+ "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+ "tags": [
+  "devjava",
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::basic-syntax"
+ ],
+ "source": "https://dev.java/learn/language/constructs/basics/switch-expression/",
+ "cards": [
+  {
+   "type": "basic",
+   "front": "In a traditional colon-style <code>switch</code>, can two cases each declare a local variable with the same name?",
+   "back": "No — that is a <b>compile-time error</b>: the whole switch block is one scope.",
+   "extra": "Both declarations land in the same scope, so <code>int temp = 20;</code> in case 2 collides with <code>int temp = 10;</code> in case 1 even though you mentally treat them as separate cases.",
+   "example": "<pre>switch (day) {\n    case 1:\n        int temp = 10;\n        break;\n    case 2:\n        int temp = 20;   // compile error: temp is already defined in the switch block\n        break;\n}</pre>",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "Why can't a colon-style <code>switch</code> case safely reuse a variable declared in an earlier case?",
+   "back": "Control may jump straight to that case, so the earlier declaration <b>never ran</b> and the variable is uninitialised.",
+   "extra": "Case labels are jump targets, not sequential steps. Entering at case 2 skips <code>int temp = 10;</code> in case 1, so reading <code>temp</code> there fails with 'variable might not have been initialized'.",
+   "example": "<pre>switch (day) {\n    case 1:\n        int temp = 10;\n        break;\n    case 2:\n        // System.out.println(temp);  // compile error: temp may not have been initialized\n        break;\n}</pre>",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "What scope does an arrow case body <code>case L -> { ... }</code> get in a switch expression?",
+   "back": "Its own <b>block scope</b> — the same local name may be redeclared in another case.",
+   "extra": "Each arrow body is a separate block, so variables declared inside it live only until its closing brace. That is what removes the name-collision problem of the colon form.",
+   "example": "<pre>int result = switch (day) {\n    case 1 -> {\n        int temp = 10;   // local to case 1\n        yield temp * 2;\n    }\n    case 2 -> {\n        int temp = 20;   // valid: a different local variable\n        yield temp * 3;\n    }\n    default -> 0;\n};</pre>",
+   "tags": ["type::mental-model"]
+  }
+ ]
+}
