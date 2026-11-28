@@ -17,7 +17,8 @@
      "extra": "Reflective types are resolved dynamically, so the JIT cannot optimise them the way it does direct calls. Use reflection sparingly on hot code paths and prefer direct calls wherever possible.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    int direct() { return 1; }\n    int reflective() throws Exception {\n        return (int) Ex.class.getMethod(\"direct\").invoke(this);   // no inlining: the JIT cannot see the target\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -36,7 +37,8 @@
      "extra": "Extensibility: instantiate user-supplied classes from their fully-qualified names. IDEs and class browsers enumerate members. Debuggers inspect private members and test harnesses call discovered APIs to raise coverage.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        // plugins, IDEs and debuggers all enumerate members at run time\n        System.out.println(Ex.class.getDeclaredMethods().length);\n    }\n}</pre>"
     },
     {
      "type": "rule",
@@ -122,7 +124,8 @@
      "extra": "Without it, invoking a non-visible method throws IllegalAccessException. With it you may invoke the method, but its modifiers are unchanged and module boundaries may still restrict the package.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private String greet() { return \"hi\"; }\n    void run() throws Exception {\n        java.lang.reflect.Method m = Ex.class.getDeclaredMethod(\"greet\");\n        m.setAccessible(true);   // suppresses the check; greet() stays private\n        System.out.println(m.invoke(this));\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -172,7 +175,8 @@
      "extra": "It offers one static test per modifier, such as <code>Modifier.isFinal(m)</code> and <code>isStatic</code>. It was written before sealed classes, so it has no <code>sealed</code> or <code>non-sealed</code> checks.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() throws Exception {\n        int m = Ex.class.getDeclaredMethod(\"run\").getModifiers();\n        System.out.println(\"[\" + java.lang.reflect.Modifier.toString(m) + \"]\");   // [] : package-private\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -181,7 +185,8 @@
      "extra": "<code>Class</code> declares its own <code>getModifiers()</code>; the three member types inherit theirs from <code>Member</code>. Both return the same bit-mask.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() throws Exception {\n        java.lang.reflect.Member m = Ex.class.getDeclaredMethod(\"run\");   // Method implements Member\n        System.out.println(m.getModifiers());\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -190,7 +195,8 @@
      "extra": "<code>Class.accessFlags()</code> and <code>Member.accessFlags()</code> return a <code>Set&lt;AccessFlag&gt;</code>. Correspondences with the int flags are not one-to-one: some access flags have no matching modifier.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        java.util.Set<java.lang.reflect.AccessFlag> flags = String.class.accessFlags();   // since Java 20\n        System.out.println(flags.contains(java.lang.reflect.AccessFlag.FINAL));   // true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -199,7 +205,8 @@
      "extra": "Interfaces are implicitly abstract, so the compiler records the bit even though you never wrote it. This is why reflective code reports <code>Collection</code> as abstract and not final.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface Named { }\nclass Ex {\n    void run() {\n        int m = Named.class.getModifiers();\n        System.out.println(java.lang.reflect.Modifier.isAbstract(m));   // true: interfaces are abstract\n    }\n}</pre>"
     }
    ]
   },
@@ -229,7 +236,8 @@
      "extra": "Those classes have no name you could write in source, so no canonical form exists. Use <code>getTypeName()</code> or <code>getName()</code> if you just need an informative string for such a class.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        class Local { }\n        System.out.println(Local.class.getCanonicalName());                  // null: local class\n        System.out.println(new Object() { }.getClass().getCanonicalName());  // null: anonymous\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -288,7 +296,8 @@
      "extra": "Added in Java SE 16 alongside the record type itself. It returns true only for classes declared with the <code>record</code> keyword, not for plain immutable classes.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Ex {\n    void run() {\n        System.out.println(Point.class.isRecord());   // true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -317,7 +326,8 @@
      "extra": "Record components are not fields in the reflection model. To read the value you must go through the fields, which bring the record's own restriction with them.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Ex {\n    void run() {\n        java.lang.reflect.RecordComponent rc = Point.class.getRecordComponents()[0];\n        System.out.println(rc.getName() + \" \" + rc.getType());   // x int: no getField() on RecordComponent\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -347,7 +357,8 @@
      "extra": "The interceptor also sees the arguments before and the result after, so it can validate arguments, enforce security rules, skip the call, modify the result, or act on exceptions. Enterprise frameworks implement this with proxies.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface Service { String call(); }\nclass Ex {\n    Service real = () -> \"done\";\n    Service wrapped = () -> { System.out.println(\"before\"); return real.call(); };   // decides whether to proceed\n}</pre>"
     },
     {
      "type": "basic",
@@ -356,7 +367,8 @@
      "extra": "If <code>value()</code> is declared to return <code>Class&lt;? extends Interceptor&gt;</code> you still get a raw <code>Class</code> from the annotation, so the cast is unchecked and the compiler warns about it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)\n@interface Handler { Class<?> value(); }\n@Handler(StringBuilder.class)\nclass Ex {\n    void run() throws Exception {\n        Class<?> raw = Ex.class.getAnnotation(Handler.class).value();\n        StringBuilder sb = (StringBuilder) raw.getConstructor().newInstance();   // cast: annotations have no generics\n    }\n}</pre>"
     },
     {
      "type": "basic",

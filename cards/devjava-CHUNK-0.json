@@ -3799,7 +3799,8 @@
      "extra": "Reflection can also read and write fields, invoke methods and call constructors to create objects. All of this happens at runtime.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    int n;\n    Ex() { }\n    void run() {\n        System.out.println(Ex.class.getDeclaredFields().length + \" \" + Ex.class.getDeclaredConstructors().length);   // 1 1\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3808,7 +3809,8 @@
      "extra": "It models a runtime type and offers members, constructors and annotations. It is itself a subclass of Object.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        Class<?> entry = Ex.class;   // java.lang.Class: the entry point to reflection\n        System.out.println(entry.getName());\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3817,7 +3819,8 @@
      "extra": "The declared type of the variable is ignored: a Set variable holding a HashSet returns HashSet. The method is inherited from Object and is final.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        Object o = java.util.List.of(\"a\");\n        System.out.println(o.getClass().getName());   // java.util.ImmutableCollections$List12\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3883,7 +3886,8 @@
      "extra": "There is no receiver object for a static method. Passing any other object is an error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static int twice(int n) { return n * 2; }\n    int run() throws Exception {\n        java.lang.reflect.Method m = Ex.class.getMethod(\"twice\", int.class);\n        return (int) m.invoke(null, 5);   // static method: receiver is null\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3892,7 +3896,8 @@
      "extra": "It can even change a <b>private final</b> field. Converting a class to a record blocks that, since record fields cannot be mutated.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private int hidden = 42;\n    int read() throws Exception {\n        java.lang.reflect.Field f = Ex.class.getDeclaredField(\"hidden\");\n        f.setAccessible(true);   // deep reflection: reaches a non-public member\n        return (int) f.get(this);\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3901,7 +3906,8 @@
      "extra": "By default a named module is closed, so other modules and the unnamed module cannot reach non-public members. <code>--add-opens</code> works but is a last resort.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        try {\n            java.lang.reflect.Field f = String.class.getDeclaredField(\"value\");\n            f.setAccessible(true);   // InaccessibleObjectException unless java.base opens java.lang\n        } catch (Exception e) {\n            System.out.println(e.getClass().getSimpleName());\n        }\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3951,7 +3957,8 @@
      "extra": "That is why method-handle invocation is faster than reflection. The cost is that a leaked handle can expose what it points at.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private void secret() { }\n    void run() throws Throwable {\n        var h = java.lang.invoke.MethodHandles.lookup()\n            .findVirtual(Ex.class, \"secret\", java.lang.invoke.MethodType.methodType(void.class));\n        h.invoke(this);   // access was checked when h was created, not per call\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3960,7 +3967,8 @@
      "extra": "The check is at creation, so passing the handle on passes the privilege. Build them with a restricted Lookup when they must escape.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private void secret() { }\n    void run() throws Throwable {\n        var h = java.lang.invoke.MethodHandles.lookup()\n            .findVirtual(Ex.class, \"secret\", java.lang.invoke.MethodType.methodType(void.class));\n        h.invoke(this);   // keep h private too: it reaches a private method\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3979,7 +3987,8 @@
      "extra": "It searches public members of public classes in unconditionally exported packages only. That is the safe option for handles you hand to other code.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() throws Throwable {\n        var h = java.lang.invoke.MethodHandles.publicLookup()\n            .findVirtual(String.class, \"length\", java.lang.invoke.MethodType.methodType(int.class));\n        System.out.println((int) h.invokeExact(\"abc\"));   // 3: public members only\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3998,7 +4007,8 @@
      "extra": "It takes the class, the method name as a String and a MethodType. <code>findStatic</code> is the counterpart for static methods.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void hi() { System.out.println(\"hi\"); }\n    void run() throws Throwable {\n        var h = java.lang.invoke.MethodHandles.lookup()\n            .findVirtual(Ex.class, \"hi\", java.lang.invoke.MethodType.methodType(void.class));\n        h.invoke(this);   // findVirtual: instance method\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4045,7 +4055,8 @@
      "extra": "Both <code>invokeExact</code> and <code>invoke</code> throw Throwable, since the underlying method may throw anything. Neither is usable without handling it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static void hi() { }\n    void run() throws Throwable {   // MethodHandle.invoke declares Throwable\n        java.lang.invoke.MethodHandles.lookup()\n            .findStatic(Ex.class, \"hi\", java.lang.invoke.MethodType.methodType(void.class)).invoke();\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4054,7 +4065,8 @@
      "extra": "The handler must return the same type as the target and take the Throwable first. Other exceptions still propagate.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static int fail(int n) { throw new IllegalArgumentException(\"bad\"); }\n    static int recover(IllegalArgumentException e) { return -1; }\n    void run() throws Throwable {\n        var l = java.lang.invoke.MethodHandles.lookup();\n        var target = l.findStatic(Ex.class, \"fail\", java.lang.invoke.MethodType.methodType(int.class, int.class));\n        var handler = l.findStatic(Ex.class, \"recover\", java.lang.invoke.MethodType.methodType(int.class, IllegalArgumentException.class));\n        System.out.println((int) java.lang.invoke.MethodHandles.catchException(target, IllegalArgumentException.class, handler).invokeExact(1));\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4063,7 +4075,8 @@
      "extra": "The cleanup takes a Throwable, then the target's result, then the original arguments. It always runs, whether or not the target succeeded.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static int work(int n) { return n + 1; }\n    static int cleanup(int n, Throwable t) { return n; }\n    void run() throws Throwable {\n        var l = java.lang.invoke.MethodHandles.lookup();\n        var target = l.findStatic(Ex.class, \"work\", java.lang.invoke.MethodType.methodType(int.class, int.class));\n        var close = l.findStatic(Ex.class, \"cleanup\", java.lang.invoke.MethodType.methodType(int.class, int.class, Throwable.class));\n        System.out.println((int) java.lang.invoke.MethodHandles.tryFinally(target, close).invokeExact(1));   // 2\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4072,7 +4085,8 @@
      "extra": "It also takes the target handle and the new MethodType. The index array names, in order, where each new argument comes from.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static int sub(int a, int b) { return a - b; }\n    void run() throws Throwable {\n        var h = java.lang.invoke.MethodHandles.lookup()\n            .findStatic(Ex.class, \"sub\", java.lang.invoke.MethodType.methodType(int.class, int.class, int.class));\n        var swapped = java.lang.invoke.MethodHandles.permuteArguments(h, h.type(), 1, 0);\n        System.out.println((int) swapped.invokeExact(10, 3));   // -7: arguments 1,0\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4111,7 +4125,8 @@
      "extra": "There is no enumeration in the Method Handle API. Method handles instead offer powerful wrapping and adaptation of invocation.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void a() { }\n    void b() { }\n    void run() {\n        System.out.println(Ex.class.getDeclaredMethods().length);   // listing members: a handle cannot do this\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4120,7 +4135,8 @@
      "extra": "It requires the lookup class to have permission for that member. <code>unreflectGetter</code>/<code>unreflectSetter</code> do the same for a Field.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static void hi() { }\n    void run() throws Throwable {\n        java.lang.reflect.Method m = Ex.class.getDeclaredMethod(\"hi\");\n        java.lang.invoke.MethodHandles.lookup().unreflect(m).invoke();   // Method -> MethodHandle\n    }\n}</pre>"
     }
    ]
   },
@@ -4150,7 +4166,8 @@
      "extra": "Each comes from dynamic resolution and from reaching members the compiler would forbid. Prefer non-reflective code where possible.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private int secret = 7;\n    int read() throws Exception {\n        java.lang.reflect.Field f = Ex.class.getDeclaredField(\"secret\");\n        f.setAccessible(true);   // slow, needs an open package, and exposes internals\n        return (int) f.get(this);\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4177,7 +4194,8 @@
      "extra": "Accessing private fields produces illegal-in-normal-code behaviour, which may create portability and correctness problems.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private int version = 1;\n    int read() throws Exception {\n        java.lang.reflect.Field f = Ex.class.getDeclaredField(\"version\");\n        f.setAccessible(true);   // a rename in a later release breaks this silently\n        return (int) f.get(this);\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4216,7 +4234,8 @@
      "extra": "The argument must be an annotation class, or the code will not compile. It returns a boolean.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>@Deprecated\nclass Ex {\n    void run() {\n        System.out.println(Ex.class.isAnnotationPresent(Deprecated.class));   // true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4225,7 +4244,8 @@
      "extra": "The array is empty if none are present. The declared variant includes annotations on that element only, excluding inherited ones.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>@Deprecated\nclass Ex {\n    void run() {\n        System.out.println(Ex.class.getAnnotations().length);          // 1: inherited + declared\n        System.out.println(Ex.class.getDeclaredAnnotations().length);  // 1: declared only\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4252,7 +4272,8 @@
      "extra": "It opens the container for you and returns an array. Use it whenever the annotation may repeat.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)\n@java.lang.annotation.Repeatable(Tags.class)\n@interface Tag { String value(); }\n@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)\n@interface Tags { Tag[] value(); }\n@Tag(\"a\") @Tag(\"b\")\nclass Ex {\n    void run() {\n        System.out.println(Ex.class.getAnnotationsByType(Tag.class).length);   // 2: container unwrapped\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4261,7 +4282,8 @@
      "extra": "Inheritance applies only through class extending, not through interfaces. Enums and records cannot be extended, so they gain nothing from it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)\n@java.lang.annotation.Inherited\n@interface Tagged { }\nclass Base { }\n@Tagged class Child extends Base { }   // isAnnotationPresent is true only because of @Inherited</pre>"
     },
     {
      "type": "basic",
@@ -4289,7 +4311,8 @@
      "extra": "The compiler demands handling because a missing constructor may exist at runtime. Reflection's lookups are not compile-time checked.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        try {\n            Ex.class.getConstructor(int.class);   // throws a checked NoSuchMethodException\n        } catch (NoSuchMethodException e) {\n            System.out.println(\"no such constructor\");\n        }\n    }\n}</pre>"
     }
    ]
   },
@@ -4310,7 +4333,8 @@
      "extra": "Arrays are implemented in the VM and have no dedicated class. <code>clone()</code> and <code>length</code> behave specially.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        int[] a = {1, 2};\n        System.out.println(a.getClass().getSuperclass());   // class java.lang.Object\n        System.out.println(a.length);\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4395,7 +4419,8 @@
      "extra": "It fires for both reads and writes. It is one of the few reflectively reached errors that are not wrapped.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        int[] a = new int[3];\n        try {\n            System.out.println(a[3]);   // valid indexes are 0..2\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.out.println(\"out of bounds\");\n        }\n    }\n}</pre>"
     }
    ]
   },
@@ -4425,7 +4450,8 @@
      "extra": "This works for any reference type, since all inherit it from Object. Primitives cannot be dereferenced this way.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        Object o = \"text\";\n        System.out.println(o.getClass().getSimpleName());   // String: the real runtime class\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4463,7 +4489,8 @@
      "extra": "The letters are Z boolean, B byte, S short, I int, J long, C char, F float, D double. Note long is J, not L.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        System.out.println(new long[0].getClass().getName());   // [J\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4481,7 +4508,8 @@
      "extra": "One bracket per nested array, then the component code. This string can be passed back to <code>Class.forName</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        int[][][] cube = new int[1][1][1];\n        System.out.println(cube.getClass().getName());   // [[[I\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4500,7 +4528,8 @@
      "extra": "So <code>Double.TYPE</code> is identical to <code>double.class</code>. <code>Void.TYPE</code> is <code>void.class</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        System.out.println(Integer.TYPE == int.class);   // true: TYPE is the primitive Class\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4537,7 +4566,8 @@
      "extra": "getDeclaredClasses returns all member classes of this class only, private ones included. The latter exposes helpers such as <code>Character$CharacterCache</code>.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Base { public static class Shared { } }\nclass Ex extends Base {\n    private static class Mine { }\n    void run() {\n        System.out.println(Ex.class.getClasses().length + \" \" + Ex.class.getDeclaredClasses().length);   // 1 1\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4546,7 +4576,8 @@
      "extra": "An anonymous class has no name and thus no declaring class. Its enclosing class can still be found with <code>getEnclosingClass()</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    void run() {\n        Object anon = new Object() { };\n        System.out.println(anon.getClass().getDeclaringClass());   // null for an anonymous class\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4595,7 +4626,8 @@
      "extra": "Use the declared variants when you need the full list. A private constructor is invisible here.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    public Ex() { }\n    public Ex(int n) { }\n    void run() {\n        System.out.println(Ex.class.getConstructors().length);   // 2: public constructors only\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4623,7 +4655,8 @@
      "extra": "The generic variant <code>getGenericParameterTypes()</code> returns a Type array. There you call <code>getTypeName()</code>.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    Ex(int n, String s) { }\n    void run() throws Exception {\n        Class<?>[] ps = Ex.class.getConstructor(int.class, String.class).getParameterTypes();\n        System.out.println(ps[0] + \" \" + ps[1]);   // int class java.lang.String\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4650,7 +4683,8 @@
      "extra": "Use <code>getTargetException()</code> to reach the real cause. It is part of reflective invocation for methods too.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Widget { public Widget() { throw new IllegalStateException(\"boom\"); } }\nclass Ex {\n    void run() {\n        try {\n            Widget.class.getConstructor().newInstance();\n        } catch (java.lang.reflect.InvocationTargetException e) {   // cause: IllegalStateException\n            System.out.println(e.getCause().getMessage());\n        } catch (Exception e) { }\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4678,7 +4712,8 @@
      "extra": "You did not write it, so lookup uses the component types. An empty record can also be built via its no-arg constructor.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Ex {\n    void run() throws Exception {\n        java.lang.reflect.Constructor<Point> c = Point.class.getDeclaredConstructor(int.class, int.class);\n        System.out.println(c.newInstance(1, 2));   // Point[x=1, y=2]\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4709,7 +4744,8 @@
      "extra": "The factory checks fields and supplies their values, so the business object never builds its own dependencies. Ordering of initialisation is centralised.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Repo { }\nclass Service { Service(Repo repo) { } }\nclass Ex {\n    void run() {\n        Service s = new Service(new Repo());   // the caller supplies the collaborator\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4728,7 +4764,8 @@
      "extra": "Passing a <code>String</code> where the constructor takes <code>CharSequence</code> throws NoSuchMethodException despite the assignability.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    Ex(int n) { }\n    Ex(long n) { }\n    Ex make() throws Exception {\n        return (Ex) Ex.class.getConstructor(int.class).newInstance(1);   // long.class would pick the other\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4747,7 +4784,8 @@
      "extra": "On a hit it returns the existing instance. On a miss it creates one, stores it, and returns that.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Registry {\n    private final java.util.Map<Class<?>, Object> beans = new java.util.HashMap<>();\n    <T> T get(Class<T> type) { return type.cast(beans.get(type)); }   // one instance per bean class\n}</pre>"
     },
     {
      "type": "basic",
@@ -4794,7 +4832,8 @@
      "extra": "It suppresses the access check. Calling it on a public field is harmless but redundant.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Service { private String dep = \"none\"; }\nclass Ex {\n    void run() throws Exception {\n        java.lang.reflect.Field f = Service.class.getDeclaredField(\"dep\");\n        f.setAccessible(true);   // private field: the write is refused without this\n        f.set(new Service(), \"db\");\n    }\n}</pre>"
     }
    ]
   },
@@ -4824,7 +4863,8 @@
      "extra": "The first tests the type, the second lists the constants, the third tests a field. Everything else uses the ordinary class API.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Color { RED }\nclass Ex {\n    void run() throws Exception {\n        System.out.println(Color.class.isEnum() + \" \" + Color.class.getEnumConstants().length);\n        System.out.println(Color.class.getField(\"RED\").isEnumConstant());   // true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4842,7 +4882,8 @@
      "extra": "values() is added by the compiler; getEnumConstants is the reflective equivalent. Both give the constants as declared.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Ex {\n    void run() {\n        System.out.println(java.util.Arrays.equals(Color.values(), Color.class.getEnumConstants()));   // true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4890,7 +4931,8 @@
      "extra": "A static field belongs to no object. Passing an instance is pointless and may mislead readers.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Ex {\n    void run() throws Exception {\n        System.out.println(Color.class.getField(\"RED\").get(null));   // RED: static field, null receiver\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4931,7 +4973,8 @@
      "extra": "They return everything declared in this class whatever the modifier. Superclass fields are absent.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Base { int inherited; }\nclass Ex extends Base {\n    private int own;\n    void run() {\n        System.out.println(Ex.class.getDeclaredFields().length);   // 1: own, not inherited\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4940,7 +4983,8 @@
      "extra": "It works when the type is not generic. For a generic field, the result is the erased type, usually Object.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    String name = \"\";\n    void run() throws Exception {\n        Class<?> t = Ex.class.getDeclaredField(\"name\").getType();\n        System.out.println(t == String.class);   // true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4958,7 +5002,8 @@
      "extra": "It returns a <code>Type</code>, whose <code>getTypeName()</code> gives the readable name. It reflects only the declared signature, not runtime type arguments.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    java.util.List<String> names = new java.util.ArrayList<>();\n    void run() throws Exception {\n        System.out.println(Ex.class.getDeclaredField(\"names\").getGenericType());   // java.util.List<java.lang.String>\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -4977,7 +5022,8 @@
      "extra": "Bit 0 set means public, bit 3 means static, and so on. Each Modifier method tests one flag.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    private static final int LIMIT = 1;\n    void run() throws Exception {\n        int m = Ex.class.getDeclaredField(\"LIMIT\").getModifiers();\n        System.out.println(java.lang.reflect.Modifier.isStatic(m) + \" \" + java.lang.reflect.Modifier.isFinal(m));   // true true\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -5005,7 +5051,8 @@
      "extra": "The <code>Class</code> object and its members model the declaration, not the values. That is why both Field.get and Field.set demand the target instance.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    int n;\n    void run() {\n        System.out.println(new Ex().getClass() == new Ex().getClass());   // true: one Class per class\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -5061,7 +5108,8 @@
      "extra": "They exist for every primitive type. Use them in hot loops where boxing would allocate.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    int count;\n    void run() throws Exception {\n        java.lang.reflect.Field f = Ex.class.getDeclaredField(\"count\");\n        f.setInt(this, 5);   // no Integer boxing\n        System.out.println(f.getInt(this));\n    }\n}</pre>"
     },
     {
      "type": "basic",
