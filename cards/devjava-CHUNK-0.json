@@ -2711,7 +2711,8 @@
      "extra": "It may or may not declare abstract methods. Its code acts as a partial implementation shared by subclasses.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>abstract class Shape { abstract double area(); }   // no new Shape(): a subclass must supply area()</pre>"
     },
     {
      "type": "basic",
@@ -2720,7 +2721,8 @@
      "extra": "Subclasses must implement it, or they too must be declared abstract. It exists to force a type-specific implementation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>abstract class Base { abstract void run(); }   // no body, ends with a semicolon</pre>"
     },
     {
      "type": "basic",
@@ -2729,7 +2731,8 @@
      "extra": "<code>abstract void draw();</code> in a concrete class is a compile error. The abstract modifier cannot be omitted.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>abstract class Base { abstract void run(); }   // one abstract method forces an abstract class</pre>"
     },
     {
      "type": "basic",
@@ -2738,7 +2741,8 @@
      "extra": "This is the enforcement mechanism: a subclass that forgets one cannot be created until the hole is filled.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>abstract class Base { abstract void run(); }\nclass Impl extends Base { void run() { } }   // otherwise Impl would have to be abstract</pre>"
     },
     {
      "type": "basic",
@@ -2757,7 +2761,8 @@
      "extra": "Static members are not subject to the abstract-instantiation rule. They are shared like the statics of any other class.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>abstract class Util { static int twice(int n) { return 2 * n; } }\n// Util.twice(3) needs no instance</pre>"
     },
     {
      "type": "basic",
@@ -2766,7 +2771,8 @@
      "extra": "That means interfaces cannot hold mutable state, which removes multiple-inheritance-of-state problems. Abstract classes may, so a class extending one can share state.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>interface Limits { int MAX = 10; }   // implicitly public static final\nclass Demo { void run() { System.out.println(Limits.MAX); } }</pre>"
     },
     {
      "type": "basic",
@@ -2775,7 +2781,8 @@
      "extra": "Single inheritance of class avoids conflicting state; many interfaces supply multiple types. Interfaces may also extend several interfaces.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Task implements Runnable, Cloneable { public void run() { } }   // one class, many interfaces</pre>"
     },
     {
      "type": "basic",
@@ -2794,7 +2801,8 @@
      "extra": "e.g. <code>Comparable</code> and <code>Cloneable</code> span unrelated hierarchies. And a class may implement several interfaces, giving multiple type inheritance.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Money implements Comparable<Money> {\n    public int compareTo(Money other) { return 0; }   // unrelated classes can each implement it\n}</pre>"
     },
     {
      "type": "basic",
@@ -2803,7 +2811,8 @@
      "extra": "Its subclasses inherit ready-made <code>get</code>, <code>put</code> and <code>isEmpty</code>. Mutable shared code is exactly what an interface could not provide.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Map<String, Integer> m = new java.util.HashMap<>();   // HashMap extends java.util.AbstractMap</pre>"
     },
     {
      "type": "basic",
@@ -2812,7 +2821,8 @@
      "extra": "HashMap implements Map, Cloneable and Serializable, and also extends AbstractMap. Its interfaces advertise its contract; the abstract class supplies shared code.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javap java.util.HashMap\n# public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable</pre>"
     },
     {
      "type": "basic",
@@ -2853,7 +2863,8 @@
      "extra": "Every class is a direct or indirect descendant. It supplies the contract: <code>equals</code>, <code>hashCode</code>, <code>toString</code>, <code>getClass</code> and more.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(new Object().getClass().getSuperclass());   // null: Object sits at the top</pre>"
     },
     {
      "type": "basic",
@@ -2862,7 +2873,8 @@
      "extra": "Two distinct Book objects with the same ISBN are unequal until you override equals. Override it whenever identity is not the right notion of equality.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Object a = new Object(), b = a;\nSystem.out.println(a.equals(b));   // true: the same reference</pre>"
     },
     {
      "type": "basic",
@@ -2871,7 +2883,8 @@
      "extra": "Objects equal by equals must have equal hash codes. Otherwise a HashSet or HashMap lookup can miss a key that is present.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Point {\n    int x;\n    public boolean equals(Object o) { return o instanceof Point p && p.x == x; }\n    public int hashCode() { return Integer.hashCode(x); }   // both, always\n}</pre>"
     },
     {
      "type": "basic",
@@ -2898,7 +2911,8 @@
      "extra": "If a member references an external object, original and clone share it, so a change is visible in both. Override clone to also copy such members.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Node implements Cloneable {\n    int[] data = {1, 2};\n    Node copy() throws CloneNotSupportedException { return (Node) super.clone(); }   // data is shared\n}</pre>"
     },
     {
      "type": "basic",
@@ -2907,7 +2921,8 @@
      "extra": "As of Java SE 18 it is deprecated for removal. Use <code>AutoCloseable</code> plus try-with-resources for deterministic release.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// finalize() may run late or never: close resources explicitly\nclass Handle implements AutoCloseable { public void close() { } }</pre>"
     },
     {
      "type": "basic",
@@ -2916,7 +2931,8 @@
      "extra": "Its <code>close()</code> runs deterministically via try-with-resources, rather than at the JVM's whim. This frees resources when the block exits.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Handle implements AutoCloseable {\n    public void close() { }\n}\nclass Demo { void run() { try (Handle h = new Handle()) { } } }   // close() runs automatically</pre>"
     },
     {
      "type": "basic",
@@ -2934,7 +2950,8 @@
      "extra": "They coordinate independently running threads. All must be called while holding the object's monitor.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Box {\n    synchronized void await() throws InterruptedException { wait(); }\n    synchronized void release() { notifyAll(); }\n}</pre>"
     }
    ]
   },
@@ -2955,7 +2972,8 @@
      "extra": "The overriding method may narrow the return type to a subtype. That narrower type is called a covariant return type.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Base { void run() { } }\nclass Sub extends Base { void run() { } }   // same name and parameter types</pre>"
     },
     {
      "type": "basic",
@@ -2964,7 +2982,8 @@
      "extra": "It turns a silent typo in the method name into a compile error. Using it is recommended on every override.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Impl implements Runnable {\n    @Override public void run() { }   // the compiler checks the override exists\n}</pre>"
     },
     {
      "type": "basic",
@@ -2982,7 +3001,8 @@
      "extra": "So <code>Animal.testClassMethod()</code> runs Animal's static, while an instance call runs Cat's override. Resolution of statics happens at compile time.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class A { static void f() { System.out.println(\"A\"); } }\nclass B extends A { static void f() { System.out.println(\"B\"); } }\nclass Demo { void run() { A a = new B(); a.f(); } }   // prints A: hidden, not overridden</pre>"
     },
     {
      "type": "basic",
@@ -2991,7 +3011,8 @@
      "extra": "Instance and static cannot be mixed for the same signature. The reverse (static in subclass, instance in superclass) is also an error.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Base { static void f() { } }\n// class Sub extends Base { void f() { } }   // compile error: cannot override a static method</pre>"
     },
     {
      "type": "basic",
@@ -3009,7 +3030,8 @@
      "extra": "The compiler refuses to guess; the class must override the method. Overridden or inherited-from-a-common-ancestor methods are excluded from the conflict.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface A { default void run() { } }\ninterface B { default void run() { } }\nclass C implements A, B { public void run() { A.super.run(); } }   // the class must resolve it</pre>"
     },
     {
      "type": "basic",
@@ -3027,7 +3049,8 @@
      "extra": "The name before <code>super</code> must be a direct superinterface that defines or inherits that default. This also works to reach a class's default.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>interface A { default String name() { return \"A\"; } }\nclass C implements A {\n    public String name() { return A.super.name() + \"!\"; }   // calls the default\n}</pre>"
     },
     {
      "type": "basic",
@@ -3036,7 +3059,8 @@
      "extra": "They belong to the interface and are called as <code>Interface.method()</code>. Default methods, by contrast, are inherited normally.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface Util { static int twice(int n) { return 2 * n; } }\nclass Demo { void run() { System.out.println(Util.twice(3)); } }   // must name the interface</pre>"
     },
     {
      "type": "basic",
@@ -3045,7 +3069,8 @@
      "extra": "It is a new, distinct method in the subclass, unique to it. Parent classes are unaffected.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class A { void run(int n) { } }\nclass B extends A { void run(String s) { } }   // overloads: neither overrides nor hides</pre>"
     }
    ]
   },
@@ -3066,7 +3091,8 @@
      "extra": "The subclass overrides methods but is still usable wherever the parent type is expected, so callers code to one type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Animal { void speak() { System.out.println(\"...\"); } }\nclass Dog extends Animal { void speak() { System.out.println(\"woof\"); } }\nclass Demo { void run() { Animal a = new Dog(); a.speak(); } }   // woof</pre>"
     },
     {
      "type": "basic",
@@ -3075,7 +3101,8 @@
      "extra": "This is virtual method invocation and the core of polymorphism. Which method runs is decided from the runtime class of the object.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Animal { void speak() { System.out.println(\"...\"); } }\nclass Dog extends Animal { void speak() { System.out.println(\"woof\"); } }\nclass Demo { void run() { Animal a = new Dog(); a.speak(); } }   // the object decides</pre>"
     },
     {
      "type": "basic",
@@ -3084,7 +3111,8 @@
      "extra": "Fields are not polymorphic, so the declared type decides which is read. Hiding fields is discouraged because it makes code hard to follow.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class A { int n = 1; }\nclass B extends A { int n = 2; }   // hides A.n instead of replacing it</pre>"
     },
     {
      "type": "basic",
@@ -3111,7 +3139,8 @@
      "extra": "<code>super()</code> calls the no-arg constructor; <code>super(list)</code> the matching one. If neither is present, the compiler inserts <code>super()</code> implicitly.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Base { Base(int n) { } }\nclass Sub extends Base { Sub() { super(1); } }   // before this is used</pre>"
     },
     {
      "type": "basic",
@@ -3120,7 +3149,8 @@
      "extra": "so a superclass lacking a no-arg constructor breaks compilation. <code>Object</code> has one, which is why bare classes always work.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class A { A() { } }\nclass B extends A { B() { } }   // the compiler inserts super() as the first call</pre>"
     },
     {
      "type": "basic",
@@ -3129,7 +3159,8 @@
      "extra": "Every constructor runs along the chain, so some code runs once per level. With long hierarchies, this matters for correctness and performance.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class A { A() { System.out.println(\"A\"); } }\nclass B extends A { B() { System.out.println(\"B\"); } }   // A runs first</pre>"
     },
     {
      "type": "basic",
@@ -3138,7 +3169,8 @@
      "extra": "Use it on methods whose behaviour must not change, particularly those central to a consistent object state. <code>Object</code> declares several final methods.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Base { final void run() { } }\n// class Sub extends Base { void run() { } }   // compile error: cannot override a final method</pre>"
     },
     {
      "type": "basic",
@@ -3147,7 +3179,8 @@
      "extra": "The override executes before the subclass's fields are initialised, so it sees defaults. A final method avoids the surprising result.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Base {\n    Base() { init(); }      // runs during construction\n    final void init() { }   // final: no overridden version can run too early\n}</pre>"
     },
     {
      "type": "basic",
@@ -3156,7 +3189,8 @@
      "extra": "Useful for immutable value types; <code>String</code> is the prime example. It also guarantees no subclass can change the behaviour.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>final class Money { }   // nothing can extend it</pre>"
     },
     {
      "type": "basic",
@@ -3186,7 +3220,8 @@
      "extra": "A subclass is the derived (extended) class. Members of the superclass, apart from constructors, are inherited.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Animal { }\nclass Cat extends Animal { }   // Animal is the superclass</pre>"
     },
     {
      "type": "basic",
@@ -3195,7 +3230,8 @@
      "extra": "This is single inheritance of classes. Multiple inheritance of type instead comes from implementing several interfaces.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class A { }\nclass B extends A { }   // exactly one direct superclass; Object has none</pre>"
     },
     {
      "type": "basic",
@@ -3240,7 +3276,8 @@
      "extra": "It can still reach them indirectly, through public or protected methods the parent provides. A nested class, by contrast, sees the enclosing class's private members.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class A { private int secret; }\nclass B extends A { /* secret is not visible here */ }</pre>"
     },
     {
      "type": "basic",
@@ -3249,7 +3286,8 @@
      "extra": "e.g. <code>Object obj = new MountainBike();</code>. Legal because a MountainBike <b>is a</b> Bicycle and an Object.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Animal { }\nclass Dog extends Animal { }\nclass Demo { void run() { Animal a = new Dog(); } }   // widening, no cast needed</pre>"
     },
     {
      "type": "basic",
@@ -3258,7 +3296,8 @@
      "extra": "Check the type first, then cast safely, since a failed cast throws. Pattern matching for instanceof folds the check and the declaration into one step.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>Object o = \"text\";\nif (o instanceof String s) { System.out.println(s.length()); }   // only cast once the test passed</pre>"
     },
     {
      "type": "basic",
@@ -3267,7 +3306,8 @@
      "extra": "A class implementing several interfaces has several types. State and implementation inheritance through many classes are excluded to avoid ambiguity.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Fly { }\ninterface Swim { }\nclass Duck implements Fly, Swim { }   // many interfaces, still one superclass</pre>"
     },
     {
      "type": "basic",
