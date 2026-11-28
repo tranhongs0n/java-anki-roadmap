@@ -1854,7 +1854,7 @@
     {
      "type": "basic",
      "front": "Which <code>intStream.iterate</code> overload turns an unbounded loop into an <b>infinite</b> stream?",
-     "back": "<code>iterate(seed, IntUnaryOperator)</code>, with no predicate",
+     "back": "<code>IntStream.iterate(seed, IntUnaryOperator)</code> — the two-argument form is unbounded; the three-argument form adds a predicate",
      "extra": "Dropping the predicate leaves an endless source, which is then limited by takeWhile or limit. A stream must be bounded before a terminal operation collects it.",
      "kind": "gotcha",
      "tags": [
@@ -2141,7 +2141,7 @@
     {
      "type": "basic",
      "front": "Which four <code>Stream</code> factory methods create a stream from data you already hold?",
-     "back": "<code>of(varargs)</code>, <code>generate(supplier)</code>, <code>iterate(seed, op)</code>, <code>builder()</code>",
+     "back": "<code>of(varargs)</code>, <code>builder()</code>, <code>Arrays.stream(array)</code> and <code>collection.stream()</code> — generate() and iterate() produce data instead of streaming data you hold",
      "extra": "<code>Stream.empty()</code> makes a fifth, empty stream. of() delegates to Arrays.stream, so varargs and arrays behave the same.",
      "kind": "table",
      "tags": [
@@ -2163,7 +2163,7 @@
     {
      "type": "basic",
      "front": "Which three arguments does the <code>StreamSupport.stream(Spliterator, boolean)</code> idiom for an iterator need from you?",
-     "back": "An <b>estimate of size</b>, <b>characteristics</b>, and a <b>parallel</b> flag",
+     "back": "<code>StreamSupport.stream(spliterator, parallelFlag)</code> takes two arguments; the size estimate and characteristics come from the Spliterator (e.g. via <code>Spliterators.spliterator(...)</code>)",
      "extra": "They wrap an Iterator in a spliterator so any non-standard source can become a stream. The size estimate may be Long.MAX_VALUE when unknown.",
      "kind": "syntax",
      "tags": [
@@ -2284,7 +2284,7 @@
     {
      "type": "basic",
      "front": "Which method gives the characters of a String as a stream, and as what type?",
-     "back": "<code>String.chars()</code>, returning an <code>IntStream</code> of code points",
+     "back": "<code>String.chars()</code>, returning an <code>IntStream</code> of UTF-16 code units; <code>codePoints()</code> returns code points",
      "extra": "Each element is the numeric code point, not a char. To rebuild a one-character String use Character.toString(int) on Java SE 11 and later.",
      "kind": "gotcha",
      "tags": [
@@ -2295,7 +2295,7 @@
     {
      "type": "basic",
      "front": "Which method streams a file's lines with a charset overload, and how must the stream be closed?",
-     "back": "<code>Files.lines(Path)</code>, closed with <b>try-with-resources</b>",
+     "back": "<code>Files.lines(Path, Charset)</code> — closed with try-with-resources; the charset overload reads non-UTF-8 files",
      "extra": "Stream extends BaseStream which extends AutoCloseable, so the stream itself is a resource. For I/O backed streams, closing is mandatory.",
      "kind": "rule",
      "tags": [
@@ -2570,7 +2570,7 @@
     {
      "type": "basic",
      "front": "What does a <b>greedy</b> integrator commit to?",
-     "back": "It never interrupts on its own: it returns the downstream state or true",
+     "back": "It never short-circuits on its own: it keeps pushing to the downstream and returns its state; short-circuiting comes from the downstream",
      "extra": "Declared with <code>Integrator.ofGreedy</code>, it lets the API apply optimizations. Breaking the contract can make the code fail; a greedy plain integrator only misses optimizations.",
      "kind": "definition",
      "tags": [

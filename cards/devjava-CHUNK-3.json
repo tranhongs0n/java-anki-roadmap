@@ -497,7 +497,7 @@
     {
      "type": "basic",
      "front": "Why should you <b>not</b> pool virtual threads?",
-     "back": "It re-schedules tasks onto platform threads - exactly the inefficiency they remove",
+     "back": "A pool caps concurrency and defeats cheap creation; pooled virtual threads still run on platform carrier threads",
      "extra": "Virtual threads are cheap to create, so make one per task. Use semaphores or per-resource limits for rate limiting instead.",
      "tags": [
       "type::rule"
