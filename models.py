@@ -78,6 +78,18 @@ CSS = """
 }
 .extra b, .extra strong { color: var(--text); }
 
+/* ---------- example block ---------- */
+.ex {
+  margin-top: 1.15em;
+}
+.ex pre {
+  margin: 0;
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+}
+
 /* ---------- footer ---------- */
 .src {
   margin-top: 1.35em;
@@ -160,13 +172,14 @@ th { background: var(--panel); font-weight: 600; }
 
 BASIC_AFMT = ('<div class="q">{{Front}}</div><div class="a">{{Back}}</div>'
               '{{#Extra}}<div class="extra">{{Extra}}</div>{{/Extra}}'
+              '{{#Example}}<div class="ex">{{Example}}</div>{{/Example}}'
               '{{#Source}}<div class="src">{{Source}}</div>{{/Source}}')
 
 SPECS = {
     "JV Basic": {
         "id": 1749200001,
         "isCloze": False,
-        "fields": ["Front", "Back", "Extra", "Source", "CardKey"],
+        "fields": ["Front", "Back", "Extra", "Example", "Source", "CardKey"],
         "templates": [{
             "Name": "Card 1",
             "Front": '<div class="q">{{Front}}</div>',
@@ -176,25 +189,27 @@ SPECS = {
     "JV Cloze": {
         "id": 1749200002,
         "isCloze": True,
-        "fields": ["Text", "Extra", "Source", "CardKey"],
+        "fields": ["Text", "Extra", "Example", "Source", "CardKey"],
         "templates": [{
             "Name": "Cloze",
             "Front": '<div class="q">{{cloze:Text}}</div>',
             "Back": ('<div class="q">{{cloze:Text}}</div>'
                      '{{#Extra}}<div class="extra">{{Extra}}</div>{{/Extra}}'
+                     '{{#Example}}<div class="ex">{{Example}}</div>{{/Example}}'
                      '{{#Source}}<div class="src">{{Source}}</div>{{/Source}}'),
         }],
     },
     "JV Visual": {
         "id": 1749200003,
         "isCloze": False,
-        "fields": ["Image", "Question", "Back", "Extra", "Source", "CardKey"],
+        "fields": ["Image", "Question", "Back", "Extra", "Example", "Source", "CardKey"],
         "templates": [{
             "Name": "Image front",
             "Front": '<div class="q">{{Question}}</div><div>{{Image}}</div>',
             "Back": ('<div class="q">{{Question}}</div><div>{{Image}}</div>'
                      '<div class="a">{{Back}}</div>'
                      '{{#Extra}}<div class="extra">{{Extra}}</div>{{/Extra}}'
+                     '{{#Example}}<div class="ex">{{Example}}</div>{{/Example}}'
                      '{{#Source}}<div class="src">{{Source}}</div>{{/Source}}'),
         }],
     },

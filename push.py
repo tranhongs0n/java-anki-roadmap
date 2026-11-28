@@ -39,16 +39,20 @@ def note_fields(kind, card, key, image_tag=None, batch_src=""):
         return {"Front": highlight_fields(card["front"]),
                 "Back": highlight_fields(card["back"]),
                 "Extra": highlight_fields(card.get("extra", "")),
+                "Example": highlight_fields(card.get("example", "")),
+                "Example": highlight_fields(card.get("example", "")),
                 "Source": card.get("source") or batch_src, "CardKey": key}
     if kind == "cloze":
         return {"Text": highlight_fields(card["text"]),
                 "Extra": highlight_fields(card.get("extra", "")),
+                "Example": highlight_fields(card.get("example", "")),
                 "Source": card.get("source") or batch_src, "CardKey": key}
     if kind == "visual":
         return {"Image": image_tag,
                 "Question": highlight_fields(card.get("question", "What does this show?")),
                 "Back": highlight_fields(card["back"]),
                 "Extra": highlight_fields(card.get("extra", "")),
+                "Example": highlight_fields(card.get("example", "")),
                 "Source": card.get("source") or batch_src, "CardKey": key}
     raise SystemExit(f"unknown card type: {kind}")
 
@@ -68,9 +72,10 @@ def ensure_models(dry):
                 print(f"  model {name}: add field {f}")
                 if not dry:
                     anki.add_field(name, f)
-        print(f"  model {name}: styling")
+        print(f"  model {name}: styling + templates")
         if not dry:
             anki.update_styling(name, CSS)
+            anki.update_templates(name, spec["templates"])
 
 
 def ensure_decks(deck_paths, dry):

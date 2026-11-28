@@ -14,7 +14,8 @@
    "source": "https://dev.java/learn/language/constructs/basics/arrays/",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>int[][] grid = { {1, 2, 3}, {4} };\nSystem.out.println(grid.length);    // 2 references\nSystem.out.println(grid[1].length); // 1 - a separate array object</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "https://dev.java/learn/language/constructs/basics/arrays/",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>int[][] tri = new int[3][];\ntri[0] = new int[] {1};\ntri[1] = new int[] {1, 2};\ntri[2] = new int[] {1, 2, 3};   // legal, and prints as a triangle</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.12.5",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>int[][] grid = new int[3][];\nSystem.out.println(grid[0]);  // null\ngrid[0][0] = 1;               // NullPointerException</pre>"
   }
  ]
 }

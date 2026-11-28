@@ -60,6 +60,10 @@ def add_field(name, field):
     return call("modelFieldAdd", modelName=name, fieldName=field)
 
 
+def update_templates(name, templates):
+    return call("updateModelTemplates", model={"name": name, "templates": {t["Name"]: {"Front": t["Front"], "Back": t["Back"]} for t in templates}})
+
+
 def update_styling(name, css):
     return call("updateModelStyling", model={"name": name, "css": css})
 

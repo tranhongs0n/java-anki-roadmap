@@ -589,7 +589,8 @@
      "extra": "That is the legitimate use of fall through: the shared statement executes when either label matches. Commonly used to group equivalent values such as 28-day months.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>switch (month) {\n    case 2:\n    case 4:\n    case 6:\n    case 9:\n    case 11:\n        days = 30;\n        break;\n    default:\n        days = 31;\n}</pre>"
     },
     {
      "type": "basic",
