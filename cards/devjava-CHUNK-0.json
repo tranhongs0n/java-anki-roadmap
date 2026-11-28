@@ -3839,7 +3839,8 @@
      "extra": "The name must be fully qualified. If the class does not exist, the call throws <code>ClassNotFoundException</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() throws Exception {\n  String name = \"java.util.ArrayList\";\n  Class<?> c = Class.forName(name);  // resolved at run time\n} }</pre>"
     },
     {
      "type": "basic",
@@ -3858,7 +3859,8 @@
      "extra": "In single-file source mode a memory class loader is used, otherwise the application class loader. Classes in separate loaders are invisible to each other.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java Foo.java   # source-file mode: memory class loader\njava Foo        # compiled mode: application class loader</pre>"
     },
     {
      "type": "basic",
@@ -3867,7 +3869,8 @@
      "extra": "It wraps NoSuchMethodException, IllegalAccessException and related failures. Catching it avoids a long list of catch clauses.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try { Class.forName(\"java.util.ArrayList\"); }\ncatch (ReflectiveOperationException e) {}  // base of reflective checked exceptions</pre>"
     },
     {
      "type": "basic",
@@ -3916,7 +3919,8 @@
      "extra": "Opening a package gives unfettered access to implementation details. A field rename becomes a runtime failure with no compile-time warning.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>// Reflection by name: Field f = libraryClass.getDeclaredField(\"internalCache\");\n// A library update renames internalCache to cache and the lookup throws NoSuchFieldException.</pre>"
     },
     {
      "type": "basic",
@@ -4027,7 +4031,8 @@
      "extra": "It is more permissive and slightly slower. It accepts Objects and converts them to the handle's parameter types.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.lang.invoke.*;\nclass Ex { static void m() throws Throwable {\n  MethodHandle h = MethodHandles.lookup().findStatic(String.class, \"valueOf\", MethodType.methodType(String.class, int.class));\n  String a = (String) h.invoke(Integer.valueOf(42)); // adapts Integer to int\n  // h.invokeExact(Integer.valueOf(42));            // WrongMethodTypeException\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4036,7 +4041,8 @@
      "extra": "Extra arguments beyond the expected count are squashed into the final array parameter. That suits varargs targets.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.lang.invoke.*;\nclass Ex { static int sum(int a, int b) { return a+b; } static void m() throws Throwable {\n  MethodHandle h = MethodHandles.lookup().findStatic(Ex.class, \"sum\", MethodType.methodType(int.class, int.class, int.class));\n  Object r = h.invokeWithArguments(1, 2);\n  Object s = h.invokeWithArguments(new Object[]{1, 2});  // single array of all args\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4157,7 +4163,8 @@
      "extra": "It is an advanced feature that needs solid language fundamentals. Extensibility, tools and debuggers are its classic uses.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() throws Exception {\n  Class<?> c = Class.forName(System.getProperty(\"impl\"));  // type decided at run time\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4176,7 +4183,8 @@
      "extra": "Including inlining and devirtualisation. Avoid reflection in hot, performance-sensitive paths.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Method;\nclass Ex { static void m() throws Exception {\n  int direct = \"abc\".length();                        // statically bound\n  int reflected = (int) String.class.getMethod(\"length\").invoke(\"abc\"); // resolved at run time\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4185,7 +4193,8 @@
      "extra": "A named module can prohibit access to its own internals at runtime. That is why deep reflection into the JDK's internals largely stopped working.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// module-info.java: module my.app { }             // package not opened, reflection blocked\n// module-info.java: module my.app { opens my.app.spi; } // only that package is open</pre>"
     },
     {
      "type": "basic",
@@ -4204,7 +4213,8 @@
      "extra": "A debugger needs to see what the language hides. A test harness can enumerate methods and call them to raise coverage.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.*;\nclass Ex { private int x; static void m() throws Exception {\n  Field f = Ex.class.getDeclaredField(\"x\");\n  f.setAccessible(true);                         // inspect private state\n  Method[] api = Ex.class.getDeclaredMethods();  // discover methods to call\n} }</pre>"
     }
    ]
   },
@@ -4225,7 +4235,8 @@
      "extra": "Any of them exposes annotation discovery. <code>Class</code> also models enums, records and even arrays.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Class<?> ae = java.lang.reflect.AnnotatedElement.class;\nboolean f = ae.isAssignableFrom(java.lang.reflect.Field.class);\nboolean m = ae.isAssignableFrom(java.lang.reflect.Method.class);\nboolean c = ae.isAssignableFrom(java.lang.reflect.Constructor.class);\nboolean k = ae.isAssignableFrom(Class.class);</pre>"
     },
     {
      "type": "basic",
@@ -4254,7 +4265,8 @@
      "extra": "The plural forms return arrays. The singular variants, getAnnotation and getDeclaredAnnotation, take a Class and return one instance.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Inherited @Retention(RetentionPolicy.RUNTIME) @interface Tag {}\n@Tag class Base {}\nclass Sub extends Base {}\nclass Ex { static void m() {\n  boolean a = Sub.class.getAnnotations().length > 0;           // true: inherited\n  boolean b = Sub.class.getDeclaredAnnotations().length > 0;   // false\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4263,7 +4275,8 @@
      "extra": "The class file holds a single <code>@Validators</code>, which encloses the repeated <code>@Validator</code>s. Tedious but the only direct route.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\n  Tag[] tags = Holder.class.getAnnotation(Tags.class).value();  // compiler stored container\n} }\n@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME) @interface Tags { Tag[] value(); }\n@java.lang.annotation.Repeatable(Tags.class) @interface Tag { String value(); }\n@Tag(\"a\") @Tag(\"b\") class Holder {}</pre>"
     },
     {
      "type": "basic",
@@ -4302,7 +4315,8 @@
      "extra": "It covers annotations where a type appears, e.g. the type argument or the implemented interface. Declaration annotations are plain AnnotatedElement.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.*;\nclass Ex { java.util.List<String> f; static void m() throws Exception {\n  AnnotatedType t = Ex.class.getDeclaredField(\"f\").getAnnotatedType();\n  java.lang.reflect.Type arg = ((AnnotatedParameterizedType) t).getAnnotatedActualTypeArguments()[0].getType();\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4373,7 +4387,8 @@
      "extra": "Any type and dimension is supported. It is the reflective equivalent of <code>new T[n]</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object arr = java.lang.reflect.Array.newInstance(int.class, 3);\nint n = java.lang.reflect.Array.getLength(arr);</pre>"
     },
     {
      "type": "basic",
@@ -4392,7 +4407,8 @@
      "extra": "They skip conversion to <code>Integer</code>, <code>Double</code> and so on. That matters in tight loops over large primitive arrays.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int[] a = new int[2];\njava.lang.reflect.Array.setInt(a, 0, 7);  // typed setter: no boxing\nint v = java.lang.reflect.Array.getInt(a, 0);</pre>"
     },
     {
      "type": "basic",
@@ -4401,7 +4417,8 @@
      "extra": "The typed setters insist on the primitive or a value that widens losslessly. This is boxing leaking through the reflective API.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int[] wrong = new int[1];\ntry {\n  java.lang.reflect.Array.setFloat(wrong, 0, 1.0f); // IllegalArgumentException: argument type mismatch\n} catch (IllegalArgumentException e) {}</pre>"
     },
     {
      "type": "basic",
@@ -4410,7 +4427,8 @@
      "extra": "So int values may be stored into long arrays, but not the reverse. The same rule applies to the primary reflection API.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>long[] ok = new long[1];\njava.lang.reflect.Array.setLong(ok, 0, 5);  // int widens to long\nint[] no = new int[1];\n// Array.setLong(no, 0, 5L); // IllegalArgumentException: narrowing long to int</pre>"
     },
     {
      "type": "basic",
@@ -4441,7 +4459,8 @@
      "extra": "ReflectPermission is the deprecated exception. Direct construction would bypass the runtime's bookkeeping.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\nclass Ex { static void m() throws Exception {\n  Field f = String.class.getDeclaredField(\"value\");  // obtained through Class\n  // new Field();  // no public constructor\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4470,7 +4489,8 @@
      "extra": "The name must be fully qualified. It cannot be used for primitive types, but it does work for array classes.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\n  try {\n    Class.forName(\"no.such.Clazz\");  // ClassNotFoundException\n  } catch (ClassNotFoundException e) {}\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4499,7 +4519,8 @@
      "extra": "So <code>String[]</code> is <code>[Ljava.lang.String;</code>, and the canonical name is the readable <code>java.lang.String[]</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String n = String[].class.getName();       // \"[Ljava.lang.String;\"\nString deep = String[][].class.getName();  // \"[[Ljava.lang.String;\"  // ref array</pre>"
     },
     {
      "type": "basic",
@@ -4538,7 +4559,8 @@
      "extra": "It never returns interfaces: those come from <code>getInterfaces()</code>. The null is the top of the hierarchy.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Class<?> c = String.class.getSuperclass();    // Object.class\nClass<?> top = Object.class.getSuperclass();  // null</pre>"
     },
     {
      "type": "basic",
@@ -4557,7 +4579,8 @@
      "extra": "Arrays are Objects, so their type extends Object and carries those two. That is why arrays can be cloned and serialized.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>boolean c = java.lang.Cloneable.class.isAssignableFrom(int[].class);\nboolean s = java.io.Serializable.class.isAssignableFrom(String[].class);</pre>"
     },
     {
      "type": "basic",
@@ -4596,7 +4619,8 @@
      "extra": "It provides <code>getDeclaringClass</code> for each member, plus modifiers and related queries. That is why the three look alike in the API.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Class<?> memb = java.lang.reflect.Member.class;\nboolean f = memb.isAssignableFrom(java.lang.reflect.Field.class);\nboolean m = memb.isAssignableFrom(java.lang.reflect.Method.class);\nboolean c = memb.isAssignableFrom(java.lang.reflect.Constructor.class);</pre>"
     }
    ]
   },
@@ -4617,7 +4641,8 @@
      "extra": "The array reflects public, protected, package-private and private. The non-declared forms return public ones only.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { private Ex(int x) {} static void m() {\n  int n = Ex.class.getDeclaredConstructors().length;  // includes the private one\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4646,7 +4671,8 @@
      "extra": "The declared variant also sees private constructors. Types must match exactly, so <code>byte[].class</code> denotes a byte array parameter.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Constructor;\nclass Ex { public Ex(int x) {} static void m() throws Exception {\n  Constructor<Ex> c = Ex.class.getConstructor(int.class);\n  Ex e = c.newInstance(1);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4665,7 +4691,8 @@
      "extra": "The generic variant returns Type objects instead of Class objects. Both expose what may be thrown.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.*;\nclass Ex { static void m() throws Exception {\n  Class<?>[] ex = Ex.class.getDeclaredMethod(\"m\").getExceptionTypes();\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4674,7 +4701,8 @@
      "extra": "It also requires the constructor to be visible. <code>Constructor.newInstance()</code> has none of those limitations.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex { public Ex() {} static void m() throws Exception {\n  // Ex.class.newInstance();  // deprecated: no-arg constructor only, no checked exceptions\n  Object o = Ex.class.getDeclaredConstructor().newInstance();\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4703,7 +4731,8 @@
      "extra": "It does not change the constructor's modifiers. Module restrictions may still block it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Constructor;\nclass Ex { private Ex() {} static void m() throws Exception {\n  Constructor<Ex> c = Ex.class.getDeclaredConstructor();\n  c.setAccessible(true);\n  Ex e = c.newInstance();  // private call now allowed\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4794,7 +4823,8 @@
      "extra": "Its <code>putIfAbsent</code> is atomic, which avoids external synchronisation. Null values are not permitted in most implementations.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.concurrent.ConcurrentMap<String,Object> reg = new java.util.concurrent.ConcurrentHashMap<>();\nObject first = reg.putIfAbsent(\"k\", new Object());  // thread-safe registry</pre>"
     },
     {
      "type": "basic",
@@ -4803,7 +4833,8 @@
      "extra": "The losers still hold their own newly built object. So after the put you must read the value back, as <code>get</code>, to return the winner.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.concurrent.ConcurrentMap<String,Object> reg = new java.util.concurrent.ConcurrentHashMap<>();\nObject x = reg.putIfAbsent(\"k\", new Object());  // each caller still constructs its Object</pre>"
     },
     {
      "type": "basic",
@@ -4854,7 +4885,8 @@
      "extra": "Enum constants are public static final fields, so most reflective operations work unchanged. Only a few APIs are enum-specific.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Ex { static void m() {\n  boolean isEnum = Color.class.isEnum();  // enums are classes; no java.lang.reflect.Enum\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4873,7 +4905,8 @@
      "extra": "It returns the constants in declaration order. Without an instance it is the only route, since the enum cannot be instantiated.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Ex { static void m() {\n  Object[] all = Color.class.getEnumConstants();  // no instance needed\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4922,7 +4955,8 @@
      "extra": "The first two are public API; the third is an internal helper. Lambda-generated methods also show up if the enum uses lambdas.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Color { RED }\nclass Ex { static void m() {\n  Color[] all = Color.values();\n  Color one = Color.valueOf(\"RED\");\n  // private static Color[] $values() is compiler-generated\n} }</pre>"
     },
     {
      "type": "basic",
@@ -4993,7 +5027,8 @@
      "extra": "Type variables disappear at compile time. You need the generic query to recover the declared type.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\nclass Box<T> { T value; }\nclass Ex { static void m() throws Exception {\n  Class<?> t = Box.class.getDeclaredField(\"value\").getType();\n  boolean erased = t == Object.class;\n} }</pre>"
     },
     {
      "type": "basic",
@@ -5042,7 +5077,8 @@
      "extra": "One Field represents the field declaration, not a value. Which instance you mean must be supplied at each call.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\nclass Box { int x; }\nclass Ex { static void m() throws Exception {\n  Field f = Box.class.getDeclaredField(\"x\");\n  Box a = new Box(); Box b = new Box();\n  f.setInt(a, 1); f.setInt(b, 2);  // same Field, two targets\n} }</pre>"
     },
     {
      "type": "basic",
@@ -5061,7 +5097,8 @@
      "extra": "The field is still declared private and remains so for normal code. This common misconception surprises many developers.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\nclass Ex { static class Box { private int x; } static void m() throws Exception {\n  Field f = Box.class.getDeclaredField(\"x\");\n  int before = f.getModifiers();\n  f.setAccessible(true);\n  int after = f.getModifiers();  // unchanged: only the access check was suppressed\n} }</pre>"
     },
     {
      "type": "basic",
@@ -5080,7 +5117,8 @@
      "extra": "By default a module is closed to reflection, including from the unnamed module. Opening requires a declaration or an explicit flag.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// module-info.java: module app { }  -> package not opened to other modules\n// Field f = lib.api.Hidden.class.getDeclaredField(\"x\");\n// f.setAccessible(true);  // InaccessibleObjectException unless the package is opened</pre>"
     },
     {
      "type": "basic",
@@ -5089,7 +5127,8 @@
      "extra": "Reading works regardless. Since JDK 26 a warning is issued when a final field is mutated reflectively.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\nclass Box { final int id = 1; }\nclass Ex { static void m() throws Exception {\n  Field f = Box.class.getDeclaredField(\"id\");\n  f.setAccessible(true);\n  Box b = new Box(); f.setInt(b, 9);  // non-static final field is writable\n} }</pre>"
     },
     {
      "type": "basic",
@@ -5118,7 +5157,8 @@
      "extra": "The typed accessors require the exact primitive. A wrapper field needs the general Object forms.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\nclass Box { Integer count; }\nclass Ex { static void m() throws Exception {\n  Field f = Box.class.getDeclaredField(\"count\");\n  f.setAccessible(true);\n  try { f.setInt(new Box(), 1); } catch (IllegalArgumentException e) {} // Integer field is not int\n} }</pre>"
     }
    ]
   }

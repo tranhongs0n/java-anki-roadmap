@@ -17,7 +17,8 @@
      "extra": "Intermediate operations only build up the pipeline. Terminal operations such as count(), forEach(), max() or collect() are what pull the elements through it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<String> pipeline = java.util.stream.Stream.of(\"a\", \"b\")\n    .peek(x -> System.out.println(\"visited \" + x)).map(String::toUpperCase);\nSystem.out.println(\"built, nothing visited\");</pre>"
     },
     {
      "type": "basic",
@@ -26,7 +27,8 @@
      "extra": "Getting either wrong silently produces wrong results, especially in parallel streams. sum(), min(), max(), count() and the collectors cover almost every real reduction.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<Integer> xs = java.util.List.of(1, 2, 3);\nint sum = xs.parallelStream().reduce(0, Integer::sum);\nString bad = xs.stream().map(String::valueOf).reduce(\"\", (a, b) -> b + a);\nSystem.out.println(sum + \" \" + bad);</pre>"
     },
     {
      "type": "basic",
@@ -35,7 +37,8 @@
      "extra": "count() exists on every stream interface, object and primitive specializations alike, and returns a long rather than an int.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<String> stream = java.util.stream.Stream.of(\"a\", \"b\", \"c\");\nlong n = stream.count();\nSystem.out.println(n);</pre>"
     },
     {
      "type": "basic",
@@ -44,7 +47,8 @@
      "extra": "A stream can process more than Integer.MAX_VALUE elements, for example after a flatMap() multiplies the element count, so the API supports counts beyond int range.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>long n = java.util.stream.Stream.of(\"a\", \"b\").count();\nSystem.out.println(n);</pre>"
     },
     {
      "type": "basic",
@@ -53,7 +57,8 @@
      "extra": "A plain terminal method cannot be composed. Once counting is itself a Collector it can be plugged in to replace the List values a grouping produces.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.Map<Integer, Long> counts = java.util.stream.Stream.of(\"a\", \"bb\", \"cc\")\n    .collect(java.util.stream.Collectors.groupingBy(s -> s.length(), java.util.stream.Collectors.counting()));\nSystem.out.println(counts);</pre>"
     },
     {
      "type": "basic",
@@ -62,7 +67,8 @@
      "extra": "The problem is not side effects per se but side effects on shared state outside the stream, such as mutating a captured list.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream.of(\"hello\", \"world\").parallel().forEach(System.out::println);\njava.util.stream.Stream.of(\"hello\", \"world\").parallel().forEach(x -> {});</pre>"
     },
     {
      "type": "basic",
@@ -71,7 +77,8 @@
      "extra": "result::add captures a variable outside the stream's scope, and an ArrayList cannot safely take concurrent writes from the threads of a parallel stream.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> result = new java.util.ArrayList<>();\njava.util.stream.Stream.of(\"a\", \"b\", \"c\").parallel().forEach(result::add);\nSystem.out.println(result.size());</pre>"
     },
     {
      "type": "basic",
@@ -80,7 +87,8 @@
      "extra": "The Collector API owns the accumulation and the merging of per-thread partial results, so the same code works sequentially or in parallel.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> result = java.util.stream.Stream.of(\"a\", \"b\")\n    .collect(java.util.stream.Collectors.toList());\nSystem.out.println(result);</pre>"
     },
     {
      "type": "basic",
@@ -89,7 +97,8 @@
      "extra": "It may also be faster than Collectors.toList(), which accumulates into an ArrayList and seals it afterwards, because the JDK can size the backing array up front.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = java.util.stream.Stream.of(\"a\", \"b\").toList();\ntry { list.add(\"c\"); } catch (UnsupportedOperationException e) { System.out.println(\"unmodifiable\"); }</pre>"
     },
     {
      "type": "basic",
@@ -98,7 +107,8 @@
      "extra": "The supplier creates the empty container, so <code>() -&gt; new ArrayList&lt;&gt;(10_000)</code> pre-sizes the array and avoids repeated grow-and-copy cycles.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.LinkedHashSet<String> set = java.util.stream.Stream.of(\"b\", \"a\", \"b\")\n    .collect(java.util.stream.Collectors.toCollection(java.util.LinkedHashSet::new));\nSystem.out.println(set);</pre>"
     },
     {
      "type": "basic",
@@ -107,7 +117,8 @@
      "extra": "Its sibling toUnmodifiableList() seals a List the same way. Any attempt to modify the returned collection throws UnsupportedOperationException.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Set<String> set = java.util.stream.Stream.of(\"a\", \"b\", \"a\")\n    .collect(java.util.stream.Collectors.toUnmodifiableSet());\ntry { set.add(\"c\"); } catch (UnsupportedOperationException e) { System.out.println(\"unmodifiable\"); }</pre>"
     },
     {
      "type": "basic",
@@ -116,7 +127,8 @@
      "extra": "The no-arg toArray() returns Object[], losing the component type even when the stream was declared as Stream&lt;String&gt;.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String[] a = java.util.stream.Stream.of(\"a\", \"b\").toArray(String[]::new);\nSystem.out.println(a.getClass().getSimpleName() + \" \" + a.length);</pre>"
     },
     {
      "type": "basic",
@@ -125,7 +137,8 @@
      "extra": "The numeric specializations IntStream, LongStream and DoubleStream know how to compare numbers and take no comparator, returning OptionalInt and friends.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> xs = java.util.List.of(\"pear\", \"apple\");\nString max = xs.stream().max(String::compareTo).orElseThrow();\nSystem.out.println(max);</pre>"
     },
     {
      "type": "basic",
@@ -134,7 +147,8 @@
      "extra": "Calling get() on an empty Optional throws NoSuchElementException, so use orElse() or orElseThrow() when the stream might produce no elements.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Optional<Integer> max = java.util.stream.Stream.<Integer>empty().max(Integer::compareTo);\njava.util.Optional<Integer> min = java.util.stream.Stream.<Integer>empty().min(Integer::compareTo);\njava.util.OptionalDouble avg = java.util.stream.IntStream.empty().average();\nSystem.out.println(max.isPresent() + \" \" + min.isPresent() + \" \" + avg.isPresent());</pre>"
     },
     {
      "type": "basic",
@@ -143,7 +157,8 @@
      "extra": "Order matters only for ordered sources such as a List. With Set.of() the traversal order is randomized, so findFirst() returns a random element.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String first = java.util.stream.Stream.of(\"x\", \"y\").unordered().findFirst().orElseThrow();\nString any = java.util.stream.Stream.of(\"x\", \"y\").unordered().findAny().orElseThrow();\nSystem.out.println(first + \" \" + any);</pre>"
     },
     {
      "type": "basic",
@@ -152,7 +167,8 @@
      "extra": "findFirst() must guarantee ordering even across worker threads. If any matching element will do, findAny() lets threads return the first they happen to find.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String any = java.util.stream.Stream.of(\"a\", \"b\", \"c\").parallel().findAny().orElseThrow();\nString first = java.util.stream.Stream.of(\"a\", \"b\", \"c\").parallel().findFirst().orElseThrow();\nSystem.out.println(any + \" \" + first);</pre>"
     },
     {
      "type": "basic",
@@ -161,7 +177,8 @@
      "extra": "No element was found to match, so the answer is negative. The predicate is never invoked because there is nothing to test it against.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>boolean matched = java.util.stream.Stream.<String>empty().anyMatch(s -> s.length() > 0);\nSystem.out.println(matched);</pre>"
     },
     {
      "type": "basic",
@@ -170,7 +187,8 @@
      "extra": "Vacuously true: no element violates the predicate. noneMatch() also returns true for an empty stream for the mirror reason.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>boolean all = java.util.stream.Stream.<String>empty().allMatch(s -> s.isEmpty());\nSystem.out.println(all);</pre>"
     },
     {
      "type": "basic",
@@ -179,7 +197,8 @@
      "extra": "It must process every element to produce a total. findFirst(), findAny(), anyMatch(), allMatch() and noneMatch() can stop once the answer is settled.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<String> s = java.util.stream.Stream.of(\"a\", \"bb\", \"ccc\")\n    .peek(x -> System.out.println(\"seen \" + x));\nlong n = s.count();\nSystem.out.println(n);</pre>"
     },
     {
      "type": "basic",
@@ -188,7 +207,8 @@
      "extra": "To return false it must see every element first. That asymmetry is why a returning true is short-circuiting but a returning false is not.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<String> s = java.util.stream.Stream.of(\"a\", \"bb\", \"ccc\")\n    .peek(x -> System.out.println(\"seen \" + x));\nboolean hit = s.anyMatch(x -> x.length() == 2);\nSystem.out.println(hit);</pre>"
     },
     {
      "type": "basic",
@@ -197,7 +217,8 @@
      "extra": "findFirst() short-circuits the moment it has an element. Proving the absence of any element is the one case that requires the whole pipeline to run.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Optional<String> first = java.util.stream.Stream.of(\"a\", \"bb\")\n    .peek(x -> System.out.println(\"seen \" + x)).findFirst();\nSystem.out.println(first.orElse(\"empty\"));\njava.util.Optional<String> empty = java.util.stream.Stream.<String>empty().findFirst();\nSystem.out.println(empty.isPresent());</pre>"
     }
    ]
   },
@@ -218,7 +239,8 @@
      "extra": "Numeric streams keep only the three-argument collect(supplier, accumulator, combiner). To use Collectors with them, box() the stream first.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int sum = java.util.stream.IntStream.of(1, 2, 3).sum();\njava.util.List<Integer> boxed = java.util.stream.IntStream.of(1, 2, 3).boxed()\n    .collect(java.util.stream.Collectors.toList());\nSystem.out.println(sum + \" \" + boxed);</pre>"
     },
     {
      "type": "basic",
@@ -227,7 +249,8 @@
      "extra": "The JDK is free to change it between releases. Declare the variable as List and use toCollection() when you need a specific implementation.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = java.util.stream.Stream.of(\"a\", \"b\")\n    .collect(java.util.stream.Collectors.toList());\nSystem.out.println(list.getClass().getName());</pre>"
     },
     {
      "type": "basic",
@@ -236,7 +259,8 @@
      "extra": "It also handles empty and single-element streams correctly, producing just prefix+suffix and prefix+element+suffix respectively.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String text = java.util.stream.Stream.of(\"a\", \"b\")\n    .collect(java.util.stream.Collectors.joining(\", \", \"[\", \"]\"));\nSystem.out.println(text);</pre>"
     },
     {
      "type": "basic",
@@ -245,7 +269,8 @@
      "extra": "joining() requires building a pipeline and pays the stream overhead. String.join() and StringJoiner do the same work without it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> parts = java.util.List.of(\"a\", \"b\", \"c\");\nString joined = String.join(\", \", parts);\nSystem.out.println(joined);</pre>"
     },
     {
      "type": "basic",
@@ -254,7 +279,8 @@
      "extra": "Every element goes under the true or false key depending on the predicate, so only two keys can ever exist, both always present.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Map<Boolean, java.util.List<String>> parts = java.util.stream.Stream.of(\"a\", \"bb\")\n    .collect(java.util.stream.Collectors.partitioningBy(s -> s.length() == 1));\nSystem.out.println(parts);</pre>"
     },
     {
      "type": "basic",
@@ -263,7 +289,8 @@
      "extra": "It maps each element to a key. Elements sharing a key are gathered into a list, which yields Map&lt;K, List&lt;T&gt;&gt; when no downstream collector is given.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<String, Integer> classifier = String::length;\njava.util.Map<Integer, java.util.List<String>> groups = java.util.stream.Stream.of(\"a\", \"bb\")\n    .collect(java.util.stream.Collectors.groupingBy(classifier));\nSystem.out.println(groups);</pre>"
     },
     {
      "type": "basic",
@@ -272,7 +299,8 @@
      "extra": "Any other function is allowed, and several elements may map to the same key, since groupingBy collects them into a List under that key.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> xs = java.util.List.of(\"a\", \"b\");\ntry { xs.stream().collect(java.util.stream.Collectors.groupingBy(s -> null)); }\ncatch (NullPointerException e) { System.out.println(\"null key rejected\"); }</pre>"
     },
     {
      "type": "basic",
@@ -281,7 +309,8 @@
      "extra": "toMap builds one entry per element and cannot choose a survivor. Supply a BinaryOperator merge function as the third argument to resolve collisions.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> xs = java.util.List.of(\"a\", \"a\");\ntry { xs.stream().collect(java.util.stream.Collectors.toMap(x -> x, x -> 1)); }\ncatch (IllegalStateException e) { System.out.println(e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "basic",
@@ -290,7 +319,8 @@
      "extra": "The merge function receives the old and the new value when a duplicate key appears and returns what should be stored instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> words = java.util.List.of(\"a\", \"b\", \"a\");\njava.util.Map<String, Integer> counts = words.stream().collect(java.util.stream.Collectors.toMap(\n    w -> w, w -> 1, Integer::sum));\nSystem.out.println(counts);</pre>"
     },
     {
      "type": "basic",
@@ -299,7 +329,8 @@
      "extra": "It lets a parallel stream merge partial results without locking; the exact map class returned is still not guaranteed.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.Map<String, Integer> m = java.util.stream.Stream.of(\"a\", \"b\", \"a\").parallel()\n    .collect(java.util.stream.Collectors.toConcurrentMap(x -> x, x -> 1, Integer::sum));\nSystem.out.println(m);</pre>"
     },
     {
      "type": "basic",
@@ -308,7 +339,8 @@
      "extra": "Map has no stream() method. Key only is map.keySet().stream(), and values only is map.values().stream().",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Map<String, Integer> map = java.util.Map.of(\"a\", 1, \"b\", 2);\nmap.entrySet().stream().forEach(e -> System.out.println(e.getKey() + \"=\" + e.getValue()));</pre>"
     },
     {
      "type": "basic",
@@ -317,7 +349,8 @@
      "extra": "It only works when the values are Comparable. comparingByKey() provides the analogous comparator over keys.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Map<String, Integer> m = java.util.Map.of(\"a\", 2, \"b\", 1);\njava.util.Map.Entry<String, Integer> best = m.entrySet().stream()\n    .max(java.util.Map.Entry.comparingByValue()).orElseThrow();\nSystem.out.println(best.getKey());</pre>"
     },
     {
      "type": "basic",
@@ -326,7 +359,8 @@
      "extra": "Both must be given a downstream collector as their second argument, so they exist only inside another collector such as groupingBy.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> xs = java.util.List.of(\"a\", \"bb\", \"ccc\");\njava.util.List<Integer> lens = xs.stream().collect(java.util.stream.Collectors.mapping(\n    String::length, java.util.stream.Collectors.toList()));\njava.util.List<String> longOnes = xs.stream().collect(java.util.stream.Collectors.filtering(\n    s -> s.length() > 1, java.util.stream.Collectors.toList()));\nSystem.out.println(lens + \" \" + longOnes);</pre>"
     },
     {
      "type": "basic",
@@ -335,7 +369,8 @@
      "extra": "They model intermediate operations, which have no terminating step of their own. The downstream collector supplies the terminal half of the behavior.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> xs = java.util.List.of(\"1\", \"2\");\njava.util.List<Integer> nums = xs.stream().collect(java.util.stream.Collectors.mapping(\n    Integer::parseInt, java.util.stream.Collectors.toList()));\nSystem.out.println(nums);</pre>"
     },
     {
      "type": "basic",
@@ -344,7 +379,8 @@
      "extra": "Unlike IntStream.average(), which returns an OptionalDouble, the averaging collectors never return an optional; an empty stream averages to 0.0.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Double avg = java.util.stream.Stream.of(\"a\", \"bb\")\n    .collect(java.util.stream.Collectors.averagingInt(String::length));\nSystem.out.println(avg);</pre>"
     },
     {
      "type": "basic",
@@ -353,7 +389,8 @@
      "extra": "minBy() behaves identically. As with Stream.max(), the result is optional because no identity element exists.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.Optional<String> max = java.util.stream.Stream.<String>empty()\n    .collect(java.util.stream.Collectors.maxBy(String::compareTo));\nSystem.out.println(max.isEmpty());</pre>"
     },
     {
      "type": "basic",
@@ -362,7 +399,8 @@
      "extra": "The two booleans are fixed, so the result type is Map&lt;Boolean, List&lt;T&gt;&gt;. In contrast, groupingBy only creates keys that actually occur.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Map<Boolean, java.util.List<String>> parts = java.util.stream.Stream.<String>empty()\n    .collect(java.util.stream.Collectors.partitioningBy(s -> s.isEmpty()));\nSystem.out.println(parts.keySet());</pre>"
     }
    ]
   },
@@ -464,7 +502,8 @@
      "extra": "Semaphore.acquire() blocks when the permit count runs out, which is cheap on a virtual thread. Each limited resource gets its own protection.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.concurrent.Semaphore slots = new java.util.concurrent.Semaphore(2);\ntry (var exec = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {\n    exec.submit(() -> { slots.acquireUninterruptibly(); try { System.out.println(\"using\"); } finally { slots.release(); } });\n}</pre>"
     },
     {
      "type": "basic",
@@ -491,7 +530,8 @@
      "extra": "With all carriers stuck, other virtual threads are left unscheduled. Pinning in purely in-memory synchronized code is harmless, since nothing blocks.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Object lock = new Object();\nThread t = Thread.ofVirtual().start(() -> { synchronized (lock) {\n    java.util.concurrent.locks.LockSupport.parkNanos(10_000_000L); } });\nSystem.out.println(t.isVirtual());</pre>"
     },
     {
      "type": "basic",
