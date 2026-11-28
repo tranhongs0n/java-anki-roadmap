@@ -40,3 +40,11 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-70-a722b3e393` "Can a switch match a range like >= 90?" — **chờ quyết định**. Back "No — case labels must be compile-time constants" đúng với switch cổ điển nhưng lỗi thời với Java 21: `case Integer i when i >= 90 ->` biên dịch được (subagent đã javac-verify). Sửa Back cần đánh giá lại cả thẻ.
 - `jv-0007-*` (40 thẻ regex) — agent ghi ví dụ vào `devjava-CHUNK-4.json` nhưng file có deck string cũ `00 Java Roadmap::12 Documentation::03 Certifications and Validation` nên push.py từ chối. Đã ghi thẳng 40 field Example vào Anki theo CardKey, 40/40 readback OK; repo đã có nội dung từ commit 3e886c2.
 - `jv-70-4214ce9f30`, `jv-70-2c12c0b771` — note không còn trong collection và không có entry trong repo; bỏ qua, không tạo lại.
+
+### Subagents wave 3 (2026-11-28) — review
+
+Đã sửa 9 Back (front giữ nguyên, CardKey không đổi): `Predicate.not`, `takeWhile/dropWhile` trên stream unordered, `UnaryOperator` vs `BinaryOperator`, `Consumer` vs `BiConsumer`, key HashMap bị mutate, wildcard subtyping, case label Java 21, 24 bytes Node vs 56 bytes LinkedList, và câu lỗi javac của lambda.
+
+- `jv-0005-7778ca8d88` "Which three language constructs support pattern matching?" — **chờ quyết định**. Back says extended for loop, nhưng record patterns trong header của enhanced-for là preview ở Java 20 và bị gỡ ở Java 21. Sửa Back thành 2 constructs thì mâu thuẫn với chữ "three" trong Front; muốn đúng phải đổi Front (đổi CardKey) hoặc đổi số đếm.
+- `jv-0004-eacb35c7a5`, `jv-0004-e93611d03c`, `jv-0004-09b4f6ed79`, `jv-0005-fc811726eb` — nuance nhỏ (Iterable cần iterator(), contains() có thể CCE runtime, Map.entry là snapshot, method reference overloading theo context). Giữ nguyên.
+- `jv-0003-06d6fbf020` — source link `https://dev.java/organizing/jlink/` trả 404; nội dung đúng, chờ thay URL.
