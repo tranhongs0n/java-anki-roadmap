@@ -1,0 +1,71 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/using-operators/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <b>unary</b> mean for an operator?",
+     "back": "It takes <b>one</b> operand — binary takes two, ternary takes three",
+     "extra": "The unary group in Java is <code>++x</code>, <code>x++</code>, <code>--x</code>, <code>x--</code>, unary <code>+</code> and <code>-</code>, bitwise complement <code>~</code> and logical NOT <code>!</code>. \"Unary\" counts operands, not characters — it is unrelated to the number one as a value.",
+     "example": "<pre>-x     !ready     ~bits     i++\n<span class=\"cmt\">// each operator here has exactly one operand</span></pre>",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/using-operators/"
+    },
+    {
+     "type": "basic",
+     "front": "What does the unary <code>~</code> operator do to an integer?",
+     "back": "Flips every bit — for an int it is the same as <code>-x - 1</code>",
+     "extra": "It works on integral types only, never on boolean (that is <code>!</code>). Flipping all bits of <code>5</code> gives <code>-6</code> in two's complement; <code>~0</code> is <code>-1</code> and <code>~-1</code> is <code>0</code>.",
+     "example": "<pre><span class=\"kw\">int</span> x = <span class=\"num\">5</span>;\n<span class=\"type\">System</span>.out.<span class=\"fn\">println</span>(~x);   <span class=\"cmt\">// -6</span></pre>",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/using-operators/"
+    },
+    {
+     "type": "basic",
+     "front": "Which direction does a chain of ternary operators group?",
+     "back": "Right to left — <code>a ? b : c ? d : e</code> is <code>a ? b : (c ? d : e)</code>",
+     "extra": "JLS 15.25 says the conditional operator is syntactically right-associative. The dev.java table mentions only assignment as right-to-left, but the ternary is too; assignment is separately right-to-left (<code>a = b = 5</code> is <code>a = (b = 5)</code>).",
+     "example": "<pre><span class=\"kw\">boolean</span> t = <span class=\"lit\">true</span>, f = <span class=\"lit\">false</span>;\n<span class=\"type\">String</span> s = t ? <span class=\"str\">\"A\"</span> : f ? <span class=\"str\">\"B\"</span> : <span class=\"str\">\"C\"</span>;  <span class=\"cmt\">// \"A\"</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.25"
+    },
+    {
+     "type": "basic",
+     "front": "Which binds tighter: <code>*</code> or <code>+</code>?",
+     "back": "<code>*</code> — multiplicative outranks additive, so <code>2 + 3 * 4</code> is <code>14</code>",
+     "extra": "Multiplicative (<code>*</code>, <code>/</code>, <code>%</code>) sits one level above additive (<code>+</code>, <code>-</code>). Same-level operators run left to right, which is why <code>10 / 2 * 5</code> is <code>25</code>, not <code>1</code>.",
+     "example": "<pre><span class=\"kw\">int</span> a = <span class=\"num\">2</span> + <span class=\"num\">3</span> * <span class=\"num\">4</span>;   <span class=\"cmt\">// 14, not 20</span>\n<span class=\"kw\">int</span> b = <span class=\"num\">10</span> / <span class=\"num\">2</span> * <span class=\"num\">5</span>;  <span class=\"cmt\">// 25</span></pre>",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/using-operators/"
+    },
+    {
+     "type": "basic",
+     "front": "Which binds tighter: <code>+</code> or <code>&lt;&lt;</code>?",
+     "back": "<code>+</code> — additive outranks shift, so <code>1 + 2 &lt;&lt; 3</code> is <code>24</code>",
+     "extra": "Shifts (<code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code>) sit below additive and above relational. <code>1 &lt;&lt; 3 + 2</code> gives <code>32</code>, because the addition happens first and <code>3 + 2</code> becomes the shift distance.",
+     "example": "<pre><span class=\"kw\">int</span> a = <span class=\"num\">1</span> + <span class=\"num\">2</span> &lt;&lt; <span class=\"num\">3</span>;   <span class=\"cmt\">// (1+2) &lt;&lt; 3 = 24</span>\n<span class=\"kw\">int</span> b = <span class=\"num\">1</span> &lt;&lt; <span class=\"num\">3</span> + <span class=\"num\">2</span>;   <span class=\"cmt\">// 1 &lt;&lt; (3+2) = 32</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/using-operators/"
+    }
+   ]
+  }
+ ]
+}
