@@ -603,7 +603,8 @@
      "extra": "It is backed either on-heap (a heap segment) or off-heap (a native segment). Off-heap segments are the ones used for native calls.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\ntry (Arena arena = Arena.ofConfined()) {\nMemorySegment segment = arena.allocate(8);\nSystem.out.println(segment.byteSize());\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -612,7 +613,8 @@
      "extra": "Native code needs a stable address. Off-heap memory is outside the GC's reach, so you also decide exactly when it is deallocated.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\ntry (Arena arena = Arena.ofConfined()) {\nMemorySegment arg = arena.allocateFrom(\"hi\"); // stable off-heap address for native code\nSystem.out.println(arg.address() != 0);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -631,7 +633,8 @@
      "extra": "It has an owner thread, usually the creator. Closing it from another thread, or accessing its segments there, fails.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nArena confined = Arena.ofConfined(); MemorySegment seg = confined.allocate(4);\nSystem.out.println(confined.scope().isAlive()); // owner thread only\nconfined.close();\n} }</pre>"
     },
     {
      "type": "basic",
@@ -640,7 +643,8 @@
      "extra": "It has no owner thread, so multiple threads can read and write its segments concurrently. Slice-based parallel processing relies on it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() throws Exception {\nArena shared = Arena.ofShared(); MemorySegment seg = shared.allocate(8);\nThread.ofPlatform().start(() -> seg.set(ValueLayout.JAVA_INT, 0, 7)).join();\nshared.close(); // atomic close waits for all accessors\n} }</pre>"
     },
     {
      "type": "basic",
@@ -649,7 +653,8 @@
      "extra": "The global arena's memory is never deallocated, and the automatic arena's memory is managed by the garbage collector, so neither can be closed by hand.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\ntry { Arena.global().close(); } catch (UnsupportedOperationException e) { System.out.println(\"global\"); }\ntry { Arena.ofAuto().close(); } catch (UnsupportedOperationException e) { System.out.println(\"auto\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -658,7 +663,8 @@
      "extra": "It allocates, converts and copies in one call, which is exactly what a C function expecting a <code>char*</code> needs.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nSegmentAllocator allocator = Arena.ofConfined();\nMemorySegment text = allocator.allocateFrom(\"hi\");\nSystem.out.println(text.byteSize());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -667,7 +673,8 @@
      "extra": "Every get or set takes one. ValueLayout.JAVA_BYTE, for instance, is one byte, aligned to 1 and uses the hardware's native byte order.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nValueLayout layout = ValueLayout.JAVA_INT.withOrder(java.nio.ByteOrder.nativeOrder());\nSystem.out.println(layout.byteSize() + \" \" + layout.alignment() + \" \" + layout.carrier());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -676,7 +683,8 @@
      "extra": "The scope is no longer alive so the segment is invalid. Allocating the arena in a try-with-resources block makes this state impossible to reach by accident.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nArena arena = Arena.ofConfined(); MemorySegment seg = arena.allocate(4); arena.close();\ntry { seg.get(ValueLayout.JAVA_INT, 0L); } catch (IllegalStateException e) { System.out.println(e); }\n} }</pre>"
     }
    ]
   },
@@ -697,7 +705,8 @@
      "extra": "Pass one value layout per field in declaration order, for example a JAVA_INT for the numerator and one for the denominator of a C fraction.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nMemoryLayout layout = MemoryLayout.structLayout(ValueLayout.JAVA_INT.withName(\"x\"), ValueLayout.JAVA_DOUBLE.withName(\"y\"));\nSystem.out.println(layout.byteSize());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -726,7 +735,8 @@
      "extra": "The offset lets the handle address an element inside an array of structs in a single call, without computing an address manually.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*; import java.lang.invoke.VarHandle;\nclass Ex { static void m() {\nStructLayout layout = MemoryLayout.structLayout(ValueLayout.JAVA_INT.withName(\"n\")); VarHandle n = layout.varHandle(PathElement.groupElement(\"n\"));\nMemorySegment seg = Arena.ofAuto().allocate(layout);\nn.set(seg, 0L, 7); // segment, base offset, value\n} }</pre>"
     },
     {
      "type": "basic",
@@ -745,7 +755,8 @@
      "extra": "The offset and size must stay within the original segment's spatial bounds; a slice that would overrun them is rejected.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nMemorySegment seg = Arena.ofConfined().allocate(16);\nMemorySegment slice = seg.asSlice(4L, 8L);\nSystem.out.println(slice.byteSize());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -754,7 +765,8 @@
      "extra": "Concurrent access requires the segment to be reachable from every thread, and only a shared arena allows that.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.lang.foreign.Arena shared = java.lang.foreign.Arena.ofShared();\njava.lang.foreign.MemorySegment segment = shared.allocate(1024);\n// threads can process slices of the same segment in parallel</pre>"
     }
    ]
   },
@@ -775,7 +787,8 @@
      "extra": "You then program against a Java model of the native library instead of writing downcall handles and layouts by hand.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jextract -d gen -t generated mylib.h\n# generates Java bindings with FFM API calls for the C declarations in mylib.h</pre>"
     },
     {
      "type": "basic",
@@ -784,7 +797,8 @@
      "extra": "It had been developed as part of Project Panama, with repeated previews, before that finalization.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\n// JDK 22 made the Foreign Function and Memory API final (no --enable-preview)\nArena arena = Arena.ofAuto();\nMemorySegment seg = arena.allocate(8);\nSystem.out.println(seg.byteSize());</pre>"
     },
     {
      "type": "basic",
@@ -793,7 +807,8 @@
      "extra": "Without it the classes land in the unnamed package. jextract also creates the package directories under the directory given by --output.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract -t com.example.windows Windows.h\n# -t / --target-package sets the generated classes' package</pre>"
     },
     {
      "type": "basic",
@@ -802,7 +817,8 @@
      "extra": "A name like <code>-l GL</code> means a library name; a leading colon like <code>-l :libGL.so.1</code> means a file path.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract -l GL -d gen gl.h\njextract --library GL -d gen gl.h\n# the generated header class loads the shared library named by -l / --library</pre>"
     },
     {
      "type": "basic",
@@ -821,7 +837,8 @@
      "extra": "Windows.h is an extreme case. Edit the dump, remove unneeded lines, and pass the file back with the @argfile syntax.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>jextract --dump-includes includes.txt Windows.h\n# edit includes.txt to keep only the symbols you want\njextract @includes.txt Windows.h</pre>"
     },
     {
      "type": "basic",
@@ -850,7 +867,8 @@
      "extra": "With it, the parameters passed to each native call are printed on standard output, which makes debugging argument mistakes much quicker.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -Djextract.trace.downcalls=true -cp gen Main\n# jextract-generated downcalls print their arguments at runtime</pre>"
     },
     {
      "type": "basic",
@@ -881,7 +899,8 @@
      "extra": "You get it from the linker by combining the function's address with a FunctionDescriptor describing its signature.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nLinker linker = Linker.nativeLinker();\njava.lang.invoke.MethodHandle abs = linker.downcallHandle(linker.defaultLookup().find(\"abs\").orElseThrow(), FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));\nSystem.out.println(abs);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -890,7 +909,8 @@
      "extra": "Its first layout is the return type and the rest are the parameters. Each layout maps to the Java type used when invoking the handle.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.lang.foreign.FunctionDescriptor fd =\n    java.lang.foreign.FunctionDescriptor.of(java.lang.foreign.ValueLayout.JAVA_INT,\n        java.lang.foreign.ValueLayout.ADDRESS);\n// return layout first, then parameter layouts</pre>"
     },
     {
      "type": "basic",
@@ -899,7 +919,8 @@
      "extra": "A <code>char*</code> is also commonly described as a sequence layout of JAVA_BYTE, to express a NUL-terminated byte string.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.lang.foreign.ValueLayout pointer = java.lang.foreign.ValueLayout.ADDRESS;\nSystem.out.println(pointer); // a C pointer argument or return value</pre>"
     },
     {
      "type": "basic",
@@ -908,7 +929,8 @@
      "extra": "Check the layouts your platform actually uses with <code>Linker.canonicalLayouts()</code> rather than hardcoding widths.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nSystem.out.println(Linker.canonicalLayouts().get(\"size_t\"));\n// 64-bit: JAVA_LONG; 32-bit: JAVA_INT\n} }</pre>"
     },
     {
      "type": "basic",
@@ -917,7 +939,8 @@
      "extra": "It is the right choice for functions in the C standard library, such as strdup, so you need no OS-specific file name.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nSymbolLookup lookup = Linker.defaultLookup();\nMemorySegment abs = lookup.find(\"abs\").orElseThrow();\nSystem.out.println(abs);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -926,7 +949,8 @@
      "extra": "libraryLookup(name, arena) instead loads a named library on demand and ties its lifetime to the given arena.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nSystem.loadLibrary(\"mylib\");\nSymbolLookup lookup = SymbolLookup.loaderLookup();\nSystem.out.println(lookup.find(\"my_function\").isPresent());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -945,7 +969,8 @@
      "extra": "Use invoke() instead when you want the arguments coerced. For FFM handles the C signature and the Java call must line up precisely.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.invoke.*;\nclass Ex { static void m() throws Throwable {\nMethodHandle h = MethodHandles.lookup().findStatic(Math.class, \"abs\", MethodType.methodType(int.class, int.class));\nint r = (int) h.invokeExact(-5); // descriptor must match exactly, or it fails\n} }</pre>"
     },
     {
      "type": "basic",
@@ -954,7 +979,8 @@
      "extra": "GroupLayout is their common supertype, sufficient when a descriptor only needs to say a parameter or return is a group.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.lang.foreign.GroupLayout struct = java.lang.foreign.StructLayout.createLayout(\n    java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.JAVA_INT);\njava.lang.foreign.GroupLayout union = java.lang.foreign.UnionLayout.createLayout(\n    java.lang.foreign.ValueLayout.JAVA_INT, java.lang.foreign.ValueLayout.JAVA_LONG);\n// both are GroupLayouts</pre>"
     }
    ]
   },
@@ -975,7 +1001,8 @@
      "extra": "That is what a pointer from malloc, from an upcall, or read out of a segment looks like. It carries the address but no bounds.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nMemorySegment unknownSize = MemorySegment.NULL;\nSystem.out.println(unknownSize.byteSize());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -984,7 +1011,8 @@
      "extra": "The JVM cannot validate access to a region of unknown size, so it refuses. The segment is still useful for passing back to native code.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nMemorySegment zero = MemorySegment.NULL;\ntry { zero.get(ValueLayout.JAVA_BYTE, 0); }\ncatch (IndexOutOfBoundsException e) { System.out.println(e.getClass().getSimpleName()); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -993,7 +1021,8 @@
      "extra": "Give the byte count, the arena that takes ownership, and an action to run on close such as calling C's free().",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nMemorySegment zero = MemorySegment.NULL; try (Arena arena = Arena.ofConfined()) {\nMemorySegment sized = zero.reinterpret(8, arena, ignored -&gt; {});\nSystem.out.println(sized.byteSize());\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -1002,7 +1031,8 @@
      "extra": "It snapshots the thread-local state immediately after the downcall. Read it from a MemorySegment of the right layout to see what C set.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nLinker link = Linker.nativeLinker();\nvar state = Arena.global().allocate(Linker.Option.captureStateLayout().byteSize());\nvar h = link.downcallHandle(link.defaultLookup().find(\"sqrt\").orElseThrow(), FunctionDescriptor.of(ValueLayout.JAVA_DOUBLE, ValueLayout.JAVA_DOUBLE), Linker.Option.captureCallState(\"errno\"));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1011,7 +1041,8 @@
      "extra": "Multiple modules take a comma-separated list. An executable JAR can set the manifest attribute Enable-Native-Access instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># Without this, restricted FFM calls print warnings\njava --enable-native-access=com.example app.Main\njava --enable-native-access=ALL-UNNAMED -cp . Main</pre>"
     },
     {
      "type": "basic",
@@ -1030,7 +1061,8 @@
      "extra": "That can crash the JVM or silently corrupt memory, so resizing a segment's view needs an explicit native-access grant.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\nMemorySegment seg = Arena.ofConfined().allocate(8);\nMemorySegment bigger = seg.reinterpret(1024L);\nSystem.out.println(bigger.byteSize()); // overestimated size can read outside the real region\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1049,7 +1081,8 @@
      "extra": "A JAR cannot name a module, so the manifest route grants native access to everything on the class path.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre># META-INF/MANIFEST.MF inside the executable JAR\nEnable-Native-Access: ALL-UNNAMED\n# Enable-Native-Access: com.example.M  is rejected</pre>"
     }
    ]
   },
@@ -1070,7 +1103,8 @@
      "extra": "The classic use is qsort, which needs a comparison callback. Java supplies its code as a pointer the native library can invoke.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*; import java.lang.invoke.*;\nclass Ex { static int compare(MemorySegment a, MemorySegment b) { return 0; } static void m() throws Throwable {\nMethodHandle h = MethodHandles.lookup().findStatic(Ex.class, \"compare\", MethodType.methodType(int.class, MemorySegment.class, MemorySegment.class));\nMemorySegment ptr = Linker.nativeLinker().upcallStub(h, FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.ADDRESS, ValueLayout.ADDRESS), Arena.ofAuto());\nSystem.out.println(ptr.address() != 0); // native code can call ptr\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1079,7 +1113,8 @@
      "extra": "You build it with Linker.upcallStub(handle, descriptor, arena) and hand it to the native function as a callback argument.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() throws Exception {\njava.lang.invoke.MethodHandle cb = java.lang.invoke.MethodHandles.lookup().findStatic(Ex.class, \"log\", java.lang.invoke.MethodType.methodType(void.class));\nMemorySegment stub = Linker.nativeLinker().upcallStub(cb, FunctionDescriptor.ofVoid(), Arena.ofConfined());\n} static void log() {} }</pre>"
     },
     {
      "type": "basic",
@@ -1088,7 +1123,8 @@
      "extra": "It needs the handle, the descriptor matching the C signature, and an arena that owns the stub's lifetime.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nimport java.lang.invoke.*;\nclass Ex { static void cb() { } static void m() throws Throwable {\nMethodHandle h = MethodHandles.lookup().findStatic(Ex.class, \"cb\", MethodType.methodType(void.class));\nMemorySegment ptr = Linker.nativeLinker().upcallStub(h, FunctionDescriptor.ofVoid(), Arena.ofAuto());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1097,7 +1133,8 @@
      "extra": "You unwrap them with get(ValueLayout.JAVA_INT, offset) using the byte offset given by qsort, then return a negative, zero or positive int.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() {\n// native qsort passes element pointers, so comparator arguments are segments\njava.util.Comparator&lt;MemorySegment&gt; cmp = (a, b) -&gt; Integer.compare(a.get(ValueLayout.JAVA_INT, 0), b.get(ValueLayout.JAVA_INT, 0));\nSystem.out.println(cmp);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1106,7 +1143,8 @@
      "extra": "The garbage collector decides when to free the stub, which suits a callback used for the duration of a single native call.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nclass Ex { static void m() throws Exception {\nArena arena = Arena.ofAuto();\njava.lang.invoke.MethodHandle h = java.lang.invoke.MethodHandles.lookup().findStatic(Ex.class, \"cb\", java.lang.invoke.MethodType.methodType(void.class));\nMemorySegment stub = Linker.nativeLinker().upcallStub(h, FunctionDescriptor.ofVoid(), arena);\n} static void cb() {} }</pre>"
     },
     {
      "type": "basic",
@@ -1147,7 +1185,8 @@
      "extra": "It takes optional FileAttributes to set at creation. Use createDirectories() when intermediate parents may not exist.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.createDirectory(Path.of(\"parent/child\")); // fails if parent is missing\nFiles.createDirectories(Path.of(\"parent/child\")); // creates parents as needed\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1156,7 +1195,8 @@
      "extra": "It works top-down: foo, then bar, then test. If a step fails, some of the parents may already have been created.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath p = Files.createDirectories(Path.of(\"a/b/c\"));\nSystem.out.println(Files.isDirectory(p));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1175,7 +1215,8 @@
      "extra": "The overload taking a Path puts it in a directory you choose instead. The name format after the prefix is platform specific.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath dir = Files.createTempDirectory(\"logs\"); // default temporary location\n} }</pre>"
     }
    ]
   },
@@ -1196,7 +1237,8 @@
      "extra": "Path with the Files factory methods replaced it in Java SE 7 with more features and better performance on large directories.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.io.File;\nimport java.nio.file.Path;\nclass Ex { static void m() {\nFile legacy = new File(\"a.txt\"); // legacy file model\nPath modern = Path.of(\"a.txt\"); // preferred since Java SE 7\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1205,7 +1247,8 @@
      "extra": "Constructing File or Path never creates anything. Existence, permissions and content all require a separate call.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.File;\nclass Ex { static void m() {\nFile f = new File(\"no-such-file.txt\");\nSystem.out.println(f.exists()); // an explicit query, not construction\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1214,7 +1257,8 @@
      "extra": "Only the canonical form is guaranteed unique, which is why it is the one you compare when two paths may name the same file.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nFile f = new File(\"./sub/../a.txt\");\nSystem.out.println(f.getAbsolutePath());\nSystem.out.println(f.getCanonicalPath());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1223,7 +1267,8 @@
      "extra": "getParent() gives the directory containing it, and getPath() gives the whole abstract pathname as text.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.File;\nclass Ex { static void m() {\nFile f = new File(\"a/b/c.txt\");\nSystem.out.println(f.getName());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1232,7 +1277,8 @@
      "extra": "It is the primary entry point of java.nio.file. Legacy code can migrate with File.toPath().",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.File;\nclass Ex { static void m() {\nPath p = Path.of(\"a.txt\"); // java.nio.file.Path since Java SE 7\nSystem.out.println(p + \" \" + new File(\"a.txt\").toPath());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1251,7 +1297,8 @@
      "extra": "A Solaris Path and a Windows Path never compare equal even when they name the same relative location with the same directory tree.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = Path.of(\"a\", \"b\");\nSystem.out.println(p.getFileSystem().getSeparator() + \" \" + p);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1260,7 +1307,8 @@
      "extra": "It returns false rather than overwriting, and throws IOException only if creation failed for another reason.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.File;\nclass Ex { static void m() throws Exception {\nFile f = new File(\"new.txt\");\nf.createNewFile();\nSystem.out.println(f.exists() + \" \" + f.createNewFile());\n} }</pre>"
     }
    ]
   },
@@ -1281,7 +1329,8 @@
      "extra": "Note the plural on the factory class FileSystems and the singular on the returned FileSystem.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nFileSystem fs = FileSystems.getDefault();\nSystem.out.println(fs.getSeparator() + \" \" + fs.isReadOnly());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1290,7 +1339,8 @@
      "extra": "Read it from <code>FileSystem.getSeparator()</code> instead of hardcoding, since other file systems may use other delimiters.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nSystem.out.println(FileSystems.getDefault().getSeparator());\nSystem.out.println(\"POSIX: / ; Windows: \\\\\");\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1299,7 +1349,8 @@
      "extra": "On UNIX each mounted file system is a store; on Windows each volume is one. List them with getFileStores().",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nfor (FileStore store : FileSystems.getDefault().getFileStores()) System.out.println(store.name());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1350,7 +1401,8 @@
      "extra": "The target must exist, otherwise NoSuchFileException. Hard links are also generally forbidden on directories and across volumes.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath link = Files.createLink(Path.of(\"hard.txt\"), Path.of(\"a.txt\"));\nSystem.out.println(Files.isSameFile(link, Path.of(\"a.txt\")));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1369,7 +1421,8 @@
      "extra": "Both names refer to one inode, so a write through either is visible through the other and the data survives until the last name is deleted.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath original = Path.of(\"a.txt\"), hard = Files.createLink(Path.of(\"hard.txt\"), original);\nSystem.out.println(Files.isSameFile(original, hard) + \" \" + Files.readAttributes(hard, java.nio.file.attribute.BasicFileAttributes.class).fileKey());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1378,7 +1431,8 @@
      "extra": "That is the opposite of a symbolic link, whose target is only resolved when it is followed.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath target = Files.createFile(Path.of(\"target.txt\")); // target must already exist\nFiles.createLink(Path.of(\"hard.txt\"), target);\n} }</pre>"
     }
    ]
   },
@@ -1399,7 +1453,8 @@
      "extra": "The stream is Iterable, so it works in an enhanced for loop, and it scales to very large directories because entries are read lazily.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.IOException;\nclass Ex { static void m() throws IOException {\ntry (DirectoryStream<Path> ds = Files.newDirectoryStream(Path.of(\".\"))) {\nfor (Path p : ds) System.out.println(p);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -1408,7 +1463,8 @@
      "extra": "A try-with-resources statement is the standard way. Forgetting to close leaks handles, especially when iteration stops early.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry (DirectoryStream<Path> ds = Files.newDirectoryStream(Path.of(\".\"))) {\nfor (Path p : ds) System.out.println(p);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -1417,7 +1473,8 @@
      "extra": "They are not bare names, so you can use them directly for metadata calls without re-joining the directory.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry (DirectoryStream<Path> ds = Files.newDirectoryStream(Path.of(\"/tmp/a\"))) {\nfor (Path entry : ds) System.out.println(entry); // /tmp/a/child, not just \"child\"\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -1426,7 +1483,8 @@
      "extra": "Iterator methods cannot declare checked exceptions, so the I/O failure is wrapped and thrown unchecked.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.IOException;\nclass Ex { static void m() {\ntry { throw new DirectoryIteratorException(new IOException(\"read failed\")); }\ncatch (DirectoryIteratorException e) { System.out.println(e.getCause().getClass().getSimpleName()); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1455,7 +1513,8 @@
      "extra": "So <code>???</code> matches every name of exactly three characters, and <code>a?*.java</code> requires at least one character after the a.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPathMatcher m = FileSystems.getDefault().getPathMatcher(\"glob:?.txt\");\nSystem.out.println(m.matches(Path.of(\"a.txt\")) + \" \" + m.matches(Path.of(\"ab.txt\")));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1464,7 +1523,8 @@
      "extra": "So <code>*.{htm,html,pdf}</code> takes files with any of the three extensions, which saves writing three separate patterns.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nvar g = FileSystems.getDefault().getPathMatcher(\"glob:*.{htm,html,pdf}\");\nSystem.out.println(g.matches(Path.of(\"a.html\")) + \" \" + g.matches(Path.of(\"a.txt\")));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1473,7 +1533,8 @@
      "extra": "Its single accept() method decides per entry, typically by calling a metadata check such as isDirectory().",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.IOException;\nclass Ex { static void m() throws IOException {\nDirectoryStream.Filter<Path> dirs = p -> java.nio.file.Files.isDirectory(p);\ntry (DirectoryStream<Path> s = Files.newDirectoryStream(Path.of(\".\"), dirs)) { s.forEach(System.out::println); }\n} }</pre>"
     }
    ]
   },
@@ -1494,7 +1555,8 @@
      "extra": "Each single-attribute call can hit the disk or the network, so a loop over files can cost orders of magnitude more.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.BasicFileAttributes;\nclass Ex { static void m() throws Exception {\nBasicFileAttributes a = Files.readAttributes(Path.of(\"a.txt\"), BasicFileAttributes.class);\nSystem.out.println(a.size() + \" \" + a.lastModifiedTime() + \" \" + a.isRegularFile());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1513,7 +1575,8 @@
      "extra": "It extends the basic view for POSIX standards. DOS systems instead use the four attribute bits of DosFileAttributeView.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.PosixFileAttributeView;\nclass Ex { static void m() throws Exception {\nPosixFileAttributeView view = Files.getFileAttributeView(Path.of(\"x\"), PosixFileAttributeView.class);\nSystem.out.println(view);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1522,7 +1585,8 @@
      "extra": "PosixFilePermissions.toString() produces exactly this form, and fromString() parses it back into a Set.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.nio.file.attribute.*;\nclass Ex { static void m() {\nvar perms = PosixFilePermissions.fromString(\"rw-r--r--\");\nSystem.out.println(PosixFilePermissions.toString(perms)); // rw-r--r--\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1531,7 +1595,8 @@
      "extra": "Pass the result to Files.createFile or createDirectory. The umask still applies, so the final file can be more restrictive.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.*;\nclass Ex { static void m() throws Exception {\njava.util.Set&lt;PosixFilePermission&gt; perms = PosixFilePermissions.fromString(\"rw-r--r--\");\nFiles.createFile(Path.of(\"a.txt\"), PosixFilePermissions.asFileAttribute(perms));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1540,7 +1605,8 @@
      "extra": "It depends on the platform detector and can be fooled, for example by a .class extension. It returns null when the type is unknown.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nSystem.out.println(Files.probeContentType(Path.of(\"a.txt\")));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1549,7 +1615,8 @@
      "extra": "Use it to compare two paths for identity when you do not want to resolve symbolic links just to run isSameFile().",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.nio.file.attribute.BasicFileAttributes;\nclass Ex { static void m() throws Exception {\nBasicFileAttributes a = Files.readAttributes(Path.of(\"a.txt\"), BasicFileAttributes.class);\nSystem.out.println(a.fileKey()); // unique id, or null if unavailable\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1558,7 +1625,8 @@
      "extra": "Any of them may be unsupported by an implementation, in which case the accessor returns an implementation-specific value.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.BasicFileAttributes;\nclass Ex { static void m() throws Exception {\nBasicFileAttributes a = Files.readAttributes(Path.of(\"a.txt\"), BasicFileAttributes.class);\nSystem.out.println(a.creationTime() + \" \" + a.lastModifiedTime() + \" \" + a.lastAccessTime());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1567,7 +1635,8 @@
      "extra": "It converts a user name or group name string into the principal object that Files.setOwner() expects.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.*;\nclass Ex { static void m() throws Exception {\nUserPrincipalLookupService lookup = FileSystems.getDefault().getUserPrincipalLookupService();\nFiles.setOwner(Path.of(\"a.txt\"), lookup.lookupPrincipalByName(\"alice\")); // name -> principal\n} }</pre>"
     }
    ]
   },
@@ -1588,7 +1657,8 @@
      "extra": "Existence has three outcomes. That is why <code>!Files.exists(p)</code> is not equivalent to <code>Files.notExists(p)</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = Path.of(\"maybe\");\nboolean unknown = !Files.exists(p) && !Files.notExists(p); // both false => unknown\nSystem.out.println(unknown);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1607,7 +1677,8 @@
      "extra": "Use deleteIfExists() when concurrent threads may be deleting the same file, so a missing file is not an error.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry { Files.delete(Path.of(\"missing.txt\")); }\ncatch (NoSuchFileException e) { System.out.println(\"no such file\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1616,7 +1687,8 @@
      "extra": "A recursive copy needs walkFileTree(). The same applies to move(): emptying a directory elsewhere is not part of the operation.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath src = Files.createTempDirectory(\"src\"), dst = Files.createTempDirectory(\"out\").resolve(\"copy\");\nFiles.copy(src, dst);\ntry (var s = Files.list(dst)) { System.out.println(s.count() + \" entries in the copy\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1625,7 +1697,8 @@
      "extra": "Exact support is platform dependent, but last-modified time works across platforms and is the usual reason to need it.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.copy(Path.of(\"a.txt\"), Path.of(\"b.txt\"), StandardCopyOption.COPY_ATTRIBUTES);\nSystem.out.println(Files.getLastModifiedTime(Path.of(\"b.txt\")));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1634,7 +1707,8 @@
      "extra": "Without it the link is followed and the target's content is copied, which can silently duplicate a large file.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath link = Path.of(\"link\"), copy = Path.of(\"copy\"); Files.createSymbolicLink(link, Path.of(\"target.txt\"));\nFiles.copy(link, copy, LinkOption.NOFOLLOW_LINKS);\nSystem.out.println(Files.isSymbolicLink(copy));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1643,7 +1717,8 @@
      "extra": "The file-system must support it or an exception is thrown. This is what lets a watcher see only complete files arrive.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport static java.nio.file.StandardCopyOption.ATOMIC_MOVE;\nclass Ex { static void m() throws Exception {\nFiles.move(Path.of(\"a.txt\"), Path.of(\"b.txt\"), ATOMIC_MOVE); // all-or-nothing move\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1652,7 +1727,8 @@
      "extra": "The contents are never relocated: the directory entry is simply renamed, so nothing has to be copied or emptied.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath d = Files.createTempDirectory(\"d\");\nFiles.createFile(d.resolve(\"child.txt\")); // non-empty directory\nFiles.move(d, d.resolveSibling(\"renamed\")); // UNIX: rename within one partition\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1661,7 +1737,8 @@
      "extra": "Both call styles compile identically, so <code>copy(a, b, opts)</code> with a CopyOption[] variable is valid.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.copy(Path.of(\"a.txt\"), Path.of(\"b.txt\"), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);\nFiles.copy(Path.of(\"a.txt\"), Path.of(\"c.txt\"), new CopyOption[] {StandardCopyOption.REPLACE_EXISTING});\n} }</pre>"
     }
    ]
   },
@@ -1682,7 +1759,8 @@
      "extra": "It is purely syntactic and never checks the file system, so on a path containing a symlink it can point at the wrong file.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = Path.of(\"./a/b/../c\");\nSystem.out.println(p.normalize());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1691,7 +1769,8 @@
      "extra": "toRealPath() is the fix: it resolves symlinks and returns the true location of an existing file.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath link = Path.of(\"link/..\");\nSystem.out.println(link.normalize()); // textual only, does not consult the file system\nSystem.out.println(link.toRealPath()); // resolves symlinks\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1700,7 +1779,8 @@
      "extra": "It also makes a relative path absolute and drops redundant elements. It throws if the file does not exist or cannot be accessed.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath real = Path.of(\"a.txt\").toRealPath(); // symlinks resolved, absolute, existing\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1709,7 +1789,8 @@
      "extra": "That makes it safe for user-entered names before the file is created. Only toRealPath() needs the file to exist.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = Path.of(\"no-such-file.txt\").toAbsolutePath();\nSystem.out.println(p + \" exists=\" + Files.exists(p));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1718,7 +1799,8 @@
      "extra": "Appending an absolute path makes the base irrelevant, which is the usual reason resolve() appears to lose part of a path.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath base = Path.of(\"/tmp/a\");\nPath out = base.resolve(Path.of(\"/other/b\"));\nSystem.out.println(out); // /other/b: base discarded\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1727,7 +1809,8 @@
      "extra": "It needs both paths with or without a root: if only one has one, no relative path can be formed, and IllegalArgumentException follows.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath a = Path.of(\"/a/b\"), b = Path.of(\"/a/b/c/d\");\nSystem.out.println(a.relativize(b));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1736,7 +1819,8 @@
      "extra": "For two relative paths the result expresses how to walk from one to the other, such as ../sally/bar.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath abs = Path.of(\"/a/b\"), rel = Path.of(\"c/d\");\ntry { abs.relativize(rel); } catch (IllegalArgumentException e) { System.out.println(e.getClass().getSimpleName()); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1745,7 +1829,8 @@
      "extra": "Two different paths can still locate one file through a symlink, so use Files.isSameFile() to test location rather than text.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nboolean equal = Path.of(\"/tmp/a\").equals(Path.of(\"/tmp/a\")); // matching name elements\nboolean same = Files.isSameFile(Path.of(\"/tmp/a\"), Path.of(\"/tmp/link\")); // same location\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1754,7 +1839,8 @@
      "extra": "Index 0 is farthest from the root, so getName(0) is the highest directory in the path.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = Path.of(\"/tmp/a/b.txt\");\nSystem.out.println(p.getNameCount()); // 3 name elements, root excluded\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1763,7 +1849,8 @@
      "extra": "An absolute path returns its root, such as / on UNIX or C:\\ on Windows. A relative path has no root element at all.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nSystem.out.println(Path.of(\"a/b.txt\").getRoot()); // null\nSystem.out.println(Path.of(\"/a/b.txt\").getRoot()); // /\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1772,7 +1859,8 @@
      "extra": "Iteration visits name elements from the one nearest the root outwards, and compareTo() supports ordering paths in collections.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\njava.lang.Iterable<Path> it = Path.of(\"a\", \"b\");\njava.lang.Comparable<Path> cmp = Path.of(\"a\");\njava.util.List<Path> ps = new java.util.ArrayList<>(); for (Path p : it) ps.add(p); java.util.Collections.sort(ps);\n} }</pre>"
     }
    ]
   },
@@ -1793,7 +1881,8 @@
      "extra": "They fire before a directory, after it, on each file, and when an entry cannot be accessed.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\njava.nio.file.FileVisitor<Path> v = new java.nio.file.SimpleFileVisitor<Path>() {\npublic java.nio.file.FileVisitResult preVisitDirectory(Path d, java.nio.file.attribute.BasicFileAttributes a) { return java.nio.file.FileVisitResult.CONTINUE; } public java.nio.file.FileVisitResult postVisitDirectory(Path d, java.io.IOException e) { return java.nio.file.FileVisitResult.CONTINUE; }\npublic java.nio.file.FileVisitResult visitFile(Path f, java.nio.file.attribute.BasicFileAttributes a) { return java.nio.file.FileVisitResult.CONTINUE; } public java.nio.file.FileVisitResult visitFileFailed(Path f, java.io.IOException e) { return java.nio.file.FileVisitResult.CONTINUE; } };\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1802,7 +1891,8 @@
      "extra": "It implements FileVisitor with sane defaults - CONTINUE for the others - and rethrows errors as IOError.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\"dir\"), new java.nio.file.SimpleFileVisitor<Path>() {\npublic java.nio.file.FileVisitResult visitFile(Path f, java.nio.file.attribute.BasicFileAttributes a) { System.out.println(f); return java.nio.file.FileVisitResult.CONTINUE; }\n}); } }</pre>"
     },
     {
      "type": "basic",
@@ -1811,7 +1901,8 @@
      "extra": "Files must be gone before the directory that contains them, and post-visit runs after all entries have been handled.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\"dir\"), new java.nio.file.SimpleFileVisitor<Path>() {\npublic java.nio.file.FileVisitResult visitFile(Path f, java.nio.file.attribute.BasicFileAttributes a) throws java.io.IOException { Files.delete(f); return java.nio.file.FileVisitResult.CONTINUE; }\npublic java.nio.file.FileVisitResult postVisitDirectory(Path d, java.io.IOException e) throws java.io.IOException { Files.delete(d); return java.nio.file.FileVisitResult.CONTINUE; }\n}); } }</pre>"
     },
     {
      "type": "basic",
@@ -1830,7 +1921,8 @@
      "extra": "visitFile only sees files. Directories are visited exclusively by the pre and post callbacks, so a policy applied only there misses them.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nvar v = new SimpleFileVisitor&lt;Path&gt;() {\npublic FileVisitResult visitFile(Path p, java.nio.file.attribute.BasicFileAttributes a) { if (p.toString().equals(\"x\")) System.out.println(p); return FileVisitResult.CONTINUE; }\npublic FileVisitResult preVisitDirectory(Path d, java.nio.file.attribute.BasicFileAttributes a) { if (d.toString().equals(\"x\")) System.out.println(d); return FileVisitResult.CONTINUE; } };\nFiles.walkFileTree(Path.of(\".\"), v); } }</pre>"
     },
     {
      "type": "basic",
@@ -1839,7 +1931,8 @@
      "extra": "Following links while deleting is especially risky, since the delete can escape the tree entirely.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.util.EnumSet;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\"dir\"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() { });\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1848,7 +1941,8 @@
      "extra": "Returned from preVisitDirectory, it removes that branch from the traversal, the equivalent of find's -prune.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\".\"), new SimpleFileVisitor&lt;Path&gt;() {\npublic FileVisitResult preVisitDirectory(Path d, java.nio.file.attribute.BasicFileAttributes a) { return FileVisitResult.SKIP_SUBTREE; }\n}); } }</pre>"
     },
     {
      "type": "basic",
@@ -1857,7 +1951,8 @@
      "extra": "Returned from preVisitDirectory it also skips that directory and no postVisitDirectory is called for it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.BasicFileAttributes;\nclass Ex extends SimpleFileVisitor<Path> {\npublic FileVisitResult visitFile(Path f, BasicFileAttributes a) {\nreturn FileVisitResult.SKIP_SIBLINGS; // skip remaining siblings\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1866,7 +1961,8 @@
      "extra": "This is the only way a follow-links walk can terminate on a loop, so handle it there or the walk fails.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\"dir\"), new java.nio.file.SimpleFileVisitor<Path>() {\npublic java.nio.file.FileVisitResult visitFileFailed(Path p, java.io.IOException e) { if (e instanceof FileSystemLoopException) System.out.println(\"circular link: \" + p); return java.nio.file.FileVisitResult.CONTINUE; }\n}); } }</pre>"
     },
     {
      "type": "basic",
@@ -1875,7 +1971,8 @@
      "extra": "The four-argument overload caps the traversal at that many levels, so an explicit maximum is the 'unlimited' spelling.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\"dir\"), java.util.Set.of(), Integer.MAX_VALUE, new java.nio.file.SimpleFileVisitor<Path>() {});\nSystem.out.println(\"whole tree visited\");\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1884,7 +1981,8 @@
      "extra": "Fetch one from FileSystem.getPathMatcher(\"glob:...\") or \"regex:...\". Glob is the usual choice for file names.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPathMatcher matcher = FileSystems.getDefault().getPathMatcher(\"glob:*.txt\");\nboolean hit = matcher.matches(Path.of(\"a.txt\")); // its single method\n} }</pre>"
     }
    ]
   },
@@ -1905,7 +2003,8 @@
      "extra": "It is obtained from a FileSystem such as FileSystems.getDefault(), not from the Files class.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nWatchService ws = FileSystems.getDefault().newWatchService();\nSystem.out.println(ws.getClass().getSimpleName());\nws.close();\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1914,7 +2013,8 @@
      "extra": "A fourth, OVERFLOW, arrives whether or not you register for it, because it signals lost events.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nvar ws = FileSystems.getDefault().newWatchService();\nvar key = Path.of(\".\").register(ws, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);\nSystem.out.println(key.pollEvents());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1923,7 +2023,8 @@
      "extra": "poll() returns null immediately when nothing is queued; poll(long, TimeUnit) waits at most that long.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nWatchService ws = FileSystems.getDefault().newWatchService();\nWatchKey key = ws.take(); // blocks until a key is available\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1932,7 +2033,8 @@
      "extra": "After processing, put the key back into the ready state. A false return means the key was invalidated, so the loop can end.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nWatchService ws = FileSystems.getDefault().newWatchService();\nWatchKey key = Path.of(\".\").register(ws, StandardWatchEventKinds.ENTRY_MODIFY);\nfor (WatchEvent<?> e : key.pollEvents()) System.out.println(e.kind()); key.reset(); // without reset the key stays signaled and receives no further events\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1941,7 +2043,8 @@
      "extra": "It means events may have been dropped, so a count-sensitive listener must reconcile the directory rather than trust the stream.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport static java.nio.file.StandardWatchEventKinds.*;\nclass Ex { static void m(WatchEvent<?> event) {\nif (event.kind() == OVERFLOW) { /* events were lost */ }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1950,7 +2053,8 @@
      "extra": "An invalid key delivers nothing further. Reset() returning false is how your loop detects it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.IOException;\nclass Ex { static void m() throws Exception {\nWatchService ws = FileSystems.getDefault().newWatchService();\nWatchKey key = Path.of(\".\").register(ws, StandardWatchEventKinds.ENTRY_CREATE);\nkey.cancel(); System.out.println(key.isValid()); // false: cancel invalidates\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1959,7 +2063,8 @@
      "extra": "The context type is untyped, so the cast to WatchEvent&lt;Path&gt; needs suppression of the unchecked warning.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nWatchService ws = FileSystems.getDefault().newWatchService();\nPath dir = Path.of(\".\"); dir.register(ws, StandardWatchEventKinds.ENTRY_CREATE);\nWatchKey key = ws.poll(); for (WatchEvent<?> e : key.pollEvents()) System.out.println((Path) e.context());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1968,7 +2073,8 @@
      "extra": "You may keep one watcher thread, as the bundled example does, or distribute keys across a pool for heavy event rates.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nWatchService ws = FileSystems.getDefault().newWatchService();\njava.util.concurrent.ExecutorService pool = java.util.concurrent.Executors.newSingleThreadExecutor();\npool.submit(() -> { WatchKey k = ws.poll(); if (k != null) { for (WatchEvent<?> e : k.pollEvents()) System.out.println(e.context()); k.reset(); } });\n} }</pre>"
     }
    ]
   },
@@ -1999,7 +2105,8 @@
      "extra": "It arrived in Java SE 1.4 with channels and buffers. The renaming reflects what the feature actually delivered.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\nString now = \"Non-blocking I/O\";\nString originally = \"New I/O\"; // what NIO meant when introduced in Java SE 1.4\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2008,7 +2115,8 @@
      "extra": "Path fixes error reporting through exceptions, adds metadata and link support, and streams huge directory listings safely.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.File;\nclass Ex { static void m() throws Exception {\nboolean ok = new File(\"a\").delete(); // false gives no reason; Files.delete throws it\nSystem.out.println(Files.isSymbolicLink(Path.of(\"a\"))); // links are explicit\ntry (var paths = Files.walk(Path.of(\".\"))) { System.out.println(paths.count()); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2017,7 +2125,8 @@
      "extra": "Sources can be files, devices, sockets or arrays; the model is uniform regardless of what the stream internally transforms.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nInputStream in = new ByteArrayInputStream(new byte[] { 1, 2, 3 });\nint item; while ((item = in.read()) != -1) System.out.println(item);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2026,7 +2135,8 @@
      "extra": "Each content kind crossed with reading or writing gives the four base classes of the stream hierarchy.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.writeString(Path.of(\"text.txt\"), \"XML, JSON\");\nFiles.write(Path.of(\"image.bin\"), new byte[] {1, 2, 3});\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2035,7 +2145,8 @@
      "extra": "The collision causes real confusion, so it is worth stating explicitly that neither is a specialization of the other.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() {\nInputStream io = new ByteArrayInputStream(new byte[] { 1 });\njava.util.stream.Stream<String> util = java.util.stream.Stream.of(\"a\");\nSystem.out.println(io.getClass().getSimpleName() + \" vs \" + util.getClass().getSimpleName());\n} }</pre>"
     }
    ]
   },
@@ -2066,7 +2177,8 @@
      "extra": "If you skip it, the delegate such as a BufferedReader over a FileReader leaks its file handle.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static class Wrapper extends FilterOutputStream {\nWrapper(OutputStream out) { super(out); }\npublic void close() throws IOException { super.close(); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2075,7 +2187,8 @@
      "extra": "Binary decorations strip the compression, the character stream decodes the bytes, and the buffer supplies line reads.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.io.*; import java.util.zip.GZIPInputStream;\nclass Ex { static void m() throws Exception {\ntry (var gz = new GZIPInputStream(new ByteArrayInputStream(new byte[0]));\nvar lines = new BufferedReader(new InputStreamReader(gz))) {\nSystem.out.println(lines.readLine());\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2084,7 +2197,8 @@
      "extra": "Closest to the bytes is the compressor, closest to your code is the writer. Println is convenient because PrintWriter supplies it.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nimport java.util.zip.*;\nclass Ex { static void m() throws Exception {\ntry (var w = new PrintWriter(new OutputStreamWriter(new GZIPOutputStream(new ByteArrayOutputStream()), \"UTF-8\"))) {\nw.println(\"sonnet\"); } // PrintWriter -> GZIPOutputStream -> bytes\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2093,7 +2207,8 @@
      "extra": "The first four bytes of the file hold that count, then per sonnet an offset and a length, then the compressed texts.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\nint sonnets = 154; // the count stored in the Shakespeare file\nSystem.out.println(sonnets);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2102,7 +2217,8 @@
      "extra": "The stream cannot be trusted to buffer arbitrary lengths, so a fixed skip is a loop that accumulates what was actually skipped.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\ntry (InputStream in = new FileInputStream(\"a.bin\")) {\nlong left = 10, skipped = 0;\nwhile (left &gt; 0) { long n = in.skip(left); if (n == 0) break; skipped += n; left -= n; }\nSystem.out.println(skipped); } } }</pre>"
     },
     {
      "type": "basic",
@@ -2111,7 +2227,8 @@
      "extra": "Mixing them means decoration for the numbers and plain buffered writes for the compressed payload, in file-format order.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nByteArrayOutputStream file = new ByteArrayOutputStream();\ntry (DataOutputStream head = new DataOutputStream(file)) { head.writeInt(1); }\ntry (BufferedOutputStream bytes = new BufferedOutputStream(file)) { bytes.write(new byte[] { 1, 2 }); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2120,7 +2237,8 @@
      "extra": "Sonnets vary in size, so each length must be stored. The offset points at the first byte of that compressed block.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\nint[] lengths = new int[154]; // one length per sonnet\nint i = 0;\nint compressedBytes = lengths[i]; // bytes in that sonnet's compressed form\n} }</pre>"
     }
    ]
   },
@@ -2141,7 +2259,8 @@
      "extra": "Unbuffered means each read may hit the device, so wrapping in a BufferedInputStream is worth it for many small reads.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.io.*;\nclass Ex { static void m() throws Exception {\ntry (InputStream in = Files.newInputStream(Path.of(\"a.txt\"))) {\nSystem.out.println(in.getClass().getName() + \" \" + in.read());\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2150,7 +2269,8 @@
      "extra": "With no options it creates the file if absent and truncates it if present, which equals CREATE plus TRUNCATE_EXISTING.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry (java.io.OutputStream out = Files.newOutputStream(Path.of(\"a.txt\"))) {\nout.write(65);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2159,7 +2279,8 @@
      "extra": "It also supports truncate() and size(). Being seekable is what enables random access to a file.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.channels.SeekableByteChannel;\nclass Ex { static void m() throws Exception {\ntry (SeekableByteChannel ch = Files.newByteChannel(Path.of(\"a.txt\"), StandardOpenOption.READ, StandardOpenOption.WRITE)) {\nSystem.out.println(ch.position() + \" \" + ch.size()); ch.position(2L);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2178,7 +2299,8 @@
      "extra": "A seekable channel does both directions, so READ must be explicit. With no option at all the channel opens for reading.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.channels.SeekableByteChannel;\nclass Ex { static void m() throws Exception {\ntry (SeekableByteChannel ch = Files.newByteChannel(Path.of(\"a.txt\"), StandardOpenOption.READ)) { System.out.println(ch.size()); }\ntry (var out = Files.newOutputStream(Path.of(\"b.txt\"))) { out.write(1); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2219,7 +2341,8 @@
      "extra": "It returns a BufferedReader, whose readLine() gives lines without their terminator and null at end of file.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.charset.StandardCharsets;\nclass Ex { static void m() throws Exception {\ntry (var r = Files.newBufferedReader(Path.of(\"a.txt\"), StandardCharsets.UTF_8)) {\nSystem.out.println(r.readLine());\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2248,7 +2371,8 @@
      "extra": "Each returned line excludes its terminator, so a while loop testing for null is the classic line-reading pattern.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nBufferedReader r = new BufferedReader(new StringReader(\"one\\n\"));\nSystem.out.println(r.readLine());\nSystem.out.println(r.readLine()); // null at end of file\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2257,7 +2381,8 @@
      "extra": "That default could be a legacy Windows encoding, so code that needed to be portable passed StandardCharsets.UTF_8 explicitly.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nimport java.nio.charset.StandardCharsets;\nclass Ex { static void m() throws Exception {\nReader implicit = new FileReader(\"a.txt\"); // used the platform encoding before Java 18\nReader explicit = new InputStreamReader(new FileInputStream(\"a.txt\"), StandardCharsets.UTF_8);\n} }</pre>"
     }
    ]
   },
@@ -2278,7 +2403,8 @@
      "extra": "More specific subclasses exist, such as FileNotFoundException and DirectoryNotEmptyException, and may need handling too.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.io.IOException;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\nclass Ex { static void m() throws IOException {\nFiles.readString(Path.of(\"a.txt\"));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2287,7 +2413,8 @@
      "extra": "It calls close() on each declared resource as the block exits, normally or exceptionally, so no finally block is needed.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\ntry (Reader r = new StringReader(\"x\")) { System.out.println(r.read()); } // since Java SE 7\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2306,7 +2433,8 @@
      "extra": "The last is for two-file operations such as copy, where both the source and the target matter to understand the failure.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.FileSystemException;\nclass Ex { static void m() {\nFileSystemException e = new FileSystemException(\"a.txt\", \"b.txt\", \"denied\");\nSystem.out.println(e.getFile() + \" \" + e.getReason() + \" \" + e.getMessage() + \" \" + e.getOtherFile());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2315,7 +2443,8 @@
      "extra": "It avoids temporary variables and keeps I/O setup readable, for example chaining getPath() onto getDefault().",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nString s = Path.of(\"dir\", \"file.txt\").getFileName().toString().toUpperCase();\nSystem.out.println(s);\n} }</pre>"
     }
    ]
   },
@@ -2346,7 +2475,8 @@
      "extra": "It is a Reader over bytes. FileReader is a convenience subclass that opens a file directly.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nReader r = new InputStreamReader(new FileInputStream(\"a.bin\")); // chars from bytes\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2355,7 +2485,8 @@
      "extra": "It is a Writer for byte sinks. Its close() flushes the encoded characters before closing the stream.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nByteArrayOutputStream bytes = new ByteArrayOutputStream();\ntry (Writer w = new OutputStreamWriter(bytes)) { w.write(\"hi\"); }\nSystem.out.println(bytes.toString());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2364,7 +2495,8 @@
      "extra": "try-with-resources closes both in the right order, flushing each layer as it goes, which is why omitting it is a real data-loss bug.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nPrintWriter w = new PrintWriter(new FileWriter(\"a.txt\"));\nw.print(\"text\"); // still in the buffer: absent from the file until flush/close\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2373,7 +2505,8 @@
      "extra": "They write and read int, long, double and so on in a fixed binary encoding, which is what a binary file format needs.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\ntry (DataOutputStream out = new DataOutputStream(new FileOutputStream(\"a.bin\"))) { out.writeInt(42); }\ntry (DataInputStream in = new DataInputStream(new FileInputStream(\"a.bin\"))) { System.out.println(in.readInt()); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2392,7 +2525,8 @@
      "extra": "It blocks until the array is full, unlike plain read() which may return a partial count, so it is the right call for fixed-length records.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nDataInputStream in = new DataInputStream(new ByteArrayInputStream(new byte[] { 1 }));\ntry { in.readFully(new byte[2]); } catch (EOFException e) { System.out.println(\"short read\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2401,7 +2535,8 @@
      "extra": "readUTF() decodes the same format. Modified UTF-8 differs from standard UTF-8 in how it encodes the null character.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nByteArrayOutputStream bytes = new ByteArrayOutputStream();\ntry (DataOutputStream out = new DataOutputStream(bytes)) { out.writeUTF(\"hi\"); }\nSystem.out.println(java.util.Arrays.toString(bytes.toByteArray())); // 0 2 h i\n} }</pre>"
     }
    ]
   },
@@ -2422,7 +2557,8 @@
      "extra": "CharArrayReader does the same over a char array. Both are Readers, so they plug into any buffered or parsing decoration.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws IOException {\ntry (StringReader r = new StringReader(\"abc\")) { System.out.println((char) r.read()); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2431,7 +2567,8 @@
      "extra": "toString() builds a String from the internal StringBuffer, while getBuffer() exposes the buffer itself with no defensive copy.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.StringWriter;\nclass Ex { static void m() {\nStringWriter w = new StringWriter(); w.write(\"hi\");\nSystem.out.println(w.toString() + \" \" + w.getBuffer().length());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2440,7 +2577,8 @@
      "extra": "Set an initial size if known; size() gives the count, toByteArray() a copy, and toString() decodes using a charset.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nByteArrayOutputStream out = new ByteArrayOutputStream();\nout.write(new byte[] {1, 2, 3});\nSystem.out.println(java.util.Arrays.toString(out.toByteArray()));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2449,7 +2587,8 @@
      "extra": "Compressed content makes the length impossible to compute in advance, so writing to memory and measuring afterwards is the practical route.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nByteArrayOutputStream buf = new ByteArrayOutputStream();\ntry (ObjectOutputStream out = new ObjectOutputStream(buf)) { out.writeObject(\"x\"); }\nSystem.out.println(buf.size());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2468,7 +2607,8 @@
      "extra": "size() gives the byte count, toByteArray() a defensive copy, and toString() decodes those bytes with the default or a given charset.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() {\nByteArrayOutputStream out = new ByteArrayOutputStream();\nout.write('x');\nSystem.out.println(out.size() + \" \" + java.util.Arrays.toString(out.toByteArray()) + \" \" + out.toString());\n} }</pre>"
     }
    ]
   },
@@ -2489,7 +2629,8 @@
      "extra": "It opens and closes the stream for you but is not meant for large files, since the entire content is held in memory.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nbyte[] bytes = Files.readAllBytes(Path.of(\"a.txt\"));\nSystem.out.println(bytes.length);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2498,7 +2639,8 @@
      "extra": "Lines come without terminators. For big files prefer Files.lines(), which processes the lines lazily.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.charset.StandardCharsets;\nclass Ex { static void m() throws Exception {\njava.util.List&lt;String&gt; lines = Files.readAllLines(Path.of(\"a.txt\"), StandardCharsets.UTF_8);\nlines.forEach(System.out::println);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2517,7 +2659,8 @@
      "extra": "It is designed for throwaway temporary files whose lifetime should never outlive the program's use of them.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry (var out = Files.newOutputStream(Path.of(\"tmp.txt\"), StandardOpenOption.CREATE, StandardOpenOption.DELETE_ON_CLOSE)) {\nout.write(1);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2526,7 +2669,8 @@
      "extra": "Only some file systems honor it, NTFS being the example given. It is a hint, so code must work when it is ignored.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.newByteChannel(Path.of(\"sparse.bin\"), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.SPARSE);\nSystem.out.println(\"SPARSE hints that data gaps may consume no disk space\");\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2535,7 +2679,8 @@
      "extra": "A separate check leaves a window for another process to create the file first, a classic TOCTTOU race.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath p = Path.of(\"new.txt\");\nif (!Files.exists(p)) Files.createFile(p); // check-then-create is racy\nFiles.createFile(Path.of(\"atomic.txt\")); // check and create in one atomic step\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2544,7 +2689,8 @@
      "extra": "position() reads or sets the cursor, read/write move bytes through a ByteBuffer, and truncate() shortens the file.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.nio.channels.SeekableByteChannel; import java.nio.ByteBuffer;\nclass Ex { static void m() throws Exception {\ntry (SeekableByteChannel ch = Files.newByteChannel(Path.of(\"a.txt\"), StandardOpenOption.READ, StandardOpenOption.WRITE)) {\nch.position(4); ch.write(ByteBuffer.wrap(new byte[] { 1 })); ch.truncate(2);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2553,7 +2699,8 @@
      "extra": "Files.write() also creates files but takes no attributes. Checking exists() and then creating is racy; createFile does both at once.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.PosixFilePermissions;\nclass Ex { static void m() throws Exception {\nvar attrs = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString(\"rw-r-----\"));\nFiles.createFile(Path.of(\"new.txt\"), attrs); // created atomically with attributes\n} }</pre>"
     }
    ]
   },
@@ -2574,7 +2721,8 @@
      "extra": "Since Java 18 it assumes UTF-8, so no charset argument is needed. It opens and closes the file for you.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nString text = Files.readString(Path.of(\"a.txt\"));\nSystem.out.println(text);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2583,7 +2731,8 @@
      "extra": "For several lines use Files.writeString(path, list), and for binary data use Files.write with a byte array.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFiles.writeString(Path.of(\"a.txt\"), \"hello\"); // writes a String in one call\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2602,7 +2751,8 @@
      "extra": "It returns a Stream&lt;Path&gt; that must be closed. Files.walk instead descends into subdirectories.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.util.stream.Stream;\nclass Ex { static void m() throws Exception {\ntry (Stream&lt;Path&gt; s = Files.list(Path.of(\".\"))) { s.forEach(System.out::println); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2631,7 +2781,8 @@
      "extra": "That control matters when deleting or copying a whole tree, where the order of directory removal and creation is critical.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*; import java.nio.file.attribute.BasicFileAttributes;\nclass Ex { static void m() throws Exception {\nFiles.walkFileTree(Path.of(\".\"), new SimpleFileVisitor<Path>() {\npublic FileVisitResult preVisitDirectory(Path d, BasicFileAttributes a) { System.out.println(\"enter \" + d); return FileVisitResult.CONTINUE; }\npublic FileVisitResult postVisitDirectory(Path d, java.io.IOException e) { System.out.println(\"leave \" + d); return FileVisitResult.CONTINUE; }\n}); } }</pre>"
     },
     {
      "type": "basic",
@@ -2650,7 +2801,8 @@
      "extra": "All additions and deletions made through Files are held until then, so a crash before close loses them.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nFileSystem zip = FileSystems.newFileSystem(Path.of(\"a.zip\"));\nFiles.writeString(zip.getPath(\"/x.txt\"), \"hi\");\nzip.close(); // accumulated changes are written back into a.zip\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2659,7 +2811,8 @@
      "extra": "They place the item in a suitable temporary location, such as /tmp on Linux, using the given prefix and optional suffix.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath f = Files.createTempFile(\"pre\", \".txt\");\nPath d = Files.createTempDirectory(\"pre\");\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2668,7 +2821,8 @@
      "extra": "getPathMatcher-era line loops obsolete. A stream of lines composes with filter and map directly.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.util.stream.Stream;\nclass Ex { static void m() throws Exception {\njava.util.List&lt;String&gt; all = Files.readAllLines(Path.of(\"a.txt\"));\ntry (Stream&lt;String&gt; lines = Files.lines(Path.of(\"a.txt\"))) { lines.forEach(System.out::println); }\n} }</pre>"
     }
    ]
   },
@@ -2689,7 +2843,8 @@
      "extra": "Encryption converts plaintext to ciphertext and decryption reverses it, using a publicly known algorithm plus a secret key.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(\"AES\");\n    c.init(javax.crypto.Cipher.ENCRYPT_MODE, javax.crypto.KeyGenerator.getInstance(\"AES\").generateKey());\n    byte[] ciphertext = c.doFinal(\"readable plaintext\".getBytes());   // unreadable to an attacker\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2698,7 +2853,8 @@
      "extra": "Salting, concatenating random bits to the input, removes the ability to precompute a table that reverses common inputs.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    byte[] a = java.security.MessageDigest.getInstance(\"SHA-256\").digest(new byte[]{1});\n    byte[] b = java.security.MessageDigest.getInstance(\"SHA-256\").digest(new byte[10000]);   // same fixed length, effectively unique\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2707,7 +2863,8 @@
      "extra": "Identical plaintext blocks encrypted with the same key would otherwise produce identical ciphertext, leaking structure.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>byte[] ivBytes = new byte[16];   // adds cryptographic variance to the first plaintext block\njavax.crypto.spec.IvParameterSpec iv = new javax.crypto.spec.IvParameterSpec(ivBytes);\nSystem.out.println(iv.getIV().length);</pre>"
     },
     {
      "type": "basic",
@@ -2716,7 +2873,8 @@
      "extra": "It is the framework layer of the Java Security API; the actual algorithms live in pluggable providers.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String name = \"Java Cryptography Architecture\";   // JCA: algorithm independence, provider neutrality\nSystem.out.println(name);</pre>"
     },
     {
      "type": "basic",
@@ -2725,7 +2883,8 @@
      "extra": "For example MessageDigest.getInstance(\"SHA-256\") or with \"ProviderC\" pinned. The engine class is the service type.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try {\n    java.security.MessageDigest md = java.security.MessageDigest.getInstance(\"SHA-256\", \"SUN\");   // engine plus optional provider\n    System.out.println(md.getAlgorithm());\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2734,7 +2893,8 @@
      "extra": "At rest is stored data, in motion is data on the network, in use is data loaded and actively processed in memory.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Ex { static void m() {\nList&lt;String&gt; states = List.of(\"at rest\", \"in motion\", \"in use\");\nstates.forEach(System.out::println);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2743,7 +2903,8 @@
      "extra": "Its cost is low, so it is the default for bulk data. The problem it does not solve is how to share the key safely.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance(\"AES\").generateKey();\n    System.out.println(key.getAlgorithm());   // one shared key encrypts and decrypts for both parties\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2752,7 +2913,8 @@
      "extra": "Only the matching private key can decrypt it. The private key also signs, which is verified with the public key.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    java.security.KeyPair pair = java.security.KeyPairGenerator.getInstance(\"RSA\").generateKeyPair();\n    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(\"RSA\");\n    c.init(javax.crypto.Cipher.ENCRYPT_MODE, pair.getPublic());   // the recipient's public key\n    byte[] msg = c.doFinal(\"hi\".getBytes());\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2761,7 +2923,8 @@
      "extra": "Only when the installed crypto policy allows it; otherwise the default falls back to 128 bits.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int since = 19;   // default AES key size rose from 128 to 256 bits\nSystem.out.println(\"JDK \" + since);</pre>"
     },
     {
      "type": "basic",
@@ -2770,7 +2933,8 @@
      "extra": "It provides confidentiality and integrity in one pass. ECB, by contrast, leaks repeated plaintext patterns.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String transformation = \"AES/GCM/NoPadding\";   // GCM = Galois/Counter Mode: counter plus Galois authenticator\nSystem.out.println(transformation);</pre>"
     },
     {
      "type": "basic",
@@ -2779,7 +2943,8 @@
      "extra": "It returns the resulting byte array, which is why both the encrypt and the decrypt side end with it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(\"AES\");\n    c.init(javax.crypto.Cipher.ENCRYPT_MODE, javax.crypto.KeyGenerator.getInstance(\"AES\").generateKey());\n    byte[] out = c.doFinal(\"msg\".getBytes());   // one-part encrypt/decrypt, or finishes multi-part work\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2788,7 +2953,8 @@
      "extra": "RSASSA-PSS and DH moved too. Small keys are now considered weak against modern factoring capacity.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.security.*;\nimport java.security.interfaces.RSAKey;\nclass Ex { static void m() throws Exception {\nKeyPair kp = KeyPairGenerator.getInstance(\"RSA\").generateKeyPair();\nSystem.out.println(((RSAKey) kp.getPublic()).getModulus().bitLength());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2797,7 +2963,8 @@
      "extra": "The receiver recomputes the digest and verifies with the sender's public key, which proves both origin and integrity.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    java.security.Signature sig = java.security.Signature.getInstance(\"Ed25519\");\n    sig.initSign(java.security.KeyPairGenerator.getInstance(\"Ed25519\").generateKeyPair().getPrivate());   // sender's private key\n    sig.update(\"message\".getBytes());\n    byte[] signature = sig.sign();   // hash signed with that private key\n} catch (Exception e) { }</pre>"
     }
    ]
   },
@@ -2818,7 +2985,8 @@
      "extra": "Scan the output for a suspicious library name, then examine that library to learn its version.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String cmd = \"jcmd &lt;pid&gt; VM.system_properties\";   // prints a running app's system properties\nSystem.out.println(cmd);</pre>"
     },
     {
      "type": "basic",
@@ -2827,7 +2995,8 @@
      "extra": "Before JDK 9 the only option was GC.class_histogram, which lists instantiated classes rather than loaded ones.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String cmd = \"jcmd &lt;pid&gt; VM.class_hierarchy\";   // loaded classes hierarchically, since JDK 9\nSystem.out.println(cmd);</pre>"
     },
     {
      "type": "basic",
@@ -2836,7 +3005,8 @@
      "extra": "jdeps analyzes bytecode references. Frameworks that load by name only appear at runtime.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try {\n    Class&lt;?&gt; c = Class.forName(\"com.example.Plugin\");   // dynamic load: absent from static jdeps output\n    System.out.println(c.getName());                          // plugins/proxies can load unseen classes\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2845,7 +3015,8 @@
      "extra": "Its -p option filters packages, and regex support lets you hunt partial package names such as shaded libraries.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String cmd = \"jdeps app.jar\";   // static analysis of a JAR's package and class dependencies\nSystem.out.println(cmd);</pre>"
     },
     {
      "type": "basic",
@@ -2854,7 +3025,8 @@
      "extra": "The first blocks all object factories, the second stops deserialization from the LDAP javaSerializedData attribute.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\nSystem.setProperty(\"jdk.jndi.object.factoriesFilter\", \"!*\");\nSystem.setProperty(\"trustSerialData\", \"false\");\nSystem.out.println(System.getProperty(\"jdk.jndi.object.factoriesFilter\"));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2863,7 +3035,8 @@
      "extra": "It limits which classes may be deserialized. On the command line both JNDI patches and unlimited native access can be passed via JAVA_TOOL_OPTIONS.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() {\nSystem.setProperty(\"jdk.serialFilter\", \"!*\");\nObjectInputFilter f = ObjectInputFilter.Config.createFilter(System.getProperty(\"jdk.serialFilter\"));\nSystem.out.println(f);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2872,7 +3045,8 @@
      "extra": "Run it against the custom runtime to verify all required modules are present before shipping.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String command = \"java --list-modules\";   // lists modules inside a JDK runtime image\nSystem.out.println(command);</pre>"
     },
     {
      "type": "basic",
@@ -2881,7 +3055,8 @@
      "extra": "It emits a comma-separated list of modules, plus their transitive dependencies, that you can feed straight to jlink.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String option = \"--print-module-deps\";   // jdeps output for jlink --add-modules\nSystem.out.println(option);</pre>"
     },
     {
      "type": "basic",
@@ -2890,7 +3065,8 @@
      "extra": "It was introduced with JEP 261 in JDK 9. The API a module no longer exposes disappears, so code that relies on it breaks.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String option = \"--limit-modules\";   // limits observable modules without building a custom image\nSystem.out.println(option);</pre>"
     },
     {
      "type": "basic",
@@ -2899,7 +3075,8 @@
      "extra": "Before that there was no supported JDK tool for package-level dependency analysis of a JAR.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int since = 8;   // jdeps has done static dependency analysis since JDK 8\nSystem.out.println(\"JDK \" + since);</pre>"
     }
    ]
   },
@@ -2920,7 +3097,8 @@
      "extra": "It proves who wrote the message, that it was not altered in transit, and that the author cannot deny having sent it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String[] guarantees = {\"Authenticity\", \"Integrity\", \"Non-repudiation\"};   // all three come from a digital signature\nSystem.out.println(String.join(\", \", guarantees));</pre>"
     },
     {
      "type": "basic",
@@ -2929,7 +3107,8 @@
      "extra": "You obtain a Signature instance with Signature.getInstance(\"Ed25519\") and initialize it with the private key to sign.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    java.security.Signature s = java.security.Signature.getInstance(\"Ed25519\");   // EdDSA over Curve25519\n    System.out.println(s.getAlgorithm());\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2938,7 +3117,8 @@
      "extra": "You initialize the Signature instance with the signer's public key and feed it the message before calling verify.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try {\n    java.security.Signature signature = java.security.Signature.getInstance(\"Ed25519\");\n    signature.initVerify(java.security.KeyPairGenerator.getInstance(\"Ed25519\").generateKeyPair().getPublic());\n    boolean ok = signature.verify(new byte[]{1});   // verify(byte[]) returns a boolean\n    System.out.println(ok);\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -2947,7 +3127,8 @@
      "extra": "A CA signs the certificate, so a trusting party can rely on the binding without out-of-band key exchange.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String vouch = \"public key -> identity that owns it\";   // what the CA vouches for in a certificate\nSystem.out.println(vouch);</pre>"
     },
     {
      "type": "basic",
@@ -2956,7 +3137,8 @@
      "extra": "The public key inside the certificate is what you use to verify the holder's signatures or encrypt to them.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.security.cert.X509Certificate cert = null;   // serial number, validity dates, subject name and public key\nSystem.out.println(cert.getIssuerX500Principal());   // issuer's signature is also inside it</pre>"
     },
     {
      "type": "basic",
@@ -2965,7 +3147,8 @@
      "extra": "Browsers treat it as untrusted by default because nothing verifies the issuer's own identity.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>boolean selfSigned = true;   // issued by the server hosting it, not by a known CA\nSystem.out.println(selfSigned);</pre>"
     },
     {
      "type": "basic",
@@ -2974,7 +3157,8 @@
      "extra": "Digital signatures use the Digital Signature Standard (DSS) instead. The two are different standards with different jobs.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String standard = \"X.509\";   // standard defining the format of digital certificates\nSystem.out.println(standard);</pre>"
     },
     {
      "type": "basic",
@@ -2983,7 +3167,8 @@
      "extra": "The parent java.security.cert.Certificate is the format-agnostic abstraction; X509Certificate adds the fields.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Class&lt;?&gt; c = java.security.cert.X509Certificate.class;   // standard access to all X.509 certificate attributes\nSystem.out.println(c.getName());</pre>"
     },
     {
      "type": "basic",
@@ -2992,7 +3177,8 @@
      "extra": "The digest is the unique identifier you compare against a stored fingerprint to confirm you have the right certificate.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try {\n    java.security.cert.X509Certificate cert = null;\n    byte[] thumbprint = java.security.MessageDigest.getInstance(\"SHA-256\").digest(cert.getEncoded());   // hash of the encoded form\n} catch (Exception e) { }</pre>"
     },
     {
      "type": "basic",
@@ -3001,7 +3187,8 @@
      "extra": "The trust anchor is the root you already trust, and the validator checks each link from there to the presented certificate.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Class&lt;?&gt;[] validators = {java.security.cert.TrustAnchor.class, java.security.cert.CertPathValidator.class};\nSystem.out.println(validators.length);   // the two classes that validate an X.509 chain</pre>"
     }
    ]
   },
@@ -3022,7 +3209,8 @@
      "extra": "They are disabled by default in the default.jfc and profile.jfc configurations, so you have to enable them explicitly.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int release = 12;   // JDK that introduced the four JFR security events\nSystem.out.println(\"JDK \" + release);</pre>"
     },
     {
      "type": "basic",
@@ -3031,7 +3219,8 @@
      "extra": "Paired with the initial-value event, it shows the starting security configuration and every later change.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String event = \"jdk.SecurityPropertyModification\";   // records Security.setProperty() calls\nSystem.out.println(event);</pre>"
     },
     {
      "type": "basic",
@@ -3040,7 +3229,8 @@
      "extra": "Its fields include peer host, peer port, negotiated protocol and cipher, and the peer certificate id.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String event = \"jdk.TLSHandshake\";   // TLS version and cipher suite negotiated on each handshake\nSystem.out.println(event);</pre>"
     },
     {
      "type": "basic",
@@ -3049,7 +3239,8 @@
      "extra": "jdk.X509Certificate captures every certificate generated by the security libraries, validated or not.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String event = \"jdk.X509Validation\";   // details of successfully validated X.509 certificates\nSystem.out.println(event);</pre>"
     },
     {
      "type": "basic",
@@ -3058,7 +3249,8 @@
      "extra": "The output includes a line such as \"selected version\": [TLSv1.3], which tells you exactly what was negotiated.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String property = \"-Djavax.net.debug=ssl:handshake\";   // handshake detail incl. selected protocol version\nSystem.out.println(property);</pre>"
     },
     {
      "type": "basic",
@@ -3067,7 +3259,8 @@
      "extra": "It is enabled by default, unlike the modification event, so a recording always has the baseline to compare against.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String event = \"jdk.InitialSecurityProperty\";   // initial JDK security property values, added in JDK 20\nSystem.out.println(event);</pre>"
     },
     {
      "type": "basic",
@@ -3076,7 +3269,8 @@
      "extra": "It is a quick alternative to a JFR recording when you only need the startup snapshot.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String property = \"-Djava.security.debug=properties\";   // prints initial security properties to stderr\nSystem.out.println(property);</pre>"
     },
     {
      "type": "basic",
@@ -3085,7 +3279,8 @@
      "extra": "It counts service provider calls, which reveals which crypto implementations actually do the work at runtime.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String event = \"jdk.SecurityProviderService\";   // counts service provider implementation invocations\nSystem.out.println(event);</pre>"
     },
     {
      "type": "basic",
@@ -3094,7 +3289,8 @@
      "extra": "An expired certificate breaks connections from a specific date, so the not-after value is the field worth alerting on.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>String fields = \"validity period, subject, issuer, serial number\";   // identify a certificate for expiry monitoring\nSystem.out.println(fields);</pre>"
     },
     {
      "type": "basic",
@@ -3103,7 +3299,8 @@
      "extra": "An MBeanServerConnection lets you pull recorded events as they occur, which enables custom monitoring dashboards.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import jdk.jfr.consumer.*;\nclass Ex { static void m() {\nString release = \"JDK 16\";\ntry (RecordingStream s = new RecordingStream()) { s.enable(\"jdk.JavaMonitorWait\"); s.onEvent(e -&gt; System.out.println(release)); s.startAsync(); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -3112,7 +3309,8 @@
      "extra": "Which one a particular socket uses depends on both peers, so measure rather than assume.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import javax.net.ssl.*;\nimport java.util.Arrays;\nclass Ex { static void m() throws Exception {\nSSLContext ctx = SSLContext.getDefault();\nSystem.out.println(Arrays.toString(ctx.getDefaultSSLParameters().getProtocols()));\n} }</pre>"
     }
    ]
   },
@@ -3151,7 +3349,8 @@
      "extra": "isValidYear() then asks whether that day exists in a given year, so February 29 is valid in 2012 but not 2010.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.MonthDay newYear = java.time.MonthDay.of(1, 1);   // month and day, no year\nSystem.out.println(newYear);</pre>"
     },
     {
      "type": "basic",
@@ -3169,7 +3368,8 @@
      "extra": "It returns a DayOfWeek enum constant such as MONDAY, not a number, which keeps the code readable.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate date = java.time.LocalDate.of(2024, 1, 1);\nSystem.out.println(date.getDayOfWeek());   // day of the week this date falls on</pre>"
     },
     {
      "type": "basic",
