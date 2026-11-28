@@ -3736,7 +3736,7 @@
     {
      "type": "basic",
      "front": "What must a JavaFX <code>record</code> model override for use in a <code>ListView</code>?",
-     "back": "<code>toString()</code>",
+     "back": "<code>toString()</code> — a record already generates one, but a custom version makes the ListView show the fields you want instead of the default text",
      "extra": "A ListView displays each item using toString(). Without an override, the record's generated form appears instead of the intended display text like a full name.",
      "tags": [
       "type::syntax"
