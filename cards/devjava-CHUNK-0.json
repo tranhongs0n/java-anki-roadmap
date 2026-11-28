@@ -883,7 +883,8 @@
      "extra": "For example <code>int</code> becomes <code>Integer</code>, <code>double</code> becomes <code>Double</code>. The reverse conversion, object to primitive, is called unboxing.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Integer n = 42;   // the compiler inserts Integer.valueOf(42)</pre>"
     },
     {
      "type": "basic",
@@ -901,7 +902,8 @@
      "extra": "These are the two listed cases. Nothing else triggers it - for instance, a method expecting <code>long</code> does not box an <code>int</code> into a <code>Long</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    static void takes(Integer i) { }\n    void run() { Integer boxed = 5; takes(5); }   // both assignments box\n}</pre>"
     },
     {
      "type": "basic",
@@ -910,7 +912,8 @@
      "extra": "The list stores Integer objects, not ints, so the compiler rewrites the call as <code>ints.add(Integer.valueOf(42))</code>. Unboxing does the opposite on read.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<Integer> ints = new java.util.ArrayList<>();\nints.add(42);   // int 42 is boxed into an Integer</pre>"
     },
     {
      "type": "basic",
@@ -919,7 +922,8 @@
      "extra": "The <code>%</code> operator does not apply to objects; the compiler inserts <code>intValue()</code> calls. An unboxing of null throws a <code>NullPointerException</code>.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>Integer a = 7, b = 3;\nSystem.out.println(a % b);   // 1: both operands are unboxed first</pre>"
     },
     {
      "type": "basic",
@@ -946,7 +950,8 @@
      "extra": "You can mix primitives and their wrappers without explicit conversion calls. The cost, easy to miss, is a hidden allocation per boxed value.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List<Integer> list = new java.util.ArrayList<>();\nlist.add(1);            // int -> Integer\nint n = list.get(0);    // Integer -> int</pre>"
     }
    ]
   },
@@ -967,7 +972,8 @@
      "extra": "Other common escapes are <code>\\n</code> for newline, <code>\\r</code> for carriage return, <code>\\f</code> for form feed and <code>\\b</code> for backspace.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"a\\tb\");   // a, a tab, then b</pre>"
     },
     {
      "type": "basic",
@@ -976,7 +982,8 @@
      "extra": "Likewise a single quote inside a character literal is <code>\\'</code>, and a literal backslash is <code>\\\\</code>. An unescaped interior quote ends the literal.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"she said \\\"hi\\\"\");</pre>"
     },
     {
      "type": "basic",
@@ -994,7 +1001,8 @@
      "extra": "Useful to keep a trailing space that an editor would otherwise trim. It differs from an ordinary space in that it survives formatting tools.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"a\\sb\");   // a space between the letters</pre>"
     },
     {
      "type": "basic",
@@ -1003,7 +1011,8 @@
      "extra": "<code>Character</code> wraps exactly one <code>char</code> field. That means it is based on 16-bit code units, so it cannot itself hold a supplementary character.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Character c = 'A';\nchar raw = c;   // unboxed to char</pre>"
     },
     {
      "type": "basic",
@@ -1021,7 +1030,8 @@
      "extra": "<code>String.valueOf(char)</code> does the same thing. Beware that passing the resulting char to <code>println</code> with an int argument selects a different overload.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String s = Character.toString('a');   // \"a\"</pre>"
     },
     {
      "type": "basic",
@@ -1067,7 +1077,8 @@
      "extra": "Once created, a <code>Character</code> cannot be changed. That is why the API's case-conversion methods return new values instead of modifying in place.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Character c = 'x';\nc = Character.toUpperCase(c);   // a new Character; the old one never changed</pre>"
     }
    ]
   },
@@ -1088,7 +1099,8 @@
      "extra": "The numeric pair serves high-precision calculation; <code>AtomicInteger</code> and <code>AtomicLong</code> serve multi-threaded code. All primitive wrappers also extend Number.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<Number> nums = java.util.List.of(\n        new java.math.BigDecimal(\"1.5\"), new java.math.BigInteger(\"10\"),\n        new java.util.concurrent.atomic.AtomicInteger(1));</pre>"
     },
     {
      "type": "basic",
@@ -1097,7 +1109,8 @@
      "extra": "To get integers 0 to 9 you multiply by 10 and cast to int. For a series of numbers prefer a <code>java.util.Random</code> instance.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>double r = Math.random();   // 0.0 <= r < 1.0</pre>"
     },
     {
      "type": "basic",
@@ -1115,7 +1128,8 @@
      "extra": "It is one of many converters, each a letter ending a specifier that begins with <code>%</code>. Flags and width can appear between the two.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.printf(\"%d items%n\", 3);   // 3 items</pre>"
     },
     {
      "type": "basic",
@@ -1160,7 +1174,8 @@
      "extra": "Formatting discards precision rather than throwing. That makes DecimalFormat unsuitable where exactness is required - consider BigDecimal formatting.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var f = new java.text.DecimalFormat(\"###.##\");\nSystem.out.println(f.format(123456.789));   // 123456.79, rounded by the pattern</pre>"
     },
     {
      "type": "basic",
@@ -1169,7 +1184,8 @@
      "extra": "Its opposite is <code>floor()</code>, the largest integer &lt;= argument. Both return a double even though the value is integral.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(Math.ceil(2.1));   // 3.0</pre>"
     },
     {
      "type": "basic",
@@ -1178,7 +1194,8 @@
      "extra": "Unlike <code>round()</code> it keeps the double type and uses ties-to-even rounding. <code>round()</code> returns long for a double argument, int for a float.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>System.out.println(Math.rint(2.5));   // 2.0: a tie rounds to the even neighbour</pre>"
     },
     {
      "type": "basic",
@@ -1187,7 +1204,8 @@
      "extra": "Use <code>round(float)</code> for an int result. The difference matters when you assign the outcome to a variable with a specific numeric type.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>System.out.println(Math.round(2.5));   // 3, a long\nSystem.out.println(Math.rint(2.5));    // 2.0, a double rounding to even</pre>"
     },
     {
      "type": "basic",
@@ -1205,7 +1223,8 @@
      "extra": "They are static final fields, so you can read them without instantiating Math. A static import would let you write just <code>E</code> or <code>PI</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(Math.PI);   // 3.141592653589793\nSystem.out.println(Math.E);    // 2.718281828459045</pre>"
     },
     {
      "type": "basic",
@@ -1214,7 +1233,8 @@
      "extra": "Convert with <code>Math.toRadians(degrees)</code>. <code>toDegrees()</code> goes the other way; <code>atan2(y, x)</code> converts rectangular to polar.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.println(Math.sin(Math.PI / 2));   // 1.0: the argument is in radians</pre>"
     },
     {
      "type": "basic",
@@ -1223,7 +1243,8 @@
      "extra": "Radix 2 is binary, 8 octal and 16 hexadecimal. The one-argument <code>parseInt(String)</code> accepts decimal only.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(Integer.parseInt(\"ff\", 16));   // 255</pre>"
     },
     {
      "type": "basic",
@@ -1232,7 +1253,8 @@
      "extra": "Its overload <code>valueOf(String, int radix)</code> parses with a given base. In contrast <code>parseInt</code> returns a primitive int.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Integer boxed = Integer.valueOf(\"42\");   // an Integer object, not an int</pre>"
     },
     {
      "type": "basic",
@@ -1241,7 +1263,8 @@
      "extra": "The other listed reasons are access to <code>MIN_VALUE</code>/<code>MAX_VALUE</code> constants and the conversion helpers between types, strings and number systems.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<Number> nums = new java.util.ArrayList<>();\nnums.add(3);   // Integer is a Number, int alone is not</pre>"
     }
    ]
   },
@@ -1262,7 +1285,8 @@
      "extra": "Every apparent String modification returns a new object. A StringBuilder can be changed in place, which avoids allocating intermediate copies.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"ab\");\nsb.append(\"c\");\nSystem.out.println(sb);   // abc: the same object changed</pre>"
     },
     {
      "type": "basic",
@@ -1281,7 +1305,8 @@
      "extra": "The capacity is a buffer size, not visible content. <code>length()</code> stays 0 until something is appended.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder();\nSystem.out.println(sb.capacity());   // 16</pre>"
     },
     {
      "type": "basic",
@@ -1290,7 +1315,8 @@
      "extra": "The String constructor keeps the characters and appends 16 empty slots for growth. The no-arg constructor gives just 16.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"Greetings\");\nSystem.out.println(sb.length() + \"/\" + sb.capacity());   // 9/25</pre>"
     },
     {
      "type": "basic",
@@ -1327,7 +1353,8 @@
      "extra": "This is the same half-open convention as <code>substring</code>. To remove one character only, use <code>deleteCharAt(index)</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"abcdef\");\nsb.delete(1, 3);\nSystem.out.println(sb);   // adef</pre>"
     },
     {
      "type": "basic",
@@ -1336,7 +1363,8 @@
      "extra": "You cannot call <code>replaceAll</code> on a builder directly. Convert to String, apply the String method, then pass the result back into a new builder.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"ab\");\n// sb.toUpperCase();   // error: StringBuilder has no such method\nString up = sb.toString().toUpperCase();</pre>"
     },
     {
      "type": "basic",
@@ -1345,7 +1373,8 @@
      "extra": "The same applies to any object whose class overrides <code>toString()</code>. Type-formatted output requires an explicit call.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"Hi\");\nSystem.out.println(sb);   // Hi: println calls toString()</pre>"
     },
     {
      "type": "basic",
@@ -1364,7 +1393,8 @@
      "extra": "The compiler's concat strategy was optimised in 9. Earlier, appending many strings to a StringBuilder was generally the faster option.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = \"a\" + \"b\" + \"c\";   // Java 9+ compiles concatenation to invokedynamic, not a builder chain</pre>"
     },
     {
      "type": "basic",
@@ -1373,7 +1403,8 @@
      "extra": "Together with <code>delete</code>, <code>deleteCharAt</code> and <code>insert</code>, these cover in-place editing that String can only do by allocating a new string.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"abc\");\nsb.setCharAt(0, 'x');\nsb.replace(1, 3, \"yz\");\nSystem.out.println(sb);   // xyz</pre>"
     }
    ]
   },
@@ -1394,7 +1425,8 @@
      "extra": "Methods that seem to modify a string actually create and return a new String. That is why <code>s.trim()</code> without assignment changes nothing.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String s = \"abc\";\ns.replace('a', 'x');\nSystem.out.println(s);   // abc: the method returned a new string</pre>"
     },
     {
      "type": "basic",
@@ -1412,7 +1444,8 @@
      "extra": "Half-open again: <code>substring(11, 15)</code> of a longer string yields four characters. The one-argument overload runs to the end of the string.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"abcdef\".substring(1, 3));   // bc: index 1 up to but not including 3</pre>"
     },
     {
      "type": "basic",
@@ -1431,7 +1464,8 @@
      "extra": "It takes a CharSequence, and String implements that interface, so you can pass a String directly. It does not report the match position.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"hello\".contains(\"ell\"));   // true</pre>"
     },
     {
      "type": "basic",
@@ -1440,7 +1474,8 @@
      "extra": "With <code>+</code> any non-String is converted by calling its <code>toString()</code>. The <code>concat()</code> method is restricted to String arguments.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"n=\" + 5 + true);   // n=5true: + accepts any operand when one side is a String</pre>"
     },
     {
      "type": "basic",
@@ -1449,7 +1484,8 @@
      "extra": "That is why <code>\"x\" + sb</code> works for a StringBuilder: its toString() supplies the characters. A null reference appends the text \"null\".",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"at \" + java.time.LocalDate.of(2026, 11, 27));   // the object's toString()</pre>"
     },
     {
      "type": "basic",
@@ -1468,7 +1504,8 @@
      "extra": "Primitive returned, so nothing is boxed, which makes it more direct than <code>valueOf()</code>. Each numeric wrapper class provides such a method.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>float f = Float.parseFloat(\"3.5\");   // primitive result, no wrapper</pre>"
     },
     {
      "type": "basic",
@@ -1486,7 +1523,8 @@
      "extra": "Its sibling <code>replaceFirst</code> replaces only the first match. For a plain literal replacement use <code>replace(CharSequence, CharSequence)</code> instead.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"a1b2\".replaceAll(\"[0-9]\", \"#\"));   // a#b#</pre>"
     },
     {
      "type": "basic",
@@ -1505,7 +1543,8 @@
      "extra": "Before that, a literal could not span lines, so multi-line text had to be assembled with <code>+</code> concatenation between lines.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String s = \"\"\"\n        line one\n        line two\n        \"\"\";   // Java 15+</pre>"
     },
     {
      "type": "basic",
@@ -1523,7 +1562,8 @@
      "extra": "The argument is a regular expression, not a literal separator, so <code>\".\"</code> must be escaped as <code>\"\\.\"</code>. The optional limit caps the array's size.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String[] parts = \"a,b,c\".split(\",\");   // {\"a\", \"b\", \"c\"}</pre>"
     },
     {
      "type": "basic",

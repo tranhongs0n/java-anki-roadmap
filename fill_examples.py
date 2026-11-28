@@ -30,7 +30,8 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 CARDS = os.path.join(BASE, "cards")
 
 PRE = re.compile(r"<pre>.*?</pre>", re.S)
-TAGS = re.compile(r"</?[a-zA-Z][^<>]*>")
+TAGS = re.compile(r"</?(?:pre|code|span|b|i|strong|em|u|s|mark|font|div|br)\b[^>]*>", re.I)
+# only real markup, never <Integer> or < 5: a generic type is not an HTML tag
 
 
 def strip_pre(html):
