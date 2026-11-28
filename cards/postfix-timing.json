@@ -1,0 +1,49 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://dev.java/learn/language/constructs/basics/using-operators/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Does postfix <code>i++</code> wait until the end of the statement to change <code>i</code>?",
+     "back": "No — the variable changes as soon as that subexpression runs; only the <b>old</b> value is handed out",
+     "extra": "Precedence decides grouping, not delay. JLS 15.14.2: the expression's value is the variable's value before the new value is stored. So in <code>i++ + i</code>, the second <code>i</code> already reads the incremented value. This is why precedence and evaluation order are different questions.",
+     "example": "<pre><span class=\"kw\">int</span> i = <span class=\"num\">3</span>;\n<span class=\"kw\">int</span> j = i++ + i;   <span class=\"cmt\">// 3 + 4 = 7; i is 4 afterwards</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html"
+    },
+    {
+     "type": "basic",
+     "front": "With <code>i = 3</code>, what do <code>j</code> and <code>i</code> hold after <code>int j = i++ + i;</code>?",
+     "back": "<code>j = 7</code> and <code>i = 4</code> — not <code>3 + 3 = 6</code>",
+     "extra": "Operands are evaluated left to right: the first <code>i++</code> yields 3 and immediately stores 4, so the second <code>i</code> reads 4. Compare <code>++i + i</code> with i=3, which gives 8 (4 + 4).",
+     "example": "<pre><span class=\"kw\">int</span> i = <span class=\"num\">3</span>;\n<span class=\"kw\">int</span> j = i++ + i;   <span class=\"cmt\">// j=7, i=4</span>\n<span class=\"kw\">int</span> p = <span class=\"num\">3</span>;\n<span class=\"kw\">int</span> q = ++p + p;   <span class=\"cmt\">// q=8, p=4</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html"
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>(i * 2)++</code> a compile error?",
+     "back": "<code>++</code> needs a variable on its left — <code>i * 2</code> is a value, not an assignable slot",
+     "extra": "Postfix increment reads a variable, adds one and stores back into that same variable, so its operand must be a variable (an array element or field is fine). javac reports <code>unexpected type: required variable, found value</code>. Writing <code>i++ * 2</code> is fine because <code>++</code> attaches to <code>i</code> first.",
+     "example": "<pre><span class=\"kw\">int</span> i = <span class=\"num\">3</span>;\n<span class=\"kw\">int</span> ok = i++ * <span class=\"num\">2</span>;   <span class=\"cmt\">// 6, i becomes 4</span>\n<span class=\"kw\">int</span> bad = (i * <span class=\"num\">2</span>)++; <span class=\"cmt\">// error: required variable, found value</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/using-operators/"
+    }
+   ]
+  }
+ ]
+}
