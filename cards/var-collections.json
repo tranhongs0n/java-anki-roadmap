@@ -1,0 +1,38 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "After <code>var list = new ArrayList&lt;&gt;();</code>, can you add a String and an Integer to it?",
+     "back": "Yes — it is an <code>ArrayList&lt;Object&gt;</code>, so any reference type fits; adding values never changes the inferred type",
+     "extra": "Autoboxing turns 123 into Integer and true into Boolean. The variable's type was fixed at its declaration from the standalone initializer, so mixed elements do not narrow it to ArrayList<String> — that assignment still fails with incompatible types. This is the loss of generic type safety the diamond-with-var trap causes.",
+     "example": "<pre>var list = <span class=\"kw\">new</span> <span class=\"type\">ArrayList</span>&lt;&gt;();\nlist.<span class=\"fn\">add</span>(<span class=\"str\">\"x\"</span>);\nlist.<span class=\"fn\">add</span>(<span class=\"num\">123</span>);\nlist.<span class=\"fn\">add</span>(<span class=\"kw\">true</span>);   <span class=\"cmt\">// ok: [x, 123, true]</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>var list = <span class=\"type\">List</span>.of(\"a\", \"b\");</code> infer?",
+     "back": "<code>List&lt;String&gt;</code> — the factory's type arguments come from the actual arguments, so no target type is needed",
+     "extra": "Unlike <code>new ArrayList&lt;&gt;()</code>, <code>List.of(...)</code> and <code>Map.of(...)</code> have real values to infer from: <code>Map.of(\"a\", 1)</code> gives <code>Map&lt;String, Integer&gt;</code>. With var this is the convenient way to get a correctly typed, immutable collection; use <code>new ArrayList&lt;&gt;(List.of(...))</code> if you need mutability.",
+     "example": "<pre>var list = <span class=\"type\">List</span>.of(<span class=\"str\">\"a\"</span>, <span class=\"str\">\"b\"</span>);\n<span class=\"type\">List</span>&lt;<span class=\"type\">String</span>&gt; typed = list;      <span class=\"cmt\">// ok</span>\nvar map = <span class=\"type\">Map</span>.of(<span class=\"str\">\"a\"</span>, <span class=\"num\">1</span>);  <span class=\"cmt\">// Map&lt;String,Integer&gt;</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html"
+    }
+   ]
+  }
+ ]
+}
