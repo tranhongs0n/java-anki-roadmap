@@ -332,7 +332,7 @@
      "type": "basic",
      "front": "What does the compiler assign to a <b>local</b> variable that is not initialized?",
      "back": "<b>Nothing</b> - there is no default value",
-     "extra": "Fields do get a reasonable default; locals do not, and reading an unassigned local is a compile-time error. This is why a declared but unallocated array blows up.",
+     "extra": "The rule covers <b>every</b> local variable, not just arrays: primitives, references and array references alike. Fields get a default (0, false, null), a local that no path has assigned cannot be read, and javac rejects it with <code>variable a might not have been initialized</code>. With an array local the unassigned part is the reference itself, so the failure is at compile time, never a NullPointerException.",
      "tags": [
       "type::gotcha"
      ]
@@ -478,7 +478,8 @@
      "extra": "The value's type depends on the elements used: <code>cadence = 0</code> yields an <code>int</code> because assignment returns a value of the left operand's type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int sum = 2 + 3 * 4;   // the expression 2 + 3 * 4 evaluates to 14</pre>"
     },
     {
      "type": "cloze",
@@ -486,7 +487,8 @@
      "extra": "Higher-precedence operators are applied before lower ones, so <code>a + b / c</code> divides first. Parentheses let you state the intended order explicitly instead of relying on this.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int r = 2 + 3 * 4;    // 14: * binds before +, so this is 2 + (3 * 4)</pre>"
     },
     {
      "type": "basic",
@@ -495,7 +497,8 @@
      "extra": "Anyone reading <code>(a + b) / c</code> knows the intent at a glance; <code>a + b / c</code> forces the reader to recall the precedence table.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>int a = 1, b = 2, c = 3, limit = 5;\nboolean ok = ((a + b) * c) > limit;   // 9 > 5, and the shape is visible</pre>"
     },
     {
      "type": "basic",
@@ -504,7 +507,8 @@
      "extra": "Expression statements are expressions (assignment, <code>++</code>/<code>--</code>, method call, object creation) terminated by <code>;</code>; declaration statements declare variables; control-flow statements govern execution order.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int x = 1;          // declaration statement\nx = x + 1;          // expression statement\nif (x > 1) { }      // control-flow statement</pre>"
     },
     {
      "type": "basic",
@@ -513,7 +517,8 @@
      "extra": "That terminator is what turns an expression into a complete unit of execution, e.g. <code>result++;</code> or <code>new Object();</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int total = 0;\ntotal = total + 1;   // the semicolon ends the expression statement</pre>"
     },
     {
      "type": "basic",
@@ -522,7 +527,8 @@
      "extra": "A block may be used anywhere a single statement is allowed, which is why braces can appear in a method body, an <code>if</code> clause or a bare scope.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>{\n    int x = 1;\n    int y = 2;\n}   // two statements inside one block</pre>"
     },
     {
      "type": "basic",
@@ -531,7 +537,8 @@
      "extra": "Binary floating point cannot represent 0.1, 0.2 or 0.3 exactly, so the rounded sum differs. Use <code>BigDecimal</code> or an epsilon comparison when decimal precision matters.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.println(0.1 + 0.2);          // 0.30000000000000004\nSystem.out.println(0.1 + 0.2 == 0.3);   // false</pre>"
     },
     {
      "type": "basic",
@@ -540,7 +547,8 @@
      "extra": "An assignment is an expression, not just a statement, so <code>int cadence; int x = (cadence = 0);</code> compiles. This chaining also allows <code>a = b = c</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int cadence = 0;\nlong elapsed = (cadence = 5);   // the assignment is worth 5 and keeps type int</pre>"
     }
    ]
   },
@@ -561,7 +569,8 @@
      "extra": "The accepted primitives are <code>byte</code>, <code>short</code>, <code>char</code> and <code>int</code>. Wrapper types, enums and <code>String</code> are also accepted.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>switch (2) { case 1: break; }   // int selector: fine\n// switch (7L)   { }            // error: long is not a selector type\n// switch (1.5)  { }            // error: double is not a selector type</pre>"
     },
     {
      "type": "basic",
@@ -570,7 +579,8 @@
      "extra": "The wrappers are <code>Character</code>, <code>Byte</code>, <code>Short</code> and <code>Integer</code>. <code>String</code> selectors are allowed since Java SE 7.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Day { MON, TUE }\n\nclass Demo {\n    void run() {\n        switch (\"MON\") { case \"MON\": break; }   // String selector\n        switch (Day.MON) { case MON: break; }    // enum selector\n        switch (Integer.valueOf(3)) { case 3: break; }   // boxed Integer\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -579,7 +589,8 @@
      "extra": "Subsequent <code>case</code> labels are not tested. That is why each <code>break</code> is needed to stop execution at the end of the intended case.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>switch (2) {\n    case 2: System.out.println(\"two\");   // no break here\n    case 3: System.out.println(\"three\"); // so this line also runs\n}</pre>"
     },
     {
      "type": "basic",
@@ -588,7 +599,8 @@
      "extra": "Without it, execution falls through into the following cases. A final <code>break</code> is not required but is recommended so that adding cases later stays safe.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>switch (1) {\n    case 1:\n        System.out.println(\"one\");\n        break;                  // leaves the switch block\n    default:\n        System.out.println(\"other\");\n}</pre>"
     },
     {
      "type": "basic",
@@ -597,7 +609,8 @@
      "extra": "There is at most one default, and it may appear anywhere in the block - commonly last for readability. Without it an unmatched value runs no case statements.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>switch (9) {\n    case 1: System.out.println(\"one\"); break;\n    default: System.out.println(\"no case matched\");   // runs for 9\n}</pre>"
     },
     {
      "type": "basic",
@@ -616,7 +629,8 @@
      "extra": "A switch matches a single integer, enum or String value against constants; it cannot express <code>score &gt;= 80 &amp;&amp; score &lt; 90</code> or a boolean selector.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>int score = 87;\nif (score >= 80) { }   // a range: no case label can express it</pre>"
     },
     {
      "type": "basic",
@@ -625,7 +639,8 @@
      "extra": "To accept case variations, lowercase the selector first with <code>toLowerCase()</code> and write lowercase labels.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>switch (\"mon\") {\n    case \"MON\": break;   // not taken: the comparison is case sensitive\n    default: break;\n}</pre>"
     },
     {
      "type": "basic",
@@ -634,7 +649,8 @@
      "extra": "A selector is an object for String, wrapper and enum types, so null is possible. Guard with a null check before switching.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = null;\n// switch (s) { default: break; }   // NullPointerException at run time</pre>"
     }
    ]
   },
@@ -655,7 +671,8 @@
      "extra": "The traditional switch <b>statement</b> remains available and its semantics did not change; the new form is an addition, not a replacement.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int n = switch (2) { case 2 -> 20; default -> 0; };   // switch expression, Java 14+</pre>"
     },
     {
      "type": "basic",
@@ -664,7 +681,8 @@
      "extra": "Only the code to the right of a matched arrow label runs, so nothing falls through. That code may be an expression, a block, or a <code>throw</code> statement.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int n = switch (2) {\n    case 2 -> 20;     // arrow label, no colon, no fall through\n    default -> 0;\n};</pre>"
     },
     {
      "type": "basic",
@@ -673,7 +691,8 @@
      "extra": "Fall through is limited to the traditional colon form. Avoiding it is one of the main motivations for the new syntax, since accidental falling is a common bug.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>switch (1) {\n    case 1 -> System.out.println(\"one\");   // stops here\n    case 2 -> System.out.println(\"two\");\n}</pre>"
     },
     {
      "type": "basic",
@@ -682,7 +701,8 @@
      "extra": "e.g. <code>case 1, 3, 5, 7 -&gt; ...</code>. In the colon syntax the same effect needs stacked labels or a companion <code>break</code> structure.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>switch (3) {\n    case 1, 2, 3 -> System.out.println(\"low\");\n    default -> System.out.println(\"high\");\n}</pre>"
     },
     {
      "type": "basic",
@@ -691,7 +711,8 @@
      "extra": "No <code>yield</code> needed. Only when the body is a block does the value have to be produced explicitly, because a block's last statement does not automatically supply it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int len = switch (\"abc\") {\n    case \"abc\" -> \"abc\".length();   // the single expression is the value\n    default -> 0;\n};</pre>"
     },
     {
      "type": "basic",
@@ -710,7 +731,8 @@
      "extra": "A non-exhaustive statement silently does nothing. Non-exhaustive expressions are a compile-time error, which turns a hidden bug into a build failure.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String s = switch (1) {\n    case 1 -> \"one\";\n    default -> \"other\";   // required: a switch expression must be exhaustive\n};</pre>"
     },
     {
      "type": "basic",
@@ -719,7 +741,8 @@
      "extra": "The compiler still inserts a synthetic default for the case where a constant is added later; it is never reached in normal runs and throws <code>IncompatibleClassChangeError</code> if it is.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>enum Day { MON, TUE }\n\nclass Demo {\n    String type(Day d) {\n        return switch (d) { case MON -> \"work\"; case TUE -> \"work\"; };  // all constants covered\n    }\n}</pre>"
     },
     {
      "type": "basic",
