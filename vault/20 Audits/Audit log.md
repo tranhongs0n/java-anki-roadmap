@@ -48,3 +48,12 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-0005-7778ca8d88` "Which three language constructs support pattern matching?" — **chờ quyết định**. Back says extended for loop, nhưng record patterns trong header của enhanced-for là preview ở Java 20 và bị gỡ ở Java 21. Sửa Back thành 2 constructs thì mâu thuẫn với chữ "three" trong Front; muốn đúng phải đổi Front (đổi CardKey) hoặc đổi số đếm.
 - `jv-0004-eacb35c7a5`, `jv-0004-e93611d03c`, `jv-0004-09b4f6ed79`, `jv-0005-fc811726eb` — nuance nhỏ (Iterable cần iterator(), contains() có thể CCE runtime, Map.entry là snapshot, method reference overloading theo context). Giữ nguyên.
 - `jv-0003-06d6fbf020` — source link `https://dev.java/organizing/jlink/` trả 404; nội dung đúng, chờ thay URL.
+
+### Subagents wave 4 (2026-11-28) — review
+
+Đã sửa 7 Back: charset overload của Files.lines(), IntStream.iterate không predicate, String.chars() trả UTF-16 code units (không phải code points), bốn factory lấy stream từ dữ liệu có sẵn, StreamSupport.stream chỉ nhận 2 đối số, pooling virtual threads, và greedy integrator không tự short-circuit. Audit cũng sửa 1 Example có `<br>&nbsp;` thay vì `<pre>` trần (note 1795706077218).
+
+- `jv-0005-562a6d54b4` — Front hỏi characteristic được giữ lại nhưng Back nói SORTED/DISTINCT bị mất trên map/flatMap; câu hỏi sai, cần đổi Front (đổi CardKey). Chờ quyết định.
+- `jv-0005-489470c1ac` — Back đúng (returned stream có thể parallel, Downstream không thread-safe), nhưng Front nói "@SafeVarargs-style care" — sai thuật ngữ. Chờ quyết định vì phải đổi Front.
+- Gatherer cards (`jv-0005-388c2be329`, `jv-0005-1e3df302c9`, `jv-0005-23bf13f8c0`, `jv-0005-29cca3b976`, `jv-0005-307391e368`, `jv-0005-d55daef255`, `jv-0005-ea4832a5e6`, `jv-0005-ed50b9a640`, `jv-0005-fe983edd71`) — API JDK 24, javac máy đang là 21 nên snippet đánh dấu skip_javac; ví dụ dùng stand-in JDK 21 để minh hoạ cùng ngữ nghĩa.
+- 11 assignment keys của slice 20 và 8 của slice 21 không còn khớp repo sau khi các card được re-key sang front plain-text; subagent đã verify 40/40 live note theo note ID, không trùng lặp.
