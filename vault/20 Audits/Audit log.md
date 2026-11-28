@@ -28,3 +28,7 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-0005-7f66c8a982` "When does findFirst() have to process every element?" — **giữ nguyên**. Subagent nghi ngờ, nhưng thẻ đúng: với stream rỗng, findFirst() phải đi hết pipeline để chứng minh không có phần tử, rồi trả Optional.empty().
 - `jv-0005-5e8579bbb8` "What breaks when you fill a list with stream.forEach(result::add)?" — **sửa Back**. Back cũ nói side effect "blocks parallel execution" (sai: nó không chặn chạy song song, nó làm kết quả không an toàn/không xác định). Back mới: capturing an external mutable list makes the result unsafe because ArrayList cannot take concurrent writes. Front giữ nguyên nên CardKey không đổi.
 - `jv-0005-5387bbeafb` "Which two arguments does Stream.max() ... require?" — **chờ quyết định**. Đáp án "Only a Comparator" là đúng; chính câu hỏi hỏi "two arguments" là sai. Sửa Front sẽ đổi CardKey (thẻ mới + xoá thẻ cũ), nên không tự làm.
+
+### Subagent slice 3 review (2026-11-28)
+
+- `jv-0004-3bfad91bdd` "Can a generic class extend Throwable?" — **sửa Back**. Cụm "not even as a type parameter" sai/độ mơ hồ: Java cấm generic class extend Throwable (trực tiếp hoặc gián tiếp), nhưng biến type được phép trong mệnh đề `throws` (`<T extends Exception> void m() throws T`). Front giữ nguyên, CardKey không đổi.

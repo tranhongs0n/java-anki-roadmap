@@ -495,7 +495,7 @@
     {
      "type": "rule",
      "front": "Can a generic class extend <code>Throwable</code>?",
-     "back": "<b>No</b> - not directly, not indirectly, not even as a type parameter",
+     "back": "No — a generic class may not extend <code>Throwable</code>, directly or through a superclass. A type variable <i>may</i> appear in a <code>throws</code> clause, which is a different thing",
      "extra": "A catch clause must know the concrete type to dispatch, and overriding or catching a parameterized throwable would be erased to allow arbitrary subclasses.",
      "kind": "rule",
      "tags": [
