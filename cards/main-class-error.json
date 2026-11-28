@@ -20,17 +20,6 @@
       "type::gotcha"
      ],
      "source": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html"
-    },
-    {
-     "type": "basic",
-     "front": "A class is on the classpath but has no valid <code>main</code>. Which error does the launcher print?",
-     "back": "<code>Error: Main method not found in class Foo</code> — not \"could not find or load main class\"",
-     "extra": "The two messages point at different faults: this one means the class was loaded and the entry point was rejected, so the signature must be <code>public static void main(String[] args)</code>. A non-static <code>main</code> or one with no parameter triggers it.",
-     "example": "<pre><span class=\"kw\">public class</span> NoMain { <span class=\"kw\">public void</span> main() { } }\n<span class=\"cmt\">// Error: Main method not found in class NoMain, please define the main method as:</span>\n<span class=\"cmt\">//    public static void main(String[] args)</span></pre>",
-     "tags": [
-      "type::gotcha"
-     ],
-     "source": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html"
     }
    ]
   }
