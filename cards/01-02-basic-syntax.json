@@ -14,7 +14,8 @@
    "source": "https://dev.java/learn/language/constructs/basics/expressions-statements-blocks/",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>int x = 1;   // the semicolon ends the statement</pre>"
   },
   {
    "type": "cloze",
@@ -23,7 +24,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/basic-syntax@OlbQNB6YXZjO1J7D0lZU1.md",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>int name = 1;\nint Name = 2;   // two different variables</pre>"
   },
   {
    "type": "basic",
@@ -33,7 +35,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.7",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>// everything after // to the end of the line is a comment\nint x = 1;</pre>"
   },
   {
    "type": "basic",
@@ -43,7 +46,8 @@
    "source": "https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html",
    "tags": [
     "type::convention"
-   ]
+   ],
+   "example": "<pre>class BankAccount { }   // classes and interfaces: PascalCase</pre>"
   },
   {
    "type": "basic",
@@ -53,7 +57,8 @@
    "source": "https://dev.java/learn/language-basics/variables/",
    "tags": [
     "type::convention"
-   ]
+   ],
+   "example": "<pre>class Demo {\n    int accountBalance;      // camelCase\n    void withdraw() { }      // camelCase\n}</pre>"
   },
   {
    "type": "basic",
@@ -63,7 +68,8 @@
    "source": "https://dev.java/learn/language-basics/variables/",
    "tags": [
     "type::convention"
-   ]
+   ],
+   "example": "<pre>class Demo { static final int MAX_RETRIES = 3; }   // UPPER_SNAKE_CASE</pre>"
   },
   {
    "type": "basic",
@@ -73,7 +79,8 @@
    "source": "https://dev.java/learn/jvm/core-tools/java/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>class Hello {\n    public static void main(String[] args) { System.out.println(\"hi\"); }\n}</pre>"
   },
   {
    "type": "visual",
@@ -84,7 +91,8 @@
    "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
    "tags": [
     "type::visual"
-   ]
+   ],
+   "example": "<pre>javac Hello.java   # JDK: compiler + JRE + JVM\njava Hello         # JRE/JVM layer runs it</pre>"
   },
   {
    "type": "basic",
@@ -94,7 +102,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/loops@JHUhVEjWFXTn6-wKcKevg.md",
    "tags": [
     "type::trace"
-   ]
+   ],
+   "example": "<pre>int sum = 0;\nfor (int i = 1; i <= 4; i++) { sum += i; }\nSystem.out.println(sum);   // 10</pre>"
   }
  ]
 }

@@ -893,7 +893,8 @@
      "extra": "Triggered when an object of a wrapper class is passed to a method expecting the primitive, or assigned to a primitive variable. The typical call inserted is <code>intValue()</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Integer boxed = 42;\nint n = boxed;   // unboxed through intValue()</pre>"
     },
     {
      "type": "basic",
@@ -932,7 +933,8 @@
      "extra": "The other wrappers mirror their primitive's name capitalised (<code>int</code> to <code>Integer</code> is the exception). <code>char</code> also has no numeric wrapper shared with <code>int</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Character c = 'a';   // char pairs with Character</pre>"
     },
     {
      "type": "basic",
@@ -941,7 +943,8 @@
      "extra": "Its siblings mirror the primitive names: <code>Boolean</code>, <code>Long</code>, <code>Double</code>, <code>Float</code>, <code>Short</code>, <code>Byte</code>, <code>Character</code>. Autoboxing maps between each pair implicitly.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Integer boxed = 5;   // int <-> Integer</pre>"
     },
     {
      "type": "basic",
@@ -992,7 +995,8 @@
      "extra": "That lets you break a long literal across source lines without adding characters. <code>\\s</code> is the opposite trick: it inserts a real space.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// \"one\\\n// two\"  ->  the backslash-newline inserts nothing, the value is onetwo\nString s = \"onetwo\";</pre>"
     },
     {
      "type": "basic",
@@ -1021,7 +1025,8 @@
      "extra": "Its relatives are <code>isDigit()</code> and <code>isWhitespace()</code>. Case tests are <code>isUpperCase()</code> and <code>isLowerCase()</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(Character.isLetter('7'));   // false</pre>"
     },
     {
      "type": "basic",
@@ -1040,7 +1045,8 @@
      "extra": "A char is 16 bits, encoded as an unsigned range. Code points above 0xFFFF are supplementary characters and need an int or a surrogate pair.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>char c = '\\uffff';\nSystem.out.println((int) c);   // 65535, the top of the BMP</pre>"
     },
     {
      "type": "basic",
@@ -1049,7 +1055,8 @@
      "extra": "The full legal range of code points is U+0000 to U+10FFFF. Everything above 0xFFFF is supplementary and does not fit in a single char.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(Character.isBmpCodePoint(0xFFFF));   // true; U+10000 and up are supplementary</pre>"
     },
     {
      "type": "basic",
@@ -1068,7 +1075,8 @@
      "extra": "Methods taking a <code>char</code> cannot see whole supplementary characters. Overloads taking an <code>int</code> code point are the ones that support all of Unicode.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>char lone = '\\uD835';\nSystem.out.println(Character.isLetter(lone));   // false: a lone surrogate is undefined</pre>"
     },
     {
      "type": "basic",
@@ -1119,7 +1127,8 @@
      "extra": "You should always use <code>%n</code> rather than <code>\\n</code> in <code>printf</code>/<code>format</code>, so the correct line terminator is emitted on Windows as well as Unix.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.printf(\"a%nb\");   // a newline between a and b</pre>"
     },
     {
      "type": "basic",
@@ -1138,7 +1147,8 @@
      "extra": "On an English locale it turns 1234567 into 1,234,567. The flag sits between <code>%</code> and the converter, as in <code>%,d</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.printf(\"%,d%n\", 1234567);   // 1,234,567 with the locale's grouping</pre>"
     },
     {
      "type": "basic",
@@ -1147,7 +1157,8 @@
      "extra": "It is locale-specific and followed by a <code>Date</code> argument. Daily numbers are <code>%td</code> (zero-padded) or <code>%te</code> (unpadded).",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.printf(\"%tB%n\", java.time.LocalDate.now());   // NOVEMBER</pre>"
     },
     {
      "type": "basic",
@@ -1156,7 +1167,8 @@
      "extra": "<code>#</code> is a digit placeholder that shows nothing when absent, so <code>000000.000</code> pads while <code>###,###.###</code> drops leading zeroes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>System.out.println(new java.text.DecimalFormat(\"00.00\").format(1.5));   // 01.50, zeroes are padded</pre>"
     },
     {
      "type": "basic",
@@ -1165,7 +1177,8 @@
      "extra": "That is why <code>###.###</code> formats 123456.789 as 123,456.789 only if grouping chars are supplied; leading zeroes are dropped.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>System.out.println(new java.text.DecimalFormat(\"#.##\").format(1.5));   // 1.5, no trailing zero</pre>"
     },
     {
      "type": "basic",
@@ -1214,7 +1227,8 @@
      "extra": "<code>pow(base, exp)</code> raises the first argument to the second; <code>sqrt(d)</code> takes the square root. Everything in Math is static.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(Math.pow(2, 10));   // 1024.0\nSystem.out.println(Math.sqrt(9));      // 3.0</pre>"
     },
     {
      "type": "basic",
@@ -1325,7 +1339,8 @@
      "extra": "Useful when you can estimate the final size, avoiding repeated reallocation. Passing a capacity of 0 is legal but forces reallocation on the first append.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(64);\nSystem.out.println(sb.capacity());   // 64, length 0</pre>"
     },
     {
      "type": "basic",
@@ -1344,7 +1359,8 @@
      "extra": "Both are overloaded for any type: the argument's <code>toString()</code> is used. <code>append</code> adds at the end, <code>insert</code> at a given offset.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"ac\");\nsb.insert(1, \"b\");   // String cannot do this in place\nSystem.out.println(sb);   // abc</pre>"
     },
     {
      "type": "basic",
@@ -1435,7 +1451,8 @@
      "extra": "It returns a <code>char</code>, not a String of length one. Use <code>substring(i, i + 1)</code> if you need a one-character String.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"abc\".charAt(0));   // a</pre>"
     },
     {
      "type": "basic",
@@ -1514,7 +1531,8 @@
      "extra": "The <code>parseXXXX</code> methods return primitives instead. Choose valueOf when the result must be stored where an object is required, such as a collection.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Double d = Double.valueOf(\"4.5\");   // a wrapper object, not a double</pre>"
     },
     {
      "type": "basic",
@@ -1553,7 +1571,8 @@
      "extra": "Internal spaces survive. It returns a copy, since strings are immutable. Newer code often prefers <code>strip()</code>, which is Unicode-aware.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"  hi  \".trim());   // \"hi\" - inner spaces survive</pre>"
     },
     {
      "type": "basic",
@@ -1572,7 +1591,8 @@
      "extra": "It fills a destination array you provide, rather than returning a new one. That is how the sample palindrome program replaces a manual charAt loop.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>char[] buf = new char[3];\n\"abc\".getChars(0, 3, buf, 0);   // buf is now a, b, c</pre>"
     }
    ]
   },
@@ -1656,7 +1676,8 @@
      "extra": "Passing by value copies the reference, not the object, so both point to one instance. This only applies to fields the caller's code can access.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Box { int size; }\nclass Demo {\n    static void grow(Box b) { b.size++; }\n    void run() { Box b = new Box(); grow(b); }   // the caller sees size == 1\n}</pre>"
     },
     {
      "type": "basic",
@@ -1695,7 +1716,8 @@
      "extra": "It contains constructors for new objects, field declarations for state, and methods for behaviour. The class name plus body is the minimal declaration.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Box {        // the declaration\n    int size;      // the body starts with this brace\n}                  // and ends here</pre>"
     },
     {
      "type": "basic",
@@ -1713,7 +1735,8 @@
      "extra": "The list is comma-separated and a class may implement <b>many</b> interfaces. It must come after any <code>extends</code> clause.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Task implements Runnable { public void run() { } }</pre>"
     },
     {
      "type": "basic",
@@ -2073,7 +2096,8 @@
      "extra": "This is preferable to inventing <code>drawString</code>/<code>drawInteger</code> names, since one name expresses one concept and the compiler picks by type.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Shape {\n    void draw(String label) { }\n    void draw(int size) { }   // overload by parameter type\n}</pre>"
     }
    ]
   },
@@ -2289,7 +2313,8 @@
      "extra": "Without the qualifier the assignment would copy the parameter onto itself. This pattern appears only when names collide.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Point {\n    int x;\n    Point(int x) { this.x = x; }   // this.x is the field, x the parameter\n}</pre>"
     },
     {
      "type": "basic",
@@ -2316,7 +2341,8 @@
      "extra": "Package-private members are not visible to subclasses in other packages. It is the default when you write no modifier.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Helper { }   // no modifier: package-private, visible only inside this package</pre>"
     },
     {
      "type": "basic",
@@ -2334,7 +2360,8 @@
      "extra": "There is exactly one copy, in one memory location, and any instance can read or change it. Constant-like aggregates or counters live here.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Counter {\n    static int total;   // one copy shared by every instance\n    int own;            // one copy per object\n}</pre>"
     },
     {
      "type": "basic",
@@ -2352,7 +2379,8 @@
      "extra": "There is no instance when a static method runs, so <code>this</code> is not available either. This keeps static methods free of implicit state.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    int field;\n    static void bad() { /* System.out.println(field); would not compile */ }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2370,7 +2398,8 @@
      "extra": "<code>MAX_SPEED</code>, not <code>maxSpeed</code>. The uppercase signal from the declaration tells readers the value cannot change.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Loan { static final double INTEREST_RATE = 0.05; }   // ALL CAPS</pre>"
     },
     {
      "type": "basic",

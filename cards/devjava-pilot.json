@@ -3,194 +3,258 @@
  "batches": [
   {
    "deck": "00 Java Roadmap::02 Object Model::18 Record",
-   "tags": ["roadmap::java", "sec::02-object-model", "topic::17-record", "devjava"],
+   "tags": [
+    "roadmap::java",
+    "sec::02-object-model",
+    "topic::17-record",
+    "devjava"
+   ],
    "cards": [
     {
      "type": "basic",
      "front": "Since which Java SE version are <code>record</code> types available?",
      "back": "Java SE <b>14</b>",
      "extra": "They arrived to make declaring an immutable data aggregate a one-liner instead of a hundred lines of IDE-generated boilerplate.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "What does the compiler generate from <code>record Point(int x, int y) {}</code>?",
      "back": "Two private final fields, one accessor per component, a canonical constructor, and toString/equals/hashCode",
      "extra": "That is the whole point: you declare only the state, and everything a correct immutable value type needs is derived.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "Which accessors does the compiler generate for <code>record Point(int x, int y)</code>?",
      "back": "<code>x()</code> and <code>y()</code> - same name as the component, no <code>get</code> prefix",
      "extra": "Unlike JavaBeans style <code>getX()</code>. You may override an accessor, most commonly to return a defensive copy of a mutable component such as a <code>Date</code>.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ]
     },
     {
      "type": "basic",
      "front": "What modifiers does a record's compiler-generated class carry?",
      "back": "<code>final</code>, and implicitly <code>java.lang.Record</code> as its superclass",
      "extra": "The final modifier is what makes a record genuinely immutable, so a record <b>cannot</b> be extended by another class.",
-     "tags": ["type::rule"]
+     "tags": [
+      "type::rule"
+     ]
     },
     {
      "type": "basic",
      "front": "Can a record extend a class? Can it implement an interface?",
      "back": "Cannot extend any class; <b>can</b> implement any number of interfaces",
      "extra": "The reason for the first is that its superclass is fixed: the compiler makes it extend java.lang.Record, and Java allows only single inheritance.",
-     "tags": ["type::rule"]
+     "tags": [
+      "type::rule"
+     ]
     },
     {
      "type": "basic",
      "front": "Why does re-generating <code>equals()</code> and <code>hashCode()</code> automatically reduce bugs?",
      "back": "Adding or removing a component can never leave a stale equals/hashCode pair",
      "extra": "Hand-written versions are the classic source of the bug where equals changes but hashCode does not, breaking use as a HashSet key, or the reverse.",
-     "tags": ["type::mental-model"]
+     "tags": [
+      "type::mental-model"
+     ]
     },
     {
      "type": "basic",
      "front": "Which three things can you <b>not</b> add to a record?",
      "back": "Instance fields, field initializers, and instance initializers",
      "extra": "Each is forbidden because it would let instance state exist that is not a declared component, which would break the guarantee that equals/hashCode describe the whole state.",
-     "tags": ["type::rule"]
+     "tags": [
+      "type::rule"
+     ]
     },
     {
      "type": "basic",
      "front": "Can a record have <code>static</code> fields with initializers?",
      "back": "Yes - static fields and static initializers are allowed",
      "extra": "The restriction targets instance state only. A record may also declare additional instance methods and static methods freely.",
-     "tags": ["type::rule"]
+     "tags": [
+      "type::rule"
+     ]
     },
     {
      "type": "basic",
      "front": "What is a record's <b>canonical constructor</b>?",
      "back": "The generated constructor taking every component as an argument and copying each into its field",
      "extra": "It is the one the compiler writes for you. Override it when you need to validate state or defensively copy a mutable component.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "What is the <b>compact constructor</b> syntax in a record used for?",
      "back": "Redefining the canonical constructor without repeating the parameter list",
      "extra": "It has no parameter list, and the compiler assigns the parameters to fields automatically afterwards, so validation code is all you write.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "Can a record be serialized like an ordinary class?",
      "back": "Yes, but serialization follows <b>special rules</b> that restore only the components",
      "extra": "A record is serializable by implementing Serializable, and deserialization invokes the canonical constructor, so validation is honoured on the way back in.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ]
     },
     {
      "type": "basic",
      "front": "A record holds an instance field <code>private final LocalDate born;</code> not declared as a component. Does it compile?",
      "back": "No - <b>every</b> field in a record must correspond to a component",
      "extra": "Declare it as a component instead. The rule keeps the component list as the single source of truth for the object's state.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ]
     },
     {
      "type": "cloze",
      "text": "A record is a class declared with the {{c1::record}} keyword rather than the {{c2::class}} keyword.",
      "extra": "The components go in parentheses directly after the name, as in <code>record Point(int x, int y) {}</code>.",
-     "tags": ["type::syntax"]
+     "tags": [
+      "type::syntax"
+     ]
     },
     {
      "type": "compare",
      "front": "A <code>final class</code> with final fields: what does it still need that a record gives free?",
      "back": "Accessors, <code>toString()</code>, <code>equals()</code> and <code>hashCode()</code>",
      "extra": "That is the boilerplate difference. A final class with a constructor is the sensible way to make an immutable class, but you still write the value-type machinery by hand.",
-     "tags": ["type::compare"]
+     "tags": [
+      "type::compare"
+     ]
     }
    ]
   },
   {
    "deck": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
-   "tags": ["roadmap::java", "sec::02-object-model", "topic::01-classes-and-objects", "devjava"],
+   "tags": [
+    "roadmap::java",
+    "sec::02-object-model",
+    "topic::01-classes-and-objects",
+    "devjava"
+   ],
    "cards": [
     {
      "type": "basic",
      "front": "What two characteristics does every software object share?",
      "back": "<b>State</b> and <b>behavior</b>",
      "extra": "A bicycle has state such as current gear and speed, and behavior such as change gear or apply brakes. That real-world mapping is the conceptual starting point for OOP.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "In a software object, where does the state live and where is the behavior exposed?",
      "back": "State lives in <b>fields</b>; behavior is exposed through <b>methods</b>",
      "extra": "Methods operate on the object's internal state and are the primary mechanism of object-to-object communication.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "Hiding internal state and requiring all interaction to go through an object's methods: what is this principle called?",
      "back": "<b>Data encapsulation</b>",
      "extra": "It is what lets an object stay in control of how outsiders use it, such as a gear-changing method rejecting a value outside 1 to 6.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>class Account {\n    private double balance;                        // hidden state\n    public double getBalance() { return balance; } // the only way in\n}</pre>"
     },
     {
      "type": "basic",
      "front": "In OOP terms, what is a <b>class</b>?",
      "back": "A <b>blueprint</b> from which individual objects are created",
      "extra": "Objects built from the same class share matching components, just as bicycles of one make and model were built from the same set of blueprints.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "One bicycle is what relationship to the class <code>Bicycle</code>?",
      "back": "An <b>instance</b> of that class",
      "extra": "A class describes the kind; an instance is the actual thing with its own field values. An application typically creates many instances of one class.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "Why does the <code>Bicycle</code> class in a tutorial have no <code>main()</code> method?",
      "back": "It is a blueprint, <b>not a complete application</b>",
      "extra": "A class only needs main() when it is itself the entry point that the JVM launches.",
-     "tags": ["type::mental-model"]
+     "tags": [
+      "type::mental-model"
+     ]
     },
     {
      "type": "basic",
      "front": "Which of these is modularity, one of the stated benefits of bundling code into objects?",
      "back": "An object's source can be written and maintained <b>independently</b> of other objects",
      "extra": "Continue-and-pass-around is part of it: once created, the object is easily passed within the system.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "A broken component can be swapped for an improved one without touching the rest of the system. Which object benefit does the tutorial call this?",
      "back": "<b>Pluggability</b> and debugging ease",
      "extra": "The analogy is mechanical: if a bolt breaks you replace the bolt, not the entire machine.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "How does encapsulation relate to an object's internal implementation?",
      "back": "Details stay <b>hidden</b> because callers interact only through methods",
      "extra": "This is the information-hiding benefit. The implementation may change freely as long as the methods keep their contract.",
-     "tags": ["type::mental-model"]
+     "tags": [
+      "type::mental-model"
+     ]
     },
     {
      "type": "basic",
      "front": "In the <code>Bicycle</code> class, what role do fields <code>cadence</code>, <code>speed</code> and <code>gear</code> play?",
      "back": "They represent the object's <b>state</b>",
      "extra": "The methods changeCadence(), changeGear() and speedUp() define its interaction with the outside world, that is, its behavior.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>class Bicycle {\n    int cadence; int speed; int gear;   // the object's state\n}</pre>"
     },
     {
      "type": "basic",
      "front": "What does <b>code re-use</b> mean as an object benefit?",
      "back": "An existing object (possibly written by someone else) can be used directly in your program",
      "extra": "It lets specialists implement, test and debug complex task-specific objects that you then trust and build on.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "Can one real-world object contain other objects, and does that carry into software?",
      "back": "Yes to both - a desktop radio has sub-parts, and a software object may reference others",
      "extra": "This containment is why objects can model arbitrarily complex systems rather than just flat data.",
-     "tags": ["type::mental-model"]
+     "tags": [
+      "type::mental-model"
+     ]
     }
    ]
   }
