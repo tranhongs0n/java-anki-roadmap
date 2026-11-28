@@ -14,7 +14,8 @@
    "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>java Hello      # runs on any OS that has a JVM for it\njavac Hello.java  # the compiler ships with the JDK</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>javac -version   # compiler\njava -version    # JVM + standard library, all from one JDK install</pre>"
   },
   {
    "type": "visual",
@@ -35,7 +37,8 @@
    "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
    "tags": [
     "type::visual"
-   ]
+   ],
+   "example": "<pre>javac Hello.java   # JDK: compiler\njava Hello         # JRE/JVM: runtime</pre>"
   },
   {
    "type": "basic",
@@ -45,7 +48,8 @@
    "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>javac Hello.java   # compile once\njava Hello         # every JVM runs the same bytecode</pre>"
   },
   {
    "type": "visual",
@@ -56,7 +60,8 @@
    "source": "https://dev.java/learn/creating-and-using-objects/",
    "tags": [
     "type::visual"
-   ]
+   ],
+   "example": "<pre>class Person { String name; }\nclass Demo {\n    void run() {\n        Person p = new Person();   // the object sits on the heap\n                                   // p, the reference, is a local in this frame\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -66,7 +71,8 @@
    "source": "https://dev.java/learn/creating-and-using-objects/",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>int[] a = {1, 2};\nint[] b = a;      // the reference is copied\nb[0] = 9;\nSystem.out.println(a[0]);   // 9 - one array, two references</pre>"
   },
   {
    "type": "cloze",
@@ -75,7 +81,8 @@
    "source": "https://dev.java/learn/creating-and-using-objects/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>Object o = new Object();\no = null;          // nothing reachable: now eligible for collection</pre>"
   },
   {
    "type": "basic",
@@ -85,7 +92,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/java-memory-model@wEc7pSVU5G2c6Zqmtb_1k.md",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>Runnable task = () -> { int local = 1; };   // locals live on that thread's stack\nnew Thread(task).start();                     // objects go to the shared heap</pre>"
   },
   {
    "type": "visual",
@@ -97,7 +105,8 @@
    "tags": [
     "type::visual",
     "scope::map"
-   ]
+   ],
+   "example": "<pre>// 02 Data and flow: collections and concurrency sit above the language core</pre>"
   },
   {
    "type": "basic",
@@ -107,7 +116,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/set@XjkNd5WJ9yxW48dwHQNkZ.md",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>Set<Person> seen = new HashSet<>();   // dedup relies on equals and hashCode</pre>"
   },
   {
    "type": "basic",
@@ -117,7 +127,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/classes-and-objects@LenPrQwxFsE1UVbXO_dE7.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>Object o = new Object();   // 02 Object Model owns new and constructors</pre>"
   },
   {
    "type": "basic",
@@ -127,7 +138,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/set@XjkNd5WJ9yxW48dwHQNkZ.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>java.util.Set<String> seen = new java.util.HashSet<>();   // 04 Collections</pre>"
   },
   {
    "type": "basic",
@@ -137,7 +149,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/java-memory-model@wEc7pSVU5G2c6Zqmtb_1k.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>class Flag {\n    volatile boolean ready;   // without volatile another thread may never see the write\n}</pre>"
   },
   {
    "type": "basic",
@@ -147,7 +160,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/build-tools@81N1cZLue_Ii0uD5CV6kZ.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>plugins { id 'org.springframework.boot' version '3.3.0' }  // 09 Build and Frameworks\njava { toolchain { languageVersion = JavaLanguageVersion.of(21) } }</pre>"
   },
   {
    "type": "basic",
@@ -157,7 +171,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/slf4j@LGlZHKqyQ-aWtHnhklhgn.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>Logger log = LoggerFactory.getLogger(App.class);  // one API\nlog.info(\"started\");                              // backend chosen at runtime</pre>"
   },
   {
    "type": "basic",
@@ -167,7 +182,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/spring-data-jpa@WzWOxBUKKg6LeuBmVesc2.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>interface UserRepo extends JpaRepository<User, Long> { }   // no SQL, no boilerplate</pre>"
   },
   {
    "type": "basic",
@@ -177,7 +193,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/virtual-threads@vJSq1GJLIMQ6IIB8CMK8g.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>Thread.startVirtualThread(() -> System.out.println(\"light\"));</pre>"
   },
   {
    "type": "basic",
@@ -187,7 +204,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/spring-spring-boot@xoryfi4SpJlkz-PV05ql6.md",
    "tags": [
     "type::navigation"
-   ]
+   ],
+   "example": "<pre>@SpringBootApplication\nclass App { public static void main(String[] a) { SpringApplication.run(App.class, a); } }</pre>"
   },
   {
    "type": "basic",
@@ -198,7 +216,8 @@
    "tags": [
     "type::navigation",
     "scope::map"
-   ]
+   ],
+   "example": "<pre>// HTTP, databases and messaging live in the Backend roadmap, not here</pre>"
   },
   {
    "type": "basic",
@@ -209,7 +228,8 @@
    "tags": [
     "type::trace",
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>class Person { String name = \"Ana\"; }\nclass Demo {\n    public static void main(String[] a) {\n        Person x = new Person();\n        Person y = x;          // same object, not a copy\n        y.name = \"Bea\";\n        System.out.println(x.name);   // Bea\n    }\n}</pre>"
   }
  ]
 }

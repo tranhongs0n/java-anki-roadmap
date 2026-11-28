@@ -13,7 +13,8 @@
    "source": "https://github.com/nilbuild/developer-roadmap/blob/master/roadmaps/java/content/lifecycle-of-a-program@QgWalJLIb6Fw0HhN1wb02.md",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>javac Hello.java   # writes Hello.class, the bytecode\njava Hello         # the JVM loads and executes it</pre>"
   }
  ]
 }

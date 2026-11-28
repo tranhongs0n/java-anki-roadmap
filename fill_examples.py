@@ -30,7 +30,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 CARDS = os.path.join(BASE, "cards")
 
 PRE = re.compile(r"<pre>.*?</pre>", re.S)
-TAGS = re.compile(r"<[^>]+>")
+TAGS = re.compile(r"</?[a-zA-Z][^<>]*>")
 
 
 def strip_pre(html):
@@ -74,6 +74,8 @@ def main():
         if not PRE.search(example):
             bad.append((key, "not a <pre> block"))
             continue
+        if isinstance(payload, dict) and payload.get("skip_javac"):
+            continue          # shell commands, framework config, snippets needing a jar
         if not args.skip_javac:
             err = check(example)
             if err:
@@ -127,12 +129,17 @@ def main():
         print(f"  not pushing (deck string no longer live): {skip}")
     pushable = sorted(set(touched) - set(skip))
     if pushable:
-        cmd = [sys.executable, os.path.join(BASE, "push.py"), "--strict"]
-        for name in pushable:
-            cmd += ["--file", name]
+        # push.py takes ONE --file glob, so each touched file needs its own run;
+        # passing several --file flags silently keeps only the last one.
         print("  pushing:", pushable)
-        r = subprocess.run(cmd, cwd=BASE)
-        sys.exit(r.returncode)
+        rc = 0
+        for name in pushable:
+            r = subprocess.run([sys.executable, os.path.join(BASE, "push.py"), "--strict", "--file", name],
+                               cwd=BASE, capture_output=True, text=True)
+            tail = [l for l in r.stdout.splitlines() if l.startswith("total:")]
+            print(f"    {name}: {tail[-1] if tail else r.stdout.strip()[-120:] or r.stderr.strip()[-120:]}")
+            rc = rc or r.returncode
+        sys.exit(rc)
 
 
 if __name__ == "__main__":

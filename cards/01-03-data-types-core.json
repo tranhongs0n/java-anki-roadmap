@@ -15,7 +15,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>long max = 9_223_372_036_854_775_807L;   // Long.MAX_VALUE</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>long big = 10_000_000_000L;   // the L makes it a long; without it the literal overflows int</pre>"
   },
   {
    "type": "basic",
@@ -35,7 +37,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>float f = 3.14f;   // without the f the literal is a double</pre>"
   },
   {
    "type": "basic",
@@ -55,7 +58,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>System.out.println('a' + 1);   // 98: the char is promoted to int</pre>"
   },
   {
    "type": "basic",
@@ -65,7 +69,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.12.5",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>class Demo {\n    int field;        // 0, the default\n    void m() { int local; /* System.out.println(local); is a compile error */ }\n}</pre>"
   },
   {
    "type": "basic",
@@ -85,7 +90,8 @@
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>String s = \"abc\";\nString up = s.toUpperCase();   // a new object\nSystem.out.println(s);         // abc, unchanged</pre>"
   },
   {
    "type": "basic",
@@ -95,7 +101,8 @@
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>String a = new String(\"hi\"), b = new String(\"hi\");\nSystem.out.println(a == b);        // false: different objects\nSystem.out.println(a.equals(b));   // true: same characters</pre>"
   },
   {
    "type": "basic",
@@ -105,7 +112,8 @@
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/StringBuilder.html",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>StringBuilder sb = new StringBuilder();\nfor (int i = 0; i < 3; i++) sb.append(i);   // one buffer, no new String per pass\nString s = sb.toString();</pre>"
   },
   {
    "type": "basic",
@@ -115,7 +123,8 @@
    "source": "https://dev.java/learn/language-basics/arrays/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>int[] a = new int[2];\n// a[2] = 1;   // ArrayIndexOutOfBoundsException: length is fixed</pre>"
   },
   {
    "type": "basic",
@@ -125,7 +134,8 @@
    "source": "https://dev.java/learn/language-basics/arrays/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>int[] a = new int[3];\nSystem.out.println(a[0] + \", \" + a[1] + \", \" + a[2]);   // 0, 0, 0</pre>"
   },
   {
    "type": "basic",
@@ -135,7 +145,8 @@
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>Integer boxed = null;\n// int n = boxed;   // NullPointerException: unboxing a null</pre>"
   },
   {
    "type": "basic",
@@ -155,7 +166,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>int n = (int) 3.99;   // 3, truncated toward zero</pre>"
   },
   {
    "type": "basic",
@@ -165,7 +177,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>byte b = (byte) 200;   // -56: 200 wraps past the 127 limit</pre>"
   },
   {
    "type": "basic",
@@ -175,7 +188,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>byte b = 1;\nint sum = b + b;   // binary numeric promotion: the result is int</pre>"
   },
   {
    "type": "basic",
@@ -185,7 +199,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>int q = 7 / 2;        // 3, both operands are int\ndouble r = 7 / 2.0;   // 3.5, one operand is double</pre>"
   },
   {
    "type": "basic",
@@ -195,7 +210,8 @@
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>java.math.BigDecimal price = new java.math.BigDecimal(\"19.99\");\njava.math.BigDecimal total = price.multiply(new java.math.BigDecimal(\"3\"));   // exact</pre>"
   },
   {
    "type": "basic",

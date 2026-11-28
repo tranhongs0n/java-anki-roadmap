@@ -3,177 +3,241 @@
  "batches": [
   {
    "deck": "00 Java Roadmap::01 Foundations::03 Data Types",
-   "tags": ["roadmap::java", "sec::01-foundations", "topic::03-data-types"],
+   "tags": [
+    "roadmap::java",
+    "sec::01-foundations",
+    "topic::03-data-types"
+   ],
    "cards": [
     {
      "type": "basic",
      "front": "How many primitive data types does Java have?",
      "back": "<b>Eight</b>",
      "extra": "byte, short, int, long, float, double, boolean, char. A primitive type is predefined by the language and named by a reserved keyword, and primitive values never share state with each other.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>byte b = 1; short s = 2; int i = 3; long l = 4L;\nfloat f = 5f; double d = 6; boolean z = true; char c = 'x';   // the eight</pre>"
     },
     {
      "type": "basic",
      "front": "What does it mean that Java is <b>statically-typed</b>?",
      "back": "Every variable must be <b>declared with a type</b> before it is used",
      "extra": "The declared type fixes both the values the variable may hold and the operations allowed on it. You cannot reuse a name at a different type later in the same scope.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>int n = 5;            // type known before the program runs\n// int m = \"text\";    // error: incompatible types</pre>"
     },
     {
      "type": "cloze",
      "text": "<code>byte</code> is an {{c1::8}}-bit signed two's-complement integer, ranging from {{c2::-128}} to {{c3::127}}.",
      "extra": "It is mainly useful for saving memory in large arrays where the saving matters, or as self-documenting code where the narrow range is itself the point.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "cloze",
      "text": "<code>short</code> is a {{c1::16}}-bit signed two's-complement integer, ranging from -32,768 to 32,767.",
      "extra": "Same memory-saving rationale as byte: use it in large arrays where the reduced footprint actually matters, not by default.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "<code>int</code> is how many bits wide, and is it signed?",
      "back": "32-bit signed two's-complement",
      "extra": "Range is -2^31 to 2^31-1 (about -2.1 billion to 2.1 billion). Integer literals are <code>int</code> by default, which is why a plain number needs no suffix.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>int max = Integer.MAX_VALUE;   // 2_147_483_647, and one more overflows</pre>"
     },
     {
      "type": "basic",
      "front": "<code>long</code> is how many bits wide, and is it signed?",
      "back": "64-bit signed two's-complement",
      "extra": "Range is -2^63 to 2^63-1. Use it where an <code>int</code> range is too narrow; an integer literal of type long needs an <code>L</code> suffix.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>long max = Long.MAX_VALUE;   // 9_223_372_036_854_775_807</pre>"
     },
     {
      "type": "basic",
      "front": "Which primitive should you <b>never</b> use for precise values such as currency?",
      "back": "<code>float</code> and <code>double</code>",
      "extra": "Both are IEEE 754 binary floating point and cannot represent decimal fractions such as 0.1 exactly. For money use <code>java.math.BigDecimal</code> instead.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ],
+     "example": "<pre>double d = 0.1 + 0.2;   // 0.30000000000000004, not 0.3</pre>"
     },
     {
      "type": "compare",
      "front": "For a decimal value in Java, which type is the default choice and why?",
      "back": "<code>double</code> - it is the default for floating-point literals",
      "extra": "<code>float</code> is single-precision 32-bit; <code>double</code> is double-precision 64-bit. A literal is a double unless it ends in <code>F</code>/<code>f</code>, so use float only to halve memory in large arrays of floating-point values.",
-     "tags": ["type::compare"]
+     "tags": [
+      "type::compare"
+     ]
     },
     {
      "type": "basic",
      "front": "How much memory does a <code>boolean</code> occupy in Java?",
      "back": "Not precisely defined - it represents <b>one bit</b> of information",
      "extra": "The language only guarantees the two values true and false. Its size is deliberately unspecified, so you cannot rely on it being exactly one byte or one bit in layout terms.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ]
     },
     {
      "type": "cloze",
      "text": "<code>char</code> is a single {{c1::16}}-bit {{c2::Unicode}} character, from <code>\\u0000</code> (0) to <code>\\uffff</code> (65,535).",
      "extra": "It holds a code unit, not a full code point, which is why characters outside the Basic Multilingual Plane need two chars; and it is NOT an 8-bit ASCII type.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ],
+     "example": "<pre>char c = '\\uffff';\nSystem.out.println((int) c);   // 65535, the top of the 16-bit range</pre>"
     },
     {
      "type": "basic",
      "front": "Since Java SE 8, can <code>int</code> hold an unsigned 32-bit value?",
      "back": "Yes - via the <code>Integer</code> class and methods like <code>Integer.compareUnsigned()</code>",
      "extra": "The <code>int</code> type itself stays signed; the unsigned view is a convention applied through static helpers. Range becomes 0 to 2^32-1. <code>Long</code> does the same for 64-bit unsigned values.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ],
+     "example": "<pre>System.out.println(Integer.compareUnsigned(-1, 1));   // 1: -1 reads as 4294967295</pre>"
     },
     {
      "type": "basic",
      "front": "Why does Java treat <code>String</code> as if it were a primitive even though it is not one?",
      "back": "Double quotes create a <code>String</code> object, and the language gives it special support",
      "extra": "Writing <code>\"abc\"</code> automatically creates a String object. String is a class, not a primitive, and its objects are immutable, so an existing value can never be changed.",
-     "tags": ["type::mental-model"]
+     "tags": [
+      "type::mental-model"
+     ],
+     "example": "<pre>String s = \"hi\";              // literal: the compiler builds the object\nString t = new String(\"hi\");   // the explicit form still works</pre>"
     }
    ]
   },
   {
    "deck": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
-   "tags": ["roadmap::java", "sec::01-foundations", "topic::07-variables-and-scopes"],
+   "tags": [
+    "roadmap::java",
+    "sec::01-foundations",
+    "topic::07-variables-and-scopes"
+   ],
    "cards": [
     {
      "type": "table",
      "front": "What default values do uninitialized <b>fields</b> get for the numeric primitives?",
      "back": "byte 0, short 0, int 0, long 0L, float 0.0f, double 0.0d",
      "extra": "All zero, but the literal carries the suffix so the type is unambiguous. char defaults to <code>\\u0000</code>, boolean to false, and String or any object to null.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "basic",
      "front": "What default value does an uninitialized <b>local variable</b> get in Java?",
      "back": "<b>None</b> - accessing it is a compile-time error",
      "extra": "The compiler never assigns a default to a local. If you cannot initialize it at the declaration, assign it before first use, or the code will not compile.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ]
     },
     {
      "type": "basic",
      "front": "Do uninitialized fields get a default value, and is relying on it good practice?",
      "back": "Yes they do; no, the practice is considered bad style",
      "extra": "The compiler sets a reasonable default (zero or null depending on type). It compiles, but the intent is clearer if you assign explicitly.",
-     "tags": ["type::convention"]
+     "tags": [
+      "type::convention"
+     ]
     },
     {
      "type": "basic",
      "front": "What type is an integer literal that does <b>not</b> end in <code>L</code>?",
      "back": "<code>int</code>",
      "extra": "An <code>L</code>/<code>l</code> suffix makes it long. Use uppercase <code>L</code> because lowercase <code>l</code> is hard to tell apart from the digit 1.",
-     "tags": ["type::syntax"]
+     "tags": [
+      "type::syntax"
+     ]
     },
     {
      "type": "basic",
      "front": "What type is a floating-point literal that has no suffix?",
      "back": "<code>double</code>",
      "extra": "An <code>F</code>/<code>f</code> suffix gives float, and a <code>D</code>/<code>d</code> suffix is legal but conventionally omitted because double is already the default.",
-     "tags": ["type::syntax"]
+     "tags": [
+      "type::syntax"
+     ]
     },
     {
      "type": "basic",
      "front": "Which two prefixes write integer literals in hex and in binary?",
      "back": "<code>0x</code> for hexadecimal, <code>0b</code> for binary",
      "extra": "Binary literals arrived in Java SE 7. Decimal is base 10 and the everyday default; hex is base 16 (0-9 and A-F).",
-     "tags": ["type::syntax"]
+     "tags": [
+      "type::syntax"
+     ]
     },
     {
      "type": "basic",
      "front": "So why is <code>new</code> not used when initializing a primitive variable?",
      "back": "Primitives are built into the language, not <b>objects created from a class</b>",
      "extra": "A literal is the source-code representation of a fixed value, available without computation. That is why <code>int gear = 1;</code> needs nothing more.",
-     "tags": ["type::mental-model"]
+     "tags": [
+      "type::mental-model"
+     ]
     },
     {
      "type": "cloze",
      "text": "Use {{c1::single}} quotes for char literals and {{c2::double}} quotes for String literals.",
      "extra": "Swapping them is a compile error. Both may contain any Unicode UTF-16 character, either typed directly or written as an escape such as <code>\\u0108</code>.",
-     "tags": ["type::syntax"]
+     "tags": [
+      "type::syntax"
+     ]
     },
     {
      "type": "basic",
      "front": "Which escape sequences does Java support in char and String literals?",
      "back": "<code>\\b \\t \\n \\f \\r \\\" \\' \\\\</code>",
      "extra": "Backspace, tab, line feed, form feed, carriage return, double quote, single quote, backslash. Unicode escapes like <code>\\u0108</code> also work outside literals, for instance in field names.",
-     "tags": ["type::syntax"]
+     "tags": [
+      "type::syntax"
+     ]
     },
     {
      "type": "basic",
      "front": "To which variables can the <code>null</code> literal be assigned?",
      "back": "Any <b>reference</b> type - never a primitive",
      "extra": "null is typically a marker that an object is unavailable, and there is little you can do with it besides testing for its presence.",
-     "tags": ["type::gotcha"]
+     "tags": [
+      "type::gotcha"
+     ]
     },
     {
      "type": "basic",
      "front": "What does <code>String.class</code> evaluate to?",
      "back": "The <code>Class</code> object representing the type itself",
      "extra": "A type name plus <code>.class</code> forms a class literal. It is how you obtain a type token at runtime without instantiating anything.",
-     "tags": ["type::definition"]
+     "tags": [
+      "type::definition"
+     ]
     },
     {
      "type": "rule",
      "front": "Where may underscores appear in a numeric literal, and where may they <b>not</b>?",
      "back": "Anywhere <b>between digits</b>; never at either end, next to a decimal point, before an F/L suffix, or where digits are required",
      "extra": "Available since Java SE 7, intended to group digits for readability, e.g. 1_000_000. Each exclusion exists because the underscore would split a token the compiler must read as a unit.",
-     "tags": ["type::rule"]
+     "tags": [
+      "type::rule"
+     ]
     }
    ]
   }

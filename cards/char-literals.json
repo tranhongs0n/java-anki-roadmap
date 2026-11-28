@@ -14,7 +14,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.4",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>char c = 'a';   // ASCII single quotes, exactly one character</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.4",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>char ok = 'a';\n// char bad = '';     // error: empty character literal\n// char bad2 = 'ab';  // error: too many characters in character literal</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.5",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>String empty = \"\";\nSystem.out.println(empty.length());   // 0</pre>"
   }
  ]
 }

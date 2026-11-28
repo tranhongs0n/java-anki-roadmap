@@ -281,7 +281,8 @@
      "extra": "Unlike <code>String</code>, which uses the method <code>length()</code>. For arrays of arrays, read each row's own <code>length</code> rather than assuming they are equal.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int[] a = new int[4];\nSystem.out.println(a.length);   // 4 - a field, no parentheses</pre>"
     },
     {
      "type": "basic",
@@ -290,7 +291,8 @@
      "extra": "The five parameters are source, its start index, destination, its start index and the number of elements to copy. No array is allocated for you.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int[] src = {1, 2, 3}, dst = new int[3];\nSystem.arraycopy(src, 0, dst, 0, 3);   // dst must already exist and be long enough</pre>"
     },
     {
      "type": "basic",
@@ -299,7 +301,8 @@
      "extra": "Because it allocates the destination itself, it needs fewer lines than <code>System.arraycopy</code>. The end index is excluded, as with <code>substring</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int[] a = {1, 2, 3, 4};\nint[] mid = java.util.Arrays.copyOfRange(a, 1, 3);   // {2, 3}\na[1] = 9;      // mid is a copy and stays {2, 3}</pre>"
     },
     {
      "type": "basic",
@@ -308,7 +311,8 @@
      "extra": "Off-by-one here is the classic bug: the result has <code>to - from</code> elements, so <code>(0, 9)</code> copies indices 0 through 8 only.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int[] c = {1,2,3,4,5,6,7,8,9,10};\nint[] head = java.util.Arrays.copyOfRange(c, 0, 9);   // index 9 is excluded\nSystem.out.println(head.length);   // 9</pre>"
     },
     {
      "type": "basic",
@@ -317,7 +321,8 @@
      "extra": "The sequential alternative is <code>sort()</code>. Parallel sorting is faster on multiprocessor systems for large arrays, but has overhead that hurts tiny ones.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int[] a = {5, 1, 4};\njava.util.Arrays.parallelSort(a);   // sorts in parallel on the common pool</pre>"
     },
     {
      "type": "basic",
@@ -326,7 +331,8 @@
      "extra": "It relies on the array already being sorted; on an unsorted array the result is unspecified. <code>Arrays.equals()</code> compares two arrays, and <code>Arrays.fill()</code> writes one value to every index.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int[] a = {1, 3, 5, 7};\nint i = java.util.Arrays.binarySearch(a, 5);   // 2, and the array must be sorted</pre>"
     },
     {
      "type": "basic",
@@ -335,7 +341,8 @@
      "extra": "The rule covers <b>every</b> local variable, not just arrays: primitives, references and array references alike. Fields get a default (0, false, null), a local that no path has assigned cannot be read, and javac rejects it with <code>variable a might not have been initialized</code>. With an array local the unassigned part is the reference itself, so the failure is at compile time, never a NullPointerException.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int x;\n// System.out.println(x);   // error: variable x might not have been initialized</pre>"
     }
    ]
   },
@@ -356,7 +363,8 @@
      "extra": "If the test is false, control jumps to the end of the statement. The <code>if-then-else</code> variant adds a second path for the false case.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int n = 5;\nif (n > 0) System.out.println(\"positive\");   // runs only when the test is true</pre>"
     },
     {
      "type": "basic",
@@ -365,7 +373,8 @@
      "extra": "Omitting them is legal but brittle: add a second statement later and it silently falls outside the clause, and the compiler cannot catch it. Braces are the safer convention.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>boolean ready = true;\nif (ready) System.out.println(\"yes\");   // one statement, braces optional</pre>"
     },
     {
      "type": "basic",
@@ -374,7 +383,8 @@
      "extra": "Later conditions are not even evaluated, so a value matching several tests (76 &gt;= 70 and 76 &gt;= 60) is graded by the earliest branch in source order.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int n = 2;\nif (n == 1) System.out.println(\"one\");\nelse if (n == 2) System.out.println(\"two\");   // only this clause runs\nelse System.out.println(\"other\");</pre>"
     },
     {
      "type": "basic",
@@ -383,7 +393,8 @@
      "extra": "With <code>while</code> a false condition on entry skips the body entirely. Use <code>do-while</code> when the action must happen before the check makes sense.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>int i = 0;\ndo { System.out.println(i); } while (i++ < 0);   // body runs once even though 0 < 0 is false</pre>"
     },
     {
      "type": "basic",
@@ -392,7 +403,8 @@
      "extra": "The termination expression is tested before each iteration and, when false, ends the loop. The increment expression runs after every iteration, even though it may decrement.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>for (int i = 0; i < 3; i++) { }   // int i = 0 runs once, then test, body, update</pre>"
     },
     {
      "type": "basic",
@@ -401,7 +413,8 @@
      "extra": "It is therefore usable in the termination and increment expressions but not after the loop. Declaring the counter there limits its lifetime and avoids reuse bugs.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>for (int i = 0; i < 3; i++) { int x = i; }\n// i and x are out of scope here</pre>"
     },
     {
      "type": "basic",
@@ -410,7 +423,8 @@
      "extra": "It is more compact and readable when you only need each element of an array or collection in turn, without index arithmetic.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>for (String s : new String[] {\"a\", \"b\"}) System.out.println(s);   // no index bookkeeping</pre>"
     },
     {
      "type": "basic",
@@ -419,7 +433,8 @@
      "extra": "To leave an outer loop from inside an inner one, label the outer statement and use <code>break label;</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>for (int i = 0; i < 3; i++)\n    for (int j = 0; j < 3; j++)\n        if (j == 1) break;   // leaves only the inner loop</pre>"
     },
     {
      "type": "basic",
@@ -428,7 +443,8 @@
      "extra": "It does not jump to the label. The label merely names the statement to leave, so the statement flagged <code>search:</code> is abandoned entirely.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>outer:\nfor (int i = 0; i < 3; i++)\n    for (int j = 0; j < 3; j++)\n        if (j == 1) break outer;   // resumes after the whole labeled loop</pre>"
     },
     {
      "type": "basic",
@@ -437,7 +453,8 @@
      "extra": "Control then re-evaluates the loop's condition and proceeds with the next iteration. It does not exit the loop, unlike <code>break</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>for (int i = 0; i < 5; i++) {\n    if (i % 2 == 0) continue;   // skip the rest of this iteration\n    System.out.println(i);\n}</pre>"
     },
     {
      "type": "basic",
@@ -446,7 +463,8 @@
      "extra": "In a <code>void</code> method, use the bare <code>return;</code> form. In a non-void method, the type of the returned expression must match the declared return type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    int twice(int n) { return n * 2; }   // exits here with a value\n    void print(int n) { if (n < 0) return; System.out.println(n); }   // exits with none\n}</pre>"
     },
     {
      "type": "basic",
@@ -751,7 +769,8 @@
      "extra": "It fires only if a new enum constant appeared after the code was compiled, which means the switch no longer covers every value. It cannot be reached during a normal run.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\n\nclass Demo {\n    void run(Color c) {\n        switch (c) { case RED: break; case GREEN: break; }\n        // compiled when only RED and GREEN existed: a later constant\n        // reaches the generated default clause -> IncompatibleClassChangeError\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -760,7 +779,8 @@
      "extra": "This lets you migrate incrementally: the expression does not force the arrow syntax, though mixing the two styles in one block is confusing.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int n = switch (1) {\n    case 1: yield 10;    // colon form: every group must yield\n    default: yield 0;\n};</pre>"
     },
     {
      "type": "basic",
@@ -769,7 +789,8 @@
      "extra": "Switch does not accept null selectors; null handling was a preview feature in Java SE 17. A <code>null</code>-tolerant switch required an explicit null case to arrive.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = null;\n// switch (s) { default: break; }   // NullPointerException</pre>"
     },
     {
      "type": "basic",
@@ -778,7 +799,8 @@
      "extra": "The whole block shared one scope, so name collisions and unclear lifetimes were possible. The arrow form gives each case body its own block scope.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>switch (1) {\n    case 1: int x = 1; break;   // x belongs to the whole switch block\n    case 2: break;\n}</pre>"
     }
    ]
   },
@@ -799,7 +821,8 @@
      "extra": "The compiler infers the real type from the initializer, so you write <code>var message = \"hi\";</code> instead of <code>String message = \"hi\";</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<String>();   // Java 10+</pre>"
     },
     {
      "type": "basic",
@@ -808,7 +831,8 @@
      "extra": "The type is not dynamic or weakly typed. <code>var</code> only saves you typing it out; all the usual compile-time checks still apply to the inferred type.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var n = 1;      // inferred int, forever\n// n = \"text\";  // error: int cannot take a String</pre>"
     },
     {
      "type": "basic",
@@ -817,7 +841,8 @@
      "extra": "It is restricted to local variables in methods, constructors and initializer blocks. Some languages reuse <code>var</code> for parameters; Java deliberately does not.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var count = 0;                // local: fine\n// class C { var field = 1; } // error: var is not allowed for fields</pre>"
     },
     {
      "type": "basic",
@@ -826,7 +851,8 @@
      "extra": "The compiler cannot infer a type from nothing, so <code>var greetings;</code> and <code>var x = null;</code> both fail to compile.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// var x;      // error: cannot infer a type without an initializer\nvar y = 5;       // fine</pre>"
     },
     {
      "type": "basic",
@@ -835,7 +861,8 @@
      "extra": "For a <code>List&lt;String&gt;</code>, <code>item</code> becomes <code>String</code>. The same works in a try-with-resources declaration.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>for (var item : new String[] {\"a\", \"b\"}) System.out.println(item.length());   // item is String</pre>"
     }
    ]
   },

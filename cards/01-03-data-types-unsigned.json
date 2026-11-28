@@ -1,6 +1,10 @@
 {
  "deck": "00 Java Roadmap::01 Foundations::03 Data Types",
- "tags": ["roadmap::java", "sec::01-foundations", "topic::data-types"],
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::data-types"
+ ],
  "cards": [
   {
    "type": "basic",
@@ -8,7 +12,10 @@
    "back": "Every bit pattern is a <b>non-negative</b> number: range <code>0 … 2ⁿ−1</code>",
    "extra": "An unsigned type has no sign bit, so the same 32 bits that would mean <code>-1</code> as a signed int mean <code>4294967295</code>. You lose negatives and gain twice the positive range.",
    "source": "https://dev.java/learn/language-basics/primitive-types/",
-   "tags": ["type::definition"]
+   "tags": [
+    "type::definition"
+   ],
+   "example": "<pre>System.out.println(Integer.toUnsignedString(-1));   // 4294967295: every bit pattern is non-negative</pre>"
   },
   {
    "type": "basic",
@@ -16,7 +23,10 @@
    "back": "<code>char</code> — 16-bit, <code>0 … 65,535</code>",
    "extra": "There is no <code>unsigned int</code> in Java. <code>char</code> is the only primitive whose value range starts at zero and has no negatives, because it holds a UTF-16 code unit.",
    "source": "https://dev.java/learn/language-basics/primitive-types/",
-   "tags": ["type::definition"]
+   "tags": [
+    "type::definition"
+   ],
+   "example": "<pre>char c = 65535;\nSystem.out.println((int) c);   // 65535, char has no negative half</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +34,9 @@
    "back": "<code>−2³¹ … 2³¹−1</code> (about ±2.1 billion)",
    "extra": "Two's complement gives one more negative value than positive: −2147483648 to 2147483647. The asymmetry is why <code>Math.abs(Integer.MIN_VALUE)</code> stays negative.",
    "source": "https://dev.java/learn/language-basics/primitive-types/",
-   "tags": ["type::definition"]
+   "tags": [
+    "type::definition"
+   ]
   },
   {
    "type": "basic",
@@ -32,7 +44,9 @@
    "back": "<code>0 … 2³²−1</code> = <code>0 … 4,294,967,295</code>",
    "extra": "The bit count is unchanged; only the interpretation changes. That is why unsigned arithmetic is usually about reading and comparing, not about a separate type.",
    "source": "https://dev.java/learn/language-basics/primitive-types/",
-   "tags": ["type::compare"]
+   "tags": [
+    "type::compare"
+   ]
   },
   {
    "type": "basic",
@@ -40,21 +54,28 @@
    "back": "<code>-1</code>",
    "extra": "0xFF is 255, which is above <code>Byte.MAX_VALUE</code> (127), so the cast keeps the low 8 bits and <code>0b11111111</code> reads as −1 in two's complement. Reading it back as unsigned needs <code>Byte.toUnsignedInt(b)</code>.",
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
-   "tags": ["type::gotcha"]
+   "tags": [
+    "type::gotcha"
+   ],
+   "example": "<pre>byte b = (byte) 0xFF;   // -1</pre>"
   },
   {
    "type": "cloze",
    "text": "<code>byte b = -1;</code> widened to <code>int</code> gives {{c1::−1}}, not 255, because widening performs {{c2::sign extension}}.",
    "extra": "The sign bit is copied into the new high bits. To get 255 you must mask: <code>b &amp; 0xFF</code>.",
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
-   "tags": ["type::gotcha"]
+   "tags": [
+    "type::gotcha"
+   ]
   },
   {
    "type": "cloze",
    "text": "<code>&gt;&gt;</code> is an {{c1::arithmetic}} shift that copies the sign bit; <code>&gt;&gt;&gt;</code> is a {{c2::logical}} shift that fills with zeros.",
    "extra": "So <code>-8 &gt;&gt; 1</code> is −4, while <code>-8 &gt;&gt;&gt; 1</code> is 2147483644 — the second one treats the value as unsigned.",
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
-   "tags": ["type::syntax"]
+   "tags": [
+    "type::syntax"
+   ]
   },
   {
    "type": "basic",
@@ -62,7 +83,9 @@
    "back": "<b>Two's complement wraparound</b> — Java integer arithmetic overflows silently",
    "extra": "Adding 1 to <code>0b0111…1</code> carries into the sign bit. No exception, no warning: the result is just negative. This is the classic bug behind reversed comparisons and wrong totals.",
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
-   "tags": ["type::gotcha"]
+   "tags": [
+    "type::gotcha"
+   ]
   },
   {
    "type": "basic",
@@ -70,14 +93,20 @@
    "back": "<code>addExact</code>, <code>subtractExact</code>, <code>multiplyExact</code>, <code>negateExact</code>",
    "extra": "They throw <code>ArithmeticException</code> when the result does not fit. <code>Math.addExact(Integer.MAX_VALUE, 1)</code> fails loudly where <code>+</code> would silently produce <code>Integer.MIN_VALUE</code>.",
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
-   "tags": ["type::compare"]
+   "tags": [
+    "type::compare"
+   ],
+   "example": "<pre>try { Math.addExact(Integer.MAX_VALUE, 1); }\ncatch (ArithmeticException e) { System.out.println(\"overflow\"); }</pre>"
   },
   {
    "type": "cloze",
    "text": "To treat an <code>int</code> as unsigned, Java puts static helpers on {{c1::<code>Integer</code>}} — e.g. <code>{{c2::parseUnsignedInt}}</code>, <code>toUnsignedString</code>, <code>compareUnsigned</code>.",
    "extra": "The bits never change; only the interpretation does. <code>Integer.toUnsignedString(-1)</code> returns \"4294967295\", and <code>Integer.compareUnsigned(-1, 1)</code> says -1 is greater.",
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
-   "tags": ["type::syntax"]
+   "tags": [
+    "type::syntax"
+   ],
+   "example": "<pre>int n = Integer.parseUnsignedInt(\"4294967295\");   // -1 in two's complement</pre>"
   }
  ]
 }
