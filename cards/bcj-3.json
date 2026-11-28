@@ -333,7 +333,7 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::98 Error Messages (later)"
   },
   {
    "type": "basic",
