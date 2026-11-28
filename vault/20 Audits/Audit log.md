@@ -57,3 +57,12 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-0005-489470c1ac` — Back đúng (returned stream có thể parallel, Downstream không thread-safe), nhưng Front nói "@SafeVarargs-style care" — sai thuật ngữ. Chờ quyết định vì phải đổi Front.
 - Gatherer cards (`jv-0005-388c2be329`, `jv-0005-1e3df302c9`, `jv-0005-23bf13f8c0`, `jv-0005-29cca3b976`, `jv-0005-307391e368`, `jv-0005-d55daef255`, `jv-0005-ea4832a5e6`, `jv-0005-ed50b9a640`, `jv-0005-fe983edd71`) — API JDK 24, javac máy đang là 21 nên snippet đánh dấu skip_javac; ví dụ dùng stand-in JDK 21 để minh hoạ cùng ngữ nghĩa.
 - 11 assignment keys của slice 20 và 8 của slice 21 không còn khớp repo sau khi các card được re-key sang front plain-text; subagent đã verify 40/40 live note theo note ID, không trùng lặp.
+
+### Subagents wave 5 (2026-11-28) — review
+
+Đã sửa 3 Back: `exists()` là phương thức trả true khi file đã tồn tại (`createNewFile()` thì tạo file), JFR event streaming từ JDK 14 (JEP 349) không phải 16, và property đầy đủ là `com.sun.jndi.ldap.object.trustSerialData`.
+
+- FFM/JDK 22+ (`java.lang.foreign`): 12 + 6 + 8 snippet đánh dấu skip_javac vì javac máy là 21.0.13 (API mới chỉ preview hoặc final ở 22); phần lớn đã syntax-check với `--enable-preview`. Không phải lỗi thẻ.
+- `jv-0007-356cec563c` — chữ "required" cho StandardOpenOption.READ hơi lỏng (Extra nói mặc định là READ). Giữ nguyên.
+- `jv-0007-4de0dae7f0` — card thu hẹp IV variance về block đầu; nguồn nói chung cho cả chuỗi block. Giữ nguyên.
+- `jv-0007-f912e33161` — "hash encrypted with sender's private key" là cách nói rút gọn của nguồn; về mặt kỹ thuật là signing, không phải encryption. Chờ quyết định vì liên quan cả Front/Back.
