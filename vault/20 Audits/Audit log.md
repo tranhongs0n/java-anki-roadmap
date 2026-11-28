@@ -110,3 +110,10 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - 120 ví dụ từ map-agent-50/51/52 đã ghi thẳng vào Anki theo CardKey vì 7 file sách `book-hfj3e-ch01..07.json` mang deck cũ, không có merge_into sống. Repo đã có nội dung.
 - Cần migrate deck của các file sách HFJ3e sang deck roadmap đang sống (kèm đổi CardKey) để push.py không bỏ qua cả file nữa — TODO riêng, giống `devjava-CHUNK-4` trước đây.
 - `jv-0015-9991a0d37a` — Java 25 compact source file, javac máy là 21 nên dùng snippet comment. `jv-0015-8986e0fa32` — pom.xml, đúng ngoại lệ skip_javac.
+
+### Subagents wave 11 (2026-11-28) — review
+
+Đã sửa 5 Back: `@Inherited` áp dụng cho annotation cấp class (method/field vẫn không kế thừa), bug compareTo là phép trừ tràn số (không phải dùng `<`), Java cho phép nhiều top-level class trong một file (ambiguity thật là định nghĩa trùng ở file khác), cleaner không resurrection được như finalizer, và default toString in `ClassName@<hex>` tùy máy.
+
+- `jv-3003-e6ec171da9` trong `tij4e-ch03.json` không có note sống; push.py cố addNotes và bị reject do trùng. 9 thẻ được giao vẫn update tốt; thẻ này bỏ qua.
+- `jv-4003-89800047d9` đã sửa; các ví dụ Effective Java Item 14/25/8/12 được javac-verify trước khi push.
