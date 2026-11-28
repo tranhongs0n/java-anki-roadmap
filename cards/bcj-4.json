@@ -127,8 +127,8 @@
    "type": "basic",
    "front": "What does \"cannot find symbol\" always mean?",
    "back": "The compiler cannot resolve a <b>name</b>: a typo, a missing import, or the wrong scope",
-   "extra": "Read the symbol it names — variable, method or class — and the line number; the cause is always a naming problem.",
-   "source": "baeldung.com — java-cannot-find-symbol-error",
+   "extra": "Read the <code>symbol:</code> and <code>location:</code> lines javac prints under the error: they name the identifier and where javac looked for it. The usual causes are a typo, a missing import, or use outside the variable's scope - all failures to resolve a name, not a compiler bug.",
+   "source": "https://www.baeldung.com/java-cannot-find-symbol-error",
    "tags": [
     "type::catalogue"
    ],
