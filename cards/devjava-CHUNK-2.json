@@ -1650,7 +1650,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.nio.file.Path p = java.nio.file.Path.of(\"data.txt\");\ntry (java.util.stream.Stream&lt;String&gt; lines = java.nio.file.Files.lines(p)) {\n    lines.forEach(System.out::println);\n} catch (java.io.IOException e) { e.printStackTrace(); }</pre>"
     },
     {
      "type": "basic",
@@ -1660,7 +1661,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.nio.file.Path p = java.nio.file.Path.of(\"latin.txt\");\ntry (java.util.stream.Stream&lt;String&gt; s = java.nio.file.Files.lines(p, java.nio.charset.StandardCharsets.ISO_8859_1)) {\n    s.findFirst().ifPresent(System.out::println); // charset overload\n} catch (java.io.IOException e) { e.printStackTrace(); }</pre>"
     },
     {
      "type": "compare",
@@ -1670,7 +1672,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; lines = java.util.List.of(\"a\", \"b\");\nfor (String line : lines) System.out.println(line); // external: caller advances\nlines.stream().forEach(System.out::println); // internal: stream advances</pre>"
     },
     {
      "type": "basic",
@@ -1724,7 +1727,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List.of(\"a\").forEach(System.out::println); // Collection.forEach\njava.util.stream.Stream.of(\"b\").forEach(System.out::println); // Stream.forEach</pre>"
     },
     {
      "type": "basic",
@@ -1734,7 +1738,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream.range(1, 5)\n    .filter(n -&gt; n % 2 == 0) // the if inside the loop\n    .forEach(System.out::println); // 2 4</pre>"
     },
     {
      "type": "basic",
@@ -1744,7 +1749,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;Integer&gt; all = java.util.stream.Stream.of(1, 2, 3);\njava.util.stream.Stream&lt;Integer&gt; evens = all.filter(n -&gt; n % 2 == 0);\nSystem.out.println(evens.toList()); // [2]: a new stream of passing elements</pre>"
     },
     {
      "type": "basic",
@@ -1787,7 +1793,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>for (String s : java.util.List.of(\"a\", \"bb\")) {\n    int len = s.length(); // transform first\n    System.out.println(len); // then print: two cohesive statements\n}</pre>"
     },
     {
      "type": "basic",
@@ -1808,7 +1815,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.IntUnaryOperator twice = n -&gt; n * 2;\njava.util.stream.IntStream.iterate(1, n -&gt; n &lt; 10, twice).forEach(System.out::println); // 1 2 4 8</pre>"
     },
     {
      "type": "table",
@@ -1829,7 +1837,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream.of(2, 4, 9, 6)\n    .takeWhile(n -&gt; n % 2 == 0)\n    .forEach(System.out::println); // 2 4: functional break at 9</pre>"
     },
     {
      "type": "rule",
@@ -1839,7 +1848,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream.of(1, 2, 9, 3)\n    .takeWhile(n -&gt; n &lt; 5)\n    .forEach(System.out::println); // 1 2: it stops forever at 9, so 3 never passes</pre>"
     },
     {
      "type": "basic",
@@ -1849,7 +1859,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream.iterate(0, n -&gt; n + 1) // no predicate: unbounded\n    .limit(3).forEach(System.out::println); // 0 1 2</pre>"
     },
     {
      "type": "basic",
@@ -1881,7 +1892,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>for (int i = 0; i &lt; 5; i++) System.out.println(i); // external loop\njava.util.stream.IntStream.range(0, 5).forEach(System.out::println); // 0..4, end excluded</pre>"
     },
     {
      "type": "basic",
@@ -1891,7 +1903,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream.range(0, 5).forEach(System.out::println); // 0..4\njava.util.stream.IntStream.rangeClosed(0, 5).forEach(System.out::println); // 0..5: end included</pre>"
     },
     {
      "type": "basic",
@@ -1901,7 +1914,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream nums = java.util.stream.IntStream.range(0, 3);\nnums.forEach(System.out::println); // 0 1 2: an IntStream consumed with forEach</pre>"
     },
     {
      "type": "basic",
@@ -1911,7 +1925,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = java.util.List.of(1, 2, 3);\nfor (int i = 0; i &lt; xs.size(); i++) System.out.println(xs.get(i)); // index + its mutation\nxs.forEach(System.out::println); // internal iterator: no index, just the per-element action</pre>"
     }
    ]
   },
@@ -1933,7 +1948,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Spliterator&lt;Integer&gt; sp = java.util.List.of(1, 2, 3).spliterator(); // SPLIT + ITERATOR\nSystem.out.println(sp.estimateSize()); // 3: it carries the stream's characteristics\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.SIZED)); // true</pre>"
     },
     {
      "type": "table",
@@ -1943,7 +1959,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Spliterator&lt;Integer&gt; sp = java.util.List.of(1, 2, 3).spliterator();\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.ORDERED)); // true: order matters\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.SIZED)); // true: count known\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.SORTED)); // false: not already sorted</pre>"
     },
     {
      "type": "basic",
@@ -1953,7 +1970,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var sp = new java.util.ArrayList&lt;&gt;(java.util.List.of(1,2,3,4)).spliterator();\nvar left = sp.trySplit();\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.SIZED) + \" \" + sp.estimateSize() + \" / \" + left.hasCharacteristics(java.util.Spliterator.SIZED) + \" \" + left.estimateSize()); // split into two SIZED halves</pre>"
     },
     {
      "type": "basic",
@@ -1963,7 +1981,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var sp = java.util.stream.Stream.of(1, 2).spliterator();\nboolean ordered = sp.hasCharacteristics(java.util.Spliterator.ORDERED);\nSystem.out.println(ordered); // true</pre>"
     },
     {
      "type": "basic",
@@ -1973,7 +1992,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.stream.Stream.of(\"a\", \"b\", \"c\").spliterator().hasCharacteristics(java.util.Spliterator.ORDERED)); // true\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\", \"c\").unordered().spliterator().hasCharacteristics(java.util.Spliterator.ORDERED)); // false</pre>"
     },
     {
      "type": "basic",
@@ -1983,7 +2003,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.List.of(\"b\", \"a\").stream().sorted().filter(s -> true).spliterator().hasCharacteristics(java.util.Spliterator.SORTED)); // true\nSystem.out.println(java.util.List.of(\"a\", \"a\").stream().distinct().filter(s -> true).spliterator().hasCharacteristics(java.util.Spliterator.DISTINCT)); // true\nSystem.out.println(java.util.List.of(\"b\", \"a\").stream().sorted().map(s -> s).spliterator().hasCharacteristics(java.util.Spliterator.SORTED)); // false\nSystem.out.println(java.util.List.of(\"b\", \"a\").stream().sorted().flatMap(s -> java.util.stream.Stream.of(s)).spliterator().hasCharacteristics(java.util.Spliterator.SORTED)); // false</pre>"
     },
     {
      "type": "basic",
@@ -1993,7 +2014,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; base = java.util.stream.Stream.of(\"a\", \"b\");\nSystem.out.println(base.spliterator().hasCharacteristics(java.util.Spliterator.SIZED)); // true\nSystem.out.println(base.filter(s -> true).spliterator().hasCharacteristics(java.util.Spliterator.SIZED)); // false\nSystem.out.println(base.distinct().spliterator().hasCharacteristics(java.util.Spliterator.SUBSIZED)); // false\nSystem.out.println(base.flatMap(s -> java.util.stream.Stream.of(s)).spliterator().hasCharacteristics(java.util.Spliterator.SIZED)); // false</pre>"
     },
     {
      "type": "basic",
@@ -2003,7 +2025,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try {\n    java.nio.file.Path p = java.nio.file.Files.createTempFile(\"lines\", \".txt\"); java.nio.file.Files.writeString(p, \"a\\nb\");\n    try (java.util.stream.Stream&lt;String&gt; lines = java.nio.file.Files.lines(p)) {\n        System.out.println(lines.spliterator().hasCharacteristics(java.util.Spliterator.SIZED)); // false: must read the file\n    }\n} catch (java.io.IOException e) { System.out.println(e); }</pre>"
     },
     {
      "type": "basic",
@@ -2013,7 +2036,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var sp = new java.util.HashSet<>(java.util.Set.of(\"a\", \"b\")).spliterator();\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.SIZED)); // true\nSystem.out.println(sp.hasCharacteristics(java.util.Spliterator.SUBSIZED)); // false: buckets split unevenly</pre>"
     },
     {
      "type": "table",
@@ -2023,7 +2047,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// Three ways: combine collectors, use collect()'s three parts, or implement Collector\nvar combined = java.util.stream.Collectors.teeing(java.util.stream.Collectors.counting(),\n    java.util.stream.Collectors.joining(\",\"), (n, joined) -> n + \":\" + joined); // combine\nint viaParts = java.util.stream.IntStream.of(1, 2)\n    .collect(StringBuilder::new, (b, x) -> b.append(x), StringBuilder::append).length(); // three parts\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").collect(combined) + \" \" + viaParts); // 3: implement Collector</pre>"
     },
     {
      "type": "basic",
@@ -2033,7 +2058,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, StringBuilder, String&gt; c = java.util.stream.Collector.of(\n    StringBuilder::new, StringBuilder::append, (left, right) -> left.append(right), StringBuilder::toString);\nString r = java.util.stream.Stream.of(\"a\", \"b\").collect(c); // T=String, A=StringBuilder, R=String\nSystem.out.println(r); // ab</pre>"
     },
     {
      "type": "basic",
@@ -2043,7 +2069,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, ?, java.util.List&lt;String&gt;&gt; c = java.util.stream.Collectors.toList();\njava.util.List&lt;String&gt; result = java.util.stream.Stream.of(\"a\", \"b\").collect(c);\nSystem.out.println(result); // [a, b]; A is hidden as ? by the factory</pre>"
     },
     {
      "type": "table",
@@ -2053,7 +2080,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var ch = java.util.stream.Collectors.toSet().characteristics();\nSystem.out.println(ch); // IDENTITY_FINISH: identity finisher; UNORDERED: order not preserved; CONCURRENT: concurrent container</pre>"
     },
     {
      "type": "basic",
@@ -2063,7 +2091,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var c = java.util.stream.Collectors.toSet();\nSystem.out.println(c.characteristics()); // IDENTITY_FINISH is present\nSystem.out.println(java.util.stream.Stream.of(\"a\",\"b\").collect(c)); // container returned as-is: the identity finisher can be skipped</pre>"
     },
     {
      "type": "basic",
@@ -2073,7 +2102,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, ?, java.util.concurrent.ConcurrentMap&lt;String, Integer&gt;&gt; c =\n    java.util.stream.Collectors.toConcurrentMap((String s) -> s, (String s) -> 1);\nSystem.out.println(c.characteristics().contains(java.util.stream.Collector.Characteristics.CONCURRENT)); // true\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").parallel().collect(c)); // {a=1, b=1}: parallel only</pre>"
     },
     {
      "type": "basic",
@@ -2083,7 +2113,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, java.util.List&lt;String&gt;, java.util.List&lt;String&gt;&gt; toList =\n    java.util.stream.Collector.of(java.util.ArrayList::new, java.util.List::add,\n        (left, right) -> { left.addAll(right); return left; }, java.util.function.Function.identity());\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").collect(toList)); // [a, b]; identity finisher</pre>"
     },
     {
      "type": "basic",
@@ -2093,7 +2124,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, java.util.HashSet&lt;String&gt;, java.util.HashSet&lt;String&gt;&gt; toSet =\n    java.util.stream.Collector.of(java.util.HashSet::new, java.util.Set::add,\n        (left, right) -> { left.addAll(right); return left; }, java.util.function.Function.identity(),\n        java.util.stream.Collector.Characteristics.UNORDERED);\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\", \"a\").collect(toSet)); // [a, b]\nSystem.out.println(toSet.characteristics().contains(java.util.stream.Collector.Characteristics.UNORDERED)); // true</pre>"
     },
     {
      "type": "basic",
@@ -2103,7 +2135,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var c = java.util.stream.Collectors.joining();\nSystem.out.println(c.characteristics()); // empty: order is preserved, finisher is real, no concurrent container</pre>"
     },
     {
      "type": "basic",
@@ -2113,7 +2146,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; a = java.util.stream.Stream.of(\"x\", \"y\"); // varargs\njava.util.stream.Stream&lt;String&gt; b = java.util.stream.Stream.generate(() -> \"x\"); // supplier\njava.util.stream.Stream&lt;Integer&gt; c = java.util.stream.Stream.iterate(0, n -> n + 1); // seed + op\njava.util.stream.Stream.Builder&lt;String&gt; builder = java.util.stream.Stream.builder(); builder.add(\"x\");\nSystem.out.println(a.count() + \" \" + b.limit(1).count() + \" \" + c.limit(1).count() + \" \" + builder.build().count()); // 2 1 1 1</pre>"
     },
     {
      "type": "basic",
@@ -2123,7 +2157,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Map&lt;String, Integer&gt; map = java.util.Map.of(\"a\", 1, \"b\", 2);\nSystem.out.println(map.keySet().stream().toList()); // [a, b]\nSystem.out.println(map.entrySet().stream().map(e -> e.getKey() + e.getValue()).toList()); // [a1, b2]\nSystem.out.println(map.values().stream().mapToInt(Integer::intValue).sum()); // 3</pre>"
     },
     {
      "type": "basic",
@@ -2133,7 +2168,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Iterator<Integer> it = java.util.List.of(1, 2, 3).iterator();\nvar sp = java.util.Spliterators.spliterator(it, 3, java.util.Spliterator.ORDERED); // size + characteristics\nvar s = java.util.stream.StreamSupport.stream(sp, false); // parallel flag\nSystem.out.println(s.toList());</pre>"
     },
     {
      "type": "basic",
@@ -2143,7 +2179,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; constants = java.util.stream.Stream.generate(() -> \"x\");\nSystem.out.println(constants.limit(3).toList()); // [x, x, x]: infinite constant stream</pre>"
     },
     {
      "type": "basic",
@@ -2153,7 +2190,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var generated = java.util.stream.Stream.generate(() -&gt; 1).limit(5);\nSystem.out.println(generated.toList()); // [1, 1, 1, 1, 1]: limit is short-circuiting, generation stops after n elements</pre>"
     },
     {
      "type": "rule",
@@ -2163,7 +2201,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;Integer&gt; infinite = java.util.stream.Stream.iterate(1, n -> n + 1);\ninfinite.map(n -> n * 2); // only builds a pipeline; no element is processed\nSystem.out.println(infinite.limit(3).toList()); // [1, 2, 3]: terminal operation triggers and bounds</pre>"
     },
     {
      "type": "compare",
@@ -2173,7 +2212,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; generated = java.util.stream.Stream.generate(() -> \"x\");\njava.util.stream.Stream&lt;Integer&gt; iterated = java.util.stream.Stream.iterate(1, n -> n + 1);\nSystem.out.println(generated.limit(3).toList()); // [x, x, x]: supplier\nSystem.out.println(iterated.limit(3).toList()); // [1, 2, 3]: seed + unary operator</pre>"
     },
     {
      "type": "basic",
@@ -2183,7 +2223,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var stream = java.util.stream.Stream.iterate(1, i -&gt; i &lt; 5, i -&gt; i + 1);\nSystem.out.println(stream.toList()); // [1, 2, 3, 4]: the Java SE 9 predicate stops generation when it turns false</pre>"
     },
     {
      "type": "basic",
@@ -2193,7 +2234,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>var a = java.util.stream.IntStream.range(1,4).toArray();\nvar b = java.util.stream.IntStream.rangeClosed(1,4).toArray();\nSystem.out.println(java.util.Arrays.toString(a) + \" vs \" + java.util.Arrays.toString(b)); // [1, 2, 3] vs [1, 2, 3, 4]</pre>"
     },
     {
      "type": "basic",
@@ -2203,7 +2245,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var objects = java.util.stream.IntStream.range(1,4).mapToObj(i -&gt; \"n\" + i).toList();\nSystem.out.println(objects); // [n1, n2, n3]: mapToObj turns IntStream int values into objects</pre>"
     },
     {
      "type": "basic",
@@ -2213,7 +2256,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Random random = new java.util.Random(42);\njava.util.stream.IntStream ints = random.ints(3, 0, 10);\njava.util.stream.LongStream longs = random.longs(2);\njava.util.stream.DoubleStream doubles = random.doubles(2);\nSystem.out.println(ints.sum() + \" \" + longs.count() + \" \" + doubles.count()); // ints(), longs(), doubles()</pre>"
     },
     {
      "type": "basic",
@@ -2223,7 +2267,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.Random a = new java.util.Random(42);\njava.util.Random b = new java.util.Random(42);\nSystem.out.println(a.ints(3, 0, 10).boxed().toList().equals(b.ints(3, 0, 10).boxed().toList())); // true: fixed seed, deterministic tests</pre>"
     },
     {
      "type": "basic",
@@ -2233,7 +2278,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream primitive = java.util.stream.IntStream.of(1, 2);\njava.util.stream.Stream<Integer> boxed = primitive.boxed();\nSystem.out.println(boxed.toList());</pre>"
     },
     {
      "type": "basic",
@@ -2243,7 +2289,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var chars = \"ABC\".chars();\nSystem.out.println(chars.sum()); // String.chars() gives an IntStream of char code units; codePoints() gives code points</pre>"
     },
     {
      "type": "basic",
@@ -2253,7 +2300,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.nio.file.Path p = java.nio.file.Path.of(\"data.txt\");\ntry (java.util.stream.Stream&lt;String&gt; s = java.nio.file.Files.lines(p, java.nio.charset.StandardCharsets.UTF_8)) {\n    s.forEach(System.out::println); // charset overload; try-with-resources closes it\n} catch (java.io.IOException e) { e.printStackTrace(); }</pre>"
     },
     {
      "type": "basic",
@@ -2263,7 +2311,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var parts = java.util.regex.Pattern.compile(\",\").splitAsStream(\"a,b,c\").toList();\nSystem.out.println(parts); // [a, b, c]: streams the split result without building an intermediate array</pre>"
     },
     {
      "type": "basic",
@@ -2273,7 +2322,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var b = java.util.stream.Stream.<String>builder().add(\"a\");\nvar s = b.build();\ntry { b.add(\"b\"); } catch (IllegalStateException e) { System.out.println(\"IllegalStateException\"); }\nSystem.out.println(s.toList());</pre>"
     },
     {
      "type": "basic",
@@ -2283,7 +2333,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var handler = java.net.http.HttpResponse.BodyHandlers.ofLines();\nSystem.out.println(handler.getClass().getSimpleName()); // the body handler that streams an HTTP response line by line</pre>"
     },
     {
      "type": "table",
@@ -2293,7 +2344,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, StringBuilder, String&gt; c = java.util.stream.Collector.of(\n    StringBuilder::new, StringBuilder::append, (left, right) -> left.append(right), StringBuilder::toString);\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").collect(c)); // ab: supplier, accumulator, combiner, finisher</pre>"
     },
     {
      "type": "basic",
@@ -2303,7 +2355,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier&lt;java.util.List&lt;String&gt;&gt; supplier = java.util.ArrayList::new;\njava.util.function.BiConsumer&lt;java.util.List&lt;String&gt;, String&gt; accumulator = java.util.List::add;\njava.util.List&lt;String&gt; container = supplier.get();\naccumulator.accept(container, \"a\");\nSystem.out.println(container); // [a]</pre>"
     },
     {
      "type": "rule",
@@ -2313,7 +2366,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.function.BiConsumer&lt;java.util.List&lt;String&gt;, java.util.List&lt;String&gt;&gt; combiner = java.util.List::addAll;\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\", \"c\").parallel()\n    .collect(java.util.ArrayList::new, java.util.List::add, combiner)); // [a, b, c]\n// parallel splits build one container per substream; the combiner merges them</pre>"
     },
     {
      "type": "basic",
@@ -2323,7 +2377,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Collector&lt;String, StringBuilder, String&gt; c = java.util.stream.Collector.of(\n    StringBuilder::new, StringBuilder::append, (left, right) -> left.append(right), StringBuilder::toString);\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").collect(c)); // ab: StringBuilder becomes String</pre>"
     },
     {
      "type": "compare",
@@ -2333,7 +2388,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.function.BiConsumer&lt;java.util.List&lt;String&gt;, String&gt; acc = java.util.List::add;\njava.util.List&lt;String&gt; a = java.util.stream.Stream.of(\"x\").collect(java.util.ArrayList::new, acc, java.util.List::addAll);\njava.util.function.BinaryOperator&lt;java.util.List&lt;String&gt;&gt; comb = (left, right) -> { left.addAll(right); return left; };\njava.util.stream.Collector&lt;String, java.util.List&lt;String&gt;, java.util.List&lt;String&gt;&gt; c = java.util.stream.Collector.of(java.util.ArrayList::new, acc, comb);\nSystem.out.println(a + \" \" + java.util.stream.Stream.of(\"x\").collect(c)); // [x] [x]: BiConsumer vs BinaryOperator</pre>"
     },
     {
      "type": "basic",
@@ -2343,7 +2399,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>StringBuilder out = java.util.stream.IntStream.of(1, 2).collect(\n    StringBuilder::new, (b, x) -> b.append(x), StringBuilder::append);\nSystem.out.println(out); // 12: numeric streams have primitive three-part collect</pre>"
     },
     {
      "type": "basic",
@@ -2353,7 +2410,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var joined = java.util.stream.Stream.of(\"a\",\"b\").collect(java.util.stream.Collectors.joining());\nSystem.out.println(joined); // String is immutable, so the collector accumulates into a StringBuilder instead</pre>"
     },
     {
      "type": "basic",
@@ -2363,7 +2421,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var c = java.util.stream.Collectors.collectingAndThen(java.util.stream.Collectors.counting(), n -&gt; \"count=\" + n);\nSystem.out.println(java.util.stream.Stream.of(1,2,3).collect(c)); // finisher applies post-processing to another collector's result</pre>"
     },
     {
      "type": "basic",
@@ -2373,7 +2432,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String stats = java.util.stream.Stream.of(1, 2, 3).collect(\n    java.util.stream.Collectors.teeing(java.util.stream.Collectors.summingInt(Integer::intValue),\n        java.util.stream.Collectors.counting(), (sum, n) -&gt; sum + \"/\" + n)); // Java SE 12\nSystem.out.println(stats); // 6/3: two downstream collectors merged</pre>"
     },
     {
      "type": "rule",
@@ -2383,7 +2443,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<String> s = java.util.stream.Stream.of(\"a\", \"bb\");\nString r = s.collect(java.util.stream.Collectors.teeing(\n    java.util.stream.Collectors.counting(), java.util.stream.Collectors.summingInt(String::length),\n    (n, len) -> n + \":\" + len)); // two collectors + merging BiFunction\nSystem.out.println(r);</pre>"
     },
     {
      "type": "basic",
@@ -2393,7 +2454,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// Since JDK 24: gather() adds a custom intermediate operation to a pipeline\nvar toUpper = java.util.stream.Gatherer.ofSequential(() -> new int[1], (state, s, down) -> down.push(s.toUpperCase()));\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").gather(toUpper).toList()); // [A, B]</pre>"
     },
     {
      "type": "basic",
@@ -2403,7 +2465,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// Java 24+: Gatherer is the interface; Gatherers is the built-in factory class\njava.util.stream.Gatherer<Integer,?,String> g =\n    java.util.stream.Gatherers.fold(() -> \"\", (s, x) -> s + x);\nSystem.out.println(java.util.stream.Stream.of(1, 2).gather(g).toList()); // [12]</pre>"
     },
     {
      "type": "rule",
@@ -2413,7 +2476,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; upper = java.util.stream.Stream.of(\"a\", \"bb\").map(String::toUpperCase).toList();\nSystem.out.println(upper); // [A, BB]: keep map(), a hand-written gatherer is no clearer</pre>"
     },
     {
      "type": "basic",
@@ -2423,7 +2487,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var upstream = java.util.stream.Stream.of(1,2,3).map(i -&gt; i * 2);   // upstream: where the stream elements come from\nvar downstream = upstream.filter(i -&gt; i &gt; 2);                      // downstream: the stream a gatherer pushes to\nSystem.out.println(downstream.toList());</pre>"
     },
     {
      "type": "table",
@@ -2433,7 +2498,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var g = java.util.stream.Gatherer.ofSequential(() -> new int[1],\n    (state, element, downstream) -> downstream.push(element + \":\" + state[0]++)); // state, element, downstream\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").gather(g).toList()); // [a:0, b:1]</pre>"
     },
     {
      "type": "basic",
@@ -2443,7 +2509,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var g = java.util.stream.Gatherer.ofSequential(() -> new int[1], (state, s, down) -> {\n    boolean accepted = down.push(s); // false: downstream no longer accepts elements\n    return accepted;\n});\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").gather(g).toList());</pre>"
     },
     {
      "type": "table",
@@ -2453,7 +2520,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Down { boolean rejecting = false; void push(int x) { if (!rejecting) System.out.println(x); rejecting = true; } }\nclass Ex2 { static void m() { Down d = new Down();\n    d.push(1); // starts accepting: prints 1\n    d.push(2); // only push can switch to rejecting: prints nothing\n    // d.rejecting = false; // forbidden: it can never switch back\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2463,7 +2531,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var finisher = new Object() { boolean isRejecting() { return false; } }; // stand-in: check isRejecting() in the finisher only\nSystem.out.println(finisher.isRejecting());</pre>"
     },
     {
      "type": "rule",
@@ -2473,7 +2542,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// Java 24+: a rejecting downstream returns false from push(); no exception, only wasted work\njava.util.stream.Gatherer.Downstream<Integer> rejecting = x -> false;\nSystem.out.println(rejecting.push(1) + \" \" + rejecting.push(2)); // false false</pre>"
     },
     {
      "type": "basic",
@@ -2483,7 +2553,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var g = java.util.stream.Gatherer.ofSequential(() -> new int[1],\n    (state, s, down) -> { state[0] += s.length(); return down.push(state[0]); }); // initializer holds mutable state\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"bb\").gather(g).toList()); // [1, 3]</pre>"
     },
     {
      "type": "basic",
@@ -2493,7 +2564,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function&lt;String, java.util.stream.Stream&lt;String&gt;&gt; flatMapper = s -> java.util.stream.Stream.of(s.split(\" \"));\nvar g = java.util.stream.Gatherer.ofSequential(() -> new int[1], (state, s, down) -> {\n    flatMapper.apply(s).forEach(down::push); // the returned stream may be parallel; Downstream is not thread-safe\n    return true;\n});\nSystem.out.println(java.util.stream.Stream.of(\"a b\").gather(g).toList());</pre>"
     },
     {
      "type": "basic",
@@ -2503,7 +2575,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// Java 24+: a greedy integrator never initiates a short-circuit; it relays downstream refusal\njava.util.stream.Gatherer.Integrator.Greedy<Integer,Integer,Integer> greedy =\n    (state, item, down) -> down.push(state + item); // returns the downstream state, never false itself\nboolean keep = greedy.integrate(0, 1, item -> true); // true</pre>"
     },
     {
      "type": "basic",
@@ -2513,7 +2586,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var seen = new java.util.ArrayList&lt;Integer&gt;();\njava.util.stream.Stream.of(3,1,2).forEach(seen::add);\njava.util.Collections.sort(seen); // finisher: only after upstream exhaustion can a sort emit\nSystem.out.println(seen); // [1, 2, 3]</pre>"
     },
     {
      "type": "basic",
@@ -2523,7 +2597,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.BiConsumer&lt;java.util.List&lt;Integer&gt;, java.util.List&lt;Integer&gt;&gt; finisher = java.util.List::addAll;\nfinisher.accept(new java.util.ArrayList&lt;Integer&gt;(), java.util.List.of(1,2));\nSystem.out.println(\"BiConsumer&lt;State, Downstream&gt; models a gatherer's finisher\");</pre>"
     },
     {
      "type": "basic",
@@ -2533,7 +2608,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var g = java.util.stream.Gatherer.of(\n    () -> new java.util.ArrayList&lt;String&gt;(),\n    (state, s, down) -> { state.add(s); return true; },\n    (left, right) -> { left.addAll(right); return left; },\n    (state, down) -> down.push(state.size())); // initializer, integrator, combiner, finisher\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"b\").gather(g).toList()); // [2]</pre>"
     },
     {
      "type": "basic",
@@ -2543,7 +2619,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// Java 24+: stages before gather() stay parallel; Gatherer.ofSequential runs single-threaded\njava.util.stream.Gatherer<Integer,?,Integer> g =\n    java.util.stream.Gatherer.ofSequential((unused, x, down) -> down.push(x + 1));\nSystem.out.println(java.util.stream.Stream.of(1, 2, 3).parallel().map(x -> x * 2).gather(g).toList());</pre>"
     },
     {
      "type": "basic",
@@ -2553,7 +2630,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var upper = java.util.stream.Gatherer.ofSequential(() -> new int[1], (state, s, down) -> down.push(s.toUpperCase()));\nvar bang = java.util.stream.Gatherer.ofSequential(() -> new int[1], (state, s, down) -> down.push(s + \"!\"));\nvar both = upper.andThen(bang);\nSystem.out.println(java.util.stream.Stream.of(\"a\").gather(both).toList()); // [A!]</pre>"
     },
     {
      "type": "basic",
@@ -2563,7 +2641,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = java.util.List.of(1, 2, 3);\nint sum = 0;\nfor (int x : xs) sum += x; System.out.println(sum); // fold: only final 6 is pushed\nint running = 0;\nfor (int x : xs) System.out.println(running += x); // scan: pushes 1 3 6</pre>"
     },
     {
      "type": "basic",
@@ -2573,7 +2652,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; out = java.util.stream.Stream.of(\"a\", \"b\", \"c\")\n    .gather(java.util.stream.Gatherers.mapConcurrent(2, s -> s.toUpperCase()))\n    .toList();\nSystem.out.println(out); // [A, B, C]: virtual threads, at most 2 at a time</pre>"
     },
     {
      "type": "compare",
@@ -2583,7 +2663,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = java.util.List.of(1, 2, 3, 4);\nfor (int i = 0; i &lt; xs.size(); i += 2) System.out.println(xs.subList(i, Math.min(i + 2, xs.size()))); // fixed: [1,2] [3,4], disjoint\nfor (int i = 0; i + 2 &lt;= xs.size(); i++) System.out.println(xs.subList(i, i + 2)); // sliding: [1,2] [2,3] [3,4], step one</pre>"
     },
     {
      "type": "rule",
@@ -2593,7 +2674,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Set&lt;Integer&gt; set = new java.util.HashSet&lt;&gt;(java.util.List.of(1, 2, 3));\nboolean ordered = set.stream().spliterator().hasCharacteristics(java.util.Spliterator.ORDERED);\nSystem.out.println(ordered + \" \" + set); // false: no stable adjacency, windowing is meaningless</pre>"
     },
     {
      "type": "basic",
@@ -2603,7 +2685,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; s = java.util.stream.Stream.of(\"a\", \"b\")\n    .map(x -&gt; { System.out.println(\"mapped \" + x); return x; });\n// no terminal operation: nothing above is ever evaluated\nSystem.out.println(\"done\"); // only \"done\" prints</pre>"
     },
     {
      "type": "table",
@@ -2613,7 +2696,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; words = java.util.stream.Stream.of(\"a\", \"bb\");\njava.util.stream.IntStream is = words.mapToInt(String::length);\njava.util.stream.LongStream ls = java.util.stream.Stream.of(1L).mapToLong(n -> n);\njava.util.stream.DoubleStream ds = java.util.stream.Stream.of(1.0).mapToDouble(d -> d);\nSystem.out.println(is.sum() + \" \" + ls.sum() + \" \" + ds.sum()); // IntStream, LongStream, DoubleStream</pre>"
     },
     {
      "type": "basic",
@@ -2623,7 +2707,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var stats = java.util.stream.IntStream.of(1,2,3,4).summaryStatistics();\nSystem.out.println(stats.getCount() + \" \" + stats.getMin() + \" \" + stats.getMax() + \" \" + stats.getSum() + \" \" + stats.getAverage());\n// summaryStatistics() gives count, min, max, sum and average in one pass</pre>"
     },
     {
      "type": "basic",
@@ -2633,7 +2718,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var words = java.util.stream.Stream.of(\"ab\",\"cd\");\nvar letters = words.flatMap(w -&gt; w.chars().mapToObj(c -&gt; (char) c)); // map each to a stream, then flatten\nSystem.out.println(letters.toList()); // [a, b, c, d]</pre>"
     },
     {
      "type": "basic",
@@ -2643,7 +2729,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>// flatMap puts the one-to-many step in the pipeline; no nested loop\nvar words = java.util.List.of(\"a b\", \"c d\");\nvar loop = new java.util.ArrayList<String>();\nfor (String w : words) for (String part : w.split(\" \")) loop.add(part);\nSystem.out.println(words.stream().flatMap(w -> java.util.Arrays.stream(w.split(\" \"))).toList().equals(loop));</pre>"
     },
     {
      "type": "basic",
@@ -2653,7 +2740,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var values = java.util.stream.Stream.of(\"1\",\"x\",\"3\")\n    .flatMap(s -&gt; { try { return java.util.stream.Stream.of(Integer.parseInt(s)); } catch (NumberFormatException e) { return java.util.stream.Stream.&lt;Integer&gt;empty(); } })\n    .toList();\nSystem.out.println(values); // [1, 3]: invalid -&gt; empty stream, valid -&gt; single-element stream</pre>"
     },
     {
      "type": "basic",
@@ -2663,7 +2751,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var kept = java.util.stream.Stream.of(\"1\",\"x\",\"2\")\n    .mapMulti((String t, java.util.function.Consumer&lt;Integer&gt; c) -&gt; { try { c.accept(Integer.parseInt(t)); } catch (NumberFormatException e) { } })\n    .toList();\nSystem.out.println(kept); // [1, 2]: mapMulti(BiConsumer) replaced the empty-stream flat-map idiom in Java SE 16</pre>"
     },
     {
      "type": "rule",
@@ -2673,7 +2762,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var typed = java.util.stream.Stream.of(\"1\",\"2\").mapMulti((String s, java.util.function.Consumer&lt;Integer&gt; c) -&gt; c.accept(Integer.parseInt(s)));\nvar raw = java.util.stream.Stream.of(\"1\",\"2\").mapMulti((s, c) -&gt; c.accept(Integer.parseInt(s)));\nSystem.out.println(typed.toList() + \" / \" + raw.toList()); // state the result type; omitted it is Stream&lt;Object&gt;</pre>"
     },
     {
      "type": "basic",
@@ -2683,7 +2773,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; duplicates = java.util.stream.Stream.of(\"b\", \"a\", \"b\");\nSystem.out.println(duplicates.distinct().toList()); // [b, a]: needs a set of seen values\nSystem.out.println(java.util.stream.Stream.of(\"b\", \"a\").sorted().toList()); // [a, b]: needs a sortable buffer</pre>"
     },
     {
      "type": "compare",
@@ -2693,7 +2784,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;Integer&gt; unbounded = java.util.stream.Stream.iterate(1, n -> n + 1);\nSystem.out.println(unbounded.distinct().limit(3).toList()); // [1, 2, 3]: distinct can work incrementally\n// sorted() on an unbounded stream never completes: it must buffer every element first</pre>"
     },
     {
      "type": "basic",
@@ -2703,7 +2795,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.stream.Stream.of(1,2,3,4).skip(2).toList() + \" \" + java.util.stream.Stream.of(1,2,3,4).limit(2).toList()); // by index\nSystem.out.println(java.util.stream.Stream.of(1,2,3,4).dropWhile(i -&gt; i &lt; 3).toList() + \" \" + java.util.stream.Stream.of(1,2,3,4).takeWhile(i -&gt; i &lt; 3).toList()); // by predicate</pre>"
     },
     {
      "type": "rule",
@@ -2713,7 +2806,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var result = java.util.stream.Stream.of(1,2,3,4,5,6,7).skip(2).limit(5).toList();\nSystem.out.println(result);  // [3, 4, 5, 6, 7] - limit counts on the new stream</pre>"
     },
     {
      "type": "basic",
@@ -2723,7 +2817,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; joined = java.util.stream.Stream.concat(java.util.stream.Stream.of(\"a\"), java.util.stream.Stream.of(\"b\"));\nSystem.out.println(joined.toList()); // [a, b]\njava.util.stream.Stream&lt;String&gt; more = java.util.stream.Stream.of(java.util.stream.Stream.of(\"a\"), java.util.stream.Stream.of(\"b\"), java.util.stream.Stream.of(\"c\")).flatMap(s -> s);\nSystem.out.println(more.toList()); // [a, b, c]</pre>"
     },
     {
      "type": "compare",
@@ -2733,7 +2828,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>var concat = java.util.stream.Stream.concat(java.util.stream.Stream.of(1, 2), java.util.stream.Stream.of(3, 4));\nSystem.out.println(concat.spliterator().hasCharacteristics(java.util.Spliterator.SIZED)); // true\nvar flat = java.util.stream.Stream.of(1, 2).flatMap(x -> java.util.stream.Stream.of(x));\nSystem.out.println(flat.spliterator().hasCharacteristics(java.util.Spliterator.SIZED)); // false</pre>"
     },
     {
      "type": "basic",
@@ -2743,7 +2839,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; out = java.util.stream.Stream.of(\"a\", \"b\")\n    .peek(s -> System.out.println(\"before map: \" + s)) // debugging a stage, not a side effect for production\n    .map(String::toUpperCase).toList();\nSystem.out.println(out); // [A, B]</pre>"
     },
     {
      "type": "basic",
@@ -2753,7 +2850,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var pipeline = java.util.stream.Stream.of(\"a\",\"b\")\n    .peek(x -&gt; System.out.print(x + \":map \"))\n    .map(String::toUpperCase)\n    .peek(x -&gt; System.out.print(x + \":filter \"));\npipeline.forEach(x -&gt; System.out.println(\"done\")); // a:map A:filter done; b:map B:filter done</pre>"
     },
     {
      "type": "basic",
@@ -2763,7 +2861,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var result = java.util.stream.Stream.of(\"1\",\"x\",\"3\")\n    .filter(s -&gt; !s.equals(\"x\"))   // select elements\n    .mapToInt(Integer::parseInt)   // transform them\n    .reduce(0, Integer::sum);      // aggregate to one result\nSystem.out.println(result); // 4</pre>"
     },
     {
      "type": "compare",
@@ -2773,7 +2872,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; words = java.util.stream.Stream.of(\"a\", \"bb\", \"ccc\");\nSystem.out.println(words.map(String::length).toList()); // [1, 2, 3]: String to Integer, one-to-one\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"bb\", \"ccc\").filter(s -> s.length() > 1).toList()); // [bb, ccc]: fewer, same type</pre>"
     },
     {
      "type": "basic",
@@ -2783,7 +2883,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function&lt;String,Integer&gt; map = String::length;\njava.util.function.Predicate&lt;String&gt; filter = s -&gt; s.length() &gt; 1;\nSystem.out.println(java.util.stream.Stream.of(\"a\", \"bb\").filter(filter).map(map).toList()); // [2]</pre>"
     },
     {
      "type": "basic",
@@ -2793,7 +2894,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var xs = java.util.List.of(1,2,3);\nvar lazy = xs.stream().map(i -&gt; i * 2).filter(i -&gt; i &gt; 2); // no intermediate collection is built yet\nSystem.out.println(lazy.toList()); // map/filter live on Stream: returning a collection would force eager structures</pre>"
     },
     {
      "type": "basic",
@@ -2803,7 +2905,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var source = java.util.List.of(1,2,3);\nvar stream = source.stream().map(i -&gt; i * 2);\nSystem.out.println(source + \" \" + stream.toList()); // the stream stores no data; the source stays [1, 2, 3]</pre>"
     },
     {
      "type": "basic",
@@ -2813,7 +2916,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<String> s = java.util.stream.Stream.of(\"a\", \"b\");\njava.util.stream.Stream<String> mapped = s.map(String::toUpperCase); // intermediate: Stream\nlong count = mapped.count(); // terminal: long\njava.util.stream.Stream.of(\"x\").forEach(x -> {}); // terminal: void</pre>"
     },
     {
      "type": "basic",
@@ -2823,7 +2927,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var stream = java.util.stream.Stream.of(1,2,3);\nSystem.out.println(stream.count());\ntry { stream.count(); } catch (IllegalStateException e) { System.out.println(e.getMessage()); } // stream has already been operated upon or closed</pre>"
     },
     {
      "type": "table",
@@ -2833,7 +2938,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.stream.IntStream s = java.util.stream.IntStream.of(3, 1, 2);\nSystem.out.println(s.sum()); // 6: sum() exists only on primitive streams\nSystem.out.println(java.util.stream.LongStream.of(3, 1).max().getAsLong()); // 3: max()\nSystem.out.println(java.util.stream.DoubleStream.of(3, 1).summaryStatistics()); // count=2: primitive-only</pre>"
     },
     {
      "type": "basic",
@@ -2843,7 +2949,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var source = new java.util.ArrayList&lt;&gt;(java.util.List.of(1,2,3));\nvar stream = source.stream();\nsource.add(4);  // modifying the source while the stream runs: the result becomes unspecified\nSystem.out.println(stream.toList());</pre>"
     },
     {
      "type": "basic",
@@ -2853,7 +2960,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; stored = java.util.stream.Stream.of(\"a\");\nSystem.out.println(stored.count()); // 1: the stored stream is now used\njava.util.stream.Stream&lt;String&gt; passed = java.util.stream.Stream.of(\"b\");\nSystem.out.println(java.util.stream.Stream.concat(passed, java.util.stream.Stream.of(\"c\")).count()); // 2: passed as an argument\ntry { passed.count(); } catch (IllegalStateException e) { System.out.println(\"already operated upon\"); }</pre>"
     },
     {
      "type": "basic",
@@ -2863,7 +2971,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;String&gt; maybe = java.util.Optional.of(\"x\");\njava.util.Optional&lt;String&gt; none = java.util.Optional.empty();\nSystem.out.println(maybe.get() + \" \" + none.isPresent()); // x false: value or empty wrapper</pre>"
     },
     {
      "type": "basic",
@@ -2873,7 +2982,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.Optional.empty() + \" \" + java.util.Optional.of(\"x\") + \" \" + java.util.Optional.ofNullable((String) null));\n// the three factory methods: empty(), of(x), ofNullable(x)</pre>"
     },
     {
      "type": "rule",
@@ -2883,7 +2993,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var nullable = java.util.Optional.&lt;String&gt;ofNullable(null);\nSystem.out.println(nullable); // Optional.empty\ntry { java.util.Optional.of((String) null); } catch (NullPointerException e) { System.out.println(\"of(null): NullPointerException\"); }</pre>"
     },
     {
      "type": "rule",
@@ -2893,7 +3004,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.OptionalInt oi = java.util.OptionalInt.of(1);\njava.util.OptionalLong ol = java.util.OptionalLong.of(2L);\njava.util.OptionalDouble od = java.util.OptionalDouble.of(3.0);\nSystem.out.println(oi.orElse(0) + \" \" + ol.orElse(0L) + \" \" + od.orElse(0.0));\n// no ofNullable: a primitive value can never be null</pre>"
     },
     {
      "type": "basic",
@@ -2903,7 +3015,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;String&gt; o = java.util.Optional.of(\"x\");\nSystem.out.println(o.isPresent() + \" \" + o.isEmpty()); // true false: isEmpty() since Java SE 11</pre>"
     },
     {
      "type": "compare",
@@ -2913,7 +3026,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static String side() { System.out.println(\"evaluated\"); return \"y\"; }\n  static void m() { var p = java.util.Optional.of(\"x\");\n    System.out.println(p.orElse(side()) + \" / \" + p.orElseGet(() -> side())); // once vs never\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2923,7 +3037,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>var empty = java.util.Optional.&lt;Integer&gt;empty();\ntry { empty.get(); } catch (java.util.NoSuchElementException e) { System.out.println(\"get: \" + e.getClass().getSimpleName()); }\ntry { empty.orElseThrow(); } catch (java.util.NoSuchElementException e) { System.out.println(\"orElseThrow: \" + e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "basic",
@@ -2933,7 +3048,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;String&gt; a = java.util.Optional.of(\"x\");\njava.util.Optional&lt;String&gt; b = java.util.Optional.empty();\nSystem.out.println(a.or(() -&gt; b).get() + \" \" + b.or(() -&gt; a).get()); // x x: supplier builds a fallback only when empty</pre>"
     },
     {
      "type": "compare",
@@ -2943,7 +3059,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;String&gt; o = java.util.Optional.of(\" 42 \");\nSystem.out.println(o.map(s -> Integer.parseInt(s.trim()))); // Optional[42]: map's function returns a value\nSystem.out.println(o.flatMap(s -> java.util.Optional.of(Integer.parseInt(s.trim())))); // Optional[42]: flatMap's returns an Optional\nSystem.out.println(o.flatMap(s -> java.util.Optional.empty())); // Optional.empty</pre>"
     },
     {
      "type": "basic",
@@ -2953,7 +3070,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;String&gt; present = java.util.Optional.of(\"a\");\njava.util.Optional&lt;String&gt; empty = java.util.Optional.empty();\nSystem.out.println(present.stream().count()); // 1\nSystem.out.println(empty.stream().count()); // 0\nSystem.out.println(java.util.stream.Stream.of(\"x\", \"y\").flatMap(s -> java.util.Optional.of(s).stream()).count()); // 2</pre>"
     },
     {
      "type": "basic",
@@ -2963,7 +3081,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;String&gt; o = java.util.Optional.empty();\no.ifPresent(System.out::println); // nothing happens\no.ifPresentOrElse(System.out::println, () -&gt; System.out.println(\"empty\")); // Runnable prints: empty</pre>"
     },
     {
      "type": "basic",
@@ -2973,7 +3092,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Optional<String> maybe = java.util.Optional.empty();\n// Rule #2: never open an optional unless you know it is not empty\ntry { maybe.orElseThrow(); } catch (java.util.NoSuchElementException e) { System.out.println(\"empty\"); }\nif (maybe.isPresent()) System.out.println(maybe.orElseThrow()); // checked</pre>"
     },
     {
      "type": "table",
@@ -2983,7 +3103,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var box = new Object() { java.util.Optional&lt;String&gt; value; }; // rule #5: not in fields, parameters, collections or maps\nSystem.out.println(java.io.Serializable.class.isAssignableFrom(java.util.Optional.class)); // rule #7: not serializable -&gt; false</pre>"
     },
     {
      "type": "rule",
@@ -2993,7 +3114,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String name = \"Ada\";\nif (name == null) { System.out.println(\"missing\"); } // the direct null check is enough\njava.util.Optional&lt;String&gt; needless = java.util.Optional.ofNullable(name); // don't wrap just to avoid that check\nSystem.out.println(needless.orElse(\"missing\"));</pre>"
     },
     {
      "type": "basic",
@@ -3003,7 +3125,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<Integer> s = java.util.stream.Stream.of(1, 2, 3);\njava.util.stream.Stream<Integer> parallel = s.parallel(); // on any existing stream\nSystem.out.println(parallel.isParallel() + \" \" + (parallel == s)); // true true</pre>"
     },
     {
      "type": "rule",
@@ -3013,7 +3136,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var xs = java.util.stream.IntStream.range(0,1000).boxed().toList();\nint seq = xs.stream().mapToInt(Integer::intValue).sum();\nint par = xs.parallelStream().mapToInt(Integer::intValue).sum();\nSystem.out.println(seq + \" \" + par + \" - parallel adds splitting, merging and thread overhead, so it is not always faster\");</pre>"
     },
     {
      "type": "basic",
@@ -3023,7 +3147,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var pool = java.util.concurrent.ForkJoinPool.commonPool();\nvar total = java.util.stream.IntStream.range(0,100).parallel().sum();\nSystem.out.println(pool.getParallelism() + \" \" + total); // parallel streams use Fork/Join and the common pool (JDK 7 onward)</pre>"
     },
     {
      "type": "basic",
@@ -3033,7 +3158,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.List.of(1, 2, 3, 4));\njava.util.Spliterator&lt;Integer&gt; sp = xs.spliterator();\njava.util.Spliterator&lt;Integer&gt; right = sp.trySplit();\nSystem.out.println(sp.estimateSize() + \"/\" + right.estimateSize()); // 2/2: array slice; LinkedList walks to the middle</pre>"
     },
     {
      "type": "basic",
@@ -3043,7 +3169,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var linked = new java.util.LinkedList&lt;Integer&gt;();\nfor (int i = 0; i &lt; 3; i++) linked.add(i);\nint sum = 0; for (int v : linked) sum += v; // pointer chasing: following references to reach data, worst for LinkedList&lt;Integer&gt;\nSystem.out.println(sum);</pre>"
     },
     {
      "type": "basic",
@@ -3053,7 +3180,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>long[] xs = new long[16]; // 8 bytes each: eight values per 64-byte cache line\nfor (int i = 0; i &lt; 8; i++) xs[i] = i; // one line fetch brings neighbours along\nSystem.out.println(xs[7]); // 7</pre>"
     },
     {
      "type": "basic",
@@ -3063,7 +3191,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Job extends java.util.concurrent.RecursiveTask&lt;Integer&gt; {\n    protected Integer compute() { return 7; }\n}\nclass Ex2 { static void m() { java.util.concurrent.ForkJoinPool pool = new java.util.concurrent.ForkJoinPool(2);\n    System.out.println(pool.invoke(new Job())); // idle worker steals from another worker's queue\n} }</pre>"
     },
     {
      "type": "basic",
@@ -3073,7 +3202,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.stream.IntStream.range(0,6).parallel().limit(3).boxed().toList());\nSystem.out.println(java.util.stream.IntStream.range(0,6).parallel().skip(3).boxed().toList());\nSystem.out.println(java.util.stream.IntStream.range(0,6).parallel().findFirst().orElseThrow());\n// limit(n), skip(n) and findFirst() are stateful and need the encounter order</pre>"
     },
     {
      "type": "basic",
@@ -3083,7 +3213,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<Integer> shared = new java.util.ArrayList<>();\njava.util.stream.IntStream.range(0, 1000).parallel().forEach(shared::add); // wrong: not thread-safe\nSystem.out.println(shared.size()); // may be < 1000, no exception</pre>"
     },
     {
      "type": "table",
@@ -3093,7 +3224,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// Overheads: splitting, dispatching work, processing each part, merging partial results\nvar s = java.util.stream.Stream.of(1, 2, 3, 4).parallel().map(x -> x * 2);\nint total = s.reduce(0, Integer::sum); // all four costs are paid here\nSystem.out.println(total);</pre>"
     },
     {
      "type": "basic",
@@ -3103,7 +3235,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.concurrent.ForkJoinPool common = java.util.concurrent.ForkJoinPool.commonPool();\ncommon.submit(() -> { try { Thread.sleep(200); } catch (InterruptedException e) { Thread.currentThread().interrupt(); } return 1; });\nlong n = java.util.stream.IntStream.range(0, 1000).parallel().count();\nSystem.out.println(common.getParallelism() + \" shared threads, count=\" + n); // blocking work can starve others</pre>"
     },
     {
      "type": "rule",
@@ -3113,7 +3246,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = java.util.List.of(1, 2, 3);\nint seq = xs.stream().mapToInt(Integer::intValue).sum();\n// int par = xs.parallelStream().mapToInt(Integer::intValue).sum(); // only if an unmet requirement needs it\nSystem.out.println(seq); // 6: optimize because you need to, not for fun</pre>"
     },
     {
      "type": "basic",
@@ -3123,7 +3257,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.stream.Stream.of(1,2,3).reduce(0, Integer::sum));\nSystem.out.println(java.util.stream.Stream.of(1,2,3).reduce(Integer::sum));\nSystem.out.println(java.util.stream.Stream.of(1,2,3).reduce(0, Integer::sum, Integer::sum));\n// three overloads; each takes a binary operator, directly or through a mapper</pre>"
     },
     {
      "type": "basic",
@@ -3133,7 +3268,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>int sum = java.util.stream.Stream.of(1, 2, 3, 4)\n    .reduce((a, b) -> { System.out.println(a + \" + \" + b); return a + b; }).orElseThrow();\nSystem.out.println(sum); // pairwise binary operator until one value remains</pre>"
     },
     {
      "type": "rule",
@@ -3143,7 +3279,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.function.BinaryOperator&lt;Integer&gt; add = Integer::sum;\nint a = 1, b = 2, c = 3;\nSystem.out.println(add.apply(add.apply(a, b), c) + \" \" + add.apply(a, add.apply(b, c))); // 6 6: splitting is safe</pre>"
     },
     {
      "type": "basic",
@@ -3153,7 +3290,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var result = java.util.stream.Stream.of(1,2,3).parallel().reduce(0, (a,b) -&gt; a - b);\nSystem.out.println(result); // no warning: a non-associative operator may silently differ run to run</pre>"
     },
     {
      "type": "basic",
@@ -3163,7 +3301,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.BinaryOperator<Integer> op = (a, b) -> a + b;\nSystem.out.println(op.apply(7, 0) + \" \" + op.apply(0, 7)); // 7 7: identity changes nothing</pre>"
     },
     {
      "type": "basic",
@@ -3173,7 +3312,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Optional&lt;Integer&gt; min = java.util.stream.Stream.of(3, 1, 2).min(Integer::compare);\njava.util.Optional&lt;Integer&gt; empty = java.util.stream.Stream.&lt;Integer&gt;empty().min(Integer::compare);\nSystem.out.println(min.get() + \" \" + empty.isPresent()); // 1 false: MIN/MAX have no identity</pre>"
     },
     {
      "type": "compare",
@@ -3183,7 +3323,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream<Integer> s = java.util.stream.Stream.of(1, 2, 3);\nint withId = s.reduce(0, Integer::sum); // identity overload -> plain value\njava.util.Optional<Integer> noId = java.util.stream.Stream.<Integer>empty().reduce(Integer::sum);\nSystem.out.println(withId + \" \" + noId.isPresent()); // 6 false</pre>"
     },
     {
      "type": "rule",
@@ -3193,7 +3334,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int bad = java.util.stream.Stream.of(1, 2, 3).reduce(100, Integer::sum);\nSystem.out.println(bad); // 106, not 6: a wrong identity silently corrupts the result</pre>"
     },
     {
      "type": "basic",
@@ -3203,7 +3345,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int total = java.util.stream.Stream.of(\"a\", \"bb\").reduce(0,\n    (sum, s) -&gt; sum + s.length(), Integer::sum); // map(length) fused into the accumulator\nSystem.out.println(total); // 3</pre>"
     },
     {
      "type": "basic",
@@ -3213,7 +3356,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// The identity must be the combiner's neutral value, not just the accumulator's\nString wrong = java.util.stream.Stream.of(\"a\", \"b\").parallel()\n    .reduce(\"[\", (acc, x) -> acc + x, (a, b) -> a + b);\nSystem.out.println(wrong); // combiner sees \"[a\" and \"[b\": not \"[ab\"</pre>"
     },
     {
      "type": "basic",
@@ -3223,7 +3367,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>// No reduce overload makes a non-associative operator safe on parallel streams\nString joined = java.util.stream.Stream.of(\"a\", \"b\")\n    .collect(java.util.stream.Collectors.joining(\"-\")); // sequential collect instead\nSystem.out.println(joined); // Java 24+ alternative: gather(Gatherers.fold(...)).findFirst()</pre>"
     }
    ]
   }

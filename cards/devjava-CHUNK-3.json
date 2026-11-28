@@ -421,7 +421,8 @@
      "extra": "They were introduced as a preview by JEP 425 in Java 19, previewed again in Java 20, and finalized in Java 21.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// Java 21: virtual threads are final, not a preview feature (no --enable-preview)\nThread t = Thread.ofVirtual().start(() -> System.out.println(\"running\"));\ntry { t.join(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }\nSystem.out.println(t.isVirtual()); // true</pre>"
     },
     {
      "type": "basic",
@@ -430,7 +431,8 @@
      "extra": "Many virtual threads share a small pool of platform carrier threads. Unmounting frees the carrier while the blocked task waits, so blocking no longer wastes an OS thread.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>// A blocked virtual thread unmounts; its carrier can run another virtual thread\nThread v = Thread.ofVirtual().start(() -> java.util.concurrent.locks.LockSupport.park());\nThread other = Thread.ofVirtual().start(() -> System.out.println(\"another one ran\"));\njava.util.concurrent.locks.LockSupport.unpark(v);</pre>"
     },
     {
      "type": "basic",
@@ -439,7 +441,8 @@
      "extra": "It returns an ExecutorService. It is also the only creation route that supports Callables and therefore result-bearing tasks.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try (var ex = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {\n  ex.submit(() -> System.out.println(Thread.currentThread().isVirtual())); // task 1\n  ex.submit(() -> System.out.println(Thread.currentThread().isVirtual())); // task 2\n} // close waits for both</pre>"
     },
     {
      "type": "basic",
@@ -448,7 +451,8 @@
      "extra": "Thread.Builder, Thread.ofVirtual().start() and startVirtualThread() all take a Runnable, so they cannot return a value.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try (var ex = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {\n  java.util.concurrent.Future<String> f = ex.submit(() -> \"result\"); // Callable<T>\n  System.out.println(f.get());\n} catch (Exception e) { throw new RuntimeException(e); }</pre>"
     },
     {
      "type": "basic",
@@ -457,7 +461,8 @@
      "extra": "There is no API to create a virtual thread in a different group, and calling setPriority() or setDaemon() on one has no effect.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Thread a = Thread.ofVirtual().start(() -> {});\nThread b = Thread.ofVirtual().start(() -> {});\nSystem.out.println(a.getThreadGroup() == b.getThreadGroup()); // true: one shared group</pre>"
     },
     {
      "type": "basic",
@@ -466,7 +471,8 @@
      "extra": "Because they are daemons they never keep the JVM alive. Both properties are fixed and cannot be changed with setters.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Thread v = Thread.ofVirtual().unstarted(() -> {});\nSystem.out.println(v.isDaemon() + \" \" + (v.getPriority() == Thread.NORM_PRIORITY)); // true true</pre>"
     },
     {
      "type": "basic",
@@ -475,7 +481,8 @@
      "extra": "Virtual threads are not enumerated by that legacy method. There is also no way to find which carrier platform thread a given virtual thread runs on.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Thread v = Thread.ofVirtual().start(() -> System.out.println(\"running\"));\nboolean listed = Thread.getAllStackTraces().containsKey(v);\nSystem.out.println(listed); // false: only platform threads are listed</pre>"
     },
     {
      "type": "basic",
@@ -484,7 +491,8 @@
      "extra": "Virtual threads are ordinary Thread instances, so this boolean is the only way to distinguish them. Cancellation still uses Thread.interrupt().",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>Thread platform = Thread.currentThread();\nThread virtual = Thread.ofVirtual().unstarted(() -> {});\nSystem.out.println(platform.isVirtual() + \" \" + virtual.isVirtual()); // false true</pre>"
     },
     {
      "type": "basic",
@@ -493,7 +501,8 @@
      "extra": "Virtual threads are cheap to create, so make one per task. Use semaphores or per-resource limits for rate limiting instead.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// Pooling virtual threads gives back the platform-thread scheduling cost they remove\nvar perTask = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor(); // one thread per task\nvar fixed = java.util.concurrent.Executors.newFixedThreadPool(4); // reused platform threads\nperTask.submit(() -> \"task\"); fixed.submit(() -> \"task\");</pre>"
     },
     {
      "type": "basic",
@@ -512,7 +521,8 @@
      "extra": "Tune it with the jdk.virtualThreadScheduler.parallelism VM option. jdk.virtualThreadScheduler.maxPoolSize caps the carrier pool when compensation kicks in.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int cores = Runtime.getRuntime().availableProcessors();\nSystem.out.println(cores); // default carrier count: one per available CPU core\nThread t = Thread.ofVirtual().start(() -> System.out.println(\"scheduled\"));\ntry { t.join(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }</pre>"
     },
     {
      "type": "basic",
@@ -521,7 +531,8 @@
      "extra": "A pinned thread cannot be unmounted while it blocks. Replacing synchronized with ReentrantLock removes the first cause, and JDK 24 fixes it in the JVM.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// JDK 21-23 pinning: synchronized blocks/methods and native or foreign calls\nThread v = Thread.ofVirtual().unstarted(() -> {\n  synchronized (String.class) { java.util.concurrent.locks.LockSupport.park(); } // pinned\n});\nv.start(); // a native/foreign call while blocked pins the same way</pre>"
     },
     {
      "type": "basic",
@@ -540,7 +551,8 @@
      "extra": "You get only one warning per pinning location. Alternatively record with JFR and look for VirtualThreadPinned and VirtualThreadSubmitFailed events.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>// Run with -Djdk.tracePinnedThreads=full: a pinned thread that blocks logs a stack trace\nThread t = Thread.ofVirtual().start(() -> {\n  synchronized (String.class) { java.util.concurrent.locks.LockSupport.park(); }\n});\nSystem.out.println(t.getName()); // the flag prints where the carrier was pinned</pre>"
     },
     {
      "type": "basic",
@@ -549,7 +561,8 @@
      "extra": "Since virtual threads vastly outnumber pooled platform threads, thread locals multiply with them. The trace shows where per-thread state is being created.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>// -Djdk.traceVirtualThreadLocals traces virtual threads that change thread-local variables\nThreadLocal<String> local = new ThreadLocal<>();\nThread t = Thread.ofVirtual().start(() -> local.set(\"value\"));\nSystem.out.println(t.isVirtual());</pre>"
     },
     {
      "type": "basic",
@@ -558,7 +571,8 @@
      "extra": "Their win comes from unmounting blocked threads, which never happens for compute-bound work. Use parallel streams or fork-join for those instead.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// CPU-bound work rarely blocks, so unmounting gives no scheduling gain\nlong n = java.util.stream.LongStream.range(0, 1_000_000L).filter(x -> x % 2 == 0).count();\nThread v = Thread.ofVirtual().start(() -> System.out.println(n)); // no benefit here</pre>"
     },
     {
      "type": "basic",
@@ -567,7 +581,8 @@
      "extra": "Callers who need the real identity must use the final threadId(). getId() has been deprecated since Java 19 alongside static thread factories.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static class Fake extends Thread { public long getId() { return -1; } } // not final: overridable\n  static void m() { Thread t = new Fake();\n    System.out.println(t.getId() + \" vs \" + t.threadId()); // -1 vs the real id\n  }\n}</pre>"
     }
    ]
   },
@@ -606,7 +621,8 @@
      "extra": "A segment is accessible while its scope is alive. Closing the arena invalidates every segment allocated from it at once.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>Arena arena = Arena.ofConfined();\nMemorySegment seg = arena.allocate(64);\narena.close();\n// the arena's scope ended, so seg is no longer accessible</pre>"
     },
     {
      "type": "basic",
@@ -690,7 +706,8 @@
      "extra": "Obtained from a group layout, it lets you set or get a named field of a struct without recomputing offsets by hand.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nimport java.lang.invoke.VarHandle;\nclass Ex { static void m() {\nArena arena = Arena.ofConfined();\nMemorySegment segment = arena.allocate(MemoryLayout.structLayout(ValueLayout.JAVA_INT.withName(\"numerator\")));\nStructLayout layout = MemoryLayout.structLayout(ValueLayout.JAVA_INT.withName(\"numerator\"));\nVarHandle numerator = layout.varHandle(PathElement.groupElement(\"numerator\"));\nnumerator.set(segment, 0L, 7);\nSystem.out.println(numerator.get(segment, 0L));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -699,7 +716,8 @@
      "extra": "The result is turned into a VarHandle for a given layout, memory segment and offset, then reused to access every instance of the struct.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nimport java.util.Optional;\nclass Ex { static void m() {\nStructLayout layout = MemoryLayout.structLayout(ValueLayout.JAVA_INT.withName(\"numerator\"));\nOptional<MemoryLayout> member = layout.member(PathElement.groupElement(\"numerator\"));\nSystem.out.println(member.orElseThrow());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -717,7 +735,8 @@
      "extra": "Each allocation carves the next chunk right after the previous one, which is how an array of structs is laid out in memory.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Arena arena = Arena.ofConfined();\nMemorySegment backing = arena.allocate(64);\nSegmentAllocator slicing = SegmentAllocator.slicingAllocator(backing);\nMemorySegment first = slicing.allocate(8);\nMemorySegment second = slicing.allocate(8);\nSystem.out.println(first.address() < second.address());</pre>"
     },
     {
      "type": "basic",
@@ -792,7 +811,8 @@
      "extra": "Override it with --header-class-name. That option is mandatory when you pass more than one header file to a single run.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jextract -d gen foo.h\n# generated header class: gen.foo_h</pre>"
     },
     {
      "type": "basic",
@@ -810,7 +830,8 @@
      "extra": "You must then re-include the dependency. Filtering is not silently Lenient: an incomplete symbol set aborts the whole run.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jextract -I . --filter 'foo_.*' --output gen foo.h\n# foo_Use needs struct Bar, which the filter removed: no bindings generated</pre>"
     },
     {
      "type": "basic",
@@ -819,7 +840,8 @@
      "extra": "The static import brings functions, constants and macros as static members; the plain import brings the struct and typedef classes.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import static org.freeglut.freeglut_h.*;\nimport org.freeglut.*;\nclass Ex { static void m() {\nSystem.out.println(\"jextract-generated types and constants are visible\");\n} }</pre>"
     },
     {
      "type": "basic",
@@ -837,7 +859,8 @@
      "extra": "For C++ the equivalent route is to consume the library's extern \"C\" declarations. Either way jextract works through a C surface.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>cbindgen --lang c --crate mylib --output mylib.h\njextract -I . -d gen mylib.h</pre>"
     }
    ]
   },
@@ -912,7 +935,8 @@
      "extra": "Different orders exist across JDK versions; the address still uniquely identifies the symbol and the descriptor supplies its types.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.foreign.*;\nimport java.lang.invoke.MethodHandle;\nclass Ex { static void m() {\nLinker linker = Linker.nativeLinker();\nMemorySegment address = linker.defaultLookup().find(\"abs\").orElseThrow();\nMethodHandle handle = linker.downcallHandle(address,\nFunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -996,7 +1020,8 @@
      "extra": "The JVM cannot inspect what library initialization does, so the operation requires explicit opt-in from the application author.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>SymbolLookup lookup = SymbolLookup.libraryLookup(\"mylib.so\", Arena.global());\nMemorySegment f = lookup.find(\"my_function\").orElseThrow();\n// restricted: loading a library executes native code, e.g. dlopen hooks</pre>"
     },
     {
      "type": "basic",
@@ -1014,7 +1039,8 @@
      "extra": "A wrong descriptor misinterprets argument and return widths, which is undefined behavior rather than a predictable exception.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Linker linker = Linker.nativeLinker();\nMemorySegment abs = linker.defaultLookup().find(\"abs\").orElseThrow();\n// restricted: the linker cannot verify the descriptor matches the real C function\nvar handle = linker.downcallHandle(abs, FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));</pre>"
     },
     {
      "type": "basic",
@@ -1089,7 +1115,8 @@
      "extra": "It takes the declaring class, the method name and a MethodType describing the return type plus every parameter type.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.invoke.*;\nclass Ex { static void m() throws Throwable {\nMethodHandles.Lookup lookup = MethodHandles.lookup();\nMethodHandle abs = lookup.findStatic(Math.class, \"abs\", MethodType.methodType(int.class, int.class));\nSystem.out.println((int) abs.invokeExact(-5));\n} }</pre>"
     }
    ]
   },
@@ -1110,7 +1137,8 @@
      "extra": "It returns an Iterable, so an enhanced for loop can walk every root. On Windows that is every drive letter; on UNIX usually just /.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nfor (Path root : FileSystems.getDefault().getRootDirectories()) System.out.println(root);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1137,7 +1165,8 @@
      "extra": "Files.delete() throws it for a non-empty directory, as does a copy with REPLACE_EXISTING onto one.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath dir = Files.createTempDirectory(\"t\");\nFiles.writeString(dir.resolve(\"f\"), \"x\");\ntry { Files.delete(dir); } catch (DirectoryNotEmptyException e) { System.out.println(\"not empty\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1212,7 +1241,8 @@
      "extra": "Path.toFile() goes the other way. The migration is preferred over rewriting I/O code wholesale.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.File;\nimport java.nio.file.Path;\nclass Ex { static void m() {\nPath p = new File(\"a.txt\").toPath();\nSystem.out.println(p);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1278,7 +1308,8 @@
      "extra": "Paths.get() and Path.of() are convenience wrappers around exactly this call, which is why all three are interchangeable.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = FileSystems.getDefault().getPath(\"u\", \"joe\", \"foo.log\");\nSystem.out.println(p);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1287,7 +1318,8 @@
      "extra": "Every Path belongs to a file system; omitting one simply selects FileSystems.getDefault(), the operating system's own file system.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nPath p = Path.of(\"u\", \"joe\", \"foo.log\");\nSystem.out.println(p.getFileSystem().equals(FileSystems.getDefault()));\n} }</pre>"
     }
    ]
   },
@@ -1308,7 +1340,8 @@
      "extra": "The target need not exist, which is what makes dangling symbolic links possible.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath link = Files.createSymbolicLink(Path.of(\"link.txt\"), Path.of(\"target.txt\"));\nSystem.out.println(Files.isSymbolicLink(link));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1326,7 +1359,8 @@
      "extra": "Use isSymbolicLink(Path) first if the path type is unknown. readSymbolicLink returns the link's target, not its content.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath p = Files.createTempFile(\"t\", \".txt\");\ntry { Files.readSymbolicLink(p); } catch (NotLinkException e) { System.out.println(\"not a link\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1401,7 +1435,8 @@
      "extra": "The two-argument overload compiles the pattern for you. Use the Filter overload for conditions that are not name-based.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry (DirectoryStream<Path> ds = Files.newDirectoryStream(Path.of(\".\"), \"*.java\")) {\nfor (Path p : ds) System.out.println(p);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -1410,7 +1445,8 @@
      "extra": "That is why <code>**</code> is used for complete path patterns such as <code>**/*.java</code>, while <code>*.java</code> stays in one directory.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() {\nvar one = FileSystems.getDefault().getPathMatcher(\"glob:*.java\");\nvar all = FileSystems.getDefault().getPathMatcher(\"glob:**/*.java\");\nSystem.out.println(one.matches(Path.of(\"a/B.java\")) + \" \" + all.matches(Path.of(\"a/B.java\")));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1467,7 +1503,8 @@
      "extra": "File systems differ in which attributes they track, so views let one API serve all of them. Basic is the common denominator.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.file.attribute.PosixFileAttributes;\nclass Ex { static void m() throws Exception {\nPosixFileAttributes a = Files.readAttributes(Path.of(\"x\"), PosixFileAttributes.class);\nSystem.out.println(a.owner());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1560,7 +1597,8 @@
      "extra": "It resolves symbolic links, so two different paths to one target return true. It declares IOException, unlike equals().",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath a = Path.of(\"a.txt\"), b = Path.of(\"./a.txt\");\nSystem.out.println(Files.isSameFile(a, b));\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1782,7 +1820,8 @@
      "extra": "The directory has to exist before files can be written into it. Attributes are best applied in postVisitDirectory, after copying.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.io.IOException;\nimport java.nio.file.attribute.BasicFileAttributes;\nclass Ex { static void m() throws Exception {\nPath src = Path.of(\"src\"), dst = Path.of(\"dst\");\nFiles.walkFileTree(src, new SimpleFileVisitor<Path>() {\npublic FileVisitResult preVisitDirectory(Path d, BasicFileAttributes a) throws IOException {\nFiles.createDirectories(dst.resolve(src.relativize(d))); return FileVisitResult.CONTINUE; }\n}); } }</pre>"
     },
     {
      "type": "basic",
@@ -1950,7 +1989,8 @@
      "extra": "Reader/Writer handle characters, InputStream/OutputStream handle bytes. Everything else in java.io descends from these four.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() {\nReader r = new StringReader(\"x\"); Writer w = new StringWriter();\nInputStream in = new ByteArrayInputStream(new byte[1]); OutputStream out = new ByteArrayOutputStream();\nSystem.out.println(r.getClass() + \" \" + w.getClass() + \" \" + in.getClass() + \" \" + out.getClass());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2016,7 +2056,8 @@
      "extra": "The subclass adds skipLines(), skipSonnetHeader() and readNextSonnet(), while close() is inherited from BufferedReader.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex {\nstatic class SonnetReader extends BufferedReader {\nSonnetReader(Reader r) { super(r); }\nString readNextSonnet() throws IOException { return readLine(); }\n}\nstatic void m() throws Exception { try (var r = new SonnetReader(new StringReader(\"first\\n\"))) { System.out.println(r.readNextSonnet()); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2127,7 +2168,8 @@
      "extra": "Fewer per-item calls means channel I/O bypasses layers that bottleneck stream I/O.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.channels.FileChannel;\nclass Ex { static void m() throws Exception {\ntry (FileChannel ch = FileChannel.open(Path.of(\"a.txt\"))) {\nvar buf = java.nio.ByteBuffer.allocate(64); int n = ch.read(buf); System.out.println(n);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2145,7 +2187,8 @@
      "extra": "On the default file system a newByteChannel() result can be cast to FileChannel to reach those advanced features.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.channels.FileChannel;\nclass Ex { static void m() throws Exception {\nFileChannel ch = (FileChannel) Files.newByteChannel(Path.of(\"a.txt\"), StandardOpenOption.READ);\nvar map = ch.map(FileChannel.MapMode.READ_ONLY, 0, ch.size());\nSystem.out.println(map.get(0));\n} }</pre>"
     }
    ]
   },
@@ -2166,7 +2209,8 @@
      "extra": "Before that the platform encoding was used, which could be a legacy Windows code page. Explicit charset parameters are now unnecessary.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.charset.Charset;\nclass Ex { static void m() {\nCharset cs = Charset.defaultCharset();\nSystem.out.println(cs);\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2184,7 +2228,8 @@
      "extra": "The stream is AutoCloseable, so open it in try-with-resources. Files.lines(Path) is the shortcut that skips the reader.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\ntry (BufferedReader r = new BufferedReader(new StringReader(\"a\\nb\"))) {\nvar lines = r.lines(); lines.forEach(System.out::println);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2193,7 +2238,8 @@
      "extra": "The optional OpenOptions control creation and appending, so the same call can build a fresh file or extend an existing one.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.nio.charset.StandardCharsets;\nclass Ex { static void m() throws Exception {\ntry (var w = Files.newBufferedWriter(Path.of(\"a.txt\"), StandardCharsets.UTF_8)) {\nw.write(\"text\");\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2250,7 +2296,8 @@
      "extra": "So a BufferedReader declared over an InputStream closes first, releasing the outer layer before the underlying stream.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\ntry (Closeable a = () -> System.out.println(\"first\"); Closeable b = () -> System.out.println(\"last\")) { }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2289,7 +2336,8 @@
      "extra": "A wrapper object takes the delegate stream in its constructor and adds or overrides behavior without altering the wrapped class.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nReader r = new BufferedReader(new FileReader(\"a.txt\"));\nSystem.out.println(r.getClass().getSimpleName());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2334,7 +2382,8 @@
      "extra": "Unlike a text file, the binary encoding uses a fixed width per value, so the size is predictable from the count.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws Exception {\nByteArrayOutputStream bytes = new ByteArrayOutputStream();\ntry (var out = new DataOutputStream(bytes)) { for (int i = 0; i < 6; i++) out.writeInt(i); }\nSystem.out.println(bytes.size());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2409,7 +2458,8 @@
      "extra": "It wraps an internal StringBuffer, so repeated appends never copy the accumulated text the way string concatenation would.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() {\nStringWriter sw = new StringWriter();\nsw.write('h'); sw.write('i');\nSystem.out.println(sw.toString());\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2457,7 +2507,8 @@
      "extra": "CREATE instead opens an existing file or creates it. The difference decides whether an accidental overwrite is caught or allowed.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\nPath p = Files.writeString(Path.of(\"new.txt\"), \"x\", StandardOpenOption.CREATE_NEW);\ntry { Files.writeString(p, \"y\", StandardOpenOption.CREATE_NEW); }\ncatch (FileAlreadyExistsException e) { System.out.println(\"exists\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2541,7 +2592,8 @@
      "extra": "It holds the file handle open, so wrap it in try-with-resources. Files.readAllLines loads everything instead.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.util.stream.Stream;\nclass Ex { static void m() throws Exception {\ntry (Stream<String> lines = Files.lines(Path.of(\"a.txt\"))) {\nlines.forEach(System.out::println);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2559,7 +2611,8 @@
      "extra": "An overload limits depth. Use stream operations such as filter and collect on the result, and close the stream.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.util.stream.Stream;\nclass Ex { static void m() throws Exception {\ntry (Stream<Path> paths = Files.walk(Path.of(\".\"))) { paths.forEach(System.out::println); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -2568,7 +2621,8 @@
      "extra": "The predicate receives path and attributes together, which is cheaper than calling readAttributes separately per file.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nimport java.util.stream.Stream;\nclass Ex { static void m() throws Exception {\ntry (Stream<Path> s = Files.find(Path.of(\".\"), 2, (p, a) -> a.isRegularFile())) {\ns.forEach(System.out::println);\n} } }</pre>"
     },
     {
      "type": "basic",
@@ -2586,7 +2640,8 @@
      "extra": "Use FileSystems.newFileSystem to get one, then all Files methods work on its entries, and closing it writes the changes back.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.nio.file.*;\nclass Ex { static void m() throws Exception {\ntry (FileSystem zip = FileSystems.newFileSystem(Path.of(\"a.zip\"))) {\nSystem.out.println(zip.getPath(\"/\"));\n} } }</pre>"
     },
     {
      "type": "basic",
