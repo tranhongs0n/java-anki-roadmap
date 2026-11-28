@@ -1735,7 +1735,8 @@
      "extra": "e.g. <code>class MountainBike extends Bicycle</code>. A class may extend <b>one</b> parent only, since Java has single class inheritance.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Vehicle { }\nclass Car extends Vehicle { }   // extends introduces the superclass</pre>"
     },
     {
      "type": "basic",
@@ -1866,7 +1867,8 @@
      "extra": "That is how you recognise it, e.g. <code>Point(int x, int y)</code>. Giving it a return type would turn it into an ordinary method.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Point {\n    Point(int x, int y) { }   // name matches the class, no return type\n}</pre>"
     },
     {
      "type": "basic",
@@ -1875,7 +1877,8 @@
      "extra": "It is the only constructor many classes need, and it enables <code>new Foo()</code>. It differs from the compiler-generated default only in origin.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Box { Box() { } }   // takes no arguments</pre>"
     },
     {
      "type": "basic",
@@ -1934,7 +1937,8 @@
      "extra": "All references must be gone: dropped by going out of scope, or explicitly set to null. Until then the object is reachable and stays.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = new Object();\no = null;   // no references left: eligible for collection</pre>"
     },
     {
      "type": "basic",
@@ -2057,7 +2061,8 @@
      "extra": "Only the return type, name, parentheses and body are strictly required: the rest may be omitted from the declaration.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    public static int sum(int a, int b) throws IllegalStateException { return a + b; }\n    // modifiers, return type, name, parameters, throws, body\n}</pre>"
     },
     {
      "type": "basic",
@@ -2106,7 +2111,8 @@
      "extra": "Two methods with the same name and parameters but different return types is a compile error. The compiler cannot tell which the call intends.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    void print(int n) { }\n    void print(String s) { }   // the parameters alone pick the overload\n}</pre>"
     },
     {
      "type": "basic",
@@ -2239,7 +2245,8 @@
      "extra": "You list them as enum constants in the body, separated by commas. No other instances can be created.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Direction { NORTH, SOUTH, EAST, WEST }   // a fixed set of instances, known at compile time</pre>"
     },
     {
      "type": "basic",
@@ -2248,7 +2255,8 @@
      "extra": "Because the superclass is fixed, an enum cannot extend another class. It also cannot be subclassed: enums are effectively final.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>enum Day { MON }\nclass Demo { void run() { System.out.println(Day.class.getSuperclass()); } }   // class java.lang.Enum</pre>"
     },
     {
      "type": "basic",
@@ -2257,7 +2265,8 @@
      "extra": "It returns exactly the identifier as declared, which matters when persisting values. <code>toString()</code> may be overridden, name() cannot.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Demo { void run() { System.out.println(Color.RED.name()); } }   // RED</pre>"
     },
     {
      "type": "basic",
@@ -2266,7 +2275,8 @@
      "extra": "The first constant has ordinal 0. That ordering is also enums' default natural ordering for <code>Comparable</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN, BLUE }\nclass Demo { void run() { System.out.println(Color.GREEN.ordinal()); } }   // 1</pre>"
     },
     {
      "type": "basic",
@@ -2275,7 +2285,8 @@
      "extra": "It returns an array in declaration order. <code>valueOf(String)</code> does the reverse, and both are added implicitly by the compiler.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Day { MON, TUE }\nclass Demo { void run() { for (Day d : Day.values()) System.out.println(d); } }</pre>"
     },
     {
      "type": "basic",
@@ -2284,7 +2295,8 @@
      "extra": "It matches the identifier exactly and is case-sensitive. An unknown name causes an <code>IllegalArgumentException</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>enum Day { MON }\nclass Demo { void run() { Day d = Day.valueOf(\"MON\"); } }   // the constant whose name matches</pre>"
     },
     {
      "type": "basic",
@@ -2293,7 +2305,8 @@
      "extra": "The <code>;</code> is mandatory before any member declarations. Without it the compiler keeps expecting more constants.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>enum Planet {\n    EARTH(5.97);                  // constants first\n    private final double mass;\n    Planet(double mass) { this.mass = mass; }   // semicolon before the members\n}</pre>"
     },
     {
      "type": "basic",
@@ -2302,7 +2315,8 @@
      "extra": "e.g. <code>MONDAY(&quot;Monday&quot;)</code>. The arguments are passed to the enum's (implicitly private) constructor.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>enum Size {\n    SMALL(1), LARGE(10);   // arguments in parentheses after each constant\n    Size(int units) { }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2311,7 +2325,8 @@
      "extra": "The compiler rejects a switch expression that lacks a branch for a constant. Sealed classes plus pattern matching bring the same guarantee to regular classes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Demo {\n    int code(Color c) { return switch (c) { case RED -> 1; case GREEN -> 2; }; }   // no default: all covered\n}</pre>"
     },
     {
      "type": "basic",
@@ -2320,7 +2335,8 @@
      "extra": "It is thread-safe, lazily class-initialised, and resistant to reflection and serialisation creating more instances.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>enum Registry {\n    INSTANCE   // the one and only instance\n}\nclass Demo { void run() { Registry a = Registry.INSTANCE, b = Registry.INSTANCE; } }</pre>"
     },
     {
      "type": "basic",
@@ -2329,7 +2345,8 @@
      "extra": "The enum itself cannot be extended, but the constants behave like implicit subclasses. That is the template-method style often used for per-constant behaviour.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>enum Op {\n    ADD { int apply(int a, int b) { return a + b; } };\n    abstract int apply(int a, int b);   // every constant implements it\n}</pre>"
     },
     {
      "type": "basic",
@@ -2338,7 +2355,8 @@
      "extra": "A stored ordinal or name can no longer resolve. Review every use site, and prefer storing the name over the ordinal.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>enum Color { RED, GREEN }\nclass Demo {\n    void run() {\n        int order = Color.RED.ordinal();   // persisting this breaks when a constant is inserted\n    }\n}</pre>"
     }
    ]
   },
@@ -2399,7 +2417,8 @@
      "extra": "Wider access ties callers to implementation details and limits future change. Public fields in particular should be avoided.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Account { private double balance; }   // private unless a caller truly needs more</pre>"
     },
     {
      "type": "basic",
@@ -2478,7 +2497,8 @@
      "extra": "A static block is a one-shot, non-reentrant action. A method can be called again for a reset, which a block can never do.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Config {\n    private static int load() { return 42; }\n    static int value = load();   // callable again later, a static block is not\n}</pre>"
     },
     {
      "type": "basic",
@@ -2519,7 +2539,8 @@
      "extra": "It is divided into two kinds: non-static nested classes, called inner classes, and static nested classes.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Outer { class Inner { } }   // a class inside a class</pre>"
     },
     {
      "type": "basic",
@@ -2528,7 +2549,8 @@
      "extra": "It is tied to an instance of the enclosing class, and its objects each exist within such an instance.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Outer { class Inner { } }   // a nested class without static is an inner class</pre>"
     },
     {
      "type": "basic",
@@ -2537,7 +2559,8 @@
      "extra": "Inner classes reach even private fields and methods of the enclosing instance. Static nested classes have no implicit enclosing instance.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Outer {\n    int field;\n    class Inner { int read() { return field; } }   // sees outer state\n    static class Nested { /* needs an Outer instance */ }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2546,7 +2569,8 @@
      "extra": "Outer top-level classes can only be public or package-private, because a file has no notion of private classes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Outer {\n    private static class A { }\n    protected class B { }\n    public class C { }\n    class D { }   // package-private\n}</pre>"
     },
     {
      "type": "basic",
@@ -2555,7 +2579,8 @@
      "extra": "A file-level type must be reachable from its own file or package, so only public and package-private apply. Private is reserved for nested classes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// private class Hidden { }   // error: a top-level class has no enclosing class to hide it from</pre>"
     },
     {
      "type": "basic",
@@ -2564,7 +2589,8 @@
      "extra": "Writing <code>new OuterClass.InnerClass()</code> instead is a compile error. The inner instance needs an outer instance to belong to.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Outer { class Inner { } }\nclass Demo {\n    void run() { Outer o = new Outer(); Outer.Inner i = o.new Inner(); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2573,7 +2599,8 @@
      "extra": "No outer instance is needed. Behaviourally, the static nested class is a top-level class nested only for packaging convenience.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Outer { static class Nested { } }\nclass Demo { void run() { Outer.Nested n = new Outer.Nested(); } }</pre>"
     },
     {
      "type": "basic",
@@ -2582,7 +2609,8 @@
      "extra": "It reaches the field only through an object reference, exactly as any other class would have to.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Outer {\n    int field;\n    static class Nested { /* field is unreachable: there is no enclosing instance */ }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2591,7 +2619,8 @@
      "extra": "Its visibility is restricted to that block. It may be declared in a loop or an if clause, not only in a method.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Demo { void run() { class Local { } } }   // declared inside a block</pre>"
     },
     {
      "type": "basic",
@@ -2600,7 +2629,8 @@
      "extra": "Since Java SE 8, effectively final is enough. A variable counts as effectively final if it is never reassigned after initialisation.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    void run() {\n        int base = 10;                                       // effectively final\n        class Adder { int add(int n) { return n + base; } }   // captures base\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2609,7 +2639,8 @@
      "extra": "That is why the variable must not later change: the class keeps a copy. Reassigning it would make the captured value diverge from the source.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    void run() {\n        String label = \"x\";                          // effectively final\n        class Tag { String text() { return label; } }   // captures label\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2618,7 +2649,8 @@
      "extra": "A local class may hold static members only if they are compile-time constants. Interfaces declared inside a block are also rejected, since they are inherently static.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    void run() {\n        class Local { static final int MAX = 3; }   // a constant is the only static allowed\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2627,7 +2659,8 @@
      "extra": "There is no instance to draw on. A non-static field of the enclosing class therefore cannot be referenced from such a class.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Outer {\n    int instance;\n    static int shared;\n    static void m() { class Local { int x = shared; } }   // static members only\n}</pre>"
     },
     {
      "type": "basic",
@@ -2636,7 +2669,8 @@
      "extra": "It is limited to a single-use helper. Being an expression, it carries its semicolon and appears right where the object is needed.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Runnable r = new Runnable() { public void run() { } };   // an expression, not a declaration</pre>"
     },
     {
      "type": "basic",
@@ -2645,7 +2679,8 @@
      "extra": "Fields, extra methods, instance initializers and nested classes are all fine. Instance initializers are the usual substitute for constructor code.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Runnable r = new Runnable() { public void run() { } };   // no name, so no constructor possible</pre>"
     },
     {
      "type": "basic",
@@ -2654,7 +2689,8 @@
      "extra": "Serialised bytes from one JRE may not deserialize under another. Synthetic constructs let compilers add language features without changing the JVM.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Outer implements java.io.Serializable { class Inner { } }   // the synthetic outer reference travels with it</pre>"
     }
    ]
   },
@@ -2711,7 +2747,8 @@
      "extra": "Abstract classes may have shared state and protected or private concrete methods. That is the main reason to pick one over an interface.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>abstract class Base {\n    int count;                    // non-static field\n    void bump() { count++; }      // concrete method\n    abstract void run();\n}</pre>"
     },
     {
      "type": "basic",
@@ -2747,7 +2784,8 @@
      "extra": "Interfaces suit unrelated implementors and pure type contracts. An abstract superclass can hold reusable state and behaviour.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>abstract class Base {\n    protected int hits;\n    void touch() { hits++; }   // shared state and code, impossible in an interface\n}</pre>"
     },
     {
      "type": "basic",
@@ -2783,7 +2821,8 @@
      "extra": "A concrete subclass then implements the rest. An interface cannot be declared abstract, so only classes can carry the obligation forward.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Shape { double area(); double perimeter(); }\nabstract class Base implements Shape {\n    public double area() { return 0; }   // perimeter left to subclasses\n}</pre>"
     },
     {
      "type": "basic",
@@ -2792,7 +2831,8 @@
      "extra": "Position, colour and <code>moveTo()</code> are inherited once. What differs per subclass stays abstract, so the compiler forces each shape to implement it.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>abstract class Shape {\n    double size;\n    abstract double area();\n    double twice() { return 2 * area(); }   // shared logic calls the abstract method\n}</pre>"
     }
    ]
   },
