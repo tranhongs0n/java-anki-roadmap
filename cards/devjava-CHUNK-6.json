@@ -19,7 +19,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.layout.StackPane root = new javafx.scene.layout.StackPane();\njavafx.scene.Scene scene = new javafx.scene.Scene(root, 300, 200);   // root of the scene graph\njavafx.stage.Stage stage = new javafx.stage.Stage();\nstage.setScene(scene);   // Stage holds the Scene, which holds the scene graph\nstage.show();</pre>"
     },
     {
      "type": "basic",
@@ -40,7 +41,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.control.Label node = new javafx.scene.control.Label(\"X\");\njavafx.scene.layout.VBox first = new javafx.scene.layout.VBox(), second = new javafx.scene.layout.VBox();\nfirst.getChildren().add(node);   // exactly one parent\nsecond.getChildren().add(node);  // removed from first: still only one parent\njavafx.scene.Scene scene = new javafx.scene.Scene(first, 200, 100);\nSystem.out.println(node.getParent() == second &amp;&amp; node.getScene() == scene);   // one scene at a time</pre>"
     },
     {
      "type": "basic",
@@ -72,7 +74,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>class Demo extends javafx.application.Application {\n  public void start(javafx.stage.Stage stage) { stage.setTitle(\"Demo\"); stage.show(); }\n}\n// the JavaFX runtime instantiates Demo, a subclass of Application, and invokes start()</pre>"
     },
     {
      "type": "basic",
@@ -82,7 +85,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.shape.Rectangle fx = new javafx.scene.shape.Rectangle(10, 10, 40, 20);\njava.awt.Rectangle awt = new java.awt.Rectangle(10, 10, 40, 20);   // same simple name, different package\nSystem.out.println(fx.getWidth() + \" \" + awt.getWidth());   // JavaFX classes live under javafx.*</pre>"
     },
     {
      "type": "basic",
@@ -92,7 +96,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.shape.Shape shape = new javafx.scene.shape.Rectangle(40, 40);\nshape.setFill(javafx.scene.paint.Color.BLUE);   // a Color\nshape.setFill(new javafx.scene.paint.RadialGradient(0, 0, 0.5, 0.5, 0.5, true, javafx.scene.paint.CycleMethod.NO_CYCLE, new javafx.scene.paint.Stop(0, javafx.scene.paint.Color.WHITE), new javafx.scene.paint.Stop(1, javafx.scene.paint.Color.BLUE)));   // radial (linear works too)\nshape.setFill(new javafx.scene.paint.ImagePattern(new javafx.scene.image.Image(\"file:///tile.png\")));   // an image</pre>"
     },
     {
      "type": "basic",
@@ -102,7 +107,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.paint.Color opaque = new javafx.scene.paint.Color(1, 0, 0, 1.0);\njavafx.scene.paint.Color clear = new javafx.scene.paint.Color(1, 0, 0, 0.0);\nSystem.out.println(opaque.getAlpha() + \" \" + clear.getAlpha());   // 1.0 opaque, 0.0 transparent</pre>"
     },
     {
      "type": "basic",
@@ -112,7 +118,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.text.Text text = new javafx.scene.text.Text(\"Hello\");   // Text extends Shape and holds the string\ntext.setFill(javafx.scene.paint.Color.BLUE);   // inherited Shape fill\ntext.setFont(javafx.scene.text.Font.font(18));\ntext.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);\ntext.setWrappingWidth(120);\nSystem.out.println(text.getText() + \" \" + text.getFont().getSize() + \" \" + text.getWrappingWidth());</pre>"
     },
     {
      "type": "basic",
@@ -144,7 +151,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.layout.AnchorPane pane = new javafx.scene.layout.AnchorPane();\njavafx.scene.control.Button ok = new javafx.scene.control.Button(\"OK\");\npane.getChildren().add(ok);\njavafx.scene.layout.AnchorPane.setTopAnchor(ok, 12.0);\njavafx.scene.layout.AnchorPane.setLeftAnchor(ok, 20.0);\npane.resize(400, 300);   // anchors are re-applied on resize: 12 px from top, 20 px from left</pre>"
     },
     {
      "type": "basic",
@@ -176,7 +184,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/structure/"
+     "source": "https://dev.java/learn/javafx/core/structure/",
+     "example": "<pre>javafx.scene.control.SplitPane split = new javafx.scene.control.SplitPane();\nsplit.getItems().addAll(new javafx.scene.control.Label(\"left\"), new javafx.scene.control.Label(\"right\"));\nSystem.out.println(split.getItems().size() + \" areas, \" + split.getDividers().size() + \" movable divider\");</pre>"
     },
     {
      "type": "basic",
@@ -231,7 +240,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/core/properties/"
+     "source": "https://dev.java/learn/javafx/core/properties/",
+     "example": "<pre>javafx.beans.property.SimpleStringProperty status = new javafx.beans.property.SimpleStringProperty(\"idle\");\nstatus.addListener(o -> {\n    String value = ((javafx.beans.value.ObservableValue&lt;String&gt;) o).getValue();   // o is a non-generic Observable\n    System.out.println(value);\n});\nstatus.set(\"busy\");</pre>"
     },
     {
      "type": "basic",
@@ -274,7 +284,8 @@
      "tags": [
       "type::syntax"
      ],
-     "source": "https://dev.java/learn/javafx/core/properties/"
+     "source": "https://dev.java/learn/javafx/core/properties/",
+     "example": "<pre>javafx.beans.property.DoubleProperty price = new javafx.beans.property.SimpleDoubleProperty(12.5);\njavafx.beans.binding.StringBinding formatted = price.asString(\"%.1f\");\njavafx.beans.property.StringProperty display = new javafx.beans.property.SimpleStringProperty();\ndisplay.bind(formatted);   // the numeric binding formats the double as a String\nSystem.out.println(display.get());   // 12.5</pre>"
     },
     {
      "type": "basic",
@@ -284,7 +295,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/properties/"
+     "source": "https://dev.java/learn/javafx/core/properties/",
+     "example": "<pre>javafx.beans.property.SimpleIntegerProperty count = new javafx.beans.property.SimpleIntegerProperty(0);\njavafx.beans.value.ChangeListener&lt;Number&gt; listener = (observable, oldValue, newValue) -> {\n    System.out.println(observable + \" \" + oldValue + \" \" + newValue);   // all three roles\n};\ncount.addListener(listener);\ncount.set(1);   // observable, 0, 1</pre>"
     },
     {
      "type": "basic",
@@ -294,7 +306,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/properties/"
+     "source": "https://dev.java/learn/javafx/core/properties/",
+     "example": "<pre>javafx.beans.property.SimpleIntegerProperty total = new javafx.beans.property.SimpleIntegerProperty(0);\njavafx.beans.property.SimpleIntegerProperty count = new javafx.beans.property.SimpleIntegerProperty(2);\ntotal.bind(count.multiply(10));   // binding links values without writing a listener\ncount.set(3);\nSystem.out.println(total.get());   // 30</pre>"
     },
     {
      "type": "basic",
@@ -304,7 +317,8 @@
      "tags": [
       "type::syntax"
      ],
-     "source": "https://dev.java/learn/javafx/core/properties/"
+     "source": "https://dev.java/learn/javafx/core/properties/",
+     "example": "<pre>javafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(1));\nfade.statusProperty().addListener((o, oldV, newV) -&gt; {\n  if (newV == javafx.animation.Animation.Status.STOPPED) System.out.println(\"transition stopped\");\n});\nfade.play();</pre>"
     }
    ]
   },
@@ -326,7 +340,8 @@
      "tags": [
       "type::mental-model"
      ],
-     "source": "https://dev.java/learn/javafx/core/layout/"
+     "source": "https://dev.java/learn/javafx/core/layout/",
+     "example": "<pre>javafx.scene.layout.VBox pane = new javafx.scene.layout.VBox(8);\npane.getChildren().addAll(new javafx.scene.control.Label(\"a\"), new javafx.scene.control.Label(\"b\"));\npane.resize(300, 200);   // the layout pane re-arranges its children on resize\njavafx.scene.layout.Pane fixed = new javafx.scene.layout.Pane();\njavafx.scene.control.Label lone = new javafx.scene.control.Label(\"stays put\");\nlone.relocate(10, 10);   // fixed coordinates do not re-arrange</pre>"
     },
     {
      "type": "basic",
@@ -358,7 +373,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/core/layout/"
+     "source": "https://dev.java/learn/javafx/core/layout/",
+     "example": "<pre>javafx.scene.layout.StackPane pane = new javafx.scene.layout.StackPane();\njavafx.scene.text.Text text = new javafx.scene.text.Text(\"bottom\");\njavafx.scene.layout.StackPane.setAlignment(text, javafx.geometry.Pos.BOTTOM);   // per-node alignment\npane.setAlignment(javafx.geometry.Pos.CENTER);   // pane-wide alignment\npane.getChildren().add(text);</pre>"
     },
     {
      "type": "basic",
@@ -368,7 +384,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/layout/"
+     "source": "https://dev.java/learn/javafx/core/layout/",
+     "example": "<pre>javafx.scene.layout.BorderPane pane = new javafx.scene.layout.BorderPane();\njavafx.scene.control.Label top = new javafx.scene.control.Label(\"Top\");\npane.setTop(top);\njavafx.scene.layout.BorderPane.setMargin(top, new javafx.geometry.Insets(10, 20, 10, 20));   // top/right/bottom/left\nSystem.out.println(javafx.scene.layout.BorderPane.getMargin(top));   // space around this one child in its region</pre>"
     },
     {
      "type": "basic",
@@ -389,7 +406,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/layout/"
+     "source": "https://dev.java/learn/javafx/core/layout/",
+     "example": "<pre>javafx.scene.layout.HBox row = new javafx.scene.layout.HBox(8);\nrow.getChildren().addAll(new javafx.scene.control.Button(\"A\"), new javafx.scene.control.Button(\"B\"));   // row\njavafx.scene.layout.VBox column = new javafx.scene.layout.VBox(8);\ncolumn.getChildren().addAll(new javafx.scene.control.Label(\"A\"), new javafx.scene.control.Label(\"B\"));   // column\nSystem.out.println(row.getOrientation() + \" / \" + column.getOrientation());</pre>"
     }
    ]
   },
@@ -433,7 +451,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.scene.shape.Rectangle box = new javafx.scene.shape.Rectangle(40, 40);\njavafx.scene.paint.LinearGradient g = new javafx.scene.paint.LinearGradient(\n    0, 0, 1, 1, true, javafx.scene.paint.CycleMethod.NO_CYCLE,\n    new javafx.scene.paint.Stop(0, javafx.scene.paint.Color.RED),\n    new javafx.scene.paint.Stop(1, javafx.scene.paint.Color.BLUE));   // true: 0..1 relative to the shape\nbox.setFill(g);</pre>"
     },
     {
      "type": "basic",
@@ -454,7 +473,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.scene.shape.Rectangle box = new javafx.scene.shape.Rectangle(40, 40);\njavafx.scene.effect.DropShadow shadow = new javafx.scene.effect.DropShadow(javafx.scene.paint.Color.DARKGRAY, 10, 4, 4);\nbox.setEffect(shadow);   // color, radius, offsetX, offsetY: shadow down-right implies light upper-left\nSystem.out.println(shadow.getOffsetX() + \" \" + shadow.getOffsetY());</pre>"
     },
     {
      "type": "basic",
@@ -464,7 +484,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.scene.text.Text text = new javafx.scene.text.Text(\"MyShapes\");\njavafx.scene.effect.Reflection reflection = new javafx.scene.effect.Reflection();\nreflection.setFraction(0.8);   // eight-tenths of the component height is reflected below it\ntext.setEffect(reflection);    // mirrored downward and faded to transparent</pre>"
     },
     {
      "type": "basic",
@@ -496,7 +517,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(2));\nfade.play(); fade.pause();   // paused partway through\nfade.play();                 // resumes from the current time\nfade.playFromStart();        // restarts at time 0</pre>"
     },
     {
      "type": "basic",
@@ -517,7 +539,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(1));\nfade.setAutoReverse(true);\nfade.setCycleCount(2);   // alternates: forward, then backward on the next cycle\nfade.play();</pre>"
     },
     {
      "type": "basic",
@@ -527,7 +550,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.scene.Node node = new javafx.scene.control.Label(\"spin\");\njavafx.animation.RotateTransition spin = new javafx.animation.RotateTransition(javafx.util.Duration.millis(2500), node);\nspin.setFromAngle(0); spin.setToAngle(360);   // degrees: one full turn of the rotate property\nspin.play();</pre>"
     },
     {
      "type": "basic",
@@ -537,7 +561,8 @@
      "tags": [
       "type::mental-model"
      ],
-     "source": "https://dev.java/learn/javafx/core/effects/"
+     "source": "https://dev.java/learn/javafx/core/effects/",
+     "example": "<pre>javafx.scene.layout.StackPane pane = new javafx.scene.layout.StackPane();\npane.setEffect(new javafx.scene.effect.DropShadow());   // the effect belongs to the parent node\npane.getChildren().add(new javafx.scene.control.Label(\"child\"));\njavafx.animation.RotateTransition spin = new javafx.animation.RotateTransition(javafx.util.Duration.seconds(1), pane);\nspin.play();   // children and the parent's effect rotate together</pre>"
     },
     {
      "type": "basic",
@@ -570,7 +595,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n&lt;?import javafx.scene.control.*?&gt;\n&lt;VBox xmlns:fx=\"http://javafx.com/fxml\" spacing=\"8\"&gt;   &lt;!-- XML markup declaring the scene graph --&gt;\n  &lt;Label text=\"Hello\" /&gt;\n  &lt;Button text=\"OK\" /&gt;\n&lt;/VBox&gt;</pre>"
     },
     {
      "type": "basic",
@@ -602,7 +628,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>class PersonController {\n    @javafx.fxml.FXML private javafx.scene.control.TextField firstName;   // field name equals fx:id\n}\n// FXML declares &lt;TextField fx:id=\"firstName\" /&gt;; the loader injects it after constructing the controller</pre>"
     },
     {
      "type": "basic",
@@ -623,7 +650,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>class DemoController implements javafx.fxml.Initializable {\n  public void initialize(java.net.URL url, java.util.ResourceBundle rb) { System.out.println(\"FXML injection done\"); }\n}\n// FXMLLoader calls initialize() after injecting fields annotated with @FXML</pre>"
     },
     {
      "type": "basic",
@@ -633,7 +661,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>class PersonController {\n    @javafx.fxml.FXML private javafx.scene.shape.Rectangle badge;   // fx:id=\"badge\": controller reads it\n}\n// Decorative Rectangle has no fx:id: the controller never accesses it, so no field is needed\n// FXML: &lt;Rectangle ... /&gt; versus &lt;Rectangle fx:id=\"badge\" ... /&gt;</pre>"
     },
     {
      "type": "basic",
@@ -643,7 +672,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>javafx.scene.layout.StackPane root = new javafx.scene.layout.StackPane();\njavafx.scene.Scene scene = new javafx.scene.Scene(root, 400, 300);\nSystem.out.println(\"default stylesheet: modena.css\");   // ships with the platform\nscene.getStylesheets().add(\"custom.css\");   // add stylesheets to augment or override Modena</pre>"
     },
     {
      "type": "basic",
@@ -653,7 +683,8 @@
      "tags": [
       "type::syntax"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>javafx.scene.Scene scene = new javafx.scene.Scene(new javafx.scene.layout.StackPane(), 300, 200);\nscene.getStylesheets().add(\"Styles.css\");   // the Scene's runtime stylesheet list\nSystem.out.println(scene.getStylesheets());</pre>"
     },
     {
      "type": "basic",
@@ -663,7 +694,8 @@
      "tags": [
       "type::syntax"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>javafx.scene.control.Button button = new javafx.scene.control.Button(\"Save\");\nbutton.getStyleClass().add(\"primary-action\");   // matches .primary-action in the stylesheet\nSystem.out.println(button.getStyleClass());</pre>"
     },
     {
      "type": "basic",
@@ -673,7 +705,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>&lt;AnchorPane xmlns:fx=\"http://javafx.com/fxml\" fx:controller=\"demo.PersonController\"&gt;\n  &lt;stylesheets&gt;\n    &lt;URL value=\"@person.css\" /&gt;   &lt;!-- declared in FXML so Scene Builder previews the styles --&gt;\n  &lt;/stylesheets&gt;\n  &lt;Label text=\"Name\" /&gt;\n&lt;/AnchorPane&gt;</pre>"
     },
     {
      "type": "basic",
@@ -694,7 +727,8 @@
      "tags": [
       "type::mental-model"
      ],
-     "source": "https://dev.java/learn/javafx/core/fxml/"
+     "source": "https://dev.java/learn/javafx/core/fxml/",
+     "example": "<pre>record Person(String name) {}                       // Model: data\nclass PersonController {                            // Controller: behaviour\n    @javafx.fxml.FXML private javafx.scene.control.TextField name;\n}\n// View: person.fxml declares the scene graph; FXMLLoader wires view and controller (MVC)</pre>"
     }
    ]
   },
@@ -716,7 +750,8 @@
      "tags": [
       "type::mental-model"
      ],
-     "source": "https://dev.java/learn/javafx/install/"
+     "source": "https://dev.java/learn/javafx/install/",
+     "example": "<pre>System.out.println(System.getProperty(\"java.version\"));   // JDK 21 -> pair with JavaFX 21 (same major version)\nSystem.out.println(\"JavaFX 26 needs JDK 24+\");            // a newer JavaFX release can require a higher JDK</pre>"
     },
     {
      "type": "basic",
@@ -726,7 +761,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/install/"
+     "source": "https://dev.java/learn/javafx/install/",
+     "example": "<pre># JavaFX is standalone: an SDK or a jmod archive downloaded separately from the JDK\njavac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls HelloWorldFX.java\njlink --module-path /path/to/javafx-jmods --add-modules javafx.controls --output myjre</pre>"
     },
     {
      "type": "basic",
@@ -758,7 +794,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/install/"
+     "source": "https://dev.java/learn/javafx/install/",
+     "example": "<pre>jlink --module-path \"$JAVAFX_JMODS:$JAVA_HOME/jmods\" --add-modules javafx.controls,javafx.fxml --output my-runtime\n# jmod files on the module path let jlink bundle JavaFX into a custom runtime image\nmy-runtime/bin/java -m myapp/com.example.Main</pre>"
     },
     {
      "type": "basic",
@@ -768,7 +805,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/install/"
+     "source": "https://dev.java/learn/javafx/install/",
+     "example": "<pre>java --enable-native-access=javafx.graphics,javafx.media,javafx.web -m myapp/com.example.Main\n# Since JDK 24 (JEP 472), JavaFX's native libraries need native access enabled explicitly at startup</pre>"
     }
    ]
   },
@@ -801,7 +839,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>class MyTransition extends javafx.animation.Transition {\n    @Override protected void interpolate(double frac) { System.out.println(frac); }\n}\nclass MyTimeline extends javafx.animation.Timeline { }   // Animation is abstract: extend these, not it</pre>"
     },
     {
      "type": "basic",
@@ -844,7 +883,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.scene.Node node = new javafx.scene.control.Label(\"fade\");\njavafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(1), node);\nfade.setFromValue(1.0); fade.setToValue(0.0);   // interpolates the node's opacity property\nfade.play();</pre>"
     },
     {
      "type": "basic",
@@ -876,7 +916,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.scene.shape.Rectangle box = new javafx.scene.shape.Rectangle(40, 40);\njavafx.animation.ScaleTransition scale = new javafx.animation.ScaleTransition(javafx.util.Duration.seconds(1), box);\nscale.setToX(2); scale.setToY(2); scale.setToZ(2);   // animates scaleX, scaleY, scaleZ\nscale.play();</pre>"
     },
     {
      "type": "basic",
@@ -886,7 +927,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.scene.Node node = new javafx.scene.control.Label(\"x\");\njavafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.millis(300), node);\nfade.setCycleCount(javafx.animation.Animation.INDEFINITE);\njavafx.animation.PauseTransition later = new javafx.animation.PauseTransition(javafx.util.Duration.millis(100));\njavafx.animation.SequentialTransition seq = new javafx.animation.SequentialTransition(fade, later);\nseq.play();   // INDEFINITE child never ends: every later animation is blocked</pre>"
     },
     {
      "type": "basic",
@@ -907,7 +949,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.scene.layout.StackPane root = new javafx.scene.layout.StackPane();\njavafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(1));\njavafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(1));\njavafx.animation.SequentialTransition seq = new javafx.animation.SequentialTransition(fade, pause);\nseq.setNode(root);   // children without a node implicitly use the parent's node</pre>"
     },
     {
      "type": "basic",
@@ -939,7 +982,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.beans.property.SimpleDoubleProperty x = new javafx.beans.property.SimpleDoubleProperty(0);\njavafx.animation.KeyValue kv = new javafx.animation.KeyValue(x, 200.0);\njavafx.animation.KeyFrame frame = new javafx.animation.KeyFrame(javafx.util.Duration.seconds(1), kv);   // cue point + KeyValues\njavafx.animation.Timeline timeline = new javafx.animation.Timeline(frame);</pre>"
     },
     {
      "type": "basic",
@@ -960,7 +1004,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.beans.property.SimpleDoubleProperty x = new javafx.beans.property.SimpleDoubleProperty(0);\njavafx.animation.KeyValue linear = new javafx.animation.KeyValue(x, 10, javafx.animation.Interpolator.LINEAR);\njavafx.animation.KeyValue discrete = new javafx.animation.KeyValue(x, 10, javafx.animation.Interpolator.DISCRETE);\n// LINEAR changes at a constant rate; DISCRETE jumps straight to the end value</pre>"
     },
     {
      "type": "basic",
@@ -970,7 +1015,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.scene.Node node = new javafx.scene.control.Label(\"x\");\njavafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(1), node);\nSystem.out.println(fade.getInterpolator() == javafx.animation.Interpolator.EASE_BOTH);   // true by default\nfade.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);   // starts slow, fast in the middle, slow at end</pre>"
     },
     {
      "type": "basic",
@@ -980,7 +1026,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/javafx-animations/"
+     "source": "https://dev.java/learn/javafx/javafx-animations/",
+     "example": "<pre>javafx.animation.AnimationTimer timer = new javafx.animation.AnimationTimer() {\n  public void handle(long now) { System.out.println(\"frame at \" + now + \" ns\"); }\n};\ntimer.start();   // now is the frame timestamp in nanoseconds</pre>"
     },
     {
      "type": "basic",
@@ -1013,7 +1060,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.AccessibleRole;\nimport javafx.scene.control.Button;\nButton b = new Button();\nAccessibleRole role = b.getAccessibleRole(); // an AccessibleRole enum constant</pre>"
     },
     {
      "type": "basic",
@@ -1023,7 +1071,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>javafx.scene.control.Button button = new javafx.scene.control.Button(\"OK\");\njavafx.scene.control.TextField field = new javafx.scene.control.TextField();\njavafx.scene.control.Slider slider = new javafx.scene.control.Slider();\nSystem.out.println(button.getAccessibleRole() + \" \" + field.getAccessibleRole() + \" \" + slider.getAccessibleRole());\n// built-in controls already declare roles: no manual setAccessibleRole needed</pre>"
     },
     {
      "type": "basic",
@@ -1033,7 +1082,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.Node;\nNode seat = new javafx.scene.control.Button();\nseat.setAccessibleRole(javafx.scene.AccessibleRole.BUTTON);\nseat.setAccessibleRoleDescription(\"Seat reservation toggle\"); // no user-defined roles in the enum</pre>"
     },
     {
      "type": "basic",
@@ -1043,7 +1093,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.Node;\nNode field = new javafx.scene.control.TextField();\nfield.setAccessibleText(\"Enter your name\"); // what the screen reader speaks as content</pre>"
     },
     {
      "type": "basic",
@@ -1053,7 +1104,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.control.Slider;\nSlider opacity = new Slider();\nopacity.setAccessibleHelp(\"Drag to change preview opacity from 0 to 100 percent\");</pre>"
     },
     {
      "type": "basic",
@@ -1063,7 +1115,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.control.Button;\nButton save = new Button(\"Save\");\nsave.setTooltip(new javafx.scene.control.Tooltip(\"Save the form\"));\nsave.setAccessibleHelp(null); // screen reader falls back to the tooltip text</pre>"
     },
     {
      "type": "basic",
@@ -1073,7 +1126,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.control.Label;\nimport javafx.scene.control.TextField;\nTextField name = new TextField();\nLabel label = new Label(\"Name:\");\nlabel.setLabelFor(name);</pre>"
     },
     {
      "type": "basic",
@@ -1083,7 +1137,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.Scene;\nimport javafx.scene.control.Button;\nScene scene = new Scene(new Button(\"Save\"));\nscene.getRoot().setAccessibleText(\"Save button\"); // metadata on the node, no shadow tree</pre>"
     },
     {
      "type": "basic",
@@ -1093,7 +1148,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.application.Platform;\nboolean active = Platform.isAccessibilityActive(); // false until a screen reader is active</pre>"
     },
     {
      "type": "basic",
@@ -1103,7 +1159,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/intro/"
+     "source": "https://dev.java/learn/javafx/a11y/intro/",
+     "example": "<pre>import javafx.scene.control.Button;\nButton save = new Button(\"Save\");\nsave.setAccessibleHelp(\"Ctrl+S also saves\"); // operable without a pointer</pre>"
     }
    ]
   },
@@ -1125,7 +1182,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>import javafx.scene.control.TextField;\nclass AccessibleFxController {\n    TextField name = new TextField();\n    void configure() { name.setAccessibleHelp(\"Enter your full name\"); } // metadata beside behaviour\n}</pre>"
     },
     {
      "type": "basic",
@@ -1135,7 +1193,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>import javafx.scene.control.Button;\nButton save = new Button(\"Save\");\nsave.setTooltip(new javafx.scene.control.Tooltip(\"Save - pointer users\"));\nsave.setAccessibleHelp(\"Saves the form - screen readers\");</pre>"
     },
     {
      "type": "basic",
@@ -1145,7 +1204,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>javafx.scene.shape.Rectangle marker = new javafx.scene.shape.Rectangle(8, 8, javafx.scene.paint.Color.BLUE);\nSystem.out.println(marker.getAccessibleRole());   // a plain shape carries no meaning for a screen reader\nmarker.setAccessibleRole(javafx.scene.AccessibleRole.SLIDER);\nmarker.setAccessibleText(\"Volume 40 percent\");   // semantics supplied explicitly</pre>"
     },
     {
      "type": "basic",
@@ -1155,7 +1215,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>import javafx.scene.shape.Rectangle;\nclass Preview {\n    Rectangle node = new Rectangle();\n    Preview() { node.setFocusTraversable(true); } // joins Tab traversal order\n}</pre>"
     },
     {
      "type": "basic",
@@ -1165,7 +1226,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>import javafx.scene.Scene;\nclass Themes {\n    Scene scene;\n    void toggle(boolean contrast) { scene.getStylesheets().setAll(contrast ? \"high-contrast.css\" : \"base.css\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1175,7 +1237,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>module a11y.app {\n    requires javafx.fxml;\n    opens com.example.a11y to javafx.fxml;\n}</pre>"
     },
     {
      "type": "basic",
@@ -1185,7 +1248,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>import javafx.scene.shape.Rectangle;\nclass Seat {\n    Rectangle node = new Rectangle();\n    Seat() { node.setFocusTraversable(true); node.setOnKeyPressed(e -> toggle()); }\n    void toggle() {}\n}</pre>"
     },
     {
      "type": "basic",
@@ -1195,7 +1259,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>javafx.scene.control.Label status = new javafx.scene.control.Label(\"Idle\");\nstatus.setText(\"Saved\");                              // the visual state changed\nstatus.setAccessibleText(\"Saved: document saved\");    // accessible text changes in the same code path\nSystem.out.println(status.getText() + \" / \" + status.getAccessibleText());</pre>"
     },
     {
      "type": "basic",
@@ -1205,7 +1270,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>package com.example.a11y;\npublic class AccessibleFxController { }\n// fx:controller=\"com.example.a11y.AccessibleFxController\"\n// resources: com/example/a11y/form.fxml, com/example/a11y/base.css</pre>"
     },
     {
      "type": "basic",
@@ -1215,7 +1281,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>import javafx.scene.control.MenuItem;\nimport javafx.scene.input.KeyCombination;\nMenuItem save = new MenuItem(\"Save\");\nsave.setAccelerator(KeyCombination.keyCombination(\"Ctrl+S\")); // keyboard-only workflow</pre>"
     },
     {
      "type": "basic",
@@ -1225,7 +1292,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/example/"
+     "source": "https://dev.java/learn/javafx/a11y/example/",
+     "example": "<pre>module a11y.app {\n    requires javafx.controls;\n    requires javafx.fxml;\n    opens com.example.a11y to javafx.fxml;\n}</pre>"
     }
    ]
   },
@@ -1247,7 +1315,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.Node;\nNode n = new javafx.scene.control.Button();\nn.queryAccessibleAttribute(javafx.scene.AccessibleAttribute.TEXT);\nn.executeAccessibleAction(javafx.scene.AccessibleAction.FIRE);\nn.notifyAccessibleAttributeChanged(javafx.scene.AccessibleAttribute.SELECTED);</pre>"
     },
     {
      "type": "basic",
@@ -1257,7 +1326,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAttribute;\nclass Seat extends javafx.scene.shape.Rectangle {\n    @Override public Object queryAccessibleAttribute(AccessibleAttribute a, Object... p) {\n        return super.queryAccessibleAttribute(a, p); // invoked by the FX accessibility bridge\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1267,7 +1337,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAttribute;\nclass Seat extends javafx.scene.shape.Rectangle {\n    boolean selected;\n    void setSelected(boolean v) { selected = v; notifyAccessibleAttributeChanged(AccessibleAttribute.SELECTED); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1277,7 +1348,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAction;\nclass Seat extends javafx.scene.shape.Rectangle {\n    @Override public void executeAccessibleAction(AccessibleAction a, Object... p) {\n        super.executeAccessibleAction(a, p); // superclass handles actions we ignore\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1287,7 +1359,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAttribute;\nAccessibleAttribute text = AccessibleAttribute.TEXT;\nAccessibleAttribute selected = AccessibleAttribute.SELECTED;</pre>"
     },
     {
      "type": "basic",
@@ -1297,7 +1370,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAction;\nAccessibleAction fire = AccessibleAction.FIRE;\nAccessibleAction expand = AccessibleAction.EXPAND;</pre>"
     },
     {
      "type": "basic",
@@ -1307,7 +1381,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleRole;\nclass Seat extends javafx.scene.shape.Rectangle {\n    Seat() { setAccessibleRole(AccessibleRole.TOGGLE_BUTTON); } // role fixes required TEXT, SELECTED, FIRE\n}</pre>"
     },
     {
      "type": "basic",
@@ -1317,7 +1392,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleRole;\nclass Seat extends javafx.scene.shape.Rectangle {\n    Seat() { setAccessibleRole(AccessibleRole.TOGGLE_BUTTON); }\n    // supports AccessibleAttribute.TEXT, .SELECTED and AccessibleAction.FIRE\n}</pre>"
     },
     {
      "type": "basic",
@@ -1327,7 +1403,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>class Seat extends javafx.scene.shape.Rectangle {\n    boolean available = true, selected;\n    @Override public void executeAccessibleAction(javafx.scene.AccessibleAction a, Object... p) {\n        if (a == javafx.scene.AccessibleAction.FIRE && available) { selected = !selected; }\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1337,7 +1414,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAttribute;\nclass Seat extends javafx.scene.shape.Rectangle {\n    boolean selected;\n    void setSelected(boolean value) { selected = value; notifyAccessibleAttributeChanged(AccessibleAttribute.SELECTED); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1347,7 +1425,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.application.Platform;\nclass A11yWatch {\n    boolean active = Platform.isAccessibilityActive();\n    void listen() { Platform.accessibilityActiveProperty().addListener((o,a,b) -> System.out.println(b)); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1357,7 +1436,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAttribute;\nimport javafx.scene.Node;\nNode seat = new javafx.scene.control.Button();\nseat.setDisable(true);\nboolean disabled = (boolean) seat.queryAccessibleAttribute(AccessibleAttribute.DISABLED);</pre>"
     },
     {
      "type": "basic",
@@ -1367,7 +1447,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>javafx.scene.control.Label item = new javafx.scene.control.Label(\"Unavailable\");\nitem.setAccessibleText(\"Unavailable item, position 2 of 5\");   // status and location for the reader\nitem.setFocusTraversable(true);   // stay reachable so keyboard users can inspect it\nitem.focus();                     // focus can land here without selecting the item\nSystem.out.println(item.getAccessibleText());</pre>"
     },
     {
      "type": "basic",
@@ -1377,7 +1458,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/javafx/a11y/advanced/"
+     "source": "https://dev.java/learn/javafx/a11y/advanced/",
+     "example": "<pre>import javafx.scene.AccessibleAttribute;\nclass Seat extends javafx.scene.shape.Rectangle {\n    @Override public Object queryAccessibleAttribute(AccessibleAttribute a, Object... p) {\n        return super.queryAccessibleAttribute(a, p); // read-only: no selection, no focus move\n    }\n}</pre>"
     }
    ]
   },
@@ -1408,7 +1490,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>public class Ex {\n    public static void main(String[] args) { System.out.println(\"Hello World!\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1458,7 +1541,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>java MyFirstJavaApp.java   // correct\njava MyFirstJavaApp        // error: cannot find MyFirstJavaApp - .java suffix omitted</pre>"
     },
     {
      "type": "basic",
@@ -1468,7 +1552,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>int x = 1                              // syntax error: ';' expected\nint y;                                 // semantic error: y may not have been initialized\nSystem.out.println(y);</pre>"
     },
     {
      "type": "basic",
@@ -1488,7 +1573,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>javac MyFirstJavaApp.java\n// produces MyFirstJavaApp.class - binary bytecode, not human-readable\njava MyFirstJavaApp</pre>"
     },
     {
      "type": "basic",
@@ -1570,7 +1656,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> /list\n1 : int x = 3;\njshell> /drop 1\njshell> /list       // snippet 1 is inactive</pre>"
     },
     {
      "type": "basic",
@@ -1620,7 +1707,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell --feedback normal    // default\n/set feedback verbose\n/set feedback concise\n/set feedback silent\n/set mode mymode normal     // custom</pre>"
     },
     {
      "type": "basic",
@@ -1742,7 +1830,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>// JEP 458: Launch Multi-File Source-Code Programs (JDK 22)\njava Main.java    // launcher locates, compiles and loads the other source files</pre>"
     },
     {
      "type": "basic",
@@ -1752,7 +1841,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>// model/Person.java          -> package model;\n// service/PersonService.java -> package service;\njava Main.java    // launcher finds model/ and service/ beside Main.java</pre>"
     },
     {
      "type": "basic",
@@ -1762,7 +1852,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>java Main.java                      // JDK classes: no classpath entry needed\njava -cp commons-lang.jar Main.java  // non-JDK classes: add the jar</pre>"
     },
     {
      "type": "basic",

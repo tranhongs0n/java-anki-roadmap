@@ -1354,7 +1354,8 @@
      "extra": "It records events from the JVM and the application for debugging and profiling. It ships with the JDK, so no separate download or configuration step is needed.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String name = \"JDK Flight Recorder (JFR)\";\nString description = \"an observability and monitoring framework built into HotSpot\";</pre>"
     },
     {
      "type": "basic",
@@ -1403,7 +1404,8 @@
      "extra": "Contents go to temporary files or stay in memory, and retention is configurable. This makes JFR suitable for being always-on, much like an aircraft's flight recorder.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String limit = \"data-retention limit\";\nString effect = \"the oldest data is overwritten\";</pre>"
     },
     {
      "type": "basic",
@@ -1412,7 +1414,8 @@
      "extra": "Both names refer to the same technology. The newer name reflects that it ships with the JDK and can be used in production on JDK 11+ without a commercial licence.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String oldName = \"Java Flight Recorder\";\nString newName = \"JDK Flight Recorder\";\n// JEP 328 open-sourced JFR and renamed it</pre>"
     },
     {
      "type": "basic",
@@ -1443,7 +1446,8 @@
      "extra": "Attaching to a running JVM misses everything before the attachment, but is still useful when a process starts misbehaving and you want data before shutting it down.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:filename=app.jfr -jar app.jar\n# startup gives the most complete picture from JVM launch onward</pre>"
     },
     {
      "type": "basic",
@@ -1452,7 +1456,8 @@
      "extra": "It accepts the same recording options as <code>-XX:StartFlightRecording</code>, but delimited by spaces rather than commas. If no options are given, defaults are used.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 JFR.start name=demo\n# starts a JFR recording on a running JVM</pre>"
     },
     {
      "type": "basic",
@@ -1461,7 +1466,8 @@
      "extra": "The recording keeps running after the dump. With no <code>filename</code>, a name is generated from the PID and current date; <code>name</code> selects one recording, otherwise all are dumped.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 JFR.dump name=demo filename=dump.jfr\n# writes the current JFR recording data out to a file</pre>"
     },
     {
      "type": "basic",
@@ -1542,7 +1548,8 @@
      "extra": "Recording options govern overall behaviour (retention, .jfc used, dump-on-exit). Configuration settings live in .jfc files; event options govern individual events; FlightRecorderOptions tune buffers and chunking.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>String[] levels = {\"Recording\", \"event\", \"configuration (.jfc)\", \"Flight Recorder options\"};\nSystem.out.println(levels.length); // four levels of JFR configuration</pre>"
     },
     {
      "type": "basic",
@@ -1571,7 +1578,8 @@
      "extra": "If enabled without a <code>filename</code>, a file is written to the process's start directory with a generated name containing the PID, recording ID and timestamp.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>boolean dumponexit = false;\n// when true, dumps the recording when the JVM shuts down; default false</pre>"
     },
     {
      "type": "basic",
@@ -1600,7 +1608,8 @@
      "extra": "Its value is a duration, defaulting to 0. By contrast <code>period</code> sets the minimum time between recordings of the same periodic event.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String option = \"threshold\";\nString meaning = \"how long an event may run before it is recorded\";</pre>"
     },
     {
      "type": "basic",
@@ -1609,7 +1618,8 @@
      "extra": "Stack traces are collected for every event unless disabled. They cost memory in the buffers, so busy events are sometimes recorded without them, but they are what makes recordings diagnostic.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class TraceEvent extends jdk.jfr.Event {\n    void sample() { commit(); }\n}\n// the JFR stackTrace event option defaults to true</pre>"
     },
     {
      "type": "basic",
@@ -1740,7 +1750,8 @@
      "extra": "It filters by event, category, and thread, which lets you strip sensitive payload. Without an output file the result is written beside the input with <code>-scrubbed</code> appended.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr scrub recording.jfr\n# removes events from a recording, e.g. before sharing it</pre>"
     },
     {
      "type": "basic",
@@ -1831,7 +1842,8 @@
      "extra": "The default is human-readable text. JSON and XML are the supported formats for post-processing with your own scripts, and their field values are not pre-formatted.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr print --json recording.jfr\njfr print --xml recording.jfr\n# machine-readable output</pre>"
     },
     {
      "type": "basic",
@@ -1840,7 +1852,8 @@
      "extra": "The default is <code>end</code>, which keeps the tail of a value. <code>--cell-height</code> caps rows per cell and <code>--width</code> sets the total character width.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr view --truncate beginning events-by-count recording.jfr\n# overlong table cells keep their start instead of their end</pre>"
     },
     {
      "type": "basic",
@@ -1899,7 +1912,8 @@
      "extra": "Chunks are written progressively; the <code>.part</code> suffix marks the one that was in flight at the time of a crash. Its data is incomplete and would corrupt the assembly.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jfr assemble parts recording.jfr\n# .part chunks are unfinished, so they cannot be parsed reliably</pre>"
     }
    ]
   },
@@ -1992,7 +2006,8 @@
      "extra": "For each it reports the lvmid plus, by default, the short form of the main class or jar name. It only sees JVMs the running user has access to.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jps\n# lists instrumented Java HotSpot JVMs on the target system</pre>"
     },
     {
      "type": "basic",
@@ -2061,7 +2076,8 @@
      "extra": "The same caution applies to <code>jstat</code>. Tokenisation also breaks when an argument contains embedded whitespace, so prefer the JVM APIs for programmatic use.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jps -l\n# do not parse the output in scripts; the format may change in future releases</pre>"
     }
    ]
   },
@@ -2102,7 +2118,8 @@
      "extra": "Both otherwise print the same summary. The added cause columns are what tell you whether a full GC was triggered by allocation failure, System.gc, or an ergonomics decision.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil 1234\njstat -gccause 1234\n# -gccause adds the cause of the last and current GC events</pre>"
     },
     {
      "type": "basic",
@@ -2111,7 +2128,8 @@
      "extra": "Its columns include survivor and eden usage plus the tenuring threshold (TT) and desired survivor size (DSS). <code>-gcnewcapacity</code> complements it with the space sizes.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstat -gcnew 1234\n# displays statistics about the new generation</pre>"
     },
     {
      "type": "basic",
@@ -2180,7 +2198,8 @@
      "extra": "When survivor usage exceeds the desired survivor size (DSS), objects move to the old generation and TT is lowered. A subsequent light collection can push TT back up.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>jstat -gcnew 1234\n# a falling tenuring threshold (TT) means survivors were promoted early because survivor space overflowed</pre>"
     },
     {
      "type": "basic",
@@ -2271,7 +2290,8 @@
      "extra": "A process with root credentials can attach to anything, but that greatly widens exposure. Running as root for monitoring is a security tripwire, not a convenience.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String scope = \"only JVMs it can natively access\";\nString requirement = \"jstatd must run under the same user as them\";</pre>"
     },
     {
      "type": "basic",
@@ -2280,7 +2300,8 @@
      "extra": "The policy file must follow the standard policy syntax. If your security needs exceed what a policy file can express, the safest move is not to run jstatd at all.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String policy = \"without a security manager, jstatd installs an RMISecurityPolicy by default\";\nString effect = \"so a policy file is required\";</pre>"
     },
     {
      "type": "basic",
@@ -2299,7 +2320,8 @@
      "extra": "There is no compatibility promise, so code depending on it will break on a future JDK. Use the jstat and jps command-line tools, or JMX, for automation.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String api = \"interface exported by jstatd\";\nString reason = \"proprietary and guaranteed to change\";</pre>"
     }
    ]
   },
@@ -2360,7 +2382,8 @@
      "extra": "It is high impact and requests a full GC unless <code>-all</code> is given. For live-only content the default is preferable; use <code>-all</code> when you need unreachable objects.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 GC.heap_dump heap.hprof\n# produces an HPROF heap dump from a running JVM</pre>"
     },
     {
      "type": "basic",
@@ -2409,7 +2432,8 @@
      "extra": "It needs the JVM launched with NMT enabled. <code>baseline</code> snapshots current usage and <code>summary.diff</code> reports growth against it, which pinpoints the leaking subsystem.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.native_memory summary\n# reports native memory usage by subsystem</pre>"
     },
     {
      "type": "basic",
@@ -2438,7 +2462,8 @@
      "extra": "<code>VM.log list</code> shows the current configuration. Setting <code>disable=true</code> turns all logging off and clears the configuration, so use it deliberately.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.log rotate\n# rotates the JVM's unified-logging outputs</pre>"
     },
     {
      "type": "basic",
@@ -2457,7 +2482,8 @@
      "extra": "Useful for finding dead code that still gets linked, and for auditing what a loaded agent actually invoked. It is not the same as the compiled-method list.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.print_touched_methods\n# prints all methods ever touched during this JVM's lifetime</pre>"
     },
     {
      "type": "basic",
@@ -2486,7 +2512,8 @@
      "extra": "<code>VM.info</code> is the fuller report covering environment and status. Neither is the same as asking a running app what its Java <code>java.version</code> property says.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.version\n# prints the JVM version information</pre>"
     },
     {
      "type": "basic",
@@ -2495,7 +2522,8 @@
      "extra": "The attach mechanism checks credentials at the OS level. Parent process identity, groups, and container boundaries all affect whether the attach is permitted.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.version\n# requires the same effective user and group as the JVM's launch, or it fails</pre>"
     },
     {
      "type": "basic",
@@ -2546,7 +2574,8 @@
      "extra": "Often written as <code>-agentlib:jdwp=...</code> with an address. Without them, the JVM accepts no debugger connection at all.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String tool = \"jdb\";\nString requirement = \"target JVM started with in-process debugging libraries, specifying a connection\";</pre>"
     },
     {
      "type": "basic",
@@ -2575,7 +2604,8 @@
      "extra": "Running <code>clear</code> or <code>stop</code> with no argument lists the currently set breakpoints. Resuming execution after a stop uses <code>cont</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdb MyClass\n> clear MyClass:45\n# removes the breakpoint at line 45</pre>"
     },
     {
      "type": "basic",
@@ -2676,7 +2706,8 @@
      "extra": "jhsdb suspends the target while it works, so it is not a safe live diagnostic. For a running JVM use jcmd, jstack, or jmap instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jhsdb jstack --pid 1234\n# attaching to a live process hangs it and probably crashes it when the debugger detaches</pre>"
     },
     {
      "type": "basic",
@@ -2715,7 +2746,8 @@
      "extra": "It pairs with <code>--dumpfile name</code> to choose the output file. Without a dump file the binary heap would have nowhere to go, so the two options are normally used together.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jhsdb jmap --binaryheap --pid 1234\n# produces a heap dump in hprof binary format</pre>"
     },
     {
      "type": "basic",
@@ -2776,7 +2808,8 @@
      "extra": "With no options, both categories are printed. It is the quickest answer to 'what flags and properties did this running process really get'.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jinfo 1234\n# prints Java system properties and JVM command-line flags</pre>"
     },
     {
      "type": "basic",
@@ -2785,7 +2818,8 @@
      "extra": "By contrast <code>-sysprops</code> prints only system properties as name-value pairs. With neither, jinfo prints both, which is often all you need.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jinfo -flags 1234\n# prints only the JVM command-line flags</pre>"
     },
     {
      "type": "basic",
@@ -2824,7 +2858,8 @@
      "extra": "These are the properties a running JVM resolved, including defaults jinfo adds, not only those passed with <code>-D</code>. Compare with the launch line before assuming a value was set explicitly.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jinfo -sysprops 1234\n# prints Java system properties as name-value pairs</pre>"
     },
     {
      "type": "basic",
@@ -2833,7 +2868,8 @@
      "extra": "It selects the 64-bit attach library. The same need can arise with jstack, so a 'cannot attach' error on 64-bit is worth ruling out first.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jinfo -J-d64 1234\n# -J-d64 may be needed against a 64-bit JVM</pre>"
     },
     {
      "type": "basic",
@@ -2966,7 +3002,8 @@
      "extra": "It does not demangle them; pipe the output to <code>c++filt</code>. This matters when reading native libraries such as a JNI binding.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jstack 1234\n# C++ mangled names aren't demangled</pre>"
     },
     {
      "type": "basic",
@@ -3007,7 +3044,8 @@
      "extra": "At initialization the JVM loads a fixed set of core classes regardless of the application. Storing that work in a shared archive skips decompression, verification, and constant-pool work.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String goal = \"reduce JVM startup time\";\nString how = \"loading pre-processed classes and metadata\";\nSystem.out.println(goal + \" by \" + how);</pre>"
     },
     {
      "type": "basic",
@@ -3016,7 +3054,8 @@
      "extra": "Since JDK 12 <code>auto</code> is the default on all 64-bit builds. If the archive is missing or broken, the JVM falls back silently to normal class loading.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -Xshare:auto -cp out App\n# auto is the default: use CDS when a shared archive is present</pre>"
     },
     {
      "type": "basic",
@@ -3025,7 +3064,8 @@
      "extra": "A missing, unreadable, or invalid archive becomes a hard startup failure. Default <code>auto</code> degrades to file-based loading, whereas <code>on</code> makes the JVM refuse to start.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -Xshare:on -cp out App\n# any archive-loading problem exits the JVM, so avoid it in production</pre>"
     },
     {
      "type": "basic",
@@ -3034,7 +3074,8 @@
      "extra": "It records the classes the running application actually touched, giving a ready-made archive. Generating it has a noticeable cost at startup and termination.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:ArchiveClassesAtExit=app.jsa -cp out App\n# writes a dynamic CDS archive when the application exits</pre>"
     },
     {
      "type": "basic",
@@ -3043,7 +3084,8 @@
      "extra": "This is used with dynamic and static archives alike. Pair it with <code>-XX:+AutoCreateSharedArchive</code> to generate or regenerate the archive when needed.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:SharedArchiveFile=&lt;file&gt; -jar app.jar\n# loads a previously generated shared archive</pre>"
     },
     {
      "type": "basic",
@@ -3052,7 +3094,8 @@
      "extra": "Added in JDK 19, it looks at <code>-XX:SharedArchiveFile</code> and rebuilds when absent, corrupt, from an older JDK, or stale because a dependent JAR changed.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:+AutoCreateSharedArchive -XX:SharedArchiveFile=app.jsa -cp out App\n# auto-generates a dynamic archive if it is missing or invalid</pre>"
     },
     {
      "type": "basic",
@@ -3061,7 +3104,8 @@
      "extra": "That run needs <code>-Xshare:off</code>, otherwise CDS is already active. The resulting classlist is then fed to <code>-Xshare:dump</code> to build the archive.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:DumpLoadedClassList=app.classlist -cp out App\n# dumps the loaded classes so a static AppCDS archive can be created</pre>"
     },
     {
      "type": "basic",
@@ -3070,7 +3114,8 @@
      "extra": "You also pass <code>-XX:SharedArchiveFile</code> and <code>-cp</code> for the classes. Static archives include core JDK classes and support extra symbol and string data.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:DumpLoadedClassList=app.classlist -cp out App\njava -Xshare:dump -XX:SharedClassListFile=app.classlist\n# these two flags together create a static archive from the classlist</pre>"
     },
     {
      "type": "basic",
@@ -3079,7 +3124,8 @@
      "extra": "A dynamic archive references the default archive location rather than copying those classes. With <code>-Xshare:on</code> the JVM instead exits with an error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -Xshare:auto -XX:ArchiveClassesAtExit=app.jsa -cp out App\n# with the default CDS archive missing, core classes load normally, slowing startup</pre>"
     },
     {
      "type": "basic",
@@ -3088,7 +3134,8 @@
      "extra": "A static archive does not depend on <code>default.jsa</code> at all. Deleting or corrupting the default archive therefore does not break startup that uses a static archive.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String advantage = \"static archive includes core JDK classes\";\nboolean selfContained = true;\nSystem.out.println(advantage + \" -> \" + selfContained);</pre>"
     },
     {
      "type": "basic",
@@ -3097,7 +3144,8 @@
      "extra": "The variant <code>-Xlog:cds+lambda=debug</code> adds detail on CDS's handling of lambdas. These flags show which classes and metadata actually made it into the archive.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -Xlog:cds=debug -cp out App\n# detailed CDS diagnostics during archive generation or loading</pre>"
     },
     {
      "type": "basic",
@@ -3106,7 +3154,8 @@
      "extra": "Classes sourced from an archive report their origin as <code>shared objects file</code>. Others report a location such as <code>jrt:/java.base</code> for module classes.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -verbose:class -cp out App\n# confirms which classes were loaded from the shared archive</pre>"
     },
     {
      "type": "basic",
@@ -3115,7 +3164,8 @@
      "extra": "Generate a new classlist by re-running the application under <code>-XX:DumpLoadedClassList</code> with CDS off. Hand edits make the archive diverge from what was observed.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:DumpLoadedClassList=app.classlist -cp out App\njava -Xshare:dump -XX:SharedClassListFile=app.classlist\n# the classlist is generated: its format and comments assume no manual edits</pre>"
     },
     {
      "type": "basic",
@@ -3124,7 +3174,8 @@
      "extra": "That breadth is why AppCDS delivers more consistent gains as applications grow. Plain CDS alone only covers core classes, and its benefit shrinks with application size.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String[] kinds = {\"platform classes\", \"application-on-classpath classes\", \"application-on-module-path classes\"};\nfor (String kind : kinds) System.out.println(kind);</pre>"
     }
    ]
   },
@@ -3145,7 +3196,8 @@
      "extra": "That API covers foreign memory access and foreign function calls. It became a final feature in JDK 22, so jextract bindings target the modern replacement for JNI and Unsafe.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jextract -d gen mylib.h\n# generated bindings internally use the Foreign Function and Memory (FFM) API</pre>"
     },
     {
      "type": "basic",
@@ -3154,7 +3206,8 @@
      "extra": "Without it, the unnamed package is used, which makes the generated classes awkward to import. jextract creates the package directories under <code>--output</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract -t com.example.generated -d gen mylib.h\njextract --target-package com.example.generated -d gen mylib.h\n# sets the target package for generated classes</pre>"
     },
     {
      "type": "basic",
@@ -3163,7 +3216,8 @@
      "extra": "A leading colon makes the value a path, as in <code>-l :/usr/lib/libGL.so.1</code>. Otherwise it is treated as a library name such as <code>-l GL</code>, resolved by the platform loader.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract -l GL -d gen gl.h\njextract --library GL -d gen gl.h\n# names the shared library the generated header class loads</pre>"
     },
     {
      "type": "basic",
@@ -3172,7 +3226,8 @@
      "extra": "Include paths are searched in the order given, so <code>-I foo -I bar</code> checks foo before bar. This is how <code>#include</code> directives inside the main header get resolved.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract -I include -d gen mylib.h\njextract --include-dir include -d gen mylib.h\n# adds a directory to the header include search path</pre>"
     },
     {
      "type": "basic",
@@ -3181,7 +3236,8 @@
      "extra": "It is combined with <code>-t</code> to place the generated package tree inside your source root. Without output control, generated files land wherever the tool defaults.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract --output gen mylib.h\n# generated files are placed in the output directory gen</pre>"
     },
     {
      "type": "basic",
@@ -3190,7 +3246,8 @@
      "extra": "The dump can be edited down and re-fed as a plain argument file (with <code>@</code>). That lets you generate bindings for only what you need; large headers such as Windows.h become manageable.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jextract --dump-includes symbols.txt -d gen mylib.h\n# dumps all encountered symbols so the file can be filtered afterwards</pre>"
     },
     {
      "type": "basic",
@@ -3199,7 +3256,8 @@
      "extra": "The options are <code>--include-function</code>, <code>--include-constant</code>, <code>--include-struct</code>, <code>--include-union</code>, <code>--include-typedef</code>, and <code>--include-var</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jextract --include-function glutInit -d gen freeglut.h\n# once any --include-* is given, all unmatched symbols are omitted</pre>"
     },
     {
      "type": "basic",
@@ -3208,7 +3266,8 @@
      "extra": "There is no partial output. The dump-then-edit workflow makes it easy to accidentally cut a needed field type, so iterate until the tool accepts the list.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre># args.txt includes an outer struct but not a declaration it depends on\njextract @args.txt -d gen mylib.h\n# jextract reports the missing dependency and generates nothing</pre>"
     },
     {
      "type": "basic",
@@ -3217,7 +3276,8 @@
      "extra": "It is a VM argument rather than a jextract build option, and the generated code prints the parameters as the call is made. Very useful when a native call crashes.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -Djextract.trace.downcalls=true -cp gen App\n# traces parameters passed to native calls made by generated bindings</pre>"
     },
     {
      "type": "basic",
@@ -3226,7 +3286,8 @@
      "extra": "jextract understands C headers only. For C++, an <code>extern \"C\"</code> interface works the same way, since many C++ libraries ship one.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>cbindgen --output rustlib.h\njextract -l rustlib -d gen rustlib.h\n# generate a C interface for the Rust library, then bind that C interface</pre>"
     },
     {
      "type": "basic",
@@ -3235,7 +3296,8 @@
      "extra": "Because jextract wraps the system C parser, the clang version affects how headers are interpreted. Mismatches with a header's compiler assumptions show up as odd parse failures.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jextract --version\n# prints the tool version, the JDK it was built for, and the clang version</pre>"
     },
     {
      "type": "basic",
@@ -3244,7 +3306,8 @@
      "extra": "With a single header the class name is derived from the file name, e.g. <code>foo_h</code> for <code>foo.h</code>. Multiple headers leave no single name to derive, so the option becomes mandatory.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jextract --header-class-name Bindings -d gen a.h b.h\n# required when several header files are given</pre>"
     }
    ]
   },
@@ -3265,7 +3328,8 @@
      "extra": "The image bundles the app and all its dependencies, including a runtime, so the end user needs no separate JDK. It can also wrap it in a platform installer such as exe, msi, rpm, deb, pkg or dmg.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jpackage --input in --main-jar app.jar --name App --output images/App\njpackage --input in --main-jar app.jar --name App --type dmg --output dist\n# produces a self-contained application image or a native package</pre>"
     },
     {
      "type": "basic",
@@ -3274,7 +3338,8 @@
      "extra": "The valid set depends on the host platform. If <code>--type</code> is omitted, a platform-dependent default type is created.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jpackage --type app-image --name demo --input in\njpackage --type exe --name demo --input in\n# also: msi, rpm, deb, pkg, dmg</pre>"
     },
     {
      "type": "basic",
@@ -3283,7 +3348,8 @@
      "extra": "So producing Windows and macOS installers requires CI runners for those OSes. There is no cross-compilation support for jpackage package types.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre># build each native package on the platform where it will run\njpackage --type exe --input in --main-jar app.jar --name App   # on Windows, not Linux\n# you cannot build a Windows exe on Linux</pre>"
     },
     {
      "type": "basic",
@@ -3292,7 +3358,8 @@
      "extra": "For a modular app use <code>--module module[/main-class]</code>; otherwise <code>--main-jar</code> plus <code>--main-class</code>. They are mutually exclusive, not additive.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jpackage --module my.module --name App --output dist\njpackage --main-jar app.jar --input in --name App\n# the entry point comes from --module or --main-jar</pre>"
     },
     {
      "type": "basic",
@@ -3301,7 +3368,8 @@
      "extra": "It defaults to the current working directory. The app's name and version come from <code>--name</code> and <code>--app-version</code>, which also shape the installer file names.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jpackage --type app-image --input app --name Demo --dest out\n# --dest (or -d) sets where generated output files are placed: out/</pre>"
     },
     {
      "type": "basic",
@@ -3310,7 +3378,8 @@
      "extra": "It builds a runtime image using <code>--jlink-options</code> and the <code>--add-modules</code> list. Providing <code>--runtime-image</code> skips that step and reuses your own image.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jpackage --input in --main-jar app.jar --name App\n# no --runtime-image supplied: jpackage invokes jlink\njpackage --runtime-image myruntime --input in --main-jar app.jar --name App\n# runtime image supplied: jlink is not invoked</pre>"
     },
     {
      "type": "basic",
@@ -3319,7 +3388,8 @@
      "extra": "They trim the bundled runtime to what a shipped app needs. Override them only if you need debugging native commands or headers in the image.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jpackage --name App --input in --main-jar app.jar\n# no --jlink-options given: defaults are --strip-native-commands --strip-debug --no-man-pages --no-header-files</pre>"
     },
     {
      "type": "basic",
@@ -3328,7 +3398,8 @@
      "extra": "The properties file can set keys such as module, main-jar, main-class, arguments, java-options, icon, and shortcut settings. Repeat the option to build several extra launchers.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jpackage --add-launcher alt=alt.properties --input in --main-jar app.jar --name App\n# name=path adds an alternative launcher via a properties file</pre>"
     },
     {
      "type": "basic",
@@ -3337,7 +3408,8 @@
      "extra": "Everything in that directory is packaged. Use <code>--app-content</code> to graft in extra files and directories from other locations without copying them into the input tree first.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jpackage --type app-image --input app --name Demo --dest out\n# --input (or -i) supplies the files bundled into the application image: app/</pre>"
     },
     {
      "type": "basic",
@@ -3346,7 +3418,8 @@
      "extra": "Defaults differ per OS: <code>.ico</code> on Windows, <code>.icns</code> on macOS, <code>.png</code> on Linux. Installer-specific files like WiX sources or Debian control dirs live in the same directory.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre># override/ holds same-named replacement icons and templates\njpackage --resource-dir override --input in --main-jar app.jar --name App\n# same-named files in --resource-dir override bundled ones</pre>"
     },
     {
      "type": "basic",
@@ -3355,7 +3428,8 @@
      "extra": "Values can expand environment variables and <code>$APPDIR</code>, <code>$BINDIR</code>, <code>$ROOTDIR</code> at run time. JVM-level flags go through <code>--java-options</code> instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jpackage --arguments \"defaultArg\" --input in --main-jar app.jar --name App\n# default args passed to the main class when the user gives none</pre>"
     },
     {
      "type": "basic",
@@ -3364,7 +3438,8 @@
      "extra": "Only <code>--java-options</code> can change things like heap or system properties, because those must be applied when the runtime starts. Wrongly mixing them yields arguments the app cannot use.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jpackage --arguments \"alpha beta\" --input in --main-jar app.jar --name App\njpackage --java-options \"-Xmx1g\" --input in --main-jar app.jar --name App\n# --arguments targets the main class; --java-options targets the JVM</pre>"
     },
     {
      "type": "basic",
@@ -3373,7 +3448,8 @@
      "extra": "Without it the app launches without a console window, so stdin/stdout interaction is invisible. On other platforms the console behaviour follows the launcher norm.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jpackage --type exe --win-console --name demo --input in\n# needed on Windows for an app that reads from or writes to the console</pre>"
     },
     {
      "type": "basic",
@@ -3382,7 +3458,8 @@
      "extra": "Pair it with <code>--mac-signing-keychain</code> and the signing identity options. Entitlements come from <code>--mac-entitlements</code>, and <code>--mac-app-store</code> marks App Store output.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jpackage --mac-sign --input in --main-jar app.jar --name App\n# signs the macOS bundle</pre>"
     },
     {
      "type": "basic",
@@ -3391,7 +3468,8 @@
      "extra": "On Windows the bundled runtime includes MS runtime libraries from the JDK. If a different version is required, the user must add or replace those files themselves.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jpackage --resource-dir override --input in --main-jar app.jar --name App\n# same-named replacements there replace bundled runtime libraries\njpackage --runtime-image myruntime --input in --main-jar app.jar --name App\n# or supply your runtime image</pre>"
     },
     {
      "type": "basic",
@@ -3400,7 +3478,8 @@
      "extra": "jpackage expects content laid out like the app bundle's <code>Contents</code> directory. A flat drop produces an invalid bundle that validators will reject.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jpackage --app-content MyBundle --input in --main-jar app.jar --name App\n# MyBundle must be a directory with a Resources subdirectory, or signing/notarization can fail</pre>"
     },
     {
      "type": "basic",
@@ -3409,7 +3488,8 @@
      "extra": "Without the option, jpackage creates a temporary directory and deletes it when it finishes. Specifying one keeps intermediate output for inspection but leaves cleanup to you.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jpackage --temp build/tmp --input in --main-jar app.jar --name App\n# an explicit temporary directory is not removed on completion</pre>"
     },
     {
      "type": "basic",
@@ -3418,7 +3498,8 @@
      "extra": "That mode turns an existing image into an installable package, and on macOS is also the way to sign a predefined image. Only signing-related and <code>--verbose</code> options are then permitted.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jpackage --app-image build/App --name App --output dist\n# packages a previously built application image instead of --input</pre>"
     },
     {
      "type": "basic",
@@ -3427,7 +3508,8 @@
      "extra": "The properties file keys are <code>extension</code>, <code>mime-type</code>, <code>icon</code>, and <code>description</code>. The option can be repeated for multiple associations.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># assoc.properties: extension=.txt,mime-type=text/plain\njpackage --file-associations assoc.properties --input in --main-jar app.jar --name App\n# associates a file extension with the app</pre>"
     }
    ]
   },
@@ -3448,7 +3530,8 @@
      "extra": "All UI updates must be performed on it. Long-running work belongs on background threads with results marshalled back, otherwise the UI freezes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javafx.application.Platform.runLater(() -&gt; {\n    javafx.scene.control.Label label = new javafx.scene.control.Label(\"UI update\");\n    label.setText(\"on the JavaFX Application Thread\");   // scene graph and UI changes happen here\n});</pre>"
     },
     {
      "type": "basic",
@@ -3457,7 +3540,8 @@
      "extra": "JavaFX controls that display data expect observable lists and update themselves when items are added or removed. That is why a <code>ListView</code> needs no manual refresh.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javafx.collections.ObservableList&lt;String&gt; names = javafx.collections.FXCollections.observableArrayList();\nnames.addListener((javafx.collections.ListChangeListener&lt;String&gt; c) -&gt; System.out.println(\"changed\"));\nnames.add(\"Ada\");   // unlike a plain List, listeners are notified of changes</pre>"
     },
     {
      "type": "basic",
@@ -3466,7 +3550,8 @@
      "extra": "A change listener on it fires on selection changes and on deselection, where the new value is <code>null</code>. Attach it once, then keep the detail form in sync with it.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.ListView&lt;String&gt; view = new javafx.scene.control.ListView&lt;&gt;();\nview.getSelectionModel().selectedItemProperty().addListener((o, oldV, newV) -&gt; System.out.println(newV));\nview.getSelectionModel().select(\"A\");   // listener sees the current selection</pre>"
     },
     {
      "type": "basic",
@@ -3475,7 +3560,8 @@
      "extra": "Deselecting is done with Command-click on a Mac or Control-click on Linux/Windows. Clearing the form fields whenever the value is null avoids stale detail on screen.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.ListView&lt;String&gt; list = new javafx.scene.control.ListView&lt;String&gt;();\njavafx.beans.value.ChangeListener&lt;String&gt; onChange = (obs, oldValue, newValue) -> {\n    System.out.println(oldValue + \" -> \" + newValue);   // deselect prints A -> null\n};\nlist.getSelectionModel().selectedItemProperty().addListener(onChange);\nlist.getItems().addAll(\"A\", \"B\"); list.getSelectionModel().select(0); list.getSelectionModel().clearSelection();</pre>"
     },
     {
      "type": "basic",
@@ -3484,7 +3570,8 @@
      "extra": "In that mode each additional CTRL/Command selection re-fires the listener with the most recent value. To get the full set, read <code>getSelectedItems()</code> rather than only <code>newValue</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.ListView&lt;String&gt; view = new javafx.scene.control.ListView&lt;&gt;();\nview.getSelectionModel().setSelectionMode(javafx.scene.control.MultipleSelectionMode.MULTIPLE);\nSystem.out.println(view.getSelectionModel().getSelectedItems());   // more than one item can be selected</pre>"
     },
     {
      "type": "basic",
@@ -3493,7 +3580,8 @@
      "extra": "The SortedList cannot be modified directly. It re-sorts automatically whenever items are added to or removed from its backing list.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javafx.collections.ObservableList&lt;String&gt; backing = javafx.collections.FXCollections.observableArrayList(\"b\", \"a\");\njavafx.collections.transformation.SortedList&lt;String&gt; sorted = new javafx.collections.transformation.SortedList&lt;&gt;(backing);\nsorted.setComparator(String::compareTo);\nbacking.add(\"c\");   // modify the wrapped ObservableList, not the SortedList; order updates</pre>"
     },
     {
      "type": "basic",
@@ -3502,7 +3590,8 @@
      "extra": "Changes to individual elements are otherwise invisible, so ordering goes stale. The extractor names the properties to observe, and those changes then trigger a re-sort.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Person {\n  final javafx.beans.property.SimpleStringProperty last = new javafx.beans.property.SimpleStringProperty();\n  static javafx.collections.Observable[] extract(Person p) { return new javafx.collections.Observable[]{p.last}; }\n}\njavafx.collections.ObservableList&lt;Person&gt; people = javafx.collections.FXCollections.observableArrayList(Person::extract);\npeople.add(new Person()); people.get(0).last.set(\"Abraham\");   // extractor makes SortedList re-sort on field change</pre>"
     },
     {
      "type": "basic",
@@ -3511,7 +3600,8 @@
      "extra": "A SortedList always re-sorts on add or remove, so the round trip fixes ordering. With an extractor, it is enough to change the observed property in place.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>javafx.collections.ObservableList&lt;String&gt; items = javafx.collections.FXCollections.observableArrayList(\"b\", \"a\");\njavafx.collections.transformation.SortedList&lt;String&gt; sorted = new javafx.collections.transformation.SortedList&lt;String&gt;(items);\nString changed = items.remove(0);\nitems.add(changed.toUpperCase());   // no extractor: remove and re-add with the changed sort key\nSystem.out.println(sorted);   // SortedList re-sorts on add/remove</pre>"
     },
     {
      "type": "basic",
@@ -3520,7 +3610,8 @@
      "extra": "Element-level property changes are not observed by default, so the list has no reason to re-sort on an in-place edit. Add and remove are reliable triggers.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>javafx.collections.ObservableList&lt;String&gt; backing = javafx.collections.FXCollections.observableArrayList();\njavafx.collections.transformation.SortedList&lt;String&gt; sorted = new javafx.collections.transformation.SortedList&lt;&gt;(backing);\nsorted.setComparator(String::compareTo);\nbacking.remove(\"b\"); backing.add(\"b\");   // add/remove are observed, so sorted stays ordered</pre>"
     },
     {
      "type": "basic",
@@ -3529,7 +3620,8 @@
      "extra": "The bound property updates whenever any bound source value changes. This is what makes a Delete button disable itself as soon as nothing is selected, with no listener code.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javafx.beans.property.SimpleIntegerProperty a = new javafx.beans.property.SimpleIntegerProperty(1);\njavafx.beans.property.SimpleIntegerProperty b = new javafx.beans.property.SimpleIntegerProperty(2);\na.bind(b);   // the bind expression reacts automatically when the source b changes\nb.set(3);\nSystem.out.println(a.get());   // 3</pre>"
     },
     {
      "type": "basic",
@@ -3538,7 +3630,8 @@
      "extra": "A binding from a nullable selected item to a disable flag often needs a null test, so code usually binds to an expression like <code>selectedItemProperty().isNull()</code> instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.Button button = new javafx.scene.control.Button(\"Delete\");\njavafx.scene.control.ListView&lt;String&gt; view = new javafx.scene.control.ListView&lt;&gt;();\nbutton.disableProperty().bind(view.getSelectionModel().selectedItemProperty().isNull());   // both are observables</pre>"
     },
     {
      "type": "basic",
@@ -3547,7 +3640,8 @@
      "extra": "The listener would then reload the form from a different item mid-update. Immutable models sidestep the problem: replace the item instead of editing it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void m(javafx.scene.control.ListView&lt;javafx.beans.property.SimpleStringProperty&gt; view, javafx.beans.value.ChangeListener&lt;javafx.beans.property.SimpleStringProperty&gt; l) { view.getSelectionModel().selectedItemProperty().removeListener(l);\n    view.getSelectionModel().getSelectedItem().set(\"New\");\n    view.getSelectionModel().selectedItemProperty().addListener(l);   // a re-sort may change selection and re-fire l\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3556,7 +3650,8 @@
      "extra": "It is set to true on a key release in any editable field and reset to false after each selection change. The Update button binds to it so it stays disabled until an edit occurs.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javafx.beans.property.SimpleBooleanProperty modifiedProperty = new javafx.beans.property.SimpleBooleanProperty(false);\nmodifiedProperty.set(true);   // the user changed a form field\nSystem.out.println(modifiedProperty.get());   // true</pre>"
     },
     {
      "type": "basic",
@@ -3565,7 +3660,8 @@
      "extra": "It names the handler method, while <code>fx:id</code> exposes the control as a field for binding and lookup. Both are needed for a button to be set up and bound.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>&lt;Button fx:id=\"deleteButton\" text=\"Delete\" onAction=\"#deletePerson\" /&gt;\n&lt;!-- FXMLController declares: @FXML private void deletePerson(ActionEvent e) { ... } --&gt;</pre>"
     },
     {
      "type": "basic",
@@ -3574,7 +3670,8 @@
      "extra": "With parsing on, the underscore marks the accelerator letter, so <code>_File</code> renders File with an Alt-F accelerator. Turning it off makes the label text literal.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.Button delete = new javafx.scene.control.Button(\"Delete\");\ndelete.setMnemonicParsing(false);   // the Java equivalent of FXML mnemonicParsing=\"false\"\ndelete.setText(\"_Delete\");   // the underscore stays literal: no keyboard mnemonic</pre>"
     },
     {
      "type": "basic",
@@ -3583,7 +3680,8 @@
      "extra": "It divides the view, and each side can host its own container such as an <code>AnchorPane</code>. The master-detail UI pairs a ListView on one side with a form on the other.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.SplitPane split = new javafx.scene.control.SplitPane();\nsplit.getItems().addAll(new javafx.scene.control.ListView&lt;String&gt;(), new javafx.scene.control.TextField());\nSystem.out.println(split.getItems().size() + \" resizable parts\");   // two parts</pre>"
     },
     {
      "type": "basic",
@@ -3592,7 +3690,8 @@
      "extra": "Buttons in the bar align right by default. This keeps New, Update and Delete visually consistent without per-button width settings.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javafx.scene.control.ButtonBar bar = new javafx.scene.control.ButtonBar();\njavafx.scene.control.Button ok = new javafx.scene.control.Button(\"OK\"), cancel = new javafx.scene.control.Button(\"Cancel\");\nbar.getButtons().addAll(ok, cancel);   // ButtonBar sizes both to the widest button label</pre>"
     },
     {
      "type": "basic",
@@ -3601,7 +3700,8 @@
      "extra": "Text fields for first and last name sit in the upper rows, a notes <code>TextArea</code> beside them, and a single ButtonBar spans both columns at the bottom.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javafx.scene.layout.GridPane form = new javafx.scene.layout.GridPane();\nform.add(new javafx.scene.control.Label(\"First\"), 0, 0); form.add(new javafx.scene.control.TextField(), 1, 0);\nform.add(new javafx.scene.control.Label(\"Last\"), 0, 1); form.add(new javafx.scene.control.TextField(), 1, 1);\nform.add(new javafx.scene.control.Label(\"Notes\"), 0, 2); form.add(new javafx.scene.control.TextArea(), 1, 2);\nform.add(new javafx.scene.control.ButtonBar(), 0, 3, 2, 1);   // 2 columns x 4 rows\nSystem.out.println(form.getColumnCount() + \"x\" + form.getRowCount());</pre>"
     },
     {
      "type": "basic",
@@ -3610,7 +3710,8 @@
      "extra": "The components are final instance fields with accessor methods named after them. Records suit models that are immutable, such as a Person whose identity is its values.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record Person(String firstName, int age) {}   // accessors, canonical constructor, equals/hashCode/toString generated\nclass Demo {\n    static void m() { Person p = new Person(\"Ada\", 30);\n        System.out.println(p.firstName() + \" \" + p.age() + \" \" + p.equals(new Person(\"Ada\", 30)) + \" \" + p);\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3619,7 +3720,8 @@
      "extra": "In-place field updates are impossible on a record. Because add and remove re-sort automatically, no extractor is needed for sorting after an update.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>record Person(String name) {}\njavafx.collections.ObservableList&lt;Person&gt; people = javafx.collections.FXCollections.observableArrayList(new Person(\"Old\"));\nPerson old = people.get(0);\npeople.remove(old);\npeople.add(new Person(\"New\"));   // immutable: create new record, remove old one, add new one</pre>"
     },
     {
      "type": "basic",
@@ -3628,7 +3730,8 @@
      "extra": "The SortedList observes add and remove, so it re-sorts. An extractor was only needed to catch property changes inside a mutable element.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>record Person(String name) {}\njavafx.collections.ObservableList&lt;Person&gt; people = javafx.collections.FXCollections.observableArrayList();   // no extractor needed\npeople.add(new Person(\"Old\"));\npeople.set(0, new Person(\"New\"));   // an update replaces the element instead of mutating it</pre>"
     },
     {
      "type": "basic",
@@ -3637,7 +3740,8 @@
      "extra": "A ListView displays each item using toString(). Without an override, the record's generated form appears instead of the intended display text like a full name.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>record Person(String name) {\n  public String toString() { return name; }   // ListView displays this text for each Person\n}\njavafx.scene.control.ListView&lt;Person&gt; view = new javafx.scene.control.ListView&lt;&gt;();\nview.getItems().add(new Person(\"Ethan Nieto\"));   // the cell shows \"Ethan Nieto\"</pre>"
     },
     {
      "type": "basic",
@@ -3646,7 +3750,8 @@
      "extra": "You install the root node of a hierarchical scene graph into a scene on that stage. Menu bars are added directly to the stage and are only honoured there.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Ex extends javafx.application.Application {\n  public void start(javafx.stage.Stage primaryStage) {   // the runtime created this primary stage first\n    System.out.println(\"start() invoked with the primary stage\");\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3655,7 +3760,8 @@
      "extra": "The x-axis grows right and the y-axis grows down. That orientation differs from typical mathematical plotting, which trips up hand-computed positions.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javafx.scene.shape.Rectangle r = new javafx.scene.shape.Rectangle(0, 0, 20, 20);\n// x=0, y=0 is the upper-left corner of the scene; x grows right, y grows down\nSystem.out.println(r.getX() + \",\" + r.getY());   // 0,0</pre>"
     },
     {
      "type": "basic",
@@ -3664,7 +3770,8 @@
      "extra": "Each FXML file typically describes a scene and configures a controller. JavaFX also supports both 2D and 3D graphics, so the visual layer benefits from a declarative form.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>&lt;!-- Scene.fxml describes the view only --&gt;\n&lt;VBox fx:controller=\"com.example.MyController\"&gt;&lt;Button text=\"New\" onAction=\"#create\" /&gt;&lt;/VBox&gt;\n// MyController.java holds the handler and model logic; UI structure stays in FXML</pre>"
     },
     {
      "type": "basic",
@@ -3673,7 +3780,8 @@
      "extra": "Each node is described by properties, and parents pass rendering down. That shared traversal is why a single property change deep in the graph suffices to trigger a redraw.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>javafx.scene.layout.VBox root = new javafx.scene.layout.VBox();\njavafx.scene.control.Label child = new javafx.scene.control.Label(\"leaf\");\nroot.getChildren().add(child);   // parent passes rendering work down to its children\njavafx.scene.Scene scene = new javafx.scene.Scene(root, 200, 100);\nSystem.out.println(child.getParent() == root &amp;&amp; child.getScene() == scene);   // true</pre>"
     },
     {
      "type": "basic",
@@ -3682,7 +3790,8 @@
      "extra": "They animate node properties such as position, opacity or scale without a frame loop. Rapidly updating a property from application code is what the transition machinery exists to avoid.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javafx.scene.Node node = new javafx.scene.control.Label(\"move me\");\njavafx.animation.FadeTransition fade = new javafx.animation.FadeTransition(javafx.util.Duration.seconds(1), node);\nfade.setFromValue(1.0); fade.setToValue(0.0);   // high-level animation of a node property over time\nfade.play();   // no frame loop needed</pre>"
     }
    ]
   }
