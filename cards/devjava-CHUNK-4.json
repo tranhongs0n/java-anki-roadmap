@@ -28,7 +28,8 @@
      "extra": "The compile step builds the internal automaton once; calling it per match is wasteful, so compiled patterns are commonly cached in <code>static final</code> fields.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"dog\");\nSystem.out.println(p.matcher(\"dog\").matches()); // true - compile is the factory</pre>"
     },
     {
      "type": "basic",
@@ -37,7 +38,8 @@
      "extra": "The matcher binds one pattern to one input and holds mutable state such as the region bounds and the last match position, so it must not be shared between threads.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"dog\");\nvar m = p.matcher(\"dog\");\nSystem.out.println(m.matches()); // true: Pattern creates Matcher; no public constructor</pre>"
     },
     {
      "type": "basic",
@@ -46,7 +48,8 @@
      "extra": "Because it is unchecked it is not declared in throws clauses, so a malformed user-supplied pattern only surfaces at the <code>compile</code> call.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try {\n    java.util.regex.Pattern.compile(\"(\");\n} catch (java.util.regex.PatternSyntaxException e) {\n    System.out.println(e.getClass().getSuperclass()); // IllegalArgumentException: unchecked\n}</pre>"
     },
     {
      "type": "basic",
@@ -65,7 +68,8 @@
      "extra": "Not grep, awk or POSIX; Java borrows Perl syntax but with significant additions such as possessive quantifiers and Unicode property escapes.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"\\\\Qx.y\\\\E\");\nSystem.out.println(p.matcher(\"x.y\").matches() + \" Perl-style\"); // true Perl-style quoting</pre>"
     },
     {
      "type": "basic",
@@ -74,7 +78,8 @@
      "extra": "The <code>\\u</code> form takes exactly four hex digits; the Perl <code>\\x{...}</code> form is flexible, so it is the only way to write code points above U+FFFF.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var u = java.util.regex.Pattern.compile(\"\\\\u6771\").matcher(\"東\").find();\nvar x = java.util.regex.Pattern.compile(\"\\\\x{6771}\").matcher(\"東\").find();\nSystem.out.println(u + \" \" + x); // true true</pre>"
     },
     {
      "type": "basic",
@@ -123,7 +128,8 @@
      "extra": "The string occupies cells 0, 1, 2 and the index positions sit between cells, so the end index is the position after the last matched character.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"foo\").matcher(\"foo\");\nSystem.out.println(m.find() + \" \" + m.start() + \" \" + m.end()); // true 0 3 (end excluded)</pre>"
     },
     {
      "type": "basic",
@@ -152,7 +158,8 @@
      "extra": "The quoting pair can be placed anywhere in the expression as long as <code>\\Q</code> comes first, which makes it handy for embedding an arbitrary runtime string.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var slash = java.util.regex.Pattern.compile(\"\\\\.\").matcher(\".\").matches();\nvar quoted = java.util.regex.Pattern.compile(\"\\\\Q.\\\\E\").matcher(\".\").matches();\nSystem.out.println(slash + \" \" + quoted); // true true</pre>"
     },
     {
      "type": "basic",
@@ -171,7 +178,8 @@
      "extra": "It is unrelated to Java classes in your source code. <code>[abc]</code> matches exactly one of a, b or c, so <code>[bcr]at</code> matches bat, cat or rat.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"[bcr]at\");\nSystem.out.println(p.matcher(\"rat\").matches() + \" \" + p.matcher(\"sat\").matches()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -180,7 +188,8 @@
      "extra": "Negation still consumes exactly one character; it fails only on the characters inside the class.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"[^abc]\");\nSystem.out.println(p.matcher(\"d\").matches() + \" \" + p.matcher(\"a\").matches()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -199,7 +208,8 @@
      "extra": "A union collects all members, so the example matches 0-4 and 6-8 but not 5. Equivalent shorthand is <code>[0-46-8]</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"[0-4[6-8]]\");\nSystem.out.println(p.matcher(\"3\").matches() + \" \" + p.matcher(\"7\").matches() + \" \" + p.matcher(\"5\").matches()); // true true false</pre>"
     },
     {
      "type": "basic",
@@ -208,7 +218,8 @@
      "extra": "The result keeps only characters present in every nested class, so the example matches 3, 4 and 5 only.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"[0-5&amp;&amp;[3-9]]\");\nSystem.out.println(p.matcher(\"4\").matches() + \" \" + p.matcher(\"7\").matches()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -217,7 +228,8 @@
      "extra": "This is <b>subtraction</b>: intersect all digits with the complement of the excluded set. <code>[a-z&amp;&amp;[^m-p]]</code> is the letter equivalent.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"[0-9&amp;&amp;[^345]]\");\nSystem.out.println(p.matcher(\"7\").matches() + \" \" + p.matcher(\"4\").matches()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -256,7 +268,8 @@
      "extra": "In practice the dot excludes line terminators unless DOTALL mode <code>(?s)</code> is enabled; <code>\\n</code> must then be matched explicitly or via DOTALL.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var s = \"a\\nb\";\nvar plain = java.util.regex.Pattern.compile(\"a.b\").matcher(s).find();\nvar dotall = java.util.regex.Pattern.compile(\"a.b\", java.util.regex.Pattern.DOTALL).matcher(s).find();\nSystem.out.println(plain + \" \" + dotall); // false true - dot skips line terminators by default</pre>"
     },
     {
      "type": "basic",
@@ -265,7 +278,8 @@
      "extra": "The rule holds uniformly across the predefined classes, so once you know the lowercase meaning the uppercase follows.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var lower = java.util.regex.Pattern.compile(\"\\\\d\\\\s\\\\w\").matcher(\"1 a\").matches();\nvar upper = java.util.regex.Pattern.compile(\"\\\\D\\\\S\\\\W\").matcher(\"a1!\").matches();\nSystem.out.println(lower + \" \" + upper); // true true: capitals are the opposite sets</pre>"
     },
     {
      "type": "basic",
@@ -314,7 +328,8 @@
      "extra": "<code>.*foo</code> on <code>xfooxxxxxxfoo</code> first consumes everything, then backs off until the rightmost 'foo' is restored.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"a.*b\").matcher(\"a1b2b\");\nm.find();\nSystem.out.println(m.group() + \" \" + m.start() + \" \" + m.end()); // a1b2b 0 5</pre>"
     },
     {
      "type": "basic",
@@ -323,7 +338,8 @@
      "extra": "Reluctant <code>.*?foo</code> finds the leftmost 'foo' first, then continues scanning, so it yields both occurrences in <code>xfooxxxxxxfoo</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var s = \"a1b2b\";\nvar greedy = java.util.regex.Pattern.compile(\"a.*b\").matcher(s);\nvar rel = java.util.regex.Pattern.compile(\"a.*?b\").matcher(s);\ngreedy.find(); rel.find();\nSystem.out.println(greedy.group() + \" \" + rel.group()); // a1b2b a1b</pre>"
     },
     {
      "type": "basic",
@@ -332,7 +348,8 @@
      "extra": "<code>.*+foo</code> on <code>xfooxxxxxxfoo</code> fails, because <code>.*+</code> consumes everything and leaves nothing for 'foo'.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var g = java.util.regex.Pattern.compile(\"a*a\").matcher(\"aaa\").matches();\nvar ps = java.util.regex.Pattern.compile(\"a*+a\").matcher(\"aaa\").matches();\nSystem.out.println(g + \" \" + ps); // true false: possessive never backtracks</pre>"
     },
     {
      "type": "basic",
@@ -391,7 +408,8 @@
      "extra": "Without MULTILINE mode they only match at the beginning and end of the whole input; <code>\\A</code> and <code>\\z</code> always mean the absolute input limits.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"^dog$\", java.util.regex.Pattern.MULTILINE);\nSystem.out.println(p.matcher(\"cat\\ndog\\nbird\").find()); // true: ^ and $ anchor each line</pre>"
     },
     {
      "type": "basic",
@@ -400,7 +418,8 @@
      "extra": "A word boundary is a transition between a word character (<code>\\w</code>) and a non-word character or the input edge.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"\\\\bdog\\\\b\");\nSystem.out.println(p.matcher(\"a dog\").find() + \" \" + p.matcher(\"dogmatic\").find()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -409,7 +428,8 @@
      "extra": "A position is not a word boundary where word characters continue across it. Note confusing - the reliable use is matching inside a word, where <code>\\b</code> would fail.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"\\\\B\");\nvar m = p.matcher(\"ab\");\nSystem.out.println(m.find() + \" \" + m.start()); // true 1</pre>"
     },
     {
      "type": "basic",
@@ -418,7 +438,8 @@
      "extra": "It makes repeated <code>find()</code> calls contiguous, so a second occurrence of the target that does not start where the last match ended is skipped.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"\\\\Gdog\").matcher(\"dog dog\");\nSystem.out.println(m.find() + \" \" + m.find()); // true false: only at end of previous match</pre>"
     },
     {
      "type": "basic",
@@ -427,7 +448,8 @@
      "extra": "In <code>((A)(B(C)))</code> group 1 is the outer group, 2 is (A), 3 is (B(C)) and 4 is (C).",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"((a)(b))\").matcher(\"ab\");\nm.matches();\nSystem.out.println(m.group(1) + \" \" + m.group(2) + \" \" + m.group(3)); // ab a b</pre>"
     },
     {
      "type": "basic",
@@ -446,7 +468,8 @@
      "extra": "Writing <code>(?:dog)</code> groups for quantification without capturing, which keeps the numbering of the remaining groups stable.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"(a)(?:b)(c)\");\nvar m = p.matcher(\"abc\");\nm.find();\nSystem.out.println(p.matcher(\"abc\").groupCount() + \" \" + m.group(2)); // 2 c</pre>"
     },
     {
      "type": "basic",
@@ -455,7 +478,8 @@
      "extra": "<code>start()</code> with no argument returns the start of the whole match; <code>end(g)</code> returns the index of the last character plus one.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"(a)(b)\").matcher(\"zab\");\nm.find();\nSystem.out.println(m.start(1) + \" \" + m.start(2) + \" \" + m.group(2)); // 1 2 b</pre>"
     },
     {
      "type": "basic",
@@ -474,7 +498,8 @@
      "extra": "<code>(\\d\\d)\\1</code> matches any two digits followed by the identical two digits, and fails if the last two digits differ.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"(\\\\w+)-\\\\1\");\nSystem.out.println(p.matcher(\"go-go\").find() + \" \" + p.matcher(\"go-stop\").find()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -483,7 +508,8 @@
      "extra": "So <code>(\\d\\d)\\1</code> accepts '1212' but rejects '1234', which a repeated <code>\\d\\d\\d\\d</code> would accept.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var p = java.util.regex.Pattern.compile(\"(\\\\w+)\\\\s+\\\\1\");\nSystem.out.println(p.matcher(\"hi hi\").find() + \" \" + p.matcher(\"hi bye\").find()); // true false</pre>"
     },
     {
      "type": "basic",
@@ -512,7 +538,8 @@
      "extra": "Whitespace is ignored and <code>#</code> comments run to end of line, which enables readable multi-line patterns for parsing tasks.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a # comment\\n b\", java.util.regex.Pattern.COMMENTS);\njava.util.regex.Pattern q = java.util.regex.Pattern.compile(\"(?x)a # comment\\n b\");\nSystem.out.println(p.matcher(\"ab\").matches() + \" \" + q.matcher(\"ab\").matches()); // true true</pre>"
     },
     {
      "type": "basic",
@@ -531,7 +558,8 @@
      "extra": "The embedded equivalent pair is <code>(?iu)</code>. Without it, <code>Ä</code> and <code>ä</code> differ as far as the matcher is concerned.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var ascii = java.util.regex.Pattern.CASE_INSENSITIVE;\nvar unicode = ascii | java.util.regex.Pattern.UNICODE_CASE;\nvar re = \"é\";\nSystem.out.println(java.util.regex.Pattern.compile(re, ascii).matcher(\"É\").matches() + \" \" + java.util.regex.Pattern.compile(re, unicode).matcher(\"É\").matches()); // false true</pre>"
     },
     {
      "type": "basic",
@@ -550,7 +578,8 @@
      "extra": "Every other flag has a letter: <code>(?i)</code> case-insensitive, <code>(?x)</code> comments, <code>(?m)</code> multiline, <code>(?s)</code> dotall, <code>(?u)</code> Unicode case, <code>(?d)</code> Unix lines.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a.b\", java.util.regex.Pattern.LITERAL);\nSystem.out.println(p.matcher(\"a.b\").matches()); // true with LITERAL\n// CANON_EQ also has no embedded (?...) flag form</pre>"
     },
     {
      "type": "basic",
@@ -569,7 +598,8 @@
      "extra": "The flags parameter is an int bit mask, so the flags compose. The embedded alternative chains the letters, e.g. <code>(?im)</code>.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>var re = \"^DOG$\";\nvar flags = java.util.regex.Pattern.CASE_INSENSITIVE | java.util.regex.Pattern.MULTILINE;\nSystem.out.println(java.util.regex.Pattern.compile(re, flags).matcher(\"cat\\ndog\").find()); // true</pre>"
     },
     {
      "type": "basic",
@@ -628,7 +658,8 @@
      "extra": "They are the index methods. <code>end()</code> is the offset after the last character matched, i.e. an exclusive end position.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"(a)(b)\").matcher(\"zab\");\nm.find();\nSystem.out.println(m.start() + \" \" + m.end() + \" \" + m.start(1) + \" \" + m.end(2)); // 1 3 1 3</pre>"
     },
     {
      "type": "basic",
@@ -647,7 +678,8 @@
      "extra": "Repeated calls continue from the end of the previous match, which is the usual way to iterate all matches in a loop.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = java.util.regex.Pattern.compile(\"dog\").matcher(\"a dog, another dog\");\nSystem.out.println(m.find() + \" \" + m.find()); // true true - next subsequence anywhere</pre>"
     },
     {
      "type": "basic",
@@ -676,7 +708,8 @@
      "extra": "It escapes <code>\\</code> and <code>$</code> so the text is used literally. Otherwise a group reference like <code>$1</code> in the text would be substituted instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var s = \"$1\\\\x\";\nvar out = \"x\".replaceAll(\"x\", java.util.regex.Matcher.quoteReplacement(s));\nSystem.out.println(out); // $1\\x - backslash and $ stay literal</pre>"
     },
     {
      "type": "basic",
@@ -705,7 +738,8 @@
      "extra": "Sibling methods are <code>getDescription()</code> for the reason and <code>getPattern()</code> for the offending expression.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try { java.util.regex.Pattern.compile(\"[a-\"); } catch (java.util.regex.PatternSyntaxException e) {\n    System.out.println(\"index \" + e.getIndex()); // index of the error in the pattern\n}</pre>"
     },
     {
      "type": "basic",
@@ -714,7 +748,8 @@
      "extra": "The caret line is the useful part when logging: it points at the exact character the parser choked on.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try { java.util.regex.Pattern.compile(\"[a-\"); } catch (java.util.regex.PatternSyntaxException e) {\n    System.out.println(e.getMessage()); // description, index, pattern, caret on separate lines\n}</pre>"
     },
     {
      "type": "basic",
@@ -745,7 +780,8 @@
      "extra": "Reorganizing live objects compactly is what makes later collections cheaper, and it is something manual free/delete in C++ never does.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String[] steps = {\"check reachability\", \"remove unreachable objects\", \"reorganize survivors\"};\nfor (String step : steps) System.out.println(step);</pre>"
     },
     {
      "type": "basic",
@@ -754,7 +790,8 @@
      "extra": "That control code obscures the business logic, and a missed error path becomes a memory leak - the exact class of bug the GC exists to prevent.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>byte[] block = new byte[16];   // manual management: you hand-write the alloc\n// you must know how memory is used and hand-write free/control code\nblock = null;                  // a missed error path here becomes a leak</pre>"
     },
     {
      "type": "basic",
@@ -763,7 +800,8 @@
      "extra": "Leaks still happen through lingering references: static collections that grow forever, listeners never deregistered, or ThreadLocal values kept by pool threads.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Object&gt; listeners = new java.util.ArrayList&lt;&gt;();\nlisteners.add(new Object());   // never deregistered: the reference keeps it alive\nSystem.out.println(listeners.size());   // GC cannot collect a lingering reference</pre>"
     },
     {
      "type": "basic",
@@ -772,7 +810,8 @@
      "extra": "A local reference stops making its object reachable when the scope ends; the collector then frees it at its own convenience.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Object obj = new Object();\nobj = null; // does not make the object collectible immediately\nSystem.out.println(\"the collector decides unreachability, not assignment order\");</pre>"
     },
     {
      "type": "basic",
@@ -781,7 +820,8 @@
      "extra": "Generational collectors bet on it: scanning the young generation finds most garbage, so CPU time is spent where collection pays off.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object shortLived = new Object();   // most objects are short-lived\nshortLived = null;                  // a young-only scan reclaims them cheaply\nSystem.out.println(shortLived);     // null: generational collectors exploit this</pre>"
     },
     {
      "type": "basic",
@@ -808,7 +848,8 @@
      "extra": "It is not ordinary application data: classes, method metadata and similar long-lived structures land there, not new objects.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String contents = \"JVM metadata and core system classes\";\nboolean jvmLifetime = true; // permanent / metaspace region\nSystem.out.println(contents + \" lives for the JVM's lifetime: \" + jvmLifetime);</pre>"
     },
     {
      "type": "basic",
@@ -817,7 +858,8 @@
      "extra": "The name is counter-intuitive: it does not hunt for garbage, it salvages survivors, and whole regions are reclaimed once drained.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>boolean copiedToNewRegion = true; // live objects are found and copied\nboolean oldRegionFree = true;     // old regions become free\nSystem.out.println(copiedToNewRegion + \" / \" + oldRegionFree);</pre>"
     },
     {
      "type": "basic",
@@ -826,7 +868,8 @@
      "extra": "Smaller units let the collector work on a few regions at a time, which shortens pauses and avoids managing one monolithic heap.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String layout = \"many small regions of a few MB\";\nboolean oneYoungOldSpace = false; // incremental collector: not one young/old space\nSystem.out.println(layout + \", oneYoungOldSpace=\" + oneYoungOldSpace);</pre>"
     },
     {
      "type": "basic",
@@ -844,7 +887,8 @@
      "extra": "The collector traverses the object graph from the roots and flips the bit for everything it can reach, rather than scanning objects blindly.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>boolean marked = false;   // the VM gives each object a 1-bit flag, initially false\nObject reachable = new Object();\nmarked = true;             // mark phase: the reachable object's bit becomes true\nSystem.out.println(marked);</pre>"
     },
     {
      "type": "basic",
@@ -853,7 +897,8 @@
      "extra": "Sweeping follows marking, so the mark bit alone decides liveness - no per-object reference counting is involved.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>boolean markBit = false; // still false at sweep time\nboolean removed = !markBit;\nSystem.out.println(removed); // objects with a false mark bit are removed</pre>"
     },
     {
      "type": "basic",
@@ -862,7 +907,8 @@
      "extra": "Minor collections are frequent and cheap. A major collection also scans the old generation and is usually triggered by a heap-occupancy threshold.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Object young = new Object();   // fresh object: young generation\nObject old = new Object();     // survivor, promoted to old generation\n// a minor collection scans only the young generations, not old</pre>"
     },
     {
      "type": "basic",
@@ -871,7 +917,8 @@
      "extra": "Much rarer than a minor collection, and typically triggered by a condition such as a threshold percentage of heap memory being used.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>boolean youngScanned = true;\nboolean oldScanned = true;\nboolean major = youngScanned && oldScanned; // major GC scans young and old generations</pre>"
     },
     {
      "type": "basic",
@@ -880,7 +927,8 @@
      "extra": "It narrows pauses at the cost of throughput. Parallel means GC work uses several cores; concurrent means application threads keep running during GC.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Thread app = new Thread(() -&gt; System.out.println(\"application work\"));\nThread gc = new Thread(() -&gt; System.out.println(\"GC work\"));\napp.start(); gc.start();   // concurrent: GC work runs while the application runs</pre>"
     },
     {
      "type": "basic",
@@ -898,7 +946,8 @@
      "extra": "Heap objects are not thread-safe, so mutation must be frozen while the collector marks, moves or frees objects. JFR and VisualVM measure pause duration.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var threads = Thread.getAllStackTraces().keySet();\nfor (Thread t : threads) System.out.println(t.getName());\n// stop-the-world: every application thread stops while the collector works</pre>"
     },
     {
      "type": "basic",
@@ -925,7 +974,8 @@
      "extra": "G1 starts in Young-Only; when old-gen occupancy crosses a threshold it runs the concurrent marking trio and then mixed collections.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String[] phases = {\"Young-Only\", \"Space-Reclamation\"};\nSystem.out.println(String.join(\" then \", phases));</pre>"
     },
     {
      "type": "basic",
@@ -943,7 +993,8 @@
      "extra": "It also does reference processing and frees empty regions; no young evacuation happens during this pause.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String pause = \"Remark\";\nSystem.out.println(pause + \" finalizes marking and performs class unloading\");</pre>"
     },
     {
      "type": "basic",
@@ -952,7 +1003,8 @@
      "extra": "Mixed collections run through the Space-Reclamation phase; the old regions chosen are the ones with the most garbage.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>boolean youngEvacuated = true;\nboolean selectedOldEvacuated = true;\nboolean mixed = youngEvacuated && selectedOldEvacuated; // G1 mixed collection</pre>"
     },
     {
      "type": "basic",
@@ -970,7 +1022,8 @@
      "extra": "Otherwise <code>SerialGC</code> was selected. As of JDK 27 G1 is the default on every configuration and <code>-XX:+UseG1GC</code> is unnecessary.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre># JDK 9..26: G1 auto-selected with at least 2 cores and more than 1792 MB memory\njava -XX:+UseSerialGC App   # otherwise the JVM selected SerialGC</pre>"
     },
     {
      "type": "basic",
@@ -979,7 +1032,8 @@
      "extra": "G1 was experimental in JDK 6u14, standard from JDK 7u4, and only became the server default in JDK 9.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -version             # JDK 8: default collector is ParallelGC\njava -XX:+UseG1GC App     # the flag needed to select G1 on JDK 8</pre>"
     },
     {
      "type": "basic",
@@ -997,7 +1051,8 @@
      "extra": "Raising it trades latency for throughput; lowering it usually does the opposite. There is no setting that improves everything at once.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseG1GC -XX:MaxGCPauseMillis=100 App\n# a soft goal G1 tries to meet, not a hard guarantee of 100 ms pauses</pre>"
     },
     {
      "type": "basic",
@@ -1006,7 +1061,8 @@
      "extra": "Choosing a collector is choosing a point in the throughput / latency / footprint triangle - no collector wins on all three.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String g1 = \"balances throughput and latency\";\nString parallel = \"maximizes throughput\";\nString zgc = \"minimizes latency\";\nSystem.out.println(g1 + \" | \" + parallel + \" | \" + zgc);</pre>"
     },
     {
      "type": "basic",
@@ -1024,7 +1080,8 @@
      "extra": "G1 carves the heap into uniform regions and labels each eden, survivor, old or humongous; the labels change between collections.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String[] young = {\"Eden\", \"survivor\"};\nSystem.out.println(String.join(\" and \", young)); // G1 young generation</pre>"
     }
    ]
   },
@@ -1045,7 +1102,8 @@
      "extra": "Very frequent, low-pause collections that scan only the young regions.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>long minHeapBytes = 8L * 1024 * 1024;                     // 8 MB\nlong maxHeapBytes = 16L * 1024 * 1024 * 1024 * 1024;      // 16 TB\nSystem.out.println(minHeapBytes + \" to \" + maxHeapBytes); // ZGC heap range</pre>"
     },
     {
      "type": "basic",
@@ -1054,7 +1112,8 @@
      "extra": "Rare collections that scan both young and old regions, often triggered by a heap threshold.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC -Xmx8m App   # technically supported on a single core with an 8 MB heap\n# strongly discouraged: such a small, single-core box is not the intended target</pre>"
     },
     {
      "type": "basic",
@@ -1063,7 +1122,8 @@
      "extra": "Three short pauses bracket three concurrent phases, which is why pauses are just synchronization points rather than real work.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String[] cycle = {\"Mark Start\", \"Concurrent Mark\", \"Mark End\",\n                  \"Prepare for Relocation\", \"Relocate Start\", \"Relocate\"};\nSystem.out.println(String.join(\" -> \", cycle));</pre>"
     },
     {
      "type": "basic",
@@ -1072,7 +1132,8 @@
      "extra": "Heavy work - marking, relocation, reference processing, class unloading, stack scanning - runs alongside the application instead of inside a pause.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Runnable heavyWork = () -&gt; System.out.println(\"marking while the app runs\");\nThread app = new Thread(heavyWork);   // marking and relocation are concurrent\napp.start();                          // a ZGC pause only flips flags and colors</pre>"
     },
     {
      "type": "basic",
@@ -1090,7 +1151,8 @@
      "extra": "Finalization itself was deprecated for removal in JDK 18 (JEP 421), so this bit tracks a legacy feature.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Object target = new Object();\nboolean finalizableBit = true; // ZGC Finalizable bit: reachable only through a finalizer\nSystem.out.println(finalizableBit);</pre>"
     },
     {
      "type": "basic",
@@ -1099,7 +1161,8 @@
      "extra": "Alternating avoids clearing all bits between cycles - flipping which color is current makes the previous cycle's marks stale in one step.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>boolean marked0 = true, marked1 = false;   // either bit says the object is marked\nboolean goodColor = marked0;               // ZGC alternates which is good each cycle\nSystem.out.println(goodColor);             // next cycle: marked1 becomes good</pre>"
     },
     {
      "type": "basic",
@@ -1108,7 +1171,8 @@
      "extra": "It lets a load barrier resolve an object that moved since the last sync point. A side effect is reported memory usage that looks inflated.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String[] views = {\"view 1\", \"view 2\", \"view 3\"};   // one physical object, three virtual views\nfor (String color : views) System.out.println(color);   // a view per pointer color\nSystem.out.println(views.length);   // 3 aliases, one copy of the bytes</pre>"
     },
     {
      "type": "basic",
@@ -1117,7 +1181,8 @@
      "extra": "Only the 'real' color view holds physical memory; the other two mappings are address-space aliases, so virtual size is the misleading figure.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>long physicalCopies = 1;   // one copy really holds the object bytes\nlong virtualViews = 3;     // ZGC maps it three times, one per color\nSystem.out.println(physicalCopies + \" physical / \" + virtualViews + \" virtual views\");</pre>"
     },
     {
      "type": "basic",
@@ -1135,7 +1200,8 @@
      "extra": "Because barriers are compiled into the code rather than interpreted, the 'good color' fast path costs little; capping C2 or forcing interpreted mode undermines ZGC's assumptions.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC App        # C2, the JIT compiler, injects load barriers as classes are parsed\njava -Xint -XX:+UseZGC App  # interpreted mode: no compiled C2 barrier fast path</pre>"
     },
     {
      "type": "basic",
@@ -1144,7 +1210,8 @@
      "extra": "Objects up to 1/8 of a region (256 KB) go in a small region. Medium and large regions exist for bigger objects.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>long smallRegionBytes = 2L * 1024 * 1024; // ZGC small region: 2 MB\nSystem.out.println(smallRegionBytes);</pre>"
     },
     {
      "type": "basic",
@@ -1162,7 +1229,8 @@
      "extra": "For heaps of at least 1 GB medium regions are 32 MB; smaller heaps step down through 16, 8 and 4 MB before the feature is disabled.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC -Xmx64m App   # -Xmx below 128 MB: medium regions turned off\n# medium regions apply only to larger heaps (32/16/8/4 MB by heap size)</pre>"
     },
     {
      "type": "basic",
@@ -1189,7 +1257,8 @@
      "extra": "Lowering it compacts more aggressively, reclaiming memory at the cost of CPU time.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC -XX:ZFragmentationLimit=10 App   # compact more aggressively\njava -XX:+UseZGC App                             # -XX:ZFragmentationLimit defaults to 25</pre>"
     },
     {
      "type": "basic",
@@ -1198,7 +1267,8 @@
      "extra": "A non-zero value forces a collection even when the allocation rate would not trigger one, at some throughput cost.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -XX:ZCollectionInterval=0 -version\n# seconds between ZGC cycles; 0 disables it (default)</pre>"
     },
     {
      "type": "basic",
@@ -1234,7 +1304,8 @@
      "extra": "ZGC has heuristics to pick it automatically, sized near a quarter of ParallelGC threads. Too many starves the app; too few lets garbage outpace collection.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:ConcGCThreads=4 -version\n# -XX:ConcGCThreads sets the number of concurrent GC threads</pre>"
     },
     {
      "type": "basic",
@@ -1243,7 +1314,8 @@
      "extra": "It was built for a niche, so throughput or footprint can get worse. It suits request-heavy web apps with large live sets and spare CPU.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC App   # targets latency and huge live sets\njava -XX:+UseG1GC App  # throughput or footprint may be better with G1</pre>"
     },
     {
      "type": "basic",
@@ -1291,7 +1363,8 @@
      "extra": "To expose all interfaces pass <code>-b 0.0.0.0</code> (or <code>-b ::</code>). The default keeps the server invisible to the network.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jwebserver             # binds 127.0.0.1 or ::1: loopback only\njwebserver -b 0.0.0.0  # expose it on all interfaces instead</pre>"
     },
     {
      "type": "basic",
@@ -1309,7 +1382,8 @@
      "extra": "Hidden files and symbolic links are neither listed nor served, which keeps dotfiles from leaking over the wire.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jwebserver -d public          # the directory has no index file\ncurl http://127.0.0.1:8000/   # HTML listing of file and subdirectory names</pre>"
     },
     {
      "type": "basic",
@@ -1318,7 +1392,8 @@
      "extra": "It wraps the <code>com.sun.net.httpserver</code> implementation, whose <code>SimpleFileServer</code> class lets you reuse the server programmatically.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>jwebserver\njava -m jdk.httpserver   # same tool, started from its module jdk.httpserver</pre>"
     },
     {
      "type": "basic",
@@ -1327,7 +1402,8 @@
      "extra": "The three allowed values are <code>none</code>, <code>info</code> and <code>verbose</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jwebserver --output info\njwebserver              # omitting --output defaults to info</pre>"
     },
     {
      "type": "basic",
@@ -1354,7 +1430,8 @@
      "extra": "It is a general-purpose archiving tool whose syntax mirrors <code>tar</code>, with one mandatory main operation argument.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jar --create --file app.jar -C classes .   # the jar tool uses ZIP and ZLIB\nunzip -l app.jar                          # the archive is readable as a ZIP file</pre>"
     },
     {
      "type": "basic",
@@ -1363,7 +1440,8 @@
      "extra": "<code>-u</code> updates an existing archive; each is the short form of <code>--create</code>, <code>--list</code>, <code>--extract</code>, <code>--update</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jar -c -f app.jar -C classes .\njar -t -f app.jar\njar -x -f app.jar</pre>"
     },
     {
      "type": "basic",
@@ -1381,7 +1459,8 @@
      "extra": "Valid in create, update and generate-index modes. Uncompressed JARs load marginally faster but take far more space.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jar --create --file app.jar --no-compress -C classes .\njar --create --file app.jar -0 -C classes .    # -0 / --no-compress: entries stored, not zipped</pre>"
     },
     {
      "type": "basic",
@@ -1390,7 +1469,8 @@
      "extra": "It writes the <code>Main-Class</code> manifest attribute. <code>-m=FILE</code> supplies a whole manifest instead, and <code>-M</code> omits it entirely.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jar --create --file app.jar --main-class demo.Main -C classes .\njar --create --file app.jar -e=demo.Main -C classes .   # writes Main-Class in the manifest</pre>"
     },
     {
      "type": "basic",
@@ -1399,7 +1479,8 @@
      "extra": "VERSION must be an integer 9 or greater. At runtime the JDK picks the highest matching version folder, falling back to lower ones then the JAR root.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jar --create --file multi.jar --release 17 -C classes .\n# versioned files go under META-INF/versions/17/</pre>"
     },
     {
      "type": "basic",
@@ -1417,7 +1498,8 @@
      "extra": "It is the quick way to check the automatic module name derived from a non-modular JAR's filename before depending on it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jar -d --file app.jar   # module descriptor or automatic module name\njar --describe-module --file app.jar</pre>"
     }
    ]
   },
@@ -1438,7 +1520,8 @@
      "extra": "Signing is the default behaviour; <code>-verify</code> switches to checking. It works on any ZIP plus a <code>META-INF/MANIFEST.MF</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jarsigner -keystore demo.p12 -signedjar signed.jar app.jar demo  # sign JARs\njarsigner -verify -verbose signed.jar                            # verify signatures and integrity</pre>"
     },
     {
      "type": "basic",
@@ -1447,7 +1530,8 @@
      "extra": "The extension follows the key algorithm. Both files share a base name derived from the alias or from <code>-sigfile</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>rsigner -keystore ks app.jar alias\nunzip -l app.jar | grep META-INF   # META-INF/ALIAS.SF and META-INF/ALIAS.RSA\n# .DSA or .EC instead of .RSA when the signing key uses those algorithms</pre>"
     },
     {
      "type": "basic",
@@ -1456,7 +1540,8 @@
      "extra": "Invalid characters become underscores. Alias <code>jane</code> yields <code>JANE.SF</code> and <code>JANE.RSA</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String alias = \"releasekey2026\";\nString base = alias.substring(0, 8).toUpperCase(java.util.Locale.ROOT); // default without -sigfile\nSystem.out.println(base + \".SF\");</pre>"
     },
     {
      "type": "basic",
@@ -1474,7 +1559,8 @@
      "extra": "Unlike the manifest, whose digest covers the file's bytes, the .SF digest covers that file's two manifest lines, chaining bytes to manifest to signature.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>unzip -p signed.jar META-INF/ALIAS.SF\n# Name: path/to/File.class    digest algorithm + digest of that file's manifest lines</pre>"
     },
     {
      "type": "basic",
@@ -1492,7 +1578,8 @@
      "extra": "Override with <code>-digestalg</code> only if an old consumer requires something else; defaults harden with each JDK release.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jarsigner -keystore ks app.jar alias   # -digestalg defaults to SHA-256\njarsigner -digestalg SHA-1 -keystore ks app.jar alias  # override for an old consumer</pre>"
     },
     {
      "type": "basic",
@@ -1501,7 +1588,8 @@
      "extra": "Legacy (not yet disabled) algorithms still verify but raise an informational warning. The lists live in the java.security file under $JAVA_HOME/conf/security.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jarsigner -verify app.jar\n# signed with a disabled algorithm -> treated as an unsigned JAR</pre>"
     },
     {
      "type": "basic",
@@ -1510,7 +1598,8 @@
      "extra": "Override with <code>-keystore url</code>. <code>NONE</code> means a null stream, for a keystore living on a hardware token.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String defaultKeystore = System.getProperty(\"user.home\") + \"/.keystore\";\nSystem.out.println(defaultKeystore); // jarsigner and keytool default</pre>"
     },
     {
      "type": "basic",
@@ -1519,7 +1608,8 @@
      "extra": "JKS remains a built-in Oracle implementation. The type comes from the keystore.type property or -storetype, and JKS and PKCS12 files are not interchangeable.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String defaultType = java.security.KeyStore.getDefaultType();\nSystem.out.println(defaultType.equals(\"PKCS12\")); // modern JDKs</pre>"
     },
     {
      "type": "basic",
@@ -1528,7 +1618,8 @@
      "extra": "Without <code>-strict</code>, severe warnings still exit 0. With <code>-strict</code> the exit code is the OR of warning codes, e.g. 12 means expired plus badKeyUsage.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jarsigner -verify app.jar\necho $?   # 1 when jarsigner fails</pre>"
     },
     {
      "type": "basic",
@@ -1600,7 +1691,8 @@
      "extra": "The CA authenticates the requester (usually offline) and returns a certificate or chain, which you install with <code>-importcert</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>keytool -certreq -alias demo -keystore demo.p12 -file req.csr\n# PKCS #10 request signed with the alias's private key</pre>"
     },
     {
      "type": "basic",
@@ -1627,7 +1719,8 @@
      "extra": "Defaults differ by algorithm: 256 for EC, 255 for EdDSA (Ed25519), 56 for DES and 168 for DESede secret keys.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>keytool -genkeypair -alias demo -keyalg RSA -keystore demo.p12\n# no -keysize: keytool's RSA key pair is 2048 bits</pre>"
     },
     {
      "type": "basic",
@@ -1636,7 +1729,8 @@
      "extra": "Adding <code>-v</code> prints the human-readable detail: owner, issuer, serial number and extensions. <code>-rfc</code> prints PEM instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>keytool -list -keystore ks     # without -v: default SHA-256 fingerprint\nkeytool -list -v -keystore ks  # adds owner, issuer, serial number and extensions</pre>"
     },
     {
      "type": "basic",
@@ -1645,7 +1739,8 @@
      "extra": "They are different output modes: verbose is human-readable detail, rfc is base64 PEM, so they cannot be combined.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>keytool -list -v -keystore ks       # verbose human-readable detail\nkeytool -list -rfc -keystore ks     # base64 PEM output\nkeytool -list -v -rfc -keystore ks  # error: the two output modes cannot be combined</pre>"
     },
     {
      "type": "basic",
@@ -1654,7 +1749,8 @@
      "extra": "If no port is given, 443 is assumed. <code>-file</code> and <code>-sslserver</code> cannot be combined.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>keytool -printcert -file cert.cer        # inspect a certificate file\nkeytool -printcert -sslserver host:443   # inspect an SSL server (default port 443)\nkeytool -printcert -jarfile app.jar      # inspect a signed JAR</pre>"
     },
     {
      "type": "basic",
@@ -1663,7 +1759,8 @@
      "extra": "It is a system-wide keystore of root CA certificates. <code>-cacerts</code> is shorthand for <code>-keystore .../cacerts -storetype jks</code>.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>String cacerts = System.getenv(\"JAVA_HOME\") + \"/lib/security/cacerts\";\nSystem.out.println(cacerts);</pre>"
     },
     {
      "type": "basic",
@@ -1672,7 +1769,8 @@
      "extra": "It is the normal way to convert between keystore types, for example JKS to PKCS12, or to move entries onto a PKCS #11 hardware token.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>keytool -list -keystore \"$JAVA_HOME/lib/security/cacerts\" -storepass changeit\n# changeit is the initial password of the JDK's cacerts file</pre>"
     },
     {
      "type": "basic",
@@ -1690,7 +1788,8 @@
      "extra": "PEM output is bounded by <code>-----BEGIN</code> / <code>-----END</code> lines, which is what most mailers and web servers accept.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>keytool -exportcert -alias demo -keystore demo.p12 -file cert.der\nkeytool -exportcert -alias demo -keystore demo.p12 -rfc -file cert.pem\n# default: binary DER; -rfc: Base64 (PEM)</pre>"
     },
     {
      "type": "basic",
@@ -1708,7 +1807,8 @@
      "extra": "The tools scan installed providers for one implementing that type. JKS and PKCS12 are not binary compatible and need conversion via -importkeystore.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String password = \"secret1\";\nboolean accepted = password.length() >= 6; // keytool passwords need at least six characters\nSystem.out.println(accepted);</pre>"
     },
     {
      "type": "basic",
@@ -1726,7 +1826,8 @@
      "extra": "That is why it may be given many times, e.g. <code>-ext SAN=dns:example.com,ip:10.0.0.1</code> plus <code>-ext KU=keyEncipherment</code>.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>keytool -genkeypair -alias a -keystore ks -ext SAN=dns:example.com -ext KU=keyEncipherment\n# -ext adds an X.509 extension and is the only multi-valued option: it can repeat</pre>"
     },
     {
      "type": "basic",
@@ -1744,7 +1845,8 @@
      "extra": "That flexibility is deliberate, for self-signed test certificates, but such certificates may be rejected by the JDK and by other applications.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>keytool -printcertreq -file request.csr\n# prints the contents of the PKCS #10 certificate request</pre>"
     },
     {
      "type": "basic",
@@ -1762,7 +1864,8 @@
      "extra": "Options for that command may come in any order; repeating a single-valued option silently keeps the last value given.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>keytool -list -keystore demo.p12    # exactly one command here: -list\n# keytool accepts exactly one command per invocation</pre>"
     },
     {
      "type": "basic",
@@ -1771,7 +1874,8 @@
      "extra": "The user must already be registered as a principal with the KDC. The tool is compatible with MIT and SEAM-style kinit.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>kinit alice@EXAMPLE.COM   # obtains a ticket-granting ticket\n# the TGT is cached locally; the principal must be registered with the KDC</pre>"
     },
     {
      "type": "basic",
@@ -1780,7 +1884,8 @@
      "extra": "These grant the ticket extra delegation powers; both can be combined, e.g. when a service must act on behalf of the user.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>kinit -f alice@EXAMPLE.COM   # -f issues a forwardable ticket\nkinit -p alice@EXAMPLE.COM   # -p issues a proxiable ticket</pre>"
     },
     {
      "type": "basic",
@@ -1798,7 +1903,8 @@
      "extra": "Distinct from <code>-l lifetime</code>, which sets how long one ticket is valid. Lifetimes accept <code>h:m:s</code>, <code>NdNhNmNs</code>, or a bare number.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>kinit -r 2d alice@EXAMPLE.COM\n# -r renewable_time sets how long the ticket can be renewed</pre>"
     },
     {
      "type": "basic",
@@ -1807,7 +1913,8 @@
      "extra": "The fallback path is built from the user.home system property, so a daemon started with an unexpected home directory looks in the wrong place.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>kinit -password ***   # for testing only: the password is exposed in the script\n# a real password passed this way would be compromised, so never use it in scripts</pre>"
     },
     {
      "type": "basic",
@@ -1816,7 +1923,8 @@
      "extra": "The fallback path is built from the <code>user.home</code> system property, so a daemon started with an odd home directory looks in the wrong place.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String home = System.getProperty(\"user.home\");\nString fallback = home + java.io.File.separator + \"krb5.keytab\";   // no -t option given\nSystem.out.println(fallback);   // otherwise the Kerberos config supplies the keytab name</pre>"
     },
     {
      "type": "basic",
@@ -1825,7 +1933,8 @@
      "extra": "It is read-only: it never modifies the Kerberos database, which makes it the safe default diagnosis step.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>klist -c   # entries in the local credentials cache\nklist -k   # entries in the keytab</pre>"
     },
     {
      "type": "basic",
@@ -1834,7 +1943,8 @@
      "extra": "Add <code>-e</code> to show the encryption type, <code>-f</code> for credential flags and <code>-a</code> for addresses in cache listings.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>klist -c   # credential cache\nklist -k   # keytab</pre>"
     },
     {
      "type": "basic",
@@ -1843,7 +1953,8 @@
      "extra": "Both are local inspection only. Nothing in the KDC changes, so the KDC side has to be updated separately.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>ktab -l       # lists the keytab\nklist -k      # confirms the same keytab after the ktab change</pre>"
     },
     {
      "type": "basic",
@@ -1852,7 +1963,8 @@
      "extra": "A server that must authenticate itself to the KDC (e.g. a service principal) needs a keytab containing its own principal and key.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>ktab -l   # lists the host's own principals and keys held in its keytab\n# a keytab is the host's copy of its credentials - analogous to a password</pre>"
     },
     {
      "type": "basic",
@@ -1861,7 +1973,8 @@
      "extra": "Anyone who reads a keytab can impersonate the service without knowing its password, so file permissions are the whole security boundary.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>chmod 600 /etc/security/keytabs/svc.keytab   # local disk, readable only by root\n# never send the keytab over a network in clear: readers can impersonate the service</pre>"
     },
     {
      "type": "basic",
@@ -1870,7 +1983,8 @@
      "extra": "If you change keys in the keytab you must make the matching change in the Kerberos database, and vice versa, or the service cannot authenticate.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>ktab -a alice@EXAMPLE.COM -k alice.keytab\n# ktab only edits the local keytab; none of its operations touch the KDC</pre>"
     },
     {
      "type": "basic",
@@ -1888,7 +2002,8 @@
      "extra": "The default action is <code>all</code>. <code>old</code> is the safe rotation choice - it retires superseded keys while keeping the current one working.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>ktab -d alice@EXAMPLE.COM old   # deletes all keys except those with the highest kvno\nktab -d alice@EXAMPLE.COM       # default action: all keys</pre>"
     }
    ]
   },
@@ -2245,7 +2360,8 @@
      "extra": "50 questions in 120 minutes, passing score 68%. The prior ones are 1Z0-830 (Java 21) and 1Z0-829 (Java 17), both 50 questions and 68%.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Newest active exam: 1Z0-831 Java SE 25 Developer Professional\n1Z0-830 is the Java SE 21 exam</pre>"
     },
     {
      "type": "basic",
@@ -2254,7 +2370,8 @@
      "extra": "The 1Z0-830 (Java 21) and 1Z0-829 (Java 17) exams use the same 50 questions and 68% bar, so a mock result maps directly onto them.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>1Z0-831 Java SE 25 Developer Professional\n50 questions in 120 minutes, pass mark 68%</pre>"
     },
     {
      "type": "basic",
@@ -2263,7 +2380,8 @@
      "extra": "808 is 56 questions at 65%, 809 is 68 questions at 65%. Splitting the exam is unique to Java 8 - the Java 11 exam started split but was merged.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Java SE 8 developer certification: 1Z0-808 + 1Z0-809\none certification for each half</pre>"
     },
     {
      "type": "basic",
@@ -2272,7 +2390,8 @@
      "extra": "Objectives and study materials lag an LTS release by months, and passing without materials is much harder; newer syntax is a small gain.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Take the exam available when you start studying\nnot the next LTS exam\nstudy materials for a future exam take months to appear</pre>"
     },
     {
      "type": "basic",
@@ -2281,7 +2400,8 @@
      "extra": "Materials must match the exam version, because objectives change between releases. Studying Java 21 books for the Java 25 exam leaves gaps.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Java 21 study materials -&gt; target 1Z0-830\nthe Java SE 21 Developer Professional exam</pre>"
     },
     {
      "type": "basic",
@@ -2290,7 +2410,8 @@
      "extra": "Java 8 launched its exam in two parts and Java 11 began that way too, then merged into the single 1Z0-819, with 50 questions and a 68% pass mark.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>1Z0-819 Java SE 11 Developer\none consolidated exam, replacing the earlier 1Z0-815 + 1Z0-816 split</pre>"
     },
     {
      "type": "basic",
@@ -2299,7 +2420,8 @@
      "extra": "It is far less common than the developer exams and is positioned as an easier first certification before the 829, 830 or 831.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>1Z0-811 Java Foundations (Oracle Academy)\n60 questions, pass mark 65%, based on Java 8</pre>"
     },
     {
      "type": "basic",
@@ -2308,7 +2430,8 @@
      "extra": "Mocks expose the precise API recall the exam rewards and produce a score comparable to the real 68% pass bar. Writing code matters too.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>Enthuware mock exams: 20 mock exams\nrecommended practice after studying, before the real exam</pre>"
     }
    ]
   }

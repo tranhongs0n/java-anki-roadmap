@@ -3331,7 +3331,8 @@
      "extra": "It holds a year, month and day in the ISO calendar, which suits things like birthdays that are the same date everywhere.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2013, 8, 20);\nSystem.out.println(d);\nSystem.out.println(java.time.LocalDateTime.of(d, java.time.LocalTime.NOON));</pre>"
     },
     {
      "type": "basic",
@@ -3340,7 +3341,8 @@
      "extra": "lengthOfMonth() answers how many days it has, which correctly handles February in leap years.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.YearMonth month = java.time.YearMonth.of(2024, java.time.Month.FEBRUARY);\nSystem.out.println(month); // 2024-02\nSystem.out.println(month.lengthOfMonth()); // 29</pre>"
     },
     {
      "type": "basic",
@@ -3359,7 +3361,8 @@
      "extra": "isLeap() reports leap-year status, so Year.of(2012).isLeap() is true.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Year year = java.time.Year.of(2024);\nSystem.out.println(year.isLeap()); // true\nSystem.out.println(year.length()); // 366</pre>"
     },
     {
      "type": "basic",
@@ -3378,7 +3381,8 @@
      "extra": "A TemporalAdjuster returns an adjusted temporal value, and with() applies it to produce a new immutable date.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate date = java.time.LocalDate.of(2024, 1, 1);\njava.time.LocalDate wed = date.with(java.time.temporal.TemporalAdjusters.next(java.time.DayOfWeek.WEDNESDAY));\nSystem.out.println(wed); // 2024-01-03</pre>"
     },
     {
      "type": "basic",
@@ -3387,7 +3391,8 @@
      "extra": "Each models a different precision of date information, so you pick the narrowest one that fits the fact you store.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2013, 8, 20);\njava.time.YearMonth ym = java.time.YearMonth.of(2013, 8);\njava.time.MonthDay md = java.time.MonthDay.of(8, 20);\njava.time.Year y = java.time.Year.of(2013);\nSystem.out.println(d + \" \" + ym + \" \" + md + \" \" + y);</pre>"
     }
    ]
   },
@@ -3408,7 +3413,8 @@
      "extra": "The numbering follows the ISO standard, which starts the week on Monday rather than Sunday.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.time.DayOfWeek.MONDAY.getValue()); // 1\nSystem.out.println(java.time.DayOfWeek.SUNDAY.getValue()); // 7</pre>"
     },
     {
      "type": "basic",
@@ -3417,7 +3423,8 @@
      "extra": "This matches the ISO month range, and unlike legacy Calendar it is 1-based.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.time.Month.JANUARY.getValue()); // 1\nSystem.out.println(java.time.Month.DECEMBER.getValue()); // 12</pre>"
     },
     {
      "type": "basic",
@@ -3426,7 +3433,8 @@
      "extra": "TextStyle chooses FULL, SHORT or NARROW. STANDALONE variants exist where a language names the month differently in isolation.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.DayOfWeek day = java.time.DayOfWeek.MONDAY;\nSystem.out.println(day.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.FRENCH));\nSystem.out.println(java.time.Month.JANUARY.getDisplayName(java.time.format.TextStyle.SHORT, java.util.Locale.ENGLISH));</pre>"
     },
     {
      "type": "basic",
@@ -3435,7 +3443,8 @@
      "extra": "It is the most days the month can ever have, so leap years are included. YearMonth.lengthOfMonth() gives the value for a specific year.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.time.Month m = java.time.Month.FEBRUARY;\nSystem.out.println(m.maxLength());</pre>"
     },
     {
      "type": "basic",
@@ -3444,7 +3453,8 @@
      "extra": "Enum constants support temporal arithmetic directly, wrapping around at the end of the week.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.DayOfWeek day = java.time.DayOfWeek.MONDAY;\njava.time.DayOfWeek later = day.plus(3);\nSystem.out.println(later);</pre>"
     }
    ]
   },
@@ -3465,7 +3475,8 @@
      "extra": "The epoch is 1970-01-01T00:00:00Z. Instant is designed for machine timestamps, not for human dates.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Instant instant = java.time.Instant.ofEpochSecond(0, 123456789);\nSystem.out.println(instant); // 1970-01-01T00:00:00.123456789Z</pre>"
     },
     {
      "type": "basic",
@@ -3474,7 +3485,8 @@
      "extra": "An instant before the epoch has a negative value. MIN and MAX bound the representable range.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Instant i = java.time.Instant.parse(\"1970-01-01T00:00:01.000000123Z\");\nSystem.out.println(i.getEpochSecond() + \" \" + i.getNano());</pre>"
     },
     {
      "type": "basic",
@@ -3483,7 +3495,8 @@
      "extra": "The trailing Z marks UTC. Switching between this text form and other classes goes through the same standard.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Instant instant = java.time.Instant.parse(\"2013-08-20T15:16:26.355Z\");\nSystem.out.println(instant.toString()); // 2013-08-20T15:16:26.355Z</pre>"
     },
     {
      "type": "basic",
@@ -3492,7 +3505,8 @@
      "extra": "Those units depend on a time zone. Bind the Instant to a ZonedDateTime or LocalDateTime first to use them.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.time.Instant i = java.time.Instant.parse(\"2024-01-01T00:00:00Z\");\nSystem.out.println(i.getEpochSecond() + \" \" + i.getNano());\n// ChronoUnit.MONTHS.between(i, i) throws UnsupportedTemporalTypeException</pre>"
     },
     {
      "type": "basic",
@@ -3501,7 +3515,8 @@
      "extra": "LocalDateTime.ofInstant(instant, zone) is the conversion, and then years, months and days become meaningful.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.time.Instant i = java.time.Instant.parse(\"2024-01-01T00:00:00Z\");\njava.time.LocalDateTime dt = java.time.LocalDateTime.ofInstant(i, java.time.ZoneId.of(\"Asia/Tokyo\"));\nSystem.out.println(dt.plusMonths(1).plusYears(1));</pre>"
     },
     {
      "type": "basic",
@@ -3510,7 +3525,8 @@
      "extra": "isAfter() and isBefore() just compare. until() returns an amount in the chosen unit, such as seconds or hours.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.Instant a = java.time.Instant.parse(\"2024-01-01T00:00:00Z\");\njava.time.Instant b = java.time.Instant.parse(\"2024-01-01T00:00:05Z\");\nSystem.out.println(a.until(b, java.time.temporal.ChronoUnit.SECONDS));</pre>"
     },
     {
      "type": "basic",
@@ -3519,7 +3535,8 @@
      "extra": "ZonedDateTime and OffsetDateTime map to an exact moment; a LocalDateTime is ambiguous without an offset.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.time.Instant a = java.time.ZonedDateTime.now().toInstant();\njava.time.Instant b = java.time.OffsetDateTime.now().toInstant();\n// java.time.LocalDateTime.now().toInstant() does not exist\nSystem.out.println(a + \" \" + b);</pre>"
     }
    ]
   },
@@ -3540,7 +3557,8 @@
      "extra": "Alternative systems such as Hijrah or Thai Buddhist live in java.time.chrono, and you may define your own.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.chrono.Chronology iso = java.time.chrono.IsoChronology.INSTANCE;\njava.time.LocalDate date = java.time.LocalDate.of(2024, 1, 2);\nSystem.out.println(date.getChronology() == iso); // true by default</pre>"
     },
     {
      "type": "basic",
@@ -3549,7 +3567,8 @@
      "extra": "Immutable is what makes the whole API thread-safe: every modification returns a new object instead of mutating one.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2024, 1, 1);\nSystem.out.println(d.plusDays(1).withMonth(2)); // clear and fluent: a new value\nSystem.out.println(d); // immutable: original unchanged\njava.time.LocalDate first = d.with(java.time.temporal.TemporalAdjusters.firstDayOfMonth()); // extensible</pre>"
     },
     {
      "type": "basic",
@@ -3558,7 +3577,8 @@
      "extra": "This is the direct answer to the legacy Calendar and SimpleDateFormat problems, where shared mutable state caused data races.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2024, 1, 1);\njava.time.LocalDate next = d.plusDays(1);\nSystem.out.println(d + \" \" + next); // original d is unchanged</pre>"
     },
     {
      "type": "basic",
@@ -3567,7 +3587,8 @@
      "extra": "It checks that the fields form a valid date. from() converts another type instead, and parse() reads text.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2024, 2, 29);\nSystem.out.println(d);\n// java.time.LocalDate.of(2023, 2, 29) throws java.time.DateTimeException</pre>"
     },
     {
      "type": "basic",
@@ -3576,7 +3597,8 @@
      "extra": "For example LocalDate.from(temporal) extracts the date part. Information beyond the target type's precision is discarded.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDateTime ldt = java.time.LocalDateTime.of(2013, 8, 20, 12, 30);\njava.time.LocalDate d = java.time.LocalDate.from(ldt);\nSystem.out.println(d);</pre>"
     },
     {
      "type": "basic",
@@ -3585,7 +3607,8 @@
      "extra": "It returns a <b>copy</b> with one element changed. plus() and minus() are the same idea for adding or subtracting time.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2013, 8, 20);\njava.time.LocalDate next = d.with(java.time.temporal.ChronoField.DAY_OF_MONTH, 21);\nSystem.out.println(d + \" -&gt; \" + next);</pre>"
     },
     {
      "type": "basic",
@@ -3594,7 +3617,8 @@
      "extra": "A LocalDate at a time zone becomes a ZonedDateTime, and at a LocalTime becomes a LocalDateTime.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate date = java.time.LocalDate.of(2013, 8, 20);\njava.time.LocalDateTime dt = date.atTime(12, 30);\nSystem.out.println(dt);</pre>"
     },
     {
      "type": "basic",
@@ -3603,7 +3627,8 @@
      "extra": "Nulls are rejected rather than silently accepted, which is part of the clear design and keeps fluent chains safe.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try {\n    java.time.LocalDate.from(null);\n} catch (NullPointerException e) {\n    System.out.println(\"NullPointerException\");\n}</pre>"
     },
     {
      "type": "basic",
@@ -3612,7 +3637,8 @@
      "extra": "Mobile java.time.zone instead handles zone rules and offsets. java.time.temporal holds fields, units, adjusters and queries.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.format.DateTimeFormatter f = java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;\nSystem.out.println(f.format(java.time.LocalDate.of(2024, 1, 2)));</pre>"
     }
    ]
   },
@@ -3633,7 +3659,8 @@
      "extra": "Date.from(Instant) goes the other way. Both classes model an instant independent of any time zone.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Date date = java.util.Date.from(java.time.Instant.parse(\"2024-01-01T00:00:00Z\"));\njava.time.Instant i = date.toInstant();\nSystem.out.println(i);</pre>"
     },
     {
      "type": "basic",
@@ -3642,7 +3669,8 @@
      "extra": "Calendar has no direct toZonedDateTime(), so the conversion goes through Instant plus an explicit zone.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Calendar calendar = java.util.Calendar.getInstance();\njava.time.ZoneId zone = java.time.ZoneId.systemDefault();\njava.time.ZonedDateTime zdt = calendar.toInstant().atZone(zone);\nSystem.out.println(zdt);</pre>"
     },
     {
      "type": "basic",
@@ -3651,7 +3679,8 @@
      "extra": "TimeZone could not express the rules the Date-Time API needs, while ZoneId carries them.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.TimeZone tz = java.util.TimeZone.getTimeZone(\"Asia/Tokyo\");\njava.time.ZoneId z = tz.toZoneId();\nSystem.out.println(z.getId());</pre>"
     },
     {
      "type": "basic",
@@ -3660,7 +3689,8 @@
      "extra": "Date-Time classes replaced them with immutable, thread-safe value objects that never change after creation.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Calendar c = java.util.Calendar.getInstance();\nc.set(java.util.Calendar.YEAR, 2024);\n// mutable: another thread could set() the same Calendar object\nSystem.out.println(c.get(java.util.Calendar.YEAR));</pre>"
     },
     {
      "type": "basic",
@@ -3669,7 +3699,8 @@
      "extra": "Even midnight is unreliable: in some countries a daylight-saving transition skips it once a year.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.GregorianCalendar legacy = new java.util.GregorianCalendar(2024, java.util.Calendar.JANUARY, 2);\njava.time.LocalDate modern = java.time.LocalDate.of(2024, 1, 2);\nSystem.out.println(modern);</pre>"
     },
     {
      "type": "basic",
@@ -3678,7 +3709,8 @@
      "extra": "GregorianCalendar.from(zoned) and toZonedDateTime() bridge the two as the migration route.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.GregorianCalendar legacy = new java.util.GregorianCalendar(java.util.TimeZone.getTimeZone(\"Europe/Paris\"));\njava.time.ZonedDateTime modern = java.time.ZonedDateTime.ofInstant(legacy.toInstant(), legacy.getTimeZone().toZoneId());\nSystem.out.println(modern);</pre>"
     }
    ]
   },
@@ -3699,7 +3731,8 @@
      "extra": "It stores hour, minute, second and nanosecond, which suits opening hours or a movie schedule.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalTime t = java.time.LocalTime.of(12, 30, 15, 123456789);\nSystem.out.println(t);\nSystem.out.println(t.getHour() + \":\" + t.getMinute());</pre>"
     },
     {
      "type": "basic",
@@ -3708,7 +3741,8 @@
      "extra": "DST is defined relative to a zone, so a zone-independent time cannot know whether a given hour exists or repeats.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.time.LocalTime t = java.time.LocalTime.of(12, 30);\nSystem.out.println(t);\nSystem.out.println(t.atOffset(java.time.ZoneOffset.ofHours(9)));</pre>"
     },
     {
      "type": "basic",
@@ -3717,7 +3751,8 @@
      "extra": "It is effectively LocalDate plus LocalTime. To pin it to a moment you need a ZonedDateTime or OffsetDateTime.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDateTime dt = java.time.LocalDateTime.of(2013, 8, 20, 12, 30);\nSystem.out.println(dt);\nSystem.out.println(dt.toLocalDate() + \" \" + dt.toLocalTime());</pre>"
     },
     {
      "type": "basic",
@@ -3726,7 +3761,8 @@
      "extra": "LocalDateTime deliberately has no zone, so it names a wall-clock reading rather than an instant on the timeline.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDateTime local = java.time.LocalDateTime.of(2024, 1, 2, 3, 4);\njava.time.ZonedDateTime zoned = local.atZone(java.time.ZoneId.of(\"Europe/Paris\"));\njava.time.OffsetDateTime offset = local.atOffset(java.time.ZoneOffset.ofHours(2));\nSystem.out.println(zoned + \" \" + offset);</pre>"
     },
     {
      "type": "basic",
@@ -3735,7 +3771,8 @@
      "extra": "Every temporal class offers now(), which captures the current moment in the fields that class models, discarding the rest.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDateTime now = java.time.LocalDateTime.now();\nSystem.out.println(now);</pre>"
     },
     {
      "type": "basic",
@@ -3744,7 +3781,8 @@
      "extra": "The minus equivalents subtract, and every call returns a new instance rather than mutating the receiver.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDateTime t = java.time.LocalDateTime.of(2024, 1, 10, 12, 0);\nSystem.out.println(t.plusHours(2));\nSystem.out.println(t.plusDays(1).plusMonths(1));</pre>"
     }
    ]
   },
@@ -3765,7 +3803,8 @@
      "extra": "It offers Japanese, Hijrah, Minguo and Thai Buddhist among others, and lets you implement your own.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.chrono.JapaneseDate j = java.time.chrono.JapaneseDate.now();\njava.time.chrono.HijrahDate h = java.time.chrono.HijrahDate.now();\njava.time.chrono.MinguoDate m = java.time.chrono.MinguoDate.now();\njava.time.chrono.ThaiBuddhistDate t = java.time.chrono.ThaiBuddhistDate.now();\nSystem.out.println(j.getClass().getPackage().getName() + \" \" + h + \" \" + m + \" \" + t);</pre>"
     },
     {
      "type": "basic",
@@ -3774,7 +3813,8 @@
      "extra": "Supply a LocalDateTime, LocalDate or similar. It throws DateTimeException when the input cannot form a valid date.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate iso = java.time.LocalDate.of(2013, 8, 20);\njava.time.chrono.JapaneseDate jd = java.time.chrono.JapaneseDate.from(iso);\nSystem.out.println(jd);</pre>"
     },
     {
      "type": "basic",
@@ -3783,7 +3823,8 @@
      "extra": "It throws DateTimeException if the given date cannot be converted, so guard the call when input is untrusted.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate iso = java.time.LocalDate.of(2013, 8, 20);\njava.time.chrono.JapaneseDate jd = java.time.chrono.JapaneseDate.from(iso);\nSystem.out.println(java.time.LocalDate.from(jd));</pre>"
     },
     {
      "type": "basic",
@@ -3792,7 +3833,8 @@
      "extra": "The returned Chronology also provides ISO conversion methods, which is how you get a ISO weekend or field semantics.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.chrono.ChronoLocalDate date = java.time.chrono.JapaneseDate.now();\njava.time.chrono.Chronology chronology = date.getChronology();\nSystem.out.println(chronology);</pre>"
     },
     {
      "type": "basic",
@@ -3801,7 +3843,8 @@
      "extra": "it to build the string for a converted date, so a chronology-specific rendering becomes possible.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.format.DateTimeFormatterBuilder b = new java.time.format.DateTimeFormatterBuilder();\nb.appendValue(java.time.temporal.ChronoField.DAY_OF_MONTH);\njava.time.format.DateTimeFormatter f = b.toFormatter();\nSystem.out.println(f.format(java.time.chrono.JapaneseDate.now()));</pre>"
     },
     {
      "type": "basic",
@@ -3810,7 +3853,8 @@
      "extra": "Both directions throw it: converting to a chronology and converting back to LocalDate with from().",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try {\n    java.time.chrono.JapaneseDate.from(java.time.LocalTime.NOON);\n} catch (java.time.DateTimeException e) {\n    System.out.println(e.getClass().getSimpleName());\n}</pre>"
     }
    ]
   },
@@ -3831,7 +3875,8 @@
      "extra": "You choose a predefined formatter or a pattern, then pass it to parse() or format() on the temporal object.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.format.DateTimeFormatter f = java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;\nString text = f.format(java.time.LocalDate.of(2013, 8, 20));\nSystem.out.println(text + \" -&gt; \" + java.time.LocalDate.parse(text, f));</pre>"
     },
     {
      "type": "basic",
@@ -3840,7 +3885,8 @@
      "extra": "Formatting throws DateTimeException instead, so the catch clause depends on which direction you are going.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try {\n    java.time.LocalDate.parse(\"not-a-date\", java.time.format.DateTimeFormatter.ISO_LOCAL_DATE);\n} catch (java.time.format.DateTimeParseException e) {\n    System.out.println(e.getClass().getSimpleName());\n}</pre>"
     },
     {
      "type": "basic",
@@ -3849,7 +3895,8 @@
      "extra": "That is a major improvement over SimpleDateFormat, which was mutable and unsafe to share between threads.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static final java.time.format.DateTimeFormatter F = java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;\n    static void m() {\n        System.out.println(F.format(java.time.LocalDate.of(2013, 8, 20)));\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3858,7 +3905,8 @@
      "extra": "The one-argument parse() on LocalDate uses ISO_LOCAL_DATE instead, which takes hyphenated input.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(1959, 7, 9);\nString s = java.time.format.DateTimeFormatter.BASIC_ISO_DATE.format(d);\nSystem.out.println(s);</pre>"
     },
     {
      "type": "basic",
@@ -3867,7 +3915,8 @@
      "extra": "So MMM dd yyyy needs \"Jun 03 2003\", while MMM d yyyy accepts \"Jun 3 2003\".",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.time.format.DateTimeFormatter one = java.time.format.DateTimeFormatter.ofPattern(\"MMM d yyyy\");\njava.time.format.DateTimeFormatter two = java.time.format.DateTimeFormatter.ofPattern(\"MMM dd yyyy\");\nSystem.out.println(java.time.LocalDate.parse(\"Jun 3 2003\", one));\nSystem.out.println(java.time.LocalDate.parse(\"Jun 03 2003\", two));</pre>"
     },
     {
      "type": "basic",
@@ -3876,7 +3925,8 @@
      "extra": "hh for two-digit 12-hour time and a to add the a.m. or p.m. text.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.format.DateTimeFormatter f = java.time.format.DateTimeFormatter.ofPattern(\"hh a\");\nSystem.out.println(f.format(java.time.LocalTime.of(15, 16))); // 03 PM</pre>"
     }
    ]
   },
@@ -3897,7 +3947,8 @@
      "extra": "It suits machine time such as Instant math. A one-day Duration is always exactly 24 hours.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Duration d = java.time.Duration.ofSeconds(90, 123);\nSystem.out.println(d.getSeconds() + \" \" + d.getNano());\nSystem.out.println(d);</pre>"
     },
     {
      "type": "basic",
@@ -3906,7 +3957,8 @@
      "extra": "Because it is date-based, a one-day Period added to a ZonedDateTime can be 23 or 25 hours across a DST change.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Period p = java.time.Period.of(1, 2, 3);\nSystem.out.println(p.getYears() + \" \" + p.getMonths() + \" \" + p.getDays());\nSystem.out.println(java.time.LocalDate.of(2024, 1, 31).plus(p));</pre>"
     },
     {
      "type": "basic",
@@ -3915,7 +3967,8 @@
      "extra": "The Duration is an absolute time amount, while the Period is measured in calendar units whose real length depends on the date.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.time.ZoneId zone = java.time.ZoneId.of(\"Europe/Paris\");\njava.time.ZonedDateTime start = java.time.ZonedDateTime.of(2024, 3, 31, 0, 0, 0, 0, zone);\njava.time.ZonedDateTime end = start.plusDays(1);\nSystem.out.println(java.time.Duration.ofDays(1) + \" \" + java.time.Period.ofDays(1));\nSystem.out.println(java.time.temporal.ChronoUnit.HOURS.between(start, end)); // 23 in the zone</pre>"
     },
     {
      "type": "basic",
@@ -3924,7 +3977,8 @@
      "extra": "ChronoUnit.between() behaves the same way, returning a negative amount for a reversed pair.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.time.Instant end = java.time.Instant.parse(\"2024-01-01T00:00:00Z\");\njava.time.Instant start = java.time.Instant.parse(\"2024-01-02T00:00:00Z\");\nSystem.out.println(java.time.Duration.between(start, end).isNegative());</pre>"
     },
     {
      "type": "basic",
@@ -3933,7 +3987,8 @@
      "extra": "That independence is why Duration is the correct type for elapsed-time measurement and for timeouts.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.time.Duration d = java.time.Duration.ofHours(24);\nSystem.out.println(d.getSeconds());\nSystem.out.println(d);</pre>"
     },
     {
      "type": "basic",
@@ -3942,7 +3997,8 @@
      "extra": "It works with any temporal type but reports only one unit, so a total in days or in milliseconds is a single call.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate start = java.time.LocalDate.of(2024, 1, 1);\njava.time.LocalDate end = java.time.LocalDate.of(2024, 1, 11);\nSystem.out.println(java.time.temporal.ChronoUnit.DAYS.between(start, end)); // 10</pre>"
     }
    ]
   },
@@ -3963,7 +4019,8 @@
      "extra": "Pick human time for local schedules and machine time for timestamps and elapsed measurement.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate human = java.time.LocalDate.of(2024, 1, 2);\nlong machine = java.time.Instant.parse(\"2024-01-02T00:00:00Z\").toEpochMilli();\nSystem.out.println(human + \" \" + machine);</pre>"
     },
     {
      "type": "basic",
@@ -3972,7 +4029,8 @@
      "extra": "Its toString() prints 2013-08-20. A birthday is the classic case, since the same date applies worldwide.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2013, 8, 20);\nSystem.out.println(d);\nSystem.out.println(d.getYear() + \"-\" + d.getMonthValue() + \"-\" + d.getDayOfMonth());</pre>"
     },
     {
      "type": "basic",
@@ -3981,7 +4039,8 @@
      "extra": "Its toString() shows both, such as 2013-08-21T00:16:26.941+09:00[Asia/Tokyo].",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.ZonedDateTime zdt = java.time.ZonedDateTime.of(2024, 1, 2, 3, 4, 0, 0, java.time.ZoneId.of(\"Europe/Paris\"));\nSystem.out.println(zdt.getZone()); // Europe/Paris\nSystem.out.println(zdt.getOffset()); // +01:00</pre>"
     },
     {
      "type": "basic",
@@ -3990,7 +4049,8 @@
      "extra": "Offsets come from network and XML formats, while zone IDs are needed to apply daylight-saving rules.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.time.OffsetDateTime odt = java.time.OffsetDateTime.of(2013, 8, 20, 12, 30, 0, 0, java.time.ZoneOffset.ofHours(9));\nSystem.out.println(odt.getOffset());\njava.time.OffsetTime ot = java.time.OffsetTime.of(12, 30, 0, 0, java.time.ZoneOffset.ofHours(9));\nSystem.out.println(ot);</pre>"
     },
     {
      "type": "basic",
@@ -3999,7 +4059,8 @@
      "extra": "The ISO-8601 duration form puts a T between the date part and the time part, so hours alone need PT.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Duration d = java.time.Duration.ofHours(20);\nSystem.out.println(d.toString()); // PT20H</pre>"
     },
     {
      "type": "basic",
@@ -4008,7 +4069,8 @@
      "extra": "Date-based amounts need no T separator, so ten days is simply P10D.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.Period p = java.time.Period.ofDays(10);\nSystem.out.println(p.toString()); // P10D</pre>"
     },
     {
      "type": "basic",
@@ -4017,7 +4079,8 @@
      "extra": "The two hyphens stand in for the year a MonthDay does not carry. Its sibling YearMonth prints with the year first, as in 2013-08.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.MonthDay md = java.time.MonthDay.of(java.time.Month.AUGUST, 20);\nSystem.out.println(md);</pre>"
     }
    ]
   },
@@ -4038,7 +4101,8 @@
      "extra": "Temporal adds the write side, so it is a TemporalAccessor plus arithmetic. LocalDate, Instant and ZonedDateTime implement Temporal.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.temporal.TemporalAccessor t = java.time.LocalDate.of(2013, 8, 20);\nSystem.out.println(t.isSupported(java.time.temporal.ChronoField.DAY_OF_MONTH));\nSystem.out.println(t.get(java.time.temporal.ChronoField.DAY_OF_MONTH));</pre>"
     },
     {
      "type": "basic",
@@ -4047,7 +4111,8 @@
      "extra": "A field is a component of a date such as month-of-year. Its unit is described by a TemporalUnit such as ChronoUnit.MONTHS.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.temporal.TemporalField field = java.time.temporal.ChronoField.DAY_OF_WEEK;\nSystem.out.println(java.time.LocalDate.of(2024, 1, 1).get(field)); // 1 (Monday)</pre>"
     },
     {
      "type": "basic",
@@ -4056,7 +4121,8 @@
      "extra": "For example LocalDate.isSupported(ChronoField.CLOCK_HOUR_OF_DAY) is false, since a date has no clock.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.temporal.Temporal temporal = java.time.LocalDate.of(2024, 1, 1);\nSystem.out.println(temporal.isSupported(java.time.temporal.ChronoField.DAY_OF_MONTH)); // true\nSystem.out.println(temporal.isSupported(java.time.temporal.ChronoField.HOUR_OF_DAY)); // false</pre>"
     },
     {
      "type": "basic",
@@ -4065,7 +4131,8 @@
      "extra": "Its adjustInto(Temporal) returns an adjusted value, and with() is the standard way to apply it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.temporal.TemporalAdjuster adjuster = java.time.temporal.TemporalAdjusters.firstDayOfMonth();\njava.time.LocalDate d = java.time.LocalDate.of(2024, 5, 15).with(adjuster);\nSystem.out.println(d); // 2024-05-01</pre>"
     },
     {
      "type": "basic",
@@ -4074,7 +4141,8 @@
      "extra": "Its methods are static, so a static import gives you names like firstDayOfMonth() and lastInMonth(DayOfWeek).",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2024, 5, 15);\nSystem.out.println(d.with(java.time.temporal.TemporalAdjusters.firstDayOfMonth())); // 2024-05-01\nSystem.out.println(d.with(java.time.temporal.TemporalAdjusters.lastDayOfMonth())); // 2024-05-31</pre>"
     },
     {
      "type": "basic",
@@ -4083,7 +4151,8 @@
      "extra": "Its queryFrom(TemporalAccessor) method returns the extracted answer, and query() runs a query against a temporal.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.temporal.TemporalQuery query = t -> java.time.LocalDate.from(t);\nSystem.out.println(java.time.LocalDateTime.of(2024, 1, 2, 3, 4).query(query));</pre>"
     },
     {
      "type": "basic",
@@ -4092,7 +4161,8 @@
      "extra": "It implements TemporalUnit, and ChronoField values are built from combinations of them.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.temporal.ChronoUnit n = java.time.temporal.ChronoUnit.NANOS;\njava.time.temporal.ChronoUnit m = java.time.temporal.ChronoUnit.MILLENNIA;\nSystem.out.println(n + \" \" + m + \" \" + java.time.LocalDate.of(2024, 1, 1).plus(1, m));</pre>"
     },
     {
      "type": "basic",
@@ -4101,7 +4171,8 @@
      "extra": "It covers things like week-of-week-based-year and quarter-of-year, which only make sense on the ISO calendar.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.LocalDate d = java.time.LocalDate.of(2013, 8, 20);\nSystem.out.println(d.get(java.time.temporal.IsoFields.QUARTER_OF_YEAR));\nSystem.out.println(d.get(java.time.temporal.IsoFields.WEEK_OF_WEEK_BASED_YEAR));</pre>"
     }
    ]
   },
@@ -4122,7 +4193,8 @@
      "extra": "Each zone also has an offset from Greenwich, plus a set of rules for how that offset changes over time.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.time.ZoneId z = java.time.ZoneId.of(\"Asia/Tokyo\");\nSystem.out.println(z.getId());\nSystem.out.println(java.time.ZonedDateTime.now(z));</pre>"
     },
     {
      "type": "basic",
@@ -4131,7 +4203,8 @@
      "extra": "ZoneId can convert between Instant and LocalDateTime using its region's rules; ZoneOffset can only shift by a fixed amount.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.time.ZoneId zone = java.time.ZoneId.of(\"Asia/Tokyo\");\njava.time.ZoneOffset off = java.time.ZoneOffset.ofHours(9);\nSystem.out.println(zone.getRules());\nSystem.out.println(off);</pre>"
     },
     {
      "type": "basic",
@@ -4140,7 +4213,8 @@
      "extra": "When clocks spring forward an hour, that wall-clock time does not exist; when they fall back it exists twice. ZonedDateTime handles both.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.time.ZoneId zone = java.time.ZoneId.of(\"Europe/Paris\");\njava.time.zone.ZoneRules rules = zone.getRules();\nSystem.out.println(rules.getValidOffsets(java.time.LocalDateTime.of(2024, 3, 31, 2, 30))); // empty gap\nSystem.out.println(java.time.ZonedDateTime.of(2024, 3, 31, 2, 30, 0, 0, zone)); // shifted forward</pre>"
     },
     {
      "type": "basic",
@@ -4149,7 +4223,8 @@
      "extra": "Without the region's rules it cannot know that 02:30 was skipped or that 01:30 occurred twice that night.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.time.OffsetDateTime odt = java.time.OffsetDateTime.parse(\"2024-03-10T02:30:00-05:00\");\njava.time.ZonedDateTime zdt = java.time.ZonedDateTime.of(2024, 3, 10, 2, 30, 0, 0, java.time.ZoneId.of(\"America/New_York\"));\nSystem.out.println(odt);\nSystem.out.println(zdt);</pre>"
     },
     {
      "type": "basic",
@@ -4158,7 +4233,8 @@
      "extra": "Databases and XML formats often store an offset rather than a region, which makes it the matching type.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.time.OffsetDateTime stamp = java.time.OffsetDateTime.of(2024, 1, 2, 3, 4, 5, 0, java.time.ZoneOffset.ofHours(2));\nSystem.out.println(stamp.getOffset()); // +02:00</pre>"
     },
     {
      "type": "basic",
@@ -4167,7 +4243,8 @@
      "extra": "Use it for arrival times after a flight. withZoneSameLocal() keeps the wall-clock reading instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.time.ZonedDateTime zdt = java.time.ZonedDateTime.parse(\"2024-01-01T12:00:00+01:00[Europe/Paris]\");\njava.time.ZonedDateTime sameInstant = zdt.withZoneSameInstant(java.time.ZoneId.of(\"Asia/Tokyo\"));\nSystem.out.println(zdt + \" -> \" + sameInstant); // 12:00+01:00 -> 20:00+09:00</pre>"
     }
    ]
   }
