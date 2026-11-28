@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Ex {\n  static <T> T first(java.util.List<T> xs) { return xs.get(0); }\n  public static void main(String[] a) { System.out.println(first(java.util.Arrays.asList(\"a\")) + \" \" + first(java.util.Arrays.asList(2))); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>java.util.List<String> xs = new java.util.ArrayList<>();\nxs.add(\"a\");\nString s = xs.get(0); // no cast needed\n// xs.add(1); // would not compile: wrong element type</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>java.util.List<String> ss = new java.util.ArrayList<>();\njava.util.List<Integer> ns = new java.util.ArrayList<>();\nSystem.out.println(ss.getClass() == ns.getClass()); // true: both are ArrayList after erasure</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Ex {\n  static <T> java.util.List<T> empty() {\n    // new T(), o instanceof T, new T[1] and T.class are illegal: erasure removes T\n    return new java.util.ArrayList<>();\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>java.util.List<Integer> xs = new java.util.ArrayList<>();\nxs.add(3); // int autoboxed to Integer; List<int> would not compile\nSystem.out.println(xs.get(0));</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Ex {\n  static <T extends Number> double half(T n) { return n.doubleValue() / 2; }\n  public static void main(String[] a) { System.out.println(half(5) + \" \" + half(3.5)); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Ex {\n  static class Shape {}\n  static class Circle extends Shape {}\n  static void read(java.util.List<? extends Shape> xs) { Shape s = xs.get(0); } // xs.add(new Circle()) will not compile\n  public static void main(String[] a) { read(java.util.Arrays.asList(new Circle())); }\n}</pre>"
   }
  ]
 }

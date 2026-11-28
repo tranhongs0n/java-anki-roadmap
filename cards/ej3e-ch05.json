@@ -100,7 +100,8 @@
     "type::rule",
     "item::31"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>java.util.List&lt;Integer&gt; ints = java.util.List.of(1);\njava.util.List&lt;Double&gt; doubles = java.util.List.of(2.0);\njava.util.List&lt;? extends Number&gt; nums = ints;\nnums = doubles;   // one bounded-wildcard type accepts both</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +125,8 @@
     "type::rule",
     "item::32"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>final class Varargs {\n    @SafeVarargs static &lt;T&gt; void add(java.util.List&lt;T&gt; l, T... items) { l.add(items[0]); }\n    @SuppressWarnings({\"unchecked\", \"rawtypes\"})\n    static void demo() { java.util.List&lt;String&gt; s = new java.util.ArrayList&lt;&gt;(); add((java.util.List) s, new Integer[]{42}); }   // polluted\n}</pre>"
   },
   {
    "type": "basic",
@@ -196,7 +198,8 @@
     "type::rule",
     "item::38"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>interface Op { int apply(int x); }\nenum Base implements Op { INC { public int apply(int x) { return x + 1; } } }\nenum Ext implements Op { DEC { public int apply(int x) { return x - 1; } } }</pre>"
   },
   {
    "type": "basic",

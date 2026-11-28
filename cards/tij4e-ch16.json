@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays",
+   "example": "<pre>int[] a = new int[2]; // holds primitives, fast indexed access\na[0] = 1;\n// a[1] = \"x\"; // does not compile: element type checked at compile time\nSystem.out.println(a[0] + \" \" + a.length);</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays",
+   "example": "<pre>int[] a = new int[2];\ntry { a[2] = 1; } catch (ArrayIndexOutOfBoundsException e) { System.out.println(\"past the end\"); }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays",
+   "example": "<pre>int[][] rows = new int[2][];\nrows[0] = new int[]{1, 2};\nrows[1] = new int[]{3};\nSystem.out.println(rows[0].length + \" \" + rows[1].length); // two arrays referenced by rows</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays",
+   "example": "<pre>int[] a = new int[3];\njava.util.Arrays.fill(a, 7);\njava.util.Arrays.sort(a);\nSystem.out.println(java.util.Arrays.binarySearch(a, 7) + \" \" + java.util.Arrays.equals(a, new int[]{7, 7, 7}));</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays"
+   "merge_into": "00 Java Roadmap::01 Foundations::05 Arrays",
+   "example": "<pre>int[] a = new int[3]; // fixed size, primitive storage\na[0] = 1; // direct indexed access: fast, no boxing\nSystem.out.println(a[0] + \" \" + a.length);</pre>"
   }
  ]
 }

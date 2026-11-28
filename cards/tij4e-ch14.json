@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    Object o = \"hi\";\n    System.out.println(o instanceof String + \" \" + (String) o + \" \" + o.getClass().getMethod(\"length\").getName()); // compile-time RTTI and runtime reflection\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>Object o = \"hi\";\nClass<?> c = o.getClass();\nSystem.out.println(c.getName()); // java.lang.String: the actual runtime type</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>Object o = \"hi\";\nString s = (String) o; // runtime check succeeds\ntry { Integer n = (Integer) o; } catch (ClassCastException e) { System.out.println(\"wrong cast\"); }</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  static class Base {}\n  static class Sub extends Base {}\n  public static void main(String[] a) { Object o = new Sub(); System.out.println((o instanceof Base) + \" \" + (o.getClass() == Base.class)); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  static { System.out.println(\"initialised\"); }\n  public static void main(String[] a) throws Exception { Class.forName(\"Ex\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  public int n = 7;\n  public static void main(String[] a) throws Exception {\n    Object o = new Ex(); System.out.println(o.getClass().getField(\"n\").get(o) + \" \" + o.getClass().getMethod(\"toString\").invoke(o));\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  public static void main(String[] a) {\n    Object o = \"hi\";\n    try { o.getClass().getMethod(\"lenght\"); } catch (NoSuchMethodException e) { System.out.println(\"compiles, fails at runtime\"); }\n  }\n}</pre>"
   }
  ]
 }

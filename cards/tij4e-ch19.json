@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Status { OK, FAIL }\nclass Ex { static void m() {\nClass<?> parent = Status.OK.getClass().getSuperclass();\nboolean isEnumClass = parent == java.lang.Enum.class;\nboolean oneInstance = Status.OK == Status.OK;\n} }</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Color { RED, GREEN, BLUE }\nclass Ex { static void m() {\nColor[] all = Color.values();\nSystem.out.println(all[0] + \" \" + all[2]);\n} }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Priority { LOW, MEDIUM, HIGH }\nclass Ex { static void m() {\nint low = Priority.LOW.ordinal();\nint high = Priority.HIGH.ordinal();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Direction { LEFT, RIGHT }\nclass Ex { static void m() {\nboolean identity = Direction.LEFT == Direction.LEFT;\nboolean equality = Direction.LEFT.equals(Direction.LEFT);\n} }</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Color { RED, BLUE }\nclass Ex { static void m() {\ntry { Color.valueOf(\"GREEN\"); }\ncatch (IllegalArgumentException e) { System.out.println(\"unknown name\"); }\n} }</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Size { SMALL(1), LARGE(2);\n  final int code;\n  Size(int code) { this.code = code; }\n  int doubled() { return code * 2; } }\nclass Ex { static void m() { int x = Size.LARGE.doubled(); } }</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Flag { READ, WRITE, EXEC }\nclass Ex { static void m() {\njava.util.EnumSet<Flag> flags = java.util.EnumSet.of(Flag.READ, Flag.WRITE);\nboolean hasExec = flags.contains(Flag.EXEC);\n} }</pre>"
   }
  ]
 }

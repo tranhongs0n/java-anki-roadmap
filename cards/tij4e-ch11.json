@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview",
+   "example": "<pre>String[] fixed = new String[2];  // length fixed at creation\njava.util.List<String> growable = new java.util.ArrayList<>();\ngrowable.add(\"a\"); growable.add(\"b\"); growable.add(\"c\");  // resizes as needed</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview",
+   "example": "<pre>java.util.List<String> list = new java.util.ArrayList<>();\njava.util.Set<String> set = new java.util.HashSet<>();\njava.util.Queue<String> queue = new java.util.LinkedList<>();\njava.util.Map<String, Integer> map = new java.util.HashMap<>();</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set",
+   "example": "<pre>java.util.Set<String> s = new java.util.HashSet<>();\ns.add(\"a\"); s.add(\"a\");\nSystem.out.println(s.size());  // 1: at most one element per value</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map",
+   "example": "<pre>java.util.Map<String, Integer> ages = new java.util.HashMap<>();\nages.put(\"Ana\", 30);\nSystem.out.println(ages.get(\"Ana\"));  // 30: key -> value pair</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Iterator"
+   "merge_into": "00 Java Roadmap::04 Collections::08 Iterator",
+   "example": "<pre>java.util.Iterator<String> it = java.util.Arrays.asList(\"a\", \"b\").iterator();\nwhile (it.hasNext()) System.out.println(it.next());  // walk without knowing the structure</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::08 Iterator"
+   "merge_into": "00 Java Roadmap::04 Collections::08 Iterator",
+   "example": "<pre>java.util.List<String> xs = new java.util.ArrayList<>(java.util.Arrays.asList(\"a\", \"b\"));\njava.util.ListIterator<String> it = xs.listIterator(xs.size());\nit.add(\"c\"); it.previous(); it.set(\"d\");  // backwards, set() and add()</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>java.util.List<String> names = new java.util.ArrayList<>();\nnames.add(\"Ana\");\n// names.add(42);  // compile error: wrong type rejected by the compiler</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::02 Array vs ArrayList"
+   "merge_into": "00 Java Roadmap::04 Collections::02 Array vs ArrayList",
+   "example": "<pre>java.util.List<Integer> a = new java.util.ArrayList<>();  // array-backed: fast get(i)\njava.util.List<Integer> l = new java.util.LinkedList<>();  // node-based: cheap insertion\nl.add(0, 1); a.add(1);</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +111,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::05 Queue"
+   "merge_into": "00 Java Roadmap::04 Collections::05 Queue",
+   "example": "<pre>java.util.Queue<String> q = new java.util.LinkedList<>();\nq.add(\"first\"); q.add(\"second\");\nSystem.out.println(q.remove());  // first: FIFO order</pre>"
   }
  ]
 }

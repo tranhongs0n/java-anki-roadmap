@@ -16,7 +16,8 @@
     "type::rule",
     "item::10"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class CaseName {\n    final String s;\n    CaseName(String s) { this.s = s; }\n    @Override public boolean equals(Object o) { return o instanceof String && s.equalsIgnoreCase((String) o); }\n    static boolean asymmetric() { return new CaseName(\"ana\").equals(\"Ana\") != \"Ana\".equals(new CaseName(\"ana\")); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -28,7 +29,8 @@
     "type::rule",
     "item::10"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>Object a = new Object(), b = new Object();\nSystem.out.println(a.equals(b));   // false: identity is the right meaning here\nSystem.out.println(a == b);</pre>"
   },
   {
    "type": "basic",
@@ -40,7 +42,8 @@
     "type::rule",
     "item::10"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Id {\n    final int n;\n    Id(int n) { this.n = n; }\n    @Override public boolean equals(Object o) { return o instanceof Id other && n == other.n; }\n    static boolean nullCheck() { return new Id(1).equals(null); }   // false, never an exception\n}</pre>"
   },
   {
    "type": "basic",
@@ -52,7 +55,8 @@
     "type::rule",
     "item::11"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Key { @Override public boolean equals(Object o) { return o instanceof Key; } }\njava.util.Set&lt;Key&gt; s = new java.util.HashSet&lt;&gt;();\ns.add(new Key());\nSystem.out.println(s.contains(new Key()));   // false: equal keys, different hashCodes</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +68,8 @@
     "type::rule",
     "item::11"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Point {\n    final int x, y;\n    Point(int x, int y) { this.x=x; this.y=y; }\n    @Override public int hashCode() { int r = 17; r = 31*r + x; r = 31*r + y; return r; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -76,7 +81,8 @@
     "type::rule",
     "item::12"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>Object o = new Object();\nSystem.out.println(o);   // ClassName@hex, e.g. java.lang.Object@1b6d3586\nSystem.out.println(o.getClass().getName() + \"@\" + Integer.toHexString(o.hashCode()));</pre>"
   },
   {
    "type": "basic",
@@ -88,7 +94,8 @@
     "type::rule",
     "item::13"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Bag implements Cloneable {\n    int n;\n    Bag copy() throws CloneNotSupportedException { return (Bag) super.clone(); }\n}\n// Cloneable declares no clone(), and Object.clone() is protected: callers cannot invoke it directly.</pre>"
   },
   {
    "type": "basic",
@@ -100,7 +107,8 @@
     "type::rule",
     "item::14"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Version implements Comparable&lt;Version&gt; {\n    final int n;\n    Version(int n) { this.n = n; }\n    public int compareTo(Version o) { return Integer.compare(n, o.n); }   // natural order\n}</pre>"
   },
   {
    "type": "basic",
@@ -112,7 +120,8 @@
     "type::rule",
     "item::14"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>int a = Integer.MIN_VALUE, b = 1;\nSystem.out.println(a - b);   // overflow: wrong sign\nSystem.out.println(a &lt; b ? -1 : 1);   // comparison-based result is safe</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +133,8 @@
     "type::rule",
     "item::15"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Api { private int secret; public int value() { return secret; } }\nSystem.out.println(new Api().value());   // only value() is a public commitment</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +146,8 @@
     "type::rule",
     "item::15"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class C {\n    public static final int[] A = {1, 2};\n}\nfinal class Demo { static void go() { C.A[0] = 9; } }   // clients can write into it</pre>"
   },
   {
    "type": "basic",
@@ -148,7 +159,8 @@
     "type::rule",
     "item::16"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Temp {\n    private double c;\n    double f() { return c * 9 / 5 + 32; }   // representation can change behind the method\n    void setC(double v) { if (v &lt; -273.15) throw new IllegalArgumentException(); c = v; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -160,7 +172,8 @@
     "type::rule",
     "item::17"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Point {\n    private final int x;\n    private final int[] data;\n    Point(int x, int[] data) { this.x=x; this.data=data.clone(); }\n    int[] data() { return data.clone(); }   // no mutable component escapes; no setters\n}</pre>"
   },
   {
    "type": "basic",
@@ -172,7 +185,8 @@
     "type::rule",
     "item::18"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Base {\n    int size() { return 1; }\n}\nfinal class Sub extends Base {\n    @Override int size() { return 2; }   // breaks if Base's implementation changes\n}</pre>"
   },
   {
    "type": "basic",
@@ -184,7 +198,8 @@
     "type::rule",
     "item::18"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>final class Wrapper {\n    private final java.util.List&lt;String&gt; inner = new java.util.ArrayList&lt;&gt;();\n    public void add(String s) { inner.add(s); }   // forward only what clients need\n    public int size() { return inner.size(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -196,7 +211,8 @@
     "type::rule",
     "item::19"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Base {\n    void hook() { }\n    void run() { hook(); }   // document: run() calls hook(), which subclasses may override\n}\nfinal class Sub extends Base { @Override void hook() { System.out.println(\"changed\"); } }</pre>"
   },
   {
    "type": "basic",
@@ -208,7 +224,8 @@
     "type::rule",
     "item::19"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Base {\n    Base() { init(); }   // override runs before Sub's field initialiser\n    void init() { }\n}\nfinal class Sub extends Base { private final String s = \"ready\"; @Override void init() { System.out.println(s); } }</pre>"
   },
   {
    "type": "basic",
@@ -220,7 +237,8 @@
     "type::rule",
     "item::20"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface A { }\ninterface B { }\nabstract class Base { }\nfinal class Impl extends Base implements A, B { }   // many interfaces, only one superclass</pre>"
   },
   {
    "type": "basic",
@@ -232,7 +250,8 @@
     "type::rule",
     "item::20"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>interface ListLike { int size(); }\nabstract class AbstractListLike implements ListLike {\n    public boolean isEmpty() { return size() == 0; }\n}\nfinal class MyList extends AbstractListLike { public int size() { return 0; } }</pre>"
   },
   {
    "type": "basic",
@@ -244,7 +263,8 @@
     "type::rule",
     "item::21"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>// After publication: a default method is added to Count.\ninterface Count { default int size() { return 1; } }\nfinal class Empty implements Count { }\nfinal class Demo { static int read(Count c) { return c.size(); } }   // inherited default need not fit Empty</pre>"
   },
   {
    "type": "basic",
@@ -256,7 +276,8 @@
     "type::rule",
     "item::22"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Constants { int LIMIT = 10; }\nfinal class Client implements Constants {\n    int[] a = new int[LIMIT];   // constant used unqualified by the implementor\n}</pre>"
   },
   {
    "type": "basic",
@@ -268,7 +289,8 @@
     "type::rule",
     "item::23"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>final class Tagged {\n    int kind;\n    int area() { return kind == 0 ? 1 : 4; }   // behaviour from a field, not the type\n}\ninterface Shape { int area(); }\nfinal class Circle implements Shape { public int area() { return 1; } }</pre>"
   },
   {
    "type": "basic",
@@ -280,7 +302,8 @@
     "type::rule",
     "item::24"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer {\n    class Inner { }\n    static class Nested { }\n}\n// Inner keeps a hidden reference to its outer instance; Nested does not.</pre>"
   },
   {
    "type": "basic",
@@ -292,7 +315,8 @@
     "type::rule",
     "item::25"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages",
+   "example": "<pre>// A.java: class Util { static int v() { return 1; } }\n// B.java: class Util { static int v() { return 2; } }\n// Both define Util; which one is loaded depends on the classpath order.</pre>"
   }
  ]
 }

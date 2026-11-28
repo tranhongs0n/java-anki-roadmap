@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { class Inner { int n = 1; } }  // Inner is defined inside Outer\nclass Demo { Outer.Inner x = new Outer().new Inner(); }</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { private int secret = 7; class Inner { int read() { return secret; } } }  // no qualification needed\nclass Demo { int run() { return new Outer().new Inner().read(); } }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { class Inner { } }\nclass Demo { Outer.Inner x = new Outer().new Inner(); }  // type name: OuterClassName.InnerClassName</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { class Inner { } }\nclass Demo { void run() { Outer outer = new Outer(); Outer.Inner in = outer.new Inner(); } }  // outer.new Inner()</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { int id = 1; class Inner { int id = 2; int outerId() { return Outer.this.id; } } }\nclass Demo { int run() { return new Outer().new Inner().outerId(); } }  // 1: Outer.this, not the inner id</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Greeter { void greet() { System.out.println(\"hi\"); } }\nclass Demo { void run() { Greeter g = new Greeter() { void greet() { System.out.println(\"hello\"); } }; g.greet(); } }  // no class name</pre>"
   }
  ]
 }

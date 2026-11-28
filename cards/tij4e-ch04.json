@@ -15,7 +15,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int a = 1;\nif (a != 0) {\n    System.out.println(\"yes\");\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int n = 0;\nwhile (n &gt; 0) System.out.println(\"while\");\ndo { System.out.println(\"do\"); } while (n &gt; 0);</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>for (int i = 0; i &lt; 3; i++) {\n    System.out.println(i);\n}</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>for (int i = 0; i &lt; 2; i++) { System.out.println(i); }\n// i is out of scope here</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>for (int i = 0; i &lt; 3; i++) {\n    if (i == 1) continue;\n    if (i == 2) break;\n    System.out.println(i);\n}</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>outer:\nfor (int i = 0; i &lt; 3; i++) {\n    for (int j = 0; j &lt; 3; j++) { if (j == 1) break outer; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>String day = \"MON\";\nswitch (day) {\n    case \"MON\": System.out.println(\"Monday\"); break;\n    default: break;\n}</pre>"
   }
  ]
 }

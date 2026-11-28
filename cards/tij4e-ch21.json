@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>class Ex { static void m() throws InterruptedException {\nint[] n = {0}; Runnable task = () -> { for (int i = 0; i < 1000; i++) n[0]++; };\nThread a = new Thread(task), b = new Thread(task);\na.start(); b.start(); a.join(); b.join();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads",
+   "example": "<pre>class Ex { static void m() throws InterruptedException {\nlong before = System.nanoTime();\nThread.sleep(100);\nlong elapsed = System.nanoTime() - before;\n} }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>class Ex {\n  int count;\n  synchronized void inc() { count++; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>class Ex {\n  final java.util.concurrent.locks.Lock lock = new java.util.concurrent.locks.ReentrantLock();\n  boolean a() { return lock.tryLock(); }\n  boolean b() throws InterruptedException { return lock.tryLock(1, java.util.concurrent.TimeUnit.SECONDS); }\n  void c() throws InterruptedException { lock.lockInterruptibly(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>class Ex {\n  synchronized void signalAll() { notifyAll(); }\n  synchronized void signalOne() { notify(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>class Ex {\n  boolean ready;\n  synchronized void await() throws InterruptedException {\n    while (!ready) wait();\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>class Ex { static void m() throws Exception {\njava.util.concurrent.BlockingQueue<String> q = new java.util.concurrent.ArrayBlockingQueue<>(1);\nq.put(\"item\");\nString item = q.take();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>class Ex { static void m() throws Exception {\njava.util.concurrent.CountDownLatch latch = new java.util.concurrent.CountDownLatch(2);\nlatch.countDown(); latch.countDown();\nlatch.await();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +111,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>class Ex { static void m() throws Exception {\njava.util.concurrent.CyclicBarrier b = new java.util.concurrent.CyclicBarrier(2);\nb.await();\nb.await();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +123,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>java.util.concurrent.ExecutorService pool = java.util.concurrent.Executors.newFixedThreadPool(2);\npool.submit(() -> System.out.println(\"task\"));\npool.shutdown();</pre>"
   },
   {
    "type": "basic",
@@ -125,7 +135,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>class Ex { static void m() {\nObject a = new Object(), b = new Object();\nnew Thread(() -> { synchronized (a) { synchronized (b) {} } }).start();\nnew Thread(() -> { synchronized (b) { synchronized (a) {} } }).start();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +147,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::05 Volatile Keyword"
+   "merge_into": "00 Java Roadmap::06 Concurrency::05 Volatile Keyword",
+   "example": "<pre>class Ex {\n  volatile int count;\n  void inc() { count++; }\n}</pre>"
   }
  ]
 }

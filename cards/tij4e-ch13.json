@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = \"abc\";\nString t = s.toUpperCase();\nSystem.out.println(s + \" \" + t + \" \" + (s == t)); // abc ABC false: t is a new String</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = \"a\" + 1 + true; // the one overloaded operator in Java\nSystem.out.println(s); // a1true\nint n = 1 + 2; // on numbers, + is still arithmetic</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = \"\";\nfor (int i = 0; i < 3; i++) { s += \"x\"; } // each pass creates a new String and abandons the old one\nSystem.out.println(s); // xxx</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>StringBuilder b = new StringBuilder(\"ab\");\nb.append(\"c\").insert(0, \"z\").reverse();\nSystem.out.println(b.toString()); // cba: one toString() at the end</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String line = String.format(\"%s=%d\", \"n\", 3);\nSystem.out.println(line); // n=3: format returned it instead of printing it</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>CharSequence a = \"abc\";\nCharSequence b = new StringBuilder(\"def\");\nCharSequence c = new StringBuffer(\"ghi\");\nSystem.out.println(\"\" + a.charAt(0) + b.charAt(0) + c.charAt(0)); // a d g</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a+\");\njava.util.regex.Matcher m = p.matcher(\"caaab\");\nSystem.out.println(p.pattern() + \" \" + m.find() + \" \" + m.group()); // a+ true aaa</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = \"a.b.c\";\nSystem.out.println(java.util.Arrays.toString(s.split(\"\\\\.\"))); // [a, b, c]\nSystem.out.println(java.util.Arrays.toString(s.split(\".\"))); // [] : the dot is a regex metacharacter</pre>"
   }
  ]
 }

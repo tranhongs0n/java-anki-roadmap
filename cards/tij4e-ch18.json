@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations",
+   "example": "<pre>java.io.File path = new java.io.File(\"data\", \"report.txt\");\nboolean exists = path.exists();\nboolean isDir = path.isDirectory();</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations",
+   "example": "<pre>java.io.File dir = new java.io.File(\".\");\nString[] names = dir.list();\nString first = names == null ? \"\" : names[0];</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    java.io.InputStream in = new java.io.ByteArrayInputStream(new byte[]{65}); java.io.Reader r = new java.io.StringReader(\"A\");\n    System.out.println(in.read() + \" \" + (char) r.read()); // a byte and a character\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>class Ex { static void m() throws Exception {\njava.io.InputStream raw = new java.io.ByteArrayInputStream(new byte[]{1});\njava.io.FilterInputStream in = new java.io.BufferedInputStream(raw);\nint b = in.read();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>class Ex { static void m() throws Exception {\njava.io.InputStream src = new java.io.BufferedInputStream(new java.io.ByteArrayInputStream(new byte[]{1, 2}));\njava.io.DataInputStream in = new java.io.DataInputStream(src);\nint n = in.readInt();\n} }</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::02 File Operations",
+   "example": "<pre>class Ex { static void m() throws Exception {\njava.io.RandomAccessFile f = new java.io.RandomAccessFile(\"demo.bin\", \"rw\");\nf.writeInt(1); f.seek(0); int first = f.readInt();\nf.seek(4); f.writeInt(2);\n} }</pre>"
   }
  ]
 }

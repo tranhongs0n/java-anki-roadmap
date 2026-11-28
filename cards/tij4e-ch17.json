@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set",
+   "example": "<pre>class Ex {\n  static class MyList extends java.util.AbstractList<String> { public String get(int i) { return \"x\"; } public int size() { return 2; } }\n  public static void main(String[] a) { java.util.List<String> xs = new MyList(); System.out.println(xs + \" \" + xs.contains(\"x\")); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map",
+   "example": "<pre>class Ex {\n  static class P { final int n; P(int n){this.n=n;} public boolean equals(Object o){ return o instanceof P && ((P)o).n == n; } public int hashCode(){ return n; } }\n  public static void main(String[] a) { System.out.println(new P(1).equals(new P(1)) + \" \" + (new P(1).hashCode() == new P(1).hashCode())); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map",
+   "example": "<pre>class Ex {\n  static class P { final int n; P(int n){this.n=n;} public boolean equals(Object o){ return o instanceof P && ((P)o).n == n; } }\n  public static void main(String[] a) { P p = new P(1), q = new P(1); System.out.println(p.equals(q) + \" \" + (p.hashCode() == q.hashCode())); java.util.Set<P> s = new java.util.HashSet<>(); s.add(p); System.out.println(s.contains(q)); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map",
+   "example": "<pre>java.util.Map<String, Integer> m = new java.util.LinkedHashMap<>();\nm.put(\"b\", 1); m.put(\"a\", 2);\nSystem.out.println(m.keySet()); // [b, a] insertion order\njava.util.Map<String, Integer> acc = new java.util.LinkedHashMap<>(16, 0.75f, true);\nacc.put(\"b\", 1); acc.put(\"a\", 2); acc.get(\"b\");\nSystem.out.println(acc.keySet()); // [a, b] access order</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::04 Map"
+   "merge_into": "00 Java Roadmap::04 Collections::04 Map",
+   "example": "<pre>java.util.SortedMap<Integer, String> m = new java.util.TreeMap<>();\nm.put(3, \"c\"); m.put(1, \"a\"); m.put(2, \"b\");\nSystem.out.println(m.keySet()); // [1, 2, 3] natural ordering\njava.util.SortedMap<String, String> by = new java.util.TreeMap<>(java.util.Comparator.reverseOrder());\nby.put(\"a\", \"1\"); by.put(\"b\", \"2\");\nSystem.out.println(by.keySet()); // [b, a] Comparator ordering</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::03 Set"
+   "merge_into": "00 Java Roadmap::04 Collections::03 Set",
+   "example": "<pre>java.util.List<String> xs = new java.util.ArrayList<>(java.util.Arrays.asList(\"a\", \"b\", \"c\"));\nString same = \"z\";\njava.util.Collections.fill(xs, same);\nSystem.out.println(xs + \" \" + (xs.get(0) == xs.get(1))); // [z, z, z] true: same reference</pre>"
   }
  ]
 }

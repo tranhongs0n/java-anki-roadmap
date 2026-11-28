@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>String s;\ns = null;\nSystem.out.println(s == null);</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>String s = null;\nSystem.out.println(s.length());</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>String s = \"hello\";\nSystem.out.println(s);</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>int a = 5;\nint b = a;\nb = 7;\nSystem.out.println(a + \" \" + b);</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ctr { static int count = 0; Ctr() { count++; } }\npublic class Ex { public static void main(String[] a) { new Ctr(); new Ctr(); System.out.println(Ctr.count); } }</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>class D { int i; double d; boolean b; char c; String s; }\npublic class Ex { public static void main(String[] a) { D x = new D(); System.out.println(x.i + \", \" + x.d + \", \" + x.b + \", \" + (int) x.c + \", \" + x.s); } }</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>{\n    int x = 1;\n}\n// x is invisible outside the block</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>Object held;\n{\n    Object local = new StringBuilder(\"alive\");\n    held = local;\n}\nSystem.out.println(held);</pre>"
   }
  ]
 }

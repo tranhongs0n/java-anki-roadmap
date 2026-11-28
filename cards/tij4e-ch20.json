@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>@interface Note { String value(); }\nclass Ex {\n  @Note(\"compiler-checked metadata\") int field;\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>class Base { void run() {} }\nclass Ex extends Base {\n  @Override void run() {}\n}</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>class Ex {\n  @SuppressWarnings(\"unchecked\")\n  java.util.List raw() { return new java.util.ArrayList(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>class Ex {}\n@java.lang.annotation.Target(java.lang.annotation.ElementType.TYPE)\n@java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.RUNTIME)\n@java.lang.annotation.Documented @java.lang.annotation.Inherited\n@interface Marker {}</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>class Ex extends Base { boolean inherited = getClass().isAnnotationPresent(Mark.class); }\n@interface Mark {} // without @Inherited\n@Mark class Base {}</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>enum E { A }\n@interface Inner {}\n@interface M { int i(); String s(); Class<?> c(); E e(); Inner inner(); int[] nums(); }\n@M(i=1, s=\"x\", c=String.class, e=E.A, inner=@Inner, nums={1,2}) class Ex {}</pre>"
   }
  ]
 }

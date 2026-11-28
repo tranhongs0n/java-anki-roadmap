@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers",
+   "example": "<pre>public class Ex {\n    public int a; protected int b; int c; private int d;\n    public static void main(String[] x) { Ex e = new Ex(); System.out.println(e.a + e.b + e.c + e.d); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers",
+   "example": "<pre>package demo;\nclass PackagePrivate { int x = 1; }\npublic class Ex { public static void main(String[] a) { System.out.println(new PackagePrivate().x); } }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers",
+   "example": "<pre>class Library {\n    private int mayChange = 1;   // implementation detail, free to change\n    public int api() { return mayChange; }  // the part clients depend on\n}\nclass Client { int use(Library l) { return l.api(); } }</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers",
+   "example": "<pre>class Base { protected int n = 1; }\nclass Sub extends Base { int read() { return n; } }  // subclass in another package still sees n\nclass Peer { int peer(Base b) { return b.n; } }  // same package: the package-access part</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages",
+   "example": "<pre>package demo;\npublic class Ex { public static void main(String[] a) { System.out.println(\"in demo\"); } }</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages"
+   "merge_into": "00 Java Roadmap::02 Object Model::19 Packages",
+   "example": "<pre>// no package statement at the top of the file\nclass NoPackage { int n = 1; }   // lives in the unnamed (default) package</pre>"
   }
  ]
 }

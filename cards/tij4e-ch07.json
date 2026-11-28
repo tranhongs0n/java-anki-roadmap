@@ -15,7 +15,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Engine { void start() { } }\nclass Car { private final Engine e = new Engine(); void start() { e.start(); } }  // has-a: composition\nclass RaceCar extends Car { }  // is-a: inheritance</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Helper { int work() { return 1; } }\nclass User { private final Helper h = new Helper(); int run() { return h.work(); } }  // has-a reuse; no base-type interface promised</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Thing { public String toString() { return \"Thing!\"; } }\nclass Demo { void run() { System.out.println(\"value: \" + new Thing()); } }  // compiler inserts toString(): value: Thing!</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Holder { String label; int count; boolean ready; }\nclass Demo { void run() { Holder h = new Holder(); System.out.println(h.label + \",\" + h.count + \",\" + h.ready); } }  // null,0,false</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Helper { }\nclass Lazy { Helper h; Helper get() { if (h == null) h = new Helper(); return h; } }  // created on first call, not in the constructor</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>final class Fixed { int n = 1; }\n// class Sub extends Fixed { }  // compile error: a final class cannot be extended</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Parent { private final void secret() { } }\nclass Child extends Parent { private void secret() { } }  // a new method, not an override; final was redundant</pre>"
   }
  ]
 }

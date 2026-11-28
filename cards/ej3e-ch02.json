@@ -16,7 +16,8 @@
     "type::rule",
     "item::01"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>interface Shape { }\nrecord Circle() implements Shape { } record Square() implements Shape { }\nfinal class Shapes {\n    static final Shape ONLY = new Circle();\n    static Shape of(boolean cached) { return cached ? ONLY : new Square(); }   // subtype or cached\n}</pre>"
   },
   {
    "type": "basic",
@@ -28,7 +29,8 @@
     "type::rule",
     "item::01"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Ex {\n  private Ex() {}\n  static Ex create() { return new Ex(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -40,7 +42,8 @@
     "type::rule",
     "item::02"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Config {\n    int a, b, c, d;\n    Config a(int v) { a = v; return this; }\n    Config d(int v) { d = v; return this; }\n}\nConfig cfg = new Config().a(1).d(4);   // many optional values: builder pattern</pre>"
   },
   {
    "type": "basic",
@@ -52,7 +55,8 @@
     "type::rule",
     "item::02"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Bean {\n    int a, b;\n    void setA(int v) { a = v; }\n    void setB(int v) { b = v; }\n}\nBean x = new Bean(); x.setA(1);   // half-built, mutable state (1, 0)</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +68,8 @@
     "type::rule",
     "item::03"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>enum Singleton {\n    INSTANCE;\n    void work() { System.out.println(\"one instance\"); }\n    static void demo() { Singleton.INSTANCE.work(); }\n}\n// No public constructor: reflection and serialization cannot create a second one.</pre>"
   },
   {
    "type": "basic",
@@ -76,7 +81,8 @@
     "type::rule",
     "item::03"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>interface Clock { long now(); }\nenum RealClock implements Clock { INSTANCE; public long now() { return System.currentTimeMillis(); } }\nfinal class Client {\n    static long read(Clock c) { return c.now(); }   // injectable: a mock can replace the singleton\n}</pre>"
   },
   {
    "type": "basic",
@@ -88,7 +94,8 @@
     "type::rule",
     "item::04"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>final class Util {\n    private Util() { throw new AssertionError(); }\n    static int twice(int x) { return x + x; }\n    static void demo() { System.out.println(twice(3)); }   // 6, no instance\n}</pre>"
   },
   {
    "type": "basic",
@@ -100,7 +107,8 @@
     "type::rule",
     "item::05"
    ],
-   "merge_into": "00 Java Roadmap::09 Build and Frameworks::05 Dependency Injection"
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::05 Dependency Injection",
+   "example": "<pre>class Ex {\n  static final java.io.PrintStream LOG = System.out;\n  void run() { LOG.println(\"hi\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -112,7 +120,8 @@
     "type::rule",
     "item::05"
    ],
-   "merge_into": "00 Java Roadmap::09 Build and Frameworks::05 Dependency Injection"
+   "merge_into": "00 Java Roadmap::09 Build and Frameworks::05 Dependency Injection",
+   "example": "<pre>class Ex {\n  private final java.io.PrintStream out;\n  Ex(java.io.PrintStream out) { this.out = out; }\n  void run() { out.println(\"injected\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +133,8 @@
     "type::rule",
     "item::06"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>String a = \"bikini\";\nString b = \"bikini\";\nString c = new String(\"bikini\");\nSystem.out.println((a == b) + \" \" + (a == c));   // true false</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +146,8 @@
     "type::rule",
     "item::06"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>Object cheap = new Object();\njava.util.Map&lt;Object, Object&gt; pool = new java.util.HashMap&lt;&gt;();\npool.put(\"key\", cheap);   // pooling a cheap object adds bookkeeping for no gain\nSystem.out.println(pool.get(\"key\") == cheap);</pre>"
   },
   {
    "type": "basic",
@@ -148,7 +159,8 @@
     "type::rule",
     "item::07"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>Object[] elements = new Object[16];\nelements[0] = new Object();\nint size = 1;\nsize--;   // pop(): elements[0] still holds the reference -> leak\nelements[0] = null;   // what pop() must do</pre>"
   },
   {
    "type": "basic",
@@ -160,7 +172,8 @@
     "type::rule",
     "item::07"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>Object[] cache = new Object[4];\ncache[0] = new Object();\ncache[0] = null;   // array cache: clear the removed slot\nObject listener = new Object(); java.util.List&lt;Object&gt; ls = new java.util.ArrayList&lt;&gt;();\nls.add(listener); ls.remove(listener);   // listener registry: release it</pre>"
   },
   {
    "type": "basic",
@@ -172,7 +185,8 @@
     "type::rule",
     "item::08"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Resurrecting {\n    static Object saved;\n    @Override protected void finalize() throws Throwable { saved = this; }   // can resurrect\n}\n// No guarantee the finalizer or cleaner ever runs, or runs promptly.</pre>"
   },
   {
    "type": "basic",
@@ -184,7 +198,8 @@
     "type::rule",
     "item::08"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Resource implements AutoCloseable {\n    public void close() { System.out.println(\"cleaned up\"); }\n    static void demo() {\n        try (Resource r = new Resource()) { System.out.println(\"use\"); }   // close() at block exit\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -196,7 +211,8 @@
     "type::rule",
     "item::09"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>class Ex { static void m() throws Exception {\ntry (java.io.PrintWriter out = new java.io.PrintWriter(\"out.txt\");\n     java.io.Reader in = new java.io.FileReader(\"in.txt\")) {\n  out.println(in.read());\n}\n} }</pre>"
   },
   {
    "type": "basic",
@@ -208,7 +224,8 @@
     "type::rule",
     "item::09"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>AutoCloseable res = new AutoCloseable() { public void close() { System.out.println(\"closed\"); } };\ntry (AutoCloseable r = res) { System.out.println(\"using\"); } catch (Exception e) { }   // AutoCloseable required\n// Closeable is its subinterface and works too.</pre>"
   }
  ]
 }

@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>abstract class Shape { abstract void draw(); }\n// class Circle extends Shape { }  // compile error: draw() unimplemented\nclass Circle extends Shape { void draw() { } }</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>abstract class Base { abstract void a(); abstract void b(); }\nabstract class Partial extends Base { void a() { } }  // b() missing: must stay abstract\nclass Full extends Partial { void b() { } }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>abstract class Marker { void hello() { } }\n// new Marker();  // compile error: abstract classes cannot be instantiated</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>abstract class Base { protected int count; void inc() { count++; } }  // shared state + partial implementation\nclass Child extends Base { void use() { inc(); } }</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Drawable { void draw(); }  // contract only: signature, no body\nclass Circle implements Drawable { public void draw() { System.out.println(\"circle\"); } }  // implementation is in the class</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface A { void go(); }\ninterface B { void go(); }\nclass Both implements A, B { public void go() { } }  // one implementation satisfies both contracts</pre>"
   }
  ]
 }

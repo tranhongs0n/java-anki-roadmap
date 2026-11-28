@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>int a = 1;\nint b = a + 2;\nint c = a++;\nSystem.out.println(b + \" \" + c + \" \" + a);</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>int x = (1 + 2) * 3;\nint y = 1 + 2 * 3;\nSystem.out.println(x + \" \" + y);</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +50,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>String a = new String(\"x\");\nString b = new String(\"x\");\nSystem.out.println(a == b);</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +62,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Box { int n; Box(int n) { this.n = n; } }\nclass Val { int n; Val(int n) { this.n = n; } public boolean equals(Object o) { return o instanceof Val &amp;&amp; ((Val) o).n == n; } }\npublic class Ex { public static void main(String[] a) { System.out.println(new Box(1).equals(new Box(1))); System.out.println(new Val(1).equals(new Val(1))); } }</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +74,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>boolean side = false;\nboolean r = false &amp;&amp; (side = true);\nSystem.out.println(r + \" \" + side);</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +86,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>System.out.println(7 / 2);\nSystem.out.println(7 / 2.0);</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +98,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::08 Type Casting"
+   "merge_into": "00 Java Roadmap::01 Foundations::08 Type Casting",
+   "example": "<pre>double d = 3.9;\nint i = (int) d;\nSystem.out.println(i);</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +110,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>byte b = 1;\nshort s = 2;\nchar c = 'a';\nint sum = b + s + c;\nSystem.out.println(sum);</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +122,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>int n = -8;\nSystem.out.println(n &gt;&gt; 1);\nSystem.out.println(n &gt;&gt;&gt; 1);\nSystem.out.println(Integer.toUnsignedString(n &gt;&gt;&gt; 1));</pre>"
   }
  ]
 }

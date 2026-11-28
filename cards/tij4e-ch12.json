@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>class Ex {\n  static int open() { return -1; } // failure reported as a code\n  public static void main(String[] a) { open(); /* ignored */ if (open() != 0) System.out.println(\"error\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>try {\n  throw new IllegalArgumentException(\"bad\");\n} catch (IllegalArgumentException e) {\n  System.out.println(\"handled: \" + e.getMessage());\n}</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>class Reader {\n    String read() throws java.io.IOException { return \"data\"; }  // checked exception passed on\n}</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>class Ex {\n  static void f() { throw new IllegalStateException(\"unchecked\"); } // no throws clause\n  public static void main(String[] a) { f(); } // no try/catch needed\n}</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>class Ex {\n  static int f(int mode) { try { if (mode == 0) return 1; if (mode == 1) throw new IllegalStateException(); return 2; } finally { System.out.println(\"finally\"); } }\n  public static void main(String[] a) { System.out.println(f(0)); try { f(1); } catch (IllegalStateException e) { } System.out.println(f(2)); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>class Ex {\n  static int f() { try { return 1; } finally { return 2; } }\n  public static void main(String[] a) { System.out.println(f()); } // 2: the try's 1 is discarded\n}</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>try { throw new java.io.IOException(\"disk\"); }\ncatch (java.io.IOException cause) { throw new IllegalStateException(\"read failed\", cause); }  // original kept as cause</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>try {\n  try { throw new IllegalStateException(\"from try\"); }\n  finally { throw new IllegalArgumentException(\"from finally\"); }\n} catch (Exception e) { System.out.println(e.getMessage()); } // from finally</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +111,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>try { throw new java.io.IOException(\"disk\"); }\ncatch (Exception e) { throw new RuntimeException(\"failed\"); }  // catches all types and hides the original</pre>"
   }
  ]
 }
