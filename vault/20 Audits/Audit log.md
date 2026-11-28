@@ -117,3 +117,10 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 
 - `jv-3003-e6ec171da9` trong `tij4e-ch03.json` không có note sống; push.py cố addNotes và bị reject do trùng. 9 thẻ được giao vẫn update tốt; thẻ này bỏ qua.
 - `jv-4003-89800047d9` đã sửa; các ví dụ Effective Java Item 14/25/8/12 được javac-verify trước khi push.
+
+### Subagents wave 12 (2026-11-28) — review
+
+Đã sửa 6 chỗ: capitalization là convention không phải rule; reordering enum constants phá binary compatibility; catch chỉ chạy khi exception khớp kiểu; Java 13 có text blocks first preview và switch expressions second preview; vtable là chi tiết HotSpot không phải đặc tả ngôn ngữ; shadowing local trong block lồng nhau là lỗi biên dịch (chỉ field/parameter/nested-class được phép shadow).
+
+- Các deck `40 Effective Java` và nhiều deck video/Baeldung đều là deck cũ nhưng có merge_into sống nên fill_examples.py push bình thường; không tạo deck rác.
+- `jv-60-9affc59d7f` trước đây ghi "added or reordered members" là binary compatible — đã thu hẹp lại.
