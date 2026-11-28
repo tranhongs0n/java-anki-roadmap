@@ -1,0 +1,40 @@
+{
+ "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::basic-syntax"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "Is a Java 2-D array one contiguous block of memory like a C or Fortran matrix?",
+   "back": "No — the outer array is contiguous and holds references; every row is its own block",
+   "extra": "dev.java draws the contrast explicitly: in C and Fortran a bidimensional array is a contiguous zone of memory reached by pointer arithmetic, while in Java only each individual array is contiguous. The 2-D array itself is an array of references.",
+   "source": "https://dev.java/learn/language/constructs/basics/arrays/",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "May the rows of a Java 2-D array have different lengths?",
+   "back": "Yes — such arrays are called irregular or jagged",
+   "extra": "Because each row is an independent array object, nothing forces equal widths: rows of 1, 2 and 3 elements in one <code>int[3][]</code> are legal and print as a triangle. A contiguous rectangular block could not represent that shape at all.",
+   "source": "https://dev.java/learn/language/constructs/basics/arrays/",
+   "tags": [
+    "type::rule"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "After <code>int[][] grid = new int[3][];</code>, what does <code>grid[0]</code> hold?",
+   "back": "<code>null</code> — no row array has been allocated yet",
+   "extra": "The outer array contributes three reference slots, and the default value of any reference type is null. <code>grid[0][0]</code> therefore throws <code>NullPointerException</code> until <code>grid[0] = new int[n];</code> has run.",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html#jls-4.12.5",
+   "tags": [
+    "type::gotcha"
+   ]
+  }
+ ]
+}

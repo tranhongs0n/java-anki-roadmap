@@ -61,6 +61,9 @@ CSS = """
   font-size: 1.02em;
 }
 .a b, .a strong { color: var(--accent); font-weight: 650; }
+.a ul, .extra ul { margin: .45em 0 .15em 1.15em; padding: 0; }
+.a li, .extra li { margin: .22em 0; padding-left: .12em; }
+.a li::marker, .extra li::marker { color: var(--accent); font-weight: 700; }
 
 /* ---------- context panel ---------- */
 .extra {

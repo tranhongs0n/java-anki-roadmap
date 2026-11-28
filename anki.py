@@ -90,3 +90,26 @@ def notes_info(note_ids):
 
 def gui_browse(query):
     return call("guiBrowse", query=query)
+
+
+def find_cards(query):
+    return call("findCards", query=query)
+
+
+def cards_info(card_ids):
+    return call("cardsInfo", cards=card_ids)
+
+
+def cards_to_notes(card_ids):
+    return call("cardsToNotes", cards=card_ids)
+
+
+def set_flag(card_ids, flag):
+    """Flag a card (1-7) or clear it (0). Card-level in Anki, so a cloze note needs one call per card."""
+    return call("setSpecificValueOfCard", card=card_ids[0], keys=["flags"], newValues=[flag]) \
+        if len(card_ids) == 1 else [set_flag([c], flag) for c in card_ids]
+
+
+def add_tags(note_ids, tags):
+    return call("addTags", notes=note_ids, tags=" ".join(tags))
+
