@@ -720,7 +720,7 @@
     {
      "type": "basic",
      "front": "What does <code>jdeps --inverse</code> report, and what must it be combined with?",
-     "back": "Artifacts that <b>depend on</b> the matching nodes",
+     "back": "Artifacts that depend on the matching nodes — <code>--inverse</code> must be combined with <code>--require</code>, <code>--package</code> or <code>--regex</code>",
      "extra": "It inverts the compile-time view: instead of what your classes use, it finds what uses them, both directly and indirectly. It prints a dependency summary.",
      "tags": [
       "type::rule"
