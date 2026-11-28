@@ -690,7 +690,8 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>int n = switch (2) { case 2 -> 20; default -> 0; };   // switch expression, Java 14+</pre>"
+     "example": "<pre>int n = switch (2) { case 2 -> 20; default -> 0; };   // switch expression, Java 14+</pre>",
+     "merge_into": "00 Java Roadmap::98 Deferred (later)"
     },
     {
      "type": "basic",
