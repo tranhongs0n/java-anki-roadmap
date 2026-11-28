@@ -14,7 +14,7 @@
      "type": "basic",
      "front": "Can <code>instanceof</code> test an array type?",
      "back": "Yes — <code>o instanceof int[]</code> is a legal type comparison",
-     "extra": "Arrays are reference types, and JLS 15.20.2 allows any <code>ReferenceType</code> on the right, including an array type. It checks the array's actual component type, so <code>new int[3]</code> passes <code>int[]</code> but not <code>Object[]</code> — arrays are covariant, so <code>new String[1] instanceof Object[]</code> is true.",
+     "extra": "Arrays are reference types, and JLS 15.20.2 allows any <code>ReferenceType</code> on the right, including an array type. With a value held in an <code>Object</code>, <code>new int[3]</code> passes <code>int[]</code> but fails <code>Object[]</code>; a <code>String[]</code> passes <code>Object[]</code> because arrays are covariant. Writing <code>new int[1] instanceof Object[]</code> directly does not compile: <code>int[]</code> and <code>Object[]</code> are provably unrelated.",
      "example": "<pre><span class=\"kw\">Object</span> a = <span class=\"kw\">new int</span>[<span class=\"num\">3</span>];\n<span class=\"kw\">boolean</span> hit = a <span class=\"kw\">instanceof int</span>[];      <span class=\"cmt\">// true</span>\n<span class=\"kw\">boolean</span> miss = a <span class=\"kw\">instanceof Object</span>[];  <span class=\"cmt\">// false</span></pre>",
      "tags": [
       "type::definition"
