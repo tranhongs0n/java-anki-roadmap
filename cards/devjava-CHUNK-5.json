@@ -26,7 +26,8 @@
      "extra": "Source and class files must share a root name identifying the class. Inner classes get extra names joining outer and inner, e.g. <code>MyClass$MyInnerClass.class</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac MyClass.java   # writes MyClass.class\njava MyClass         # runs the compiled class</pre>"
     },
     {
      "type": "basic",
@@ -35,7 +36,8 @@
      "extra": "To redirect output you pass <code>-d directory</code>. For a packaged class <code>com.mypackage.MyClass</code> compiled with <code>-d /home/myclasses</code>, the result is <code>/home/myclasses/com/mypackage/MyClass.class</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac src/MyClass.java   # MyClass.class written beside MyClass.java\njavac MyClass.java       # MyClass.class written beside this source too</pre>"
     },
     {
      "type": "basic",
@@ -107,7 +109,8 @@
      "extra": "By default javac emits only line-number and source-file information. <code>-g:none</code> emits no debug info; <code>-g:[lines,vars,source]</code> selects individual kinds.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac -g MyClass.java   # all debugging info, including local variables\njavac MyClass.java      # default: less debug info</pre>"
     },
     {
      "type": "basic",
@@ -134,7 +137,8 @@
      "extra": "Its sibling <code>-proc:only</code> runs only the annotation processors and skips compilation. Processors are otherwise discovered via <code>META-INF/services/javax.annotation.processing.Processor</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -proc:none MyClass.java   # compiles without annotation processing\njavac MyClass.java              # default: annotation processing may run</pre>"
     },
     {
      "type": "basic",
@@ -143,7 +147,8 @@
      "extra": "By default processors are located through service-provider configuration files named <code>META-INF/services/javax.annotation.processing.Processor</code> on the search path.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -processor my.Proc1,my.Proc2 MyClass.java\n# names processors explicitly; no default discovery</pre>"
     },
     {
      "type": "basic",
@@ -170,7 +175,8 @@
      "extra": "Useful in CI so deprecation and lint warnings cannot silently accumulate. <code>-nowarn</code> is the opposite knob and behaves like <code>-Xlint:none</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -Werror -Xlint MyClass.java   # warnings make compilation fail\njavac -Xlint MyClass.java           # warnings alone do not fail</pre>"
     },
     {
      "type": "basic",
@@ -179,7 +185,8 @@
      "extra": "Individual keys are enabled or disabled with <code>-Xlint:key</code> (prefix <code>-key</code> to disable); <code>-Xlint</code> alone enables all recommended warnings.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac --help-lint   # prints supported keys for -Xlint\njavac -Xlint:all MyClass.java</pre>"
     },
     {
      "type": "basic",
@@ -226,7 +233,8 @@
      "extra": "It parses declarations together with documentation comments. By default it documents public and protected classes, nested classes (not anonymous), interfaces, constructors, methods and fields.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javadoc MyClass.java          # HTML API pages generated from the Java source\njavadoc -d docs MyClass.java   # same pages, written to docs/</pre>"
     },
     {
      "type": "basic",
@@ -253,7 +261,8 @@
      "extra": "It exposes private implementation details regardless of the <code>-public</code>/<code>-private</code> access options. Links are made on classes, interfaces, constructors, methods and fields.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -linksource -d docs MyClass.java\n# HTML copies of each source with line numbers, linked from the docs</pre>"
     },
     {
      "type": "basic",
@@ -289,7 +298,8 @@
      "extra": "It takes two arguments: the URL to embed in links and a location where the <code>package-list</code>/<code>element-list</code> can be found, typically locally.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># external doc's list file cannot be reached over the web\njavadoc -linkoffline https://docs.example/api ./local-list -d docs MyClass.java</pre>"
     },
     {
      "type": "basic",
@@ -298,7 +308,8 @@
      "extra": "It is the most permissive of the access filters <code>-public</code>, <code>-protected</code> (default), <code>-package</code> and <code>-private</code>, which act like a visibility ladder.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -private -d docs MyClass.java   # all classes and members documented\njavadoc -d docs MyClass.java            # default: only public/protected</pre>"
     },
     {
      "type": "basic",
@@ -343,7 +354,8 @@
      "extra": "Entries that start with non-alphabetic symbols go into their own extra file. It keeps very large indexes from becoming one unwieldy page.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -splitindex -d docs MyClass.java\n# index split alphabetically, roughly one file per letter</pre>"
     },
     {
      "type": "basic",
@@ -361,7 +373,8 @@
      "extra": "With <code>-charset</code> also controlling the HTML character set. If both an input and an output encoding are given, they must be the same value; with neither output option the input encoding is reused.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>javadoc -encoding UTF-8 -docencoding ISO-8859-1 -d docs MyClass.java\n# -encoding: input source; -docencoding: generated output</pre>"
     },
     {
      "type": "basic",
@@ -370,7 +383,8 @@
      "extra": "You can list specific packages instead, e.g. <code>-noqualifier java.lang:java.io</code>, or use wildcards such as <code>java.*</code>. Where a qualifier would appear it is simply dropped.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -noqualifier all -d docs MyClass.java\n# all package qualifiers removed from class/interface names</pre>"
     },
     {
      "type": "basic",
@@ -397,7 +411,8 @@
      "extra": "<code>-Xdoclint</code> can flag common problems, but javadoc is not a conformance checker. Output containing executable content such as JavaScript is your responsibility.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs MyClass.java\n# comment content is published as written, not validated or corrected</pre>"
     }
    ]
   },
@@ -445,7 +460,8 @@
      "extra": "The visibility ladder is <code>-public</code>, <code>-protected</code>, <code>-package</code> (default), and <code>-p</code>/<code>-private</code> for everything.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap -p MyClass       # all classes and members, including private\njavap -private MyClass  # -private is a synonym</pre>"
     },
     {
      "type": "basic",
@@ -508,7 +524,8 @@
      "extra": "Example: <code>-J-Xmx64m</code>. The <code>-J</code> prefix is a general convention across JDK tools for forwarding options to the tool's own JVM.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap MyClass             # normal javap run\njavap -J-Xmx1g MyClass    # -Joption: -Xmx1g goes to javap's JVM</pre>"
     }
    ]
   },
@@ -529,7 +546,8 @@
      "extra": "It is a static analysis tool over a JAR, directory, or class file. Deprecated APIs declared by third-party libraries are not reported.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jdeprscan --class-path . demo.MyClass\n# scans for uses of deprecated Java SE API elements</pre>"
     },
     {
      "type": "basic",
@@ -583,7 +601,8 @@
      "extra": "Special names replace real method names: <code>&lt;clinit&gt;</code> indicates a class static initializer. All other methods appear under their plain method name, followed by argument list and return type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jdeprscan --class-path . demo.MyClass\n# &lt;init&gt; in the output denotes the constructor</pre>"
     },
     {
      "type": "basic",
@@ -622,7 +641,8 @@
      "extra": "Input can be a <code>.class</code> file, a directory, a JAR, or a fully qualified class name. By default the dependencies are written to standard output.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jdeps MyClass.class                # package-level dependencies\njdeps -verbose:class MyClass.class  # class-level dependencies</pre>"
     },
     {
      "type": "basic",
@@ -631,7 +651,8 @@
      "extra": "The alternative <code>-filter:archive</code> hides same-archive dependencies, <code>-filter:module</code> hides same-module ones, and <code>-filter:none</code> disables both package and archive filtering.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jdeps MyClass.class              # default -filter:package hides same-package dependencies\njdeps -filter:none MyClass.class  # show those dependencies too</pre>"
     },
     {
      "type": "basic",
@@ -649,7 +670,8 @@
      "extra": "It looks only at public and protected members of public classes: field types, method parameter types, return types and checked exception types. Illegal internal usage is ignored.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps -apionly MyClass.class      # only dependencies from public API signatures\njdeps MyClass.class               # all dependencies</pre>"
     },
     {
      "type": "basic",
@@ -658,7 +680,8 @@
      "extra": "Those APIs are inaccessible under the module system, so such dependencies are a portability hazard. It cannot be combined with <code>-p</code>, <code>-e</code>, or <code>-s</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps --jdk-internals MyClass.class\n# reports dependencies on JDK internal APIs</pre>"
     },
     {
      "type": "basic",
@@ -676,7 +699,8 @@
      "extra": "Use <code>--generate-open-module</code> for open modules. Both cannot be combined with <code>--dot-output</code> or <code>--class-path</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps --generate-module-info generated lib.jar\n# writes generated/my.module/module-info.java for the plain JAR</pre>"
     },
     {
      "type": "basic",
@@ -703,7 +727,8 @@
      "extra": "The transition reduction hides implied read edges, and flagging unused qualified exports tells you which targeted exports could be narrowed.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jdeps --module-path mods --add-modules my.module --check my.module\n# prints module dependencies, the transition-reduced graph, unused qualified exports</pre>"
     },
     {
      "type": "basic",
@@ -712,7 +737,8 @@
      "extra": "It implies <code>-filter:none</code>. If <code>-p</code>, <code>-e</code>, or <code>-f</code> are given, only matching dependencies are analysed. <code>--compile-time</code> gives the compile-time equivalent.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps -R my.jar         # -R / -recursive\njdeps -recursive my.jar  # traverses all run-time dependencies</pre>"
     },
     {
      "type": "basic",
@@ -751,7 +777,8 @@
      "extra": "Because jlink starts from an empty root set, you must name the application's root module or nothing useful is linked. The modules are resolved transitively from there.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jlink --module-path mods --add-modules my.module --output image\n# my.module becomes a root module, plus its transitive dependencies</pre>"
     },
     {
      "type": "basic",
@@ -787,7 +814,8 @@
      "extra": "It is a plugin option. A jlink plugin can also remove native commands, exclude header files, exclude man pages, or include only selected locales.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --strip-debug --add-modules my.module --output image\n# debug symbols stripped to shrink the image</pre>"
     },
     {
      "type": "basic",
@@ -805,7 +833,8 @@
      "extra": "Normally services are resolved lazily; service binding makes the image self-contained for ServiceLoader lookups. <code>--suggest-providers</code> lists providers implementing a service type.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --bind-services --add-modules my.module --output image\n# service provider modules are linked in with their dependencies</pre>"
     },
     {
      "type": "basic",
@@ -832,7 +861,8 @@
      "extra": "Options can straddle one or several lines, but environment variables are not expanded in path names. This mirrors the argument-file convention of javac and other JDK tools.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># opts.txt: a line starting with # is a comment\n--add-modules my.module\njlink @opts.txt</pre>"
     }
    ]
   },
@@ -880,7 +910,8 @@
      "extra": "Leaf modules are found and their hashes recorded in the modules that require them. The runtime verifies the recorded hash against the resolved module and errors out on a mismatch.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jmod hash --module-path mods --hash-modules '.*' mods/app.jmod\n# records dependency hashes in consuming modules, tying them together</pre>"
     },
     {
      "type": "basic",
@@ -907,7 +938,8 @@
      "extra": "It identifies the leaf modules and their required modules without recording any hash values, so you can preview what <code>hash</code> would tie down.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmod hash --dry-run --hash-modules my.module --module-path mods mods/app.jmod\n# --dry-run: hash mode performs a dry run only</pre>"
     },
     {
      "type": "basic",
@@ -943,7 +975,8 @@
      "extra": "Hash mode must build the module graph to know which modules require the leaf modules, so it needs the module path. Under Java Flight Recorder's config, hashing options cannot be changed after init.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jmod hash --hash-modules my.module --module-path mods mods/app.jmod\n# --module-path (or -p) is required with --hash-modules</pre>"
     }
    ]
   },
@@ -964,7 +997,8 @@
      "extra": "It supports variable, method and class definitions, imports, and bare expressions. Each bit of entered code is called a <b>snippet</b> and is evaluated as you go.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jshell> int x = 1 + 2;          // declaration and expression\nx ==> 3\njshell> System.out.println(x);  // statement\n3</pre>"
     },
     {
      "type": "basic",
@@ -991,7 +1025,8 @@
      "extra": "It is the same as <code>--feedback verbose</code>. Verbose adds information about the action taken after each result and separates prompts with a blank line.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell -v                    # feedback mode set to verbose\njshell --feedback verbose    # same mode, long form</pre>"
     },
     {
      "type": "basic",
@@ -1000,7 +1035,8 @@
      "extra": "<code>/list -all</code> includes startup snippets plus failed, overwritten and dropped ones. IDs starting with <code>s</code> are startup snippets and those starting with <code>e</code> are failures.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> int x = 1;\njshell> /list\n   1 : int x = 1;</pre>"
     },
     {
      "type": "basic",
@@ -1009,7 +1045,8 @@
      "extra": "<code>/reload</code> differs: it resets and then <b>replays</b> the history in order. <code>/env</code> also restarts and replays, but is aimed at changing environment settings.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jshell> /reset   # discards all snippets and restarts, no history replay\njshell> /list    # session is empty again</pre>"
     },
     {
      "type": "basic",
@@ -1054,7 +1091,8 @@
      "extra": "It cannot be combined with <code>--startup</code>, which overrides the startup script. Startup scripts also rerun on <code>/reset</code>, <code>/reload</code>, and <code>/env</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell --no-startup   # default startup scripts are not run\njshell                # default startup scripts run</pre>"
     },
     {
      "type": "basic",
@@ -1183,7 +1221,8 @@
      "extra": "That is why generating a jar needs a plain source file with a package declaration. Writing snippets to a file with <code>/save</code> gives you a <code>.java</code> skeleton to add the package to.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jshell> package demo;   // a snippet cannot declare a package\njshell> module demo {}  // a snippet cannot declare a module</pre>"
     },
     {
      "type": "basic",
@@ -1210,7 +1249,8 @@
      "extra": "It drops all snippets and restarts with startup scripts, but does not replay history. Use it when the previous session's classes would otherwise shadow new definitions.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /reset   # state is reset before rebuilding the modular jar example\njshell> /list    # no snippets remain</pre>"
     }
    ]
   },

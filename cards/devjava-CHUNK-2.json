@@ -18,7 +18,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> stack = new java.util.ArrayDeque<>();   // LIFO: Last In First Out\njava.util.Queue<String> queue = new java.util.ArrayDeque<>();   // FIFO: First In First Out\nstack.push(\"a\"); stack.push(\"b\"); queue.add(\"a\"); queue.add(\"b\");\nSystem.out.println(stack.pop() + \" \" + queue.remove());   // b then a</pre>"
     },
     {
      "type": "rule",
@@ -28,7 +29,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> d = new java.util.ArrayDeque<>();\nd.addLast(\"head\"); d.addLast(\"tail\");\nSystem.out.println(d.pop());   // head: pop removes the head\nSystem.out.println(d.poll());  // tail, now the head: poll removes the head too</pre>"
     },
     {
      "type": "table",
@@ -38,7 +40,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Queue<String> q = new java.util.concurrent.ArrayBlockingQueue<>(1);\nq.add(\"one\");\nSystem.out.println(q.offer(\"two\"));   // false: special value for failed add\ntry { q.add(\"two\"); } catch (IllegalStateException e) { System.out.println(\"add throws\"); }</pre>"
     },
     {
      "type": "table",
@@ -48,7 +51,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Queue<String> q = new java.util.ArrayDeque<>();\ntry { q.remove(); } catch (java.util.NoSuchElementException e) { System.out.println(\"remove throws\"); }\ntry { q.element(); } catch (java.util.NoSuchElementException e) { System.out.println(\"element throws\"); }\nSystem.out.println(q.poll() + \" \" + q.peek());   // null null: special values</pre>"
     },
     {
      "type": "basic",
@@ -58,7 +62,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> both = new java.util.ArrayDeque<>();\nboth.addLast(\"q1\"); both.addLast(\"q2\"); System.out.println(both.pollFirst());   // queue: FIFO, tail ops\nboth.addFirst(\"s1\"); both.addFirst(\"s2\"); System.out.println(both.pollFirst());   // stack: LIFO, head ops\nSystem.out.println(both);   // one type, operations on both ends</pre>"
     },
     {
      "type": "table",
@@ -68,7 +73,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> d = new java.util.ArrayDeque<>(1);\nd.addLast(\"one\");\nSystem.out.println(d.offerLast(\"two\"));   // false: special value for failed FIFO push\ntry { d.addLast(\"two\"); } catch (IllegalStateException e) { System.out.println(\"addLast throws\"); }</pre>"
     },
     {
      "type": "rule",
@@ -78,7 +84,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> d = new java.util.ArrayDeque<>(1);\nd.addFirst(\"one\");\nSystem.out.println(d.offerFirst(\"two\"));   // false: special value for failed LIFO push\ntry { d.addFirst(\"two\"); } catch (IllegalStateException e) { System.out.println(\"addFirst throws\"); }</pre>"
     },
     {
      "type": "basic",
@@ -88,7 +95,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> d = new java.util.ArrayDeque<>();\nd.add(\"h\"); System.out.println(d.getFirst() + \" \" + d.peekFirst());   // both look at the head\nd.clear(); System.out.println(d.peekFirst());   // null on empty\ntry { d.getFirst(); } catch (java.util.NoSuchElementException e) { System.out.println(\"getFirst throws\"); }</pre>"
     },
     {
      "type": "table",
@@ -98,7 +106,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Queue<Integer> a = new java.util.ArrayDeque<>();      // ArrayDeque\njava.util.Deque<Integer> b = new java.util.LinkedList<>();         // LinkedList\njava.util.Queue<Integer> c = new java.util.PriorityQueue<>();      // PriorityQueue (Queue only)\nSystem.out.println(a.getClass().getSimpleName() + \" \" + b.getClass().getSimpleName() + \" \" + c.getClass().getSimpleName());</pre>"
     },
     {
      "type": "basic",
@@ -108,7 +117,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.PriorityQueue<Integer> natural = new java.util.PriorityQueue<>();\njava.util.PriorityQueue<Integer> reversed = new java.util.PriorityQueue<>(java.util.Comparator.reverseOrder());\nnatural.add(3); natural.add(1); reversed.add(3); reversed.add(1);\nSystem.out.println(natural.peek() + \" \" + reversed.peek());   // 1 and 3: least by natural order or Comparator</pre>"
     },
     {
      "type": "basic",
@@ -118,7 +128,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.PriorityQueue<Object> pq = new java.util.PriorityQueue<>();   // no Comparator\ntry { pq.add(new Object()); } catch (ClassCastException e) { System.out.println(\"insertion: \" + e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "compare",
@@ -128,7 +139,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.Stack<String> old = new java.util.Stack<>();\nSystem.out.println(old instanceof java.util.Vector);   // true: legacy Stack extends Vector\njava.util.Deque<String> useThis = new java.util.ArrayDeque<>();   // not the synchronized legacy class\nold.push(\"x\"); useThis.push(\"x\"); System.out.println(old.pop() + \" \" + useThis.pop());</pre>"
     },
     {
      "type": "basic",
@@ -138,7 +150,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.concurrent.BlockingQueue<String> bq = new java.util.concurrent.ArrayBlockingQueue<>(1);\njava.util.concurrent.BlockingDeque<String> bd = new java.util.concurrent.LinkedBlockingDeque<>();\njava.util.concurrent.TransferQueue<String> tq = new java.util.concurrent.LinkedTransferQueue<>();\nSystem.out.println(bq.getClass().getSimpleName() + \" \" + bd.getClass().getSimpleName() + \" \" + tq.getClass().getSimpleName());</pre>"
     }
    ]
   },
@@ -160,7 +173,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\"));\nfor (String s : list) System.out.println(s);   // shorter, but cannot remove here\njava.util.Iterator<String> it = list.iterator();\nwhile (it.hasNext()) if (it.next().equals(\"a\")) it.remove();   // delete while iterating\nSystem.out.println(list);   // [b]</pre>"
     },
     {
      "type": "basic",
@@ -170,7 +184,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = java.util.List.of(\"a\");\nIterable<String> asIterable = list;   // Collection extends Iterable\njava.util.Iterator<String> it = asIterable.iterator();   // iterator() declared by Iterable\nSystem.out.println(it.next());</pre>"
     },
     {
      "type": "basic",
@@ -180,7 +195,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Iterator<String> it = java.util.List.of(\"a\", \"b\").iterator();\nwhile (it.hasNext()) { String s = it.next(); System.out.println(s); }   // test, then advance</pre>"
     },
     {
      "type": "basic",
@@ -190,7 +206,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\"));\njava.util.Iterator<String> it = list.iterator();\nSystem.out.println(it.next()); it.remove();   // deletes what next() just returned: a\ntry { it.remove(); } catch (IllegalStateException e) { System.out.println(\"once per next()\"); }\nSystem.out.println(list);   // [b]</pre>"
     },
     {
      "type": "rule",
@@ -200,7 +217,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Iterator<String> it = java.util.List.of(\"a\", \"b\").iterator();\nit.next();\ntry { it.remove(); } catch (UnsupportedOperationException e) { System.out.println(\"immutable collection: \" + e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "basic",
@@ -210,7 +228,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\"));\ntry { for (String s : list) { if (s.equals(\"a\")) list.remove(s); } }\ncatch (java.util.ConcurrentModificationException e) { System.out.println(e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "basic",
@@ -220,7 +239,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = new java.util.ArrayList<>(java.util.List.of(\"keep\", \"drop\", \"keep\"));\nlist.removeIf(s -> s.equals(\"drop\"));   // removeIf(Predicate), safe while iterating\nSystem.out.println(list);   // [keep, keep]</pre>"
     },
     {
      "type": "cloze",
@@ -229,7 +249,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static class Bag implements Iterable<String> {\n        public java.util.Iterator<String> iterator() { return java.util.List.of(\"x\").iterator(); }\n    }\n    static void m() { for (String s : new Bag()) System.out.println(s); }   // for-each works\n}</pre>"
     }
    ]
   },
@@ -261,7 +282,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> names = new java.util.ArrayList<>();\nnames.add(\"Ada\");\nString first = names.get(0);   // checked at compile time, no cast\n// names.add(42);              // caught now, not as a runtime ClassCastException\nSystem.out.println(first);</pre>"
     },
     {
      "type": "table",
@@ -271,7 +293,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Holder<E> { E e; }                 // E = Element\nclass Keyed<K, V> { K k; V v; }          // K = Key, V = Value\nclass Wrapper<T> { T t; }                // T = Type\nclass Ex { static void m() {\n  System.out.println(Holder.class.getSimpleName() + \" \" + Keyed.class.getSimpleName() + \" \" + Wrapper.class.getSimpleName());\n}}</pre>"
     },
     {
      "type": "basic",
@@ -311,7 +334,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> names = new java.util.ArrayList<>();   // <> is the diamond (Java SE 7+)\nnames.add(\"Ada\");\nSystem.out.println(names);</pre>"
     },
     {
      "type": "basic",
@@ -351,7 +375,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static <T> T first(java.util.List<T> l) { return l.isEmpty() ? null : l.get(0); }\n    static void m() { System.out.println(first(java.util.List.of(1, 2))); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -391,7 +416,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Box<T> { T value; }\nclass Ex { static void m() {\n  Box<Integer> ints = new Box<>();\n  // Box<Number> nums = ints;   // error: generic types are invariant, no subtyping\n  Object any = ints;            // only a widening to Object works\n}}</pre>"
     },
     {
      "type": "basic",
@@ -401,7 +427,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List<Integer> ints = java.util.List.of(1);\njava.util.List<Number> nums = java.util.List.of(2.0);\njava.util.List<?> common = ints;   // also accepts nums: the common supertype\ncommon = nums; Object obj = common; java.util.List raw = common;   // Object and raw List above it\nSystem.out.println(obj + \" \" + raw);</pre>"
     },
     {
      "type": "basic",
@@ -421,7 +448,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Pair<A, B> { A a; B b; }\nclass Ex { static void m() {\n  Pair<Integer, Character> ok = new Pair<>();   // reference types only\n  // Pair<int, char> bad = new Pair<>();        // error: primitives cannot be type arguments\n}}</pre>"
     },
     {
      "type": "rule",
@@ -461,7 +489,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// java.util.List<String>[] a = new java.util.List<String>[10];   // error: generic array creation\njava.util.List[] raw = new java.util.List[10];   // raw array, reified at runtime\nObject[] covariant = raw;                        // arrays are covariant\nraw[0] = java.util.List.of(1);\nSystem.out.println(raw[0]);</pre>"
     },
     {
      "type": "rule",
@@ -471,7 +500,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Boom extends Exception { }             // non-generic: allowed\n// class Gen<E> extends Exception { }          // error: generic class cannot extend Throwable\n// class Indirect<T> extends Boom { }          // error: not even indirectly\nclass Ex { static void m() { System.out.println(new Boom()); }}</pre>"
     },
     {
      "type": "rule",
@@ -561,7 +591,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> strings = new java.util.ArrayList<>();\nClass<?> runtime = strings.getClass();   // type argument erased at runtime\nSystem.out.println(runtime);              // class java.util.ArrayList, no String in it\n// if (strings instanceof java.util.List<String>) {}   // error: non-reifiable type</pre>"
     },
     {
      "type": "basic",
@@ -591,7 +622,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Safe {\n  @SafeVarargs static <T> java.util.List<T> of(T... items) { return java.util.List.of(items); }\n  @SafeVarargs final java.util.List<String> list(String... s) { return java.util.List.of(s); }\n  @SafeVarargs Safe(String... s) { }\n}\nclass Ex { static void m() { System.out.println(Safe.of(\"a\", \"b\")); }}</pre>"
     },
     {
      "type": "basic",
@@ -601,7 +633,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static <T> T id(T x) { return x; }\n  static void m() {\n    String byArg = id(\"s\"); java.util.List<String> byTarget = java.util.List.of();\n    Number byReturn = id(Integer.valueOf(1));   // expected return type can also guide inference\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -611,7 +644,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Util {\n  static <T extends Comparable<T>> int compare(T a, T b) { return a.compareTo(b); }\n}\nclass Ex { static void m() {\n  System.out.println(Util.<Integer>compare(1, 2));   // explicit type argument: the witness\n}}</pre>"
     },
     {
      "type": "basic",
@@ -621,7 +655,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> inferred = new java.util.ArrayList<>();   // diamond: T inferred\njava.util.List raw = new java.util.ArrayList();                   // no diamond: raw type\njava.util.List<String> convert = raw;                             // unchecked conversion\nSystem.out.println(inferred + \" \" + convert);</pre>"
     },
     {
      "type": "basic",
@@ -651,7 +686,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>CharSequence cs = \"hello\";   // target type: compiler expects CharSequence here\nString s = \"hello\";          // same expression with String as target type\nSystem.out.println(cs.length() + \" \" + s.length());</pre>"
     },
     {
      "type": "rule",
@@ -661,7 +697,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void processStringList(java.util.List<String> l) { }\n  static void m() {\n    processStringList(java.util.Collections.emptyList());   // target type infers String in Java 8+\n    // Java SE 7: arguments were not target types, T defaulted to Object, so this failed to compile\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -671,7 +708,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>Runnable r = () -> System.out.println(\"run\");   // target type: Runnable\njava.util.function.IntUnaryOperator f = x -> x + 1;   // target type decides parameter and result\nr.run(); System.out.println(f.applyAsInt(2));</pre>"
     },
     {
      "type": "table",
@@ -731,7 +769,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List<Object> objs = new java.util.ArrayList<>();\njava.util.List<?> wild = java.util.List.of(\"a\");\nobjs.add(\"any Object\"); objs.add(42);\nwild.add(null);   // the only value List<?> accepts\n// wild.add(\"x\");  // error: the unknown type is not Object\nSystem.out.println(objs.size() + \" \" + wild.size());</pre>"
     },
     {
      "type": "basic",
@@ -771,7 +810,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<Number> nums = java.util.List.of(1.0);\njava.util.List<Integer> ints = java.util.List.of(1);\njava.util.List<?> both = nums; both = ints;   // List<?> is their common parent\nSystem.out.println(both);</pre>"
     },
     {
      "type": "basic",
