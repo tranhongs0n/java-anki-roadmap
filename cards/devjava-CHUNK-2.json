@@ -272,7 +272,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Box&lt;T&gt; { T value; }\nclass Use&lt;T&gt; { Box&lt;T&gt; box; T value; } // type parameter: supply a type\nclass Demo { static &lt;T&gt; T pick(T value) { return value; } } // formal parameter: supply a value</pre>"
     },
     {
      "type": "basic",
@@ -304,7 +305,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Pair&lt;A, B&gt; { A first; B second; }\nclass Box&lt;T&gt; { T value; }\nclass Use&lt;X&gt; { Box&lt;X&gt; v; Box&lt;String&gt; c; Box&lt;String[]&gt; a; Box&lt;Runnable&gt; i; }</pre>"
     },
     {
      "type": "compare",
@@ -314,7 +316,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Foo&lt;T&gt; { T value; } // the T declaration is a type parameter\nclass Use { Foo&lt;String&gt; f = new Foo&lt;&gt;(); } // String is a type argument</pre>"
     },
     {
      "type": "basic",
@@ -324,7 +327,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Box&lt;T&gt; { T value; }\nclass Use { Box&lt;Integer&gt; ref; Box&lt;Integer&gt; obj = new Box&lt;&gt;(); } // parameterized type, then an object</pre>"
     },
     {
      "type": "basic",
@@ -345,7 +349,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Box&lt;T&gt; { T value; }\nclass Use { Box raw = new Box(); Object v = raw.value; } // raw Box returns Object</pre>"
     },
     {
      "type": "rule",
@@ -355,7 +360,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Raw {\n  List raw = new java.util.ArrayList();\n  List&lt;String&gt; typed = raw; // unchecked conversion warning, not an error\n}</pre>"
     },
     {
      "type": "basic",
@@ -365,7 +371,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -Xlint:unchecked Box.java\n# full unchecked details, e.g. warning: [unchecked] unchecked conversion</pre>"
     },
     {
      "type": "basic",
@@ -386,7 +393,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Numbers {\n  static &lt;T extends Number&gt; boolean isEven(T n) { return n.intValue() % 2 == 0; }\n  // With unbounded &lt;T&gt;, n is only an Object: intValue() would be unavailable.\n}</pre>"
     },
     {
      "type": "rule",
@@ -396,7 +404,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Tag {}\nclass Base {}\n// class Bad&lt;T extends Tag &amp; Base&gt; {} // error: a class bound cannot follow an interface\nclass Good&lt;T extends Base &amp; Tag&gt; {}</pre>"
     },
     {
      "type": "rule",
@@ -406,7 +415,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  interface Box<T> {}\n  static class NumBox implements Box<Integer> {}\n  static <T extends Box<Integer>> T id(T x) { return x; } // implements is allowed\n  static void m() { System.out.println(id(new NumBox())); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -438,7 +448,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.util.ArrayList;\nimport java.util.Collection;\nimport java.util.List;\nclass Chain { List&lt;String&gt; l = new ArrayList&lt;&gt;(); Collection&lt;String&gt; c = l; }</pre>"
     },
     {
      "type": "rule",
@@ -459,7 +470,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.*;\nclass Factory&lt;T&gt; {\n  private final Class&lt;T&gt; token;\n  Factory(Class&lt;T&gt; token) { this.token = token; }\n  T make() throws Exception { return token.getDeclaredConstructor().newInstance(); } // new T() is illegal\n}</pre>"
     },
     {
      "type": "rule",
@@ -469,7 +481,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Box&lt;T&gt; {\n  T value; // instance field: T is fixed per parameterization\n  // static T shared; // error: non-static type variable T in a static context\n  static &lt;U&gt; U id(U u) { return u; } // a static method declares its own parameter\n}</pre>"
     },
     {
      "type": "basic",
@@ -479,7 +492,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Object o = new java.util.ArrayList&lt;String&gt;();\nboolean ok = o instanceof java.util.List&lt;?&gt;; // legal: unbounded wildcard\n// boolean bad = o instanceof java.util.List&lt;String&gt;; // illegal: type arguments are erased</pre>"
     },
     {
      "type": "rule",
@@ -511,7 +525,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Throwing {\n  &lt;T extends Exception&gt; void run() throws T { /* ... */ } // legal: T in throws\n  // try { run(); } catch (T e) { } // error: cannot catch a type variable\n}</pre>"
     },
     {
      "type": "basic",
@@ -521,7 +536,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Clash {\n  // void m(List&lt;String&gt; l) {} and void m(List&lt;Integer&gt; l) {} clash: both erase to m(List).\n  static void m(List&lt;?&gt; l) {} // one method after erasure\n}</pre>"
     },
     {
      "type": "basic",
@@ -531,7 +547,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Erase&lt;T extends Number &amp; Runnable&gt; { T value; } // erases value to Number\nclass Unbounded&lt;T&gt; { T value; } // erases to Object</pre>"
     },
     {
      "type": "basic",
@@ -541,7 +558,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Erasure {\n  List&lt;String&gt; a = new java.util.ArrayList&lt;&gt;();\n  List&lt;Integer&gt; b = new java.util.ArrayList&lt;&gt;(); // same erased List class, no per-T class\n}</pre>"
     },
     {
      "type": "basic",
@@ -551,7 +569,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  interface Box<T> { void set(T x); }\n  static class StrBox implements Box<String> { public void set(String s) {} }\n  static void m() { Box<String> b = new StrBox(); b.set(\"x\"); } // cast + bridge set(Object) in bytecode\n}</pre>"
     },
     {
      "type": "basic",
@@ -561,7 +580,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Node&lt;T&gt; { void setData(T t) {} }\nclass MyNode extends Node&lt;Integer&gt; { void setData(Integer i) {} }\nclass Demo { void use(Node&lt;Integer&gt; n) { n.setData(1); } } // erased call targets setData(Object)</pre>"
     },
     {
      "type": "basic",
@@ -571,7 +591,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Node&lt;T&gt; { void setData(T t) {} }\nclass MyNode extends Node&lt;Integer&gt; { void setData(Integer i) {} }\nclass Demo { static void run() {\n  Object raw = new MyNode();\n  ((Node) raw).setData(\"bad\"); // the bridge casts to Integer: ClassCastException\n}}</pre>"
     },
     {
      "type": "basic",
@@ -581,7 +602,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = new java.util.ArrayList&lt;String&gt;();\nboolean ok = o instanceof java.util.List&lt;?&gt;; // unbounded wildcard is reifiable\n// boolean bad = o instanceof java.util.List&lt;String&gt;; // illegal: not reifiable\nClass&lt;?&gt; raw = java.util.List.class; // raw and unbounded types keep their runtime identity</pre>"
     },
     {
      "type": "basic",
@@ -602,7 +624,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Pollute {\n  static void add(List l, Object o) { l.add(o); } // unchecked call\n  static void demo() { List&lt;String&gt; s = new java.util.ArrayList&lt;&gt;(); add(s, 1); } // polluted\n}</pre>"
     },
     {
      "type": "rule",
@@ -612,7 +635,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.util.Arrays;\nclass Varargs {\n  static &lt;T&gt; void addAll(T... items) { Object[] a = items; System.out.println(Arrays.toString(a)); }\n  static void call() { addAll(\"a\", 1); } // erased Object[] accepts mixed elements\n}</pre>"
     },
     {
      "type": "basic",
@@ -666,7 +690,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Holder {\n  &lt;T&gt; Holder(T value) { System.out.println(value); } // constructor's own type parameter\n}\nclass Use { Holder h = new Holder(\"hi\"); } // T inferred as String</pre>"
     },
     {
      "type": "basic",
@@ -676,7 +701,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Map<String, Integer> m = new java.util.HashMap<>(); // diamond since Java SE 7\nm.put(\"a\", 1);\nSystem.out.println(m.get(\"a\")); // 1</pre>"
     },
     {
      "type": "basic",
@@ -719,7 +745,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Lambda {\n  Runnable r = () -&gt; {}, assigned = r; Runnable[] arr = { () -&gt; {} }; // declaration, assignment, array\n  Runnable make() { return () -&gt; {}; } // return\n  void use(Runnable x) { use(() -&gt; {}); } // argument\n  Object o = (Runnable) () -&gt; {};         // cast\n}</pre>"
     },
     {
      "type": "basic",
@@ -729,7 +756,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.util.concurrent.Callable;\nclass Overload {\n  static void invoke(Runnable r) { System.out.println(\"Runnable\"); }\n  static &lt;T&gt; void invoke(Callable&lt;T&gt; c) { System.out.println(\"Callable\"); }\n  static void go() { invoke(() -&gt; \"done\"); } // Callable: value-compatible, not void-compatible\n}</pre>"
     },
     {
      "type": "basic",
@@ -739,7 +767,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;? extends Number&gt; a = new java.util.ArrayList&lt;Integer&gt;();\njava.util.List&lt;? extends Number&gt; b = new java.util.ArrayList&lt;Double&gt;();\n// java.util.List&lt;Number&gt; c = new java.util.ArrayList&lt;Integer&gt;(); // does not compile</pre>"
     },
     {
      "type": "rule",
@@ -749,7 +778,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Foo {}\nclass Use {\n  static Foo read(java.util.List&lt;? extends Foo&gt; l) { Foo f = l.get(0); return f; }\n  static void add(java.util.List&lt;? extends Foo&gt; l) { l.add(null); /* l.add(new Foo()) is rejected */ }\n}</pre>"
     },
     {
      "type": "basic",
@@ -759,7 +789,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Wild {\n  static void a(List&lt;?&gt; l) { System.out.println(l.size()); } // size ignores T\n  static void b(List&lt;?&gt; l) { System.out.println(l.get(0)); } // only Object API is safe\n}</pre>"
     },
     {
      "type": "compare",
@@ -780,7 +811,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;? super Integer&gt; a = new java.util.ArrayList&lt;Integer&gt;();\njava.util.List&lt;? super Integer&gt; b = new java.util.ArrayList&lt;Number&gt;();\njava.util.List&lt;? super Integer&gt; c = new java.util.ArrayList&lt;Object&gt;();\na.add(1); // writing an Integer works through all three</pre>"
     },
     {
      "type": "rule",
@@ -790,7 +822,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;? extends Number&gt; up = new java.util.ArrayList&lt;Integer&gt;();\njava.util.List&lt;? super Integer&gt; down = new java.util.ArrayList&lt;Number&gt;();\n// java.util.List&lt;? extends Number super Integer&gt; both; // syntax error: never both bounds</pre>"
     },
     {
      "type": "basic",
@@ -800,7 +833,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; ints = new java.util.ArrayList&lt;&gt;();\n// java.util.List&lt;Number&gt; nums = ints; // error: Integer argument is not covariant to Number\njava.util.Collection&lt;Integer&gt; c = ints; // same argument: follows the declaration chain</pre>"
     },
     {
      "type": "basic",
@@ -821,7 +855,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Swap {\n  static void swap(List&lt;?&gt; l, int i, int j) { helper(l, i, j); }\n  // l.set(i, l.get(j)) fails: capture of ? cannot be proven safe here.\n  private static &lt;T&gt; void helper(List&lt;T&gt; l, int i, int j) { T t = l.get(i); l.set(i, l.get(j)); l.set(j, t); }\n}</pre>"
     },
     {
      "type": "table",
@@ -831,7 +866,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static <T> void copy(java.util.List<? extends T> in, java.util.List<? super T> out) {\n    out.add(in.get(0));  // in: ? extends (produces); out: ? super (consumes)\n  }\n}</pre>"
     },
     {
      "type": "rule",
@@ -841,7 +877,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.util.List;\nclass Returns {\n  List&lt;? extends Number&gt; bad() { return null; } // every caller inherits the wildcard\n  static &lt;T extends Number&gt; List&lt;T&gt; good() { return null; } // caller chooses T\n}</pre>"
     },
     {
      "type": "table",
@@ -851,7 +888,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class NaturalNumber {}\nclass Use {\n  static &lt;T extends NaturalNumber&gt; void putBack(java.util.List&lt;T&gt; l) { l.set(0, l.get(0)); }\n  static void f(java.util.List&lt;? extends NaturalNumber&gt; l) { for (NaturalNumber n : l) { break; }\n    l.add(null); l.clear(); l.remove(0); putBack(l); }\n}</pre>"
     }
    ]
   },
@@ -873,7 +911,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object target = \"hi\";                 // the matched target\nif (target instanceof String pattern) // the pattern\n  System.out.println(pattern.length()); // the result of the match: 2</pre>"
     },
     {
      "type": "basic",
@@ -883,7 +922,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nif (o instanceof String s) System.out.println(s.toUpperCase()); // final in Java SE 16</pre>"
     },
     {
      "type": "basic",
@@ -893,7 +933,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nif (o instanceof String s) {   // s is the pattern variable\n  System.out.println(s.length()); // bound only on a successful match\n}</pre>"
     },
     {
      "type": "basic",
@@ -903,7 +944,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = Integer.valueOf(7);\nif (o instanceof Integer n) { // type pattern: type followed by a variable declaration\n  System.out.println(n + 1); // 8\n}</pre>"
     },
     {
      "type": "rule",
@@ -913,7 +955,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nif (o instanceof String s && s.length() > 1) { // s is in scope after &&\n  System.out.println(s); // hi\n}</pre>"
     },
     {
      "type": "rule",
@@ -923,7 +966,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nif (!(o instanceof String s)) return; // branch cannot fall through\nSystem.out.println(s.toUpperCase()); // HI</pre>"
     },
     {
      "type": "basic",
@@ -933,7 +977,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>final class Point {}\nclass Ex { static void m() { Point pi = new Point();\n  // pi instanceof String s would not compile: String is final and Point is not a String\n  System.out.println(pi instanceof Object); // true\n} }</pre>"
     },
     {
      "type": "basic",
@@ -943,7 +988,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nswitch (o) { case String s -> System.out.println(s.length()); default -> {} } // final in JDK 21</pre>"
     },
     {
      "type": "basic",
@@ -953,7 +999,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  enum E { A }\n  static void m() { int i = 2; switch (i) { case 1, 2 -> System.out.println(\"int\"); default -> {} }\n    switch (E.A) { case A -> System.out.println(\"enum\"); }\n    switch (\"b\") { case \"b\" -> System.out.println(\"String\"); default -> {} }\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -963,7 +1010,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nswitch (o) {\n  case String s when s.length() > 1 -> System.out.println(s.toUpperCase()); // guarded label\n  default -> System.out.println(\"short\");\n}</pre>"
     },
     {
      "type": "basic",
@@ -973,7 +1021,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = \"a\";\nswitch (s) {\n  case \"a\" -> System.out.println(\"constant label\"); // case s.isEmpty() -> is not a constant\n  default -> {}\n}</pre>"
     },
     {
      "type": "basic",
@@ -983,7 +1032,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record P(int n, String s) {}\nclass Ex { static void m() { Object o = new P(1, \"a\");\n  if (o instanceof P(int n, String s)) System.out.println(n + s); // one pattern per component: 1a\n} }</pre>"
     },
     {
      "type": "rule",
@@ -993,7 +1043,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>record R(int n) {\n  R(String s) { this(Integer.parseInt(s)); }\n}\nclass Ex { static void m() { Object o = new R(\"7\");\n  if (o instanceof R(int n)) System.out.println(n); // canonical constructor's shape\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1003,7 +1054,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>record P(int n, String s) {}\nclass Ex { static void m() { Object o = new P(1, \"a\");\n  if (o instanceof P(var n, var s)) System.out.println(n + s); // types inferred: 1a\n} }</pre>"
     },
     {
      "type": "rule",
@@ -1013,7 +1065,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>record P(Integer n) {}\nclass Ex { static void m() { Object o = new P(7);\n  if (o instanceof P(Integer n)) System.out.println(n); // P(int n) would not compile: no unboxing\n} }</pre>"
     },
     {
      "type": "table",
@@ -1023,7 +1076,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record P(int n) {}\nclass Ex { static void m() { Object o = new P(1);\n  if (o instanceof String s) System.out.println(s); // type pattern, instanceof\n  if (o instanceof P(int n)) System.out.println(n); // record pattern, instanceof\n  for (Object x : java.util.List.of(o)) System.out.println(x); // extended for\n  switch (o) { case P(int n) when n > 0 -> System.out.println(n); default -> {} }\n} }</pre>"
     }
    ]
   },
@@ -1045,7 +1099,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<String, String> trim = java.util.function.Function.<String>identity().compose(String::trim);\njava.util.function.Function<String, Integer> len = trim.andThen(String::length);\nSystem.out.println(len.apply(\"  hi  \")); // 2</pre>"
     },
     {
      "type": "basic",
@@ -1055,7 +1110,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Predicate&lt;String&gt; p = s -&gt; s.startsWith(\"a\");\njava.util.function.Predicate&lt;String&gt; q = s -&gt; s.endsWith(\"z\");\nSystem.out.println(p.and(q).test(\"abz\") + \" \" + p.or(q).test(\"xyz\") + \" \" + p.negate().test(\"abc\")); // true false false</pre>"
     },
     {
      "type": "basic",
@@ -1065,7 +1121,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Predicate&lt;String&gt; eq = java.util.function.Predicate.isEqual(\"a\");\njava.util.function.Predicate&lt;String&gt; ne = java.util.function.Predicate.not(eq);\nSystem.out.println(eq.test(\"a\") + \" \" + ne.test(\"a\") + \" \" + ne.test(\"b\")); // true false true</pre>"
     },
     {
      "type": "basic",
@@ -1075,7 +1132,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Consumer&lt;String&gt; c1 = s -&gt; System.out.print(\"one:\" + s);\njava.util.function.Consumer&lt;String&gt; c2 = s -&gt; System.out.println(\":two\");\nc1.andThen(c2).accept(\"x\"); // one:x:two</pre>"
     },
     {
      "type": "compare",
@@ -1085,7 +1143,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<Integer, Integer> f1 = x -> x + 1, f2 = x -> x * 2;\nSystem.out.println(f1.andThen(f2).apply(3)); // 8\nSystem.out.println(f2.compose(f1).apply(3)); // 8: same result</pre>"
     },
     {
      "type": "basic",
@@ -1095,7 +1154,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<String, Integer> len = String::length;\njava.util.function.Function<Integer, String> str = i -> \"n=\" + i;\nSystem.out.println(len.andThen(str).apply(\"abcd\")); // n=4: f1 result feeds f2 input</pre>"
     },
     {
      "type": "basic",
@@ -1105,7 +1165,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<String, String> id = java.util.function.Function.identity();\nSystem.out.println(id.apply(\"x\")); // x</pre>"
     },
     {
      "type": "basic",
@@ -1115,7 +1176,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>// 1) target type: java.util.function.Function&lt;String,Integer&gt;\n// 2) abstract method: R apply(T t)\n// 3) implement it:\njava.util.function.Function&lt;String,Integer&gt; f = s -&gt; s.length();\nSystem.out.println(f.apply(\"abcd\")); // 4</pre>"
     },
     {
      "type": "rule",
@@ -1125,7 +1187,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface F { int apply(int x); } // exactly one abstract method: a lambda can target F\nclass Ex2 { static void m() { F f = x -&gt; x + 1; System.out.println(f.apply(2)); } } // 3</pre>"
     },
     {
      "type": "rule",
@@ -1135,7 +1198,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>@FunctionalInterface\ninterface F { int f(int x); default int g(int x) { return f(x) + 1; } static int h() { return 0; } }\nclass Ex { static void m() { F f = x -> x; System.out.println(f.g(1) + F.h()); } }</pre>"
     },
     {
      "type": "rule",
@@ -1145,7 +1209,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  interface F { int f(int x); } // annotation optional\n  @FunctionalInterface interface G { int g(int x); } // checked against the shape\n  static void m() { F f = x -> x + 1; G g = x -> x + 2; System.out.println(f.f(1) + g.g(1)); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1155,7 +1220,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>interface Add { int apply(int a, int b); }\nclass Ex2 { static void m() { Add f = (int a, int b) -&gt; a + b; System.out.println(f.apply(2, 3)); } } // (parameters) -&gt; body -&gt; 5</pre>"
     },
     {
      "type": "basic",
@@ -1165,7 +1231,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.BiFunction&lt;Integer,Integer,Integer&gt; a = (Integer x, Integer y) -&gt; x + y; // full form\njava.util.function.BiFunction&lt;Integer,Integer,Integer&gt; b = (x, y) -&gt; x + y;                 // types dropped\njava.util.function.Function&lt;Integer,Integer&gt; c = x -&gt; x + 1;                                // parens dropped: one param\nSystem.out.println(a.apply(1,2) + \" \" + b.apply(1,2) + \" \" + c.apply(1)); // 3 3 2</pre>"
     },
     {
      "type": "basic",
@@ -1175,7 +1242,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<Integer, Integer> one = x -> x + 1; // expression body: no braces, no return\njava.util.function.Function<Integer, Integer> two = x -> { return x + 2; }; // block body needs both\nSystem.out.println(one.apply(1) + \" \" + two.apply(1)); // 2 3</pre>"
     },
     {
      "type": "rule",
@@ -1185,7 +1253,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface F { int apply(int x); default int twice(int x) { return apply(x) * 2; } }\nclass Ex2 { static void m() {\n  F f = x -&gt; x + 1; System.out.println(f.twice(3)); // 8: lambda supplies apply, default twice stays\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1195,7 +1264,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int n = 1;\nRunnable r = () -&gt; System.out.println(n); // ok: n is never reassigned\n// n = 2; // javac: local variables referenced from a lambda expression must be final or effectively final\nr.run(); // 1</pre>"
     },
     {
      "type": "basic",
@@ -1205,7 +1275,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int n = 1;\njava.util.function.IntSupplier s = () -&gt; n; // never reassigned: effectively final\nSystem.out.println(s.getAsInt()); // 1\n// n = 2; would make the lambda illegal</pre>"
     },
     {
      "type": "rule",
@@ -1215,7 +1286,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface Op extends java.io.Serializable { int apply(int x); } // target must extend Serializable\nclass Ex2 { static void m() throws Exception {\n  Op op = x -&gt; x + 1; java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();\n  new java.io.ObjectOutputStream(out).writeObject(op);\n  Op copy = (Op) new java.io.ObjectInputStream(new java.io.ByteArrayInputStream(out.toByteArray())).readObject(); System.out.println(copy.apply(4)); // 5\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1225,7 +1297,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function&lt;String,Integer&gt; f = String::length;   // Function&lt;T,R&gt;\njava.util.function.Consumer&lt;String&gt; c = System.out::println;      // Consumer&lt;T&gt;\njava.util.function.Supplier&lt;String&gt; s = () -&gt; \"x\";                // Supplier&lt;T&gt;\njava.util.function.Predicate&lt;String&gt; p = x -&gt; x.isEmpty();        // Predicate&lt;T&gt;\nSystem.out.println(f.apply(\"abc\") + \" \" + s.get() + \" \" + p.test(\"\")); c.accept(\"hi\"); // 3 x true / hi</pre>"
     },
     {
      "type": "table",
@@ -1235,7 +1308,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier<String> sup = () -> \"s\";           // nothing in, T\njava.util.function.Consumer<String> con = s -> {};             // T in, void\njava.util.function.Predicate<String> pre = s -> !s.isEmpty();   // T in, boolean\njava.util.function.Function<String, Integer> fun = String::length; // T in, R\ncon.accept(sup.get());\nSystem.out.println(pre.test(\"s\") + \" \" + fun.apply(\"abcd\")); // true 4</pre>"
     },
     {
      "type": "basic",
@@ -1245,7 +1319,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier<String> s = () -> \"hi\"; // T get()\nSystem.out.println(s.get()); // hi</pre>"
     },
     {
      "type": "basic",
@@ -1255,7 +1330,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Consumer<String> c = s -> System.out.println(s.toUpperCase()); // void accept(T t)\njava.util.List.of(\"a\", \"b\").forEach(c); // Iterable.forEach(Consumer<? super T>)</pre>"
     },
     {
      "type": "basic",
@@ -1265,7 +1341,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.function.IntConsumer ic = v -> System.out.println(v + 1);\njava.util.function.DoubleConsumer dc = v -> System.out.println(v + 1.0);\nic.accept(1); dc.accept(1.5); // all specialized consumers share accept</pre>"
     },
     {
      "type": "basic",
@@ -1275,7 +1352,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.IntSupplier i = () -&gt; 1;\njava.util.function.LongSupplier l = () -&gt; 2L;\njava.util.function.DoubleSupplier d = () -&gt; 3.0;\njava.util.function.BooleanSupplier b = () -&gt; true;\nSystem.out.println(i.getAsInt() + \" \" + l.getAsLong() + \" \" + d.getAsDouble() + \" \" + b.getAsBoolean()); // 1 2 3.0 true</pre>"
     },
     {
      "type": "basic",
@@ -1285,7 +1363,8 @@
      "kind": "convention",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.function.ToIntFunction&lt;String&gt; f = String::length;\njava.util.function.IntSupplier s = () -&gt; 7;\nSystem.out.println(f.applyAsInt(\"abc\") + \" \" + s.getAsInt()); // 3 7</pre>"
     },
     {
      "type": "basic",
@@ -1295,7 +1374,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.function.Consumer&lt;String&gt; c = s -&gt; System.out.println(\"one \" + s);\njava.util.function.BiConsumer&lt;String,Integer&gt; bc = (s, n) -&gt; System.out.println(\"two \" + s + n);\nc.accept(\"a\"); bc.accept(\"b\", 2); // one a / two b2</pre>"
     },
     {
      "type": "rule",
@@ -1305,7 +1385,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.function.BiPredicate<Integer, Integer> p = (a, b) -> a > b;\nSystem.out.println(p.test(2, 1)); // true; BiPredicate has no primitive variants</pre>"
     },
     {
      "type": "basic",
@@ -1315,7 +1396,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"bb\", \"ccc\"));\nlist.removeIf(s -> s.length() < 3); // removeIf(Predicate<? super E>)\nSystem.out.println(list); // [ccc]</pre>"
     },
     {
      "type": "basic",
@@ -1325,7 +1407,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.UnaryOperator&lt;String&gt; u = s -&gt; s.trim();\njava.util.function.BinaryOperator&lt;String&gt; b = (x, y) -&gt; x + y;\nSystem.out.println(u.apply(\" a \") + \" \" + b.apply(\"a\", \"b\")); // a ab</pre>"
     },
     {
      "type": "basic",
@@ -1335,7 +1418,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; list = new java.util.ArrayList&lt;&gt;(java.util.List.of(\"a\", \"b\"));\njava.util.function.UnaryOperator&lt;String&gt; op = String::toUpperCase;\nlist.replaceAll(op);\nSystem.out.println(list); // [A, B]</pre>"
     },
     {
      "type": "basic",
@@ -1345,7 +1429,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function&lt;String,Integer&gt; f = String::length;\njava.util.function.BiFunction&lt;String,String,Integer&gt; bf = (a, b) -&gt; a.length() + b.length();\nSystem.out.println(f.apply(\"abc\") + \" \" + bf.apply(\"ab\", \"cde\")); // 3 5</pre>"
     },
     {
      "type": "basic",
@@ -1355,7 +1440,8 @@
      "kind": "definition",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Iterable<String> it = java.util.List.of(\"a\", \"b\");\nit.forEach(s -> System.out.println(s)); // no explicit loop, since Java SE 8</pre>"
     },
     {
      "type": "basic",
@@ -1365,7 +1451,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<String, Integer> a = s -> Integer.parseInt(s);\njava.util.function.Function<String, Integer> b = Integer::parseInt; // arguments passed straight through\nSystem.out.println(a.apply(\"7\") + \" \" + b.apply(\"7\")); // 7 7</pre>"
     },
     {
      "type": "table",
@@ -1375,7 +1462,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function&lt;String,Integer&gt; a = Integer::parseInt;          // static Type::staticMethod\nString s = \"x\"; java.util.function.Supplier&lt;String&gt; b = s::toUpperCase;     // bound obj::method\njava.util.function.Function&lt;String,String&gt; c = String::toUpperCase;         // unbound Type::method\njava.util.function.Supplier&lt;StringBuilder&gt; d = StringBuilder::new;          // Type::new\nSystem.out.println(a.apply(\"1\") + \" \" + b.get() + \" \" + c.apply(\"y\") + \" \" + d.get().length()); // 1 X Y 0</pre>"
     },
     {
      "type": "compare",
@@ -1385,7 +1473,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String s = \"abc\";\njava.util.function.Supplier&lt;String&gt; bound = s::toUpperCase;                // receiver fixed\njava.util.function.Function&lt;String,String&gt; unbound = String::toUpperCase; // receiver is the argument\nSystem.out.println(bound.get() + \" \" + unbound.apply(\"xy\")); // ABC XY</pre>"
     },
     {
      "type": "basic",
@@ -1395,7 +1484,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.function.Function<String, Integer> len = String::length; // unbound: String is the argument\nSystem.out.println(len.apply(\"abcd\")); // 4</pre>"
     },
     {
      "type": "basic",
@@ -1405,7 +1495,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier&lt;java.util.ArrayList&lt;String&gt;&gt; ref = java.util.ArrayList::new;\njava.util.function.Supplier&lt;java.util.ArrayList&lt;String&gt;&gt; lam = () -&gt; new java.util.ArrayList&lt;&gt;();\nSystem.out.println(ref.get() + \" \" + lam.get() + \" \" + ref.get().equals(lam.get())); // [] [] true</pre>"
     },
     {
      "type": "basic",
@@ -1415,7 +1506,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier<java.util.ArrayList<String>> s = java.util.ArrayList::new; // no-arg\njava.util.function.Function<Integer, java.util.ArrayList<String>> f = java.util.ArrayList::new; // capacity\nSystem.out.println(s.get() + \" \" + f.apply(2)); // [] []</pre>"
     },
     {
      "type": "rule",
@@ -1425,7 +1517,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier&lt;java.util.ArrayList&lt;String&gt;&gt; a = java.util.ArrayList::new; // no type args\njava.util.function.Supplier&lt;java.util.ArrayList&lt;String&gt;&gt; b = java.util.ArrayList&lt;String&gt;::new; // full type\nSystem.out.println(a.get() + \" \" + b.get()); // [] []\n// java.util.ArrayList&lt;&gt;::new -&gt; javac: illegal start of type</pre>"
     },
     {
      "type": "basic",
@@ -1435,7 +1528,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<String> c = (a, b) -> a.length() - b.length(); // int compare(T o1, T o2)\nSystem.out.println(c.compare(\"a\", \"bbb\")); // -2</pre>"
     },
     {
      "type": "table",
@@ -1445,7 +1539,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<Integer> c = Integer::compare;\nSystem.out.println(c.compare(1, 2) + \" \" + c.compare(2, 1)); // -1 1\nSystem.out.println(c.compare(1, 2) == -c.compare(2, 1)); // true</pre>"
     },
     {
      "type": "rule",
@@ -1455,7 +1550,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<Integer> bad = (i1, i2) -> i1 - i2;\njava.util.Comparator<Integer> good = Integer::compare;\nSystem.out.println(bad.compare(Integer.MIN_VALUE, 1) + \" vs \" + good.compare(Integer.MIN_VALUE, 1));</pre>"
     },
     {
      "type": "basic",
@@ -1465,7 +1561,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator&lt;String&gt; byLen = java.util.Comparator.comparing(s -&gt; s.length());\nSystem.out.println(byLen.compare(\"a\", \"bbb\") + \" \" + byLen.compare(\"bbb\", \"a\")); // -1 1</pre>"
     },
     {
      "type": "basic",
@@ -1475,7 +1572,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.List.of(\"bb\", \"aa\", \"a\"));\nxs.sort(java.util.Comparator.comparingInt(String::length).thenComparing(java.util.Comparator.naturalOrder()));\nxs.sort(java.util.Comparator.comparingInt(String::length).thenComparing(s -&gt; s));\nSystem.out.println(xs); // [a, aa, bb]</pre>"
     },
     {
      "type": "basic",
@@ -1485,7 +1583,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator&lt;Integer&gt; cmp = java.util.Comparator.naturalOrder();\nSystem.out.println(cmp.compare(1, 2) + \" \" + cmp.compare(2, 1)); // -1 1</pre>"
     },
     {
      "type": "basic",
@@ -1495,7 +1594,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator&lt;String&gt; cmp = java.util.Comparator.naturalOrder();\njava.util.List&lt;String&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.Arrays.asList(\"b\", null, \"a\"));\nxs.sort(java.util.Comparator.nullsLast(cmp)); System.out.println(xs);  // [a, b, null]\nxs.sort(java.util.Comparator.nullsFirst(cmp)); System.out.println(xs); // [null, a, b]</pre>"
     },
     {
      "type": "basic",
@@ -1505,7 +1605,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator&lt;Integer&gt; asc = java.util.Comparator.naturalOrder();\njava.util.Comparator&lt;Integer&gt; desc = asc.reversed();\nSystem.out.println(asc.compare(1, 2) + \" \" + desc.compare(1, 2)); // -1 1</pre>"
     },
     {
      "type": "basic",
@@ -1515,7 +1616,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; list = new java.util.ArrayList&lt;&gt;(java.util.List.of(\"b\", \"a\"));\nlist.sort(java.util.Comparator.naturalOrder()); // List.sort(Comparator), since Java SE 8\nSystem.out.println(list); // [a, b]</pre>"
     },
     {
      "type": "basic",
@@ -1525,7 +1627,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator&lt;String&gt; ci = java.util.Comparator.comparingInt(String::length);\njava.util.Comparator&lt;String&gt; cl = java.util.Comparator.comparingLong((String s) -&gt; (long) s.length());\njava.util.Comparator&lt;String&gt; cd = java.util.Comparator.comparingDouble((String s) -&gt; (double) s.length());\nSystem.out.println(ci.compare(\"a\", \"bb\") + \" \" + cl.compare(\"a\", \"bb\") + \" \" + cd.compare(\"a\", \"bb\")); // -1 -1 -1</pre>"
     }
    ]
   },
@@ -1577,7 +1680,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; lines = java.util.List.of(\"one two\", \"three\", \"two again\");\nString word = \"two\";\nlong n = lines.stream().filter(line -&gt; line.contains(word)).count();\nSystem.out.println(n); // 2</pre>"
     },
     {
      "type": "basic",
@@ -1587,7 +1691,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.stream.Stream&lt;String&gt; pipeline = java.util.List.of(\"a\", \"b\").stream().map(s -&gt; s.toUpperCase());\n// without a terminal operation nothing runs\nSystem.out.println(pipeline.count()); // count() is the one terminal op: 2</pre>"
     },
     {
      "type": "basic",
@@ -1597,7 +1702,8 @@
      "kind": "mental-model",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; list = java.util.List.of(\"a\", \"b\");\nfor (String s : list) System.out.print(s); // a b\njava.util.Iterator&lt;String&gt; it = list.iterator();\nwhile (it.hasNext()) System.out.print(it.next()); // a b</pre>"
     },
     {
      "type": "basic",
@@ -1607,7 +1713,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = java.util.List.of(\"a\", \"b\");\nxs.forEach(s -&gt; System.out.print(s));          // Iterable.forEach(Consumer)\nxs.stream().forEach(s -&gt; System.out.print(s)); // Stream.forEach(Consumer)\nSystem.out.println(); // abab</pre>"
     },
     {
      "type": "basic",
@@ -1647,7 +1754,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = java.util.List.of(\"a\", \"bb\");\njava.util.List&lt;Integer&gt; out = new java.util.ArrayList&lt;&gt;();\nfor (String s : xs) out.add(s.length()); // loop version\nSystem.out.println(xs.stream().map(s -&gt; s.length()).toList() + \" \" + out); // [1, 2] [1, 2]</pre>"
     },
     {
      "type": "compare",
@@ -1657,7 +1765,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; before = java.util.List.of(\"a\", \"bb\");\njava.util.List&lt;Integer&gt; mapped = before.stream().map(String::length).toList();\njava.util.List&lt;String&gt; filtered = before.stream().filter(s -&gt; s.length() &gt; 1).toList();\nSystem.out.println(before.size() + \" \" + mapped + \" \" + filtered); // 2 [1, 2] [bb]</pre>"
     },
     {
      "type": "basic",
@@ -1667,7 +1776,8 @@
      "kind": "rule",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = java.util.List.of(\"a\", \"bb\", \"ccc\");\nSystem.out.println(xs.stream().filter(s -&gt; s.length() &gt; 1).map(String::length).toList()); // [2, 3]: filter first</pre>"
     },
     {
      "type": "basic",
@@ -1687,7 +1797,8 @@
      "kind": "syntax",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; up = java.util.List.of(\"a\", \"b\").stream().map(s -&gt; s.toUpperCase()).toList();\njava.util.List&lt;String&gt; up2 = java.util.List.of(\"a\", \"b\").stream().map(String::toUpperCase).toList();\nSystem.out.println(up + \" \" + up2); // [A, B] [A, B]</pre>"
     },
     {
      "type": "basic",
@@ -1707,7 +1818,8 @@
      "kind": "table",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>for (int i = 0; i &lt; 15; i += 3) System.out.print(i + \" \"); // 0 3 6 9 12\njava.util.stream.IntStream.iterate(0, i -&gt; i &lt; 15, i -&gt; i + 3).forEach(i -&gt; System.out.print(i + \" \")); // seed, hasNext, next\nSystem.out.println();</pre>"
     },
     {
      "type": "basic",
@@ -1747,7 +1859,8 @@
      "kind": "gotcha",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = java.util.List.of(1, 2, 3, 1);\nSystem.out.println(xs.stream().takeWhile(x -&gt; x &lt; 3).toList()); // [1, 2] on an ordered stream\nSystem.out.println(xs.stream().dropWhile(x -&gt; x &lt; 3).toList()); // [3, 1] on an ordered stream\nSystem.out.println(java.util.Set.of(3, 1, 2).stream().takeWhile(x -&gt; x &lt; 3).toList()); // unordered: subset only</pre>"
     },
     {
      "type": "compare",
@@ -1757,7 +1870,8 @@
      "kind": "compare",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = java.util.List.of(\"a\", \"b\");\njava.util.List&lt;String&gt; imp = new java.util.ArrayList&lt;&gt;();\nfor (String s : xs) imp.add(s.toUpperCase()); // imperative: the loop spells out the how\njava.util.List&lt;String&gt; fun = xs.stream().map(s -&gt; s.toUpperCase()).toList(); // functional: the how is delegated\nSystem.out.println(imp + \" \" + fun); // [A, B] [A, B]</pre>"
     },
     {
      "type": "basic",

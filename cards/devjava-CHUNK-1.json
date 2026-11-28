@@ -2051,7 +2051,8 @@
      "extra": "Collections store objects for iteration. Maps bind each value to a key that represents it, like a primary key in a table. There is no inheritance relation between the two hierarchies.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Collection&lt;String&gt; cs = java.util.List.of(\"a\");      // root 1: collections\njava.util.Map&lt;String, Integer&gt; m = java.util.Map.of(\"a\", 1);   // root 2: maps</pre>"
     },
     {
      "type": "basic",
@@ -2222,7 +2223,8 @@
      "extra": "The check is legal even though it can never be true; the implementation may also throw <code>ClassCastException</code>. This looseness is deliberate, so algorithms can probe heterogeneous content.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Collection&lt;String&gt; cs = java.util.List.of(\"a\"); class User {}\nSystem.out.println(cs.contains(new User()));   // compiles (Object parameter); IDE may warn, prints false</pre>"
     },
     {
      "type": "table",
@@ -2251,7 +2253,8 @@
      "extra": "Cells after that are left untouched. The returned reference is the very array you supplied, so its tail may still hold your previous contents beyond the terminator.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Collection&lt;String&gt; c = java.util.List.of(\"a\");\nString[] a = new String[3];\nc.toArray(a);\nSystem.out.println(a[1] == null);   // true: first unused cell set to null</pre>"
     },
     {
      "type": "basic",
@@ -2302,7 +2305,8 @@
      "extra": "A single <code>iterator()</code> method returning one. That is why Iterable is described as a bridge to Iterator rather than a container in its own right.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.lang.Iterable&lt;String&gt; bag = () -&gt; java.util.List.of(\"x\").iterator();   // iterator() supplies an Iterator\nfor (String s : bag) System.out.println(s);   // x</pre>"
     },
     {
      "type": "compare",
@@ -2513,7 +2517,8 @@
      "extra": "The <code>unmodifiable</code> family follows the same naming pattern. Two cautions apply: route every access through the wrapper, and synchronize manually on the list while iterating it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; sync = java.util.Collections.synchronizedList(new java.util.ArrayList&lt;String&gt;());\nsync.add(\"x\");   // synchronized + type name: synchronizedList wraps the list in a synchronized view</pre>"
     },
     {
      "type": "rule",
@@ -2574,7 +2579,8 @@
      "extra": "<code>lastIndexOf(e)</code> uses the same convention and returns the highest matching index. Neither throws.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = java.util.List.of(\"a\", \"b\");\nSystem.out.println(xs.indexOf(\"z\"));   // -1: absent element</pre>"
     },
     {
      "type": "rule",
@@ -2583,7 +2589,8 @@
      "extra": "So <code>subList(1, 3)</code> returns two elements. The result is a <b>view</b>: changes either way are reflected, which makes <code>list.subList(a, b).clear()</code> an idiom for removing a range.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = java.util.List.of(\"a\", \"b\", \"c\", \"d\");\nSystem.out.println(xs.subList(1, 3));   // [b, c]: start inclusive, end - 1 inclusive</pre>"
     },
     {
      "type": "basic",
@@ -2602,7 +2609,8 @@
      "extra": "Before that you called <code>Collections.sort(list, cmp)</code>. There is no no-arg overload: pass <code>null</code> or, preferably, <code>Comparator.naturalOrder()</code> to mean natural ordering.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.List.of(\"b\", \"a\"));\nxs.sort(String::compareTo);   // List.sort(Comparator), available since Java SE 8\nSystem.out.println(xs);       // [a, b]: sorted in place</pre>"
     },
     {
      "type": "basic",
@@ -2611,7 +2619,8 @@
      "extra": "If they do not, a <code>ClassCastException</code> is thrown. Writing <code>Comparator.naturalOrder()</code> expresses the same intent without a null argument.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.List.of(2, 1));\nxs.sort(null);          // null comparator =&gt; elements must be Comparable\nSystem.out.println(xs);  // [1, 2]</pre>"
     },
     {
      "type": "basic",
@@ -2630,7 +2639,8 @@
      "extra": "<code>set</code> replaces the element most recently returned by a traversal step. With no such element there is nothing to replace, so it is a state error rather than an index error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.List.of(\"a\"));\njava.util.ListIterator&lt;String&gt; it = xs.listIterator();\ntry { it.set(\"b\"); } catch (IllegalStateException e) { System.out.println(\"IllegalStateException\"); }</pre>"
     },
     {
      "type": "basic",
@@ -2639,7 +2649,8 @@
      "extra": "Each node holds next, prev and item references, and the list holds first and last. Reaching the middle must follow next or prev links, which is where the cost appears.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.LinkedList&lt;String&gt; ll = new java.util.LinkedList&lt;&gt;();\nll.add(\"a\"); ll.add(\"b\");\nSystem.out.println(ll.getFirst() + \" \" + ll.getLast());   // direct references to both end nodes</pre>"
     },
     {
      "type": "basic",
@@ -2670,7 +2681,8 @@
      "extra": "ArrayList computes an offset; LinkedList must walk nodes. Reading first and last is O(1) for both, because LinkedList keeps references to both ends.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; a = java.util.List.of(1, 2, 3, 4);\njava.util.List&lt;Integer&gt; l = new java.util.LinkedList&lt;&gt;(a);\nSystem.out.println(a.get(2) + \" \" + l.get(2));   // ArrayList O(1); LinkedList O(n)</pre>"
     },
     {
      "type": "table",
@@ -2679,7 +2691,8 @@
      "extra": "ArrayList shifts every element right; LinkedList relinks two references. In practice the linked-list advantage is diminished by cache misses on the way to the node.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; a = new java.util.ArrayList&lt;&gt;(java.util.List.of(1, 2));\njava.util.List&lt;Integer&gt; l = new java.util.LinkedList&lt;&gt;(java.util.List.of(1, 2));\na.add(0, 9); l.add(0, 9);   // ArrayList O(n) shift; LinkedList O(1) at the head</pre>"
     },
     {
      "type": "table",
@@ -2688,7 +2701,8 @@
      "extra": "ArrayList copies part of the array. LinkedList looks simple but must first find the node of the middle element, which is the O(n) part and usually dominates.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; a = new java.util.ArrayList&lt;&gt;(java.util.List.of(1, 2));\njava.util.List&lt;Integer&gt; l = new java.util.LinkedList&lt;&gt;(java.util.List.of(1, 2));\na.add(1, 9); l.add(1, 9);   // inserting in the middle: O(n) for ArrayList and for LinkedList</pre>"
     },
     {
      "type": "basic",
@@ -2697,7 +2711,8 @@
      "extra": "Following a next/prev reference loads unrelated memory, often not in cache. ArrayList merely adds an offset to one base address, so locality makes it far faster in practice.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.LinkedList&lt;Integer&gt; ll = new java.util.LinkedList&lt;&gt;(java.util.List.of(1, 2, 3));\nfor (int v : ll) System.out.println(v);   // pointer chasing: each next node may be a cache miss</pre>"
     },
     {
      "type": "basic",
@@ -2706,7 +2721,8 @@
      "extra": "When nodes are scattered in the heap every step is a fresh cache miss. Real applications that keep adding and removing nodes are close to the scattered case.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.LinkedList&lt;Integer&gt; sparse = new java.util.LinkedList&lt;&gt;();\njava.util.LinkedList&lt;Integer&gt; filler = new java.util.LinkedList&lt;&gt;();\nfor (int i = 0; i &lt; 1000; i++) { sparse.add(i); for (int k = 0; k &lt; 100; k++) filler.add(k); }\nSystem.out.println(sparse.get(500));   // scattered nodes: about 3x slower to read than contiguous ones</pre>"
     },
     {
      "type": "basic",
@@ -2715,7 +2731,8 @@
      "extra": "Each <code>get(i)</code> restarts from an end and walks i nodes. On a 1,000-element list that is about half a millisecond versus roughly 4 microseconds with an iterator, so never use this pattern.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;Integer&gt; ll = new java.util.LinkedList&lt;&gt;(java.util.List.of(1, 2, 3));\nfor (int i = 0; i &lt; ll.size(); i++) System.out.println(ll.get(i));   // O(n^2): every get(i) walks the nodes</pre>"
     },
     {
      "type": "basic",
@@ -2724,7 +2741,8 @@
      "extra": "A direct reference to the first node means inserting at index 0 touches one node. ArrayList must copy the whole array one slot right, whose cost grows with n.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; ll = new java.util.LinkedList&lt;&gt;();\nll.add(0, \"x\");   // LinkedList: cost independent of size, at most one pointer hop to first node</pre>"
     },
     {
      "type": "basic",
@@ -2733,7 +2751,8 @@
      "extra": "Growth is geometric, so reallocations become rarer as the list grows. Each one allocates a new array and copies the old, which is why pre-sizing with <code>new ArrayList&lt;&gt;(n)</code> pays off.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.ArrayList&lt;Integer&gt; xs = new java.util.ArrayList&lt;&gt;(2);\nxs.add(1); xs.add(2); xs.add(3);   // full array grows by 1.5x: capacity 2 -&gt; 3 -&gt; 4</pre>"
     },
     {
      "type": "rule",
@@ -2742,7 +2761,8 @@
      "extra": "Removing can leave a large, mostly empty array. Call <code>trimToSize()</code> to copy it down, remembering that the next add may then have to grow again.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.ArrayList&lt;Integer&gt; xs = new java.util.ArrayList&lt;&gt;(java.util.List.of(1, 2, 3));\nxs.clear();      // backing array is not copied to a smaller one: no automatic shrink\nxs.trimToSize(); // explicit trim is needed</pre>"
     },
     {
      "type": "table",
@@ -2751,7 +2771,8 @@
      "extra": "Each node holds next, prev and item plus a header. For 1,000 elements a LinkedList needs roughly 24 kB against roughly 5 kB for an ArrayList.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.LinkedList&lt;String&gt; ll = new java.util.LinkedList&lt;&gt;();\nll.add(\"x\");   // one Node object (prev, next, item): about 24 bytes</pre>"
     },
     {
      "type": "basic",
@@ -2760,7 +2781,8 @@
      "extra": "A default-constructed ArrayList with one element can take about 80 bytes against 56 for the LinkedList node. Fix it with <code>trimToSize()</code>, <code>new ArrayList&lt;&gt;(2)</code>, or <code>List.of()</code> (26 bytes).",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.ArrayList&lt;String&gt; xs = new java.util.ArrayList&lt;&gt;();\nxs.add(\"x\");   // one element, but backing array of capacity 10: 80 bytes vs 56 for LinkedList</pre>"
     },
     {
      "type": "table",
@@ -2769,7 +2791,8 @@
      "extra": "Cheaper than LinkedList (56) and a trimmed ArrayList (44). The trade-off is that it is unmodifiable, so it suits small fixed collections rather than growing ones.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; one = java.util.List.of(\"a\");   // immutable: about 26 bytes for one element\nSystem.out.println(one);                               // [a]</pre>"
     },
     {
      "type": "rule",
@@ -2778,7 +2801,8 @@
      "extra": "It wins almost every ordinary list operation including insert and delete, because the winning algorithm still has to reach the right element first. LinkedList only wins on stack/queue use at the ends.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List&lt;String&gt; xs = new java.util.ArrayList&lt;&gt;();   // ArrayList: default for a regular list\nxs.add(\"a\");</pre>"
     },
     {
      "type": "table",
@@ -2787,7 +2811,8 @@
      "extra": "For a double-ended queue, prefer <code>ArrayDeque</code> over LinkedList. LinkedList remains reasonable when you also need List behaviour.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Queue&lt;String&gt; q = new java.util.LinkedList&lt;&gt;();\njava.util.Deque&lt;String&gt; d = new java.util.LinkedList&lt;&gt;();\nq.offer(\"x\"); d.addFirst(\"y\");   // LinkedList implements Queue and Deque</pre>"
     }
    ]
   },
@@ -2808,7 +2833,8 @@
      "extra": "The elements are the map's keys and a shared placeholder object is the value. That is why HashSet behaves like HashMap with respect to hashing and equals.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.Set&lt;String&gt; s = new java.util.HashSet&lt;&gt;();\ns.add(\"a\");   // HashSet wraps a HashMap, which acts as the delegate</pre>"
     },
     {
      "type": "basic",
@@ -2817,7 +2843,8 @@
      "extra": "Only one element equal to another may exist. As a consequence, <code>add</code> can fail and return false for an equal element already present.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.Set&lt;String&gt; s = new java.util.HashSet&lt;&gt;();\ns.add(\"a\"); s.add(\"a\");\nSystem.out.println(s.size());   // 1: Set forbids duplicates that List allows</pre>"
     },
     {
      "type": "basic",
@@ -2826,7 +2853,8 @@
      "extra": "It combines a set with an internal linked list that records insertion order. Plain HashSet stores elements in no particular order you may rely on.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Set&lt;String&gt; s = new java.util.LinkedHashSet&lt;&gt;();\ns.add(\"b\"); s.add(\"a\");\nSystem.out.println(s);   // [b, a]: reproducible insertion order</pre>"
     },
     {
      "type": "table",
@@ -2835,7 +2863,8 @@
      "extra": "It keeps elements sorted by natural ordering or a Comparator, and requires a way to compare elements at insertion time.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.SortedSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;();\ns.add(2); s.add(1);\nSystem.out.println(s.first());   // 1: TreeSet is the SortedSet implementation</pre>"
     },
     {
      "type": "basic",
@@ -2844,7 +2873,8 @@
      "extra": "The comparator defines equality for the sorted structure too, so two elements it calls equal collide even if <code>equals</code> disagrees. This is a classic source of surprising duplicates.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.TreeSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.Comparator.reverseOrder());\ns.add(3); s.add(1);\nSystem.out.println(s.first());   // 3: supplied Comparator wins over Integer's Comparable</pre>"
     },
     {
      "type": "table",
@@ -2853,7 +2883,8 @@
      "extra": "<code>tailSet(fromElement)</code> is from-inclusive. When the boundary element exists, toElement is excluded and fromElement included, matching the usual half-open convention.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.TreeSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 2, 3));\nSystem.out.println(s.headSet(3));   // [1, 2]: strictly below the boundary</pre>"
     },
     {
      "type": "basic",
@@ -2862,7 +2893,8 @@
      "extra": "Changes flow in both directions. They remember their limits and reject additions outside them with <code>IllegalArgumentException</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.TreeSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 2, 3));\njava.util.SortedSet&lt;Integer&gt; head = s.headSet(3);\nhead.add(0);\nSystem.out.println(s);   // [0, 1, 2]: subset is a view backed by the main set</pre>"
     },
     {
      "type": "basic",
@@ -2871,7 +2903,8 @@
      "extra": "The subset refuses any element at or above <code>toElement</code>. The bound protects the view's own definition, so it cannot become inconsistent with the main set.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.TreeSet&lt;Integer&gt; set = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 2, 3));\njava.util.SortedSet&lt;Integer&gt; head = set.headSet(3);\ntry { head.add(5); } catch (IllegalArgumentException e) { System.out.println(\"IllegalArgumentException\"); }</pre>"
     },
     {
      "type": "table",
@@ -2880,7 +2913,8 @@
      "extra": "Ceiling is the least element &gt;= e, floor the greatest &lt;= e. <code>higher</code> and <code>lower</code> are the strict variants. They return null when no such element exists.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.NavigableSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 3, 5));\nSystem.out.println(s.ceiling(3) + \" \" + s.floor(3));   // 3 3: argument itself is included</pre>"
     },
     {
      "type": "table",
@@ -2889,7 +2923,8 @@
      "extra": "They combine a read with a removal, returning null on an empty set. They are the queue-like operations of the interface.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.NavigableSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 2, 3));\nSystem.out.println(s.pollFirst() + \" \" + s.pollLast());   // 1 3: extremes returned and removed\nSystem.out.println(s);                                    // [2]</pre>"
     },
     {
      "type": "basic",
@@ -2898,7 +2933,8 @@
      "extra": "So <code>subSet(a, true, b, false)</code> includes a and excludes b. <code>headSet</code> and <code>tailSet</code> gained the same inclusiveness flag.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.NavigableSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 2, 3, 4));\nSystem.out.println(s.subSet(1, true, 4, false));   // [1, 2, 3]: lower included, upper excluded\nSystem.out.println(s.subSet(1, false, 4, true));  // [2, 3, 4]: each boolean controls one bound</pre>"
     },
     {
      "type": "basic",
@@ -2907,7 +2943,8 @@
      "extra": "Not a copy: it is another NavigableSet sharing content, so removals propagate. <code>descendingIterator()</code> gives the same traversal without a new set object.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.NavigableSet&lt;Integer&gt; s = new java.util.TreeSet&lt;&gt;(java.util.List.of(1, 2, 3));\njava.util.NavigableSet&lt;Integer&gt; rev = s.descendingSet();\nrev.add(4);\nSystem.out.println(s.contains(4));   // true: reversed view of the same set</pre>"
     }
    ]
   },
@@ -2928,7 +2965,8 @@
      "extra": "The bucket chosen at insertion no longer matches the bucket computed at lookup, so even <code>get(sameObject)</code> misses. The key-value pair is effectively lost.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;java.util.ArrayList&lt;String&gt;, String&gt;();\nvar key = new java.util.ArrayList&lt;String&gt;(java.util.List.of(\"a\"));\nm.put(key, \"value\");\nkey.add(\"b\");\nSystem.out.println(m.get(key) + \" \" + m.size());  // null 1 - hash changed, entry unreachable</pre>"
     },
     {
      "type": "basic",
@@ -2937,7 +2975,8 @@
      "extra": "Both keys now hash and compare equally, so the lookup lands on the other entry. Values are effectively overwritten or shadowed, and the unrelated key can no longer find its own value.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int unused = 0; class Box { int id; Box(int i){id=i;} public int hashCode(){return id;} public boolean equals(Object o){return o instanceof Box &amp;&amp; ((Box)o).id == id;} }\nvar m = new java.util.HashMap&lt;Box, String&gt;();\nvar k = new Box(1); m.put(k, \"first\"); m.put(new Box(2), \"second\");\nk.id = 2;\nSystem.out.println(m.get(k));  // second - the other key's value</pre>"
     },
     {
      "type": "basic",
@@ -2946,7 +2985,8 @@
      "extra": "If immutability is impossible, at minimum never mutate a key after insertion. Immutable keys keep hashCode and equality stable for the entry's whole life.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>var byName = new java.util.HashMap&lt;String, Integer&gt;();\nvar byId = new java.util.HashMap&lt;Integer, String&gt;();\nbyName.put(\"ana\", 1); byId.put(2, \"bob\");\nSystem.out.println(byName.get(\"ana\") + \" \" + byId.get(2));  // 1 bob</pre>"
     },
     {
      "type": "basic",
@@ -2955,7 +2995,8 @@
      "extra": "The element becomes a key and a shared placeholder object is stored as the value. That is why mutating an element already in a HashSet breaks it exactly as mutating a map key would.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.HashSet&lt;String&gt; s = new java.util.HashSet&lt;&gt;();\nboolean added = s.add(\"a\");   // delegates to HashMap.put(\"a\", placeholder)\nSystem.out.println(added);    // true</pre>"
     },
     {
      "type": "basic",
@@ -2964,7 +3005,8 @@
      "extra": "Its hash no longer matches the stored bucket, so a re-add sees no duplicate and inserts again. Iteration then reveals the object at two positions.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var set = new java.util.HashSet&lt;java.util.ArrayList&lt;String&gt;&gt;();\nvar item = new java.util.ArrayList&lt;String&gt;(java.util.List.of(\"a\"));\nset.add(item);\nitem.add(\"b\"); set.add(item);\nSystem.out.println(set.size() + \" \" + set);  // 2 [[a, b], [a, b]]</pre>"
     }
    ]
   },
@@ -2985,7 +3027,8 @@
      "extra": "It stores key-value pairs using hashing, detecting duplicates via a key's equals and hashCode. Both must be consistent for correctness.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", 1);\nSystem.out.println(m.getClass().getSimpleName() + \" \" + m.get(\"k\"));  // HashMap 1</pre>"
     },
     {
      "type": "table",
@@ -2994,7 +3037,8 @@
      "extra": "It is a HashMap with an extra internal structure so iteration over keys or entries follows the order of insertion.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.LinkedHashMap&lt;String, Integer&gt;();\nm.put(\"z\", 1); m.put(\"a\", 2); m.put(\"m\", 3);\nSystem.out.println(m.keySet());  // [z, a, m] - insertion order</pre>"
     },
     {
      "type": "basic",
@@ -3003,7 +3047,8 @@
      "extra": "It is a specialised implementation for very precise cases, not general use. Two equal-but-distinct objects are different keys there.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var a = new String(\"k\"); var b = new String(\"k\");\nvar m = new java.util.IdentityHashMap&lt;String, Integer&gt;();\nm.put(a, 1); m.put(b, 2);\nSystem.out.println(a.equals(b) + \" \" + m.size() + \" \" + m.get(a));  // true 2 1</pre>"
     },
     {
      "type": "rule",
@@ -3012,7 +3057,8 @@
      "extra": "The varargs form returns an <code>Map.Entry</code>-based map for more pairs: <code>Map.ofEntries(entry(k, v), ...)</code>. Both are immutable and reject null keys or values.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var ten = java.util.Map.of(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10);\nvar more = java.util.Map.ofEntries(java.util.Map.entry(1,1), java.util.Map.entry(2,2),\n    java.util.Map.entry(3,3), java.util.Map.entry(4,4), java.util.Map.entry(5,5),\n    java.util.Map.entry(6,6), java.util.Map.entry(7,7), java.util.Map.entry(8,8),\n    java.util.Map.entry(9,9), java.util.Map.entry(10,10), java.util.Map.entry(11,11));\nSystem.out.println(ten.size() + \" \" + more.size());  // 10 11: use ofEntries past ten</pre>"
     },
     {
      "type": "table",
@@ -3021,7 +3067,8 @@
      "extra": "Together with <code>Map.of</code> and <code>Map.ofEntries</code> it belongs to the Java SE 9 factory methods. Duplicate keys raise IllegalArgumentException at creation.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var e = java.util.Map.entry(\"k\", 1);\nSystem.out.println(e.getKey() + \"=\" + e.getValue());  // k=1\ntry { e.setValue(2); } catch (UnsupportedOperationException ex) { System.out.println(\"immutable\"); }</pre>"
     },
     {
      "type": "rule",
@@ -3030,7 +3077,8 @@
      "extra": "The factory maps and their entries are immutable and null-hostile. A duplicate key is treated as a bug and fails at creation with IllegalArgumentException.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try { java.util.Map.of(\"k\", null); } catch (NullPointerException e) { System.out.println(\"null value rejected\"); }\ntry { java.util.Map.of(null, \"v\"); } catch (NullPointerException e) { System.out.println(\"null key rejected\"); }</pre>"
     },
     {
      "type": "table",
@@ -3039,7 +3087,8 @@
      "extra": "Every key binds exactly one value, so keys are a set. Key-value entries are also a set, while values may repeat and so form a plain <code>Collection</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Map&lt;String,Integer&gt; m = new java.util.HashMap&lt;&gt;();\nm.put(\"a\",1); m.put(\"a\",2); // same key once, last value wins\njava.util.Set&lt;String&gt; keys = m.keySet();\nSystem.out.println(keys.size()); // 1: keys form a Set</pre>"
     },
     {
      "type": "basic",
@@ -3048,7 +3097,8 @@
      "extra": "The rules are asymmetric: each key has at most one value, but many keys can point at one object. That is why <code>values()</code> is not a Set.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var shared = new Object();\nvar m = new java.util.HashMap&lt;String, Object&gt;();\nm.put(\"a\", shared); m.put(\"b\", shared);\nSystem.out.println(m.get(\"a\") == m.get(\"b\"));  // true - one value, two keys</pre>"
     },
     {
      "type": "rule",
@@ -3057,7 +3107,8 @@
      "extra": "Entries offer <code>getKey</code>, <code>getValue</code> and <code>setValue</code>. Changing a key in place would move the entry to another bucket and corrupt the map.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var e = new java.util.AbstractMap.SimpleEntry&lt;String, Integer&gt;(\"k\", 1);\ne.setValue(2);\n// e.setKey(\"j\");  // no such method: only the value is writable\nSystem.out.println(e);  // k=2</pre>"
     },
     {
      "type": "basic",
@@ -3066,7 +3117,8 @@
      "extra": "Calling <code>setValue</code> on an entry updates the map, and updating the map shows in the entry. That is why removing a key breaks the entry you hold.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Map&lt;String, Integer&gt; m = new java.util.HashMap&lt;&gt;();\nm.put(\"a\", 1);\njava.util.Map.Entry&lt;String, Integer&gt; e = m.entrySet().iterator().next();\ne.setValue(2);\nSystem.out.println(m.get(\"a\"));   // 2: Entry is a view backed by the map</pre>"
     },
     {
      "type": "basic",
@@ -3075,7 +3127,8 @@
      "extra": "The framework offers no Multimap type. The idiom is a map whose values are collections, e.g. <code>Map&lt;K, List&lt;V&gt;&gt;</code>, usually populated with <code>computeIfAbsent</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// The JDK has no Multimap; use a map whose values are collections.\njava.util.Map&lt;String, java.util.List&lt;Integer&gt;&gt; multi = new java.util.HashMap&lt;&gt;();\nmulti.computeIfAbsent(\"a\", k -&gt; new java.util.ArrayList&lt;&gt;()).add(1);\nmulti.computeIfAbsent(\"a\", k -&gt; new java.util.ArrayList&lt;&gt;()).add(2);\nSystem.out.println(multi.get(\"a\")); // [1, 2]: one key, several values</pre>"
     }
    ]
   },
@@ -3096,7 +3149,8 @@
      "extra": "Each entry is delivered as two arguments rather than as a <code>Map.Entry</code>. That is the one difference from <code>Iterable.forEach</code>, which takes a plain <code>Consumer</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.LinkedHashMap&lt;String, Integer&gt;();\nm.put(\"a\", 1);\njava.util.function.BiConsumer&lt;String, Integer&gt; show = (k, v) -&gt; System.out.println(k + \"=\" + v);\nm.forEach(show);  // a=1</pre>"
     },
     {
      "type": "table",
@@ -3105,7 +3159,8 @@
      "extra": "Semantically it is put-if-present: with no existing mapping nothing happens and null comes back. It never creates an entry.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, String&gt;();\nm.put(\"k\", \"old\");\nString previous = m.replace(\"k\", \"new\");\nSystem.out.println(previous + \" -&gt; \" + m.get(\"k\"));  // old -&gt; new</pre>"
     },
     {
      "type": "table",
@@ -3114,7 +3169,8 @@
      "extra": "It replaces only when the current value equals the given old value, a compare-and-set for maps. Otherwise nothing changes and false is returned.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", 1);\nboolean yes = m.replace(\"k\", 1, 2);\nboolean no = m.replace(\"k\", 7, 9);\nSystem.out.println(yes + \" \" + no + \" \" + m.get(\"k\"));  // true false 2</pre>"
     },
     {
      "type": "basic",
@@ -3123,7 +3179,8 @@
      "extra": "The function receives key and old value and returns the new one. It iterates all entries internally; an exception aborts the traversal partway.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.LinkedHashMap&lt;String, Integer&gt;();\nm.put(\"a\", 1); m.put(\"b\", 2);\nm.replaceAll((k, v) -&gt; v * 10);\nSystem.out.println(m);  // {a=10, b=20} - every value transformed</pre>"
     },
     {
      "type": "rule",
@@ -3132,7 +3189,8 @@
      "extra": "No entry with a null value is created. This gives the compute methods a natural delete semantics: return null to drop the mapping.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", 1);\nm.compute(\"k\", (key, v) -&gt; null);\nSystem.out.println(m.containsKey(\"k\") + \" \" + m.isEmpty());  // false true</pre>"
     },
     {
      "type": "rule",
@@ -3141,7 +3199,8 @@
      "extra": "If the function returned null there is no new value and null is returned instead. Mixing up the two return conventions is a common source of bugs.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", 1);\nInteger old = m.put(\"k\", 5);\nInteger fresh = m.compute(\"k\", (key, v) -&gt; v + 1);\nSystem.out.println(old + \" -&gt; \" + fresh);  // 1 -&gt; 6: put returns old, compute returns new</pre>"
     },
     {
      "type": "compare",
@@ -3150,7 +3209,8 @@
      "extra": "<code>computeIfPresent</code> runs only when a non-null value is already bound, so the function is skipped for an absent key. <code>compute</code> runs unconditionally, so it sees null there.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.compute(\"missing\", (k, v) -&gt; { System.out.println(v); return 1; });  // prints null\nm.computeIfPresent(\"also missing\", (k, v) -&gt; 9);  // never called\nSystem.out.println(m);  // {missing=1}</pre>"
     },
     {
      "type": "rule",
@@ -3159,7 +3219,8 @@
      "extra": "The function is a plain <code>Function</code> taking only the key, since there is no current value. That is why it is the idiom for building map-of-collections structures.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"nil\", null);\nm.computeIfAbsent(\"absent\", k -&gt; 1);\nm.computeIfAbsent(\"nil\", k -&gt; 2);\nSystem.out.println(m.get(\"absent\") + \" \" + m.get(\"nil\"));  // 1 2 - function called for both</pre>"
     },
     {
      "type": "basic",
@@ -3168,7 +3229,8 @@
      "extra": "With putIfAbsent you must build the empty list up front, even if the key exists, wasting an allocation every call. The compute form allocates only for new keys.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, java.util.List&lt;String&gt;&gt;();\nm.computeIfAbsent(\"a\", k -&gt; new java.util.ArrayList&lt;&gt;()).add(\"x\");\nm.computeIfAbsent(\"a\", k -&gt; new java.util.ArrayList&lt;&gt;()).add(\"y\");\nSystem.out.println(m.get(\"a\"));  // [x, y] - no second list allocated</pre>"
     },
     {
      "type": "table",
@@ -3177,7 +3239,8 @@
      "extra": "<code>computeIfAbsent</code> cannot help here because a String cannot be appended to in place. merge supplies the new value and the function combines it with the existing one.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, String&gt;();\nm.put(\"k\", \"a\");\nm.merge(\"k\", \"b\", (oldValue, newValue) -&gt; oldValue + newValue);\nSystem.out.println(m.get(\"k\"));  // ab - immutable String replaced by merge</pre>"
     },
     {
      "type": "basic",
@@ -3186,7 +3249,8 @@
      "extra": "The new value is simply bound and stored. Only when a non-null value already exists does the function receive old and new values.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.merge(\"absent\", 1, (a, b) -&gt; { throw new IllegalStateException(\"called\"); });\nm.put(\"nil\", null);\nm.merge(\"nil\", 2, (a, b) -&gt; { throw new IllegalStateException(\"called\"); });\nSystem.out.println(m);  // {absent=1, nil=2} - function never called</pre>"
     },
     {
      "type": "basic",
@@ -3195,7 +3259,8 @@
      "extra": "A lambda that captures a local must create a new object each time it is evaluated, while a non-capturing one is a cached singleton. Taking the key as a parameter avoids the capture entirely.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.computeIfAbsent(\"k\", k -&gt; 1);   // non-capturing: cached\nint n = 2;\nm.computeIfAbsent(\"j\", k -&gt; k.length() + n);  // captures n: new object per call\nSystem.out.println(m.get(\"k\") + \" \" + m.get(\"j\"));  // 1 3</pre>"
     }
    ]
   },
@@ -3216,7 +3281,8 @@
      "extra": "It implements both SortedMap and NavigableMap and offers O(log n) lookups. <code>ConcurrentSkipListMap</code> is the thread-safe counterpart, built on a skip list.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.TreeMap&lt;Integer, String&gt;();\nm.put(3, \"c\"); m.put(1, \"a\"); m.put(2, \"b\");\nSystem.out.println(m.getClass().getSimpleName() + \" \" + m);  // TreeMap {1=a, 2=b, 3=c} (red-black tree)</pre>"
     },
     {
      "type": "basic",
@@ -3225,7 +3291,8 @@
      "extra": "A supplied comparator takes precedence even over comparable keys. Without either, insertion fails with <code>ClassCastException</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var sorted = new java.util.TreeMap&lt;String, Integer&gt;();\nsorted.put(\"b\", 2);\nvar byLength = new java.util.TreeMap&lt;String, Integer&gt;((x, y) -&gt; x.length() - y.length());\nbyLength.put(\"bb\", 1); byLength.put(\"a\", 2);\nSystem.out.println(sorted.keySet() + \" \" + byLength.keySet());  // [b] [a, bb]</pre>"
     },
     {
      "type": "table",
@@ -3234,7 +3301,8 @@
      "extra": "Their entry-level siblings on NavigableMap are <code>firstEntry()</code> and <code>lastEntry()</code>, which return the whole key-value pair.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.TreeMap&lt;Integer, String&gt;();\nm.put(5, \"e\"); m.put(1, \"a\"); m.put(3, \"c\");\nSystem.out.println(m.firstKey() + \" \" + m.lastKey());  // 1 5</pre>"
     },
     {
      "type": "table",
@@ -3243,7 +3311,8 @@
      "extra": "SortedMap has no inclusive variant: <code>tailMap(fromKey)</code> starts at fromKey, but headMap excludes its bound. NavigableMap adds the inclusive boolean overloads.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.TreeMap&lt;Integer, String&gt;();\nm.put(1, \"a\"); m.put(2, \"b\"); m.put(3, \"c\");\nvar head = m.headMap(3);\nSystem.out.println(head.keySet() + \" \" + m.keySet());  // [1, 2] [1, 2, 3]</pre>"
     },
     {
      "type": "basic",
@@ -3252,7 +3321,8 @@
      "extra": "Changes propagate both ways. You may remove from a view, but inserting a key outside its bounds is rejected.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.NavigableMap&lt;Integer,String&gt; m = new java.util.TreeMap&lt;&gt;();\nm.put(1,\"a\"); m.put(2,\"b\"); m.put(3,\"c\");\njava.util.NavigableMap&lt;Integer,String&gt; view = m.headMap(3, true); // tailMap/subMap are views too\nview.remove(2); System.out.println(m.containsKey(2)); // false: removal hits the map\nm.put(0,\"z\"); System.out.println(view.firstKey()); // 0: not a copy</pre>"
     },
     {
      "type": "compare",
@@ -3261,7 +3331,8 @@
      "extra": "The same pair exists for floor/lower: <code>floorKey</code> may return the argument itself, <code>lowerKey</code> returns a strictly smaller key. Both return null when nothing qualifies.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.TreeMap&lt;Integer,String&gt; m = new java.util.TreeMap&lt;&gt;();\nm.put(10,\"a\"); m.put(20,\"b\");\nSystem.out.println(m.ceilingKey(10)); // 10: includes the argument\nSystem.out.println(m.higherKey(10)); // 20: strictly greater\nSystem.out.println(m.higherKey(20)); // null</pre>"
     },
     {
      "type": "table",
@@ -3270,7 +3341,8 @@
      "extra": "They pull the lowest or highest entry out of the map, returning it. On an empty map they return null rather than throwing.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.TreeMap&lt;Integer, String&gt;();\nm.put(1, \"a\"); m.put(2, \"b\");\nvar first = m.pollFirstEntry();\nvar last = m.pollLastEntry();\nSystem.out.println(first + \" \" + last + \" \" + m.isEmpty());  // 1=a 2=b true</pre>"
     },
     {
      "type": "table",
@@ -3279,7 +3351,8 @@
      "extra": "<code>descendingKeySet()</code> gives the key-only view. Both are backed by the map but allow removal only, not insertion.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.TreeMap&lt;Integer, String&gt;();\nm.put(1, \"a\"); m.put(2, \"b\");\nvar desc = m.descendingMap();\nm.put(3, \"c\");\nSystem.out.println(desc.keySet());  // [3, 2, 1] - live descending view</pre>"
     },
     {
      "type": "basic",
@@ -3288,7 +3361,8 @@
      "extra": "<code>navigableKeySet()</code> does the cast for you and returns the same object. The cast is only safe because TreeMap's keys are navigable; on a HashMap it is not.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.TreeMap&lt;Integer, String&gt;();\nm.put(1, \"a\");\nvar keys = (java.util.NavigableSet&lt;Integer&gt;) m.keySet();\nSystem.out.println(keys.higher(1) + \" \" + (keys == m.keySet()));  // null true</pre>"
     }
    ]
   },
@@ -3309,7 +3383,8 @@
      "extra": "put returns the previous value bound to the key, so a null result means there was none. On an existing key it returns the value being replaced.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nInteger first = m.put(\"new\", 1);\nInteger again = m.put(\"new\", 2);\nSystem.out.println(first + \" \" + again);  // null 1</pre>"
     },
     {
      "type": "basic",
@@ -3318,7 +3393,8 @@
      "extra": "That is what makes it useful for fixing faulty maps that acquired null values, unlike <code>containsKey</code>, which would report the key as present.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, String&gt;();\nm.put(\"k\", null);\nm.putIfAbsent(\"k\", \"filled\");\nSystem.out.println(m.get(\"k\"));  // filled - null mapping treated as absent</pre>"
     },
     {
      "type": "basic",
@@ -3327,7 +3403,8 @@
      "extra": "The values are <code>Integer</code> objects, and assigning one to an <code>int</code> unboxes it. A null Integer cannot be unboxed, so the NPE comes from boxing rather than from the map.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", null);\ntry {\n int n = m.values().iterator().next();  // auto-unboxing null\n} catch (NullPointerException e) { System.out.println(\"NPE from unboxing null\"); }</pre>"
     },
     {
      "type": "table",
@@ -3336,7 +3413,8 @@
      "extra": "Added in Java SE 8. Note it does not change the map: no entry is created for the default.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", 5);\nSystem.out.println(m.getOrDefault(\"k\", 0) + \" \" + m.getOrDefault(\"missing\", 0));  // 5 0</pre>"
     },
     {
      "type": "table",
@@ -3345,7 +3423,8 @@
      "extra": "It removes only when the current value equals v, so a blind <code>remove(k)</code> that might clobber a fresh value is avoided. That overload returns the removed value instead.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"k\", 1);\nboolean matched = m.remove(\"k\", 1);\nboolean missed = m.remove(\"k\", 1);\nSystem.out.println(matched + \" \" + missed + \" \" + m.isEmpty());  // true false true</pre>"
     },
     {
      "type": "table",
@@ -3354,7 +3433,8 @@
      "extra": "It scans for a match and is not a key lookup, so on a hash map it is typically linear. <code>containsKey(k)</code> is the hashed, fast counterpart.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"a\", 1); m.put(\"b\", 2);\nSystem.out.println(m.containsValue(2) + \" \" + m.containsValue(9));  // true false</pre>"
     },
     {
      "type": "table",
@@ -3363,7 +3443,8 @@
      "extra": "Merging is last-writer-wins per key rather than a union of values. Expect data loss if you were trying to accumulate.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Map&lt;String,Integer&gt; a = new java.util.HashMap&lt;&gt;();\na.put(\"x\",1); a.put(\"y\",2);\njava.util.Map&lt;String,Integer&gt; b = new java.util.HashMap&lt;&gt;(); b.put(\"x\",9);\na.putAll(b);\nSystem.out.println(a); // {x=9, y=2}: colliding key overwritten</pre>"
     },
     {
      "type": "basic",
@@ -3372,7 +3453,8 @@
      "extra": "<code>entrySet()</code> returns <code>Set&lt;Map.Entry&gt;</code> and <code>values()</code> a <code>Collection</code>. All three are views, so map changes appear in them immediately.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.LinkedHashMap&lt;String, Integer&gt;();\nm.put(\"a\", 1);\nvar keys = m.keySet();\nm.put(\"b\", 2);\nSystem.out.println((keys instanceof java.util.Set) + \" \" + keys);  // true [a, b] - live Set view</pre>"
     },
     {
      "type": "rule",
@@ -3381,7 +3463,8 @@
      "extra": "These views are fixed: you cannot add keys or values through them. Removal is supported and propagates to the map, because a key alone identifies an entry.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Map&lt;String, Integer&gt; m = java.util.Map.of(\"a\", 1);\ntry { m.keySet().add(\"b\"); } catch (UnsupportedOperationException e) { System.out.println(\"UnsupportedOperationException\"); }</pre>"
     },
     {
      "type": "basic",
@@ -3390,7 +3473,8 @@
      "extra": "The set is a view, so its removals delete the corresponding entries. The same is true of removing an entry from <code>entrySet()</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.Map&lt;String,Integer&gt; m = new java.util.HashMap&lt;&gt;();\nm.put(\"a\",1); m.put(\"b\",2);\nm.keySet().remove(\"a\"); // keySet() is a view\nSystem.out.println(m); // {b=2}: the whole pair is gone</pre>"
     },
     {
      "type": "basic",
@@ -3399,7 +3483,8 @@
      "extra": "A value can occur under several keys, so removing cannot be unambiguous. On a HashMap you cannot predict which entry will be hit.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"a\", 7); m.put(\"b\", 7);\nm.values().remove(7);   // one matching entry goes; which one is unspecified\nSystem.out.println(m.size());  // 1</pre>"
     },
     {
      "type": "basic",
@@ -3408,7 +3493,8 @@
      "extra": "Getting each value from the key re-hashes and re-searches. Iterating entries delivers both halves of each pair in a single traversal.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var m = new java.util.HashMap&lt;String, Integer&gt;();\nm.put(\"a\", 1);\nfor (var e : m.entrySet()) System.out.println(e.getKey() + \"=\" + e.getValue());  // one pass\nfor (String k : m.keySet()) System.out.println(k + \"=\" + m.get(k));  // extra lookup per key</pre>"
     }
    ]
   }
