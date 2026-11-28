@@ -77,3 +77,14 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-0007-a367bd367b` ("Mobile java.time.zone" typo) và `jv-0007-9daa798345` (câu Extra bị cụt) — lỗi văn bản nhỏ, sự kiện đúng; chờ.
 - `jv-0013-2b4b90209a`, `jv-0013-270a1c83aa`, `jv-0013-336be0e777` — Extra không liên quan đến Front/Back (bị dính từ thẻ khác). Cần audit riêng.
 - Regex cards trích Boundaries page cho các sự kiện thực ra nằm ở Pattern/Quantifiers/Character Classes; nguồn chưa chính xác nhưng nội dung đúng.
+
+### Deck migration + wave 7 (2026-11-28)
+
+**Root cause đã sửa:** batch `00 Java Roadmap::12 Documentation::03 Certifications and Validation` trong `devjava-CHUNK-4.json` được đổi sang `::02` (tên deck đang sống). 8 note liên quan được đổi field CardKey theo key mới trước khi push để không tạo trùng; push trả 0 new / 0 updated / 243 unchanged, deck cũ biến mất, deck live có đúng 8 note. Từ giờ push.py không còn từ chối cả file này nữa.
+
+Đã ghi 120 ví dụ của map-agent-36/37/38 vào Anki theo CardKey (repo đã có), sửa Back của `jv-0013-77a80adeb7` (`--inverse` phải đi với `--require`/`--package`/`--regex`), và đẩy commit 3cfa033.
+
+- `jv-0013-5c38a75ca6` — default RSA 2048 của keytool phụ thuộc phiên bản (JDK 17: 2048, JDK 24/26 docs: 3072); thẻ cần ghi mốc JDK. Chờ.
+- `jv-0013-2b4b90209a` — `kinit -password` không phải flag, password là đối số positional. Chờ vì phải đổi Front.
+- Nhiều thẻ keytool/kinit/jar trích sai trang nguồn (jarsigner/jwebserver) nhưng nội dung đúng. Chờ dọn nguồn.
+- 3 note jv-0013-aed7354487 / af4750f8f8 / b02a35219e đã có Example từ trước, không ghi đè.
