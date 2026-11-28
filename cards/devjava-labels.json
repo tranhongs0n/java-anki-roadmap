@@ -1,0 +1,71 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::06 Loops",
+   "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::loops"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>continue outer;</code> do to the labelled outer loop?",
+     "back": "Skips the rest of that loop's body and starts its <b>next iteration</b>",
+     "extra": "The current pass of the inner loop is abandoned, and control goes to the labelled loop's update (a <code>for</code>) or its condition (<code>while</code>, <code>do</code>) — not to the statement after the loop. That is what separates it from <code>break outer;</code>, which leaves the labelled loop entirely.",
+     "example": "<pre>outer:\nfor (int i = 0; i &lt; 3; i++)\n    for (int j = 0; j &lt; 3; j++) {\n        if (j == 1) continue outer;\n        System.out.println(i + \",\" + j);\n    }\n// prints 0,0  1,0  2,0</pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/"
+    },
+    {
+     "type": "basic",
+     "front": "Which statements may a labelled <code>continue</code> target?",
+     "back": "Only a loop — <code>for</code>, <code>while</code> or <code>do</code>; a labelled block is rejected",
+     "extra": "A continuation has to advance a loop, so javac checks the label's statement is a loop and otherwise fails with <code>not a loop label: x</code>. <code>break x;</code> on that same block compiles, because a break may leave any labelled statement.",
+     "example": "<pre>x: {\n    while (true) continue x;   // error: not a loop label: x\n}</pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/"
+    },
+    {
+     "type": "basic",
+     "front": "Can a labelled <code>break</code> leave a statement that is not a loop?",
+     "back": "Yes — any labelled statement, including a plain block",
+     "extra": "The label names a statement, not a loop, so <code>break x;</code> inside a labelled block exits at the block's closing brace and execution continues after it. Only <code>continue</code> insists its target is a loop.",
+     "example": "<pre>x: {\n    System.out.println(1);\n    if (done) break x;\n    System.out.println(2);\n}\nSystem.out.println(3);   // 2 is skipped when break x runs</pre>",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/"
+    },
+    {
+     "type": "basic",
+     "front": "Can two nested statements carry the same label name?",
+     "back": "No — javac: <code>label a already in use</code>",
+     "extra": "A label's scope is the whole statement it labels, so a statement inside it may not declare that name again. Sibling statements may reuse a name, since neither is nested in the other.",
+     "example": "<pre>a: {\n    a: while (true) break;   // error: label a already in use\n}</pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/"
+    },
+    {
+     "type": "basic",
+     "front": "How far does a label's scope extend?",
+     "back": "Only over the single statement it labels",
+     "extra": "Outside that statement the name no longer exists, so a later <code>continue a;</code> fails with <code>undefined label: a</code>. A label is compile-time bookkeeping only: it declares no variable, allocates nothing and costs nothing at run time.",
+     "example": "<pre>a: {\n    while (true) break;\n}\nwhile (true) continue a;   // error: undefined label: a</pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/"
+    }
+   ]
+  }
+ ]
+}
