@@ -88,3 +88,10 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-0013-2b4b90209a` — `kinit -password` không phải flag, password là đối số positional. Chờ vì phải đổi Front.
 - Nhiều thẻ keytool/kinit/jar trích sai trang nguồn (jarsigner/jwebserver) nhưng nội dung đúng. Chờ dọn nguồn.
 - 3 note jv-0013-aed7354487 / af4750f8f8 / b02a35219e đã có Example từ trước, không ghi đè.
+
+### Subagents wave 8 (2026-11-28) — review
+
+Đã sửa 4 Back: `-XX:MaxHeapFreeRatio=25` là 25% (không phải 0.25), `UseHugeTLBFS` tương đương `UseLargePages` và `UseSHM` là phương án Linux, `JFR.stop name=...` dùng name để chọn recording, và virtual threads không chữa StackOverflowError (vẫn có stack; dùng -Xss hoặc iterative).
+
+- `jv-0013-fce39d5992` — Front nói `--startup file` "inherited startup disabled for that file"; dev.java nói `--startup` ghi đè script mặc định, còn `--no-startup` mới tắt và không dùng chung được. Chờ vì phải đổi Front.
+- 40 ví dụ của slice 39–41 là command snippets (`skip_javac` đúng quy định); các lát trước đã có ví dụ Java biên dịch được.
