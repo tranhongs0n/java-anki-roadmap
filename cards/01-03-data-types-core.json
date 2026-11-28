@@ -48,7 +48,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>int hex = 0xFF, bin = 0b1010, oct = 010;   // 255, 10, 8</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +81,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>System.out.println(\"a\\tb\\n\");   // tab between, newline at the end</pre>"
   },
   {
    "type": "basic",
@@ -156,7 +158,8 @@
    "source": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Integer.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>Integer a = 127, b = 127;\nSystem.out.println(a == b);    // true: cached\nInteger c = 128, d = 128;\nSystem.out.println(c == d);    // false: outside the cache</pre>"
   },
   {
    "type": "basic",
@@ -221,7 +224,8 @@
    "source": "https://dev.java/learn/language-basics/using-var/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>var count = 3;        // int, inferred at compile time\n// var field = 3;     // error: fields cannot use var</pre>"
   }
  ]
 }

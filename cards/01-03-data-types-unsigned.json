@@ -36,7 +36,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>System.out.println(Integer.MIN_VALUE + \" ... \" + Integer.MAX_VALUE);   // -2147483648 ... 2147483647</pre>"
   },
   {
    "type": "basic",
@@ -46,7 +47,8 @@
    "source": "https://dev.java/learn/language-basics/primitive-types/",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>System.out.println(Integer.toUnsignedString(-1));   // 4294967295</pre>"
   },
   {
    "type": "basic",
@@ -66,7 +68,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-5.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>byte b = -1;\nint i = b;   // -1, not 255: widening sign-extends</pre>"
   },
   {
    "type": "cloze",
@@ -75,7 +78,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>int x = -8;\nSystem.out.println(x >> 1);    // -4: the sign bit is copied in\nSystem.out.println(x >>> 1);   // 2147483644: zeros are shifted in</pre>"
   },
   {
    "type": "basic",
@@ -85,7 +89,8 @@
    "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>int n = Integer.MAX_VALUE + 1;\nSystem.out.println(n);   // -2147483648: two's complement wraparound</pre>"
   },
   {
    "type": "basic",

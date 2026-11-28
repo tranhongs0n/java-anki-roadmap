@@ -35,7 +35,8 @@
      "extra": "It is mainly useful for saving memory in large arrays where the saving matters, or as self-documenting code where the narrow range is itself the point.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>byte low = -128, high = 127;   // the whole 8-bit signed range</pre>"
     },
     {
      "type": "cloze",
@@ -43,7 +44,8 @@
      "extra": "Same memory-saving rationale as byte: use it in large arrays where the reduced footprint actually matters, not by default.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>short s = 32_767;   // 16-bit signed; any bigger needs int</pre>"
     },
     {
      "type": "basic",
@@ -82,7 +84,8 @@
      "extra": "<code>float</code> is single-precision 32-bit; <code>double</code> is double-precision 64-bit. A literal is a double unless it ends in <code>F</code>/<code>f</code>, so use float only to halve memory in large arrays of floating-point values.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>double pi = 3.14159;   // no suffix: a floating-point literal is a double by default</pre>"
     },
     {
      "type": "basic",
@@ -91,7 +94,8 @@
      "extra": "The language only guarantees the two values true and false. Its size is deliberately unspecified, so you cannot rely on it being exactly one byte or one bit in layout terms.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>boolean flag = true;   // the JLS fixes its meaning, not its size in bytes</pre>"
     },
     {
      "type": "cloze",
@@ -139,7 +143,8 @@
      "extra": "All zero, but the literal carries the suffix so the type is unambiguous. char defaults to <code>\\u0000</code>, boolean to false, and String or any object to null.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Demo { byte a; short b; int c; long d; float e; double f; }\n// defaults: 0, 0, 0, 0L, 0.0f, 0.0d</pre>"
     },
     {
      "type": "basic",
@@ -148,7 +153,8 @@
      "extra": "The compiler never assigns a default to a local. If you cannot initialize it at the declaration, assign it before first use, or the code will not compile.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int n;\n// System.out.println(n);   // error: variable n might not have been initialized</pre>"
     },
     {
      "type": "basic",
@@ -157,7 +163,8 @@
      "extra": "The compiler sets a reasonable default (zero or null depending on type). It compiles, but the intent is clearer if you assign explicitly.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Demo { int count; }   // count defaults to 0, but never rely on that</pre>"
     },
     {
      "type": "basic",
@@ -166,7 +173,8 @@
      "extra": "An <code>L</code>/<code>l</code> suffix makes it long. Use uppercase <code>L</code> because lowercase <code>l</code> is hard to tell apart from the digit 1.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var n = 42;   // int: integer literals are int unless suffixed with L</pre>"
     },
     {
      "type": "basic",
@@ -175,7 +183,8 @@
      "extra": "An <code>F</code>/<code>f</code> suffix gives float, and a <code>D</code>/<code>d</code> suffix is legal but conventionally omitted because double is already the default.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var x = 3.0;   // double, because the literal has no f suffix</pre>"
     },
     {
      "type": "basic",
@@ -184,7 +193,8 @@
      "extra": "Binary literals arrived in Java SE 7. Decimal is base 10 and the everyday default; hex is base 16 (0-9 and A-F).",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int h = 0x1F;      // 31\nint b = 0b11111;   // 31</pre>"
     },
     {
      "type": "basic",
@@ -193,7 +203,8 @@
      "extra": "A literal is the source-code representation of a fixed value, available without computation. That is why <code>int gear = 1;</code> needs nothing more.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>int n = 5;          // value, not an object: no new\nInteger boxed = 5;  // an object, built by autoboxing</pre>"
     },
     {
      "type": "cloze",
@@ -201,7 +212,8 @@
      "extra": "Swapping them is a compile error. Both may contain any Unicode UTF-16 character, either typed directly or written as an escape such as <code>\\u0108</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>char c = 'a';   // one character, single quotes\nString s = \"a\"; // text, double quotes</pre>"
     },
     {
      "type": "basic",
@@ -210,7 +222,8 @@
      "extra": "Backspace, tab, line feed, form feed, carriage return, double quote, single quote, backslash. Unicode escapes like <code>\\u0108</code> also work outside literals, for instance in field names.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>char tab = '\\t';\nString quoted = \"\\\"\";   // escaped double quote inside a string</pre>"
     },
     {
      "type": "basic",
@@ -219,7 +232,8 @@
      "extra": "null is typically a marker that an object is unavailable, and there is little you can do with it besides testing for its presence.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = null;    // fine: a reference\n// int n = null;     // error: null cannot be assigned to a primitive</pre>"
     },
     {
      "type": "basic",
@@ -228,7 +242,8 @@
      "extra": "A type name plus <code>.class</code> forms a class literal. It is how you obtain a type token at runtime without instantiating anything.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Class<?> c = String.class;\nSystem.out.println(c.getName());   // java.lang.String</pre>"
     },
     {
      "type": "rule",
@@ -237,7 +252,8 @@
      "extra": "Available since Java SE 7, intended to group digits for readability, e.g. 1_000_000. Each exclusion exists because the underscore would split a token the compiler must read as a unit.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int million = 1_000_000;   // fine between digits\n// int bad = _1000;        // error: underscore at the start</pre>"
     }
    ]
   }

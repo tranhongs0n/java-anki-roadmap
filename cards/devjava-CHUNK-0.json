@@ -1048,7 +1048,8 @@
      "extra": "Since a char is only 16 bits, characters above U+FFFF are encoded as a high and a low surrogate. A <code>String</code> is therefore UTF-16, not a sequence of code points.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = \"\\uD835\\uDC82\";   // one code point﻿\nSystem.out.println(s.length());   // 2 chars: a surrogate pair</pre>"
     },
     {
      "type": "basic",
@@ -1270,7 +1271,8 @@
      "extra": "It is always greater than or equal to <code>length()</code>, and grows automatically when content is appended beyond it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder();\nSystem.out.println(sb.capacity());   // 16, length 0</pre>"
     },
     {
      "type": "basic",
@@ -1306,7 +1308,8 @@
      "extra": "When n is larger than the current length, null characters are appended instead. Either way, length changes without touching capacity.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>StringBuilder sb = new StringBuilder(\"hello\");\nsb.setLength(3);\nSystem.out.println(sb);   // hel</pre>"
     },
     {
      "type": "basic",
@@ -1351,7 +1354,8 @@
      "extra": "Thread safety costs performance. Unless you truly share the buffer across threads, use StringBuilder.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>StringBuilder fast = new StringBuilder();   // no locking\nStringBuffer safe = new StringBuffer();     // same API, methods synchronized</pre>"
     },
     {
      "type": "basic",
@@ -1417,7 +1421,8 @@
      "extra": "Never compare the result to 0 to detect absence, since 0 is a valid match at the start. The boolean alternative <code>contains()</code> avoids this check entirely.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"abc\".indexOf(\"z\"));   // -1 when nothing matches</pre>"
     },
     {
      "type": "basic",
@@ -1453,7 +1458,8 @@
      "extra": "It mirrors <code>printf</code> formatting but gives you a reusable String, instead of writing output once to a stream. The format can itself be a text block.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String s = String.format(\"%d items\", 3);   // returns the String, prints nothing</pre>"
     },
     {
      "type": "basic",
@@ -1489,7 +1495,8 @@
      "extra": "Introduced in Java SE 15. It must start with <code>\"\"\"</code> followed by a line terminator, and ends with another <code>\"\"\"</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String json = \"\"\"\n        { \"a\": 1 }\n        \"\"\";   // Java 15+, the newline after \"\"\" is not part of the text</pre>"
     },
     {
      "type": "basic",
