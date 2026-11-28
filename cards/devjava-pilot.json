@@ -153,7 +153,8 @@
      "extra": "A bicycle has state such as current gear and speed, and behavior such as change gear or apply brakes. That real-world mapping is the conceptual starting point for OOP.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Lamp {\n    boolean on;                    // state\n    void toggle() { on = !on; }    // behaviour\n}</pre>"
     },
     {
      "type": "basic",
@@ -162,7 +163,8 @@
      "extra": "Methods operate on the object's internal state and are the primary mechanism of object-to-object communication.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Bicycle {\n    int speed;                  // state in a field\n    void pedal() { speed++; }   // behaviour exposed as a method\n}</pre>"
     },
     {
      "type": "basic",
@@ -181,7 +183,8 @@
      "extra": "Objects built from the same class share matching components, just as bicycles of one make and model were built from the same set of blueprints.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Dog { }   // the blueprint\n// Dog rex = new Dog();   an object made from it</pre>"
     },
     {
      "type": "basic",
@@ -190,7 +193,8 @@
      "extra": "A class describes the kind; an instance is the actual thing with its own field values. An application typically creates many instances of one class.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Bicycle { }\nclass Demo { void run() { Bicycle mine = new Bicycle(); } }   // mine is an instance</pre>"
     },
     {
      "type": "basic",
@@ -219,7 +223,8 @@
      "extra": "The analogy is mechanical: if a bolt breaks you replace the bolt, not the entire machine.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>interface Encoder { }\nclass JsonEncoder implements Encoder { }   // swap the implementation, nothing else changes</pre>"
     },
     {
      "type": "basic",
@@ -258,7 +263,8 @@
      "extra": "This containment is why objects can model arbitrarily complex systems rather than just flat data.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Engine { }\nclass Car { Engine engine = new Engine(); }   // a whole made of parts</pre>"
     }
    ]
   }

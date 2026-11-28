@@ -1613,7 +1613,8 @@
      "extra": "Arguments are the actual values supplied at the call site. The arguments must match the declared parameters in <b>type and order</b>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Demo { void move(int dx) { } }   // dx is a parameter, a variable in the declaration</pre>"
     },
     {
      "type": "basic",
@@ -1632,7 +1633,8 @@
      "extra": "e.g. <code>void print(String... labels)</code>. Inside the method the parameter is treated as an array, and it may be called with zero arguments.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Demo { static void log(String fmt, Object... args) { } }   // ... after the last parameter's type</pre>"
     },
     {
      "type": "basic",
@@ -1641,7 +1643,8 @@
      "extra": "A caller may pass either a sequence of values or one array, and the body treats both identically. The compiler packs loose arguments into an array.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    static void printAll(String... names) { String[] arr = names; }   // names is a String[]\n}</pre>"
     },
     {
      "type": "basic",
@@ -1650,7 +1653,8 @@
      "extra": "Earlier parameters of other types come first, e.g. <code>printf(String format, Object... args)</code>. Any fixed parameters must precede the ellipsis.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo { static void log(String fmt, Object... args) { } }   // nothing may follow the varargs parameter</pre>"
     },
     {
      "type": "basic",
@@ -1669,7 +1673,8 @@
      "extra": "The reference was passed by value, so only the local copy is changed. However, <b>mutating</b> the object it points to is visible.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Box { int size; }\nclass Demo {\n    static void reset(Box b) { b = new Box(); }   // the caller keeps its own object\n}</pre>"
     },
     {
      "type": "basic",
@@ -1688,7 +1693,8 @@
      "extra": "The simple name then refers to the parameter inside the body, and the field needs <code>this.field</code>. It is conventional only in setters and constructors.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Point {\n    int x;\n    Point(int x) { this.x = x; }   // without this., x names the parameter\n}</pre>"
     },
     {
      "type": "basic",
@@ -1697,7 +1703,8 @@
      "extra": "Readers cannot tell whether a simple name means the parameter or the field. A requalification bug will silently compile when names collide.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class User {\n    String name;\n    void setName(String name) { this.name = name; }   // shadowing kept to the setter\n}</pre>"
     }
    ]
   },
@@ -1747,7 +1754,8 @@
      "extra": "The single-superclass rule avoids multiple state inheritance. Multiple types can still be gained by implementing several interfaces.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class A { }\nclass B extends A { }   // exactly one superclass; interfaces can be many</pre>"
     },
     {
      "type": "basic",
@@ -1796,7 +1804,8 @@
      "extra": "The compiler accepts any valid identifier. The same applies to the verb-first convention for method names.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class order { }   // compiles: the capital letter is convention, not a rule</pre>"
     },
     {
      "type": "basic",
@@ -1827,7 +1836,8 @@
      "extra": "The declaration names a variable of the type. The <code>new</code> operator allocates the object and returns a reference. The constructor then initialises it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Point { Point(int x, int y) { } }\nclass Demo {\n    void run() {\n        Point origin = new Point(23, 94);   // declaration, instantiation, initialization\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1836,7 +1846,8 @@
      "extra": "The two phrases are interchangeable. Each such call allocates memory and runs exactly one constructor.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.ArrayList<String> list = new java.util.ArrayList<>();   // an object now exists</pre>"
     },
     {
      "type": "basic",
@@ -1845,7 +1856,8 @@
      "extra": "You must assign an object, usually with <code>new</code>. Using the variable before then is a compile or runtime error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>Object o;\n// o.toString();   // NullPointerException: declaring a reference creates no object</pre>"
     },
     {
      "type": "basic",
@@ -1892,7 +1904,8 @@
      "extra": "Object provides a no-arg constructor, so the chain always terminates. That is why every class can be created with a default constructor.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Plain { }   // no extends: the implicit superclass is Object</pre>"
     },
     {
      "type": "basic",
@@ -1911,7 +1924,8 @@
      "extra": "So <code>rectangle1.width</code> and <code>rectangle2.width</code> are distinct variables. Only static fields are shared.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Counter { int n; }\nclass Demo {\n    void run() {\n        Counter a = new Counter(), b = new Counter();\n        a.n = 1;   // b.n is still 0: separate copies\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1929,7 +1943,8 @@
      "extra": "There is no free or delete. The runtime decides when to reclaim memory, so objects may linger after becoming unreachable.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Object o = new Object();\no = null;   // no destroy call: the garbage collector reclaims it</pre>"
     }
    ]
   },
@@ -1960,7 +1975,8 @@
      "extra": "You never call a constructor like a method on an existing object. <code>new Bicycle(30, 0, 8)</code> both allocates and initialises.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.ArrayList<String> list = new java.util.ArrayList<>();   // new is what calls the constructor</pre>"
     },
     {
      "type": "basic",
@@ -1969,7 +1985,8 @@
      "extra": "Overloading is decided by the number and types of the arguments. Identical lists leave the compiler no way to choose.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Box {\n    Box(int a) { }\n    // Box(int b) { }   // compile error: same parameter types\n}</pre>"
     },
     {
      "type": "basic",
@@ -1988,7 +2005,8 @@
      "extra": "Nothing else, not even field initialisers beyond the normal rules. If the superclass has no no-arg constructor, compilation fails.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Base { Base() { } }\nclass Child extends Base { }   // the implicit Child() calls super() first</pre>"
     },
     {
      "type": "basic",
@@ -2017,7 +2035,8 @@
      "extra": "With no explicit call the compiler inserts <code>super()</code>. That start-of-constructor restriction was loosened starting with JDK 25.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Vehicle { Vehicle(int wheels) { } }\nclass Car extends Vehicle {\n    Car() { super(4); }   // must be the first statement of the constructor\n}</pre>"
     }
    ]
   },
@@ -2057,7 +2076,8 @@
      "extra": "A <code>return;</code> statement is still allowed to exit early. A non-void method must return a value of the declared type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Demo { void log(String s) { } }   // void: no value comes back</pre>"
     },
     {
      "type": "basic",
@@ -2066,7 +2086,8 @@
      "extra": "Any legal identifier compiles, though the convention is universally expected. Multi-word names capitalise each later word, e.g. <code>getBalance</code>.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Account { void Withdraw() { } }   // compiles; convention says withdraw()</pre>"
     },
     {
      "type": "basic",
@@ -2075,7 +2096,8 @@
      "extra": "The compiler distinguishes them by the number and types of the arguments. They can differ in return type only if the parameters differ too.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Printer {\n    void print(int n) { }\n    void print(String s) { }   // same name, different parameter types\n}</pre>"
     },
     {
      "type": "basic",
@@ -2093,7 +2115,8 @@
      "extra": "An overload must change the parameter list. Return type is not part of the signature used for telling methods apart.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo {\n    int value() { return 1; }\n    // String value() { return \"x\"; }   // compile error: same signature, only the return type differs\n}</pre>"
     },
     {
      "type": "basic",
@@ -2102,7 +2125,8 @@
      "extra": "Callers cannot tell at a glance which overload runs, and a subtle argument conversion can silently pick a different one.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Box {\n    void set(int a) { }\n    void set(int a, int b) { }   // two variants read fine; ten do not\n}</pre>"
     },
     {
      "type": "basic",
@@ -2143,7 +2167,8 @@
      "extra": "You get exactly one unnamed instance of the class, created at the expression's site. That is why a constructor is forbidden.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Runnable r = new Runnable() {\n    int runs = 0;                    // fields are allowed here\n    public void run() { runs++; }\n};</pre>"
     },
     {
      "type": "basic",
@@ -2162,7 +2187,8 @@
      "extra": "A nested class is a member of the enclosing class, so other code can use it, whereas a local class exists only inside its block.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Outer {\n    class Nested { }              // visible anywhere in Outer\n    void m() { class Local { } }  // visible only inside m\n}</pre>"
     },
     {
      "type": "basic",
@@ -2181,7 +2207,8 @@
      "extra": "Anonymous classes are still needed when you declare fields or extra methods. Otherwise the lambda's brevity wins and reads more clearly.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>Runnable a = () -> System.out.println(\"hi\");   // the behaviour, nothing else\nRunnable b = new Runnable() { public void run() { System.out.println(\"hi\"); } };</pre>"
     },
     {
      "type": "basic",
@@ -2352,7 +2379,8 @@
      "extra": "It is broader than package-private, which allows subclasses nowhere outside the package. It is narrower than public.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Base { protected int size; }\nclass Sub extends Base {\n    void grow() { size++; }   // allowed: protected is visible to subclasses\n}</pre>"
     },
     {
      "type": "basic",
@@ -2390,7 +2418,8 @@
      "extra": "Referencing it through an instance reference compiles but is discouraged, because it obscures that the field is shared.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Bicycle { static int numberOfBicycles; }\n// reference it as Bicycle.numberOfBicycles, not via an instance</pre>"
     },
     {
      "type": "basic",
@@ -2409,7 +2438,8 @@
      "extra": "e.g. <code>static final double PI = 3.141592653589793;</code>. Reassigning it afterwards is a compile-time error.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Config { static final int MAX = 10; }   // static final: static alone would leave it mutable</pre>"
     },
     {
      "type": "basic",
@@ -2428,7 +2458,8 @@
      "extra": "A class may have several, placed anywhere in the body. They run once, before any instance exists.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Init {\n    static { System.out.println(\"first\"); }   // source order decides\n    static { System.out.println(\"second\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2437,7 +2468,8 @@
      "extra": "If the block touches a missing file or network resource and throws, the class is never initialised, and no instance can be created.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Broken {\n    static int value = 1 / 0;   // throws once; the class stays unusable\n}</pre>"
     },
     {
      "type": "basic",
@@ -2455,7 +2487,8 @@
      "extra": "Subclass overrides would run against a partially built object. Making the init method final prevents that trap.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Safe {\n    final void init() { }   // cannot be overridden, so it behaves identically during construction\n}</pre>"
     },
     {
      "type": "basic",
@@ -2464,7 +2497,8 @@
      "extra": "This is what makes polymorphic factories possible: callers program against the interface and need not know the concrete class.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Shape { }\nclass Square implements Shape { }\nclass Factory { Shape make() { return new Square(); } }   // the returned object must implement it</pre>"
     }
    ]
   },
