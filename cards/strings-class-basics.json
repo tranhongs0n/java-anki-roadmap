@@ -1,0 +1,43 @@
+{
+ "deck": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::strings-and-methods"
+ ],
+ "cards": [
+  {
+   "type": "basic",
+   "front": "In which package does <code>String</code> live, and why does it need no import?",
+   "back": "<code>java.lang</code> — every compilation unit imports that package implicitly",
+   "extra": "The JLS states that every compilation unit implicitly imports every public class of the predefined package <code>java.lang</code>, as if <code>import java.lang.*;</code> appeared right after the package declaration. That is why <code>String</code>, <code>System</code> and <code>Math</code> resolve with no import while <code>ArrayList</code> does not.",
+   "example": "<pre>// ArrayList needs an import, String does not\nimport java.util.ArrayList;\n\nString s = new String();   // java.lang, already visible</pre>",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-7.html#jls-7.3",
+   "tags": [
+    "type::definition"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "How do you get the length of a <code>String</code>, and how does it differ from an array?",
+   "back": "<code>s.length()</code> is a method; an array's <code>a.length</code> is a field",
+   "extra": "The length of an array is a <code>public final</code> field (§10.7), so <code>a.length</code> compiles and <code>a.length()</code> does not. <code>String</code> exposes length as a method instead, so the parentheses are mandatory there and <code>s.length</code> alone is a compile error.",
+   "example": "<pre>String s = \"hello\";\ns.length();   // 5 - method call\n\nint[] a = {1, 2, 3};\na.length;     // 3 - field, no parentheses</pre>",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-10.html#jls-10.7",
+   "tags": [
+    "type::gotcha"
+   ]
+  },
+  {
+   "type": "basic",
+   "front": "Do two identical string literals refer to the same object?",
+   "back": "Yes — literals are interned and share one instance",
+   "extra": "JLS §3.10.5 says a string literal always refers to the same instance of class <code>String</code>, because literal and constant-expression strings are interned as if by <code>String.intern()</code>. So <code>\"a\" == \"a\"</code> is true, but <code>new String(\"a\") == \"a\"</code> is false — the constructor builds a second object.",
+   "example": "<pre>String a = \"hi\";\nString b = \"hi\";\nSystem.out.println(a == b);              // true\nSystem.out.println(a == new String(\"hi\")); // false</pre>",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html#jls-3.10.5",
+   "tags": [
+    "type::gotcha"
+   ]
+  }
+ ]
+}
