@@ -1,0 +1,36 @@
+{
+ "deck": "00 Java Roadmap::01-Foundations::02 Basic Syntax",
+ "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+ "tags": [
+  "roadmap::java",
+  "sec::01-foundations",
+  "topic::basic-syntax"
+ ],
+ "source": "https://dev.java/learn/language/constructs/basics/using-operators/",
+ "cards": [
+  {
+   "type": "basic",
+   "front": "In Java, when the left operand of <code>&amp;&amp;</code> is <code>false</code>, is the right operand evaluated?",
+   "back": "No — it is <b>skipped entirely</b>.",
+   "extra": "<code>false &amp;&amp; anything</code> is always <code>false</code>, so Java never evaluates the right side. That is what makes guard clauses safe: a null check, a zero check, or an expensive call on the right runs only when the left passes.",
+   "example": "<pre>int divisor = 0;\nif (divisor != 0 &amp;&amp; (10 / divisor &gt; 2)) {\n    System.out.println(\"Result is greater than 2\");\n}\n// no ArithmeticException: 10 / divisor is never evaluated</pre>",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "In Java, when the left operand of <code>||</code> is <code>true</code>, is the right operand evaluated?",
+   "back": "No — it is <b>skipped entirely</b>.",
+   "extra": "<code>true || anything</code> is always <code>true</code>. Use it to bail out before a risky or expensive right-hand check, such as reading <code>scores[index]</code> after an index-validity test.",
+   "example": "<pre>int index = -1;\nint[] scores = {10, 20, 30};\nif (index &lt; 0 || scores[index] == 10) {\n    System.out.println(\"Invalid index or score is 10\");\n}\n// no ArrayIndexOutOfBoundsException: scores[index] is never evaluated</pre>",
+   "tags": ["type::gotcha"]
+  },
+  {
+   "type": "basic",
+   "front": "In Java's ternary <code>?:</code>, are both branches evaluated?",
+   "back": "No — only the branch matching the condition; the other is <b>never evaluated</b>.",
+   "extra": "Java evaluates the condition first, then executes just the selected branch. Side effects in the skipped branch do not happen — unlike arguments to a method call, which are all evaluated eagerly.",
+   "example": "<pre>int a = 5, b = 5;\nint result = (a == 5) ? ++a : ++b;\n// result = 6, a = 6, b = 5  (++b never ran)</pre>",
+   "tags": ["type::gotcha"]
+  }
+ ]
+}
