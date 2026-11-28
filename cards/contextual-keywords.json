@@ -1,0 +1,60 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What is a <b>contextual keyword</b> in Java?",
+     "back": "A word that acts as a keyword only where the grammar expects it — otherwise it is an ordinary identifier",
+     "extra": "JLS 3.9 lists 17 contextual keywords (var, yield, record, sealed, permits, module, open, requires, with, and others), versus 51 reserved keywords that can never be identifiers. A reserved keyword is rejected everywhere; a contextual one is rejected only in its own construct.",
+     "example": "<pre><span class=\"kw\">int</span> var = <span class=\"num\">1</span>;      <span class=\"cmt\">// identifier here</span>\nvar n = <span class=\"num\">1</span>;          <span class=\"cmt\">// keyword in a local declaration</span>\n<span class=\"kw\">class</span> var { }     <span class=\"cmt\">// error: restricted type name</span></pre>",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html"
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>var</code> a reserved <b>type name</b> instead of a reserved keyword?",
+     "back": "So older code that used <code>var</code> as a variable, method or package name still compiles",
+     "extra": "JEP 286 chose this deliberately for source compatibility: making var a full keyword would break existing identifiers. The cost is that var cannot name a class or interface — JLS 3.8 excludes permits, record, sealed, var and yield from TypeIdentifier, hence <code>class var {}</code> fails with \"'var' not allowed here\".",
+     "example": "<pre><span class=\"kw\">int</span> var = <span class=\"num\">10</span>;             <span class=\"cmt\">// old code still compiles</span>\n<span class=\"kw\">void</span> f(<span class=\"type\">String</span> var) { }      <span class=\"cmt\">// parameter name: fine</span>\n<span class=\"kw\">class</span> var { }          <span class=\"cmt\">// error: 'var' not allowed here</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://openjdk.org/jeps/286"
+    },
+    {
+     "type": "basic",
+     "front": "Why does an unqualified <code>yield();</code> fail even when the class declares <code>void yield()</code>?",
+     "back": "<code>yield</code> is barred as an UnqualifiedMethodIdentifier — qualify it with a receiver or type name",
+     "extra": "JLS 3.8 forbids yield as an unqualified method identifier so it cannot collide with the switch-expression yield statement. javac: <code>invalid use of a restricted identifier 'yield' (to invoke a method called yield, qualify the yield with a receiver or type name)</code>. Declaring the method is fine; calling <code>this.yield()</code> is fine.",
+     "example": "<pre><span class=\"kw\">void</span> yield() { }\n<span class=\"kw\">void</span> m() {\n    yield();       <span class=\"cmt\">// error: invalid use of a restricted identifier</span>\n    <span class=\"kw\">this</span>.yield();  <span class=\"cmt\">// ok</span>\n}</pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-3.html"
+    },
+    {
+     "type": "basic",
+     "front": "Is <code>var var = \"x\";</code> legal Java?",
+     "back": "Yes — the first <code>var</code> is the keyword, the second is an ordinary identifier",
+     "extra": "Same spelling, two roles decided by position: a local variable declaration may start with the reserved type name var, and the declarator's name is an Identifier. The result is a String variable named var. Legal but unreadable; the field and parameter spellings are just as legal.",
+     "example": "<pre><span class=\"kw\">void</span> test() {\n    var var = <span class=\"str\">\"x\"</span>;   <span class=\"cmt\">// compiles, var holds \"x\"</span>\n}</pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://openjdk.org/jeps/286"
+    }
+   ]
+  }
+ ]
+}
