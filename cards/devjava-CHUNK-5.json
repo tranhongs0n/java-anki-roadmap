@@ -17,7 +17,8 @@
      "extra": "Unlike <code>java</code>, which launches code, <code>javac</code> produces the <code>.class</code> file. It can also process annotations in source files and classes.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javac MyClass.java\n# javac reads class/interface definitions and compiles them to bytecode class files</pre>"
     },
     {
      "type": "basic",
@@ -46,7 +47,8 @@
      "extra": "Because the package name becomes a subdirectory path under the destination, you do not pre-create the package folders. Without <code>-d</code>, class files land next to their sources.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -d out src/p/App.java\nfind out -name '*.class'   # out/p/App.class: -d creates package dirs</pre>"
     },
     {
      "type": "basic",
@@ -55,7 +57,8 @@
      "extra": "An argument file can mix options and source file names, separated by spaces or newlines. It lets you build commands of almost any length, though OS limits still apply.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># sources.txt lists App.java, Util.java, ... one per line\njavac @sources.txt</pre>"
     },
     {
      "type": "basic",
@@ -64,7 +67,8 @@
      "extra": "Wildcards such as <code>*.java</code> are not allowed in argument files, recursive <code>@</code> expansion is unsupported, and <code>-J</code> options are not allowed because they are passed to the launcher.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre># run from the project root, not from the directory holding files.txt\njavac @sources/files.txt   # App.java inside the file resolves in the project root</pre>"
     },
     {
      "type": "basic",
@@ -73,7 +77,8 @@
      "extra": "You can pass several argument files. Options such as <code>-J</code> are excluded because they go to the launcher, which does not support argument files.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># opts.txt: -d out and App.java, separated by whitespace\njavac @opts.txt   # reads options and file names from that file</pre>"
     },
     {
      "type": "basic",
@@ -82,7 +87,8 @@
      "extra": "Its whitespace-separated content is prepended to the arguments passed to javac. Quotes can enclose arguments containing spaces, <code>@files</code> are supported there, but wildcards are not.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>export JDK_JAVAC_OPTIONS=\"-encoding UTF-8\"\njavac App.java   # -encoding UTF-8 is prepended to this command by javac</pre>"
     },
     {
      "type": "basic",
@@ -101,7 +107,8 @@
      "extra": "Without it, javac only summarises which source files use deprecated members. The option is shorthand for <code>-Xlint:deprecation</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -deprecation MyClass.java\n# -deprecation shows a description of each use of a deprecated member instead of a summary</pre>"
     },
     {
      "type": "basic",
@@ -120,7 +127,8 @@
      "extra": "It is the opposite end from plain <code>-g</code>, which emits everything. Selective generation uses <code>-g:lines</code>, <code>-g:vars</code>, and <code>-g:source</code> in a comma-separated list.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac -g App.java       # all debugging information\njavac -g:none App.java  # generates no debugging information</pre>"
     },
     {
      "type": "basic",
@@ -129,7 +137,8 @@
      "extra": "They become retrievable through <code>java.lang.reflect.Executable.getParameters()</code>. Without the flag, reflection sees only synthetic names like <code>arg0</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -parameters MyClass.java\n# -parameters records the formal parameter names of constructors and methods in the class file</pre>"
     },
     {
      "type": "basic",
@@ -158,7 +167,8 @@
      "extra": "Each round scans any newly generated sources and re-invokes every processor called so far. Only after that final call does javac compile the original and generated sources, unless <code>-proc:only</code> was used.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>javac -processor my.Proc App.java\n# one last processor round runs after no new sources are generated,\n# giving processors a chance to finish remaining work</pre>"
     },
     {
      "type": "basic",
@@ -167,7 +177,8 @@
      "extra": "<code>--release</code> ties source level, class-file format and the JDK's documented API together, so accidental use of newer undocumented APIs fails. <code>-target</code> changes only the emitted class-file version.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>javac --release 17 MyClass.java   # --release checks the documented API\njavac -target 17 MyClass.java     # -target sets only the version</pre>"
     },
     {
      "type": "basic",
@@ -196,7 +207,8 @@
      "extra": "The default is <code>-Xprefer:newer</code>, which reads whichever of the two is newer. Source is preferred when annotation processors must see annotations with SOURCE retention.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -Xprefer:source -sourcepath src MyClass.java\n# when a source and a class file both exist for an implicitly compiled type, the compiler reads the source file</pre>"
     },
     {
      "type": "basic",
@@ -205,7 +217,8 @@
      "extra": "The default computed serialVersionUID depends on class details and compiler implementation, so an explicit constant avoids unexpected <code>InvalidClassException</code> at deserialization.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javac -Xlint:serial Config.java\n# -Xlint:serial reports a missing serialVersionUID definition on a serializable class</pre>"
     },
     {
      "type": "basic",
@@ -245,7 +258,8 @@
      "extra": "Lower it with <code>-package</code> or <code>-private</code>; raise it with <code>-public</code>, which shows only public classes and members.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs src/App.java\n# default: public and protected classes and members\njavadoc -private -d docs src/App.java   # everything</pre>"
     },
     {
      "type": "basic",
@@ -254,7 +268,8 @@
      "extra": "The tag text is otherwise dropped from output. The sibling <code>-version</code> option includes version text, which is likewise omitted by default.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs -author src/App.java\n# @author text is included in the generated pages</pre>"
     },
     {
      "type": "basic",
@@ -283,7 +298,8 @@
      "extra": "The hidden timestamp comment includes the javadoc tool release number, so two runs on identical sources would otherwise differ on every generated page.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javadoc -notimestamp -d docs MyClass.java\n# -notimestamp suppresses the page timestamp so diffs don't show a change on every page</pre>"
     },
     {
      "type": "basic",
@@ -292,7 +308,8 @@
      "extra": "The URL must point to a directory holding a <code>package-list</code> (or <code>element-list</code> for modules) file. Repeat the option for multiple external documents.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs -link https://docs.oracle.com/en/java/javase/21/docs/api src/App.java\n# external API names link to that published javadoc</pre>"
     },
     {
      "type": "basic",
@@ -331,7 +348,8 @@
      "extra": "The exclusion wins even if an earlier or later <code>-subpackages</code> option would otherwise include the package, so it is the reliable way to carve out a subtree.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs -subpackages com.example -exclude com.example.internal\n# the excluded package and its subpackages stay out, even with -subpackages</pre>"
     },
     {
      "type": "basic",
@@ -340,7 +358,8 @@
      "extra": "It drops the main description and all tags. Handy for reusing existing sources to produce skeleton documentation early in a project.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs -nocomment src/App.java\n# generated App.html has declarations only: no comment body or tags</pre>"
     },
     {
      "type": "basic",
@@ -349,7 +368,8 @@
      "extra": "For class C the page lists subclasses, fields of type C, methods returning C, and methods/constructors taking C. Only API usage counts, not internal implementation usage.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs -use src/App.java\n# generates a Use page for each documented class and package</pre>"
     },
     {
      "type": "basic",
@@ -368,7 +388,8 @@
      "extra": "The class must be fully qualified, contain a <code>start(Root)</code> method, and be findable via <code>-docletpath</code>. A doclet defines the content and output format.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -doclet com.example.MyDoclet -docletpath doclets MyClass.java\n# -doclet class specifies a custom doclet instead of the standard HTML one</pre>"
     },
     {
      "type": "basic",
@@ -397,7 +418,8 @@
      "extra": "Groups are <code>accessibility</code>, <code>html</code>, <code>missing</code>, <code>reference</code> and <code>syntax</code>. The same option in <code>javac</code> is off by default, a notable asymmetry.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javadoc -Xdoclint:none -d docs MyClass.java\n# -Xdoclint is enabled by default; disable it with -Xdoclint:none</pre>"
     },
     {
      "type": "basic",
@@ -438,7 +460,8 @@
      "extra": "Its output depends on the options used and is printed to stdout. Without options it prints package-private, protected and public fields and methods.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javac App.java\njavap App.class   # disassembles the class file</pre>"
     },
     {
      "type": "basic",
@@ -447,7 +470,8 @@
      "extra": "This matches the <code>-package</code> visibility, which is the default. Private members need <code>-p</code>/<code>-private</code>; only-public needs <code>-public</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javap MyClass.class\n# with no options javap prints package-private, protected and public fields and methods</pre>"
     },
     {
      "type": "basic",
@@ -456,7 +480,8 @@
      "extra": "It shows the disassembled code that makes up the Java bytecodes. For extra detail on descriptors and reflection info, combine it with <code>-s</code> for internal type signatures.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap -c App.class   # bytecode instructions for each method\njavap App.class      # declarations only by default</pre>"
     },
     {
      "type": "basic",
@@ -475,7 +500,8 @@
      "extra": "Those tables exist only if the class was compiled with debug info (<code>javac -g</code> including <code>vars</code>). Without them, line lookups return nothing useful.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap -l MyClass.class\n# -l prints line-number and local variable tables</pre>"
     },
     {
      "type": "basic",
@@ -484,7 +510,8 @@
      "extra": "Inlining of <code>static final</code> compile-time constants is why a stale constant can survive after recompiling only one class: the value is baked into callers' bytecode.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap -constants MyClass.class\n# -constants prints static final constants</pre>"
     },
     {
      "type": "basic",
@@ -493,7 +520,8 @@
      "extra": "This applies to all JARs, multi-release or not. To disassemble a specific versioned class, use the URL form of the argument instead of the class-path form.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javap -cp app.jar com.example.App\n# via the class path javap sees the base entry, not a versioned one</pre>"
     },
     {
      "type": "basic",
@@ -502,7 +530,8 @@
      "extra": "Useful for confirming exactly which class file the tool opened when there are several on the class path. The hash also lets you compare builds.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap -sysinfo App.class\n# prints path, size, date and MD5 hash of the class</pre>"
     },
     {
      "type": "basic",
@@ -511,7 +540,8 @@
      "extra": "Descriptors like <code>Ljava/lang/String;</code> and <code>(II)V</code> appear for each member. Combine with <code>-c</code> when reading bytecode that calls those members.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap -s MyClass.class\n# -s prints internal type signatures (JVMS descriptors)</pre>"
     },
     {
      "type": "basic",
@@ -520,7 +550,8 @@
      "extra": "Pair it with <code>--module-path path</code> to locate application modules, or <code>--system jdk</code> for system modules. The classes are then named without a path.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javap --module java.base java.lang.String\njavap -m java.base java.lang.String   # same module selection</pre>"
     },
     {
      "type": "basic",
@@ -561,7 +592,8 @@
      "extra": "Only APIs deprecated by Java SE are in its database, selected by <code>--release</code>. Everything else relies on the compiler's own deprecation warnings.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jdeprscan --class-path 'libs/*' App.class\n# only Java SE deprecated APIs are reported, not those from libs/*</pre>"
     },
     {
      "type": "basic",
@@ -580,7 +612,8 @@
      "extra": "Plain deprecated APIs are excluded. It cannot be combined with a release value of 6, 7 or 8, since the for-removal marking did not exist in those releases.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeprscan App.jar                 # all deprecated APIs\njdeprscan --for-removal App.jar   # only APIs deprecated for removal</pre>"
     },
     {
      "type": "basic",
@@ -589,7 +622,8 @@
      "extra": "Because it scans nothing, you must not supply a directory, JAR, or class argument. The set depends on <code>--release</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeprscan --list\n# lists the deprecated Java SE APIs; with no class or JAR argument, nothing is scanned</pre>"
     },
     {
      "type": "basic",
@@ -598,7 +632,8 @@
      "extra": "Ordinary class names use a dot as package separator, as in <code>java.lang.Thread</code>. A class file path may also be named directly, e.g. <code>build/classes/java/lang/Thread$State.class</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeprscan java.lang.Thread$State\n# nested class named with $ on the command line, not with .</pre>"
     },
     {
      "type": "basic",
@@ -617,7 +652,8 @@
      "extra": "Descriptor letters map to types: <code>I</code> is int, <code>D</code> double, <code>V</code> void, and <code>Ljava/math/BigDecimal;</code> is a reference return type. A <code>setScale(II)V</code> therefore takes two ints.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jdeprscan --class-path . App.class\n# java.math.BigDecimal.setScale() -> (II)V\n# (II)V: two int arguments, void return</pre>"
     },
     {
      "type": "basic",
@@ -626,7 +662,8 @@
      "extra": "For example, JDK 19 can check against earlier releases back to JDK 16. <code>--release</code> chooses which Java SE release supplies the deprecated-API set.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jdeprscan --release 17 app.jar\n# jdeprscan can check deprecated APIs relative to the previous three JDK releases</pre>"
     }
    ]
   },
@@ -667,7 +704,8 @@
      "extra": "<code>-v</code>/<code>-verbose</code> is equivalent to <code>-verbose:class</code>; <code>-s</code>/<code>-summary</code> prints only a dependency summary.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jdeps -verbose:package app.jar   # package level, skips same-package dependencies\njdeps -verbose:class app.jar     # class level, skips same-archive dependencies</pre>"
     },
     {
      "type": "basic",
@@ -696,7 +734,8 @@
      "extra": "One <code>archive-name.dot</code> file is written per analyzed archive plus a <code>summary.dot</code> for the inter-archive dependencies, suitable for Graphviz.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps --dot-output dots app.jar\n# writes dots/app.jar.dot and dots/summary.dot as DOT graph files</pre>"
     },
     {
      "type": "basic",
@@ -715,7 +754,8 @@
      "extra": "It is <code>--list-reduced-deps</code> with a comma-separated output, so you can paste it straight into a jlink command to build a minimal runtime image.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps --print-module-deps app.jar\n# prints a comma-separated module list suitable for jlink --add-modules</pre>"
     },
     {
      "type": "basic",
@@ -754,7 +794,8 @@
      "extra": "Profiles were the pre-module way of splitting Java SE into subsets. The profile of a dependency indicates how fundamental it is to the platform.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdeps -P --package java.util app.jar\n# -P (or -profile) prints which profile contains a package</pre>"
     }
    ]
   },
@@ -775,7 +816,8 @@
      "extra": "That directory holds <code>java.base</code> and the other standard and JDK modules. If a module path is given but <code>java.base</code> cannot be resolved from it, <code>$JAVA_HOME/jmods</code> is appended.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules java.base --output minimal-jre\n# with no --module-path, jlink defaults to $JAVA_HOME/jmods</pre>"
     },
     {
      "type": "basic",
@@ -794,7 +836,8 @@
      "extra": "Levels run from <code>zip-0</code> (none) to <code>zip-9</code> (maximum); <code>zip-1</code> is fastest. Higher values produce smaller images at the cost of build time.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules java.base --output default-image\njlink --add-modules java.base --compress=zip-9 --output small-image\n# leaving --compress out uses the zip-6 default</pre>"
     },
     {
      "type": "basic",
@@ -803,7 +846,8 @@
      "extra": "Signed JARs break linking because their signature files cannot survive transformation. The resulting image contains unsigned content, so consider the security implications.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules my.module --ignore-signing-information --output image\n# signed modular JARs link; their signature files are not copied</pre>"
     },
     {
      "type": "basic",
@@ -812,7 +856,8 @@
      "extra": "The module and main class are separated by a slash. Without it, users would have to invoke <code>java -m module/mainclass</code> from inside the image.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --module-path $JAVA_HOME/jmods --add-modules com.example.app --launcher myapp=com.example.app --output myapp-image\n# --launcher command=module[/mainclass] creates a launcher script</pre>"
     },
     {
      "type": "basic",
@@ -831,7 +876,8 @@
      "extra": "A shipped runtime rarely needs to compile native code or display man pages, so dropping both trims size with no runtime effect. jpackage passes both by default in its jlink options.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules java.base --no-header-files --no-man-pages --output image\n# image has neither C header files nor manual pages</pre>"
     },
     {
      "type": "basic",
@@ -850,7 +896,8 @@
      "extra": "The observable set becomes the transitive closure of the named modules plus the main module plus anything added via <code>--add-modules</code>. It is the inverse knob of <code>--add-modules</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --limit-modules java.base --add-modules java.logging --output minimal-jre\n# --limit-modules mod[,mod...] limits the universe of observable modules</pre>"
     },
     {
      "type": "basic",
@@ -859,7 +906,8 @@
      "extra": "Plugin options such as <code>compress</code>, <code>strip-debug</code>, <code>order-resources</code> and <code>include-locales</code> are ordinary command-line options. Some need a pattern-list value.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --list-plugins     # list plugins available in this JDK\n# those plugins are enabled by their own jlink options</pre>"
     },
     {
      "type": "basic",
@@ -890,7 +938,8 @@
      "extra": "It aggregates class files, metadata and resources. Because of that a JMOD can hold <code>lib/</code> native libraries and <code>conf/</code> files that a modular JAR has no place for.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jmod list MyModule.jmod\n# a JMOD can hold files other than .class files: native code, config, headers, man pages</pre>"
     },
     {
      "type": "basic",
@@ -899,7 +948,8 @@
      "extra": "A JMOD is an input to <code>javac</code>'s module path and to <code>jlink</code>. At run time you ship a modular JAR or a linked runtime image instead.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jmod list MyModule.jmod\n# a JMOD is transportable but not executable at run time: usable only at compile or link time</pre>"
     },
     {
      "type": "basic",
@@ -908,7 +958,8 @@
      "extra": "Each mode takes the JMOD file as its argument. <code>describe</code> prints module details; <code>extract</code> unpacks everything into <code>--dir</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jmod create --class-path classes app.jmod\njmod list app.jmod\njmod describe app.jmod\njmod extract --dir extracted app.jmod\n# the remaining mode is hash</pre>"
     },
     {
      "type": "basic",
@@ -927,7 +978,8 @@
      "extra": "This makes qualified exports safe: a package can be exported to exactly the named modules and no others, because a substituted module fails the hash check.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jmod create --class-path classes --hash-modules '.*' mb.jmod\njava --module-path mods -m ma\n# the runtime verifies the recorded hashes at run time and errors if they don't match</pre>"
     },
     {
      "type": "basic",
@@ -936,7 +988,8 @@
      "extra": "Used with the <code>extract</code> mode. On <code>create</code>, it is one of many options that name a source path whose contents are copied into the archive.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmod extract --dir extracted MyModule.jmod\n# --dir path specifies where extracted files are placed</pre>"
     },
     {
      "type": "basic",
@@ -975,7 +1028,8 @@
      "extra": "Its companion <code>--warn-if-resolved</code> takes <code>deprecated</code>, <code>deprecated-for-removal</code>, or <code>incubating</code>, so tools warn whenever the module is resolved.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmod create --class-path classes --do-not-resolve-by-default MyModule.jmod\n# --do-not-resolve-by-default hints that the module should be excluded from the default root set</pre>"
     },
     {
      "type": "basic",
@@ -1016,7 +1070,8 @@
      "extra": "Each snippet is evaluated immediately and receives an ID. Snippets can be dropped, edited, listed and replayed, which is why an early declaration stays available to later ones.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jshell> int answer = 42\njshell> answer + 1\njshell> System.out.println(answer)\n# a snippet is a preserved unit of entered code: a declaration, statement or expression</pre>"
     },
     {
      "type": "basic",
@@ -1025,7 +1080,8 @@
      "extra": "Modes are <code>verbose</code>, <code>normal</code>, <code>concise</code>, <code>silent</code>, and <code>custom</code>. Shortcuts for the middle two are <code>-v</code>, <code>-q</code> and <code>-s</code>; errors are described in every mode.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jshell> int answer = 42\nanswer ==> 42\n# jshell's default feedback mode is normal</pre>"
     },
     {
      "type": "basic",
@@ -1064,7 +1120,8 @@
      "extra": "Plain <code>/save</code> saves only active snippets. <code>/save -all</code> additionally includes startup snippets and ones that failed or were overwritten.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> int x = 1\njshell> /save -history session.jsh\n# saves both snippets and commands from the whole session</pre>"
     },
     {
      "type": "basic",
@@ -1073,7 +1130,8 @@
      "extra": "The file can be a local script or a predefined script such as <code>DEFAULT</code>, <code>JAVASE</code>, <code>PRINTING</code>, or <code>TOOLING</code>. Loading a script from an untrusted site risks executing arbitrary code.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /open setup.jsh\n# /open file reads the file's snippets into the current session</pre>"
     },
     {
      "type": "basic",
@@ -1082,7 +1140,8 @@
      "extra": "<code>/-n</code> reruns the n-th previous snippet, with commands excluded from the count. Named snippets or ID ranges can be rerun with <code>/name</code> or <code>/startID-endID</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> int n = 2 * 3\njshell> /!\n# reruns the previous snippet</pre>"
     },
     {
      "type": "basic",
@@ -1091,7 +1150,8 @@
      "extra": "Shift+M converts an expression or statement into a method declaration, and Shift+I imports the type of an unresolved identifier. All three are editing accelerators, not commands.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> 2 + 3\njshell> int five = 2 + 3\n# Shift+V converts the expression into a variable declaration with the inferred type</pre>"
     },
     {
      "type": "basic",
@@ -1110,7 +1170,8 @@
      "extra": "Startup scripts are run when jshell starts and again on <code>/reset</code>, <code>/reload</code>, and <code>/env</code>, so what you load at startup survives a restart of the session.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell --startup my-startup.jsl   # override the default startup script for this session\n# --no-startup would disable startup scripts entirely</pre>"
     },
     {
      "type": "basic",
@@ -1129,7 +1190,8 @@
      "extra": "Its value is an ExecutionControl spec from <code>jdk.jshell.spi</code>. It lets snippets run locally in-process or against a separately launched remote process.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell --execution local\n# --execution takes an ExecutionControl spec naming the engine to use</pre>"
     },
     {
      "type": "basic",
@@ -1138,7 +1200,8 @@
      "extra": "Do not confuse it with <code>-R</code> (remote runtime) or <code>-J</code> (this tool's runtime). Give one instance of the option per flag or flag argument.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jshell -C-Xlint:deprecation\n# -Cflag passes -Xlint:deprecation to jshell's compiler</pre>"
     },
     {
      "type": "basic",
@@ -1147,7 +1210,8 @@
      "extra": "Feedback modes are concise, normal, silent, verbose, or a custom mode created with <code>/set mode</code>. A custom mode is configured with <code>/set prompt</code>, <code>/set format</code>, and <code>/set truncation</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /set feedback\n# displays the current feedback mode, e.g. normal\njshell> /set feedback concise</pre>"
     },
     {
      "type": "basic",
@@ -1156,7 +1220,8 @@
      "extra": "With no argument the status is zero. If the snippet errors or does not yield an integer, an error is shown and the tool stays active.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jshell> /exit 7\n# /exit with an integer snippet uses that integer value as the process exit status</pre>"
     },
     {
      "type": "basic",
@@ -1165,7 +1230,8 @@
      "extra": "<code>-command</code> shows info and verification feedback for commands, while <code>-quiet</code> shows only essential feedback such as errors. Add <code>-retain</code> to keep the mode across sessions.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /set mode quietcmds -quiet\njshell> /set feedback quietcmds\n# command feedback shows only essential output such as errors</pre>"
     }
    ]
   },
@@ -1186,7 +1252,8 @@
      "extra": "Since Java 9 the module form is also available with <code>--module-path</code>. Both can be passed at startup or changed inside a session via <code>/env</code> options.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell --class-path libs/dep.jar\n# dep.jar is on this jshell session's class path</pre>"
     },
     {
      "type": "basic",
@@ -1205,7 +1272,8 @@
      "extra": "It must be loaded first with <code>/open TOOLING</code> or the <code>--startup TOOLING</code> option. Each tool can be invoked by name through <code>run(String, String...)</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /open TOOLING\njshell> tools()\n# prints the list of JDK tools available via the TOOLING script</pre>"
     },
     {
      "type": "basic",
@@ -1214,7 +1282,8 @@
      "extra": "Example: <code>run(\"javac\", \"-d\", \"out\", \"src/Foo.java\")</code>. The dedicated wrappers such as <code>javac(...)</code> are convenience methods over the same mechanism.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /open TOOLING\njshell> run(\"javac\", \"-version\")\n# run(toolName, args...) runs an arbitrary JDK tool without its dedicated wrapper method</pre>"
     },
     {
      "type": "basic",
@@ -1223,7 +1292,8 @@
      "extra": "The saved file is a <code>.jsh</code> script that can be reloaded with <code>/open</code> or the <code>--startup</code> option. <code>-all</code> also captures failed and overwritten snippets.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jshell> /save setup.jsh         # saves the current active snippets\njshell> /save -history all.jsh  # -history saves the entire history</pre>"
     },
     {
      "type": "basic",
@@ -1242,7 +1312,8 @@
      "extra": "The root package directory mirrors the package tree. Then you compile with the TOOLING <code>javac</code> and package with <code>jar</code> to launch with <code>java --module-path</code>.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>jshell> /edit\njshell> /save src/example/VisualJShell.java\n# you then add the package declaration and module-info.java by hand</pre>"
     },
     {
      "type": "basic",
@@ -1251,7 +1322,8 @@
      "extra": "There is no sandbox for loaded scripts. For scripts shared with teammates, prefer reading them into version control instead of fetching them at run time.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jshell https://example.com/setup.jsh\n# a remote .jsh contains executable code: load only trusted sources</pre>"
     },
     {
      "type": "basic",
@@ -1291,7 +1363,8 @@
      "extra": "It can be combined with recording options such as <code>name</code>, <code>settings</code>, <code>duration</code>, <code>filename</code>, and <code>dumponexit</code>, all separated by commas.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:filename=rec.jfr App\n# one JVM argument enables JFR at startup</pre>"
     },
     {
      "type": "basic",
@@ -1300,7 +1373,8 @@
      "extra": "This followed JEP 328, which contributed Flight Recorder to open source. The feature was renamed from Java Flight Recorder to <b>JDK Flight Recorder</b> at the same time.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:filename=app.jfr App   # JDK 11 and later\n# since JDK 11 JFR is free to use in production</pre>"
     },
     {
      "type": "basic",
@@ -1309,7 +1383,8 @@
      "extra": "With profile settings it should stay under 2%. That low cost is the basis for JFR's claim that recordings can be enabled in production without harming application performance.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:filename=app.jfr -jar app.jar\n# with default settings JFR's typical overhead is about 1%</pre>"
     },
     {
      "type": "basic",
@@ -1318,7 +1393,8 @@
      "extra": "Events come from the JVM and from application code. Users configure which events are collected and can define their own events to capture application-specific data.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class OrderEvent extends jdk.jfr.Event {\n    @jdk.jfr.Label(\"Order processed\")\n    String orderId = \"A1\";\n    void handle() { orderId = \"A2\"; commit(); }\n}\n// a self-describing element of data emitted from code execution</pre>"
     },
     {
      "type": "basic",
@@ -1345,7 +1421,8 @@
      "extra": "The comparison is to the board game Go. Single-arg startup sets sensible defaults, while recording options, .jfc settings files, event settings, and FlightRecorderOptions are where the depth lies.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording App\n# one flag starts JFR; recording, .jfc, event and FlightRecorderOptions add depth</pre>"
     }
    ]
   },
@@ -1393,7 +1470,8 @@
      "extra": "Relative times are a negative integer plus <code>s</code>, <code>m</code>, or <code>h</code>. Absolute times must parse as <code>LocalTime</code>, <code>LocalDateTime</code> or <code>Instant</code>, e.g. <code>2020-03-17T09:00:00</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 JFR.dump name=demo begin=-12h filename=last12h.jfr\n# begin=-12h includes data from the last 12 hours</pre>"
     },
     {
      "type": "basic",
@@ -1402,7 +1480,8 @@
      "extra": "It gives you the allocation path for leaked objects, which is invaluable for memory leaks. Enable it only for an application you already suspect of leaking.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jcmd 21891 JFR.dump filename=leak.jfr path-to-gc-roots=true\n# collecting GC-root paths can briefly pause the application</pre>"
     },
     {
      "type": "basic",
@@ -1411,7 +1490,8 @@
      "extra": "Its siblings are <code>JFR.start</code>, <code>JFR.dump</code>, <code>JFR.configure</code>, and <code>JFR.check</code>. <code>JFR.stop</code> discards data unless <code>filename</code> is supplied.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 JFR.check            # see the active recording name\njcmd 1234 JFR.stop name=rec1   # stop the named recording</pre>"
     },
     {
      "type": "basic",
@@ -1420,7 +1500,8 @@
      "extra": "With no options it shows all active recordings; <code>name</code> narrows it and <code>verbose=true</code> also prints the event settings in effect, which is handy for verifying a .jfc file took effect.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 JFR.check\n# basic diagnostics about a JVM running JFR; lists active recordings</pre>"
     },
     {
      "type": "basic",
@@ -1429,7 +1510,8 @@
      "extra": "It lists instrumented JVMs on the local host with the main class or jar name. Any other means of getting the OS pid works too, e.g. <code>ps</code> or a container's process list.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jps\n# find the lvmid first, then jcmd 21891 JFR.start</pre>"
     }
    ]
   },
@@ -1450,7 +1532,8 @@
      "extra": "Both accept the identical set of recording options, so the same configuration can be written either way. Mixing delimiters is the usual cause of a rejected option.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:filename=rec.jfr,settings=profile.jfc App\nJFR.start filename=rec.jfr settings=profile.jfc   # jcmd uses spaces</pre>"
     },
     {
      "type": "basic",
@@ -1468,7 +1551,8 @@
      "extra": "It caps disk data when <code>disk=true</code> and must not be smaller than <code>maxchunksize</code>. Use <code>m</code>/<code>M</code> for megabytes or <code>g</code>/<code>G</code> for gigabytes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:maxsize=250m,filename=app.jfr -jar app.jar\n# 250 MB is JFR's default maxsize for disk data</pre>"
     },
     {
      "type": "basic",
@@ -1477,7 +1561,8 @@
      "extra": "default.jfc has low overhead and suits continuous recordings. profile.jfc collects more data at higher overhead and is meant for short diagnostic periods.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>ls $JAVA_HOME/lib/jfr    # default.jfc and profile.jfc ship with the JDK\n# JAVA_HOME/bin/jfr configures event settings</pre>"
     },
     {
      "type": "basic",
@@ -1495,7 +1580,8 @@
      "extra": "It is valid only when <code>disk=true</code> and defaults to 0s (unlimited). Times take an <code>s</code>, <code>m</code>, <code>h</code> or <code>d</code> suffix, e.g. <code>30s</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:filename=app.jfr,maxage=1h App\n# maxage: maximum age of disk data kept for the recording</pre>"
     },
     {
      "type": "basic",
@@ -1504,7 +1590,8 @@
      "extra": "The .jfc also holds controls that JDK Mission Control uses. As of JDK 19 the recommended way to build settings files is the <code>jfr configure</code> utility.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:settings=/path/custom.jfc,filename=app.jfr -jar app.jar\n# settings points to an event settings file of type .jfc</pre>"
     },
     {
      "type": "basic",
@@ -1531,7 +1618,8 @@
      "extra": "Chunks are the unit written to disk; a chunk holds all data needed to parse it. <code>memorysize</code> (default 10 MB) sizes the buffers, and <code>repository</code> sets the temp dir.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:FlightRecorderOptions:maxchunksize=12M App   # default\njava -XX:FlightRecorderOptions:maxchunksize=1M App    # minimum allowed</pre>"
     },
     {
      "type": "basic",
@@ -1540,7 +1628,8 @@
      "extra": "The maximum is 2048. Raising it slows the app and enlarges recordings, so tune it only when a specific 65-deep frame trend is what you need to see.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:FlightRecorderOptions:stackdepth=64 App\n# default 64 frames; deeper stacks can create significant overhead</pre>"
     },
     {
      "type": "basic",
@@ -1549,7 +1638,8 @@
      "extra": "It is the default; with <code>false</code>, instrumentation is instead added when event classes load. Disabling retransform matters when another agent relies on class shapes.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -XX:FlightRecorderOptions:retransform=true App\n# event classes are retransformed using JVMTI</pre>"
     },
     {
      "type": "basic",
@@ -1558,7 +1648,8 @@
      "extra": "Default is 0. It takes <code>s</code>, <code>m</code>, <code>h</code>, or <code>d</code>, e.g. <code>10m</code>, so a scheduled recording can skip warm-up or catch a later steady-state window.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:delay=10m,filename=app.jfr -jar app.jar\n# delay is the wait between application launch and recording start</pre>"
     },
     {
      "type": "basic",
@@ -1567,7 +1658,8 @@
      "extra": "They work on <code>-XX:StartFlightRecording</code>, <code>JFR.start</code>, and <code>JFR.configure</code>. Precedence is command line over .jfc file over annotations in the event class.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:StartFlightRecording:jdk.JavaMonitorWait#enabled=true,filename=rec.jfr App\n# since JDK 17 event options work on the command line and override .jfc</pre>"
     }
    ]
   },
@@ -1588,7 +1680,8 @@
      "extra": "It filters and converts binary recordings into human-readable output, and supports merging and splitting. It operates on files, not on live JVMs.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jfr summary rec.jfr   # summarise a .jfr recording\njfr print rec.jfr      # print its contents as text</pre>"
     },
     {
      "type": "basic",
@@ -1597,7 +1690,8 @@
      "extra": "Options include <code>--events</code> and <code>--categories</code> filters, <code>--stack-depth</code>, and machine-readable <code>--json</code> or <code>--xml</code> output.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr print --events CPULoad recording.jfr\n# human-readable events, filterable with --events and --categories</pre>"
     },
     {
      "type": "basic",
@@ -1606,7 +1700,8 @@
      "extra": "Change it with <code>--stack-depth</code>. Truncation is why a promising stack sometimes stops just short of the frame you want to see.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jfr print rec.jfr                     # 5 stack-trace frames by default\njfr print --stack-depth 10 rec.jfr    # explicit frame count</pre>"
     },
     {
      "type": "basic",
@@ -1615,7 +1710,8 @@
      "extra": "Matching is on symbolic event names (<code>@Name</code>) and categories (<code>@Category</code>). With no filter all events print, and multiple names in one filter are comma-separated.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jfr print --categories GC --events CPULoad recording.jfr\n# both filters apply: the selected events are the union</pre>"
     },
     {
      "type": "basic",
@@ -1624,7 +1720,8 @@
      "extra": "Named views summarise a recording into tables; <code>all-views</code> shows every view and <code>all-events</code> shows every event. <code>--verbose</code> reveals the query behind the view.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr view events-by-count recording.jfr\n# displays aggregated event data rather than raw events</pre>"
     },
     {
      "type": "basic",
@@ -1633,7 +1730,8 @@
      "extra": "It is the quickest way to judge whether an .jfc setting was appropriate, since a recording that is all one event type usually signals a mis-tuning.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr summary recording.jfr\n# prints statistics such as event counts and disk usage</pre>"
     },
     {
      "type": "basic",
@@ -1651,7 +1749,8 @@
      "extra": "Chunks survive a JVM crash on disk, so assembling recovers a usable recording. Chunks are concatenated chronologically and unfinished <code>.part</code> files are skipped.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr assemble repository recording.jfr\n# chunk files become a flight recording file</pre>"
     },
     {
      "type": "basic",
@@ -1660,7 +1759,8 @@
      "extra": "Output goes to <code>--output</code> (default current directory) as <code>myfile_1.jfr</code>, <code>myfile_2.jfr</code>, zero-padded when there are more than 99 parts.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jfr disassemble --output parts recording.jfr\n# repairs a broken file by dropping the faulty chunk, or splits a huge file</pre>"
     },
     {
      "type": "basic",
@@ -1669,7 +1769,8 @@
      "extra": "Set it with <code>--max-chunks</code>, or cap bytes with <code>--max-size</code>. A chunk's size varies but is typically around 15 MB.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jfr disassemble recording.jfr\n# default: at most 5 chunks per output file</pre>"
     },
     {
      "type": "basic",
@@ -1678,7 +1779,8 @@
      "extra": "Without <code>--output</code> it writes <code>custom.jfc</code>; <code>--input none</code> starts from an empty configuration, and prefixing an event name with <code>+</code> adds an event setting.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr configure --output custom.jfc --verbose\n# builds a .jfc settings file without --interactive</pre>"
     },
     {
      "type": "basic",
@@ -1687,7 +1789,8 @@
      "extra": "It reads the metadata embedded in the .jfr file rather than the event payload, which is what you need before writing <code>jfr print --events</code> or <code>--categories</code> filters.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr metadata rec.jfr   # event names, categories and field layout in the recording\n# jfr summary rec.jfr shows statistics instead</pre>"
     },
     {
      "type": "basic",
@@ -1696,7 +1799,8 @@
      "extra": "Per-subcommand help comes from <code>jfr --help subcommand</code>. Because <code>jfr</code> ships with the JDK, this version identifies the JDK whose event metadata you are reading.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr --version\njfr version\n# prints the version string of the jfr tool itself, not of a recording</pre>"
     }
    ]
   },
@@ -1717,7 +1821,8 @@
      "extra": "Fields are formatted according to their declared content types, not raw values. So percentages, durations and memory sizes are already humanised unless <code>--json</code> or <code>--xml</code> is used.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class LoadEvent extends jdk.jfr.Event {\n    @jdk.jfr.Percentage\n    double used = 0.52;\n    void sample() { commit(); }\n}\n// jfr print shows used as 52%</pre>"
     },
     {
      "type": "basic",
@@ -1744,7 +1849,8 @@
      "extra": "The syntax is <code>event#setting=value</code>, where <code>#</code> is the setting name. Existing settings are modified by naming them without the <code>+</code> prefix.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr configure --input default.jfc --output custom.jfc '+MyEvent#enabled=true'\n# a + prefix adds a new event setting to the .jfc file</pre>"
     },
     {
      "type": "basic",
@@ -1753,7 +1859,8 @@
      "extra": "It walks through the choices rather than requiring you to know option names. <code>--verbose</code> then prints the resulting modified settings so you can review them.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jfr configure --interactive\n# asks questions to build the configuration; --verbose shows the settings</pre>"
     },
     {
      "type": "basic",
@@ -1762,7 +1869,8 @@
      "extra": "This matters in pipelines that expect the input file to be untouched. Specify an explicit output path when the tool will later read the original again.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jfr scrub recording.jfr\n# writes recording-scrubbed.jfr next to the input when no output is given</pre>"
     },
     {
      "type": "basic",
@@ -1771,7 +1879,8 @@
      "extra": "So a later include can re-add what an earlier exclude removed, or vice versa. Include and exclude filters exist for events, categories, and threads alike.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jfr scrub --exclude-events jdk.JavaMonitorWait --include-events jdk.ThreadSleep recording.jfr out.jfr\n# multiple filters are applied in the order specified</pre>"
     },
     {
      "type": "basic",
@@ -1780,7 +1889,8 @@
      "extra": "File names are zero-padded to preserve chronological ordering when concatenated, so a fixed width signals a large count. Directories and glob expansion sort correctly because of it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jfr disassemble --output parts recording.jfr\nls parts/myfile_001.jfr\n# zero-padded _001 implies more than 100 chunks in the recording</pre>"
     },
     {
      "type": "basic",
@@ -1810,7 +1920,8 @@
      "extra": "It connects to a local or remote JVM using the JMX management agent and shows live threads, memory, classes, and JVM internals. It needs a GUI display.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jconsole 1234\n# opens a graphical console to monitor and manage the Java application</pre>"
     },
     {
      "type": "basic",
@@ -1819,7 +1930,8 @@
      "extra": "Change it with <code>-interval n</code>. On a graph, a shorter interval shows burstier detail; a longer one smooths the trace but hides short spikes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jconsole 21891\n# default update interval is 4 seconds (-interval n changes it)</pre>"
     },
     {
      "type": "basic",
@@ -1828,7 +1940,8 @@
      "extra": "A pid requires the target JVM to run under the same user ID. A host:port must match <code>com.sun.management.jmxremote.port</code> set when the JVM started.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jconsole 21891                       # pid\njconsole localhost:9010              # host:port\njconsole service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi   # JMX URL</pre>"
     },
     {
      "type": "basic",
@@ -1837,7 +1950,8 @@
      "extra": "PID attachment uses the local attach mechanism, which enforces same-user access. For a different account, start the target with a JMX remote port and connect with <code>host:port</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jconsole 1234                  # requires the same user ID as the target JVM\n# a JVM under a different user ID cannot be attached to by pid</pre>"
     },
     {
      "type": "basic",
@@ -1846,7 +1960,8 @@
      "extra": "By default multiple connection windows are arranged side by side inside a single window. Untiling lets you place them yourself, e.g. across separate displays.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jconsole -notile 1234 remote.example.org:9010   # two connections, windows not tiled\n# without -notile the windows would be tiled</pre>"
     },
     {
      "type": "basic",
@@ -1855,7 +1970,8 @@
      "extra": "Each directory in that path needs a provider-configuration file at <code>META-INF/services/com.sun.tools.jconsole.JConsolePlugin</code> naming the implementing class.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jconsole -pluginpath /path/to/plugins 1234\n# -pluginpath tells jconsole where to look for plug-ins</pre>"
     }
    ]
   },
@@ -1885,7 +2001,8 @@
      "extra": "It is the <code>lvmid</code> component of a vmid in tools like <code>jstat</code>. Because it is only typically the OS pid, code should not assume they are interchangeable.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jps -q        # prints only local JVM identifiers (lvmids)\n# an lvmid is usually the OS pid, but need not be</pre>"
     },
     {
      "type": "basic",
@@ -1894,7 +2011,8 @@
      "extra": "Output may be null for embedded JVMs. Do not confuse it with <code>-v</code>, which shows arguments the JVM itself received.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jps -m\n# shows arguments passed to the main method</pre>"
     },
     {
      "type": "basic",
@@ -1903,7 +2021,8 @@
      "extra": "The other selectors are <code>-v</code> for JVM arguments and <code>-q</code> for only the identifiers. Any combination of <code>-mlvV</code> is accepted.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jps -l      # full class name or jar name\njps -m      # arguments passed to the main method</pre>"
     },
     {
      "type": "basic",
@@ -1912,7 +2031,8 @@
      "extra": "Both produce a bare list of local JVM identifiers, convenient for shell loops. Neither adds information; they remove it, which makes parsing less fragile.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jps -q    # only lvmids: no class name, JAR name or main args\njps -V    # same suppression</pre>"
     },
     {
      "type": "basic",
@@ -1921,7 +2041,8 @@
      "extra": "The remote lookup uses the RMI protocol via the jstatd server, on the default rmiregistry port 1099 unless specified. Local listing needs nothing extra.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jps remote.example.org   # hostid queries a remote host\n# a jstatd process must be running on that host</pre>"
     },
     {
      "type": "basic",
@@ -1930,7 +2051,8 @@
      "extra": "The Java launcher supplies the main class and arguments that jps reports. Without it, those values are unavailable and Unknown replaces each of them.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jps          # a JVM started with a custom launcher prints Unknown\n# its class/JAR name and main args are not available to jps</pre>"
     },
     {
      "type": "basic",
@@ -1960,7 +2082,8 @@
      "extra": "It targets a JVM by vmid and supports two option kinds: general options (help, version) and output options that choose which statistics are shown.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil 21891 250 7\n# performance statistics for an instrumented HotSpot JVM</pre>"
     },
     {
      "type": "basic",
@@ -1969,7 +2092,8 @@
      "extra": "It reports per-space utilisation percentages (E, O, S0, S1) plus counts and times of young and full collections. It is the usual first look at GC health.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil 1234 1000   # summary of garbage collection statistics every 1000 ms\n# gcutil prints utilisation percentages</pre>"
     },
     {
      "type": "basic",
@@ -1996,7 +2120,8 @@
      "extra": "It covers both old-generation behaviour and metaspace statistics. For old-generation sizes only, <code>-gcoldcapacity</code>; for metaspace sizes, <code>-gcmetacapacity</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstat -gcold 1234\n# shows old generation and metaspace behaviour</pre>"
     },
     {
      "type": "basic",
@@ -2005,7 +2130,8 @@
      "extra": "Without it the header appears once at the top and scrolls away during a long sample run. The default value 0 means header only on the first line.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil -h 5 1234 1000    # header every 5 samples\n# the default prints the header only on the first row</pre>"
     },
     {
      "type": "basic",
@@ -2014,7 +2140,8 @@
      "extra": "Because the timestamp measures from JVM start rather than wall-clock time, aligning jstat samples with an external log requires adding the JVM's own start time.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil -t 21891 1000 3\n# -t adds a Timestamp column: seconds since the JVM started</pre>"
     },
     {
      "type": "basic",
@@ -2023,7 +2150,8 @@
      "extra": "Append <code>s</code> for seconds. <code>count</code> defaults to infinity, so jstat keeps sampling until the JVM or jstat exits; give a positive integer to bound the run.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil 1234      # interval defaults to milliseconds\njstat -gcutil 1234 250   # sample every 250 milliseconds</pre>"
     },
     {
      "type": "basic",
@@ -2032,7 +2160,8 @@
      "extra": "The <code>-J</code> prefix never reaches the monitored target. To affect the target, you would have to pass options at its own launch, not through jstat.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jstat -J-Xms48m -gcutil 1234   # -Xms48m goes to jstat's own JVM\n# the target JVM's heap settings are unchanged</pre>"
     },
     {
      "type": "basic",
@@ -2041,7 +2170,8 @@
      "extra": "It is the authoritative list for the local JVM, which matters because options may be changed or removed between releases. Using it with another option is not allowed.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstat -options    # stat options available for this platform installation\n# use one of the listed options as jstat -gcutil</pre>"
     },
     {
      "type": "basic",
@@ -2059,7 +2189,8 @@
      "extra": "Protocol, hostname, port, and servername are optional. Omitting both protocol and hostname selects a platform-optimised local protocol; naming a host without a protocol defaults to RMI.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jstat -gcutil 21891 250 7\n# 21891 is the lvmid: the only required part of a vmid</pre>"
     }
    ]
   },
@@ -2080,7 +2211,8 @@
      "extra": "It gives remote monitoring tools such as <code>jstat</code> and <code>jps</code> a way to attach to JVMs on the host and read their instrumentation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jstatd\n# RMI server monitoring instrumented JVM creation and termination</pre>"
     },
     {
      "type": "basic",
@@ -2089,7 +2221,8 @@
      "extra": "Set a different port with <code>-p port</code>. If no registry exists at that port, jstatd starts one internally unless <code>-nr</code> is given.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jstatd\n# the RMI registry defaults to port 1099</pre>"
     },
     {
      "type": "basic",
@@ -2098,7 +2231,8 @@
      "extra": "It is used when an external registry should already be running. If none is found, jstatd reports an error instead of silently binding its own.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstatd -nr      # do not create an internal RMI registry\n# an external rmiregistry must already be running</pre>"
     },
     {
      "type": "basic",
@@ -2107,7 +2241,8 @@
      "extra": "This is distinct from the registry port set by <code>-p</code>. If omitted, a random available port is used, which can defeat firewall rules unless both are pinned.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstatd -p 1099 -r 2021\n# -r sets the port the RMI connector binds to</pre>"
     },
     {
      "type": "basic",
@@ -2116,7 +2251,8 @@
      "extra": "Run multiple jstatd servers on one host and each needs a unique name. Clients must then include that name in their hostid and vmid strings.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jstatd                  # binds the remote RMI object as JStatRemoteHost\njstatd -n MyStatServer  # -n rminame changes that bound name</pre>"
     },
     {
      "type": "basic",
@@ -2125,7 +2261,8 @@
      "extra": "Anyone on the network who can reach it acquires the instrumentation of every JVM it has permission to read. Treat it as a local-tool-only option unless the network is trusted.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jstatd -p 1099\n# no authentication: any reachable client sees the JVMs jstatd can monitor</pre>"
     },
     {
      "type": "basic",
@@ -2152,7 +2289,8 @@
      "extra": "Container PID namespaces hide those processes from the host-side instrumented listing. Use <code>ps</code> inside the container or expose the container's own port instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jstatd -p 1099 &\njps remote.host   # JVMs inside docker containers are not listed</pre>"
     },
     {
      "type": "basic",
@@ -2182,7 +2320,8 @@
      "extra": "It must run on the same machine as the JVM and under the same effective user and group. Each diagnostic command has its own syntax and arguments.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jcmd 21891 VM.flags\n# sends a diagnostic command request to the running JVM</pre>"
     },
     {
      "type": "basic",
@@ -2191,7 +2330,8 @@
      "extra": "The listing shows the process identifier, main class, and launch arguments, but excludes JVMs running in separate docker processes.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jcmd\n# same as jcmd -l: lists running JVMs with pid, main class and arguments</pre>"
     },
     {
      "type": "basic",
@@ -2200,7 +2340,8 @@
      "extra": "Adding the command name, as in <code>jcmd pid help VM.flags</code>, shows that command's description, syntax and arguments. Guessing command names and arguments is never necessary.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 help\njcmd 1234 help VM.flags\n# discovers the diagnostic commands available for that JVM</pre>"
     },
     {
      "type": "basic",
@@ -2209,7 +2350,8 @@
      "extra": "The pid 0 is the broadcast selector. You can equivalently pass a <code>main-class</code> name, matched partially or fully, to target every JVM started from that class.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jcmd 0 VM.flags\n# pid 0 sends the command to all Java processes</pre>"
     },
     {
      "type": "basic",
@@ -2227,7 +2369,8 @@
      "extra": "It is high impact because it walks the heap. <code>-all</code> includes unreachable objects; default counts only reachable ones, which is usually what you want for a leak hunt.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 GC.class_histogram   # histogram of heap classes by instance count\n# pass -all to include unreachable objects</pre>"
     },
     {
      "type": "basic",
@@ -2236,7 +2379,8 @@
      "extra": "The option <code>-l</code> also prints <code>java.util.concurrent</code> locks. This is the in-flight equivalent of the standalone <code>jstack</code> tool.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 Thread.print    # print all thread stack traces\n# jcmd 0 Thread.print targets every Java process</pre>"
     },
     {
      "type": "basic",
@@ -2245,7 +2389,8 @@
      "extra": "<code>VM.flags -all</code> prints every flag the VM supports. This is the authoritative answer to 'what is this JVM actually configured with', including defaults.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.flags\n# prints the VM flags and their current values</pre>"
     },
     {
      "type": "basic",
@@ -2254,7 +2399,8 @@
      "extra": "Only flags declared as manageable can be changed at run time. Others are locked once the JVM starts, and the command will refuse them.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.set_flag HeapDumpOnOutOfMemoryError true\n# changes a VM flag on the running JVM</pre>"
     },
     {
      "type": "basic",
@@ -2272,7 +2418,8 @@
      "extra": "The subsequent <code>detail.diff</code> then shows allocation activity since that baseline at each call site. Without a baseline, the diff commands have nothing to compare against.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.native_memory baseline      # record current usage as a reference point\njcmd 1234 VM.native_memory summary.diff   # compare later against that baseline</pre>"
     },
     {
      "type": "basic",
@@ -2281,7 +2428,8 @@
      "extra": "Each class is followed by its ClassLoaderData pointer, or null for the bootstrap loader. <code>-s</code> shows subclasses, and <code>-i</code> includes inherited interfaces.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 21891 VM.class_hierarchy\n# lists all loaded classes in hierarchy form</pre>"
     },
     {
      "type": "basic",
@@ -2299,7 +2447,8 @@
      "extra": "<code>-date</code> prefixes the output with the current date. Since <code>jstat -t</code> timestamps are relative to JVM start, uptime lets you convert them to wall-clock time.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.uptime\n# VM.uptime reports the JVM's uptime; VM.uptime -date adds the date</pre>"
     },
     {
      "type": "basic",
@@ -2317,7 +2466,8 @@
      "extra": "<code>-verbose</code> also dumps the content of every string, which can be huge and may expose user data. The parallel command for interned symbols is <code>VM.symboltable</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.stringtable\n# dumps the JVM's string table</pre>"
     },
     {
      "type": "basic",
@@ -2326,7 +2476,8 @@
      "extra": "It reports the launch line recorded in ProcessHandle terms, which may differ in presentation from what <code>ps</code> shows. Compare with <code>VM.system_properties</code> for resolved paths.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 VM.command_line\n# shows the command line used to start the VM</pre>"
     },
     {
      "type": "basic",
@@ -2353,7 +2504,8 @@
      "extra": "Flags given as <code>key</code> are usually Boolean options. This differs from the positional arguments some commands take, such as a heap-dump filename.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jcmd 1234 JFR.start name=demo settings=profile\njcmd 1234 VM.uptime -date\n# command options use key or key=value syntax</pre>"
     }
    ]
   },
@@ -2374,7 +2526,8 @@
      "extra": "It demonstrates the Java Platform Debugger Architecture and can debug a local or remote JVM. Its command set mirrors the textbook debugger workflow and suits automation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jdb App   # simple command-line debugger for Java classes\n# it inspects and debugs Java classes from the command line</pre>"
     },
     {
      "type": "basic",
@@ -2383,7 +2536,8 @@
      "extra": "It starts a second JVM, loads the class, and stops before the first instruction of the main class. No separate debug-server setup is needed for this mode.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac App.java\njdb App    # jdb in place of java launches the application itself</pre>"
     },
     {
      "type": "basic",
@@ -2401,7 +2555,8 @@
      "extra": "It resolves to the first instruction for line 22 of the source file containing MyClass. <code>stop in java.lang.String.length</code> instead breaks at a method's first instruction.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdb MyClass\n> stop at MyClass:22\n# sets a breakpoint at line 22</pre>"
     },
     {
      "type": "basic",
@@ -2410,7 +2565,8 @@
      "extra": "For example <code>stop in MyClass.myMethod(int,java.lang.String)</code>. Without types, jdb cannot tell which overload you mean, so it cannot set the breakpoint.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>stop in MyClass.myMethod(int,java.lang.String)   # jdb: argument types pick the overload\nstop in MyClass.myMethod()                       # the no-argument overload</pre>"
     },
     {
      "type": "basic",
@@ -2428,7 +2584,8 @@
      "extra": "Step advances to the next line whether it is in this frame or a called method. Next advances to the next line in the same frame, treating calls as a single step.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>step   # jdb: follows calls into the called method\nnext   # stays in the current stack frame</pre>"
     },
     {
      "type": "basic",
@@ -2437,7 +2594,8 @@
      "extra": "Without a debugger the JVM usually prints a trace and exits. At the break, you can inspect variables and the stack to find the cause before it unwinds.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jdb App\nmain[1] run\n# on an uncaught exception control returns to jdb at the throw</pre>"
     },
     {
      "type": "basic",
@@ -2446,7 +2604,8 @@
      "extra": "Any instance of the class or a subclass stops execution where it is thrown. <code>ignore</code> reverses the effect for the debugger, not for the application.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdb App\nmain[1] catch java.io.FileNotFoundException\n# stops whenever that exception is thrown</pre>"
     },
     {
      "type": "basic",
@@ -2455,7 +2614,8 @@
      "extra": "It does not change exception handling in the application. If the app catches and swallows an exception, jdb still sees the throw unless <code>catch</code> tells it to stop there.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jdb MyClass\n> catch java.io.IOException\n> ignore java.io.IOException\n# ignore reverts the catch; the debugger ignores that exception</pre>"
     },
     {
      "type": "basic",
@@ -2464,7 +2624,8 @@
      "extra": "The app then stops just before the initial class is loaded, giving you a chance to set breakpoints first. This avoids missing early execution.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdb -launch App    # start the application immediately at jdb startup\n# no run command is needed; use cont after setting breakpoints</pre>"
     },
     {
      "type": "basic",
@@ -2473,7 +2634,8 @@
      "extra": "The opposite direction is <code>-attach address</code>, where jdb connects out to a JVM. <code>-listen address</code> waits on one specific address.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdb -listenany    # wait for a running JVM to connect at any available address\n# the target JVM attaches to the address jdb reports</pre>"
     },
     {
      "type": "basic",
@@ -2482,7 +2644,8 @@
      "extra": "Connector names are then used with <code>-connect connector-name:name1=value1,...</code>. This is how you pick a non-default transport without guessing its name.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jdb -listconnectors\n# lists the connectors available in the JVM</pre>"
     }
    ]
   },
@@ -2503,7 +2666,8 @@
      "extra": "It launches a debugger against a core file (or attaches to a process) and exposes modes mirroring the jstack, jmap, jinfo and jsnap tools.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jhsdb jstack --exe /path/to/java --core core.dump\n# postmortem analysis of a core dump from a crashed JVM</pre>"
     },
     {
      "type": "basic",
@@ -2521,7 +2685,8 @@
      "extra": "Both must be supplied together. Alternatively a <code>[server-id@]debugd-host</code> can be used. Any one of these three forms satisfies the requirement.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jhsdb jstack --exe /path/to/java --core /path/to/core\n# core analysis requires the Java executable and the core file</pre>"
     },
     {
      "type": "basic",
@@ -2530,7 +2695,8 @@
      "extra": "It is the text-session counterpart of the GUI mode <code>hssdb</code> (hsdb). The others are batch-style modes that mimic familiar JDK tools.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jhsdb clhsdb\n# starts the interactive command-line debugger</pre>"
     },
     {
      "type": "basic",
@@ -2539,7 +2705,8 @@
      "extra": "It is the counterpart of <code>PrintPerfCounters</code>. <code>--all</code> prints every counter, which can be a very long dump.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jhsdb jsnap --pid 21891\n# prints performance counter information</pre>"
     },
     {
      "type": "basic",
@@ -2557,7 +2724,8 @@
      "extra": "It only works where the platform permits it. <code>--locks</code> adds <code>java.util.concurrent</code> lock information, matching jstack's <code>-l</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jhsdb jstack --mixed --pid 1234\n# --mixed attempts to print both Java and native frames</pre>"
     },
     {
      "type": "basic",
@@ -2566,7 +2734,8 @@
      "extra": "It overrides the system property <code>sun.jvm.hotspot.rmi.port</code>, and defaults to 1099. The separate RMI connector port is set with <code>--rmiport</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jhsdb debugd --pid 1234 --registryport 1099\n# --registryport sets the RMI registry port for the remote debug server</pre>"
     },
     {
      "type": "basic",
@@ -2575,7 +2744,8 @@
      "extra": "The mode has a sensible default rather than erroring out. <code>--heap</code> gives the heap summary, and <code>--histo</code> the object histogram.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jhsdb jmap --pid 1234          # no option: same information as pmap\njhsdb jmap --pid 1234 --heap   # heap summary instead</pre>"
     },
     {
      "type": "basic",
@@ -2584,7 +2754,8 @@
      "extra": "Clients then use <code>server-id@debugd-host</code> to select the right one. Without distinct IDs, remote connections are ambiguous.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jhsdb debugd --serverid srv1\njhsdb debugd --serverid srv2\n# each server needs a unique id to be addressed as server-id@debugd-host</pre>"
     }
    ]
   },
@@ -2623,7 +2794,8 @@
      "extra": "Without the value it reads; with it, it can write. For Boolean flags, <code>-flag +name</code> or <code>-flag -name</code> toggles them on or off on a live JVM.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jinfo -flag HeapDumpOnOutOfMemoryError 1234\n# prints a single named VM flag and its value</pre>"
     },
     {
      "type": "basic",
@@ -2632,7 +2804,8 @@
      "extra": "Writing flags requires the flag to be manageable. Many performance flags are locked at startup, and jinfo reports an error rather than changing them.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jinfo -flag +HeapDumpOnOutOfMemoryError 1234\n# enables that Boolean VM flag on the running process</pre>"
     },
     {
      "type": "basic",
@@ -2641,7 +2814,8 @@
      "extra": "The <code>=</code> form assigns a value; <code>+-name</code> only toggles Boolean flags. Flags that are not manageable cannot be assigned mid-run.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jinfo -flag MetaspaceSize=64m 1234\n# sets a VM flag to an explicit value such as MetaspaceSize=64m</pre>"
     },
     {
      "type": "basic",
@@ -2668,7 +2842,8 @@
      "extra": "The same holds for jps, jstat, jstatd, jmap, jstack, and jhsdb. They may change or disappear in a future JDK, so do not build production automation on their output.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jinfo -help\n# jinfo is experimental and unsupported; it may change or disappear</pre>"
     }
    ]
   },
@@ -2689,7 +2864,8 @@
      "extra": "The most-used options are <code>-histo</code> for an object histogram and <code>-dump</code> for an hprof heap dump. Both connect to the live process.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jmap -histo 21891\njmap -dump:format=b,file=heap.hprof 21891\n# heap histogram and heap dump of a running process</pre>"
     },
     {
      "type": "basic",
@@ -2698,7 +2874,8 @@
      "extra": "Adding <code>live</code> (as <code>-histo:live</code>) first forces a full GC and counts only live objects, which removes garbage from a leak analysis.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmap -histo 1234   # print a histogram of the Java object heap\n# the pid can be found with jps</pre>"
     },
     {
      "type": "basic",
@@ -2707,7 +2884,8 @@
      "extra": "It is the hprof binary format that analysis tools read. Without it the dump is not consumable by heap analysers.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmap -dump:format=b,file=heap.hprof 1234\n# format=b selects the binary hprof format</pre>"
     },
     {
      "type": "basic",
@@ -2716,7 +2894,8 @@
      "extra": "It is the right tool when class loaders themselves are accumulating. By contrast <code>-finalizerinfo</code> lists objects waiting for finalization.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmap -clstats 1234\n# prints class loader statistics of the Java heap</pre>"
     },
     {
      "type": "basic",
@@ -2725,7 +2904,8 @@
      "extra": "That pause can be long on a large heap, and it changes what is in the dump. Use it deliberately, and expect a service-impacting GC on a busy production JVM.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jmap -dump:live,format=b,file=heap.hprof 21891\n# live triggers a full GC to isolate reachable objects, pausing the app</pre>"
     },
     {
      "type": "basic",
@@ -2734,7 +2914,8 @@
      "extra": "Dumping everything preserves unreachable-but-not-yet-collected objects. For leak hunting, live-only removes noise but loses evidence of what was about to be collected.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>jmap -dump:live,format=b,file=live.hprof 1234   # only live objects\njmap -dump:format=b,file=all.hprof 1234        # all objects</pre>"
     }
    ]
   },
@@ -2755,7 +2936,8 @@
      "extra": "For each Java frame it prints the full class name, method name, bytecode index (BCI), and line number when available. It cannot see native-only frames.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jstack 21891\n# prints Java stack traces of all threads in that process</pre>"
     },
     {
      "type": "basic",
@@ -2764,7 +2946,8 @@
      "extra": "It shows lock ownership, which is essential for diagnosing a deadlock or a thread blocked on a monitor. Without it, contention shows as the thread state only.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jstack -l 1234 > locks.txt\n# -l adds additional information about locks</pre>"
     },
     {
      "type": "basic",
@@ -2773,7 +2956,8 @@
      "extra": "It corresponds to a line number when the class has line-number debug info. Without <code>javac -g</code>, BCI may be all you have.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jstack 1234 > threads.txt\n# each frame carries the bytecode index (BCI): the position of the\n# executed instruction within the compiled method</pre>"
     },
     {
      "type": "basic",
@@ -2791,7 +2975,8 @@
      "extra": "Applying it lets the tool bind the correct attach library. The same quirk is documented for jinfo, and both stem from experimental attach code.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jstack -J-d64 1234 > threads.txt\n# -J-d64 may be needed for the 64-bit attach</pre>"
     },
     {
      "type": "basic",
@@ -2800,7 +2985,8 @@
      "extra": "For programmatic thread dumps prefer <code>jcmd Thread.print</code>, or the ThreadMXBean API. Human-readable text formats are intentionally not a contract.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jstack 21891 > dump.txt\n# experimental format: not stable enough for automated parsing</pre>"
     }
    ]
   },

@@ -2078,7 +2078,8 @@
      "extra": "When <code>-jar</code> is used the JAR is the entire class path and any <code>-cp</code> setting is <b>ignored</b> - a classic 'class not found' trap.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jar --create --file app.jar --main-class com.example.App -C classes .\njava -jar app.jar\n# the entry class comes from the Main-Class header in META-INF/MANIFEST.MF</pre>"
     },
     {
      "type": "basic",
@@ -2087,7 +2088,8 @@
      "extra": "The file is compiled in memory and the <b>first top-level class</b> found is executed. No .class file is written.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java Hello.java                  # existing .java first non-option arg selects source-file mode\njava --source 21 Hello.java      # --source N selects it too</pre>"
     },
     {
      "type": "basic",
@@ -2096,7 +2098,8 @@
      "extra": "Only the file named on the command line is compiled, the source path is effectively empty, so Lombok-style processors and -Werror tricks do not run.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java --source 21 Tool.java\n# in source-file mode annotation processing is disabled, as if -proc:none</pre>"
     },
     {
      "type": "basic",
@@ -2145,7 +2148,8 @@
      "extra": "The JVM would read 25 literally and reject it as out of range, which the flag validator reports at startup.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=25 -XX:+PrintFlagsFinal -version\n# reports MaxHeapFreeRatio = 25: 25 percent, not 0.25\n# java -XX:MaxHeapFreeRatio=0.25 -> improperly specified VM option</pre>"
     },
     {
      "type": "basic",
@@ -2214,7 +2218,8 @@
      "extra": "Raising the stack defers the problem. A deeper point: virtual threads get their own growable stack, so stack size stops being the hard limit.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -Xss2m MyApp   # raise -Xss to give deep recursion more stack\n# or restructure to iterative / use virtual threads</pre>"
     },
     {
      "type": "basic",
@@ -2223,7 +2228,8 @@
      "extra": "<code>-Xmx</code> (same as <code>-XX:MaxHeapSize</code>) sets the maximum. For server deployments both are often set equal to avoid resizing.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -Xms256m -cp . App\n# initial and minimum heap size is 256 MB</pre>"
     },
     {
      "type": "basic",
@@ -2242,7 +2248,8 @@
      "extra": "It must be a power of 2 between 8 and 256. Raising it stretches the addressable range of compressed oops beyond the usual 32 GB heap limit.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -XX:ObjectAlignmentInBytes=8 -version\n# the default value of -XX:ObjectAlignmentInBytes is 8 bytes</pre>"
     },
     {
      "type": "basic",
@@ -2251,7 +2258,8 @@
      "extra": "The dump goes to the working directory; set the destination with <code>-XX:HeapDumpPath</code>. It is disabled by default.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+HeapDumpOnOutOfMemoryError MyApp\n# writes a heap dump on the first OutOfMemoryError</pre>"
     },
     {
      "type": "basic",
@@ -2270,7 +2278,8 @@
      "extra": "Override the path with <code>-XX:ErrorFile</code>. <code>-XX:+ExtensiveErrorReports</code> adds more detail, and <code>-XX:OnError</code> runs a command such as gcore.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java MyApp\n# after an irrecoverable error the JVM writes hs_err_pid&lt;pid&gt;.log in the working directory</pre>"
     },
     {
      "type": "basic",
@@ -2319,7 +2328,8 @@
      "extra": "Example: <code>-Xlog:gc=debug:file=gc.log:none</code>. The deprecated <code>-Xloggc:file</code> is the same as <code>-Xlog:gc:file</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -Xlog:gc=info:stdout:time,uptime -version\n# tag=level : output : decorators</pre>"
     },
     {
      "type": "basic",
@@ -2328,7 +2338,8 @@
      "extra": "Change them at runtime; the special <code>none</code> decorator turns all decorations off, as in <code>-Xlog:gc=debug:none</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -Xlog:gc -version\n# when no decorators are specified, -Xlog applies uptime, level and tags</pre>"
     },
     {
      "type": "basic",
@@ -2377,7 +2388,8 @@
      "extra": "They require root-level OS setup (<code>vm.nr_hugepages</code>), and pages are pre-allocated up front, so the heap cannot grow dynamically.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseLargePages -XX:+UseHugeTLBFS -cp . App\njava -XX:+UseLargePages -XX:+UseSHM -cp . App\n# Linux: huge pages preallocated, or large pages via shared memory</pre>"
     },
     {
      "type": "basic",
@@ -2396,7 +2408,8 @@
      "extra": "<code>-Xshare:auto</code> uses it when possible, <code>-Xshare:on</code> fails if it cannot. Class data sharing cuts startup time and footprint.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -Xshare:off -cp . App\n# CDS is off for this launch</pre>"
     },
     {
      "type": "basic",
@@ -2405,7 +2418,8 @@
      "extra": "Options like <code>-XX:+LogCompilation</code> require it. Diagnostic flags are developer-only and not guaranteed across releases.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -cp . App\n# LogCompilation is diagnostic; the first flag unlocks such options</pre>"
     }
    ]
   },
