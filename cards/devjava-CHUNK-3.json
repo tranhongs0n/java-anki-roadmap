@@ -73,7 +73,7 @@
     {
      "type": "basic",
      "front": "What breaks when you fill a list with <code>stream.forEach(result::add)</code>?",
-     "back": "Capturing an external list adds a side effect that <b>blocks parallel execution</b>",
+     "back": "Capturing an external mutable list makes the result unsafe: <code>ArrayList</code> cannot take concurrent writes from a parallel stream",
      "extra": "result::add captures a variable outside the stream's scope, and an ArrayList cannot safely take concurrent writes from the threads of a parallel stream.",
      "tags": [
       "type::gotcha"

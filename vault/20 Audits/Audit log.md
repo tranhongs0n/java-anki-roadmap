@@ -22,3 +22,9 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 
 - 1795706077234 + 1795706077233 — cùng một sự kiện (selector của switch), một khẳng định một phủ định; đề xuất gộp thành một thẻ bullet và xoá thẻ phủ định. Chờ quyết định.
 - 1795750484756 "What does break do versus continue?" và 1795745004671 "What is the difference between break and continue?" — trùng nghĩa, giữ một.
+
+### Subagent review — 3 cards flagged during example backfill (2026-11-28)
+
+- `jv-0005-7f66c8a982` "When does findFirst() have to process every element?" — **giữ nguyên**. Subagent nghi ngờ, nhưng thẻ đúng: với stream rỗng, findFirst() phải đi hết pipeline để chứng minh không có phần tử, rồi trả Optional.empty().
+- `jv-0005-5e8579bbb8` "What breaks when you fill a list with stream.forEach(result::add)?" — **sửa Back**. Back cũ nói side effect "blocks parallel execution" (sai: nó không chặn chạy song song, nó làm kết quả không an toàn/không xác định). Back mới: capturing an external mutable list makes the result unsafe because ArrayList cannot take concurrent writes. Front giữ nguyên nên CardKey không đổi.
+- `jv-0005-5387bbeafb` "Which two arguments does Stream.max() ... require?" — **chờ quyết định**. Đáp án "Only a Comparator" là đúng; chính câu hỏi hỏi "two arguments" là sai. Sửa Front sẽ đổi CardKey (thẻ mới + xoá thẻ cũ), nên không tự làm.
