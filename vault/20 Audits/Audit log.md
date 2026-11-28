@@ -95,3 +95,10 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 
 - `jv-0013-fce39d5992` — Front nói `--startup file` "inherited startup disabled for that file"; dev.java nói `--startup` ghi đè script mặc định, còn `--no-startup` mới tắt và không dùng chung được. Chờ vì phải đổi Front.
 - 40 ví dụ của slice 39–41 là command snippets (`skip_javac` đúng quy định); các lát trước đã có ví dụ Java biên dịch được.
+
+### Subagents wave 9 (2026-11-28) — review
+
+Đã làm rõ Back của `jv-0014-ae44c8b71d`: record đã tự sinh `toString()`, nhưng nên tự viết lại để ListView hiển thị đúng trường muốn thấy.
+
+- `jv-0014-7793c55dc4` — Front viết "Compare-driven SortedList" (ý là comparator-driven); đáp án đúng. Chờ vì phải đổi Front.
+- 40 ví dụ JavaFX/jpackage của slice 46 dùng `skip_javac` vì cần JavaFX runtime — đúng ngoại lệ CLI/jar.
