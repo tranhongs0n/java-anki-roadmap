@@ -18,7 +18,8 @@
      "extra": "<code>Pattern</code> is the compiled regex, <code>Matcher</code> is the matching engine over an input string, and <code>PatternSyntaxException</code> reports a malformed pattern.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a+\");\njava.util.regex.Matcher m = p.matcher(\"aaa\");\ntry { java.util.regex.Pattern.compile(\"[\"); }\ncatch (java.util.regex.PatternSyntaxException e) { System.out.println(e.getDescription()); }</pre>"
     },
     {
      "type": "basic",
@@ -54,7 +55,8 @@
      "extra": "A Matcher holds per-input state such as region bounds and the last match index, so sharing one matcher across threads corrupts results, while sharing the pattern is safe.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a+\"); // immutable: share across threads\njava.util.regex.Matcher m = p.matcher(\"aaa\"); // mutable state: keep it local\nSystem.out.println(m.find() + \" \" + m.find()); // true false: find advances the state</pre>"
     },
     {
      "type": "basic",
@@ -81,7 +83,8 @@
      "extra": "Properties are checked per character, so <code>\\p{IsL}\\p{IsL}+</code> style sequences compose a word-run match over Unicode letters.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"A\".matches(\"\\\\p{Lu}\")); // true: in the property\nSystem.out.println(\"A\".matches(\"\\\\P{Lu}\")); // false: uppercase letter is excluded\nSystem.out.println(\"a\".matches(\"\\\\P{Lu}\")); // true: not in the property</pre>"
     },
     {
      "type": "basic",
@@ -90,7 +93,8 @@
      "extra": "Scripts are written <code>\\p{IsHiragana}</code> or <code>\\p{script=Hiragana}</code>, blocks <code>\\p{InMongolian}</code> or <code>\\p{block=Mongolian}</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"A\".matches(\"\\\\p{IsLatin}\"));      // script\nSystem.out.println(\"A\".matches(\"\\\\p{InBasicLatin}\")); // block\nSystem.out.println(\"A\".matches(\"\\\\p{Lu}\"));           // general category</pre>"
     },
     {
      "type": "basic",
@@ -99,7 +103,8 @@
      "extra": "Prefixing with <code>Is</code> also works, e.g. <code>\\p{IsL}</code> for letters. The categories follow the Unicode Standard version used by <code>java.lang.Character</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"A\".matches(\"\\\\p{gc=Lu}\"));               // true: short category form\nSystem.out.println(\"A\".matches(\"\\\\p{general_category=Lu}\")); // true: long form</pre>"
     },
     {
      "type": "basic",
@@ -108,7 +113,8 @@
      "extra": "Before that, <code>\\p{...}</code> existed but the supported property set was narrower and Unicode-aware case folding needed extra care.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// As of JDK 7, regex supports Unicode 6.0 (Oracle Java Tutorials).\nSystem.out.println(\"A\".matches(\"\\\\p{IsLatin}\")); // Unicode script property works</pre>"
     },
     {
      "type": "basic",
@@ -126,7 +132,8 @@
      "extra": "In <code>cat.</code> the dot matches the 's' of 'cats' because '.' means any character, which is why literal dots must be escaped.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"a.c\".matches(\"a.c\"));  // true: . is a metacharacter\nSystem.out.println(\"a.c\".matches(\"a\\\\.c\")); // true: escaped . is a literal</pre>"
     },
     {
      "type": "basic",
@@ -135,7 +142,8 @@
      "extra": "This is the complete documented set. Characters outside it, such as <code>@</code> and <code>#</code>, are never metacharacters and never need quoting.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>String meta = \"&lt;([{\\\\^-=$!|]})?*+.\"; // the Java API metacharacters\nSystem.out.println(meta); // printed as-is: &lt;([{\\^-=$!|]})?*+.</pre>"
     },
     {
      "type": "basic",
@@ -153,7 +161,8 @@
      "extra": "The extra backslash is consumed by Java string escaping, so only one reaches the regex engine. Text read from the console needs no doubling.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String regex = \"\\\\d\"; // two backslashes in the Java string literal\nSystem.out.println(\"5\".matches(regex)); // true: the regex is \\d</pre>"
     },
     {
      "type": "basic",
@@ -180,7 +189,8 @@
      "extra": "The hyphen between two characters means an inclusive range. Outside brackets, or after a leading/trailing position, it is a literal hyphen.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"q\".matches(\"[a-zA-Z]\")); // true: lowercase range\nSystem.out.println(\"Q\".matches(\"[a-zA-Z]\")); // true: uppercase range\nSystem.out.println(\"5\".matches(\"[a-zA-Z]\")); // false: not a letter</pre>"
     },
     {
      "type": "basic",
@@ -216,7 +226,8 @@
      "extra": "Nesting without an operator adds the sets, joining them with <code>&amp;&amp;</code> keeps only the shared members, which here do not overlap.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"m\".matches(\"[a-d[m-p]]\"));   // true: union of a-d and m-p\nSystem.out.println(\"m\".matches(\"[a-d&amp;&amp;[m-p]]\")); // false: disjoint ranges have empty intersection</pre>"
     },
     {
      "type": "basic",
@@ -225,7 +236,8 @@
      "extra": "It is a shorthand class, not 'any whitespace in every charset'. <code>\\S</code> is the complement.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>// \\s = [ \\t\\n\\x0B\\f\\r]\nSystem.out.println(\" \\t\\n\\u000B\\f\\r\".matches(\"\\\\s{6}\")); // true: all six whitespace characters</pre>"
     },
     {
      "type": "basic",
@@ -234,7 +246,8 @@
      "extra": "Only ASCII by default, so accented and non-Latin letters are non-word characters; <code>\\W</code> matches the complement.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"a_9\".matches(\"[a-zA-Z_0-9]+\")); // true: letters, underscore, digits\nSystem.out.println(\"a_9\".matches(\"\\\\w+\"));          // true: \\w covers the same characters</pre>"
     },
     {
      "type": "basic",
@@ -261,7 +274,8 @@
      "extra": "Hand-built classes invite mistakes such as a misplaced hyphen. The predefined forms are also what most developers recognise at a glance.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"12345\".matches(\"[0-9]+\")); // true, but hand-written class\nSystem.out.println(\"12345\".matches(\"\\\\d+\"));   // true: \\d is shorter, fewer typos</pre>"
     },
     {
      "type": "basic",
@@ -270,7 +284,8 @@
      "extra": "Appending <code>?</code> makes a quantifier reluctant, appending <code>+</code> makes it possessive. The base forms are <code>?</code>, <code>*</code>, <code>+</code>, <code>{n}</code>, <code>{n,}</code>, <code>{n,m}</code>.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"XXX\".matches(\"X{3}\"));  // true: greedy\nSystem.out.println(\"XXX\".matches(\"X{3}?\")); // true: reluctant\nSystem.out.println(\"XXX\".matches(\"X{3}+\")); // true: possessive</pre>"
     },
     {
      "type": "basic",
@@ -279,7 +294,8 @@
      "extra": "It happens in an empty input, at the beginning or end of the input, or between any two characters - anywhere a quantifier permitting zero occurrences fires.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"a*\").matcher(\"b\");\nwhile (m.find()) System.out.println(m.start() + \"==\" + m.end()); // 0==0, 1==1: zero-length</pre>"
     },
     {
      "type": "basic",
@@ -288,7 +304,8 @@
      "extra": "Quantifiers bind to one character, one character class, or one group. Use <code>(abc)+</code> to repeat the whole sequence.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"abc\".matches(\"abc+\"));   // true: c once\nSystem.out.println(\"abcc\".matches(\"abc+\"));  // true: only c repeats\nSystem.out.println(\"abcabc\".matches(\"abc+\")); // false: abc as a whole does not repeat</pre>"
     },
     {
      "type": "basic",
@@ -324,7 +341,8 @@
      "extra": "Preventing backtracking also defuses catastrophic backtracking patterns, where nested greedy quantifiers explode exponentially on a failing input.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>String s = \"99999999999999999999x\";\nSystem.out.println(s.matches(\"[0-9]++x\"));  // true: possessive takes the digits once\nSystem.out.println(s.matches(\"[0-9]++y\"));  // false: possessive never backtracks\n// [0-9]+y would retry every shorter digit prefix first.</pre>"
     },
     {
      "type": "basic",
@@ -333,7 +351,8 @@
      "extra": "On input 'aaaaa', <code>a?</code> matches each 'a' then a zero-length match at index 5, whereas <code>a+</code> stops after the run.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>for (String re : new String[] {\"a?\", \"a*\"}) {\n    java.util.regex.Matcher m = java.util.regex.Pattern.compile(re).matcher(\"b\");\n    while (m.find()) System.out.println(re + \" \" + m.start() + \"..\" + m.end()); // 0..0, 1..1\n}</pre>"
     },
     {
      "type": "basic",
@@ -342,7 +361,8 @@
      "extra": "Any position not followed by 'a' matches the empty alternative, so non-'a' characters appear as zero-length matches rather than failures.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"a?\").matcher(\"ababaaaab\");\nwhile (m.find())\n    if (m.end() == m.start()) System.out.println(m.start()); // 1, 3, 8 (b's), then 9 (end)</pre>"
     },
     {
      "type": "basic",
@@ -351,7 +371,8 @@
      "extra": "Reluctant and possessive variants are <code>X{n,m}?</code> and <code>X{n,m}+</code>. A comma alone after n (<code>X{n,}</code>) means 'at least n' with no upper limit.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"XXX\".matches(\"X{2,4}\"));  // true: at least 2, at most 4\nSystem.out.println(\"X\".matches(\"X{2,4}\"));    // false: fewer than the minimum</pre>"
     },
     {
      "type": "basic",
@@ -360,7 +381,8 @@
      "extra": "<code>\\z</code> is the strict end of input. The HALT distinction matters when a file ends with a trailing newline.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"abc\\\\Z\").matcher(\"abc\\n\");\nSystem.out.println(m.find() + \" \" + m.end()); // true 3: \\Z matches before the final line terminator</pre>"
     },
     {
      "type": "basic",
@@ -414,7 +436,8 @@
      "extra": "So <code>((A)(B(C)))</code> reports 4. <code>group(0)</code> still returns the whole matched text.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"(a)(b)\").matcher(\"ab\");\nm.find(); // true\nSystem.out.println(m.groupCount() + \" \" + m.group()); // 2 ab: group 0 is not counted</pre>"
     },
     {
      "type": "basic",
@@ -441,7 +464,8 @@
      "extra": "That is the exclusive end offset, matching <code>String.substring(start, end)</code>. <code>group(g)</code> returns the captured text itself.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"(a+)(b+)\").matcher(\"xaaabb\");\nSystem.out.println(m.find()); // true\nSystem.out.println(m.end(1) + \" \" + m.end(2)); // 4 6: index after each group's last char</pre>"
     },
     {
      "type": "basic",
@@ -468,7 +492,8 @@
      "extra": "The 's' is a mnemonic for 'single-line' mode as it is called in Perl, which is why the letter does not match the flag name.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a.b\", java.util.regex.Pattern.DOTALL); // (?s)\nSystem.out.println(\"a\\nb\".matches(\"a.b\"));   // false: . does not match a line terminator\nSystem.out.println(p.matcher(\"a\\nb\").matches()); // true: DOTALL makes . match it</pre>"
     },
     {
      "type": "basic",
@@ -477,7 +502,8 @@
      "extra": "By default those anchors only match at the start and end of the entire input sequence.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"^b$\", java.util.regex.Pattern.MULTILINE); // (?m)\nSystem.out.println(p.matcher(\"a\\nb\").find());  // true: ^ and $ match at the line terminator\nSystem.out.println(java.util.regex.Pattern.compile(\"^b$\").matcher(\"a\\nb\").find()); // false without the flag</pre>"
     },
     {
      "type": "basic",
@@ -495,7 +521,8 @@
      "extra": "Metacharacters and escape sequences lose their meaning. Only <code>CASE_INSENSITIVE</code> and <code>UNICODE_CASE</code> still apply alongside it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a.c\", java.util.regex.Pattern.LITERAL); // no embedded form\nSystem.out.println(p.matcher(\"a.c\").matches()); // true\nSystem.out.println(p.matcher(\"abc\").matches()); // false: dot is literal text</pre>"
     },
     {
      "type": "basic",
@@ -513,7 +540,8 @@
      "extra": "In that mode only <code>\\n</code> counts as a line terminator for <code>.</code>, <code>^</code> and <code>$</code>, which matters when files contain <code>\\r</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a.b\", java.util.regex.Pattern.UNIX_LINES); // (?d)\nSystem.out.println(p.matcher(\"a\\nb\").matches() + \" \" + p.matcher(\"a\\rb\").matches()); // false true: only \\n is a terminator</pre>"
     },
     {
      "type": "basic",
@@ -531,7 +559,8 @@
      "extra": "<code>a\\u030A</code> then matches <code>\\u00E5</code>. It is disabled by default and can impose a performance penalty.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.regex.Pattern.compile(\"\\u00E9\").matcher(\"e\\u0301\").matches()); // false without CANON_EQ\nSystem.out.println(java.util.regex.Pattern.compile(\"\\u00E9\", java.util.regex.Pattern.CANON_EQ)\n    .matcher(\"e\\u0301\").matches()); // true: decompositions match</pre>"
     },
     {
      "type": "basic",
@@ -549,7 +578,8 @@
      "extra": "It is a convenience for compile-match over the entire string, so <code>Pattern.matches(\"\\\\d\", \"12\")</code> is false.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.regex.Pattern.matches(\"\\\\d\", \"1\"));  // true: whole input matches\nSystem.out.println(java.util.regex.Pattern.matches(\"\\\\d\", \"a1\")); // false: a1 does not</pre>"
     },
     {
      "type": "basic",
@@ -558,7 +588,8 @@
      "extra": "<code>\"one:two:\".split(\":\")</code> returns two elements. Passing a limit of zero gives the same result; a negative limit keeps trailing empties.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String[] a = \"a,b,\".split(\",\");     // [a, b]: trailing empty discarded\nString[] b = \"a,b,\".split(\",\", -1); // [a, b, ]: limit keeps it\nSystem.out.println(a.length + \" \" + b.length); // 2 3</pre>"
     },
     {
      "type": "basic",
@@ -567,7 +598,8 @@
      "extra": "Metacharacters and escapes in <code>s</code> get no special meaning, making it safe to interpolate untrusted text into a larger pattern such as a <code>split</code> delimiter.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String lit = java.util.regex.Pattern.quote(\"a.c\");\nSystem.out.println(lit); // \\Qa.c\\E: a literal pattern string\nSystem.out.println(\"a.c\".matches(lit)); // true: matches the original text exactly</pre>"
     },
     {
      "type": "basic",
@@ -576,7 +608,8 @@
      "extra": "Both must be passed to the two-argument <code>compile</code>. Trying to write them inline produces a dangling-metacharacter syntax error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.regex.Pattern.compile(\"(?i)a\").matcher(\"A\").matches()); // true: (?i) exists\n// Neither LITERAL nor CANON_EQ has an embedded (?...) form.\n// Use Pattern.compile(s, Pattern.LITERAL) or Pattern.compile(s, Pattern.CANON_EQ).</pre>"
     },
     {
      "type": "basic",
@@ -585,7 +618,8 @@
      "extra": "The second 'a' is left unmatched because the scan continues after the replaced span, so 'aa' at index 0 wins over 'aa' at index 1.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String s = \"aaa\".replace(\"aa\", \"b\");\nSystem.out.println(s); // ba: left to right, non-overlapping</pre>"
     },
     {
      "type": "basic",
@@ -603,7 +637,8 @@
      "extra": "Both always start at the beginning of the region. <code>find()</code> is the one that scans forward for a match anywhere in the input.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>System.out.println(java.util.regex.Pattern.compile(\"\\\\d+\").matcher(\"123abc\").matches());   // false: entire region required\nSystem.out.println(java.util.regex.Pattern.compile(\"\\\\d+\").matcher(\"123abc\").lookingAt()); // true: prefix is enough</pre>"
     },
     {
      "type": "basic",
@@ -621,7 +656,8 @@
      "extra": "It first resets the matcher, so any prior match state is discarded before scanning from the given index.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"\\\\d+\").matcher(\"a1b22c333\");\nSystem.out.println(m.find(5) + \" \" + m.group()); // true 333: reset, start searching at index 5</pre>"
     },
     {
      "type": "basic",
@@ -630,7 +666,8 @@
      "extra": "<code>replaceFirst</code> replaces only the first match. Both return a new String; the matcher's input is unchanged.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"\\\\d+\").matcher(\"a1b22\");\nSystem.out.println(m.replaceAll(\"#\")); // a#b#: every match replaced</pre>"
     },
     {
      "type": "basic",
@@ -648,7 +685,8 @@
      "extra": "appendReplacement is the non-terminal step inside the loop, appendTail is the terminal step that copies the remainder after the last match.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.regex.Matcher m = java.util.regex.Pattern.compile(\"cat\").matcher(\"cat dog cat\");\nStringBuffer sb = new StringBuffer();\nwhile (m.find()) m.appendReplacement(sb, \"fox\");\nm.appendTail(sb);\nSystem.out.println(sb); // fox dog fox</pre>"
     },
     {
      "type": "basic",
@@ -657,7 +695,8 @@
      "extra": "That is why a string containing regex metacharacters such as '.' or '$' behaves unpredictably with replaceAll but safely with replace.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"a.c\".replaceAll(\".\", \"X\")); // XXX: the target is a regex\nSystem.out.println(\"a.c\".replace(\".\", \"X\"));    // aXc: the target is literal text</pre>"
     },
     {
      "type": "basic",
@@ -684,7 +723,8 @@
      "extra": "The parser sees the question mark as a quantifier with nothing to quantify and reports index 0, not the missing parenthesis. <code>getIndex()</code> gives the same number.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try { java.util.regex.Pattern.compile(\"?i)foo\"); }\ncatch (java.util.regex.PatternSyntaxException e) { System.out.println(e.getIndex() + \" \" + e.getDescription()); }\n// 0 Dangling meta character '?\\'</pre>"
     }
    ]
   },

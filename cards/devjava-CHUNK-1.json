@@ -80,7 +80,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>import java.lang.reflect.Method;\nclass Ex { private void hidden() {} static void m() {\n  Method[] all = Ex.class.getDeclaredMethods();  // includes private hidden()\n} }</pre>"
+     "example": "<pre>class Ex {\n  private void hidden() {}  public static void main(String[] a) {\n    for (java.lang.reflect.Method m : Ex.class.getDeclaredMethods())\n      System.out.println(m.getName() + \" private=\" + java.lang.reflect.Modifier.isPrivate(m.getModifiers()));\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -90,7 +90,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>import java.lang.reflect.Method;\nclass Ex { static void m() throws Exception {\n  Class<?> rt = java.util.List.class.getMethod(\"get\", int.class).getReturnType();\n  boolean erased = rt == Object.class;\n} }</pre>"
+     "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    java.lang.reflect.Method get = java.util.List.class.getMethod(\"get\", int.class);\n    System.out.println(get.getReturnType().getName());  // java.lang.Object: erased\n  }\n}</pre>"
     },
     {
      "type": "table",
@@ -100,7 +100,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>try {\n  java.util.List.class.getMethod(\"add\", String.class); // NoSuchMethodException\n} catch (NoSuchMethodException e) {\n  // add(String) was erased to add(Object)\n}</pre>"
+     "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    try { java.util.List.class.getDeclaredMethod(\"add\", String.class); } catch (NoSuchMethodException e) { System.out.println(\"no add(String): erased to Object\"); }\n    System.out.println(java.util.List.class.getDeclaredMethod(\"add\", Object.class).getParameterTypes()[0].getName());\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -110,7 +110,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>import java.lang.reflect.Method;\nclass Ex {\n  static void m() throws Exception {\n    Method meth = String.class.getMethod(\"valueOf\", int.class);\n    Object r = meth.invoke(null, 42);   // static: first arg is null\n  }\n}</pre>"
+     "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    java.lang.reflect.Method m = String.class.getMethod(\"valueOf\", int.class);\n    System.out.println(m.invoke(null, 7));  // static method: first argument is null\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -120,7 +120,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>import java.lang.reflect.*;\nclass Ex { static void boom() { throw new IllegalStateException(\"x\"); } static void m() throws Exception {\n  Method mm = Ex.class.getDeclaredMethod(\"boom\");\n  try { mm.invoke(null); } catch (InvocationTargetException e) {\n    Throwable cause = e.getCause();  // IllegalStateException\n  }\n} }</pre>"
+     "example": "<pre>class Ex {\n  static void boom() { throw new IllegalStateException(\"from method\"); }  public static void main(String[] a) throws Exception {\n    java.lang.reflect.Method m = Ex.class.getDeclaredMethod(\"boom\");\n    try { m.invoke(null); } catch (java.lang.reflect.InvocationTargetException e) { System.out.println(e.getCause().getClass().getSimpleName()); }\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -172,7 +172,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>int mods = java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.STATIC;\nboolean both = java.lang.reflect.Modifier.isPublic(mods) && java.lang.reflect.Modifier.isStatic(mods);</pre>"
+     "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    int cm = java.util.List.class.getModifiers(), mm = java.util.List.class.getMethod(\"size\").getModifiers();\n    System.out.println(cm + \" \" + mm + \" isPublic=\" + java.lang.reflect.Modifier.isPublic(mm));\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -234,7 +234,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>String simple = java.util.Map.Entry.class.getSimpleName();  // \"Entry\"\nString canon = java.util.Map.Entry.class.getCanonicalName(); // \"java.util.Map.Entry\"  //</pre>"
+     "example": "<pre>System.out.println(java.util.Map.Entry.class.getSimpleName());      // Entry\nSystem.out.println(java.util.Map.Entry.class.getCanonicalName());   // java.util.Map.Entry\nSystem.out.println(java.util.Map.Entry.class.getName());            // java.util.Map$Entry</pre>"
     },
     {
      "type": "basic",
@@ -254,7 +254,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>Runnable r = () -> {};\nString n = r.getClass().getSimpleName();  // the enclosing class name</pre>"
+     "example": "<pre>class Ex {\n  public static void main(String[] a) {\n    Runnable r = () -> {};\n    System.out.println(r.getClass().getSimpleName());  // starts with Ex, the declaring class\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -284,7 +284,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>String n = long[].class.getName();    // \"[J\" - J is long, not L\nString s = String[].class.getName();  // \"[Ljava.lang.String;\"  // ref array</pre>"
+     "example": "<pre>class Ex {\n  static void f(long x) {}  public static void main(String[] a) throws Exception {\n    System.out.println(long[].class.getName());  // [J: J encodes long, not L\n    System.out.println(Ex.class.getDeclaredMethod(\"f\", long.class).getParameterTypes()[0].getName());\n  }\n}</pre>"
     }
    ]
   },
@@ -346,7 +346,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>import java.lang.reflect.Field;\nrecord Point(int x) {}\nclass Ex { static void m() throws Exception {\n  Field f = Point.class.getDeclaredField(\"x\");\n  f.setAccessible(true);\n  try { f.setInt(new Point(1), 9); } catch (IllegalAccessException e) {} // records stay read-only\n} }</pre>"
+     "example": "<pre>class Ex {\n  record Point(int x, int y) {}  public static void main(String[] a) throws Exception {\n    java.lang.reflect.Field f = Point.class.getDeclaredField(\"x\"); f.setAccessible(true);\n    try { f.set(new Point(1, 2), 9); } catch (IllegalAccessException e) { System.out.println(\"IllegalAccessException\"); }\n  }\n}</pre>"
     }
    ]
   },
@@ -408,7 +408,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>import java.lang.annotation.*;\nimport java.lang.reflect.*;\n@Retention(RetentionPolicy.RUNTIME) @interface Logged {}\nclass Ex { void service() {} static void m() throws Exception {\n  Method mm = Ex.class.getDeclaredMethod(\"service\");\n  if (mm.getAnnotation(Logged.class) == null) { /* call directly, no interception */ }\n} }</pre>"
+     "example": "<pre>class Ex {\n  @interface Logged {}  static class Service { public void run() { System.out.println(\"direct\"); } }  public static void main(String[] a) throws Exception {\n    java.lang.reflect.Method m = Service.class.getMethod(\"run\");\n    if (m.getAnnotation(Logged.class) == null) m.invoke(new Service()); // no interception\n  }\n}</pre>"
     }
    ]
   },
@@ -429,7 +429,8 @@
      "extra": "The short form of 'exceptional event'. When one occurs, the method creates an exception object describing the type and program state, and hands it to the runtime; that act is called throwing.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>try { throw new IllegalStateException(\"event disrupts normal flow\"); }\ncatch (IllegalStateException e) { System.out.println(\"execution continues here\"); }</pre>"
     },
     {
      "type": "basic",
@@ -438,7 +439,8 @@
      "extra": "The runtime walks it in reverse: it starts at the method where the error occurred and works back through the callers, looking for a handler whose type matches the thrown object.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void a() { b(); }\n  static void b() { c(); }\n  static void c() { throw new IllegalStateException(\"failing method\"); }\n  public static void main(String[] x) { try { a(); } catch (IllegalStateException e) { e.printStackTrace(); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -447,7 +449,8 @@
      "extra": "Matching is by subtype, not exact class. A handler for <code>IOException</code> also catches <code>FileNotFoundException</code>, because the thrown object can legally be assigned to that argument.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try { throw new java.io.FileNotFoundException(\"f\"); }\ncatch (java.io.IOException e) { System.out.println(\"assignable: IOException handler catches FileNotFoundException\"); }</pre>"
     },
     {
      "type": "basic",
@@ -466,7 +469,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>class Ex {\n  void a() { try { java.nio.file.Files.readString(java.nio.file.Path.of(\"f\")); } catch (java.io.IOException e) {} }\n  void b() throws java.io.IOException { java.nio.file.Files.readString(java.nio.file.Path.of(\"f\")); }\n}</pre>"
+     "example": "<pre>class Ex {\n  void handled() { try { new java.io.FileInputStream(\"f\").close(); } catch (java.io.IOException e) {} }\n  void specified() throws java.io.IOException { new java.io.FileInputStream(\"f\").close(); }\n}</pre>"
     },
     {
      "type": "table",
@@ -476,7 +479,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>import java.io.*;\nclass Ex { static void m() {\n  try { new FileInputStream(\"missing.txt\"); }\n  catch (FileNotFoundException e) { /* checked: anticipate and recover */ }\n} }</pre>"
+     "example": "<pre>try { new java.io.FileInputStream(\"missing.txt\").close(); }\ncatch (java.io.IOException e) { System.out.println(\"checked: anticipate and recover - \" + e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "table",
@@ -485,7 +488,8 @@
      "extra": "Example: <code>IOError</code> after a hardware or system malfunction. An app may catch one to inform the user, but printing a stack trace and exiting is equally defensible.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Throwable err = new OutOfMemoryError(\"simulated\");\nSystem.out.println(err instanceof RuntimeException);  // false: Error is unchecked but not RuntimeException</pre>"
     },
     {
      "type": "table",
@@ -534,7 +538,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>class Ex {\n  void m() throws IndexOutOfBoundsException {  // legal, but optional documentation\n  }\n}</pre>"
+     "example": "<pre>class Ex {\n  void documented() throws IndexOutOfBoundsException {}\n  void plain() {}\n  public static void main(String[] a) { System.out.println(\"both compile: throws on unchecked is optional\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -543,7 +547,8 @@
      "extra": "Form: <code>throw new EmptyStackException();</code>. The keyword is <code>throw</code> for throwing at runtime; <code>throws</code> is the declaration.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>IllegalArgumentException t = new IllegalArgumentException(\"bad\");\nthrow t;  // a Throwable subclass instance</pre>"
     },
     {
      "type": "basic",
@@ -553,7 +558,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>Throwable a = new Error();\nThrowable b = new Exception();\nboolean direct = a.getClass().getSuperclass() == Throwable.class && b.getClass().getSuperclass() == Throwable.class;</pre>"
+     "example": "<pre>System.out.println(Exception.class.getSuperclass().getName());\nSystem.out.println(Error.class.getSuperclass().getName());\nSystem.out.println(Throwable.class.isAssignableFrom(Exception.class) + \" \" + Throwable.class.isAssignableFrom(Error.class));</pre>"
     },
     {
      "type": "basic",
@@ -563,7 +568,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>class Ex { static void m() throws Exception {\n  try {\n    Class.forName(\"missing.Clazz\");  // LinkageError from a hard VM failure\n  } catch (LinkageError e) {\n  }\n} }</pre>"
+     "example": "<pre>Error e = new LinkageError(\"bad linkage\");\nSystem.out.println(e instanceof Error);  // hard VM failures are Error subclasses</pre>"
     },
     {
      "type": "basic",
@@ -581,7 +586,8 @@
      "extra": "It lists the classes and methods that were on the call stack, so you can see the path that led to the exception. Retrieve it with <code>getStackTrace()</code> to log in your own format.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Throwable t = new RuntimeException(\"where\");\nt.printStackTrace();  // execution history of the current thread at throw time</pre>"
     },
     {
      "type": "rule",
@@ -590,7 +596,8 @@
      "extra": "For example, a <code>pop()</code> throwing <code>EmptyStackException</code>, which is a RuntimeException, compiles without one.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void safe() { System.out.println(\"no checked exceptions: no throws clause\"); }\n  public static void main(String[] a) { safe(); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -599,7 +606,8 @@
      "extra": "no existing type fits, users need to tell your exceptions from other vendors', you throw several related ones, or users may not have access to the third-party exception types.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static class ServiceException extends Exception { ServiceException(String m) { super(m); } }\n  static class ReadException extends ServiceException { ReadException() { super(\"read\"); } }\n  static class WriteException extends ServiceException { WriteException() { super(\"write\"); } }\n  public static void main(String[] a) { try { throw new ReadException(); } catch (ServiceException e) { System.out.println(\"one handler catches both\"); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -656,7 +664,8 @@
      "extra": "A typical program would list NullPointerException, ArithmeticException and IndexOutOfBoundsException on nearly every method, adding noise with no information.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  void f() { throw new NullPointerException(\"can happen anywhere\"); }\n  public static void main(String[] a) { try { new Ex().f(); } catch (RuntimeException e) { System.out.println(\"no throws clause needed\"); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -665,7 +674,8 @@
      "extra": "E.g. rejecting an invalid null argument with <code>NullPointerException</code> or an unusable value with IllegalArgumentException. It marks a contract violation by the caller.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void divide(int d) { if (d == 0) throw new IllegalArgumentException(\"caller error: zero divisor\"); }\n  public static void main(String[] a) { try { divide(0); } catch (IllegalArgumentException e) { System.out.println(e.getMessage()); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -675,7 +685,7 @@
      "tags": [
       "type::mental-model"
      ],
-     "example": "<pre>String input = \"42\";\ntry {\n  int n = Integer.parseInt(input);  // main logic\n} catch (NumberFormatException e) {\n  // error handling, separate from the logic above\n}</pre>"
+     "example": "<pre>try { int x = Integer.parseInt(\"oops\"); System.out.println(x); }  // main logic\ncatch (NumberFormatException e) { System.out.println(\"error-handling code\"); }</pre>"
     },
     {
      "type": "rule",
@@ -702,7 +712,8 @@
      "extra": "It also catches programming errors you never intended to handle, and the handler must accommodate any possibility. Catching <code>Exception</code> is fine when you just print and exit.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try { int[] a = new int[1]; System.out.println(a[7]); }\ncatch (Exception e) { System.out.println(\"too broad: hides \" + e.getClass().getSimpleName()); }</pre>"
     }
    ]
   },
@@ -723,7 +734,8 @@
      "extra": "Order matters: handlers are tested top to bottom, so a supertype first makes every subtype handler unreachable.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try { throw new IllegalStateException(\"x\"); }\ncatch (IllegalStateException e) { System.out.println(\"catch directly follows the try brace\"); }</pre>"
     },
     {
      "type": "basic",
@@ -742,7 +754,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>try { System.out.println(\"x\"); }\ncatch (Throwable t) { }  // any subclass of Throwable works as a handler</pre>"
+     "example": "<pre>try { throw new java.io.IOException(\"x\"); }\ncatch (java.io.IOException e) { System.out.println(e instanceof Throwable); }  // IOException inherits Throwable</pre>"
     },
     {
      "type": "basic",
@@ -751,7 +763,8 @@
      "extra": "Available since Java SE 7 and it saves duplicating the handler body. Apart from the types joined by the pipe, it is an ordinary catch clause.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>try { Integer.parseInt(\"x\"); }\ncatch (NumberFormatException | ArithmeticException e) { System.out.println(\"catch (A | B e)\"); }</pre>"
     },
     {
      "type": "basic",
@@ -760,7 +773,8 @@
      "extra": "You cannot reassign <code>ex</code> inside the block, because the variable stands for several possible exception objects. Assigning to it is a compile error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>try { throw new java.io.IOException(\"x\"); }\ncatch (java.io.IOException | IllegalArgumentException e) {\n  System.out.println(\"catch parameter is implicitly final\");  // e = null; would not compile\n}</pre>"
     },
     {
      "type": "rule",
@@ -769,7 +783,8 @@
      "extra": "Otherwise the error reads 'Types in multi-catch must be disjoint'. Keeping the types unrelated guarantees each alternative is reachable.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try { throw new java.io.IOException(\"x\"); }\ncatch (java.io.IOException | IllegalArgumentException e) { System.out.println(\"disjoint types only: \" + e.getClass().getSimpleName()); }</pre>"
     },
     {
      "type": "rule",
@@ -787,7 +802,8 @@
      "extra": "A call to <code>System.exit</code> stops the process before cleanup matters. Otherwise finally is guaranteed, which is why it is the place for releasing resources.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void demo() { try { System.exit(1); } finally { System.out.println(\"skipped on JVM exit\"); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -797,7 +813,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>class Ex { static void m() {\n  try {\n    throw new IllegalStateException(\"from try\");\n  } finally {\n    throw new IllegalArgumentException(\"from finally\");  // this one propagates\n  }\n} }</pre>"
+     "example": "<pre>class Ex {\n  static void f() { try { throw new IllegalStateException(\"try\"); } finally { throw new IllegalArgumentException(\"finally\"); } }\n  public static void main(String[] a) { try { f(); } catch (RuntimeException e) { System.out.println(e.getMessage()); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -806,7 +822,8 @@
      "extra": "<code>Closeable</code> is the older java.io one; its <code>close()</code> throws <code>IOException</code>, while <code>AutoCloseable.close()</code> declares <code>Exception</code>. Every Closeable is thus AutoCloseable.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.io.Closeable c = new java.io.ByteArrayInputStream(new byte[0]);\nSystem.out.println(c instanceof AutoCloseable);  // Closeable extends AutoCloseable\ntry (c) { System.out.println(\"usable in try-with-resources\"); } catch (java.io.IOException e) { }</pre>"
     },
     {
      "type": "basic",
@@ -815,7 +832,8 @@
      "extra": "Resources declared inside the parentheses are implicitly final; the compiler adds the modifier for you. Either way the variable must implement <code>AutoCloseable</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  public static void main(String[] a) throws Exception {\n    final java.io.InputStream in = new java.io.ByteArrayInputStream(new byte[0]);\n    try (in) { System.out.println(in.read()); }  // assigned before try, final\n  }\n}</pre>"
     },
     {
      "type": "rule",
@@ -824,7 +842,8 @@
      "extra": "Retrieve them via <code>Throwable.getSuppressed()</code>. This reverses plain try/finally, where the close exception wins and the body exception is lost.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static class R implements AutoCloseable { public void close() { throw new IllegalStateException(\"close\"); } }\n  public static void main(String[] a) { try (R r = new R()) { throw new IllegalArgumentException(\"body\"); } catch (IllegalArgumentException e) { System.out.println(e.getSuppressed()[0].getMessage()); } }\n}</pre>"
     },
     {
      "type": "basic",
@@ -834,7 +853,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>class R implements AutoCloseable { final String n; R(String n){this.n=n;} public void close(){System.out.println(n);} }\nclass Ex { static void m() throws Exception {\n  try (R a = new R(\"a\"); R b = new R(\"b\")) { }  // prints b, then a\n} }</pre>"
+     "example": "<pre>class Ex {\n  static class A implements AutoCloseable { public void close() { System.out.println(\"A\"); } }\n  static class B implements AutoCloseable { public void close() { System.out.println(\"B\"); } }\n  public static void main(String[] x) { try (A a = new A(); B b = new B()) { } }  // B then A\n}</pre>"
     },
     {
      "type": "basic",
@@ -843,7 +862,8 @@
      "extra": "So a failure in <code>close()</code> happens before your catch block sees the body's exception. The catch handles the primary exception, with close failures attached as suppressed.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static class R implements AutoCloseable { public void close() { System.out.println(\"close first\"); } }\n  public static void main(String[] a) { try (R r = new R()) { } catch (RuntimeException e) { } finally { System.out.println(\"catch/finally after close\"); } }\n}</pre>"
     }
    ]
   },

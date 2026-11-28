@@ -25,7 +25,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>Object[] a = new Object[0];\ntry { String[] s = (String[]) a; } catch (ClassCastException e) { System.out.println(e.getMessage()); }</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +37,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int score = 95;\n// case score >= 90: is illegal - case labels must be compile-time constants\nswitch (score) { case 90: break; default: break; }</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +49,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>class Ex {\n  static void m() throws Exception {\n    String path = \"app.jar\";\n    Process p = new ProcessBuilder(\"java\", \"-jar\", path).redirectErrorStream(true).start();\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +61,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class A { void f() { } }\nclass B extends A { void f() { super.f(); } }\nclass C extends B { void f() { /* super.super.f() is illegal; super.f() reaches only B */ super.f(); } }</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +73,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>// In Ex.java: public class X {} -> error: class X is public, should be declared in a file named X.java\nclass X {}   // non-public: the file name need not match</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +85,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>RuntimeException e = new RuntimeException();\nSystem.out.println(e.getMessage());          // null\nSystem.out.println(e.getMessage() == null);  // true</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +108,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>String cp = System.getProperty(\"java.class.path\");\nSystem.out.println(cp);   // ClassLoader API does not expose the full classpath</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +120,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>javax.tools.JavaCompiler c = javax.tools.ToolProvider.getSystemJavaCompiler();\nint rc = c.run(null, null, null, \"-d\", \".\", \"Example.java\");</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +132,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>class Ex {\n  static void m() throws Exception { javax.tools.JavaCompiler c = javax.tools.ToolProvider.getSystemJavaCompiler();\n    com.sun.source.util.JavacTask t = (com.sun.source.util.JavacTask) c.getTask(null, null, null, null, null, c.getStandardFileManager(null, null, null).getJavaFileObjects(\"Ex.java\"));\n    for (com.sun.source.tree.CompilationUnitTree u : t.parse()) System.out.println(u.getSourceFile());\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -135,7 +144,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  class Inner { }\n  static void m() throws Exception { Ex outer = new Ex();\n    Ex.Inner i = Ex.Inner.class.getDeclaredConstructor(Ex.class).newInstance(outer);\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -146,7 +156,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>class Ex {\n  record Point(int x, int y) { }\n  static void m() throws Exception { java.lang.reflect.RecordComponent[] cs = Point.class.getRecordComponents();\n    Object v = cs[0].getAccessor().invoke(new Point(1, 2));\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -157,7 +168,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals",
+   "example": "<pre>class Ex {\n  record User(java.util.Optional<String> name) { }   // Optional is not Serializable\n  static void m() { User u = new User(java.util.Optional.empty()); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -168,7 +180,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals",
+   "example": "<pre>try { java.util.Optional.of(null); } catch (NullPointerException ex) { System.out.println(\"of(null) throws\"); }\njava.util.Optional<Object> maybe = java.util.Optional.ofNullable(null);\nSystem.out.println(maybe.isEmpty());   // true</pre>"
   },
   {
    "type": "basic",
@@ -179,7 +192,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals",
+   "example": "<pre>Object expected = \"x\";\njava.util.Optional<Object> optional = java.util.Optional.ofNullable(expected);\nboolean a = optional.filter(v -> v.equals(expected)).isPresent();\nboolean b = optional.equals(java.util.Optional.of(expected));</pre>"
   },
   {
    "type": "basic",
@@ -190,7 +204,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals",
+   "example": "<pre>String x = null;\nString fallback = \"default\";\nString a = java.util.Optional.ofNullable(x).orElse(fallback);\nString b = java.util.Objects.requireNonNullElse(x, fallback);</pre>"
   },
   {
    "type": "basic",
@@ -201,7 +216,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>String a = null, fallback = \"use this\";\nString b = a != null ? a : fallback;   // Java has no Groovy/Kotlin ?: operator</pre>"
   },
   {
    "type": "basic",
@@ -223,7 +239,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>int x = 0; int[] xs = {1, 2};\nouter: for (int v : xs) { if (v == 2) break outer; }\nint t = x > 0 ? 1 : 2;\nswitch (t) { case 1: break; default: break; }\nassert x >= 0 : \"msg\";</pre>"
   },
   {
    "type": "basic",
@@ -245,7 +262,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview",
+   "example": "<pre>// MyProgram.java - JDK 25 (preview in 21): java MyProgram.java\nvoid main() {\n    System.out.println(\"no class declaration needed\");\n}</pre>"
   },
   {
    "type": "basic",
@@ -267,7 +285,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>class Ex implements java.io.Serializable {\n  private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException { in.defaultReadObject(); }\n  private Object readResolve() { return new Ex(); }   // returned object replaces this one\n}</pre>"
   },
   {
    "type": "basic",
@@ -278,7 +297,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>class Ex {\n  static void m() throws Exception { System.setProperty(\"jdk.serialFilter\", \"java.lang.String;!*\");\n    java.io.ObjectInputStream in = new java.io.ObjectInputStream(new java.io.ByteArrayInputStream(new byte[0]));\n    in.setObjectInputFilter(info -> info.serialClass() == String.class ? java.io.ObjectInputFilter.Status.ALLOWED : java.io.ObjectInputFilter.Status.REJECTED);\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -289,7 +309,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals",
+   "example": "<pre>try {\n    Class.forName(\"shape.Changed\");   // compiled against a class, now an interface at runtime\n} catch (IncompatibleClassChangeError e) {\n    System.out.println(e.getMessage());\n} catch (ClassNotFoundException e) { }</pre>"
   },
   {
    "type": "basic",
@@ -300,7 +321,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::01 JVM Internals",
+   "example": "<pre>try {\n    System.loadLibrary(\"definitely_missing_native_library\");\n} catch (UnsatisfiedLinkError e) {\n    System.out.println(e.getMessage());\n}</pre>"
   },
   {
    "type": "basic",
@@ -322,7 +344,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>System.out.print(\"no newline\");\nSystem.out.flush();   // forces buffered output to the stream now\nSystem.out.println(\" done\");</pre>"
   },
   {
    "type": "basic",
@@ -344,7 +367,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>int v = 120, min = 0, max = 100;\nint a = Math.clamp(v, min, max);                 // Java 21\nint b = Math.min(max, Math.max(min, v));</pre>"
   },
   {
    "type": "basic",
@@ -355,7 +379,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation"
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation",
+   "example": "<pre>class Counter {\n  private int n;                      // information hiding: restrict access\n  public void increment() { n++; }    // encapsulation: data with behaviour\n}</pre>"
   },
   {
    "type": "basic",
@@ -366,7 +391,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ex {\n  static final int A = 1;\n  final static int B = 2;   // same meaning: modifier order is insignificant\n}</pre>"
   },
   {
    "type": "basic",
@@ -377,7 +403,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Const { static final int N = 3; }   // compile-time constant\nclass User { static void m() { System.out.println(Const.N); } } // 3 is inlined into User.class</pre>"
   },
   {
    "type": "basic",
@@ -388,7 +415,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer {\n  class Inner { enum E { A, B } }   // implicitly static enum: illegal before Java 16\n}</pre>"
   },
   {
    "type": "basic",
@@ -410,7 +438,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>class Ex {\n  interface Capability { void run(); }   // capability noun, like Runnable\n  static void m() { Runnable r = () -> { }; Comparable<String> c = a -> 0; java.util.List<String> xs = new java.util.ArrayList<>(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -421,7 +450,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>class Ex {\n  interface Runnable2 { void run(); }\n  @interface Tag { String value(); }\n  static void m() { Runnable2 r = () -> { }; Tag t = Ex.class.getAnnotation(Tag.class); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -432,7 +462,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection"
+   "merge_into": "00 Java Roadmap::02 Object Model::22 Reflection",
+   "example": "<pre>Object o = \"text\";\nString a = (String) o;\nString b = String.class.cast(o);\ntry { Integer.class.cast(o); } catch (ClassCastException e) { System.out.println(e.getMessage()); }</pre>"
   },
   {
    "type": "basic",
@@ -443,7 +474,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>byte[] bytes = new byte[16];\nnew java.security.SecureRandom().nextBytes(bytes);\nString hex = java.util.HexFormat.of().formatHex(bytes);   // 32 hex chars</pre>"
   },
   {
    "type": "basic",
@@ -454,7 +486,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>try {\n    java.lang.reflect.Field f = sun.misc.Unsafe.class.getDeclaredField(\"theUnsafe\");\n    f.setAccessible(true);\n    sun.misc.Unsafe u = (sun.misc.Unsafe) f.get(null);\n    Object o = u.allocateInstance(java.util.ArrayList.class);\n} catch (Exception ignored) { }</pre>"
   },
   {
    "type": "basic",
@@ -465,7 +498,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Ex {\n  static class Box<T> { Class<T> t; Box(Class<T> t) { this.t = t; } }\n  static void m() { Class<String> a = new Box<>(String.class).t;\n    java.lang.reflect.ParameterizedType b = (java.lang.reflect.ParameterizedType) new Box<String>(String.class) {}.getClass().getGenericSuperclass();\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -476,7 +510,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>javac -Xlint:rawtypes -Xlint:unchecked Example.java\n// rawtypes: raw List usage; unchecked: unchecked conversion into a generic type</pre>"
   },
   {
    "type": "basic",
@@ -487,7 +522,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>Integer a = 1, b = 1;\nSystem.out.println(a == b);   // cached boxing, but value-based identity is unspecified\nSystem.out.println(java.time.LocalDate.of(2024, 1, 1).equals(java.time.LocalDate.of(2024, 1, 1)));</pre>"
   },
   {
    "type": "basic",
@@ -498,7 +534,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools"
+   "merge_into": "00 Java Roadmap::13 JVM and Tooling::03 Core JDK Tools",
+   "example": "<pre>import jdk.incubator.vector.*;\nvar a = FloatVector.fromArray(FloatVector.SPECIES_256, new float[8], 0);\nvar b = a.add(a);   // SIMD: needs --add-modules jdk.incubator.vector</pre>"
   },
   {
    "type": "basic",
@@ -509,7 +546,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class Ex {\n  record Params(String q, int page, int size) { }   // parameter object replaces ten parameters\n  static int find(Params p) { return 0; }\n  static void m() { int n = find(new Params(\"x\", 1, 20)); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -520,7 +558,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>class Ex {\n  static class Holder { static final Object INSTANCE = new Object(); }\n  static void m() { java.util.concurrent.atomic.AtomicBoolean once = new java.util.concurrent.atomic.AtomicBoolean();\n    if (once.compareAndSet(false, true)) { System.out.println(\"once\"); }\n  }\n}</pre>"
   }
  ]
 }
