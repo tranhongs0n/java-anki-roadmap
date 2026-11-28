@@ -14,7 +14,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Ex {\n  int LIMIT = 10;                                   // constant\n  void run();                                       // abstract\n  static int twice(int n) { return 2 * n; }         // static\n  default String label() { return \"p\" + secret(); } // default\n  private String secret() { return \"!\"; } }         // private since Java 9</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Ex {\n  int LIMIT = 3; // implicitly public static final\n  // private int HIDDEN = 1; // error: visibility cannot be changed\n}</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Ex {\n  void run(); // implicitly public abstract\n  // protected void p(); // error\n  // final void f() {} // error\n}</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Open { }\n// final interface Closed { }  // error: illegal combination of modifiers: interface and final</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Base { void f(); }\ninterface Child extends Base { void g(); }\nclass Ex implements Child { public void f() {} public void g() {} }</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface HasColor { String getColor(); }\ninterface Box extends HasColor { int getHeight(); }\nclass Carton implements Box { public String getColor() { return \"brown\"; } public int getHeight() { return 3; } }\nclass Ex { static void demo() { Box b = new Carton(); System.out.println(b.getColor() + b.getHeight()); } }</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>interface Api { void required(); default String label() { return \"api\"; } }\nabstract class Base implements Api { } // required() left to a concrete subclass\nclass Impl extends Base { public void required() {} }\nclass Ex { static void demo() { System.out.println(new Impl().label()); } }</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Api { void existing(); default int size() { return 0; } }\nclass Impl implements Api { public void existing() {} } // old implementer unchanged\nclass Ex { static void demo() { Api a = new Impl(); System.out.println(a.size()); } }</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism"
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism",
+   "example": "<pre>interface A { void a(); }\ninterface B { void b(); }\nclass Base { }\nclass Ex extends Base implements A, B { public void a() {} public void b() {}\n  static void demo() { Ex x = new Ex(); A a = x; B b = x; Base base = x; } }</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +122,8 @@
    "tags": [
     "type::interfaces"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism"
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism",
+   "example": "<pre>interface Shape { String name(); }\nclass Circle implements Shape { public String name() { return \"circle\"; } }\nclass Square implements Shape { public String name() { return \"square\"; } }\nclass Ex { static void demo() { Shape s = new Circle(); System.out.println(s.name());\n  s = new Square(); System.out.println(s.name()); } }</pre>"
   }
  ]
 }

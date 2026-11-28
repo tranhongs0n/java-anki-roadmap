@@ -16,7 +16,8 @@
     "type::rule",
     "item::75"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>int index = 12;\nString bad = \"invalid index\";\nString good = \"index=\" + index + \" size=3\";\nif (index &gt;= 3) throw new IndexOutOfBoundsException(good);</pre>"
   },
   {
    "type": "basic",
@@ -28,7 +29,8 @@
     "type::rule",
     "item::76"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>final class Basket {\n  private int count;\n  void addAll(java.util.List&lt;String&gt; xs) {\n    for (String x : xs) if (x == null) throw new IllegalArgumentException(\"null\");\n    for (String x : xs) count++; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -40,7 +42,8 @@
     "type::rule",
     "item::77"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>int n = 0;\ntry { n = Integer.parseInt(\"oops\"); } catch (NumberFormatException e) { }\nSystem.out.println(n);</pre>"
   },
   {
    "type": "basic",
@@ -52,7 +55,8 @@
     "type::rule",
     "item::78"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>final class Flag {\n  private volatile boolean stopped;\n  void stop() { stopped = true; }\n  boolean stopped() { return stopped; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +68,8 @@
     "type::rule",
     "item::79"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model"
+   "merge_into": "00 Java Roadmap::06 Concurrency::04 Java Memory Model",
+   "example": "<pre>final class Box {\n  private int n;\n  synchronized int snapshot() { return n; }\n  void tell(java.util.function.IntConsumer alien) { alien.accept(snapshot()); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -76,7 +81,8 @@
     "type::rule",
     "item::80"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>java.util.concurrent.ExecutorService pool = java.util.concurrent.Executors.newFixedThreadPool(2);\npool.submit(() -&gt; System.out.println(\"task\"));\npool.shutdown();\nint sum = java.util.stream.IntStream.range(0, 10).parallel().sum();</pre>"
   },
   {
    "type": "basic",
@@ -88,7 +94,8 @@
     "type::rule",
     "item::81"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>java.util.concurrent.BlockingQueue&lt;String&gt; q = new java.util.concurrent.ArrayBlockingQueue&lt;&gt;(1);\ntry { q.put(\"task\"); String task = q.take(); System.out.println(task); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }\njava.util.concurrent.ConcurrentHashMap&lt;String,Integer&gt; counts = new java.util.concurrent.ConcurrentHashMap&lt;&gt;();\ncounts.merge(\"task\", 1, Integer::sum);\njava.util.concurrent.CountDownLatch latch = new java.util.concurrent.CountDownLatch(1);\nlatch.countDown();</pre>"
   },
   {
    "type": "basic",
@@ -100,7 +107,8 @@
     "type::rule",
     "item::82"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads",
+   "example": "<pre>final class Counter {\n  /** Thread-safe: all methods are synchronized, so callers need no extra locking. */\n  private int n;\n  synchronized void inc() { n++; }\n  synchronized int get() { return n; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -112,7 +120,8 @@
     "type::rule",
     "item::83"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads",
+   "example": "<pre>class Lazy {\n  private Lazy() { }\n  static Lazy get() { return Holder.INSTANCE; }\n  private static class Holder { static final Lazy INSTANCE = new Lazy(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +133,8 @@
     "type::rule",
     "item::84"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads"
+   "merge_into": "00 Java Roadmap::06 Concurrency::02 Threads",
+   "example": "<pre>java.util.concurrent.CountDownLatch done = new java.util.concurrent.CountDownLatch(1);\nThread t = new Thread(() -&gt; done.countDown());\nt.setPriority(Thread.MAX_PRIORITY);\nt.start();\ntry { done.await(); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +146,8 @@
     "type::rule",
     "item::85"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>String json = \"{\\\"name\\\":\\\"Ada\\\"}\";\nSystem.out.println(json);\njava.util.Properties p = new java.util.Properties();\np.setProperty(\"name\", \"Ada\");\nSystem.out.println(p.getProperty(\"name\"));</pre>"
   },
   {
    "type": "basic",
@@ -148,7 +159,8 @@
     "type::rule",
     "item::86"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>final class Point implements java.io.Serializable {\n  private static final long serialVersionUID = 1L;\n  private int x;\n  Point(int x) { this.x = x; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -160,7 +172,8 @@
     "type::rule",
     "item::87"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>class Id implements java.io.Serializable {\n  private transient int id;\n  private void writeObject(java.io.ObjectOutputStream o) throws java.io.IOException { o.writeInt(id); }\n  private void readObject(java.io.ObjectInputStream i) throws java.io.IOException { id = i.readInt(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -172,7 +185,8 @@
     "type::rule",
     "item::88"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>final class Range implements java.io.Serializable {\n  private int value;\n  Range(int v) { if (v &lt; 0) throw new IllegalArgumentException(\"v=\" + v); this.value = v; }\n  private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {\n    in.defaultReadObject(); if (value &lt; 0) throw new java.io.InvalidObjectException(\"value=\" + value); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -184,7 +198,8 @@
     "type::rule",
     "item::89"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>enum Singleton { INSTANCE; int id() { return 1; } }\nclass Ex { static void m() { Singleton s = Singleton.INSTANCE; System.out.println(s.id()); } }</pre>"
   },
   {
    "type": "basic",
@@ -196,7 +211,8 @@
     "type::rule",
     "item::90"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>class Holder { private final int v; Holder(int v) { this.v = v; } private Object writeReplace() { return new Proxy(v); } }\nclass Proxy implements java.io.Serializable { private final int v; Proxy(int v) { this.v = v; } private Object readResolve() { return new Holder(v); } }</pre>"
   }
  ]
 }

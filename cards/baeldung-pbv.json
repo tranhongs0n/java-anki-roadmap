@@ -14,7 +14,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Box { int n = 1; }\nclass Ex { static void bump(int x, Box b) { x++; b.n++; }\n  static void m() { int x = 1; Box b = new Box(); bump(x, b); System.out.println(x + \" \" + b.n); } } // 1 2</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Box { int n = 1; }\nclass Ex { static void f(Box b) { b = new Box(); b.n = 9; }\n  static void m() { Box b = new Box(); f(b); System.out.println(b.n); } } // 1: pointer copy changed</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Box { int n; }\nclass Ex { static void mutate(Box b) { b.n = 7; }\n  static void demo() { Box shared = new Box(); mutate(shared); System.out.println(shared.n); } }</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Box { int n; }\nclass Ex { static void reassign(Box p) { p = new Box(); p.n = 99; }\n  static void demo() { Box b = new Box(); b.n = 1; reassign(b); System.out.println(b.n); } }</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Ex { static void swap(int a, int b) { int t = a; a = b; b = t; }\n  static void m() { int a = 1, b = 2; swap(a, b); System.out.println(a + \" \" + b); } } // 1 2</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Box { int n; }\nclass Ex { static void reseat(Box b) { b = new Box(); }        // caller's variable unchanged\n  static void mutate(Box b) { b.n = 7; }                      // caller sees this\n  static void demo() { Box b = new Box(); reseat(b); mutate(b); System.out.println(b.n); } }</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::parameters"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference"
+   "merge_into": "00 Java Roadmap::02 Object Model::21 Pass by Value vs Pass by Reference",
+   "example": "<pre>class Ex { static int twice(int n) { n = 2 * n; return n; }\n  static void demo() { int x = 3; System.out.println(twice(x) + \" \" + x); } } // n dies with the frame</pre>"
   }
  ]
 }

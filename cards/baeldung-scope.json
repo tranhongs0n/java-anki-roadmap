@@ -14,7 +14,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>int outer = 1;\n{\n  int inner = 2;\n  System.out.println(outer + inner); // both valid in this region\n}\n// System.out.println(inner); // outside its scope</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Ex { private int hidden = 1; public int shown = 2;\n  void inside() { System.out.println(hidden + shown); }\n  static void outside() { System.out.println(new Ex().shown); } } // hidden stays in the class</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Ex { static void demo() {\n    int local = 1;\n    System.out.println(local);\n  }\n  // System.out.println(local); // error: cannot find symbol outside the method\n}</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>for (int i = 0; i != 3; i++) {\n  System.out.println(i);\n}\n// System.out.println(i); // error: i does not exist after the loop</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>int x = 1;\n{\n  int y = 2;\n  System.out.println(x + y);\n}\n// System.out.println(y); // error: y is out of scope</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Ex { int x = 1;\n  void set(int x) { System.out.println(x + \" \" + this.x); } } // parameter hides the field</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Ex { int value = 1;\n  void demo() { int value = 2; System.out.println(value + \" \" + this.value); } }</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::scope"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Ex { int value = 1;\n  void demo() { int value = 2; System.out.println(value + \" \" + this.value); } } // two meanings, adjacent lines</pre>"
   }
  ]
 }

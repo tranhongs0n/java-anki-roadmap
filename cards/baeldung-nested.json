@@ -14,7 +14,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Ex {\n  private static class Helper { int n = 1; } // grouped here, readable, hidden\n  static void m() { System.out.println(new Helper().n); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer {\n  static int shared = 1;\n  int instance = 2;\n  static class Nested { void show() { System.out.println(shared); /* instance is not accessible */ } }\n}</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Ex { static class Nested { int value = 7; int twice() { return 2 * value; } }\n  static void demo() { System.out.println(new Nested().twice()); } }</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { private int i = 1; private static int s = 2;\n  class Inner { void demo() { i++; s++; System.out.println(i + s); } }\n  static void boot() { new Outer().new Inner().demo(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer {\n  class Inner { int n = 1; }\n  static void m() { Outer outer = new Outer(); Inner i = outer.new Inner(); System.out.println(i.n); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>Runnable r = new Runnable() { // one type only\n  public void run() { System.out.println(\"run\"); }\n  // Runnable() {} // error: anonymous classes cannot declare constructors\n};\nr.run();</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Outer { int field = 1; static int sfield = 2;\n  class Inner { int field = 3;\n    int read() { return field + Outer.this.field + Outer.sfield; } }\n}</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::nested"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>import java.io.Serializable;\nclass Ex implements Serializable {\n  static class Nested implements Serializable { int n = 1; } // static, both serializable\n}</pre>"
   }
  ]
 }

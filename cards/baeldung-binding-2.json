@@ -14,7 +14,8 @@
    "tags": [
     "type::binding"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding"
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding",
+   "example": "<pre>class Animal {}\nclass Dog extends Animal {}\nclass Ex { static void eat(Animal a) { System.out.println(\"Animal\"); }\n  static void eat(Dog d) { System.out.println(\"Dog\"); }\n  static void m() { Animal a = new Dog(); eat(a); } }</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::binding"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding"
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding",
+   "example": "<pre>class A { String name() { return \"A\"; } }\nclass B extends A { String name() { return \"B\"; } }\nclass Ex { static void demo() { A x = new B(); System.out.println(x.name()); } } // vtable slot -> B's method</pre>"
   }
  ]
 }

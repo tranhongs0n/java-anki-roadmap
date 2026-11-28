@@ -16,7 +16,8 @@
     "type::rule",
     "item::42"
    ],
-   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces",
+   "example": "<pre>class Lambdas {\n    Runnable anon = new Runnable() { public void run() { System.out.println(\"hi\"); } };\n    Runnable lambda = () -> System.out.println(\"hi\"); // less code; target type from context\n}</pre>"
   },
   {
    "type": "basic",
@@ -28,7 +29,8 @@
     "type::rule",
     "item::43"
    ],
-   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces",
+   "example": "<pre>class Refs {\n    java.util.function.ToIntFunction<String> lambda = s -> s.length();\n    java.util.function.ToIntFunction<String> ref = String::length; // existing method, shorter\n}</pre>"
   },
   {
    "type": "basic",
@@ -40,7 +42,8 @@
     "type::rule",
     "item::44"
    ],
-   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces"
+   "merge_into": "00 Java Roadmap::05 Functional Programming::01 Functional Interfaces",
+   "example": "<pre>class StandardFunctionals { // use java.util.function, not a custom interface\n    java.util.function.Function<String, Integer> f = String::length;\n    java.util.function.Predicate<String> p = s -> s.isEmpty();\n    java.util.function.Supplier<String> s = () -> \"x\";\n    java.util.function.Consumer<String> c = System.out::println;\n}</pre>"
   },
   {
    "type": "basic",
@@ -52,7 +55,8 @@
     "type::rule",
     "item::45"
    ],
-   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams",
+   "example": "<pre>class LoopVsStream {\n    int sumLoop(int[] xs) { int s = 0; for (int x : xs) s += x; return s; }\n    int sumStream(int[] xs) { return java.util.Arrays.stream(xs).sum(); } // not always clearer or faster\n}</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +68,8 @@
     "type::rule",
     "item::46"
    ],
-   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams",
+   "example": "<pre>class StreamSideEffects { void f(java.util.List<String> xs) {\n    java.util.List<String> seen = new java.util.ArrayList<>();\n    xs.parallelStream().filter(x -> seen.add(x)).count(); // parallel + side effect\n    // streams may reorder, parallelise or skip work: results depend on execution order\n} }</pre>"
   },
   {
    "type": "basic",
@@ -76,7 +81,8 @@
     "type::rule",
     "item::47"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview",
+   "example": "<pre>class Sequences {\n    static java.util.Collection<String> names() { return java.util.List.of(\"a\", \"b\"); }\n    void f() { for (String s : names()) System.out.println(s); System.out.println(names().contains(\"a\")); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -88,7 +94,8 @@
     "type::rule",
     "item::48"
    ],
-   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams"
+   "merge_into": "00 Java Roadmap::05 Functional Programming::04 Streams",
+   "example": "<pre>class ParallelCaveats { void f(java.util.List<String> xs) {\n    java.util.List<String> out = new java.util.ArrayList<>();\n    xs.parallelStream().forEach(x -> out.add(x)); // shared mutable state, no ordering\n    // blocking I/O, small data, or ordered results are also bad fits\n} }</pre>"
   },
   {
    "type": "basic",
@@ -100,7 +107,8 @@
     "type::rule",
     "item::49"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class FastFail {\n    static double sqrt(double x) {\n        if (x < 0) throw new IllegalArgumentException(\"x must be >= 0\"); // validate at the start\n        return Math.sqrt(x);\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -112,7 +120,8 @@
     "type::rule",
     "item::50"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class Period {\n    private final java.util.Date start;\n    Period(java.util.Date s) { start = new java.util.Date(s.getTime()); } // copy on the way in\n    java.util.Date start() { return new java.util.Date(start.getTime()); } // copy on the way out\n}</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +133,8 @@
     "type::rule",
     "item::51"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class BooleanParam {\n    static void resize(boolean keepAspect) {}\n    void f() { resize(true); } // the call site gives no clue what true means\n}</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +146,8 @@
     "type::rule",
     "item::52"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class Overload {\n    static String f(Object o) { return \"Object\"; }\n    static String f(String s) { return \"String\"; }\n    void g() { Object o = \"x\"; System.out.println(f(o)); } // \"Object\": static type chosen at compile time\n}</pre>"
   },
   {
    "type": "basic",
@@ -148,7 +159,8 @@
     "type::rule",
     "item::53"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class VarargsCost {\n    static void f(String... args) {}\n    void calls() { f(); f(\"a\"); } // an array is allocated per call, even for zero arguments\n}</pre>"
   },
   {
    "type": "basic",
@@ -160,7 +172,8 @@
     "type::rule",
     "item::54"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview",
+   "example": "<pre>class EmptyInsteadOfNull {\n    static java.util.List<String> matches() { return java.util.List.of(); } // never null\n    void f() { for (String s : matches()) System.out.println(s); } // empty iterates; no null check\n}</pre>"
   },
   {
    "type": "basic",
@@ -172,7 +185,8 @@
     "type::rule",
     "item::55"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals"
+   "merge_into": "00 Java Roadmap::04 Collections::10 Optionals",
+   "example": "<pre>class Lookups {\n    static java.util.Optional<String> find(java.util.Map<String, String> m, String k) {\n        return java.util.Optional.ofNullable(m.get(k)); // may legitimately have no result\n    }\n    void f() { String s = find(java.util.Map.of(), \"k\").orElse(\"default\"); } // caller decides\n}</pre>"
   },
   {
    "type": "basic",
@@ -184,7 +198,8 @@
     "type::rule",
     "item::56"
    ],
-   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc"
+   "merge_into": "00 Java Roadmap::12 Documentation::02 Javadoc",
+   "example": "<pre>class Documented {\n    /** Returns xs.get(i); pre: 0 <= i < xs.size(); post: result is non-null.\n     * @param i index  @return element  @throws IndexOutOfBoundsException if out of range */\n    static String get(java.util.List<String> xs, int i) { return xs.get(i); }\n}</pre>"
   }
  ]
 }

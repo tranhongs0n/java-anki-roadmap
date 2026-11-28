@@ -14,7 +14,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>int n = 5;\ndouble d = 2.5;\nSystem.out.println(n + d);\n// primitives: no methods, no new</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>int count = 1;\nString text = \"hi\";\nSystem.out.println(count + text);</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>String name = \"ada\";\nString upper = name.toUpperCase();\nint len = name.length();\nSystem.out.println(upper + len);</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>class Greeter {\n    static void greet(String name) {\n        System.out.println(\"Hi \" + name);\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Box {\n    Box() { System.out.println(\"constructed\"); }\n    static void demo() { Box b = new Box(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    String name;\n    static void demo() { Person p = new Person(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections",
+   "example": "<pre>import java.util.ArrayList;\nclass Demo {\n    ArrayList&lt;String&gt; names = new ArrayList&lt;String&gt;();\n}</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::01 Collections"
+   "merge_into": "00 Java Roadmap::04 Collections::01 Collections",
+   "example": "<pre>java.util.ArrayList&lt;String&gt; names = new java.util.ArrayList&lt;String&gt;();\nnames.add(\"Ada\");\nSystem.out.println(names.get(0));</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int x = 2;\nif (x == 1) System.out.println(\"one\");\nelse if (x == 2) System.out.println(\"two\");\nelse System.out.println(\"other\");</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +122,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int count = 0;\nfor (int i = 0; i &lt; 8; i++) for (int j = 0; j &lt; 8; j++) count++;\nSystem.out.println(count);</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +134,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int a = 0;\nwhile (a &lt; 3) { a++; }\nSystem.out.println(a);</pre>"
   },
   {
    "type": "basic",
@@ -135,7 +146,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int a = 48;\nwhile (a &lt; 50) { System.out.println(a); a++; }\nSystem.out.println(\"stop at \" + a);</pre>"
   },
   {
    "type": "basic",
@@ -146,7 +158,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling"
+   "merge_into": "00 Java Roadmap::03 Language Features::01 Exception Handling",
+   "example": "<pre>try {\n    int n = Integer.parseInt(\"x\");\n} catch (NumberFormatException e) {\n    System.out.println(\"bad number\");\n}</pre>"
   },
   {
    "type": "basic",
@@ -157,7 +170,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started",
+   "example": "<pre>class App {\n    public static void main(String[] args) {\n        System.out.println(\"starts here\");\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -168,7 +182,8 @@
    "tags": [
     "type::contract"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started"
+   "merge_into": "00 Java Roadmap::01 Foundations::01 Getting Started",
+   "example": "<pre>class Library {\n    int twice(int x) { return x + x; } // body may change\n    int added(int x) { return x; }     // added member is compatible\n}</pre>"
   }
  ]
 }

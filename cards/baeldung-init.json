@@ -14,7 +14,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block",
+   "example": "<pre>class Ex { static { System.out.println(\"static block\"); }\n  Ex() { System.out.println(\"constructor\"); }\n  public static void main(String[] args) { System.out.println(\"main\"); new Ex(); new Ex(); } }</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block",
+   "example": "<pre>class Ex {\n  static int a = 1;\n  static { a = 2; }\n  static int b = 3;\n  static { b = a + 1; } // a is 2, b ends 4\n}</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ex { static int count = 0; int instance = 1;\n  static { count = 5; System.out.println(count); }\n  // static { instance = 2; this.instance = 3; } // error: non-static member from static context\n}</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block",
+   "example": "<pre>class Ex {\n  { System.out.println(\"block 1\"); }\n  { System.out.println(\"block 2\"); }\n  Ex() { System.out.println(\"constructor\"); }\n  static void m() { new Ex(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block",
+   "example": "<pre>class Ex {\n  { int n = 1; System.out.println(n); } // runs for every constructor\n  Ex() { System.out.println(\"no-arg\"); }\n  Ex(int x) { System.out.println(\"with arg\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block",
+   "example": "<pre>class Parent { static { System.out.println(\"parent static\"); } { System.out.println(\"parent instance\"); } }\nclass Child extends Parent { static { System.out.println(\"child static\"); } { System.out.println(\"child instance\"); } Child() { System.out.println(\"child ctor\"); } }\nclass Ex { static void m() { new Child(); } }</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::initialization"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block"
+   "merge_into": "00 Java Roadmap::02 Object Model::20 Initializer Block",
+   "example": "<pre>class P { static { log(\"P static\"); } { log(\"P inst\"); } P() { log(\"P ctor\"); }\n  static void log(String s) { System.out.println(s); } }\nclass C extends P { static { log(\"C static\"); } { log(\"C inst\"); } C() { log(\"C ctor\"); } }\nclass Ex { public static void main(String[] a) { System.out.println(\"main\"); new C(); } }</pre>"
   }
  ]
 }

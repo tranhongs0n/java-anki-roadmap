@@ -14,7 +14,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>int _count = 1;\nint $price = 2;\nint café = 3;\nSystem.out.println(_count + $price + café);</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>// int 1stPlace = 1;\n// error: not a statement\nint firstPlace = 1;</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>int value = 1;\n// int class = 2;  // 'class' is a reserved keyword\nSystem.out.println(value);</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>int total = 1 + 2;\nint spaced=1+2;\nSystem.out.println(total == spaced);\nint broken = 1\n        + 2;</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>int a = 1; // comment to end of line\n/* comment\n   spanning lines */\nint b = 2;</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
+   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "example": "<pre>int Human = 1;\nint human = 2;\nint HUMAN = 3;\nSystem.out.println(Human + human + HUMAN);</pre>"
   }
  ]
 }

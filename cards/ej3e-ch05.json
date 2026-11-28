@@ -16,7 +16,8 @@
     "type::rule",
     "item::26"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class RawType {\n    void f() {\n        java.util.List raw = new java.util.ArrayList(); // no type arguments: checking switched off\n        raw.add(Integer.valueOf(1)); raw.add(\"anything\"); // both accepted\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -28,7 +29,8 @@
     "type::rule",
     "item::26"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class ListKinds { void f(java.util.List raw, java.util.List<Object> objects, java.util.List<String> strings) {\n    raw.add(42); objects.add(\"any\"); // raw skips checks; List<Object> accepts any element\n    java.util.List<?> any = strings; // List<?> accepts any list\n    // any.add(\"x\"); // ... but lets you add nothing\n} }</pre>"
   },
   {
    "type": "basic",
@@ -40,7 +42,8 @@
     "type::rule",
     "item::27"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Unchecked {\n    static java.util.List<String> cast(java.util.List raw) { return raw; } // unchecked warning\n    void f() { String s = cast(java.util.List.of(42)).get(0); } // potential ClassCastException later\n}</pre>"
   },
   {
    "type": "basic",
@@ -52,7 +55,8 @@
     "type::rule",
     "item::28"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Variance {\n    void f(java.util.List<String> strings) {\n        Object[] a = new String[1]; // covariant: String[] is an Object[]\n        // java.util.List<Object> b = strings; // invariant: generics do not allow this\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +68,8 @@
     "type::rule",
     "item::28"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class ErasureVsReified { void f(java.util.List<String> strings) {\n    System.out.println(strings.getClass() == java.util.ArrayList.class); // generic type erased\n    Object[] a = new String[1]; // arrays know their component type at runtime\n    try { a[0] = Integer.valueOf(1); } catch (ArrayStoreException e) {} // rejected\n} }</pre>"
   },
   {
    "type": "basic",
@@ -76,7 +81,8 @@
     "type::rule",
     "item::29"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Box<T> {\n    private T value;\n    void set(T v) { value = v; } T get() { return value; } // parameterised, not Object + casts\n}\nclass Use { void f() { Box<String> b = new Box<>(); b.set(\"x\"); String s = b.get(); } }</pre>"
   },
   {
    "type": "basic",
@@ -88,7 +94,8 @@
     "type::rule",
     "item::30"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class GenericMethod {\n    static <E> java.util.Set<E> union(java.util.Set<E> a, java.util.Set<E> b) {\n        java.util.Set<E> r = new java.util.HashSet<>(a); r.addAll(b); return r;\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +120,8 @@
     "type::rule",
     "item::31"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Pecs {\n    static <E> void copy(java.util.List<? extends E> src, java.util.List<? super E> dst) {\n        for (E e : src) dst.add(e); // producer extends, consumer super\n    }\n}</pre>"
   },
   {
    "type": "basic",
@@ -138,7 +146,8 @@
     "type::rule",
     "item::33"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::09 Generics"
+   "merge_into": "00 Java Roadmap::04 Collections::09 Generics",
+   "example": "<pre>class Hetero {\n    private final java.util.Map<Class<?>, Object> m = new java.util.HashMap<>();\n    <T> void put(Class<T> k, T v) { m.put(k, v); } // key checks value type at insert\n    <T> T get(Class<T> k) { return k.cast(m.get(k)); } // checked cast at get\n}</pre>"
   },
   {
    "type": "basic",
@@ -150,7 +159,8 @@
     "type::rule",
     "item::34"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Color { RED, GREEN }\nclass EnumBenefits { void f() {\n    for (Color c : Color.values()) System.out.println(c); // printable names, all values\n    Color safe = Color.RED; System.out.println(safe); // type-safe, unlike int constants\n} }</pre>"
   },
   {
    "type": "basic",
@@ -162,7 +172,8 @@
     "type::rule",
     "item::35"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Priority { LOW, MEDIUM, HIGH;\n    int value() { return ordinal(); } // reordering/inserting silently changes derived numbers\n}\nclass OrdinalTrap { void f() { System.out.println(Priority.HIGH.value()); } }</pre>"
   },
   {
    "type": "basic",
@@ -174,7 +185,8 @@
     "type::rule",
     "item::36"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Style { BOLD, ITALIC }\nclass Styles {\n    java.util.EnumSet<Style> flags = java.util.EnumSet.of(Style.BOLD, Style.ITALIC); // replaces bit-field ints\n}</pre>"
   },
   {
    "type": "basic",
@@ -186,7 +198,8 @@
     "type::rule",
     "item::37"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums"
+   "merge_into": "00 Java Roadmap::02 Object Model::09 Enums",
+   "example": "<pre>enum Day { MON, TUE, WED }\nclass Schedules {\n    java.util.EnumMap<Day, String> plan = new java.util.EnumMap<>(Day.class);\n    void f() { plan.put(Day.MON, \"work\"); String s = plan.get(Day.MON); } // keyed by constant, not ordinal\n}</pre>"
   },
   {
    "type": "basic",
@@ -211,7 +224,8 @@
     "type::rule",
     "item::39"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>class JUnitNameTypo {\n    void tsetSomething() {} // typo: not testXxx, so the test is silently skipped\n    void testSomething() {} // the intended test; both compile without error\n}</pre>"
   },
   {
    "type": "basic",
@@ -223,7 +237,8 @@
     "type::rule",
     "item::40"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations"
+   "merge_into": "00 Java Roadmap::03 Language Features::02 Annotations",
+   "example": "<pre>class Parent { void send() {} }\nclass Child extends Parent {\n    @Override void send() {} // correct signature: real override\n    // @Override void sen() {} // compile error: typo would silently add a new method\n}</pre>"
   },
   {
    "type": "basic",
@@ -235,7 +250,8 @@
     "type::rule",
     "item::41"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Marked {}\n@interface Marker {}\nclass Use {\n    void require(Marked x) {} // marker interface defines a type checked at compile time\n    void annotate(@Marker Object x) {} // annotation alone is not a type\n}</pre>"
   }
  ]
 }

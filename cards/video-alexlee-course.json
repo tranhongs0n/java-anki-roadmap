@@ -14,7 +14,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>double result = Math.pow(2, 3);\nSystem.out.println(result);\nint narrowed = (int) result;\nSystem.out.println(narrowed);</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>int a = 7, b = 3;\nSystem.out.println(Math.max(a, b)); // 7\nSystem.out.println(Math.min(a, b)); // 3\nSystem.out.println(Math.abs(-5));   // 5</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"
+   "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods",
+   "example": "<pre>double r = Math.random();\nif (r &gt;= 0.0 &amp;&amp; r &lt; 1.0) System.out.println(r);\nint die = (int) (Math.random() * 6) + 1;\nif (die &gt;= 1 &amp;&amp; die &lt;= 6) System.out.println(die);</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>int ok = Integer.parseInt(\"42\");\ntry {\n  int bad = Integer.parseInt(\"abc\");\n} catch (NumberFormatException e) { System.out.println(e.getMessage()); }</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>double d = 3.9;\nint n = (int) d;\nSystem.out.println(n); // 3, not 4</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>double d = 3.9;\nint i = (int) d;\nlong l = i;\nSystem.out.println(i + \" \" + l);</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int score = 70;\nString result = score >= 60 ? \"pass\" : \"fail\";\nSystem.out.println(result);</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>java.io.File file = new java.io.File(\"data.txt\");\ntry (java.util.Scanner sc = new java.util.Scanner(file)) {\n  while (sc.hasNextLine()) System.out.println(sc.nextLine());\n} catch (java.io.FileNotFoundException e) { throw new RuntimeException(e); }</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>String line = \"a,b,c\";\nString[] fields = line.split(\",\");\nSystem.out.println(fields[1]);</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +122,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations"
+   "merge_into": "00 Java Roadmap::07 IO, Network, Data Formats::01 I-O Operations",
+   "example": "<pre>java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat(\"yyyy-MM-dd\");\nString text = fmt.format(new java.util.Date(0));\nSystem.out.println(text);</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +134,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism"
+   "merge_into": "00 Java Roadmap::02 Object Model::14 Polymorphism",
+   "example": "<pre>Object value = \"hi\";\nboolean isString = value instanceof String;\nboolean isComparable = value instanceof Comparable&lt;?&gt;;\nSystem.out.println(isString + \" \" + isComparable);</pre>"
   },
   {
    "type": "basic",
@@ -135,7 +146,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Parent { Parent() { } }\nclass Child extends Parent {\n  Child() { super(); System.out.println(\"first\"); }\n}\nclass Implicit extends Parent { }</pre>"
   },
   {
    "type": "basic",
@@ -146,7 +158,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    String name;\n    void setName(String name) { this.name = name; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -157,7 +170,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Person {\n  private int age;\n  public int getAge() { return age; }\n  public void setAge(int age) { if (age &lt; 0) throw new IllegalArgumentException(\"age=\" + age); this.age = age; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -168,7 +182,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Builder {\n  private String value = \"\";\n  Builder with(String s) { value += s; return this; }\n  Builder build() { System.out.println(value); return this; }\n}\nnew Builder().with(\"a\").with(\"b\").build();</pre>"
   },
   {
    "type": "basic",
@@ -179,7 +194,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"
+   "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces",
+   "example": "<pre>interface Runner { void run(); }\nclass Task implements Runner {\n    public void run() { System.out.println(\"go\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -190,7 +206,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>abstract class Shape {\n  protected final String name;\n  Shape(String n) { name = n; }\n  abstract double area();\n}</pre>"
   },
   {
    "type": "basic",
@@ -201,7 +218,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>final int LIMIT = 10;\nfinal class Fixed { final void run() { System.out.println(LIMIT); } }\n// LIMIT = 11; // variable: cannot be reassigned\n// class Child extends Fixed {} // class: cannot be subclassed\n// void run() {} // method: cannot be overridden</pre>"
   },
   {
    "type": "basic",
@@ -212,7 +230,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers"
+   "merge_into": "00 Java Roadmap::02 Object Model::03 Access Modifiers",
+   "example": "<pre>class Access {\n  public int a;\n  protected int b;\n  int c;\n  private int d;\n}</pre>"
   },
   {
    "type": "basic",
@@ -223,7 +242,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Explicit { Explicit(int n) { } }\n// new Explicit() would not compile: no default constructor\nExplicit b = new Explicit(1);</pre>"
   },
   {
    "type": "basic",
@@ -234,7 +254,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Counter {\n  private int n;\n  // static int bad() { return n; }  // no this\n  static int twice(int x) { return x * 2; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -245,7 +266,8 @@
    "tags": [
     "type::overview"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int day = 1;\nswitch (day) {\n  case 1: System.out.println(\"one\");\n  case 2: System.out.println(\"two\"); break;\n  default: System.out.println(\"other\");\n}</pre>"
   }
  ]
 }

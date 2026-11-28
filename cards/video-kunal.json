@@ -14,7 +14,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>boolean ready = true;\nif (ready) { System.out.println(\"go\"); }\n// if (1) { } // error: an if condition must be boolean</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int n = 2;\nif (n == 1) { System.out.println(\"first\"); }\nelse if (n == 2) { System.out.println(\"second\"); }\nelse { System.out.println(\"other\"); } // skipped: one branch only</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int n = 3;\nfor (int i = 0; i != n; i++) { }\nwhile (n != 0) { n--; }\ndo { n++; } while (n != 1);</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int n = 3;\nfor (int i = 0; i &lt; n; i++) { // init; condition; update\n  System.out.println(i);\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int n = 0;\nwhile (n &gt; 0) {\n  n--; // never runs: condition false on the first check\n}</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int i = 0;\ndo { i++; } while (i == 0);\nSystem.out.println(i); // 1 - body ran before the condition was checked</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>for (int i = 0; i != 10; i++) { System.out.println(i); } // known count\nint n = 10;\nwhile (n &gt; 0) { n--; } // depends on a condition</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>for (int i = 0; i != 3; i++) {\n  if (i == 1) { continue; } // skip print, jump to i++\n  System.out.println(i);\n}</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops"
+   "merge_into": "00 Java Roadmap::01 Foundations::06 Loops",
+   "example": "<pre>int choice = 9;\nwhile (true) {\n    if (choice == 9) break; // 9 = Exit\n}</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +122,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int n = 3;\nswitch (n) {\n case 1: System.out.println(\"one\"); break;\n default: System.out.println(\"other\"); // no case matched\n}</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +134,8 @@
    "tags": [
     "type::loops"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals"
+   "merge_into": "00 Java Roadmap::01 Foundations::04 Conditionals",
+   "example": "<pre>int a = 1, b = 2;\nswitch (a) {\n case 1:\n  switch (b) { case 2: System.out.println(\"inner\"); break; }\n  System.out.println(\"after inner switch\"); break; // inner break only\n}</pre>"
   }
  ]
 }

@@ -14,7 +14,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    int age;\n    void birthday() { age++; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Person { int age; }\nPerson a = new Person(), b = new Person();\na.age = 1; b.age = 2;</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    static void demo() { Person name = new Person(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Player {\n    String name;\n    void attack() { }\n    static void demo() { Player p1 = new Player(); p1.name = \"Ada\"; p1.attack(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>final class Person { int age; }\nPerson a = new Person(), b = new Person();\na.age = 30;\nSystem.out.println(b.age);</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    Person() { System.out.println(\"runs on creation\"); }\n    static void demo() { Person p = new Person(); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Counter {\n    int count;\n    static void demo() { System.out.println(new Counter().count); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    Person(String name) { this.name = name; }\n    String name;\n    static void demo() { Person p = new Person(\"Ada\"); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    String name;\n    Person(String name) { name = name; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -113,7 +122,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    String name;\n    Person(String name) { this.name = name; }\n    static void demo() { System.out.println(new Person(\"Ada\").name); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +134,8 @@
    "tags": [
     "type::oop"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Person {\n    int age;\n    // int weather; does not belong in Person\n}</pre>"
   }
  ]
 }

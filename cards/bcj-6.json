@@ -69,7 +69,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview"
+   "merge_into": "00 Java Roadmap::03 Language Features::00 Overview",
+   "example": "<pre>String text = \"\"\"\n    hi\n    \"\"\";                                     // text block: preview in Java 13\nint n = switch (1) { case 1 -> 10; default -> 0; }; // switch expression: second preview in 13\nSystem.out.println(text + n);                // neither was permanent in 13</pre>"
   },
   {
    "type": "basic",

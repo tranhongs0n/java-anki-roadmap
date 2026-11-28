@@ -36,7 +36,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>abstract class Base { Base(int n) { System.out.println(n); } }\nclass Sub extends Base { Sub() { super(1); } }\nclass Ex { static void demo() { new Sub(); /* new Base(1); -> abstract type */ } }</pre>"
   },
   {
    "type": "basic",
@@ -168,7 +169,8 @@
    "tags": [
     "type::catalogue"
    ],
-   "merge_into": "00 Java Roadmap::17 Serialization"
+   "merge_into": "00 Java Roadmap::17 Serialization",
+   "example": "<pre>import java.io.Serial;\nclass Ex implements java.io.Serializable { @Serial private static final long serialVersionUID = 1L;\n  @Serial private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException { out.defaultWriteObject(); }\n  @Serial private Object readResolve() { return this; } } // annotated serialization members</pre>"
   },
   {
    "type": "basic",

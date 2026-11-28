@@ -14,7 +14,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Base { static String f() { return \"Base\"; } }\nclass Sub extends Base { // @Override static String f() -> error: static methods cannot be annotated with @Override\n  static String f() { return \"Sub\"; } }\nclass Ex { static void demo() { Base b = new Sub(); System.out.println(b.f()); } }</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ex { static int count; int id;\n  void instanceMethod() { count++; System.out.println(id + \":\" + count); }\n  static void demo() { new Ex().instanceMethod(); } }</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ex {\n  static int config;\n  static { int a = 1, b = 2; config = a + b; } // multi-statement init\n  static { try { config = Integer.parseInt(\"3\"); } catch (NumberFormatException e) { config = 0; } }\n}</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Ex { private int p = 1; private static int s = 2;\n  class Inner { int read() { return p + s; } }\n  static class Nested { int read() { return s; } } // p needs an explicit Ex reference\n}</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"
+   "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects",
+   "example": "<pre>class Singleton {\n  private Singleton() {}\n  private static class Holder { public static final Singleton INSTANCE = new Singleton(); }\n  public static Singleton getInstance() { return Holder.INSTANCE; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Ex { static class Helper { int twice(int n) { return 2 * n; } }\n  static void demo() { System.out.println(new Helper().twice(3)); } } // no enclosing Ex instance</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ex {\n  int instance = 1; static void m() {\n    // System.out.println(instance); // error: no object exists here\n    System.out.println(new Ex().instance); // works through an object\n  }\n}</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes"
+   "merge_into": "00 Java Roadmap::02 Object Model::05 Nested Classes",
+   "example": "<pre>class Ex { static class Nested { int n = 1; }\n  static void demo() { Nested x = new Nested(); System.out.println(x.n); } } // like a top-level class</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::static"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Ex { static int created; Ex() { created++; }\n  static void demo() { Ex a = new Ex(); a = null;\n    System.out.println(created); } }   // field outlives the object</pre>"
   }
  ]
 }

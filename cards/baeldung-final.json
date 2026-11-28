@@ -14,7 +14,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>final class Box {\n  private int n = 1;\n  void set(int value) { n = value; } // fields can still change\n  int get() { return n; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>String s = \"hi\";\n// class MyString extends String { } // error: String is final\n// no subclass can override its methods</pre>"
   },
   {
    "type": "basic",
@@ -36,7 +38,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Base { final void fixed() {} }\nclass Sub extends Base {\n  void extra() {} // fine\n  // void fixed() {} // error: cannot override\n}</pre>"
   },
   {
    "type": "basic",
@@ -47,7 +50,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Base { final void fixed() {} void open() {} }\nclass Sub extends Base { void extra() {} @Override void open() {} }\nfinal class Closed {}\n// class No extends Closed {} // error: final class cannot be subclassed</pre>"
   },
   {
    "type": "basic",
@@ -58,7 +62,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Ex {\n  Ex() { init(); }\n  final void init() { System.out.println(\"safe init\"); } // an override would change the constructor\n  void extendable() {}\n}</pre>"
   },
   {
    "type": "basic",
@@ -69,7 +74,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>final StringBuilder sb = new StringBuilder(\"a\");\nsb.append(\"b\");\n// sb = new StringBuilder(); // error: cannot assign a value to final variable sb\nSystem.out.println(sb);</pre>"
   },
   {
    "type": "basic",
@@ -80,7 +86,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Ex { final int a = 1; final int b; final int c;\n  { b = 2; }\n  Ex() { c = 3; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -91,7 +98,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Ex {\n  static final int A = 1;\n  static final int B;\n  static { B = 2; }\n}</pre>"
   },
   {
    "type": "basic",
@@ -102,7 +110,8 @@
    "tags": [
     "type::final"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::10 Final Keyword",
+   "example": "<pre>class Ex { static void m(final int n) {\n  // n = 4; // error: cannot assign a value to final variable n\n  System.out.println(n); } }</pre>"
   }
  ]
 }
