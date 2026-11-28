@@ -20,7 +20,7 @@
   {
    "type": "basic",
    "front": "How does the JVM implement dynamic binding?",
-   "back": "It looks up the method in the object's <b>virtual table</b> (vtable) at the call site — the same approach as C++",
+   "back": "The JVM looks up the method at run time; a vtable is a HotSpot implementation detail, not a language guarantee",
    "extra": "The declared type fixes the slot index; the object supplies the implementation. Exact details are JVM-specific, but the shape is that lookup.",
    "source": "baeldung.com — Static and Dynamic Binding in Java",
    "tags": [

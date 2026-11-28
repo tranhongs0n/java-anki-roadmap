@@ -20,7 +20,7 @@
   {
    "type": "basic",
    "front": "How do you tell a primitive type from an object type in Java code?",
-   "back": "Primitives are lowercase keywords; object types start with a capital letter",
+   "back": "Primitives are lowercase keywords; object types are <b>conventionally</b> capitalised — Java does not require it",
    "extra": "<code>int x = 5;</code> versus <code>String name = \"Susan\";</code>. Convention, not syntax — but it holds for every class in the standard library.",
    "source": "YouTube — Java in 13 Minutes, 3:18 (youtu.be/RRubcjpTkks?t=198)",
    "tags": [
@@ -152,7 +152,7 @@
   {
    "type": "basic",
    "front": "What does a try/catch block express?",
-   "back": "\"Something may go wrong here\" — the catch body runs if an exception is thrown",
+   "back": "\"Something may go wrong here\" — the catch body runs only if a thrown exception matches the catch type",
    "extra": "An exception means the normal path was interrupted. The catch receives the exception object describing what failed.",
    "source": "YouTube — Java in 13 Minutes, 11:52 (youtu.be/RRubcjpTkks?t=712)",
    "tags": [
@@ -176,7 +176,7 @@
   {
    "type": "basic",
    "front": "What may a library change without breaking code already compiled against it?",
-   "back": "Only changes that are <b>binary compatible</b> — method bodies, plus added or reordered members",
+   "back": "Only binary-compatible changes — method bodies and added members; reordering enum constants is binary incompatible (JLS 13.4.26)",
    "extra": "JLS §13 lists what is allowed: reimplementing an existing method to improve performance, adding new fields/methods/constructors, deleting <code>private</code> members, reordering declarations, moving a method up the hierarchy. Changing a signature is not on that list — pre-existing binaries stop linking. That gap is what \"an API is a contract\" means in practice.",
    "source": "JLS SE 21 §13.2 — What Binary Compatibility Is and Is Not (docs.oracle.com/javase/specs/jls/se21/html/jls-13.html)",
    "tags": [

@@ -63,7 +63,7 @@
   {
    "type": "basic",
    "front": "What did Java 13 bring?",
-   "back": "Text blocks and switch expressions as <b>second previews</b> — no permanent language changes",
+   "back": "Text blocks (first preview, JEP 355) and switch expressions (second preview, JEP 354) — no permanent language changes",
    "extra": "Java 13 and 14 are where these features were refined before standardisation.",
    "source": "baeldung.com — java-13-new-features",
    "tags": [

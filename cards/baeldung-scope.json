@@ -69,7 +69,7 @@
    "type": "basic",
    "front": "What is variable shadowing?",
    "back": "A variable in an inner scope reusing the name of one in an outer scope, <b>hiding</b> it",
-   "extra": "Inside the inner block the outer variable can no longer be named directly. It is legal and usually a mistake.",
+   "extra": "Shadowing a field, a parameter, or a nested-class name is legal; redeclaring a local variable in a nested block is a compile error in javac 21",
    "source": "baeldung.com — Variable Scope in Java",
    "tags": [
     "type::scope"
