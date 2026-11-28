@@ -17,7 +17,8 @@
      "extra": "It is the arithmetic remainder operator, e.g. <code>7 % 3</code> is 1. For negative operands the sign of the result follows the dividend, not the divisor.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int r = 7 % 3;        // 1\nint neg = -7 % 3;     // -1, the sign follows the dividend\ndouble d = 7.5 % 2;   // 1.5</pre>"
     },
     {
      "type": "basic",
@@ -26,7 +27,8 @@
      "extra": "It is the only unary operator that works on <code>boolean</code>; it cannot be applied to numbers, where you would instead use <code>~</code> for a bitwise complement.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>boolean ok = true;\nboolean no = !ok;    // false</pre>"
     },
     {
      "type": "basic",
@@ -35,7 +37,8 @@
      "extra": "It yields true if the object is an instance of that class, a subclass of it, or a class implementing that interface. It is classified as a relational operator for precedence.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object o = \"hi\";\nboolean isText = o instanceof String;   // true</pre>"
     },
     {
      "type": "basic",
@@ -44,7 +47,8 @@
      "extra": "It shifts bits right and fills the leftmost positions with zeros. By contrast <code>&gt;&gt;</code> is the signed right shift and fills with the sign bit (sign extension).",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int x = -8;\nint signed = x >> 1;    // -4, the sign bit is copied\nint zeroFilled = x >>> 1; // 2147483644, shifted in zeros</pre>"
     },
     {
      "type": "basic",
@@ -53,7 +57,8 @@
      "extra": "The conditional operators <code>&amp;&amp;</code>/<code>||</code> are boolean-only and short-circuit. The bitwise operators <code>&amp;</code>, <code>|</code>, <code>^</code> combine the bits of integral values.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>boolean a = false, b = true;\nSystem.out.println(a && b);  // false, logical AND\nSystem.out.println(6 & 3);   // 2, bitwise AND on ints</pre>"
     },
     {
      "type": "basic",
@@ -62,7 +67,8 @@
      "extra": "Form: <code>condition ? valueIfTrue : valueIfFalse</code>. It uses three operands, which is why it is also called the ternary operator.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int a = 3, b = 5;\nint max = a > b ? a : b;   // 5</pre>"
     },
     {
      "type": "basic",
@@ -71,7 +77,8 @@
      "extra": "Numbers are positive without it, so it exists mostly to make a sign explicit. Unary <code>-</code> negates an expression instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>int x = 5;\nint y = +x;    // still 5, the unary plus changes nothing</pre>"
     },
     {
      "type": "basic",
@@ -80,7 +87,8 @@
      "extra": "It exists in prefix (<code>++x</code>) and postfix (<code>x++</code>) forms, which differ in the value the expression yields. Its counterpart <code>--</code> decrements by 1.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int i = 1;\ni++;           // i is now 2</pre>"
     }
    ]
   },
@@ -101,7 +109,8 @@
      "extra": "The precedence ladder descends: postfix, unary, multiplicative, additive, shift, relational, equality, bitwise AND/XOR/OR, logical AND/OR, ternary, then assignment last.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int i = 1;\nint j = i++ + 1;   // postfix binds first: j = 2, then i = 2</pre>"
     },
     {
      "type": "basic",
@@ -110,7 +119,8 @@
      "extra": "So <code>a - b - c</code> means <code>(a - b) - c</code>, while <code>a = b = c</code> assigns <code>c</code> to <code>b</code> first. Parentheses override both rules.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int r = 10 - 3 - 2;   // 5, not 10 - (3 - 2)</pre>"
     },
     {
      "type": "basic",
@@ -119,7 +129,8 @@
      "extra": "That is why <code>a = b + c</code> computes the addition before the assignment. Only the ternary <code>?:</code> sits immediately above it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int a;\na = 2 + 3 * 4;    // 14: * binds tighter than +, and = binds last</pre>"
     },
     {
      "type": "basic",
@@ -128,7 +139,8 @@
      "extra": "Semantically they are equivalent for a simple variable, but <code>x += 1</code> names the left operand once, which avoids evaluating a complex target expression twice.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>byte b = 1;\nb += 300;         // compiles and wraps to 45\n// b = b + 300;   // would not compile: int cannot be assigned to byte</pre>"
     },
     {
      "type": "basic",
@@ -137,7 +149,8 @@
      "extra": "So <code>a &lt; b == c &lt; d</code> compares the two boolean results. Precedence alone explains why <code>x + 1 &lt; y * 2</code> needs no parentheses.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>boolean r = 1 < 2 == true;   // (1 < 2) == true, so true</pre>"
     },
     {
      "type": "basic",
@@ -146,7 +159,8 @@
      "extra": "The second operand of <code>&amp;&amp;</code>/<code>||</code> and the unused branch of <code>?:</code> are not evaluated when the outcome is already determined, which matters when the left side has <b>side effects</b>.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String s = null;\nif (s != null && s.length() > 0) { }   // safe: the length test never runs</pre>"
     },
     {
      "type": "basic",
@@ -155,7 +169,8 @@
      "extra": "The unary bitwise complement inverts every bit: each 0 becomes 1 and each 1 becomes 0. Applied to an <code>int</code> the pattern is 32 bits wide.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>byte b = 0;\nint flipped = ~b;    // -1: promoted to int, all 32 bits flipped</pre>"
     },
     {
      "type": "basic",
@@ -164,7 +179,8 @@
      "extra": "Two distinct <code>String</code> objects with identical characters are <code>==</code>-unequal; use <code>equals()</code> for value equality. For primitive values <code>==</code> is correct.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String a = new String(\"hi\");\nString b = new String(\"hi\");\nboolean same = a == b;         // false\nboolean equal = a.equals(b);   // true</pre>"
     },
     {
      "type": "basic",
@@ -173,7 +189,8 @@
      "extra": "If one operand is a String the whole <code>+</code> is string concatenation, so <code>\"a\" + 1 + 2</code> gives a12 while <code>1 + 2 + \"a\"</code> gives 3a.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String s = \"n = \" + 7;    // n = 7\nString t = 1 + 2 + \"3\";   // 33\nString u = \"1\" + 2 + 3;   // 123</pre>"
     },
     {
      "type": "basic",
@@ -182,7 +199,8 @@
      "extra": "In a statement on its own line the difference is invisible; it only matters when the increment is embedded in a larger expression such as an assignment or an argument list.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>int i = 5;\nint a = i++;   // a = 5, i = 6\nint b = ++i;   // b = 7</pre>"
     }
    ]
   },
@@ -203,7 +221,8 @@
      "extra": "If you need a growable sequence, use a collection such as <code>ArrayList</code>; an array's length cannot change after it is created.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int[] numbers = new int[3];\nnumbers[0] = 7;   // one type, fixed count</pre>"
     },
     {
      "type": "basic",
@@ -212,7 +231,8 @@
      "extra": "Declaring a variable only declares the type; the length appears when the <code>new</code> expression or the initializer runs.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int[] a = new int[3];\n// a[3] = 1;   // ArrayIndexOutOfBoundsException: cannot grow</pre>"
     },
     {
      "type": "basic",
@@ -221,7 +241,8 @@
      "extra": "An array of 6 elements has valid indices 0 to 5, and an array's last valid index is <code>length - 1</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String[] pets = {\"Fido\", \"Zeus\", \"Bin\"};\nString third = pets[2];   // Bin</pre>"
     },
     {
      "type": "basic",
@@ -230,7 +251,8 @@
      "extra": "The size lives in the creation expression, not in the type: the type is written <code>int[]</code> and stays bare. The shortcut <code>{...}</code> instead sizes the array to the number of values.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int[] a = new int[10];   // ten zeros, indices 0..9</pre>"
     },
     {
      "type": "basic",
@@ -239,7 +261,8 @@
      "extra": "Each element must be accessed with the matching number of indices, <code>names[i][j]</code>. Rows may have different lengths, producing jagged arrays.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>String[][] names = new String[2][];\nnames[0] = new String[] {\"An\", \"Binh\"};\nString first = names[0][0];   // An</pre>"
     },
     {
      "type": "basic",
@@ -248,7 +271,8 @@
      "extra": "Each row is a separate array referenced from the outer array. That is what permits irregular (jagged) arrays, which a contiguous rectangular block could not represent efficiently.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>int[][] grid = { {1, 2, 3}, {4} };\nint n = grid[1].length;   // 1: no rectangular constraint</pre>"
     },
     {
      "type": "basic",
@@ -413,15 +437,6 @@
      "extra": "Control then re-evaluates the loop's condition and proceeds with the next iteration. It does not exit the loop, unlike <code>break</code>.",
      "tags": [
       "type::definition"
-     ]
-    },
-    {
-     "type": "basic",
-     "front": "A loop counts letter 'p' by iterating characters; what happens if the <code>continue</code> is removed?",
-     "back": "The count becomes <b>wrong</b>, counting every character",
-     "extra": "Without the guard the counting statement runs on non-matching characters too. The original 9 'p's become 35 's example.",
-     "tags": [
-      "type::gotcha"
      ]
     },
     {
