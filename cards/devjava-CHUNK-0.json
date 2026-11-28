@@ -144,13 +144,13 @@
     },
     {
      "type": "basic",
-     "front": "Where do the <b>relational</b> operators sit relative to <b>equality</b> operators in precedence?",
-     "back": "<b>Tighter</b> than <code>==</code> and <code>!=</code>",
-     "extra": "So <code>a &lt; b == c &lt; d</code> compares the two boolean results. Precedence alone explains why <code>x + 1 &lt; y * 2</code> needs no parentheses.",
+     "front": "Which binds tighter: <code>&lt;</code> or <code>==</code>?",
+     "back": "<code>&lt;</code> — <code>a &lt; b == c &lt; d</code> means <code>(a &lt; b) == (c &lt; d)</code>",
+     "extra": "Relational operators (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>) bind before equality (<code>==</code>, <code>!=</code>): the comparisons make booleans, then those booleans are compared. Arithmetic binds tighter than both, so <code>x + 1 &lt; y * 2</code> parses as <code>(x + 1) &lt; (y * 2)</code>.",
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>boolean r = 1 < 2 == true;   // (1 < 2) == true, so true</pre>"
+     "example": "<pre><span class=\"kw\">boolean</span> r = <span class=\"num\">1</span> &lt; <span class=\"num\">2</span> == <span class=\"num\">3</span> &lt; <span class=\"num\">4</span>;   <span class=\"cmt\">// (1 &lt; 2) == (3 &lt; 4) = true == true = true</span></pre>"
     },
     {
      "type": "basic",
