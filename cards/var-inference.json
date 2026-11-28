@@ -1,0 +1,49 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Why is <code>var f = () -&gt; <span class=\"str\">\"hi\"</span>;</code> a compile error?",
+     "back": "A lambda has no type on its own — with <code>var</code> the initializer is typed standalone, with no assignment context to target",
+     "extra": "JLS 14.4.1 types the initializer \"as if it did not appear in an assignment context\", so a lambda or method reference leaves nothing to infer. javac: <code>cannot infer type for local variable f (lambda expression needs an explicit target-type)</code>. Declare the functional interface instead: <code>Supplier&lt;String&gt; f = () -&gt; \"hi\";</code>.",
+     "example": "<pre>var f = () -&gt; \"hi\";          <span class=\"cmt\">// error: lambda expression needs an explicit target-type</span>\n<span class=\"type\">Supplier</span>&lt;<span class=\"type\">String</span>&gt; g = () -&gt; \"hi\";   <span class=\"cmt\">// ok</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html"
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>var a = {1, 2};</code> a compile error?",
+     "back": "An array initializer carries no type of its own — it is legal only inside an array declaration or an array creation expression",
+     "extra": "JLS 14.4 lists <code>var f = { 6 };</code> among the illegal forms, and javac reports <code>array initializer needs an explicit target-type</code>. Write the array creation explicitly: <code>var a = new int[]{1, 2};</code>.",
+     "example": "<pre>var a = {1, 2};              <span class=\"cmt\">// error: array initializer needs an explicit target-type</span>\nvar b = <span class=\"kw\">new int</span>[]{1, 2};       <span class=\"cmt\">// ok, b is int[]</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html"
+    },
+    {
+     "type": "basic",
+     "front": "What does <code>var list = <span class=\"kw\">new</span> <span class=\"type\">ArrayList</span>&lt;&gt;();</code> infer?",
+     "back": "<code>ArrayList&lt;Object&gt;</code> — the diamond has no target type, so nothing constrains the element type",
+     "extra": "With var the constructor argument is Object, and adding a String does not narrow it: javac still rejects <code>ArrayList&lt;String&gt; s = list;</code> with <code>incompatible types: ArrayList&lt;Object&gt; cannot be converted to ArrayList&lt;String&gt;</code>. Put the argument on the right — <code>new ArrayList&lt;String&gt;()</code> — when the element type matters.",
+     "example": "<pre>var list = <span class=\"kw\">new</span> <span class=\"type\">ArrayList</span>&lt;&gt;();\nlist.add(\"x\");\n<span class=\"type\">ArrayList</span>&lt;<span class=\"type\">String</span>&gt; s = list;   <span class=\"cmt\">// error: ArrayList&lt;Object&gt; is not ArrayList&lt;String&gt;</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-14.html"
+    }
+   ]
+  }
+ ]
+}
