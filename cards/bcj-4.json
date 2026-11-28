@@ -128,17 +128,6 @@
   },
   {
    "type": "basic",
-   "front": "Why does the JVM say it cannot find or load the main class?",
-   "back": "The class is not on the classpath, the name is wrong (package prefix missing), or the static <code>main</code> signature is not recognised",
-   "extra": "Run <code>java -cp out com.example.Main</code>, not just <code>java Main</code>, when the class is in a package.",
-   "source": "baeldung.com — java-could-not-find-load-main-class",
-   "tags": [
-    "type::catalogue"
-   ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
-  },
-  {
-   "type": "basic",
    "front": "What is doclint?",
    "back": "Javadoc's built-in <b>validator</b> for malformed HTML and invalid tags, on by default",
    "extra": "It fails builds on things like an unclosed &lt;p&gt;. Disable selectively with <code>-Xdoclint:none</code>.",

@@ -1,0 +1,38 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html",
+   "tags": [
+    "roadmap::java",
+    "baeldung",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "What does <code>Error: Could not find or load main class X</code> tell you?",
+     "back": "The launcher could not resolve X on the classpath — the class file is missing there, or the name omits its package prefix",
+     "extra": "javac was fine; this is a lookup failure at launch. The follow-up line <code>Caused by: java.lang.ClassNotFoundException: X</code> names what was missing. <code>java -cp out pkg.Main</code> finds it, <code>java Main</code> or a wrong <code>-cp</code> does not.",
+     "example": "<pre>java -cp out Main        <span class=\"cmt\">// Error: Could not find or load main class Main</span>\njava -cp out pkg.Main    <span class=\"cmt\">// runs</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html"
+    },
+    {
+     "type": "basic",
+     "front": "A class is on the classpath but has no valid <code>main</code>. Which error does the launcher print?",
+     "back": "<code>Error: Main method not found in class Foo</code> — not \"could not find or load main class\"",
+     "extra": "The two messages point at different faults: this one means the class was loaded and the entry point was rejected, so the signature must be <code>public static void main(String[] args)</code>. A non-static <code>main</code> or one with no parameter triggers it.",
+     "example": "<pre><span class=\"kw\">public class</span> NoMain { <span class=\"kw\">public void</span> main() { } }\n<span class=\"cmt\">// Error: Main method not found in class NoMain, please define the main method as:</span>\n<span class=\"cmt\">//    public static void main(String[] args)</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/java.html"
+    }
+   ]
+  }
+ ]
+}
