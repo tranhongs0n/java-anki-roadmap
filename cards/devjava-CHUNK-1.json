@@ -459,7 +459,8 @@
      "extra": "The runtime searches every frame exhaustively. Reaching the bottom without a match kills that thread, printing the uncaught exception and its stack trace, which is the familiar 'Exception in thread main' output.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex { public static void main(String[] args) {\n  throw new IllegalStateException(\"boom\"); // no handler: thread and program end\n} }</pre>"
     },
     {
      "type": "rule",
@@ -498,7 +499,8 @@
      "extra": "Example: <code>NullPointerException</code> when a logic error passes null to <code>FileReader</code>. Catching is legal, but removing the bug is the usual answer.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\n  RuntimeException e = new NullPointerException();\n  throw e; // unchecked: internal bug, no throws clause needed\n} }</pre>"
     },
     {
      "type": "rule",
@@ -507,7 +509,8 @@
      "extra": "Everything else extending <code>Throwable</code> is checked and must be caught or declared. This single rule is the whole of the catch-or-specify boundary.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\n  RuntimeException re = new IllegalStateException();\n  Error err = new AssertionError();\n} }</pre>"
     }
    ]
   },
@@ -528,7 +531,8 @@
      "extra": "Form: <code>void writeList() throws IOException, IndexOutOfBoundsException { ... }</code>. The exceptions are a comma-separated list after the keyword <code>throws</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.io.IOException;\nclass Ex { void read(String path) throws IOException {\n    throw new IOException(path);\n  }\n}</pre>"
     },
     {
      "type": "rule",
@@ -577,7 +581,8 @@
      "extra": "<code>getCause()</code> returns the exception that caused this one; <code>initCause()</code> sets it, and can be called only once. The <code>Throwable</code> constructors taking a cause do the same at construction time.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\n  Exception e = new Exception(\"outer\");\n  e.initCause(new IllegalStateException(\"inner\"));\n  Throwable cause = e.getCause();\n} }</pre>"
     },
     {
      "type": "basic",
@@ -616,7 +621,8 @@
      "extra": "For a <code>LinkedListException</code>, both <code>RuntimeException</code> and more specific types are inappropriate, so the generic parent is <code>Exception</code>. By convention, names of Exception descendants end in the string Exception.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class MyException extends Exception { MyException(String s) { super(s); } }\nclass Ex { static void m() throws MyException { throw new MyException(\"bad\"); } }</pre>"
     }
    ]
   },
@@ -637,7 +643,8 @@
      "extra": "Recoverable conditions (file not found, retryable I/O) belong in the checked family so the compiler forces callers to deal with them.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.io.IOException;\nclass Ex { static void m() throws IOException { throw new IOException(\"retry later\"); }\n  static void caller() { try { m(); } catch (IOException e) { System.out.println(\"retry\"); } }\n}</pre>"
     },
     {
      "type": "rule",
@@ -646,7 +653,8 @@
      "extra": "Null dereferences, divide-by-zero and bad indexes are programming bugs. Forcing every caller to handle them would clutter the API without helping.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m(int n) {\n  int x = 10 / n; // unchecked: caller cannot recover\n} }</pre>"
     },
     {
      "type": "basic",
@@ -655,7 +663,8 @@
      "extra": "That is why checked exceptions must be declared: a method's throws clause is as much a part of its contract as its parameters and return type.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.io.IOException;\nclass Ex { public void read() throws IOException { throw new IOException(\"disk\"); }\n  // callers see throws IOException and decide to catch or propagate it\n}</pre>"
     },
     {
      "type": "basic",
@@ -694,7 +703,8 @@
      "extra": "Intermediate methods need no error-handling logic, but each that lets a checked exception through must still list it in its <code>throws</code> clause.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.io.IOException;\nclass Ex { static void low() throws IOException { throw new IOException(\"disk\"); }\n  static void high() throws IOException { low(); } // ducks it; runtime searches backward\n  static void caller() { try { high(); } catch (IOException e) { System.out.println(\"caught\"); } }\n}</pre>"
     },
     {
      "type": "table",
@@ -703,7 +713,8 @@
      "extra": "<code>FileNotFoundException</code>, <code>EOFException</code> and the rest are subtypes of <code>IOException</code>, so one handler covers them. Query the caught object to learn the specific cause.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void m() throws IOException {\n  try { throw new FileNotFoundException(\"missing\"); } catch (IOException e) { System.out.println(\"caught\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -744,7 +755,8 @@
      "extra": "<code>FileNotFoundException</code> is a subtype of <code>IOException</code>, so the second handler can never run. Write the more specific type first.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.io.*;\nclass Ex { static void io() throws IOException { }\n  static void m() { try { io(); } catch (FileNotFoundException f) { } catch (IOException e) { } }\n    // catching IOException first: error: exception FileNotFoundException has already been caught\n}</pre>"
     },
     {
      "type": "rule",
@@ -793,7 +805,8 @@
      "extra": "So it runs after the try body finishes, after a matching catch runs, after a <code>return</code>, <code>break</code> or <code>continue</code>, and even after an uncaught exception propagates.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex { static void m() {\n  try { int x = 1 / 0; } finally { System.out.println(\"always\"); }\n} }</pre>"
     },
     {
      "type": "basic",
@@ -884,7 +897,8 @@
      "extra": "It appears directly before the annotation type, as in <code>@Override</code>. The compiler reads the name after it as an annotation type, which is why annotations and interfaces share a namespace.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>@interface Mark { }\nclass Ex { @Mark static void m() { } } // @ makes it an annotation, not a call</pre>"
     },
     {
      "type": "basic",
@@ -893,7 +907,8 @@
      "extra": "Writing <code>@SuppressWarnings(value = \"unchecked\")</code> is equivalent. The shorthand is only for <code>value</code>; any other element name must always be written.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex { @SuppressWarnings(\"unchecked\") static void m() { } // value = ... omitted\n}</pre>"
     },
     {
      "type": "basic",
@@ -902,7 +917,8 @@
      "extra": "Hence <code>@Override</code> and <code>@Deprecated</code> appear bare. The moment an element exists you need <code>@Name(...)</code>, even if you supply no value.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>@interface Marker { }\nclass Ex { @Marker static void m() { } } // no elements, so no parentheses</pre>"
     },
     {
      "type": "table",
@@ -911,7 +927,8 @@
      "extra": "It looks like an interface whose keyword is <code>interface</code> with a leading at sign. Its body holds element declarations that resemble methods and may have default values. <code>@</code> reads as 'AT', i.e. annotation type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { @interface Mark { String value(); }\n  @Mark(\"demo\") static void m() { } } // @interface declares the annotation type</pre>"
     },
     {
      "type": "basic",
@@ -920,7 +937,8 @@
      "extra": "By default annotations on program elements are omitted from generated documentation. Putting <code>@Documented</code> on the annotation type tells javadoc to publish them.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Documented @interface Doc { }\nclass Ex { @Doc static void m() { } } // Doc appears in Javadoc for m</pre>"
     },
     {
      "type": "table",
@@ -929,7 +947,8 @@
      "extra": "They are predefined in every JDK. <code>@Override</code> and <code>@SuppressWarnings</code> steer compiler checks, <code>@Deprecated</code> both warns and documents.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { @Deprecated static void old() { }\n  @Override public String toString() { return \"ex\"; }\n  @SuppressWarnings(\"unchecked\") static void quiet() { }\n}</pre>"
     },
     {
      "type": "basic",
@@ -938,7 +957,8 @@
      "extra": "Using it is optional but catching typos in the method name or signature. Without it, a misspelt override silently becomes a new method in the subclass.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex { @Override public String toString() { return \"ok\"; }\n  // @Override public int size() { return 0; }\n  // error: method does not override or implement a method from a supertype\n}</pre>"
     },
     {
      "type": "table",
@@ -947,7 +967,8 @@
      "extra": "The companion compiler warning category is <code>removal</code>. When an element is deprecated you should also document it with the Javadoc tag <code>@deprecated</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { @Deprecated(forRemoval = true) static void old() { }\n  @Deprecated static void kept() { } // forRemoval defaults to false\n}</pre>"
     },
     {
      "type": "table",
@@ -956,7 +977,8 @@
      "extra": "The array form suppresses several at once: <code>@SuppressWarnings({\"unchecked\", \"deprecation\"})</code>. The <code>unchecked</code> warnings arise when mixing with pre-generics legacy code.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  @SuppressWarnings({\"unchecked\", \"deprecation\", \"removal\", \"preview\"}) static void m() { }\n}</pre>"
     },
     {
      "type": "basic",
@@ -965,7 +987,8 @@
      "extra": "Applied to a generic varargs method you promise not to store arbitrary types into the array. Java suppresses the heap-pollution warning it would otherwise report at the call site.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { @SafeVarargs static <T> void add(T... items) { }\n  static void m() { add(\"a\", \"b\"); } // no unchecked varargs warning\n}</pre>"
     },
     {
      "type": "basic",
@@ -974,7 +997,8 @@
      "extra": "It marks a type declaration as intended to be a functional interface, meaning one abstract method. It is documentation plus a compiler check against accidental extra abstract methods.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex { @FunctionalInterface interface Job { void run(); } // Java SE 8\n  static void m() { Job j = () -> System.out.println(\"run\"); j.run(); } }</pre>"
     },
     {
      "type": "table",
@@ -983,7 +1007,8 @@
      "extra": "The annotation is available while compiling but never recorded in the class file. <code>@Override</code> is typically SOURCE-retained, since only javac needs to see it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Retention(RetentionPolicy.SOURCE) @interface SourceOnly { }\nclass Ex { @SourceOnly static void m() { } } // not in the class file</pre>"
     },
     {
      "type": "table",
@@ -992,7 +1017,8 @@
      "extra": "This is the default retention when <code>@Retention</code> is not specified. Bytecode tools can read the annotation, but reflection at runtime cannot see it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Retention(RetentionPolicy.CLASS) @interface ClassOnly { }\nclass Ex { @ClassOnly static void m() { }\n  static void show() throws NoSuchMethodException { System.out.println(Ex.class.getDeclaredMethod(\"m\").isAnnotationPresent(ClassOnly.class)); } // false\n}</pre>"
     },
     {
      "type": "table",
@@ -1001,7 +1027,8 @@
      "extra": "Only RUNTIME-retained annotations are visible through reflection, which is why frameworks that inspect annotations at runtime (JPA, Jackson, JUnit) declare it.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Retention(RetentionPolicy.RUNTIME) @interface RuntimeMark { }\nclass Ex { @RuntimeMark static void m() { }\n  static void show() throws NoSuchMethodException { System.out.println(Ex.class.getDeclaredMethod(\"m\").isAnnotationPresent(RuntimeMark.class)); } }</pre>"
     },
     {
      "type": "rule",
@@ -1010,7 +1037,8 @@
      "extra": "That is a <b>type annotation</b>: usable on <code>new</code>, on casts, on implements clauses and on <code>throws</code>. It lets a pluggable type checker see where a type is used, not only where a variable is declared.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Target(ElementType.TYPE_USE) @interface Nullable { } // type annotations since Java SE 8\nclass Ex { @Nullable String s = null; }</pre>"
     },
     {
      "type": "basic",
@@ -1019,7 +1047,8 @@
      "extra": "E.g. declare a variable <code>@NonNull String s</code>. A checker module plugged into the compiler then warns when null could flow in. The JDK ships no checker, only the ability to accept one.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Target(ElementType.TYPE_USE) @interface NonNull { }\nclass Ex { @NonNull String name = \"ok\"; } // checker reads it alongside javac</pre>"
     },
     {
      "type": "basic",
@@ -1028,7 +1057,8 @@
      "extra": "Its value is one or more <code>ElementType</code> constants: TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, PACKAGE, MODULE, TYPE_PARAMETER, ANNOTATION_TYPE, TYPE_USE, RECORD_COMPONENT. The compiler rejects an annotation used in the wrong place.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Target(ElementType.METHOD) @interface OnlyMethods { }\nclass Ex { @OnlyMethods void ok() { } } // on a field it would not compile</pre>"
     },
     {
      "type": "basic",
@@ -1037,7 +1067,8 @@
      "extra": "That covers <code>new</code>, casts, implements and throws clauses. <code>TYPE</code> instead means class, interface, enum, annotation or record declarations.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Target(ElementType.TYPE_USE) @interface TypeUse { }\nclass Ex { @TypeUse String s = \"ok\"; } // usable wherever a type is used</pre>"
     },
     {
      "type": "basic",
@@ -1046,7 +1077,8 @@
      "extra": "Inheritance of annotations is off by default, so without it <code>getAnnotation</code> returns null on the subclass. <code>@Inherited</code> applies only to class declarations, never to methods or fields.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.annotation.*;\n@Inherited @Retention(RetentionPolicy.RUNTIME) @interface Legacy { }\n@Legacy class Base { }\nclass Child extends Base { }\nclass Ex { static void m() { System.out.println(Child.class.isAnnotationPresent(Legacy.class)); } }</pre>"
     },
     {
      "type": "basic",
@@ -1055,7 +1087,8 @@
      "extra": "Its value names the <b>container</b> annotation the compiler generates to hold the repeats. Applying an annotation twice without it is a compile-time error.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>@java.lang.annotation.Repeatable(Tags.class) @interface Tag { String value(); }\n@interface Tags { Tag[] value(); }\nclass Ex { @Tag(\"a\") @Tag(\"b\") static void m() { } }</pre>"
     },
     {
      "type": "basic",
@@ -1064,7 +1097,8 @@
      "extra": "E.g. <code>Schedules</code> holds <code>Schedule[] value()</code>. The compiler then wraps repeated <code>@Schedule</code> annotations into one <code>@Schedules</code> automatically.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>@java.lang.annotation.Repeatable(Hints.class) @interface Hint { String value(); }\n@interface Hints { Hint[] value(); }\nclass Ex { @Hint(\"a\") @Hint(\"b\") static void m() { } }</pre>"
     },
     {
      "type": "basic",
@@ -1073,7 +1107,8 @@
      "extra": "Added in Java SE 8; it scans the container annotation for you. The older <code>getAnnotation(Class)</code> still returns only one and unchanged, so legacy code keeps working.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>@java.lang.annotation.Repeatable(Hints.class) @interface Hint { String value(); }\n@interface Hints { Hint[] value(); }\nclass Ex { @Hint(\"a\") @Hint(\"b\") static void m() { }\n  static void show() throws NoSuchMethodException {\n    for (Hint h : Ex.class.getDeclaredMethod(\"m\").getAnnotationsByType(Hint.class)) System.out.println(h.value()); } }</pre>"
     }
    ]
   },
@@ -1094,7 +1129,8 @@
      "extra": "Placed in the project's source root, e.g. <code>src/main/java</code>, so tools pick it up. It compiles to <code>module-info.class</code>, the module descriptor, which goes at the JAR root.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>// module-info.java\nmodule com.example.app {\n  requires java.sql;\n  exports com.example.app.api;\n}</pre>"
     },
     {
      "type": "table",
@@ -1103,7 +1139,8 @@
      "extra": "<code>requires</code> lists dependencies by module name, <code>exports</code> names packages that form the public API, <code>uses</code> names service types consumed, <code>provides ... with ...</code> names service implementations offered.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>module app {\n    requires java.sql;\n    exports com.example.api;\n    uses com.example.Service;\n    provides com.example.Service with com.example.Impl;\n}</pre>"
     },
     {
      "type": "basic",
@@ -1112,7 +1149,8 @@
      "extra": "A module has a real boundary the compiler and JVM enforce. To expose a type you must export or open the package that contains it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>// module-info.java\nmodule com.example.app {\n  // no exports: public types stay internal\n}</pre>"
     },
     {
      "type": "rule",
@@ -1121,7 +1159,8 @@
      "extra": "Exports make the package part of the public API. Opens leaves it invisible to the compiler but lets reflection reach private members. A package may be both.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var d = java.lang.module.ModuleDescriptor.newModule(\"app\").exports(\"api\").opens(\"impl\").build();\nSystem.out.println(d.exports()); // api: compile time and run time\nSystem.out.println(d.opens());   // impl: run-time reflection only</pre>"
     },
     {
      "type": "table",
@@ -1130,7 +1169,8 @@
      "extra": "Any module reading this module automatically reads the required one. Needed when a public signature exposes types from the dependency, as <code>java.sql</code> does with <code>java.xml</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.sql.SQLXML; // java.sql requires transitive java.xml: one requires is enough\nclass Ex {\n  SQLXML xml; // the dependency is part of java.sql's own API\n}</pre>"
     },
     {
      "type": "table",
@@ -1139,7 +1179,8 @@
      "extra": "Without the descriptor it is a plain JAR. On the module path a modular JAR becomes a module; on the class path it still merges into the unnamed module.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.lang.module.ModuleFinder finder = java.lang.module.ModuleFinder.of(java.nio.file.Path.of(\"mods/lib.jar\"));\njava.lang.module.ModuleReference ref = finder.find(\"lib\").orElseThrow(); // found: JAR has module-info.class\nSystem.out.println(ref.descriptor().name());</pre>"
     },
     {
      "type": "basic",
@@ -1148,7 +1189,8 @@
      "extra": "It parallels the class path but makes every artifact on it a module, enabling incremental modularisation. <code>javac</code> and <code>java</code> both understand it.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java --module-path mods -m app\n# --module-path lists artifacts; plain JARs there become automatic modules</pre>"
     },
     {
      "type": "basic",
@@ -1157,7 +1199,8 @@
      "extra": "All JARs on the class path form the single unnamed module; all JARs on the module path become modules. So the project owner, not the dependency's maintainer, decides what is an individual module.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java --module-path lib/m.jar -m app/Main   # same JAR: a module\njava -cp lib/m.jar Main                    # same JAR: class path, unnamed module</pre>"
     },
     {
      "type": "table",
@@ -1166,7 +1209,8 @@
      "extra": "Repeat until nothing new is found; observe it with <code>--show-module-resolution</code>. The result is the module graph, whose edges are readability relations.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var finder = java.lang.module.ModuleFinder.of(java.nio.file.Path.of(\"mods\"));\nvar cfg = java.lang.module.Configuration.resolve(finder, java.util.List.of(), java.lang.module.ModuleFinder.ofSystem(), java.util.Set.of(\"app\"));\nSystem.out.println(cfg.findModule(\"app\").isPresent()); // root -> each requires; missing target: error</pre>"
     },
     {
      "type": "basic",
@@ -1175,7 +1219,8 @@
      "extra": "It holds <code>Class</code>, <code>ClassLoader</code>, <code>java.lang</code>, <code>java.util</code> and the module system itself. Resolution bootstraps it first, before any other module.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// module-info.java\nmodule com.example.app { } // no requires java.base: implicit</pre>"
     },
     {
      "type": "rule",
@@ -1184,7 +1229,8 @@
      "extra": "That third condition is the new part compared with plain JARs. Reading normally comes from <code>requires</code>, but <code>--add-reads</code> can add it at launch.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// A can use B's type only if it is public, its package is exported, and A reads B\nclass Ex { java.sql.SQLXML xml; }</pre>"
     },
     {
      "type": "basic",
@@ -1193,7 +1239,8 @@
      "extra": "There is no notion of version beyond a string, so two versions of one module are a duplicate and rejected. A package living in two modules is a split package, also rejected. Static dependency cycles are the third check.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java --module-path mods -m app/Main\n# fails with duplicate modules on the path\n# fails with two modules containing the same package (split package)</pre>"
     },
     {
      "type": "basic",
@@ -1202,7 +1249,8 @@
      "extra": "Cycles are fine at runtime, e.g. Spring reflecting over code that uses Spring annotations, but the modules must not require each other to compile. The module system rejects static cycles.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var a = java.lang.module.ModuleDescriptor.newModule(\"a\").requires(\"b\").build();\nvar b = java.lang.module.ModuleDescriptor.newModule(\"b\").requires(\"a\").build();\nSystem.out.println(a.requires() + \" \" + b.requires()); // compile-time requires loop</pre>"
     }
    ]
   },
@@ -1223,7 +1271,8 @@
      "extra": "In <code>sun.*</code> only <code>sun.misc</code> and <code>sun.reflect</code> are exempt, exported by <code>jdk.unsupported</code>. In <code>com.sun.*</code> roughly 90% is internal and the exported remainder belongs to <code>jdk.*</code> modules.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>Class<?> safe = java.util.ArrayList.class;          // java.*: supported\nClass<?> wary = com.sun.source.util.Trees.class;     // com.sun.*: check the module first\n// Class<?> avoid = sun.misc.Unsafe.class;           // sun.*: avoid</pre>"
     },
     {
      "type": "basic",
@@ -1232,7 +1281,8 @@
      "extra": "Chiefly for <code>sun.misc.Unsafe</code>. These are the deliberate exceptions: the rest of <code>sun.*</code> is internal and inaccessible.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>module jdk.unsupported {\n    exports sun.misc;\n    exports sun.reflect;   // needed with no feasible replacement\n}</pre>"
     },
     {
      "type": "basic",
@@ -1241,7 +1291,8 @@
      "extra": "The namespace is JDK-specific rather than standard. Roughly a tenth is exported by <code>jdk.*</code> modules and supported, evolving with compatibility in mind, so each usage warrants a look.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var refs = java.lang.module.ModuleFinder.ofSystem().findAll();\nlong all = refs.stream().flatMap(r -> r.descriptor().packages().stream()).filter(p -> p.startsWith(\"com.sun.\")).count();\nlong out = refs.stream().flatMap(r -> r.descriptor().exports().stream()).filter(e -> e.source().startsWith(\"com.sun.\") && !e.isQualified()).count();\nSystem.out.println((all - out) + \"/\" + all + \" internal\"); // about 90%</pre>"
     },
     {
      "type": "table",
@@ -1250,7 +1301,8 @@
      "extra": "E.g. <code>sun.util.BuddhistCalendar</code> lives in <code>java.base</code> which does not export <code>sun.util</code>. Both the compile error and the reflective runtime exception point at strong encapsulation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javac --module-path mods -cp . App.java   # error: package m.internal is not exported\njava --module-path mods -m app/Main       # access fails again at run time</pre>"
     },
     {
      "type": "table",
@@ -1259,7 +1311,8 @@
      "extra": "JDK 9 to 15 permitted deep reflective access from the class path by default. JDK 16 flipped the default, and JDK 17 removed the option entirely.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># JDK 15 and earlier: --illegal-access=permit was the default\njava --illegal-access=permit App\n# JDK 16:              --illegal-access=deny became the default\njava --illegal-access=deny App</pre>"
     },
     {
      "type": "rule",
@@ -1268,7 +1321,8 @@
      "extra": "Nothing else works: illegal-access is gone. Both act per module/package pair and must be supplied at launch, by whoever runs the application.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java --add-exports java.base/jdk.internal.misc=ALL-UNNAMED App\njava --add-opens   java.base/java.util=ALL-UNNAMED App</pre>"
     }
    ]
   },
@@ -1289,7 +1343,8 @@
      "extra": "E.g. <code>--add-exports java.base/sun.util=ALL-UNNAMED</code>. The space can be an equals sign to suit build tools such as Maven.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac --add-exports java.base/sun.nio.ch=ALL-UNNAMED App.java\njava  --add-exports java.base/sun.nio.ch=ALL-UNNAMED -cp . App</pre>"
     },
     {
      "type": "basic",
@@ -1298,7 +1353,8 @@
      "extra": "Use it while your project is not modularised. Once your code runs as a module you can name that module and expose internals to it alone.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java --add-exports java.base/jdk.internal.misc=ALL-UNNAMED App\njava --add-opens   java.base/java.util=ALL-UNNAMED App   # ALL-UNNAMED = all class-path code</pre>"
     },
     {
      "type": "rule",
@@ -1307,7 +1363,8 @@
      "extra": "Same visibility as a real <code>exports</code>: the compiler can resolve the package and code can call public API in it. Non-public types remain out of reach.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac --add-exports m/p=ALL-UNNAMED App.java   # public types of p become readable\n# private members of p remain hidden; they need --add-opens for reflection</pre>"
     },
     {
      "type": "rule",
@@ -1316,7 +1373,8 @@
      "extra": "It works like an <code>opens</code> directive applied at launch. Compilation gains nothing, so code must reach the classes reflectively, usually with <code>setAccessible(true)</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java --add-opens app/com.example.internal=ALL-UNNAMED -m app\n# all types and members in that package become reflectively accessible, public or not</pre>"
     },
     {
      "type": "table",
@@ -1325,7 +1383,8 @@
      "extra": "Compiling against an internal package only grants compile access. Launching on JDK 17+ without the flag fails again at runtime.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javac --add-exports m/p=ALL-UNNAMED -cp . App.java\njava  --add-exports m/p=ALL-UNNAMED -cp . App    # repeat it at run time</pre>"
     },
     {
      "type": "basic",
@@ -1334,7 +1393,8 @@
      "extra": "It is a pure runtime concept bound to reflection, so javac does not reject the option. It merely reports that nothing will happen, which helps when one option string is fed to several tools.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javac --add-opens java.base/java.lang=ALL-UNNAMED A.java\n# warning: [options] --add-opens has no effect at compile time</pre>"
     }
    ]
   },
@@ -1355,7 +1415,8 @@
      "extra": "Resolution starts from root modules, so adding one brings it and its transitive requires into the graph even though the initial module never mentions it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java --add-modules java.sql -m app\n# adds java.sql as an extra root, then follows its requires into the graph</pre>"
     },
     {
      "type": "table",
@@ -1364,7 +1425,8 @@
      "extra": "ALL-DEFAULT is the set picked for class-path launches, for container apps. ALL-SYSTEM adds every system module, used by test harnesses. ALL-MODULE-PATH adds every module found on the module path.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java --add-modules ALL-DEFAULT -m app\njava --add-modules ALL-SYSTEM -m app\njava --add-modules ALL-MODULE-PATH -m app</pre>"
     },
     {
      "type": "basic",
@@ -1373,7 +1435,8 @@
      "extra": "The module can then use public types in the targets' exported packages without a <code>requires</code> clause. <code>ALL-UNNAMED</code> as target lets a module read the unnamed module.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java --add-reads app=com.example.other,demo -m app\n# adds readability edges from app to each listed module</pre>"
     },
     {
      "type": "rule",
@@ -1382,7 +1445,8 @@
      "extra": "It is a resolution-time option, so each tool that resolves modules honours it. <code>--add-reads</code>, by contrast, is documented for the compiler and runtime.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac --add-modules java.sql App.java\njlink --add-modules java.sql --output image\njava  --add-modules java.sql -m myapp/Main</pre>"
     },
     {
      "type": "basic",
@@ -1391,7 +1455,8 @@
      "extra": "If a module only sometimes needs <code>java.sql</code> it never enters the graph on its own. Listing it in <code>--add-modules</code> at launch adds it, usually alongside <code>--add-reads</code> for readability.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java --add-modules java.sql -m app\n# pulls in java.sql even though no module requires it</pre>"
     }
    ]
   },
@@ -1412,7 +1477,8 @@
      "extra": "Any module that reads the declaring module automatically reads the required one too. Written <code>requires transitive java.xml;</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>module A {\n    requires transitive B;   // implied readability: readers of A also read B\n}</pre>"
     },
     {
      "type": "rule",
@@ -1421,7 +1487,8 @@
      "extra": "Otherwise every client would have to add its own <code>requires B</code> to compile against your API. That is a hidden dependency clients could easily miss.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>module A {\n    requires transitive B;   // A's public API mentions B's types\n}\n// class api.Api { public B.Type get(); }   // readers of A also read B</pre>"
     },
     {
      "type": "basic",
@@ -1430,7 +1497,8 @@
      "extra": "It maps the SQL XML type, so <code>java.xml</code> types appear in a public signature. <code>Driver.getParentLogger()</code> likewise returns a <code>java.util.logging.Logger</code>, hence the transitive requires on java.logging.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.sql.SQLXML xml = null;                                       // in java.sql\ntry {\n    javax.xml.transform.Source s = xml.getSource(javax.xml.transform.Source.class);  // java.xml type\n} catch (java.sql.SQLException e) { System.out.println(e.getMessage()); }</pre>"
     },
     {
      "type": "basic",
@@ -1439,7 +1507,8 @@
      "extra": "Both declare <code>requires java.xml</code>, but only java.sql needs it transitive, because its public API mentions <code>java.xml</code> types such as SQLXML.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>import java.sql.SQLXML; // java.sql: requires transitive java.xml; java.prefs: plain requires\nclass Ex {\n  SQLXML xml;                        // java.sql exposes java.xml types in its API\n  java.util.prefs.Preferences p;     // java.prefs uses java.xml only internally\n}</pre>"
     },
     {
      "type": "rule",
@@ -1448,7 +1517,8 @@
      "extra": "Implied readability is for types used only at the boundary to the module that grants it. Using them everywhere is a genuine dependency; declaring it documents the architecture and survives refactoring.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>module A {\n    requires C;            // C has: requires transitive B\n    // requires B;         // add explicit requires B: A uses B's types throughout\n}</pre>"
     }
    ]
   },
@@ -1469,7 +1539,8 @@
      "extra": "Frameworks touch non-public types, constructors, accessors and fields. And exporting a package that handles HTTP requests or database access wrongly advertises it as a stable contract.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex { private int hidden; }\nclass Probe {\n  static void reflect() throws Exception {\n    Ex.class.getDeclaredField(\"hidden\").setAccessible(true); // non-public: exports cannot reach it\n    // exporting instead would publish the package as API\n  }\n}</pre>"
     },
     {
      "type": "rule",
@@ -1478,7 +1549,8 @@
      "extra": "No exports means no compile-time access at all. Reflection is the only way in, which is exactly the intent: express that this package exists for a reflection-based framework.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var d = java.lang.module.ModuleDescriptor.newModule(\"app\").opens(\"impl\").build();\nSystem.out.println(d.exports().isEmpty()); // true: outside code cannot compile against impl</pre>"
     },
     {
      "type": "rule",
@@ -1487,7 +1559,8 @@
      "extra": "For non-public members reflection still needs <code>setAccessible(true)</code>. The point of opens is that the module has authorised the deep access, so no exception is thrown.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>module M {\n    exports p;   // public types and public members only\n    opens q;     // reflection can use all members, including private\n}</pre>"
     },
     {
      "type": "basic",
@@ -1496,7 +1569,8 @@
      "extra": "An open module behaves as if each package had its own <code>opens</code>. There is no wildcard form, so this keyword is the equivalent of <code>opens com.example.*</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>// module-info.java\nopen module com.example.app { } // opens every package</pre>"
     },
     {
      "type": "rule",
@@ -1505,7 +1579,8 @@
      "extra": "Writing <code>opens p;</code> is redundant by definition, so the compiler rejects it. <code>exports</code> directives are still allowed and still mean what they say.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>open module A {\n    // opens p;   // error: 'opens' only allowed in strong modules\n}</pre>"
     }
    ]
   },
@@ -1526,7 +1601,8 @@
      "extra": "E.g. <code>exports com.example.internal to com.example.friend;</code>. The named modules get full access; every other module sees strong encapsulation as if the directive had no effect.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var d = java.lang.module.ModuleDescriptor.newModule(\"lib\").exports(\"api\", java.util.Set.of(\"friend\", \"other\")).opens(\"impl\", java.util.Set.of(\"framework\")).build();\nSystem.out.println(d.exports() + \" \" + d.opens()); // to friend, other / to framework</pre>"
     },
     {
      "type": "basic",
@@ -1535,7 +1611,8 @@
      "extra": "Six internal packages of the JAXP module are needed by XML cryptography, so they are exported to <code>java.xml.crypto</code> and nothing else. A textbook case of controlled sharing inside the JDK.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>module java.xml {\n    exports com.sun.org.apache.xml.internal.dtm to java.xml.crypto;\n}</pre>"
     },
     {
      "type": "rule",
@@ -1544,7 +1621,8 @@
      "extra": "The plain exports already grants everyone access, which makes the qualified one pointless. The module system treats this contradiction as an implementation error.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>module A {\n    exports p;\n    // exports p to M;   // error: p is already exported\n}</pre>"
     },
     {
      "type": "basic",
@@ -1553,7 +1631,8 @@
      "extra": "The target is mentioned but not required, so it may simply not be on the path at compile time. Failing the build would break builds for optional targets.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>javac -p mods --module-source-path src -m lib\n# warning: [module] module not found: missing.friend</pre>"
     },
     {
      "type": "basic",
@@ -1562,7 +1641,8 @@
      "extra": "That control is the feature's point: the owner decides who shares. It is also its cost, since every new friend forces an edit to the exporting module's declaration.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var before = java.lang.module.ModuleDescriptor.newModule(\"lib\").exports(\"p\", java.util.Set.of(\"app\")).build();\nvar after = java.lang.module.ModuleDescriptor.newModule(\"lib\").exports(\"p\", java.util.Set.of(\"app\", \"newApp\")).build();\nSystem.out.println(after.exports()); // the exporting module adds the new target</pre>"
     },
     {
      "type": "basic",
@@ -1571,7 +1651,8 @@
      "extra": "A framework never develops a compile dependency on a package it reflects over, so unqualified opens risk little. Qualified opens add fragility when API and implementation split, such as JPA and Hibernate.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void framework() throws Exception {\n    Class<?> c = Class.forName(\"com.example.internal.Handler\");\n    c.getDeclaredConstructor().setAccessible(true); // opens, not a compile-time dependency\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1580,7 +1661,8 @@
      "extra": "Until frameworks adopt Lookup/VarHandle forwarding, JPA plus Hibernate means opening entity packages to the Hibernate module, not the JPA module. That leaks an implementation detail into the declaration.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>module A {\n    opens p to impl;   // must name the module that actually reflects on p\n}\n// impl: Class.forName(\"A.p.C\").getDeclaredFields();</pre>"
     }
    ]
   },
@@ -1601,7 +1683,8 @@
      "extra": "Identical to a normal <code>requires</code> during compilation, so you can freely use its types in source. Absence is a compile error.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.sql.SQLXML;\nclass Ex {\n  SQLXML xml; // compiles only when java.sql is present and readable at compile time (requires static)\n}</pre>"
     },
     {
      "type": "rule",
@@ -1610,7 +1693,8 @@
      "extra": "If it is present on the graph the requiring module reads it. If not, you simply must not reach its types, or you get a NoClassDefFoundError.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -p mods --add-modules app -m app\n# optional requires static module absent: launch succeeds with no error or warning</pre>"
     },
     {
      "type": "table",
@@ -1619,7 +1703,8 @@
      "extra": "Even a matching module on the module path is not added just for the optional dependency. It enters only via another module's regular requires or via <code>--add-modules</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var finder = java.lang.module.ModuleFinder.of(java.nio.file.Path.of(\"mods\")); // optional module absent\nvar cfg = java.lang.module.Configuration.resolve(finder, java.util.List.of(), java.lang.module.ModuleFinder.ofSystem(), java.util.Set.of(\"app\"));\nSystem.out.println(cfg.findModule(\"optional\").isEmpty()); // requires static is not resolved</pre>"
     },
     {
      "type": "basic",
@@ -1628,7 +1713,8 @@
      "extra": "The type check fails while loading. With a normal requires the launch would have failed early; opting out of that check means the failure can surface late instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -p mods --add-modules app -m app\n# Exception in thread \"main\" java.lang.NoClassDefFoundError: optional/api/Helper</pre>"
     },
     {
      "type": "basic",
@@ -1637,7 +1723,8 @@
      "extra": "Map it to a boolean and branch before calling into the optional dependency. A library cannot check for you; the decision belongs to the code that knows whether the feature is in use.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var m = java.lang.ModuleLayer.boot().findModule(\"java.sql\");\nSystem.out.println(m.isPresent()); // Optional: empty when the module is not present</pre>"
     },
     {
      "type": "basic",
@@ -1646,7 +1733,8 @@
      "extra": "A JDBC helper inside a library is reached only from code that already uses <code>java.sql</code>, so <code>java.sql</code> is guaranteed in the graph. No check is needed there.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.sql.SQLXML;\nclass Ex {\n  static void use(SQLXML xml) { } // callers already need java.sql, so no presence check here\n}</pre>"
     }
    ]
   },
@@ -1667,7 +1755,8 @@
      "extra": "It implements the service locator pattern. Call <code>ServiceLoader.load(Service.class)</code> to get a <code>ServiceLoader</code> that yields every provided implementation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.ServiceLoader<java.util.spi.ToolProvider> loader =\n    java.util.ServiceLoader.load(java.util.spi.ToolProvider.class);\nfor (java.util.spi.ToolProvider p : loader) { System.out.println(p.name()); }</pre>"
     },
     {
      "type": "basic",
@@ -1676,7 +1765,8 @@
      "extra": "The consumer names the service type it will look up; the provider names which of its classes is the implementation. Services let a module call behaviour from a module it does not depend on.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>module app {\n    uses com.example.Service;\n    provides com.example.Service with com.example.Impl;\n}</pre>"
     },
     {
      "type": "basic",
@@ -1685,7 +1775,8 @@
      "extra": "That is the provider method form. Otherwise the provider is a concrete class extending or implementing the service with a public parameterless constructor.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.util.spi.ToolProvider;\nclass Impl implements ToolProvider {\n    public String name() { return \"demo\"; }\n    public int run(java.io.PrintWriter o, java.io.PrintWriter e, String... a) { return 0; }\n}\nclass Provider { public static Impl provider() { return new Impl(); } }  // provides ToolProvider with Provider</pre>"
     },
     {
      "type": "basic",
@@ -1694,7 +1785,8 @@
      "extra": "A module may use one of its own types as a service. It means JDBC drivers can be supplied by other modules without java.sql depending on any vendor.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.ServiceLoader<java.sql.Driver> drivers =\n    java.util.ServiceLoader.load(java.sql.Driver.class);   // java.sql uses this service\nfor (java.sql.Driver d : drivers) { System.out.println(d.getClass().getName()); }</pre>"
     },
     {
      "type": "basic",
@@ -1703,7 +1795,8 @@
      "extra": "The loader instantiates providers through the descriptor, not through public API. Dropping the export shrinks the module's API surface, a bonus of the pattern.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.ServiceLoader<java.util.spi.ToolProvider> loader =\n    java.util.ServiceLoader.load(java.util.spi.ToolProvider.class);\nloader.forEach(p -> System.out.println(p.name()));   // provider package need not be exported</pre>"
     },
     {
      "type": "basic",
@@ -1712,7 +1805,8 @@
      "extra": "It explains why simple apps resolve so many platform modules: providers are added so they are available at runtime. It is a second edge type in the module graph besides requires.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var finder = java.lang.module.ModuleFinder.of(java.nio.file.Path.of(\"mods\"));\nvar cfg = java.lang.module.Configuration.resolveAndBind(finder, java.util.List.of(), java.lang.module.ModuleFinder.ofSystem(), java.util.Set.of(\"app\"));\nSystem.out.println(cfg.modules().size()); // includes providers of services that app uses</pre>"
     },
     {
      "type": "table",
@@ -1721,7 +1815,8 @@
      "extra": "The JDK asks a LoggerFinder for Logger instances instead of writing to stdout, so a framework such as Logback can provide an implementation. Same mechanism as the JDBC Driver service.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.util.ServiceLoader;\nclass Ex {\n  static void loggers() {\n    ServiceLoader.load(System.LoggerFinder.class).forEach(f -> { }); // JDK logging service\n  }\n}</pre>"
     }
    ]
   },
@@ -1742,7 +1837,8 @@
      "extra": "Every JAR on the class path, modular or not, ends up bundled into one unnamed module. It exists so the module system can apply its rules uniformly without forcing anyone to modularise.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class OnClassPath {}\nclass Demo {\n    public static void main(String[] a) {\n        System.out.println(OnClassPath.class.getModule().isNamed());  // false: unnamed module\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1751,7 +1847,8 @@
      "extra": "No name means it cannot appear in a <code>requires</code> clause, so no explicit module can depend on class-path code. That refusal is precisely the design goal, not an oversight.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void check() {\n    System.out.println(Ex.class.getModule().getName()); // null: the unnamed module has no name\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1760,7 +1857,8 @@
      "extra": "It exports all its packages and opens them for reflection too. Both are the loosest settings in the module system, which is what keeps legacy class-path code working.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void check() {\n    System.out.println(Ex.class.getModule().canRead(java.sql.DriverManager.class.getModule())); // true once in graph\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1769,7 +1867,8 @@
      "extra": "Whether a JAR is modular does not decide how it is treated; its location does. This is what lets the ecosystem modularise independently of each other.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static void check() {\n    System.out.println(Ex.class.getModule().isNamed()); // false: modular JAR on class path joins unnamed module\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1778,7 +1877,8 @@
      "extra": "From the module path the same call prints the module name. That contrast is the quickest way to confirm which path a JAR was launched from.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class PrintModule {\n    public static void main(String[] a) {\n        System.out.println(PrintModule.class.getModule().getName());  // null\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1787,7 +1887,8 @@
      "extra": "Roughly, java.se if observable, else every java.* module exporting a package unqualified. Non-incubating runtime modules exporting unqualified packages are roots too; module-path modules never are unless --add-modules names them.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java --show-module-resolution -cp . Main\n# unnamed initial module: resolution starts from runtime root modules, not module-path modules</pre>"
     },
     {
      "type": "rule",
@@ -1796,7 +1897,8 @@
      "extra": "Reliable configuration demands that dependencies be checkable. A dependency satisfiable by any JAR is unverifiable, and two modules could disagree about where a shared library belongs.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>module A {\n    // requires class-path B;   // no such directive: any class-path content would satisfy it\n    requires B;                 // a named module must supply B\n}</pre>"
     }
    ]
   },
@@ -1817,7 +1919,8 @@
      "extra": "It links modules and their transitive dependencies into a JDK-like directory tree. Include your own modules and the image is a self-contained application deliverable.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules java.base,java.logging --output image\nimage/bin/java -version   # runtime image with only the selected modules</pre>"
     },
     {
      "type": "basic",
@@ -1826,7 +1929,8 @@
      "extra": "Your classes stay bytecode; the image just carries an OS-specific JVM plus the modules. That is why images are bound to one operating system.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules java.base --output image\n# image holds linked modules and their bytecode; no ahead-of-time native compilation</pre>"
     },
     {
      "type": "basic",
@@ -1835,7 +1939,8 @@
      "extra": "The first names the initial modules, the second the target folder. jlink verifies that no module is missing or duplicated, then writes the image.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre># jlink --output myimage  # error: --add-modules is required\njlink --add-modules java.base --output myimage</pre>"
     },
     {
      "type": "table",
@@ -1844,7 +1949,8 @@
      "extra": "Deliberate, to keep images small. Add providers with <code>--add-modules</code>, or bind them all with <code>--bind-services</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules m --output image                    # no service binding by default\njlink --add-modules m --bind-services --output image2   # link provider modules too</pre>"
     },
     {
      "type": "basic",
@@ -1853,7 +1959,8 @@
      "extra": "Useful before building an image with <code>jlink</code>: it shows what is available in the runtime or on the module path. Then add the ones you need to <code>--add-modules</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --suggest-providers java.sql.Driver\njlink --suggest-providers java.nio.file.spi.FileSystemProvider</pre>"
     },
     {
      "type": "basic",
@@ -1862,7 +1969,8 @@
      "extra": "A static dependency would otherwise pull a module into the image only by accident. Explicitly adding it with <code>--add-modules</code> makes the choice deliberate.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jlink --module-path mods --add-modules app --output image\n# requires static targets are not resolved: add them explicitly with --add-modules</pre>"
     },
     {
      "type": "rule",
@@ -1871,7 +1979,8 @@
      "extra": "An automatic module has no descriptor to link against. The app and its dependencies must be modular JARs, which is a real reason to push dependencies towards modular artefacts.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jlink --module-path modslegacy.jar --add-modules ALL-MODULE-PATH --output image\n# Error: automatic module cannot be used with jlink</pre>"
     },
     {
      "type": "basic",
@@ -1880,7 +1989,8 @@
      "extra": "Then <code>--add-modules</code> names the app's main module. Platform and application modules together are called the image's <b>system modules</b>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --module-path mods --add-modules app --output image\n# --module-path points at the folder that holds the application modules</pre>"
     },
     {
      "type": "basic",
@@ -1889,7 +1999,8 @@
      "extra": "Shell script on Unix, batch file on Windows. The <code>/$MAIN-CLASS</code> part may be omitted if the descriptor already names a main class.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jlink --module-path mods --add-modules app --launcher run=app/com.example.Main --output image\nimage/bin/run # generated script in image/bin starts that module</pre>"
     },
     {
      "type": "basic",
@@ -1898,7 +2009,8 @@
      "extra": "The launcher passes them after <code>--module</code>, so you cannot add <code>--add-modules</code> ad hoc. Put options in <code>JLINK_VM_OPTIONS</code> or call <code>java</code> from the image directly.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jlink --add-modules java.base,app --launcher run=app/Main --output image\nimage/bin/run -Xmx512m   # -Xmx512m reaches main() as a program argument</pre>"
     },
     {
      "type": "rule",
@@ -1907,7 +2019,8 @@
      "extra": "A module-path entry with a system module's name is simply ignored. You can still supply extra modules, typically service providers, so users can extend the image.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jlink --module-path mods --add-modules app --output image\nimage/bin/java --module-path other -m app\n# system modules in the image shadow same-named modules on the launch path</pre>"
     },
     {
      "type": "basic",
@@ -1916,7 +2029,8 @@
      "extra": "Run it with your own <code>jlink</code>; it sees foreign platform modules and links for that OS. Verify by checking for <code>java.exe</code> in <code>bin</code>, and keep JDK versions in step.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jlink --module-path $JAVA_HOME/jmods:/path/to/win-jmods \\\n      --add-modules java.base --output win-image   # target OS's jmods on the module path</pre>"
     }
    ]
   },
@@ -1946,7 +2060,8 @@
      "extra": "An iterator walks over a collection. It is the fourth hierarchy, alongside Collection, Map and the Queue subcategory; <code>Iterable</code> sits above Collection but is not itself part of the framework.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.ListIterator<String> li = java.util.List.of(\"a\").listIterator();\njava.util.Iterator<String> it = li;   // ListIterator extends Iterator, the root\nSystem.out.println(it.next());</pre>"
     },
     {
      "type": "basic",
@@ -1955,7 +2070,8 @@
      "extra": "They exist for pushing and popping, not for walking the contents. They were nonetheless placed under Collection, so iteration happens to work on them as well.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Queue<String> q = new java.util.ArrayDeque<>();\nq.offer(\"a\"); q.offer(\"b\");\nSystem.out.println(q.poll() + \" \" + q.peek()); // a b: end access, not iteration</pre>"
     },
     {
      "type": "table",
@@ -1964,7 +2080,8 @@
      "extra": "<code>Vector</code> was retrofitted to implement <code>List</code>. In a concurrent environment you would use a concurrent list instead, but for ordinary single-threaded code ArrayList is the substitute.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> list = new java.util.ArrayList<>(); // replaces legacy Vector\nlist.add(\"a\");\nSystem.out.println(list);</pre>"
     },
     {
      "type": "table",
@@ -1973,7 +2090,8 @@
      "extra": "<code>Stack</code> extends <code>Vector</code> and remains in the JDK only for backward compatibility. <code>ArrayDeque</code> provides the push/pop operations without Vector's synchronisation.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Deque<String> stack = new java.util.ArrayDeque<>();\nstack.push(\"a\"); stack.push(\"b\");\nSystem.out.println(stack.pop()); // b, LIFO; replaces legacy Stack</pre>"
     },
     {
      "type": "basic",
@@ -1982,7 +2100,8 @@
      "extra": "<code>Vector</code> uses it to model its iterator. It predates the collections redesign and lacks remove() and the for-each protocol, so <code>Iterator</code> replaced it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var v = new java.util.Vector<>(java.util.List.of(\"a\"));\njava.util.Enumeration<String> e = v.elements(); // legacy, use Iterator instead\nwhile (e.hasMoreElements()) System.out.print(e.nextElement());</pre>"
     },
     {
      "type": "table",
@@ -1991,7 +2110,8 @@
      "extra": "<code>Hashtable</code> was retrofitted to implement <code>Map</code>. In a concurrent setting <code>ConcurrentHashMap</code> is the replacement instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Map<String, String> map = new java.util.HashMap<>(); // replaces legacy Hashtable\nmap.put(\"k\", \"v\");\nSystem.out.println(map.get(\"k\")); // v</pre>"
     },
     {
      "type": "basic",
@@ -2000,7 +2120,8 @@
      "extra": "An array's length is fixed once created; a collection tracks how many elements it holds and lets you keep adding. Collections can also reject nulls, test for presence, and intersect or merge with another collection.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var c = new java.util.ArrayList<String>();\nint before = c.size();\nfor (int i = 0; i < 10; i++) c.add(\"x\");\nSystem.out.println(before + \" -> \" + c.size()); // 0 -> 10</pre>"
     },
     {
      "type": "basic",
@@ -2009,7 +2130,8 @@
      "extra": "In a collection elements are the values themselves. In a map every value is bound to a key, so lookup happens by key rather than by position or presence.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.Collection<String> c = java.util.List.of(\"a\", \"b\");\njava.util.Map<String, String> m = java.util.Map.of(\"k\", \"v\");\nSystem.out.println(c + \" \" + m);   // [a, b] vs {k=v}: map values have keys</pre>"
     },
     {
      "type": "basic",
@@ -2018,7 +2140,8 @@
      "extra": "Generics made the containers type-safe; lambdas plus default methods made them functional, adding methods like <code>forEach</code>, <code>removeIf</code> and <code>computeIfAbsent</code> without breaking implementors.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> names = new java.util.ArrayList<>(); // Java SE 5: generics\nnames.forEach(n -> {});                                     // Java 8: lambda, default method\nSystem.out.println(names);</pre>"
     }
    ]
   },
@@ -2039,7 +2162,8 @@
      "extra": "Returning false only signals a set-like collection already holding it. If the element would not be added at all, throw: UnsupportedOperationException, NullPointerException, ClassCastException or IllegalArgumentException.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var set = new java.util.HashSet<>(java.util.List.of(\"a\"));\nboolean added = set.add(\"a\");\nSystem.out.println(added + \" \" + set.contains(\"a\")); // false true</pre>"
     },
     {
      "type": "table",
@@ -2048,7 +2172,8 @@
      "extra": "The other cases: <code>NullPointerException</code> for an implementation rejecting nulls, <code>ClassCastException</code> for a wrong type, <code>IllegalArgumentException</code> for an element refused on its properties.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Collection<String> c = java.util.List.of(\"a\");\ntry { c.add(\"b\"); } catch (UnsupportedOperationException e) { System.out.println(\"unsupported\"); }</pre>"
     },
     {
      "type": "table",
@@ -2057,7 +2182,8 @@
      "extra": "The four bulk operations map onto set algebra: <code>containsAll</code> inclusion, <code>addAll</code> union, <code>removeAll</code> complement, <code>retainAll</code> intersection.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var set = new java.util.TreeSet<>(java.util.List.of(\"a\"));\nset.addAll(java.util.List.of(\"b\", \"c\"));\nSystem.out.println(set); // [a, b, c] union</pre>"
     },
     {
      "type": "table",
@@ -2066,7 +2192,8 @@
      "extra": "It keeps only the elements also present in the argument and removes the rest. The argument need not be the same element type as this collection.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var a = new java.util.TreeSet<>(java.util.List.of(\"a\", \"b\"));\na.retainAll(java.util.List.of(\"b\", \"c\"));\nSystem.out.println(a); // [b] intersection</pre>"
     },
     {
      "type": "table",
@@ -2075,7 +2202,8 @@
      "extra": "It removes every element of this collection that is present in the argument. Note this is directional: it does not compute a symmetric difference.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java.util.Collection<String> a = new java.util.ArrayList<>(java.util.List.of(\"x\", \"y\", \"z\"));\njava.util.Collection<String> b = java.util.List.of(\"y\");\na.removeAll(b);              // complement: elements of a not in b\nSystem.out.println(a);       // [x, z]</pre>"
     },
     {
      "type": "basic",
@@ -2084,7 +2212,8 @@
      "extra": "The call reports whether this collection changed at all. Individual elements may still have been rejected, for instance duplicates in a Set, so success does not mean the other collection was fully absorbed.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var c = new java.util.ArrayList<>(java.util.List.of(\"a\"));\nboolean changed = c.addAll(java.util.List.of(\"a\", \"a\"));\nSystem.out.println(changed + \" \" + c); // true [a, a, a]</pre>"
     },
     {
      "type": "basic",
@@ -2102,7 +2231,8 @@
      "extra": "Casting it to <code>String[]</code> would compile but can fail at runtime. For a typed array use <code>toArray(T[] a)</code> or <code>toArray(IntFunction&lt;T[]&gt;)</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var c = java.util.List.of(\"a\", \"b\");\nObject[] a = c.toArray();\nSystem.out.println(a.getClass().getSimpleName()); // Object[]</pre>"
     },
     {
      "type": "basic",
@@ -2111,7 +2241,8 @@
      "extra": "If it is big enough, the elements are copied in and the same array is returned, with the first spare cell set to null. So <code>new String[0]</code> is safe and allocation-free when the collection is empty.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var small = new String[1];\nvar got = java.util.List.of(\"a\", \"b\").toArray(small);\nSystem.out.println(small.length + \" -> \" + got.length); // 1 -> 2</pre>"
     },
     {
      "type": "basic",
@@ -2129,7 +2260,8 @@
      "extra": "Added in Java SE 8. It replaces the older pattern of an explicit <code>Iterator</code> plus <code>iterator.remove()</code> inside an if statement, and is far easier to read.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"bb\", \"ccc\"));\nlist.removeIf(s -> s.length() > 1);\nSystem.out.println(list); // [a]</pre>"
     },
     {
      "type": "basic",
@@ -2138,7 +2270,8 @@
      "extra": "The framework ships no direct implementation of <code>Collection</code>. ArrayList implements <code>List</code>, and since List extends Collection it is a usable Collection, and the sane default most of the time.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java.util.Collection<String> c = new java.util.ArrayList<>();\nc.add(\"a\");\nSystem.out.println(c.getClass().getSimpleName()); // ArrayList</pre>"
     }
    ]
   },
@@ -2159,7 +2292,8 @@
      "extra": "Added in Java SE 5 together with the for-each pattern. Any instance of <code>Iterable</code> can be used in a for-each, arrays included. It is not itself part of the Collections Framework.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Collection<String> c = java.util.List.of(\"a\", \"b\");\nIterable<String> it = c;\nfor (String s : it) System.out.print(s + \" \"); // a b</pre>"
     },
     {
      "type": "basic",
@@ -2177,7 +2311,8 @@
      "extra": "Iteration always yields the first-added element first, and you can ask for element 3 directly. A plain Collection or a Set offers neither guarantee.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<String>();\nlist.add(\"first\");\nlist.add(\"second\");\nSystem.out.println(list.get(0) + \" \" + list); // first [first, second]</pre>"
     },
     {
      "type": "basic",
@@ -2186,7 +2321,8 @@
      "extra": "Some implementations happen to iterate in a repeatable order, but the interface does not promise it. Only implementations that document a stable encounter order may be relied upon.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java.util.Set<String> set = new java.util.HashSet<>(java.util.List.of(\"a\", \"b\"));\nfor (String s : set) System.out.print(s); // order not guaranteed\njava.util.Set<String> ordered = new java.util.TreeSet<>(set);\nSystem.out.println(\" \" + ordered); // [a, b] guaranteed order</pre>"
     },
     {
      "type": "compare",
@@ -2195,7 +2331,8 @@
      "extra": "The closest is a set with a guaranteed iteration order. Because it has no index, it does not implement <code>List</code>, so index access is unavailable.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java.util.SortedSet<String> set = new java.util.TreeSet<>(java.util.List.of(\"b\", \"a\"));\nSystem.out.println(set.first());   // ordered: a\n// set.get(0);                     // no index, even though it is sorted\nSystem.out.println(set);</pre>"
     },
     {
      "type": "table",
@@ -2204,7 +2341,8 @@
      "extra": "If you supply a Comparator it wins even when the elements are Comparable, letting you sort differently from their natural order. Without one, elements must be Comparable or a ClassCastException arises.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var natural = new java.util.TreeSet<>(java.util.List.of(\"b\", \"a\")); // String is Comparable\nvar custom = new java.util.TreeSet<String>(java.util.Comparator.reverseOrder());\ncustom.addAll(java.util.List.of(\"a\", \"b\"));\nSystem.out.println(natural + \" \" + custom); // [a, b] [b, a]</pre>"
     },
     {
      "type": "compare",
@@ -2213,7 +2351,8 @@
      "extra": "A List is ordered: first element is the first added. A SortedSet is sorted: first element is the smallest under the comparison logic, and iteration runs lowest to greatest.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"b\", \"a\"));\nSystem.out.println(list); // [b, a] insertion order\njava.util.Collections.sort(list);\nSystem.out.println(list); // [a, b] sorted by comparison</pre>"
     },
     {
      "type": "table",
@@ -2222,7 +2361,8 @@
      "extra": "SortedSet also adds <code>headSet</code> and <code>tailSet</code> for everything below or at-or-above a given element.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var s = new java.util.TreeSet<>(java.util.List.of(\"a\", \"b\", \"c\"));\nSystem.out.println(s.first() + \" \" + s.last());       // a c\nSystem.out.println(s.getFirst() + \" \" + s.getLast()); // a c</pre>"
     },
     {
      "type": "basic",
@@ -2231,7 +2371,8 @@
      "extra": "It changes no existing SortedSet behaviour. The additions include <code>descendingSet()</code>, <code>descendingIterator()</code>, and the ceiling/floor/higher/lower family of methods.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var s = new java.util.TreeSet<>(java.util.List.of(1, 3, 5));\nSystem.out.println(s.descendingSet());       // [5, 3, 1]\nSystem.out.println(s.floor(3) + \" \" + s.ceiling(4)); // 3 5 nearest matches</pre>"
     }
    ]
   },
@@ -2252,7 +2393,8 @@
      "extra": "They are the convenience factory methods for collections. In Java SE 10 the family was joined by <code>List.copyOf()</code> and <code>Set.copyOf()</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var list = java.util.List.of(\"a\", \"b\"); // Java SE 9 factory method\nvar set = java.util.Set.of(\"a\", \"b\");   // Java SE 9 factory method\nSystem.out.println(list + \" \" + set);</pre>"
     },
     {
      "type": "rule",
@@ -2261,7 +2403,8 @@
      "extra": "Calling <code>add</code>, <code>remove</code> or <code>set</code> throws. If the contained objects themselves are mutable, however, you can still mutate them: only the structure is frozen.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var list = java.util.List.of(\"a\", \"b\");\ntry { list.add(\"c\"); } catch (UnsupportedOperationException e) {}\ntry { list.set(0, \"z\"); } catch (UnsupportedOperationException e) {}\nSystem.out.println(list); // [a, b] unchanged</pre>"
     },
     {
      "type": "rule",
@@ -2270,7 +2413,8 @@
      "extra": "These implementations do not accept null elements, unlike some mutable collections such as ArrayList. Adding or copying a null is treated as a bug.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try { java.util.List.of(\"a\", null); } catch (NullPointerException e) {}\ntry { java.util.Set.of(\"a\", null); } catch (NullPointerException e) {}\nSystem.out.println(\"null rejected\");</pre>"
     },
     {
      "type": "rule",
@@ -2279,7 +2423,8 @@
      "extra": "A set cannot hold duplicates, so asking for one is a programming error rather than a silently ignored argument. The call fails at creation.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>try {\n    java.util.Set<String> bad = java.util.Set.of(\"a\", \"a\");\n} catch (IllegalArgumentException e) { System.out.println(\"duplicates rejected\"); }</pre>"
     },
     {
      "type": "basic",
@@ -2288,7 +2433,8 @@
      "extra": "It may even differ with element count, and none is ArrayList or HashSet. Code must rely only on the <code>List</code> or <code>Set</code> contract, never on the concrete class.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var one = java.util.List.of(\"a\");\nvar three = java.util.List.of(\"a\", \"b\", \"c\");\nSystem.out.println(one.getClass() + \" / \" + three.getClass()); // unspecified, size-dependent</pre>"
     },
     {
      "type": "basic",
@@ -2297,7 +2443,8 @@
      "extra": "Added in Java SE 10. Later changes to the source collection do not show up in the copy, unlike a wrapper, which stays backed by the original.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var src = new java.util.ArrayList<>(java.util.List.of(\"a\"));\nvar listCopy = java.util.List.copyOf(src);\nvar setCopy = java.util.Set.copyOf(src);\nsrc.add(\"b\");\nSystem.out.println(listCopy + \" \" + setCopy); // [a] [a]\ntry { listCopy.add(\"c\"); } catch (UnsupportedOperationException e) {}</pre>"
     },
     {
      "type": "rule",
@@ -2306,7 +2453,8 @@
      "extra": "The other elements are dropped. A null source or a source containing null does not get this leniency: it throws <code>NullPointerException</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>var src = java.util.List.of(\"a\", \"a\", \"b\");\nvar set = java.util.Set.copyOf(src);\nSystem.out.println(set); // one of each</pre>"
     },
     {
      "type": "basic",
@@ -2315,7 +2463,8 @@
      "extra": "The returned List wraps a fixed-size array, so its size cannot change, directly or through its iterator. It is therefore not unmodifiable: <code>set</code> and replacement still work.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var fixed = java.util.Arrays.asList(\"a\", \"b\");\ntry { fixed.add(\"c\"); } catch (UnsupportedOperationException e) {}\ntry { fixed.remove(\"a\"); } catch (UnsupportedOperationException e) {}</pre>"
     },
     {
      "type": "table",
@@ -2324,7 +2473,8 @@
      "extra": "Both take the collection and an optional comparator. Without one the elements must be Comparable or a ClassCastException is thrown. An empty collection raises <code>NoSuchElementException</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var nums = java.util.List.of(3, 1, 2);\nSystem.out.println(java.util.Collections.min(nums) + \" \" + java.util.Collections.max(nums)); // 1 3</pre>"
     },
     {
      "type": "table",
@@ -2333,7 +2483,8 @@
      "extra": "Each returns the first or last index where the target list starts in the source, or -1 when the target does not occur.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var big = java.util.List.of(\"a\", \"b\", \"a\", \"b\");\nvar needle = java.util.List.of(\"a\", \"b\");\nSystem.out.println(java.util.Collections.indexOfSubList(big, needle) + \" \" + java.util.Collections.lastIndexOfSubList(big, needle)); // 0 2</pre>"
     },
     {
      "type": "basic",
@@ -2342,7 +2493,8 @@
      "extra": "Elements wrap around the end back to the front. Combining <code>subList</code> and <code>rotate</code> lets you move an element from one index to another position.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\", \"c\"));\njava.util.Collections.rotate(list, 2);\nSystem.out.println(list); // [b, c, a]: a moved 0 -> 2</pre>"
     },
     {
      "type": "basic",
@@ -2351,7 +2503,8 @@
      "extra": "The wrapper does not copy: it delegates reads to the original and blocks writes at its own surface. To be safe, defensively copy the collection before wrapping.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var backing = new java.util.ArrayList<>(java.util.List.of(\"a\"));\nvar wrapper = java.util.Collections.unmodifiableList(backing);\nbacking.add(\"b\");\nSystem.out.println(wrapper); // [a, b] change shows through</pre>"
     },
     {
      "type": "table",
@@ -2369,7 +2522,8 @@
      "extra": "The wrapper locks the whole structure and still leaves iteration unsafe. The concurrent collections give better throughput and give you consistent iteration semantics.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> sync = java.util.Collections.synchronizedList(new java.util.ArrayList<String>());\njava.util.List<String> conc = new java.util.concurrent.CopyOnWriteArrayList<>();\nSystem.out.println(sync.getClass().getSimpleName() + \" \" + conc.getClass().getSimpleName());</pre>"
     }
    ]
   },
@@ -2390,7 +2544,8 @@
      "extra": "If you are unsure which to pick, the advice is ArrayList. LinkedList's theoretical edge on insert and delete is largely erased by cache misses and pointer chasing on modern hardware.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> arrayList = new java.util.ArrayList<>();\njava.util.List<String> linkedList = new java.util.LinkedList<>();\narrayList.add(\"a\");\nlinkedList.add(\"a\");</pre>"
     },
     {
      "type": "basic",
@@ -2399,7 +2554,8 @@
      "extra": "A doubly linked list reaches its first and last node directly, faster than an ArrayList. If you use only those operations, LinkedList wins; <code>ArrayDeque</code> is another option, though it rejects nulls.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>var deque = new java.util.LinkedList<String>();\ndeque.push(\"a\"); deque.push(\"b\");\nSystem.out.println(deque.pop()); // b, LIFO stack\ndeque.offer(\"c\");\nSystem.out.println(deque.poll()); // a, FIFO queue</pre>"
     },
     {
      "type": "table",
@@ -2408,7 +2564,8 @@
      "extra": "Each shifts the following elements as needed, except get and set. An invalid index throws <code>IndexOutOfBoundsException</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> l = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\"));\nl.add(1, \"x\");                 // insert by index\nSystem.out.println(l.get(1));  // read by index: x\nl.set(1, \"y\");                 // replace by index\nSystem.out.println(l.remove(1) + \" \" + l);  // delete by index</pre>"
     },
     {
      "type": "table",
@@ -2435,7 +2592,8 @@
      "extra": "Modifying the sublist modifies the main list and vice versa. That aliasing is what makes in-place range operations possible, and also what makes holding onto a sublist risky.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\", \"c\"));\nvar view = list.subList(0, 2);\nview.set(0, \"z\");\nSystem.out.println(list); // [z, b, c] view backed by original</pre>"
     },
     {
      "type": "basic",
@@ -2462,7 +2620,8 @@
      "extra": "Obtained via <code>listIterator()</code> or <code>listIterator(index)</code>. It extends <code>Iterator</code> with <code>hasPrevious</code>, <code>previous</code>, <code>nextIndex</code>, <code>previousIndex</code>, <code>add</code> and <code>set</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"b\", \"c\"));\nvar it = list.listIterator(list.size());\nit.add(\"d\");\nSystem.out.println(it.previous() + \" \" + list); // c [b, c, d]</pre>"
     },
     {
      "type": "basic",
@@ -2489,7 +2648,8 @@
      "extra": "Not a new list with copied elements, so changes are visible in both directions. The same view-versus-copy distinction applies to <code>subList</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>var list = new java.util.ArrayList<>(java.util.List.of(\"a\", \"b\"));\nvar rev = list.reversed();   // view, not a copy\nlist.add(\"c\");\nSystem.out.println(rev);     // [c, b, a]</pre>"
     }
    ]
   },

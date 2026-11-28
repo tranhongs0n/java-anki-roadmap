@@ -52,13 +52,13 @@
     },
     {
      "type": "basic",
-     "front": "How do <code>&amp;&amp;</code> and <code>&amp;</code> differ in result type?",
-     "back": "<code>&amp;&amp;</code> takes two booleans; <code>&amp;</code> is a <b>bitwise AND</b>",
-     "extra": "The conditional operators <code>&amp;&amp;</code>/<code>||</code> are boolean-only and short-circuit. The bitwise operators <code>&amp;</code>, <code>|</code>, <code>^</code> combine the bits of integral values.",
+     "front": "Does <code>&amp;</code> work on two booleans, and what does it return?",
+     "back": "Yes — logical AND returning a <code>boolean</code>, but both sides always run",
+     "extra": "<code>&amp;</code> with two boolean operands is logical AND, not bit masking; the bitwise form needs integral operands (<code>6 &amp; 3</code> is <code>2</code>). Unlike <code>&amp;&amp;</code>, it cannot skip the right side, so it is no guard when the right expression might throw.",
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>boolean a = false, b = true;\nSystem.out.println(a && b);  // false, logical AND\nSystem.out.println(6 & 3);   // 2, bitwise AND on ints</pre>"
+     "example": "<pre><span class=\"kw\">boolean</span> f = <span class=\"lit\">false</span>, t = <span class=\"lit\">true</span>;\n<span class=\"kw\">boolean</span> r = f &amp; t;   <span class=\"cmt\">// false, both operands evaluated</span>\n<span class=\"kw\">int</span> m = <span class=\"num\">6</span> &amp; <span class=\"num\">3</span>;       <span class=\"cmt\">// 2, bitwise AND on ints</span></pre>"
     },
     {
      "type": "basic",
