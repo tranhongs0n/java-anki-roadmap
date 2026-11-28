@@ -1303,7 +1303,7 @@
     {
      "type": "basic",
      "front": "Which <code>File</code> method returns true only if the file already exists?",
-     "back": "<b><code>createNewFile()</code> returns false</b>",
+     "back": "<code>exists()</code> — <code>createNewFile()</code> returns false when the file is already there, but it also creates a file when it is not",
      "extra": "It returns false rather than overwriting, and throws IOException only if creation failed for another reason.",
      "tags": [
       "type::gotcha"
@@ -3021,7 +3021,7 @@
     {
      "type": "basic",
      "front": "Which two system properties disable JNDI object factories in a Java runtime?",
-     "back": "<b><code>jdk.jndi.object.factoriesFilter=!*</code></b> and <code>trustSerialData=false</code>",
+     "back": "<code>jdk.jndi.object.factoriesFilter=!*</code> and <code>com.sun.jndi.ldap.object.trustSerialData=false</code>",
      "extra": "The first blocks all object factories, the second stops deserialization from the LDAP javaSerializedData attribute.",
      "tags": [
       "type::syntax"
@@ -3295,7 +3295,7 @@
     {
      "type": "basic",
      "front": "Since which JDK release can JFR events be streamed programmatically over the network instead of only via JMC?",
-     "back": "JDK <b>16</b>",
+     "back": "JDK 14 (JEP 349) — no flight recording file is needed",
      "extra": "An MBeanServerConnection lets you pull recorded events as they occur, which enables custom monitoring dashboards.",
      "tags": [
       "type::definition"
