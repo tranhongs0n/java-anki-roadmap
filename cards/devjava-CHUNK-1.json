@@ -2767,7 +2767,7 @@
     {
      "type": "table",
      "front": "How much memory does one <code>LinkedList</code> element cost?",
-     "back": "About <b>24 bytes</b> per element (one Node object)",
+     "back": "About 24 bytes for the <code>Node</code> object itself; a one-element LinkedList measures about 56 bytes in total",
      "extra": "Each node holds next, prev and item plus a header. For 1,000 elements a LinkedList needs roughly 24 kB against roughly 5 kB for an ArrayList.",
      "tags": [
       "type::definition"
@@ -2971,7 +2971,7 @@
     {
      "type": "basic",
      "front": "A key is mutated to equal <b>another existing key</b>. What does <code>get</code> return?",
-     "back": "The <b>other key's value</b>",
+     "back": "Usually <code>null</code> — a HashMap finds entries by the key's hash, so mutating a key normally breaks the lookup; it works only when the new hash lands in the same bucket",
      "extra": "Both keys now hash and compare equally, so the lookup lands on the other entry. Values are effectively overwritten or shadowed, and the unrelated key can no longer find its own value.",
      "tags": [
       "type::gotcha"

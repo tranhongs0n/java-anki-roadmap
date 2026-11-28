@@ -443,7 +443,7 @@
     {
      "type": "basic",
      "front": "When is subtyping preserved between parameterized generic types?",
-     "back": "Only when the <b>type argument is left unchanged</b>",
+     "back": "When the argument is unchanged, or replaced by a compatible wildcard: <code>List&lt;String&gt;</code> is a subtype of <code>List&lt;? extends Object&gt;</code>",
      "extra": "<code>ArrayList&lt;String&gt;</code> is a subtype of <code>List&lt;String&gt;</code>, which is a subtype of <code>Collection&lt;String&gt;</code>, all following the same declaration chain.",
      "kind": "rule",
      "tags": [
@@ -1016,7 +1016,7 @@
     {
      "type": "basic",
      "front": "Why can't you write <code>case s.isEmpty():</code> in a switch?",
-     "back": "Case labels must be <b>constant expressions</b>, and a boolean test is not one",
+     "back": "A case label must be a compile-time constant — or, since Java 21, a type pattern, <code>null</code>, or <code>default</code>. A boolean test like <code>s.isEmpty()</code> fits none of them",
      "extra": "The guard clause <code>when</code> exists precisely to express a condition alongside a type pattern, since case labels cannot be booleans.",
      "kind": "gotcha",
      "tags": [
@@ -1116,7 +1116,7 @@
     {
      "type": "basic",
      "front": "Which <code>Predicate</code> factory methods create a predicate from scratch?",
-     "back": "<code>Predicate.isEqual(target)</code>, and its negation <code>Predicate.not()</code>",
+     "back": "<code>Predicate.isEqual(target)</code>, and <code>Predicate.not(p)</code> — not() negates <i>any</i> predicate passed to it",
      "extra": "isEqual produces a test for equality with the given object; not() inverts a predicate passed as an argument. Both are static.",
      "kind": "syntax",
      "tags": [
@@ -1259,7 +1259,7 @@
     {
      "type": "basic",
      "front": "What compile error appears when a lambda mutates a captured local variable?",
-     "back": "\"Variable used in lambda expression should be final or effectively final\"",
+     "back": "javac says: <code>local variables referenced from a lambda expression must be final or effectively final</code>",
      "extra": "Lambdas capture <b>values</b>, not variables. A variable the lambda only reads without reassigning is called effectively final and is accepted.",
      "kind": "gotcha",
      "tags": [
@@ -1369,7 +1369,7 @@
     {
      "type": "basic",
      "front": "What is the difference between <code>BiConsumer&lt;T, U&gt;</code> and <code>Consumer&lt;T&gt;</code>?",
-     "back": "BiConsumer <b>takes two</b> arguments and returns nothing",
+     "back": "<code>BiConsumer</code> takes two arguments and returns nothing; <code>Consumer</code> takes one argument and also returns nothing",
      "extra": "Specializations exist as ObjIntConsumer, ObjLongConsumer and ObjDoubleConsumer - exactly one of the two arguments is a primitive.",
      "kind": "compare",
      "tags": [
@@ -1402,7 +1402,7 @@
     {
      "type": "basic",
      "front": "Which interfaces extend <code>Function&lt;T, R&gt;</code> for same-type transformations, and what do they model?",
-     "back": "<code>UnaryOperator&lt;T&gt;</code> and <code>BinaryOperator&lt;T&gt;</code>",
+     "back": "Only <code>UnaryOperator&lt;T&gt;</code> extends <code>Function&lt;T,T&gt;</code>; <code>BinaryOperator&lt;T&gt;</code> extends <code>BiFunction&lt;T,T,T&gt;</code>",
      "extra": "UnaryOperator takes and returns the same T, BinaryOperator takes two and returns one. Math operations like sqrt or addition are the classic examples.",
      "kind": "definition",
      "tags": [
@@ -1854,7 +1854,7 @@
     {
      "type": "basic",
      "front": "Which stream methods require an <b>ORDERED</b> stream to make sense?",
-     "back": "<code>takeWhile</code> and <code>dropWhile</code>",
+     "back": "<code>takeWhile</code> and <code>dropWhile</code> — on an unordered stream they still run, but which elements survive is nondeterministic",
      "extra": "Without an order there is no 'while' to reason about; on an unordered stream the downstream may receive any subset of the upstream elements.",
      "kind": "gotcha",
      "tags": [
