@@ -50,3 +50,16 @@ def lint_all(cards_dir):
         payload = json.load(open(p, encoding="utf-8"))
         problems += lint_cards(os.path.basename(p), payload)
     return problems
+
+def lint_examples(cards_dir):
+    """Every card is expected to carry an Example. Returns {card_label: path} for the ones that do not."""
+    import glob, json, os
+    missing = []
+    for path in sorted(glob.glob(os.path.join(cards_dir, "*.json"))):
+        payload = json.load(open(path, encoding="utf-8"))
+        for batch in batches_of(payload):
+            for card in batch.get("cards", []):
+                if not (card.get("example") or "").strip():
+                    label = (card.get("front") or card.get("text") or "")[:60]
+                    missing.append((os.path.basename(path), label))
+    return missing

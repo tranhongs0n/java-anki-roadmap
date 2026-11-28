@@ -22,7 +22,7 @@ import sys
 import anki
 from highlight import highlight_fields
 from keys import card_key
-from lint import batches_of, lint_all
+from lint import batches_of, lint_all, lint_examples
 from models import CSS, SPECS
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -144,6 +144,11 @@ def run(args):
     totals = {"new": 0, "updated": 0, "same": 0, "rejected": 0}
     pushed_decks = []
 
+    no_example = 0
+    for _, payload in batches:
+        for batch in batches_of(payload):
+            no_example += sum(1 for c in batch.get("cards", []) if not (c.get("example") or "").strip())
+
     for path, payload in batches:
         deck = payload["deck"]                       # identity (stable CardKey)
         place = payload.get("merge_into") or deck     # where the note actually lives
@@ -216,6 +221,9 @@ def run(args):
 
     print(f"\ntotal: {totals['new']} new, {totals['updated']} updated, "
           f"{totals['same']} unchanged, {totals['rejected']} rejected")
+
+    if no_example:
+        print(f"note: {no_example} card(s) in this batch still have no Example")
 
     if args.browse and pushed_decks and not args.dry_run:
         for d in pushed_decks:

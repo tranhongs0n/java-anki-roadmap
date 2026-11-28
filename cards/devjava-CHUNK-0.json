@@ -452,10 +452,12 @@
      "type": "basic",
      "front": "Which keyword produces the value of a <code>switch</code> expression from inside a case <b>block</b>?",
      "back": "<code>yield</code>",
-     "extra": "<code>return</code> would be ambiguous between leaving the method and leaving the switch. <code>yield</code> is followed by a non-void expression that becomes the switch's value.",
+     "extra": "The <code>yield</code> statement exits the current switch expression, and it is always followed by an expression that must produce a value — that value becomes the result of the enclosing switch. The split is deliberate: <code>break</code> targets a switch <i>statement</i> while <code>yield</code> targets a switch <i>expression</i>, so the two exits can never be confused. A block body that should produce a value must end in a yield; leaving it out is a compile error (javac: \"switch rule completes without providing a value\").",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>String type = switch (day) {\n    case \"SAT\", \"SUN\" -> {\n        log(\"weekend\");     // more than one statement, so a block\n        yield \"rest day\";    // ends the block and becomes the switch value\n    }\n    default -> \"workday\";      // a single expression: no yield needed\n};</pre>",
+     "source": "https://dev.java/learn/language/constructs/basics/controlling-flow/ + https://openjdk.org/jeps/361"
     }
    ]
   },
@@ -698,7 +700,8 @@
      "extra": "<code>return</code> was rejected because it is ambiguous between leaving the method and leaving the switch expression. <code>yield</code> is a branch statement, valid in any case block.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int n = switch (day) {\n    case \"MON\" -> {\n        System.out.println(\"Monday\");   // error: switch rule completes without providing a value\n    }\n    default -> 0;\n};</pre>"
     },
     {
      "type": "basic",
