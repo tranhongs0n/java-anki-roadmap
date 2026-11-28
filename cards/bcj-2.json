@@ -216,17 +216,6 @@
   },
   {
    "type": "basic",
-   "front": "Why is <code>x --&gt; 0</code> not an operator?",
-   "back": "It is <code>(x--) &gt; 0</code> — the \"goes to\" operator is a joke",
-   "extra": "The lexer takes the longest token, so <code>--</code> then <code>&gt;</code>. It is a classic readability trap.",
-   "source": "baeldung.com — java-minus-minus-greaterthan",
-   "tags": [
-    "type::catalogue"
-   ],
-   "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
-  },
-  {
-   "type": "basic",
    "front": "What are the five uses of the colon in Java?",
    "back": "<ul><li><b>Ternary</b> — <code>cond ? a : b</code></li><li><b>Enhanced for</b> — <code>for (T x : xs)</code></li><li><b>Label</b> — <code>outer:</code> before the loop it names</li><li><b>switch label</b> — <code>case 1:</code> and <code>default:</code></li><li><b>Assertion detail</b> — <code>assert x &gt; 0 : \"msg\"</code></li></ul>",
    "extra": "Each form joins two things: <code>?:</code> separates the true and false branches; the enhanced for joins the loop variable and the Iterable; a label names the statement after it and is the target of <code>break label;</code>; a <code>case</code> or <code>default</code> label ends with a colon; and <code>assert</code> separates the boolean test from the message passed to <code>AssertionError</code>. Note that <code>::</code> is not a scope-resolution operator in Java — it is the method-reference operator.",
