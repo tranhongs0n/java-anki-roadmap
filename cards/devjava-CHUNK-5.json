@@ -91,7 +91,8 @@
      "extra": "If <code>-sourcepath</code> is not set, the class path is also searched for source files, and if <code>-processorpath</code> is not set, it is searched for annotation processors too.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>javac Hello.java         # with no -cp, the user class path is the current directory\njavac -cp . Hello.java   # the same, explicitly</pre>"
     },
     {
      "type": "basic",
@@ -213,7 +214,8 @@
      "extra": "Implicitly loaded files are <code>.java</code> files the compiler pulls in for missing types. The default <code>-implicit:class</code> compiles them, warning when annotation processing is also active.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javac -implicit:none App.java\n# prevents class files for implicitly loaded source files</pre>"
     }
    ]
   },
@@ -271,7 +273,8 @@
      "extra": "<code>-nodeprecatedlist</code> still generates deprecated API in the rest of the docs, only removing <code>deprecated-list.html</code> and its nav link. <code>-nodeprecated</code> does both.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>javadoc -nodeprecatedlist src/*.java   # only the deprecation list page is dropped\njavadoc -nodeprecated src/*.java       # all deprecated API documentation is dropped</pre>"
     },
     {
      "type": "basic",
@@ -318,7 +321,8 @@
      "extra": "Each argument is a top-level or fully qualified package; wildcards are not allowed and <code>-sourcepath</code> still locates the sources. Use <code>-exclude</code> to carve packages out.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>javadoc -d docs -sourcepath src -subpackages com.example\n# documents the package and all its subpackages recursively</pre>"
     },
     {
      "type": "basic",
@@ -402,7 +406,8 @@
      "extra": "The other groups are <code>accessibility</code> (e.g. missing captions), <code>html</code> (block elements inside inline), <code>missing</code> (absent comments or tags) and <code>syntax</code> (unescaped angle brackets, ampersands).",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>javadoc -Xdoclint:reference src/*.java\n# reference checks @see targets and @param names</pre>"
     },
     {
      "type": "basic",
@@ -565,7 +570,8 @@
      "extra": "Typically you reuse the same class path as the application run. For every class it cannot find, jdeprscan prints an error message; <code>--class-path</code> sets the search path.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jdeprscan --class-path 'lib/*' app.jar\n# all classes the JAR depends on must be present on the class path</pre>"
     },
     {
      "type": "basic",
@@ -718,7 +724,8 @@
      "extra": "It inverts the compile-time view: instead of what your classes use, it finds what uses them, both directly and indirectly. It prints a dependency summary.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jdeps --inverse --require java.sql app.jar\n# --inverse reports artifacts depending on matching nodes; it needs --require, --package or --regex</pre>"
     },
     {
      "type": "basic",
@@ -948,7 +955,8 @@
      "extra": "Its sibling <code>--module-version</code> records the module version. These let a linked image launch the module via <code>java -m</code> without a separate main-class argument.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmod create --class-path classes --main-class com.example.App app.jmod\n# --main-class records the class name in module-info.class</pre>"
     },
     {
      "type": "basic",
@@ -957,7 +965,8 @@
      "extra": "Path options otherwise copy the entire directory including subdirectories. The pattern list is comma-separated, with each element a glob, <code>glob:</code> regex, or <code>@file</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>jmod create --class-path classes --exclude '**/test/**' app.jmod\n# --exclude takes patterns for files skipped while copying a directory</pre>"
     },
     {
      "type": "basic",
@@ -1110,7 +1119,8 @@
      "extra": "The hyphen suppresses interactive I/O, so the tool reads from standard input. This makes jshell usable in pipe chains and in simple scripted experiments.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>echo 'System.out.println(42);' | jshell -\n# '-' as the load-files argument makes jshell read standard input</pre>"
     },
     {
      "type": "basic",
@@ -1185,7 +1195,8 @@
      "extra": "Loading it defines <code>javac</code>, <code>jar</code> and others, so you can compile and package without leaving the shell. <code>tools()</code> lists the available tools.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jshell\n/open TOOLING\nTooling.javac(\"-d\", \"out\", \"Hello.java\");   // JDK tools become methods</pre>"
     },
     {
      "type": "basic",

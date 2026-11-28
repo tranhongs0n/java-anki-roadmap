@@ -66,3 +66,14 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 - `jv-0007-356cec563c` — chữ "required" cho StandardOpenOption.READ hơi lỏng (Extra nói mặc định là READ). Giữ nguyên.
 - `jv-0007-4de0dae7f0` — card thu hẹp IV variance về block đầu; nguồn nói chung cho cả chuỗi block. Giữ nguyên.
 - `jv-0007-f912e33161` — "hash encrypted with sender's private key" là cách nói rút gọn của nguồn; về mặt kỹ thuật là signing, không phải encryption. Chờ quyết định vì liên quan cả Front/Back.
+
+### Subagents wave 6 (2026-11-28) — review
+
+Đã sửa 2 Back trong `devjava-CHUNK-4.json` và ghi thẳng vào Anki vì file có deck string cũ `::03 Certifications and Validation` (live là `::02`): `.` không khớp line terminator trừ khi dùng DOTALL; ký tự đặc biệt trong replacement là backslash, `$` là group reference.
+
+- 120 ví dụ từ map-agent-31/33/34 không lên được Anki vì cùng lý do deck cũ trong `devjava-CHUNK-4.json`; đã ghi trực tiếp theo CardKey, 120/120 note tồn tại, repo đã có nội dung.
+- `devjava-CHUNK-4.json` cần renumber batch deck `::03` → `::02` để push.py không phải bỏ qua cả file nữa (việc riêng, không làm trong luồng ví dụ).
+- `jv-0007-a6ffcbe4b4` — Front trình bày `Period.P10D` như một constant; không tồn tại. Back P10D đúng (từ `Period.ofDays(10)`). Sửa Front → đổi CardKey, chờ quyết định.
+- `jv-0007-a367bd367b` ("Mobile java.time.zone" typo) và `jv-0007-9daa798345` (câu Extra bị cụt) — lỗi văn bản nhỏ, sự kiện đúng; chờ.
+- `jv-0013-2b4b90209a`, `jv-0013-270a1c83aa`, `jv-0013-336be0e777` — Extra không liên quan đến Front/Back (bị dính từ thẻ khác). Cần audit riêng.
+- Regex cards trích Boundaries page cho các sự kiện thực ra nằm ở Pattern/Quantifiers/Character Classes; nguồn chưa chính xác nhưng nội dung đúng.

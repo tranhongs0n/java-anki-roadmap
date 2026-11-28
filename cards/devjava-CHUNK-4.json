@@ -49,7 +49,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>try {\n    java.util.regex.Pattern.compile(\"(\");\n} catch (java.util.regex.PatternSyntaxException e) {\n    System.out.println(e.getClass().getSuperclass()); // IllegalArgumentException: unchecked\n}</pre>"
+     "example": "<pre>try {\n    java.util.regex.Pattern.compile(\"[\");\n} catch (RuntimeException e) {\n    System.out.println(e instanceof java.util.regex.PatternSyntaxException); // true, unchecked\n}</pre>"
     },
     {
      "type": "basic",
@@ -264,7 +264,7 @@
     {
      "type": "basic",
      "front": "By default, does the dot <code>.</code> match a line terminator?",
-     "back": "Only <b>sometimes</b> - it may or may not, so the API documents it loosely",
+     "back": "<code>.</code> does <b>not</b> match line terminators by default; <code>Pattern.DOTALL</code> makes it match",
      "extra": "In practice the dot excludes line terminators unless DOTALL mode <code>(?s)</code> is enabled; <code>\\n</code> must then be matched explicitly or via DOTALL.",
      "tags": [
       "type::gotcha"
@@ -539,7 +539,7 @@
      "tags": [
       "type::convention"
      ],
-     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a # comment\\n b\", java.util.regex.Pattern.COMMENTS);\njava.util.regex.Pattern q = java.util.regex.Pattern.compile(\"(?x)a # comment\\n b\");\nSystem.out.println(p.matcher(\"ab\").matches() + \" \" + q.matcher(\"ab\").matches()); // true true</pre>"
+     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a # comment\\n b\", java.util.regex.Pattern.COMMENTS);\nSystem.out.println(p.matcher(\"ab\").matches()); // true: whitespace and # text ignored\njava.util.regex.Pattern q = java.util.regex.Pattern.compile(\"(?x)a # comment\\n b\");\nSystem.out.println(q.matcher(\"ab\").matches()); // true: embedded (?x) is the same flag</pre>"
     },
     {
      "type": "basic",
@@ -579,7 +579,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>java.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a.b\", java.util.regex.Pattern.LITERAL);\nSystem.out.println(p.matcher(\"a.b\").matches()); // true with LITERAL\n// CANON_EQ also has no embedded (?...) flag form</pre>"
+     "example": "<pre>int flags = java.util.regex.Pattern.CANON_EQ | java.util.regex.Pattern.LITERAL;\njava.util.regex.Pattern p = java.util.regex.Pattern.compile(\"a.b\", flags);\nSystem.out.println(p.matcher(\"a.b\").matches()); // LITERAL: the dot is a dot\n// CANON_EQ and LITERAL have no (?...) embedded flag form</pre>"
     },
     {
      "type": "basic",
@@ -704,7 +704,7 @@
     {
      "type": "basic",
      "front": "Why call <code>Matcher.quoteReplacement(s)</code> before using <code>s</code> as a replacement?",
-     "back": "Slash and <code>$</code> in a replacement are special - it escapes them",
+     "back": "In a replacement string the special character is the <b>backslash</b> (<code>\\\\</code>), and <code>$</code> introduces a group reference — not the slash",
      "extra": "It escapes <code>\\</code> and <code>$</code> so the text is used literally. Otherwise a group reference like <code>$1</code> in the text would be substituted instead.",
      "tags": [
       "type::gotcha"
@@ -791,7 +791,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>byte[] block = new byte[16];   // manual management: you hand-write the alloc\n// you must know how memory is used and hand-write free/control code\nblock = null;                  // a missed error path here becomes a leak</pre>"
+     "example": "<pre>byte[] block = new byte[16]; // manual management: you hand-write the allocation\n// you must know how memory is used and write the matching free code\nSystem.out.println(block.length); // Java does this bookkeeping for you</pre>"
     },
     {
      "type": "basic",
@@ -801,7 +801,7 @@
      "tags": [
       "type::mental-model"
      ],
-     "example": "<pre>java.util.List&lt;Object&gt; listeners = new java.util.ArrayList&lt;&gt;();\nlisteners.add(new Object());   // never deregistered: the reference keeps it alive\nSystem.out.println(listeners.size());   // GC cannot collect a lingering reference</pre>"
+     "example": "<pre>java.util.List&lt;Object&gt; listeners = new java.util.ArrayList&lt;&gt;();\nlisteners.add(new Object());\nlisteners.add(new Object()); // reachable references: GC cannot collect them\nSystem.out.println(listeners.size()); // leaks can remain</pre>"
     },
     {
      "type": "basic",
@@ -811,7 +811,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>Object obj = new Object();\nobj = null; // does not make the object collectible immediately\nSystem.out.println(\"the collector decides unreachability, not assignment order\");</pre>"
+     "example": "<pre>Object obj = new Object();\nobj = null; // no immediate collection: the GC, not assignment order, decides reachability\nSystem.out.println(obj == null); // true here, but the object may still be alive</pre>"
     },
     {
      "type": "basic",
@@ -821,7 +821,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>Object shortLived = new Object();   // most objects are short-lived\nshortLived = null;                  // a young-only scan reclaims them cheaply\nSystem.out.println(shortLived);     // null: generational collectors exploit this</pre>"
+     "example": "<pre>Object shortLived = new Object(); // most objects are short-lived\nshortLived = null;                // unreachable soon after allocation\nSystem.out.println(shortLived == null); // true</pre>"
     },
     {
      "type": "basic",
@@ -830,7 +830,8 @@
      "extra": "Both take a size with a k/m/g suffix. If the heap is exhausted, the JVM throws <code>java.lang.OutOfMemoryError</code> on the next allocation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String minHeap = \"-Xms\";\nString maxHeap = \"-Xmx\";\nSystem.out.println(minHeap + \" = initial/minimum heap; \" + maxHeap + \" = maximum heap\");</pre>"
     },
     {
      "type": "basic",
@@ -839,7 +840,8 @@
      "extra": "After it survives a collection it is copied to a survivor space; surviving enough collections moves it to the old generation.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>Object obj = new Object();   // new objects are allocated in Eden, part of the young generation\nString region = \"Eden\";\nSystem.out.println(region + \": \" + obj.getClass().getSimpleName());</pre>"
     },
     {
      "type": "basic",
@@ -849,7 +851,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>String contents = \"JVM metadata and core system classes\";\nboolean jvmLifetime = true; // permanent / metaspace region\nSystem.out.println(contents + \" lives for the JVM's lifetime: \" + jvmLifetime);</pre>"
+     "example": "<pre>class PermanentRegion {\n    String contents = \"JVM metadata and core system classes\"; // live for the JVM's lifetime\n}</pre>"
     },
     {
      "type": "basic",
@@ -859,7 +861,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>boolean copiedToNewRegion = true; // live objects are found and copied\nboolean oldRegionFree = true;     // old regions become free\nSystem.out.println(copiedToNewRegion + \" / \" + oldRegionFree);</pre>"
+     "example": "<pre>String action = \"copy live objects to a new region\";\nString result = \"old region becomes free\";\nSystem.out.println(action + \"; \" + result);</pre>"
     },
     {
      "type": "basic",
@@ -869,7 +871,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>String layout = \"many small regions of a few MB\";\nboolean oneYoungOldSpace = false; // incremental collector: not one young/old space\nSystem.out.println(layout + \", oneYoungOldSpace=\" + oneYoungOldSpace);</pre>"
+     "example": "<pre>String layout = \"many small regions of a few MB\"; // incremental collector\nboolean oneYoungOldSpace = false;\nSystem.out.println(layout + \", not one young/old space: \" + oneYoungOldSpace);</pre>"
     },
     {
      "type": "basic",
@@ -878,7 +880,8 @@
      "extra": "Marking starts only from roots and traverses the object graph, so anything not reachable from a root is collected.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>class Ex {\n  static Object staticField = new Object();\n  void m(Object jniRef) {\n    Object local = new Object();\n    Thread active = Thread.currentThread();\n    System.out.println(local + \" \" + staticField + \" \" + active + \" \" + jniRef);\n  }\n}</pre>"
     },
     {
      "type": "basic",
@@ -888,7 +891,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>boolean marked = false;   // the VM gives each object a 1-bit flag, initially false\nObject reachable = new Object();\nmarked = true;             // mark phase: the reachable object's bit becomes true\nSystem.out.println(marked);</pre>"
+     "example": "<pre>boolean marked = false; // the VM marking bit starts false (0)\nObject reachable = new Object();\nmarked = true;          // marking sets the bit of reachable objects\nSystem.out.println(marked && reachable != null); // true</pre>"
     },
     {
      "type": "basic",
@@ -898,7 +901,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>boolean markBit = false; // still false at sweep time\nboolean removed = !markBit;\nSystem.out.println(removed); // objects with a false mark bit are removed</pre>"
+     "example": "<pre>boolean markBit = false;\nif (!markBit) System.out.println(\"removed during sweep\");</pre>"
     },
     {
      "type": "basic",
@@ -908,7 +911,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>Object young = new Object();   // fresh object: young generation\nObject old = new Object();     // survivor, promoted to old generation\n// a minor collection scans only the young generations, not old</pre>"
+     "example": "<pre>Object young = new Object(); // fresh object: young generation\nObject old = new Object();   // survivor promoted to old generation\nSystem.out.println(young != old);\n// a minor collection scans only the young generations</pre>"
     },
     {
      "type": "basic",
@@ -918,7 +921,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>boolean youngScanned = true;\nboolean oldScanned = true;\nboolean major = youngScanned && oldScanned; // major GC scans young and old generations</pre>"
+     "example": "<pre>String major = \"major garbage collection\";\nSystem.out.println(major + \" scans young and old generations\");</pre>"
     },
     {
      "type": "basic",
@@ -928,7 +931,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>Thread app = new Thread(() -&gt; System.out.println(\"application work\"));\nThread gc = new Thread(() -&gt; System.out.println(\"GC work\"));\napp.start(); gc.start();   // concurrent: GC work runs while the application runs</pre>"
+     "example": "<pre>Thread app = new Thread(() -&gt; System.out.println(\"application work\"));\nThread gc = new Thread(() -&gt; System.out.println(\"GC work\")); // concurrent: both run\napp.start(); gc.start();</pre>"
     },
     {
      "type": "basic",
@@ -937,7 +940,8 @@
      "extra": "G1, Parallel and ZGC are all parallel collectors. Coordinating the work lowers wall-clock GC time but raises overall CPU usage.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>int cores = Runtime.getRuntime().availableProcessors();\nSystem.out.println(cores);   // a parallel collector uses multiple CPU cores</pre>"
     },
     {
      "type": "basic",
@@ -947,7 +951,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>var threads = Thread.getAllStackTraces().keySet();\nfor (Thread t : threads) System.out.println(t.getName());\n// stop-the-world: every application thread stops while the collector works</pre>"
+     "example": "<pre>var threads = Thread.getAllStackTraces().keySet();\nSystem.out.println(threads.size());\n// stop-the-world: all application threads stop while the collector works</pre>"
     },
     {
      "type": "basic",
@@ -956,7 +960,8 @@
      "extra": "CMS was deprecated in JDK 9 and deleted in JDK 14; G1 was built as its replacement with more consistent pause times.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>System.out.println(\"G1: default since JDK 9\");\nSystem.out.println(\"CMS: removed in JDK 14\");</pre>"
     },
     {
      "type": "basic",
@@ -965,7 +970,8 @@
      "extra": "Such an object gets one or more contiguous regions of its own, bypasses eden and survivor, and is treated like an old-gen object from the start.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String threshold = \"half a region\";\nSystem.out.println(\"G1 humongous object: larger than \" + threshold);</pre>"
     },
     {
      "type": "basic",
@@ -975,7 +981,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>String[] phases = {\"Young-Only\", \"Space-Reclamation\"};\nSystem.out.println(String.join(\" then \", phases));</pre>"
+     "example": "<pre>String[] phases = {\"Young-Only\", \"Space-Reclamation\"}; // in this order\nfor (String phase : phases) System.out.println(phase);</pre>"
     },
     {
      "type": "basic",
@@ -984,7 +990,8 @@
      "extra": "Concurrent Start still evacuates young regions; Remark and Cleanup do not. Between them G1 finalises marking, unloads classes, and reclaims empty regions.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String[] pauses = {\"Concurrent Start\", \"Remark\", \"Cleanup\"};\nfor (String pause : pauses) System.out.println(pause);</pre>"
     },
     {
      "type": "basic",
@@ -994,7 +1001,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>String pause = \"Remark\";\nSystem.out.println(pause + \" finalizes marking and performs class unloading\");</pre>"
+     "example": "<pre>String pause = \"Remark\";       // finalizes marking\nboolean classUnloading = true; // and performs class unloading\nSystem.out.println(pause + \": \" + classUnloading);</pre>"
     },
     {
      "type": "basic",
@@ -1004,7 +1011,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>boolean youngEvacuated = true;\nboolean selectedOldEvacuated = true;\nboolean mixed = youngEvacuated && selectedOldEvacuated; // G1 mixed collection</pre>"
+     "example": "<pre>boolean evacuateYoung = true;\nboolean evacuateSelectedOld = true; // mixed collection: young and selected old regions\nSystem.out.println(evacuateYoung);\nSystem.out.println(evacuateSelectedOld);</pre>"
     },
     {
      "type": "basic",
@@ -1013,7 +1020,8 @@
      "extra": "An efficiency algorithm ranks regions by reclaimable space, so emptying a mostly-garbage region frees the most memory per unit of pause time.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String collector = \"Garbage-First\";\nString policy = \"reclaim old regions with the most garbage first\";\nSystem.out.println(collector + \": \" + policy);</pre>"
     },
     {
      "type": "basic",
@@ -1023,7 +1031,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre># JDK 9..26: G1 auto-selected with at least 2 cores and more than 1792 MB memory\njava -XX:+UseSerialGC App   # otherwise the JVM selected SerialGC</pre>"
+     "example": "<pre># JDK 9..26: G1 chosen with 2+ CPU cores and more than 1792 MB memory\njava -XX:+PrintFlagsFinal -version | grep UseG1GC   # inspect the selection</pre>"
     },
     {
      "type": "basic",
@@ -1042,7 +1050,8 @@
      "extra": "Headroom lets G1 evacuate without pressure; the exact figure depends on the application's allocation behaviour and latency goals.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>String liveSet = \"expected live set\";\nSystem.out.println(\"-Xmx = \" + liveSet + \" + 25%\");\nSystem.out.println(\"G1 recommends -Xmx 25% above the expected live set\");</pre>"
     },
     {
      "type": "basic",
@@ -1052,7 +1061,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>java -XX:+UseG1GC -XX:MaxGCPauseMillis=100 App\n# a soft goal G1 tries to meet, not a hard guarantee of 100 ms pauses</pre>"
+     "example": "<pre>java -XX:+UseG1GC -XX:MaxGCPauseMillis=100 App\n# 100 ms is a soft goal G1 tries to meet, not a hard guarantee</pre>"
     },
     {
      "type": "basic",
@@ -1062,7 +1071,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>String g1 = \"balances throughput and latency\";\nString parallel = \"maximizes throughput\";\nString zgc = \"minimizes latency\";\nSystem.out.println(g1 + \" | \" + parallel + \" | \" + zgc);</pre>"
+     "example": "<pre>String g1 = \"balances both\";\nString parallel = \"maximizes throughput\", zgc = \"minimizes latency\";\nSystem.out.println(\"G1 \" + g1 + \"; Parallel \" + parallel + \"; ZGC \" + zgc);</pre>"
     },
     {
      "type": "basic",
@@ -1071,7 +1080,8 @@
      "extra": "Without AlwaysPreTouch pages are committed lazily as the heap fills, so the early part of a run pays page-fault costs during pauses.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String size = \"SAME\";\nString args = \"-Xms\" + size + \" -Xmx\" + size + \" -XX:+AlwaysPreTouch\";\nSystem.out.println(args + \": no heap resizing, pages pre-committed, less early-lifecycle latency\");</pre>"
     },
     {
      "type": "basic",
@@ -1081,7 +1091,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>String[] young = {\"Eden\", \"survivor\"};\nSystem.out.println(String.join(\" and \", young)); // G1 young generation</pre>"
+     "example": "<pre>String[] young = {\"Eden\", \"survivor\"};  // G1 young generation regions\nfor (String region : young) System.out.println(region);</pre>"
     }
    ]
   },
@@ -1103,7 +1113,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>long minHeapBytes = 8L * 1024 * 1024;                     // 8 MB\nlong maxHeapBytes = 16L * 1024 * 1024 * 1024 * 1024;      // 16 TB\nSystem.out.println(minHeapBytes + \" to \" + maxHeapBytes); // ZGC heap range</pre>"
+     "example": "<pre>long minHeapMB = 8;\nlong maxHeapTB = 16;              // ZGC: 8 MB to 16 TB heaps\nSystem.out.println(minHeapMB + \" MB to \" + maxHeapTB + \" TB\");</pre>"
     },
     {
      "type": "basic",
@@ -1113,7 +1123,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>java -XX:+UseZGC -Xmx8m App   # technically supported on a single core with an 8 MB heap\n# strongly discouraged: such a small, single-core box is not the intended target</pre>"
+     "example": "<pre>java -XX:+UseZGC -Xmx8m App   # technically supported down to 8 MB heaps\n# strongly discouraged on a single core: ZGC scales up, not down</pre>"
     },
     {
      "type": "basic",
@@ -1123,7 +1133,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>String[] cycle = {\"Mark Start\", \"Concurrent Mark\", \"Mark End\",\n                  \"Prepare for Relocation\", \"Relocate Start\", \"Relocate\"};\nSystem.out.println(String.join(\" -> \", cycle));</pre>"
+     "example": "<pre>String[] cycle = {\"Mark Start\", \"Concurrent Mark\", \"Mark End\", \"Prepare for Relocation\", \"Relocate Start\", \"Relocate\"};\nfor (String phase : cycle) System.out.println(phase);</pre>"
     },
     {
      "type": "basic",
@@ -1133,7 +1143,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>Runnable heavyWork = () -&gt; System.out.println(\"marking while the app runs\");\nThread app = new Thread(heavyWork);   // marking and relocation are concurrent\napp.start();                          // a ZGC pause only flips flags and colors</pre>"
+     "example": "<pre>Runnable marking = () -&gt; System.out.println(\"marking while the app runs\");\nThread app = new Thread(marking); // ZGC does nearly all work concurrently\napp.start();\n// pauses only flip flags and colors, so they do not grow with the live set</pre>"
     },
     {
      "type": "basic",
@@ -1142,7 +1152,8 @@
      "extra": "The remaining 16 are explicitly reserved for future GC features, which is why the design is described as extensible.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int reservedBits = 20;\nint usedBits = 4; // as of JDK 19\nSystem.out.println(usedBits + \" of \" + reservedBits + \" colored-pointer metadata bits in use\");</pre>"
     },
     {
      "type": "basic",
@@ -1152,7 +1163,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>Object target = new Object();\nboolean finalizableBit = true; // ZGC Finalizable bit: reachable only through a finalizer\nSystem.out.println(finalizableBit);</pre>"
+     "example": "<pre>boolean finalizableBit = true; // ZGC pointer bit: reachable only through a finalizer\nSystem.out.println(finalizableBit);</pre>"
     },
     {
      "type": "basic",
@@ -1162,7 +1173,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>boolean marked0 = true, marked1 = false;   // either bit says the object is marked\nboolean goodColor = marked0;               // ZGC alternates which is good each cycle\nSystem.out.println(goodColor);             // next cycle: marked1 becomes good</pre>"
+     "example": "<pre>boolean marked0 = true, marked1 = false; // either bit shows the object is marked\nboolean goodColor = true;               // ZGC alternates which bit is good\nSystem.out.println(marked0 == goodColor); // true for this cycle</pre>"
     },
     {
      "type": "basic",
@@ -1172,7 +1183,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>String[] views = {\"view 1\", \"view 2\", \"view 3\"};   // one physical object, three virtual views\nfor (String color : views) System.out.println(color);   // a view per pointer color\nSystem.out.println(views.length);   // 3 aliases, one copy of the bytes</pre>"
+     "example": "<pre>String[] views = {\"Marked0\", \"Marked1\", \"Remapped\"}; // three virtual views\nSystem.out.println(views.length); // one physical object, one view per color</pre>"
     },
     {
      "type": "basic",
@@ -1182,7 +1193,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>long physicalCopies = 1;   // one copy really holds the object bytes\nlong virtualViews = 3;     // ZGC maps it three times, one per color\nSystem.out.println(physicalCopies + \" physical / \" + virtualViews + \" virtual views\");</pre>"
+     "example": "<pre>long physicalCopies = 1; // the object bytes exist once in physical memory\nlong virtualViews = 3;   // ZGC maps them into three virtual views\nSystem.out.println(virtualViews &gt; physicalCopies); // reported usage can look larger</pre>"
     },
     {
      "type": "basic",
@@ -1191,7 +1202,8 @@
      "extra": "They take a fast path for the common 'good' color; on a bad color they update the pointer to the object's new location, keeping later loads cheap.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String barrier = \"C2-injected code at heap loads\";\nString effect = \"checks and heals pointer color\";\nSystem.out.println(barrier + \" \" + effect);</pre>"
     },
     {
      "type": "basic",
@@ -1201,7 +1213,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>java -XX:+UseZGC App        # C2, the JIT compiler, injects load barriers as classes are parsed\njava -Xint -XX:+UseZGC App  # interpreted mode: no compiled C2 barrier fast path</pre>"
+     "example": "<pre>Object o = new Object();   // a reference loaded from the heap\n// C2, part of the JIT, injects ZGC load barriers when classes are parsed\nSystem.out.println(o != null);</pre>"
     },
     {
      "type": "basic",
@@ -1211,7 +1223,7 @@
      "tags": [
       "type::convention"
      ],
-     "example": "<pre>long smallRegionBytes = 2L * 1024 * 1024; // ZGC small region: 2 MB\nSystem.out.println(smallRegionBytes);</pre>"
+     "example": "<pre>int smallRegionKB = 2 * 1024;  // ZGC small region: 2 MB\nSystem.out.println(smallRegionKB / 1024 + \" MB\");</pre>"
     },
     {
      "type": "basic",
@@ -1220,7 +1232,8 @@
      "extra": "A 13 MB object occupies a 14 MB large region. Anything too big for a medium region gets its own large region.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int objBytes = 5 * 1024 * 1024;\nlong step = 2L * 1024 * 1024;\nlong regionBytes = ((objBytes + step - 1) / step) * step;   // ZGC large region: fitted in 2 MB increments\nSystem.out.println(regionBytes);</pre>"
     },
     {
      "type": "basic",
@@ -1230,7 +1243,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>java -XX:+UseZGC -Xmx64m App   # -Xmx below 128 MB: medium regions turned off\n# medium regions apply only to larger heaps (32/16/8/4 MB by heap size)</pre>"
+     "example": "<pre>java -XX:+UseZGC -Xmx64m App   # -Xmx below 128 MB\n# ZGC medium regions are off; from 128 MB they are 4 MB</pre>"
     },
     {
      "type": "basic",
@@ -1239,7 +1252,8 @@
      "extra": "In-place relocation is the fallback when no empty region is free, and it forces single-threaded compaction inside the target region, hurting performance.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String strategy = \"not-in-place\";\nSystem.out.println(strategy + \": move objects into empty regions\");</pre>"
     },
     {
      "type": "basic",
@@ -1248,7 +1262,8 @@
      "extra": "That plus headroom reduces allocation pressure. In-place relocation is the fallback, and its single-threaded compaction is slow.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String heap = \"larger heap at the same live set\";\nSystem.out.println(heap + \" means more free regions\");\nSystem.out.println(\"not-in-place relocation instead of in-place compaction\");</pre>"
     },
     {
      "type": "basic",
@@ -1258,7 +1273,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>java -XX:+UseZGC -XX:ZFragmentationLimit=10 App   # compact more aggressively\njava -XX:+UseZGC App                             # -XX:ZFragmentationLimit defaults to 25</pre>"
+     "example": "<pre>java -XX:+UseZGC App                            # default -XX:ZFragmentationLimit=25\njava -XX:+UseZGC -XX:ZFragmentationLimit=10 App  # allow less fragmentation</pre>"
     },
     {
      "type": "basic",
@@ -1268,7 +1283,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>java -XX:ZCollectionInterval=0 -version\n# seconds between ZGC cycles; 0 disables it (default)</pre>"
+     "example": "<pre>String option = \"-XX:ZCollectionInterval\"; // max seconds between cycles\nint defaultValue = 0;                      // 0 means disabled\nSystem.out.println(option + \"=\" + defaultValue);</pre>"
     },
     {
      "type": "basic",
@@ -1277,7 +1292,8 @@
      "extra": "Uncommitting returns memory to the OS. Re-committing is expensive, so too small a delay causes churn.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>int delaySeconds = 300;\nSystem.out.println(\"-XX:ZUncommitDelay=\" + delaySeconds + \"s\");\nSystem.out.println(\"unused heap must sit this long before uncommitting\");</pre>"
     },
     {
      "type": "basic",
@@ -1286,7 +1302,8 @@
      "extra": "A factor of 3.0 tells ZGC the allocation rate may triple at any moment, making it start collections earlier to stay ahead.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC -XX:ZAllocationSpikeTolerance=2.0 -version\n# 2.0 is the default assumed allocation spike factor</pre>"
     },
     {
      "type": "basic",
@@ -1295,7 +1312,8 @@
      "extra": "ZGC needs little tuning; most gains come from headroom. Logging with <code>-Xlog:gc</code> is needed to compare against the previous collector.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC -Xmx16g -Xlog:gc -jar app.jar\n# -Xmx leaves headroom above the live set; -Xlog:gc turns on GC logging</pre>"
     },
     {
      "type": "basic",
@@ -1305,7 +1323,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>java -XX:ConcGCThreads=4 -version\n# -XX:ConcGCThreads sets the number of concurrent GC threads</pre>"
+     "example": "<pre>String option = \"-XX:ConcGCThreads\"; // number of concurrent GC threads\nSystem.out.println(option);</pre>"
     },
     {
      "type": "basic",
@@ -1315,7 +1333,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>java -XX:+UseZGC App   # targets latency and huge live sets\njava -XX:+UseG1GC App  # throughput or footprint may be better with G1</pre>"
+     "example": "<pre>java -XX:+UseZGC App   # targets latency and huge live sets\njava -XX:+UseG1GC App  # switching to ZGC may regress other metrics</pre>"
     },
     {
      "type": "basic",
@@ -1324,7 +1342,8 @@
      "extra": "ZGC was experimental in JDK 11 and became production in JDK 15; pauses stay around one millisecond with heaps up to 16 TB.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>String flag = \"-XX:+UseZGC\";\nSystem.out.println(flag + \" enables ZGC, the ultra-low-latency collector\");</pre>"
     }
    ]
   },
@@ -1345,7 +1364,8 @@
      "extra": "It serves static files only - no dynamic content, no other HTTP versions. Intended for prototyping, testing and debugging, not production.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>String tool = \"jwebserver\";\nSystem.out.println(tool + \": minimal JDK HTTP server\");\nSystem.out.println(\"serves one directory over HTTP/1.1\");</pre>"
     },
     {
      "type": "basic",
@@ -1354,7 +1374,8 @@
      "extra": "Change it with <code>-p</code>/<code>--port</code>. The served directory defaults to the current working directory (<code>-d</code>).",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>int defaultPort = 8000;\nSystem.out.println(\"jwebserver default port: \" + defaultPort);</pre>"
     },
     {
      "type": "basic",
@@ -1364,7 +1385,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>jwebserver             # binds 127.0.0.1 or ::1: loopback only\njwebserver -b 0.0.0.0  # expose it on all interfaces instead</pre>"
+     "example": "<pre>jwebserver                # default bind: 127.0.0.1 or ::1 (loopback only)\njwebserver -b 0.0.0.0     # all interfaces instead</pre>"
     },
     {
      "type": "basic",
@@ -1373,7 +1394,8 @@
      "extra": "Anything else gets <code>501 Not Implemented</code> or <code>405 Not Allowed</code>, so it cannot stand in for a write-capable API.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>String[] methods = {\"HEAD\", \"GET\"}; // only idempotent methods\nSystem.out.println(String.join(\" and \", methods));</pre>"
     },
     {
      "type": "basic",
@@ -1383,7 +1405,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>jwebserver -d public          # the directory has no index file\ncurl http://127.0.0.1:8000/   # HTML listing of file and subdirectory names</pre>"
+     "example": "<pre>jwebserver -d public      # public/ has no index file\ncurl http://127.0.0.1:8000/\n# the response is an HTML listing of file and subdirectory names</pre>"
     },
     {
      "type": "basic",
@@ -1393,7 +1415,7 @@
      "tags": [
       "type::convention"
      ],
-     "example": "<pre>jwebserver\njava -m jdk.httpserver   # same tool, started from its module jdk.httpserver</pre>"
+     "example": "<pre>jwebserver              # the tool lives in module jdk.httpserver\njava -m jdk.httpserver  # the same tool started from its module</pre>"
     },
     {
      "type": "basic",
@@ -1403,7 +1425,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>jwebserver --output info\njwebserver              # omitting --output defaults to info</pre>"
+     "example": "<pre>String output = \"info\";  // default for jwebserver --output\nSystem.out.println(output);</pre>"
     },
     {
      "type": "basic",
@@ -1412,7 +1434,8 @@
      "extra": "MIME types are automatic, not configured. <code>.html</code> maps to <code>text/html</code>, and unknown extensions fall back to a generic binary type.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String source = \"built-in table\";\nSystem.out.println(\"jwebserver MIME for .java: \" + source + \" -> text/plain\");</pre>"
     },
     {
      "type": "basic",
@@ -1421,7 +1444,8 @@
      "extra": "<code>jar</code> itself only packs and compresses. A signed JAR can then be verified entry by entry, and it stays a valid class-path entry.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>String tool = \"jarsigner\";\nSystem.out.println(\"sign individual JAR entries with \" + tool + \" to authenticate origin\");</pre>"
     },
     {
      "type": "basic",
@@ -1431,7 +1455,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>jar --create --file app.jar -C classes .   # the jar tool uses ZIP and ZLIB\nunzip -l app.jar                          # the archive is readable as a ZIP file</pre>"
+     "example": "<pre>jar --create --file app.jar -C classes .   # the jar format is based on ZIP\n# ZIP entry compression uses ZLIB</pre>"
     },
     {
      "type": "basic",
@@ -1441,7 +1465,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>jar -c -f app.jar -C classes .\njar -t -f app.jar\njar -x -f app.jar</pre>"
+     "example": "<pre>String create = \"-c\", list = \"-t\", extract = \"-x\";\nSystem.out.println(create + \" create, \" + list + \" list, \" + extract + \" extract\");</pre>"
     },
     {
      "type": "basic",
@@ -1450,7 +1474,8 @@
      "extra": "Only then do module-only options such as <code>--module-version</code> and <code>--hash-modules</code> apply.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>import java.util.jar.JarFile;\nclass Ex { public static void main(String[] args) throws Exception {\n  JarFile jar = new JarFile(\"app.jar\");\n  System.out.println(jar.getJarEntry(\"module-info.class\") != null); // modular JAR: at the root\n} }</pre>"
     },
     {
      "type": "basic",
@@ -1460,7 +1485,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>jar --create --file app.jar --no-compress -C classes .\njar --create --file app.jar -0 -C classes .    # -0 / --no-compress: entries stored, not zipped</pre>"
+     "example": "<pre>jar --create --file app.jar --no-compress -C classes .\njar -c -0 -f app.jar -C classes .   # -0 is the short form</pre>"
     },
     {
      "type": "basic",
@@ -1470,7 +1495,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>jar --create --file app.jar --main-class demo.Main -C classes .\njar --create --file app.jar -e=demo.Main -C classes .   # writes Main-Class in the manifest</pre>"
+     "example": "<pre>String entry = \"--main-class\";   // jar -e=CLASSNAME: embed the application entry point\nString[] args = {entry, \"Main\"}; // Main becomes the executable JAR's entry point</pre>"
     },
     {
      "type": "basic",
@@ -1480,7 +1505,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>jar --create --file multi.jar --release 17 -C classes .\n# versioned files go under META-INF/versions/17/</pre>"
+     "example": "<pre>String version = \"VERSION\";  // jar --release VERSION: multi-release JAR\nString path = \"META-INF/versions/\" + version + \"/\";\nSystem.out.println(path);</pre>"
     },
     {
      "type": "basic",
@@ -1489,7 +1514,8 @@
      "extra": "Since JDK 9 the same tool also builds modular JARs, which is the usual distribution unit for modules.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>String[] packaged = {\"applets\", \"applications\"};\nSystem.out.println(String.join(\" and \", packaged));\n// applets unsupported since JDK 11</pre>"
     },
     {
      "type": "basic",
@@ -1499,7 +1525,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>jar -d --file app.jar   # module descriptor or automatic module name\njar --describe-module --file app.jar</pre>"
+     "example": "<pre>String describe = \"--describe-module\"; // also -d: prints a module descriptor or automatic module name\nSystem.out.println(describe);</pre>"
     }
    ]
   },
@@ -1521,7 +1547,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>jarsigner -keystore demo.p12 -signedjar signed.jar app.jar demo  # sign JARs\njarsigner -verify -verbose signed.jar                            # verify signatures and integrity</pre>"
+     "example": "<pre>String[] purposes = {\"sign JARs\", \"verify signatures and integrity of signed JARs\"};\nfor (String purpose : purposes) System.out.println(purpose);</pre>"
     },
     {
      "type": "basic",
@@ -1531,7 +1557,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>rsigner -keystore ks app.jar alias\nunzip -l app.jar | grep META-INF   # META-INF/ALIAS.SF and META-INF/ALIAS.RSA\n# .DSA or .EC instead of .RSA when the signing key uses those algorithms</pre>"
+     "example": "<pre>jarsigner -keystore ks -signedjar signed.jar app.jar alias\nunzip -l signed.jar | grep META-INF   # META-INF/ALIAS.SF and META-INF/ALIAS.RSA\n# a .DSA or .EC block instead of .RSA for a DSA or EC signing key</pre>"
     },
     {
      "type": "basic",
@@ -1541,7 +1567,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>String alias = \"releasekey2026\";\nString base = alias.substring(0, 8).toUpperCase(java.util.Locale.ROOT); // default without -sigfile\nSystem.out.println(base + \".SF\");</pre>"
+     "example": "<pre>String alias = \"MySigningAlias\";\nString baseName = alias.substring(0, 8).toUpperCase(); // first 8 chars, uppercased\nSystem.out.println(baseName);</pre>"
     },
     {
      "type": "basic",
@@ -1550,7 +1576,8 @@
      "extra": "Pass <code>-signedjar file</code> to keep the input untouched, which matters when the unsigned JAR is a build artifact you may want to re-sign.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jarsigner -keystore ks app.jar alias\n# without -signedjar, the original JAR is overwritten by the signed version</pre>"
     },
     {
      "type": "basic",
@@ -1560,7 +1587,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>unzip -p signed.jar META-INF/ALIAS.SF\n# Name: path/to/File.class    digest algorithm + digest of that file's manifest lines</pre>"
+     "example": "<pre>unzip -p signed.jar META-INF/ALIAS.SF\n# Name: path/to/File.class\n# SHA-256-Digest: digest of that file's two manifest lines</pre>"
     },
     {
      "type": "basic",
@@ -1569,7 +1596,8 @@
      "extra": "It holds the signed .SF plus the encoded certificate or chain, so verification needs no keystore - a keystore only lets you check who you trust.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String[] blockFiles = {\".RSA\", \".DSA\", \".EC\"};\nSystem.out.println(String.join(\" / \", blockFiles) + \" carry the certificate chain\");</pre>"
     },
     {
      "type": "basic",
@@ -1579,7 +1607,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>jarsigner -keystore ks app.jar alias   # -digestalg defaults to SHA-256\njarsigner -digestalg SHA-1 -keystore ks app.jar alias  # override for an old consumer</pre>"
+     "example": "<pre>jarsigner -keystore ks app.jar alias                    # -digestalg defaults to SHA-256\njarsigner -keystore ks -digestalg SHA-256 app.jar alias  # stated explicitly</pre>"
     },
     {
      "type": "basic",
@@ -1589,7 +1617,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>jarsigner -verify app.jar\n# signed with a disabled algorithm -> treated as an unsigned JAR</pre>"
+     "example": "<pre>boolean disabledAlgorithm = true;\nboolean treatedAsSigned = !disabledAlgorithm; // disabled algorithm: treated as unsigned\nSystem.out.println(treatedAsSigned);</pre>"
     },
     {
      "type": "basic",
@@ -1599,7 +1627,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>String defaultKeystore = System.getProperty(\"user.home\") + \"/.keystore\";\nSystem.out.println(defaultKeystore); // jarsigner and keytool default</pre>"
+     "example": "<pre>String home = System.getProperty(\"user.home\");\nString defaultKeystore = home + \"/.keystore\";\nSystem.out.println(defaultKeystore);</pre>"
     },
     {
      "type": "basic",
@@ -1609,7 +1637,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>String defaultType = java.security.KeyStore.getDefaultType();\nSystem.out.println(defaultType.equals(\"PKCS12\")); // modern JDKs</pre>"
+     "example": "<pre>String defaultType = java.security.KeyStore.getDefaultType(); // PKCS12 in modern JDKs\nSystem.out.println(defaultType);</pre>"
     },
     {
      "type": "basic",
@@ -1619,7 +1647,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>jarsigner -verify app.jar\necho $?   # 1 when jarsigner fails</pre>"
+     "example": "<pre>int failureExitCode = 1;\nSystem.out.println(failureExitCode);</pre>"
     },
     {
      "type": "basic",
@@ -1628,7 +1656,8 @@
      "extra": "Messages then read 'jar signed, with signer errors'. Useful in CI, where an expired or disallowed certificate would otherwise pass silently.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>jarsigner -strict -verify signed.jar\n# severe warnings become errors and affect the exit code</pre>"
     },
     {
      "type": "basic",
@@ -1637,7 +1666,8 @@
      "extra": "The TSA is contacted with RFC 3161 TSP, and the returned token is stored in the signature block. Without a timestamp, verification fails after the certificate expires.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>jarsigner -tsa url -keystore ks app.jar alias\njarsigner -tsacert alias -keystore ks app.jar alias\n# generates a signature time stamp</pre>"
     },
     {
      "type": "basic",
@@ -1646,7 +1676,8 @@
      "extra": "Each run adds another .SF plus signature block pair. Verification then checks all of them, so a later unsigned change is caught regardless of who signed.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>jarsigner -keystore ks app.jar alice\njarsigner -keystore ks app.jar bob\n# run repeatedly, once per alias, for more than one signature</pre>"
     },
     {
      "type": "basic",
@@ -1655,7 +1686,8 @@
      "extra": "Files added after signing are tolerated - they are simply unsigned entries - and are reported as such by <code>hasUnsignedEntry</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>boolean signaturesValid = true;\nboolean signedFilesUnchanged = true;\nSystem.out.println(signaturesValid && signedFilesUnchanged); // both needed to verify</pre>"
     },
     {
      "type": "basic",
@@ -1664,7 +1696,8 @@
      "extra": "It also stores secret keys and passphrases for symmetric crypto, which is why commands like <code>-genseckey</code> and <code>-importpass</code> exist.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>keytool -list -keystore demo.p12\n# a keystore holds keys, X.509 certificate chains and trusted certificates</pre>"
     },
     {
      "type": "basic",
@@ -1673,7 +1706,8 @@
      "extra": "keytool generates v3 certificates but can import v1, v2 and v3. The self-signed chain is replaced later by the CA's reply via -importcert.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>keytool -genkeypair -alias demo -keyalg RSA -keystore demo.p12\nkeytool -list -v -alias demo -keystore demo.p12   # self-signed X.509 v3, a one-element chain</pre>"
     },
     {
      "type": "basic",
@@ -1682,7 +1716,8 @@
      "extra": "It wraps the public key in a <b>self-signed X.509 v3</b> certificate stored as a one-element chain under the alias.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>keytool -genkeypair -alias a -keystore ks\n# generates a key pair</pre>"
     },
     {
      "type": "basic",
@@ -1692,7 +1727,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>keytool -certreq -alias demo -keystore demo.p12 -file req.csr\n# PKCS #10 request signed with the alias's private key</pre>"
+     "example": "<pre>String command = \"-certreq\";             // keytool: PKCS #10 certificate request\nString signedBy = \"alias's private key\"; // signed with that key\nSystem.out.println(command + \" - \" + signedBy);</pre>"
     },
     {
      "type": "basic",
@@ -1701,7 +1736,8 @@
      "extra": "If the alias points to a key entry it is treated as a certificate reply; if it does not, the alias becomes a trusted-certificate entry instead.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>keytool -importcert -alias a -keystore ks -file ca-reply.cer\n# installs the CA reply over the self-signed certificate</pre>"
     },
     {
      "type": "basic",
@@ -1710,7 +1746,8 @@
      "extra": "Defaults vary by algorithm: 256 for EC, 255 for EdDSA (Ed25519), 56 for DES and 168 for DESede secret keys; RSA is the common case.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>int defaultValidityDays = 90;\nSystem.out.println(\"keytool default validity: \" + defaultValidityDays + \" days\");</pre>"
     },
     {
      "type": "basic",
@@ -1720,7 +1757,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>keytool -genkeypair -alias demo -keyalg RSA -keystore demo.p12\n# no -keysize: keytool's RSA key pair is 2048 bits</pre>"
+     "example": "<pre>int defaultKeySize = 2048;  // keytool default -keysize for an RSA key pair\nSystem.out.println(defaultKeySize + \" bits\");</pre>"
     },
     {
      "type": "basic",
@@ -1730,7 +1767,7 @@
      "tags": [
       "type::syntax"
      ],
-     "example": "<pre>keytool -list -keystore ks     # without -v: default SHA-256 fingerprint\nkeytool -list -v -keystore ks  # adds owner, issuer, serial number and extensions</pre>"
+     "example": "<pre>keytool -list -keystore ks    # without -v: default SHA-256 fingerprint\nkeytool -list -v -keystore ks # verbose form, for comparison</pre>"
     },
     {
      "type": "basic",
@@ -1740,7 +1777,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>keytool -list -v -keystore ks       # verbose human-readable detail\nkeytool -list -rfc -keystore ks     # base64 PEM output\nkeytool -list -v -rfc -keystore ks  # error: the two output modes cannot be combined</pre>"
+     "example": "<pre>keytool -list -v -keystore ks       # verbose output\nkeytool -list -rfc -keystore ks     # RFC-style output\nkeytool -list -v -rfc -keystore ks  # error: -v and -rfc cannot be combined</pre>"
     },
     {
      "type": "basic",
@@ -1750,7 +1787,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>keytool -printcert -file cert.cer        # inspect a certificate file\nkeytool -printcert -sslserver host:443   # inspect an SSL server (default port 443)\nkeytool -printcert -jarfile app.jar      # inspect a signed JAR</pre>"
+     "example": "<pre>keytool -printcert -file cert.cer        # inspect a certificate file\nkeytool -printcert -sslserver host:443   # inspect an SSL server\nkeytool -printcert -jarfile app.jar      # inspect a signed JAR</pre>"
     },
     {
      "type": "basic",
@@ -1760,7 +1797,7 @@
      "tags": [
       "type::convention"
      ],
-     "example": "<pre>String cacerts = System.getenv(\"JAVA_HOME\") + \"/lib/security/cacerts\";\nSystem.out.println(cacerts);</pre>"
+     "example": "<pre>String javaHome = \"$JAVA_HOME\";\nString cacerts = javaHome + \"/lib/security/cacerts\";\nSystem.out.println(cacerts);</pre>"
     },
     {
      "type": "basic",
@@ -1770,7 +1807,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>keytool -list -keystore \"$JAVA_HOME/lib/security/cacerts\" -storepass changeit\n# changeit is the initial password of the JDK's cacerts file</pre>"
+     "example": "<pre>String initialPassword = \"changeit\";\nSystem.out.println(initialPassword);</pre>"
     },
     {
      "type": "basic",
@@ -1779,7 +1816,8 @@
      "extra": "It is the normal way to convert, for example, a JKS store to PKCS12, or to move entries onto a PKCS #11 hardware token.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>keytool -importkeystore -srckeystore src.p12 -destkeystore dst.p12\n# imports all entries from one keystore into another</pre>"
     },
     {
      "type": "basic",
@@ -1789,7 +1827,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>keytool -exportcert -alias demo -keystore demo.p12 -file cert.der\nkeytool -exportcert -alias demo -keystore demo.p12 -rfc -file cert.pem\n# default: binary DER; -rfc: Base64 (PEM)</pre>"
+     "example": "<pre>String cmd = \"-exportcert\";\nString rfc = \"-rfc\";\nSystem.out.println(cmd + \": binary DER by default; \" + rfc + \": Base64 PEM\");</pre>"
     },
     {
      "type": "basic",
@@ -1798,7 +1836,8 @@
      "extra": "Order matters in a DN - <code>cn</code>, <code>ou</code>, <code>o</code>, <code>l</code>, <code>st</code>, <code>c</code>, like <code>cn=myname, ou=mygroup, o=mycompany, c=mycountry</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>keytool -genkeypair -alias a -dname \"CN=Example\" -keystore ks\n# issuer and subject of the certificate: the -dname value\nkeytool -genkeypair -alias a -keystore ks\n# prompts for -dname when omitted</pre>"
     },
     {
      "type": "basic",
@@ -1808,7 +1847,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>String password = \"secret1\";\nboolean accepted = password.length() >= 6; // keytool passwords need at least six characters\nSystem.out.println(accepted);</pre>"
+     "example": "<pre>int minimum = 6;                    // keytool passwords: at least six characters\nboolean accepted = \"abcdef\".length() >= minimum;\nSystem.out.println(accepted);</pre>"
     },
     {
      "type": "basic",
@@ -1817,7 +1856,8 @@
      "extra": "The tools then scan installed providers for one implementing that type. JKS and PKCS12 stores are not binary compatible and need conversion.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>String setting = \"keystore.type in java.security\";\nString fallback = \"pkcs12\";\nSystem.out.println(setting + \"; default \" + fallback + \" without -storetype\");</pre>"
     },
     {
      "type": "basic",
@@ -1827,7 +1867,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>keytool -genkeypair -alias a -keystore ks -ext SAN=dns:example.com -ext KU=keyEncipherment\n# -ext adds an X.509 extension and is the only multi-valued option: it can repeat</pre>"
+     "example": "<pre>keytool -genkeypair -alias a -keystore ks -ext SAN=dns:example.com -ext KU=keyEncipherment\n# -ext is the only multi-valued option: repeat it for each extension</pre>"
     },
     {
      "type": "basic",
@@ -1836,7 +1876,8 @@
      "extra": "It reports the enabled TLS configuration rather than any keystore content, which makes it a handy way to check what a JDK will negotiate.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>keytool -showinfo -tls\n# lists TLS protocols and cipher suites</pre>"
     },
     {
      "type": "basic",
@@ -1855,7 +1896,8 @@
      "extra": "That flexibility is deliberate, for self-signed test certificates, but such certificates may be rejected by the JDK or other apps.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>boolean enforcesAllProfileRules = false;\nSystem.out.println(\"warning: non-conforming certificates\");\n// keytool does not enforce all X.509 profile rules</pre>"
     },
     {
      "type": "basic",
@@ -1865,7 +1907,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>keytool -list -keystore demo.p12    # exactly one command here: -list\n# keytool accepts exactly one command per invocation</pre>"
+     "example": "<pre>int commandsPerInvocation = 1;  // keytool: exactly one command\nSystem.out.println(commandsPerInvocation);</pre>"
     },
     {
      "type": "basic",
@@ -1875,7 +1917,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>kinit alice@EXAMPLE.COM   # obtains a ticket-granting ticket\n# the TGT is cached locally; the principal must be registered with the KDC</pre>"
+     "example": "<pre>kinit alice@EXAMPLE.COM   # obtains a ticket-granting ticket\nklist                     # the TGT is cached locally</pre>"
     },
     {
      "type": "basic",
@@ -1894,7 +1936,8 @@
      "extra": "A ticket must be renewed <b>before it expires</b>. Repeated renewals are possible only until the renewable lifetime set by <code>-r</code> runs out.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>kinit -R\n# renews an existing renewable ticket</pre>"
     },
     {
      "type": "basic",
@@ -1904,7 +1947,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>kinit -r 2d alice@EXAMPLE.COM\n# -r renewable_time sets how long the ticket can be renewed</pre>"
+     "example": "<pre>String option = \"-r\";        // kinit sets the renewable lifetime\nString value = \"renewable_time\";\nSystem.out.println(option + \" \" + value);</pre>"
     },
     {
      "type": "basic",
@@ -1914,7 +1957,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>kinit -password ***   # for testing only: the password is exposed in the script\n# a real password passed this way would be compromised, so never use it in scripts</pre>"
+     "example": "<pre># -password is for testing only: a real password in a script is compromised\nkinit -password *** alice@EXAMPLE.COM</pre>"
     },
     {
      "type": "basic",
@@ -1924,7 +1967,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>String home = System.getProperty(\"user.home\");\nString fallback = home + java.io.File.separator + \"krb5.keytab\";   // no -t option given\nSystem.out.println(fallback);   // otherwise the Kerberos config supplies the keytab name</pre>"
+     "example": "<pre>String fromConfig = null; // no -t: kinit reads the Kerberos config\nString fallback = System.getProperty(\"user.home\") + \"\\\\krb5.keytab\";\nString keytab = fromConfig != null ? fromConfig : fallback;</pre>"
     },
     {
      "type": "basic",
@@ -1934,7 +1977,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>klist -c   # entries in the local credentials cache\nklist -k   # entries in the keytab</pre>"
+     "example": "<pre>klist\n# displays entries in the local credentials cache and keytab</pre>"
     },
     {
      "type": "basic",
@@ -1944,7 +1987,7 @@
      "tags": [
       "type::compare"
      ],
-     "example": "<pre>klist -c   # credential cache\nklist -k   # keytab</pre>"
+     "example": "<pre>String cacheFlag = \"-c\";   // credential cache\nString keytabFlag = \"-k\";  // keytab\nSystem.out.println(cacheFlag + \" cache, \" + keytabFlag + \" keytab\");</pre>"
     },
     {
      "type": "basic",
@@ -1954,7 +1997,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>ktab -l       # lists the keytab\nklist -k      # confirms the same keytab after the ktab change</pre>"
+     "example": "<pre>String[] verify = {\"klist -k\", \"ktab -l\"}; // list the keytab after a ktab change\nfor (String command : verify) System.out.println(command);</pre>"
     },
     {
      "type": "basic",
@@ -1964,7 +2007,7 @@
      "tags": [
       "type::definition"
      ],
-     "example": "<pre>ktab -l   # lists the host's own principals and keys held in its keytab\n# a keytab is the host's copy of its credentials - analogous to a password</pre>"
+     "example": "<pre>class Keytab {\n    String[] principals;  // the host's own principals\n    String[] keys;        // and their keys, like a password for the host\n}</pre>"
     },
     {
      "type": "basic",
@@ -1974,7 +2017,7 @@
      "tags": [
       "type::rule"
      ],
-     "example": "<pre>chmod 600 /etc/security/keytabs/svc.keytab   # local disk, readable only by root\n# never send the keytab over a network in clear: readers can impersonate the service</pre>"
+     "example": "<pre>chmod 600 /etc/security/keytabs/svc.keytab   # local disk, readable only by root\n# never send the keytab over a network in clear text</pre>"
     },
     {
      "type": "basic",
@@ -1984,7 +2027,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>ktab -a alice@EXAMPLE.COM -k alice.keytab\n# ktab only edits the local keytab; none of its operations touch the KDC</pre>"
+     "example": "<pre>boolean touchesKdc = false; // no ktab operation touches the Kerberos database\nSystem.out.println(touchesKdc);</pre>"
     },
     {
      "type": "basic",
@@ -1993,7 +2036,8 @@
      "extra": "Both can be combined: <code>ktab -l -e -t</code> shows the keytab name, entries, types and timestamps.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>ktab -l -t\n# lists entries with timestamps\nktab -l -e\n# lists entries with encryption types</pre>"
     },
     {
      "type": "basic",
@@ -2003,7 +2047,7 @@
      "tags": [
       "type::gotcha"
      ],
-     "example": "<pre>ktab -d alice@EXAMPLE.COM old   # deletes all keys except those with the highest kvno\nktab -d alice@EXAMPLE.COM       # default action: all keys</pre>"
+     "example": "<pre>ktab -l alice@EXAMPLE.COM       # list keys before the change\nktab -d alice@EXAMPLE.COM old   # deletes all keys except the highest kvno</pre>"
     }
    ]
   },
@@ -2024,7 +2068,8 @@
      "extra": "main must be public static void taking a String[]. Overloads taking String... also work, since varargs compile down to an array parameter.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class App {\n    public static void main(String[] args) { System.out.println(\"JRE started; App loaded; main() called\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2060,7 +2105,8 @@
      "extra": "Its content is parsed as if it appeared before the command line, and the launcher prints a reminder to stderr when it is set.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>JDK_JAVA_OPTIONS=\"-Xmx512m\" java -version\n# the variable prepends its options to every java launch</pre>"
     },
     {
      "type": "basic",
@@ -2069,7 +2115,8 @@
      "extra": "Main-class selectors and exit-without-running options are disallowed to stop an environment variable from hijacking which application is launched.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>JDK_JAVA_OPTIONS=\"-jar\" java -version\n# the launcher aborts with an error: -jar and -h are not allowed there</pre>"
     },
     {
      "type": "basic",
@@ -2078,7 +2125,8 @@
      "extra": "Standard options are guaranteed on every JVM. Both -X and -XX are HotSpot-specific, subject to change, and not portable.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>java -Xmx512m -XX:+UseZGC -version\n# -X marks Extra options; -XX marks Advanced HotSpot options</pre>"
     },
     {
      "type": "basic",
@@ -2087,7 +2135,8 @@
      "extra": "Boolean options take no value. For valued options the syntax varies: space, <code>:</code> or <code>=</code> may all be the separator.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java -XX:+UseZGC -version   # + enables a boolean -XX option\njava -XX:-UseZGC -version   # - disables it</pre>"
     },
     {
      "type": "basic",
@@ -2105,7 +2154,8 @@
      "extra": "Enable globally with <code>-ea</code> or per package/class with <code>-ea:com.foo...</code>. Ordering matters: later switches override earlier ones.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>boolean enabledByLauncher = false;   // assertions are disabled in all packages and classes by default\nassert false : \"not evaluated by default\";\nSystem.out.println(enabledByLauncher);</pre>"
     },
     {
      "type": "basic",
@@ -2114,7 +2164,8 @@
      "extra": "Both apply to all class loaders, but with no argument they skip system classes; <code>-esa</code> and <code>-dsa</code> target system classes.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -ea App   # enables assertions\njava -da App   # disables assertions</pre>"
     },
     {
      "type": "basic",
@@ -2123,7 +2174,8 @@
      "extra": "<code>-agentpath</code> does the same with an absolute path. <code>-javaagent:jarpath</code> is the pure-Java equivalent.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java -agentlib:jdwp=transport=dt_socket,server=y -jar app.jar\n# -agentlib:libname[=options] loads a native agent library by name</pre>"
     },
     {
      "type": "basic",
@@ -2132,7 +2184,8 @@
      "extra": "Files are expanded after shell expansion. The argument file may even hold the main class and all options, so the command shrinks to <code>java @file</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java @long-args.txt -jar app.jar\n# the launcher expands the file before argument processing, avoiding command-line length limits</pre>"
     },
     {
      "type": "basic",
@@ -2141,7 +2194,8 @@
      "extra": "You then see the heap size and the collector the JVM actually picked, rather than guessing what ergonomics resolved the defaults to.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:+PrintCommandLineFlags -version\n# prints the ergonomically chosen JVM flags</pre>"
     },
     {
      "type": "basic",
@@ -2150,7 +2204,8 @@
      "extra": "Raise it for deep recursion; shrink it to allow many more threads, since each platform thread reserves this from virtual memory.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -Xss1024k -version\n# -Xss (or -XX:ThreadStackSize=1024) sets the thread stack size; Linux/x64 default 1024 KB</pre>"
     },
     {
      "type": "basic",
@@ -2177,7 +2232,8 @@
      "extra": "<code>-XX:-UseCompressedOops</code> disables them. They convert references to 32-bit offsets and are on by default under a 32 GB heap.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+PrintCommandLineFlags -version\njava -XshowSettings:vm -version\n# with a heap under ~32 GB these show whether compressed oops are active</pre>"
     },
     {
      "type": "basic",
@@ -2204,7 +2260,8 @@
      "extra": "Useful because explicit GCs are usually a full stop-the-world collection, often triggered by libraries rather than application logic.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>System.gc();   // a request only\nSystem.out.println(\"with -XX:+DisableExplicitGC the JVM ignores it and collects when it decides\");</pre>"
     },
     {
      "type": "basic",
@@ -2222,7 +2279,8 @@
      "extra": "Semicolon-separated commands, <code>%p</code> expands to the PID. Common uses are dumping a core or bouncing the container.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>java -XX:OnOutOfMemoryError=\"kill -9 %p\" -jar app.jar\n# %p is the JVM process id; the command runs when an OOM occurs</pre>"
     },
     {
      "type": "basic",
@@ -2231,7 +2289,8 @@
      "extra": "G1 docs describe it as a soft goal. On some collectors the default is 200 ms; either way the JVM makes a best effort, not a guarantee.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -XX:+PrintFlagsFinal -version | grep MaxGCPauseMillis\n# per the launcher reference: no maximum pause value by default</pre>"
     },
     {
      "type": "basic",
@@ -2240,7 +2299,8 @@
      "extra": "Turning it off blocks tools like jcmd, jstack, jmap and jinfo from attaching, which is done in locked-down or abandoned-wasro deployments.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>jcmd $PID Thread.print   # attach works by default\njava -XX:+DisableAttachMechanism -jar app.jar   # turns the attach mechanism off</pre>"
     },
     {
      "type": "basic",
@@ -2249,7 +2309,8 @@
      "extra": "Note the counter-intuitive polarity: the flag is phrased as a positive, but it disables the feature, which is off by default as a flag.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -XX:+DisableAttachMechanism -jar app.jar\n# jcmd and jstack can no longer attach to this JVM</pre>"
     },
     {
      "type": "basic",
@@ -2276,7 +2337,8 @@
      "extra": "Mixing them up is the usual reason a log appears empty. <code>-Xlog:disable</code> first resets everything to off before adding selections.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>java -Xlog:gc+heap=info -version   # messages with both tags\njava -Xlog:gc,heap=info -version   # union: either tag\njava -Xlog:gc*=info -version       # prefix: tags starting with gc</pre>"
     },
     {
      "type": "basic",
@@ -2285,7 +2347,8 @@
      "extra": "The stop option can appear anywhere, including inside an argument file, which is how a launcher script controls which nested files are trusted.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>printf '%s\\n' -Xmx512m -jar app.jar > args.txt\njava @args.txt                    # launcher expands the file's arguments\njava --disable-@files @args.txt   # expansion disabled</pre>"
     },
     {
      "type": "basic",
@@ -2294,7 +2357,8 @@
      "extra": "The JVM validates all flag values - set ergonomically, on the command line, or via jcmd - and terminates with an error if a value is out of range.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>java -XX:+PrintFlagsRanges -version\n# prints the range of every JVM flag</pre>"
     },
     {
      "type": "basic",
@@ -2303,7 +2367,8 @@
      "extra": "The TLB is a small cache of virtual-to-physical translations, and misses cost several memory accesses. Linux and Windows support large pages.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>int smallPages = 1024;   // 4 MB as 4 KB pages\nint hugePages = 1;       // 4 MB as one large page\nSystem.out.println(smallPages + \" vs \" + hugePages + \" page-table entries\");   // fewer entries -> fewer TLB misses</pre>"
     },
     {
      "type": "basic",
@@ -2321,7 +2386,8 @@
      "extra": "The archive captures classes loaded during a <b>single trial run</b>, so the trial run step AppCDS needs is eliminated. It still needs a base archive.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java -XX:ArchiveClassesAtExit=x.jsa -jar app.jar\njava -XX:SharedArchiveFile=x.jsa -jar app.jar</pre>"
     },
     {
      "type": "basic",
