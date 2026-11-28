@@ -2144,7 +2144,7 @@
     {
      "type": "basic",
      "front": "You pass <code>-XX:MaxHeapFreeRatio=25</code> meaning 25%. Is that right?",
-     "back": "<b>No</b> - percentages are given as a fraction from 0 to 1, so <code>0.25</code>",
+     "back": "<b>Yes</b> — the value is a percentage from 0 to 100, so <code>25</code> means 25%; <code>0.25</code> is rejected as an improperly specified VM option",
      "extra": "The JVM would read 25 literally and reject it as out of range, which the flag validator reports at startup.",
      "tags": [
       "type::gotcha"
@@ -2214,7 +2214,7 @@
     {
      "type": "basic",
      "front": "Which fix eliminates a <code>StackOverflowError</code> from deep recursion?",
-     "back": "Raise <code>-Xss</code>, or restructure to iterative / use virtual threads",
+     "back": "Raise <code>-Xss</code>, or restructure the algorithm to be iterative — virtual threads still have stacks that can overflow",
      "extra": "Raising the stack defers the problem. A deeper point: virtual threads get their own growable stack, so stack size stops being the hard limit.",
      "tags": [
       "type::gotcha"
@@ -2384,7 +2384,7 @@
     {
      "type": "basic",
      "front": "Which options put the object heap on large pages?",
-     "back": "<code>-XX:+UseLargePages</code> with <code>+UseHugeTLBFS</code> or <code>+UseSHM</code>",
+     "back": "<code>-XX:+UseLargePages</code> — <code>+UseHugeTLBFS</code> is its equivalent, and <code>+UseSHM</code> is the Linux shared-memory alternative",
      "extra": "They require root-level OS setup (<code>vm.nr_hugepages</code>), and pages are pre-allocated up front, so the heap cannot grow dynamically.",
      "tags": [
       "type::syntax"

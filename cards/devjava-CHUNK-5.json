@@ -1486,7 +1486,7 @@
     {
      "type": "basic",
      "front": "Which <code>jcmd</code> JFR action requires a <code>name</code> argument to stop a recording?",
-     "back": "<code>JFR.stop name=...</code>",
+     "back": "<code>JFR.stop name=...</code> — the name selects which recording to stop; without it, no recording is stopped",
      "extra": "Its siblings are <code>JFR.start</code>, <code>JFR.dump</code>, <code>JFR.configure</code>, and <code>JFR.check</code>. <code>JFR.stop</code> discards data unless <code>filename</code> is supplied.",
      "tags": [
       "type::rule"
