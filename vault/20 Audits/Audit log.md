@@ -32,3 +32,11 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 ### Subagent slice 3 review (2026-11-28)
 
 - `jv-0004-3bfad91bdd` "Can a generic class extend Throwable?" — **sửa Back**. Cụm "not even as a type parameter" sai/độ mơ hồ: Java cấm generic class extend Throwable (trực tiếp hoặc gián tiếp), nhưng biến type được phép trong mệnh đề `throws` (`<T extends Exception> void m() throws T`). Front giữ nguyên, CardKey không đổi.
+
+### Parallel subagents wave 2 (2026-11-28) — review
+
+- `jv-0002-e8fd542fad` "What does a lambda class getSimpleName() return?" — **chờ sửa**. Back cũ "the name of the enclosing class" không đúng trên JDK 21: `Enclosing$$Lambda/0x...`. File `devjava-CHUNK-1.json` đang bị agent khác ghi, nên chưa sửa trong repo; sửa khi rảnh slot.
+- `jv-0003-be5e17e4b9` "What must directly follow a try block's closing brace?" — **chờ sửa**. Back "A catch block — no code in between" quá chặt: `try { } finally { }` hợp lệ, và try-with-resources có thể đứng một mình. Cùng file đang bận.
+- `jv-70-a722b3e393` "Can a switch match a range like >= 90?" — **chờ quyết định**. Back "No — case labels must be compile-time constants" đúng với switch cổ điển nhưng lỗi thời với Java 21: `case Integer i when i >= 90 ->` biên dịch được (subagent đã javac-verify). Sửa Back cần đánh giá lại cả thẻ.
+- `jv-0007-*` (40 thẻ regex) — agent ghi ví dụ vào `devjava-CHUNK-4.json` nhưng file có deck string cũ `00 Java Roadmap::12 Documentation::03 Certifications and Validation` nên push.py từ chối. Đã ghi thẳng 40 field Example vào Anki theo CardKey, 40/40 readback OK; repo đã có nội dung từ commit 3e886c2.
+- `jv-70-4214ce9f30`, `jv-70-2c12c0b771` — note không còn trong collection và không có entry trong repo; bỏ qua, không tạo lại.
