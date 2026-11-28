@@ -74,7 +74,7 @@
   {
    "type": "basic",
    "front": "Effective Java Item 12 — what is wrong with the default toString?",
-   "back": "It prints <code>ClassName@1b6d3586</code> — useless in logs, IDE debuggers and error messages",
+   "back": "It prints <code>ClassName@&lt;hex-hash&gt;</code> (e.g. <code>@1b6d3586</code>) — useless in logs, IDE debuggers and error messages",
    "extra": "The contract asks for a concise but informative representation. Overriding it makes failures readable.",
    "source": "Effective Java 3e — Item 12, p. 76",
    "tags": [
@@ -113,7 +113,7 @@
   {
    "type": "basic",
    "front": "Effective Java Item 14 — what is the usual bug in a compareTo implementation?",
-   "back": "Using <code>&lt;</code> or subtraction — overflow and wrong sign for negatives",
+   "back": "Subtraction (<code>a - b</code>), which can overflow and give the wrong sign; comparisons with <code>&lt;</code> / <code>&gt;</code> are safe",
    "extra": "Return negative, zero or positive. <code>Integer.compare</code> does it correctly; subtraction overflows.",
    "source": "Effective Java 3e — Item 14, p. 89",
    "tags": [
@@ -308,7 +308,7 @@
   {
    "type": "basic",
    "front": "Effective Java Item 25 — why put one top-level class per source file?",
-   "back": "Multiple top-level classes in one file can provide <b>multiple definitions</b>, and which one is used depends on the classpath",
+   "back": "Java allows several top-level classes in one file; the real ambiguity is duplicate definitions in <i>different</i> files, where classpath order decides which one wins",
    "extra": "Nothing is gained and compilation order can silently decide behaviour. One file, one top-level type.",
    "source": "Effective Java 3e — Item 25, p. 136",
    "tags": [

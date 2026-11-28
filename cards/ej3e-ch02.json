@@ -178,7 +178,7 @@
   {
    "type": "basic",
    "front": "Effective Java Item 8 — why should you avoid finalizers and cleaners?",
-   "back": "They are <b>unpredictable and slow</b>: no guarantee they ever run, and they can resurrect objects",
+   "back": "They are unpredictable and slow: no guarantee they ever run; a finalizer can resurrect an object, a cleaner cannot resurrect the cleaned object",
    "extra": "They are not C++ destructors. Java's GC already reclaims memory; a finalizer may run minutes later or never.",
    "source": "Effective Java 3e — Item 8, p. 50",
    "tags": [

@@ -57,7 +57,7 @@
   {
    "type": "basic",
    "front": "Are annotations inherited by subclasses?",
-   "back": "No — Java annotations do not inherit, even with <code>@Inherited</code> on classes only",
+   "back": "Class-level annotations marked <code>@Inherited</code> <i>are</i> visible to subclasses; method and field annotations are never inherited",
    "extra": "The book calls this out explicitly. Frameworks that look like they inherit do so by walking the hierarchy themselves.",
    "source": "Thinking in Java 4e — ch 20, p. 791",
    "tags": [
