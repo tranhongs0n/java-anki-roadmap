@@ -2139,7 +2139,7 @@
     {
      "type": "basic",
      "front": "What does IntelliJ's <b>Evaluate Expression</b> let you do at a breakpoint?",
-     "back": "Run arbitrary Java <b>in the paused frame</b>",
+     "back": "Evaluate expressions and change their values in the paused frame — not arbitrary code injection",
      "extra": "You can call methods on in-scope variables and read the result before the program moves. That is how sum / numbers.length was pinned to a division by zero.",
      "tags": [
       "type::definition"

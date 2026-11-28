@@ -20,7 +20,7 @@
   {
    "type": "basic",
    "front": "How do you put an element in and take one out of an <code>ArrayList</code>?",
-   "back": "<code>list.add(x)</code> and <code>list.remove(x)</code>",
+   "back": "<code>list.add(x)</code> appends; <code>list.remove(x)</code> with an int removes by <i>index</i> — use <code>remove(Integer.valueOf(x))</code> to remove by value",
    "extra": "Both are methods, which is the whole difference from an array. Removing shifts the later elements down, so it is O(n) — not free.",
    "source": "Head First Java 3E — ch 6, p. 170",
    "tags": [

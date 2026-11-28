@@ -20,7 +20,7 @@
   {
    "type": "basic",
    "front": "What does a subclass inherit from its superclass?",
-   "back": "<b>public and protected</b> members — not private members, not constructors",
+   "back": "Public and protected members, plus package-private ones in the same package; private members are inherited but inaccessible, and constructors are not inherited",
    "extra": "Inherited methods can be called on the subclass instance as if they were its own. Constructors are not inherited; the subclass calls <code>super(...)</code> instead.",
    "source": "Head First Java 3E — ch 7, p. 208",
    "tags": [
@@ -53,7 +53,7 @@
   {
    "type": "basic",
    "front": "How does overloading differ from overriding?",
-   "back": "Overloading = same name, <b>different parameters</b>, same class, resolved at compile time",
+   "back": "Overloading = same name, different parameters (declared or inherited), resolved at compile time; overriding = same signature, a subclass replaces the inherited method, dispatched at run time",
    "extra": "Overriding = same signature in a subclass, resolved at runtime. Overloads are picked by the compiler from the declared argument types, so the \"wrong\" one can be chosen for you.",
    "source": "Head First Java 3E — ch 7, p. 231",
    "tags": [

@@ -102,3 +102,11 @@ Hành động: xoá note khỏi Anki, xoá entry khỏi `cards/devjava-CHUNK-0.j
 
 - `jv-0014-7793c55dc4` — Front viết "Compare-driven SortedList" (ý là comparator-driven); đáp án đúng. Chờ vì phải đổi Front.
 - 40 ví dụ JavaFX/jpackage của slice 46 dùng `skip_javac` vì cần JavaFX runtime — đúng ngoại lệ CLI/jar.
+
+### Subagents wave 10 (2026-11-28) — review
+
+Đã sửa 4 Back: Evaluate Expression (tính/sửa biểu thức tại breakpoint, không phải "arbitrary Java"), overloading vs overriding (kể cả method kế thừa; overriding dispatch lúc chạy), `ArrayList.remove(int)` xóa theo chỉ số nên dùng `remove(Integer.valueOf(x))` để xóa theo giá trị, và private members được kế thừa nhưng không truy cập được.
+
+- 120 ví dụ từ map-agent-50/51/52 đã ghi thẳng vào Anki theo CardKey vì 7 file sách `book-hfj3e-ch01..07.json` mang deck cũ, không có merge_into sống. Repo đã có nội dung.
+- Cần migrate deck của các file sách HFJ3e sang deck roadmap đang sống (kèm đổi CardKey) để push.py không bỏ qua cả file nữa — TODO riêng, giống `devjava-CHUNK-4` trước đây.
+- `jv-0015-9991a0d37a` — Java 25 compact source file, javac máy là 21 nên dùng snippet comment. `jv-0015-8986e0fa32` — pom.xml, đúng ngoại lệ skip_javac.
