@@ -17,7 +17,8 @@
      "extra": "They arrived to make declaring an immutable data aggregate a one-liner instead of a hundred lines of IDE-generated boilerplate.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Probe { Point p = new Point(1, 2); }   // `record` needs Java 14+ (preview in 14/15, standard in 16)</pre>"
     },
     {
      "type": "basic",
@@ -26,7 +27,8 @@
      "extra": "That is the whole point: you declare only the state, and everything a correct immutable value type needs is derived.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Probe { void m() { System.out.println(new Point(1, 2)); } }   // Point[x=1, y=2]</pre>"
     },
     {
      "type": "basic",
@@ -35,7 +37,8 @@
      "extra": "Unlike JavaBeans style <code>getX()</code>. You may override an accessor, most commonly to return a defensive copy of a mutable component such as a <code>Date</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Probe { int v() { return new Point(3, 4).x(); } }   // 3 - the accessor is named x(), no get prefix</pre>"
     },
     {
      "type": "basic",
@@ -44,7 +47,8 @@
      "extra": "The final modifier is what makes a record genuinely immutable, so a record <b>cannot</b> be extended by another class.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>record Point(int x) { }\nclass Probe { void m() { System.out.println(Point.class.getSuperclass().getName()); } }   // java.lang.Record\n// class Sub extends Point {} -> error: cannot inherit from final Point</pre>"
     },
     {
      "type": "basic",
@@ -53,7 +57,8 @@
      "extra": "The reason for the first is that its superclass is fixed: the compiler makes it extend java.lang.Record, and Java allows only single inheritance.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Named { String name(); }\nrecord Point(int x) implements Named { public String name() { return \"p\" + x; } }   // implements: yes\n// record Sub extends Point {} -> error: cannot inherit from final Point (a record extends java.lang.Record)</pre>"
     },
     {
      "type": "basic",
@@ -62,7 +67,8 @@
      "extra": "Hand-written versions are the classic source of the bug where equals changes but hashCode does not, breaking use as a HashSet key, or the reverse.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }\nclass Probe { boolean same() { return new Point(1, 2).equals(new Point(1, 2)); } }   // true: generated equals\n// add a component and equals/hashCode are regenerated together, so they can never go stale</pre>"
     },
     {
      "type": "basic",
@@ -71,7 +77,8 @@
      "extra": "Each is forbidden because it would let instance state exist that is not a declared component, which would break the guarantee that equals/hashCode describe the whole state.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>record Point(int x) { }\n// record Bad(int x) { int y; }        -> error: field declaration must be static\n// record Bad2(int x) { int y = 0; }   -> same error: field declaration must be static\n// record Bad3(int x) { { } }          -> error: instance initializers not allowed in records</pre>"
     },
     {
      "type": "basic",
@@ -80,7 +87,8 @@
      "extra": "The restriction targets instance state only. A record may also declare additional instance methods and static methods freely.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { static int count = 0; static { count = 1; } }\nclass Probe { int n = Point.count; }   // static fields and static initializers are allowed</pre>"
     },
     {
      "type": "basic",
@@ -89,7 +97,8 @@
      "extra": "It is the one the compiler writes for you. Override it when you need to validate state or defensively copy a mutable component.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { Point(int x, int y) { this.x = x; this.y = y; } }\n// exactly what the compiler generates for record Point(int x, int y) {}</pre>"
     },
     {
      "type": "basic",
@@ -98,7 +107,8 @@
      "extra": "It has no parameter list, and the compiler assigns the parameters to fields automatically afterwards, so validation code is all you write.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>record Range(int lo, int hi) {\n  Range { if (lo > hi) throw new IllegalArgumentException(\"lo > hi\"); }   // no parameter list to repeat\n}</pre>"
     },
     {
      "type": "basic",
@@ -107,7 +117,8 @@
      "extra": "A record is serializable by implementing Serializable, and deserialization invokes the canonical constructor, so validation is honoured on the way back in.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>record Point(int x) implements java.io.Serializable { }\n// serialization writes the components, not the fields; readObject/readResolve are the only hooks you may add</pre>"
     },
     {
      "type": "basic",
@@ -116,7 +127,8 @@
      "extra": "Declare it as a component instead. The rule keeps the component list as the single source of truth for the object's state.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>record Range(int lo, int hi) { }\n// record Bad(int lo) { int extra; }  -> error: field declaration must be static\n// the header components are the only instance fields a record may have</pre>"
     },
     {
      "type": "cloze",
@@ -124,7 +136,8 @@
      "extra": "The components go in parentheses directly after the name, as in <code>record Point(int x, int y) {}</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>record Point(int x, int y) { }   // `record` stands in for `class`\n// the class version would need two fields, a constructor, accessors, equals, hashCode and toString</pre>"
     },
     {
      "type": "compare",
@@ -133,7 +146,8 @@
      "extra": "That is the boilerplate difference. A final class with a constructor is the sensible way to make an immutable class, but you still write the value-type machinery by hand.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>final class Point { private final int x; Point(int x) { this.x = x; } int x() { return x; } }\nclass Probe { boolean same() { return new Point(1).equals(new Point(1)); } }   // false: no equals/hashCode/toString\n// that is exactly the boilerplate a record generates</pre>"
     }
    ]
   },

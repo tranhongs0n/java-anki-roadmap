@@ -2893,7 +2893,8 @@
      "extra": "It is final. The returned Class exposes <code>getSimpleName</code>, <code>getSuperclass</code>, <code>getInterfaces</code> and many other reflective queries.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Base { }\nclass Derived extends Base { }\nclass Probe { void m() { Base b = new Derived();\n  System.out.println(b.getClass().getSimpleName()); } }   // Derived - the runtime class; getClass() is final</pre>"
     },
     {
      "type": "basic",
@@ -2902,7 +2903,8 @@
      "extra": "Otherwise the call throws <code>CloneNotSupportedException</code>. Adding <code>implements Cloneable</code> lets Object.clone make a shallow copy.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Bad { Object copy() throws CloneNotSupportedException { return super.clone(); } }\n// runtime: CloneNotSupportedException - class Bad does not implement Cloneable\nclass Good implements Cloneable { Object copy() throws CloneNotSupportedException { return super.clone(); } }</pre>"
     },
     {
      "type": "basic",
@@ -2941,7 +2943,8 @@
      "extra": "The inherited version prints a class name and a hash hex. A good override shows the real state, which is what appears inside string concatenation.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class Point { int x, y;\n  @Override public String toString() { return \"Point(\" + x + \",\" + y + \")\"; } }\nclass Probe { void m() { System.out.println(new Point()); } }   // Point(0,0), not Point@1b6d3586</pre>"
     },
     {
      "type": "basic",
@@ -2992,7 +2995,8 @@
      "extra": "Hiding is not overriding. Which version runs depends on the static type used for the call, not on the object.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Parent { static void info() { System.out.println(\"parent\"); } }\nclass Child extends Parent { static void info() { System.out.println(\"child\"); } }\n// Child.info() hides Parent.info(); it is not an override, so the call follows the reference type</pre>"
     },
     {
      "type": "basic",
@@ -3021,7 +3025,8 @@
      "extra": "A protected method can become public, but not private. Narrowing would break callers who compiled against the broader access.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Parent { protected void work() { } }\nclass Child extends Parent { public void work() { } }   // widening: allowed\n// private void work() would fail: attempting to assign weaker access privileges; was protected</pre>"
     },
     {
      "type": "basic",
@@ -3040,7 +3045,8 @@
      "extra": "Instance methods are preferred over interface defaults. In the horse/Dragon examples, the class's own method silently takes precedence.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Greeter { default String greet() { return \"interface\"; } }\nclass Person implements Greeter { public String greet() { return \"class\"; } }\n// new Person().greet() -> \"class\": the class's own method wins over the interface default</pre>"
     },
     {
      "type": "basic",
@@ -3121,7 +3127,8 @@
      "extra": "The simple name picks the subclass's field, since that declaration shadows the other. Hiding is discouraged for exactly this confusion.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Parent { String name = \"parent\"; }\nclass Child extends Parent {\n  String name = \"child\";\n  String both() { return name + \"/\" + super.name; }   // super.name reaches the hidden field\n}</pre>"
     },
     {
      "type": "basic",
@@ -3130,7 +3137,8 @@
      "extra": "useful as \"call the parent's logic\" in combination with extra work. Without <code>super</code> the call would recurse into the override.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Parent { void greet() { System.out.println(\"parent\"); } }\nclass Child extends Parent {\n  @Override void greet() { super.greet(); System.out.println(\"child\"); }   // super.methodName(args)\n}</pre>"
     },
     {
      "type": "basic",
@@ -3199,7 +3207,8 @@
      "extra": "The implicit <code>super()</code> has nothing to bind to, so you must call an explicit <code>super(args)</code> in the subclass constructor.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Parent { Parent(int id) { } }\nclass Child extends Parent { Child() { super(1); } }\n// class Bad extends Parent { }  -> error: constructor Parent in class Parent cannot be applied to given types</pre>"
     }
    ]
   },
@@ -3240,7 +3249,8 @@
      "extra": "So every class is an Object and inherits its methods. The inheritance chain always terminates at Object.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Plain { }\nclass Probe { boolean same() { return new Plain().getClass() == Plain.class; } }   // true: parent is java.lang.Object</pre>"
     },
     {
      "type": "basic",
@@ -3249,7 +3259,8 @@
      "extra": "Constructors are not members, so a subclass does not inherit them. It calls one with <code>super(...)</code>.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Parent { Parent(String name) { System.out.println(name); } }\nclass Child extends Parent { Child() { super(\"child\"); } }   // not inherited: the subclass calls super(...) itself</pre>"
     },
     {
      "type": "basic",
@@ -3258,7 +3269,8 @@
      "extra": "It never inherits private members, regardless of package. Package-private members vanish once the subclass lives elsewhere.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Parent { public int a; protected int b; int c; private int d; }\nclass Child extends Parent {\n  int sum() { return a + b + c; }   // d is private, so it is not inherited\n}</pre>"
     },
     {
      "type": "basic",
@@ -3267,7 +3279,8 @@
      "extra": "Use, override (instance methods), hide (fields or static methods), or add new members. All four are legal; only hiding fields is discouraged.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Parent { void greet() { System.out.println(\"parent\"); } }\nclass Child extends Parent {\n  @Override void greet() { System.out.println(\"child\"); }   // replace\n  void greetTwice() { greet(); super.greet(); }             // use, and supplement\n}</pre>"
     },
     {
      "type": "basic",
@@ -3316,7 +3329,8 @@
      "extra": "Interfaces have no fields (only constants), so implementing many cannot duplicate state. Default methods are one exception handled by explicit compiler rules.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface A { int id = 1; }\ninterface B { int id = 2; }\nclass C implements A, B { }\n// int v = C.id;  -> error: reference to id is ambiguous - two copies, and no rule picks one</pre>"
     }
    ]
   },
@@ -3337,7 +3351,8 @@
      "extra": "It cannot be instantiated, only implemented by classes or extended by other interfaces. The signatures have no braces, so the implementing classes supply the bodies.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>interface Api { int MAX = 10; void run(); default void stop() { } }\n// constants + abstract signatures (+ defaults since Java 8), implemented by any class that is a kind of Api</pre>"
     },
     {
      "type": "basic",
@@ -3346,7 +3361,8 @@
      "extra": "It lets you add functionality to a published interface without breaking implementors, since they inherit the body instead of implementing it.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>interface Api { default int answer() { return 42; } }\nclass Impl implements Api { }\nclass Probe { int n() { return new Impl().answer(); } }   // 42, inherited without an override</pre>"
     },
     {
      "type": "basic",
@@ -3355,7 +3371,8 @@
      "extra": "You may omit the keyword, and you cannot narrow it. Fields are implicitly public static final.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Api { void run(); }\nclass Impl implements Api { public void run() { } }   // must be public; a package-private run() fails with\n// \"run() in Impl cannot implement run() in Api\" - attempting to assign weaker access privileges</pre>"
     },
     {
      "type": "basic",
@@ -3364,7 +3381,8 @@
      "extra": "Constants may be declared without any modifiers. Mutable state is impossible, which is why interfaces avoid the state-inheritance problem.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Constants { int MAX = 10; }\n// Constants.MAX is public static final: Constants.MAX = 20;\n// -> error: cannot assign a value to static final variable MAX</pre>"
     },
     {
      "type": "basic",
@@ -3373,7 +3391,8 @@
      "extra": "They belong to the implementation, are not callable from outside, and can be neither default nor abstract. They also cannot be protected.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Api {\n  default void a() { helper(); }\n  default void b() { helper(); }\n  private void helper() { System.out.println(\"shared\"); }   // Java 9+: shared by the interface's own defaults\n}</pre>"
     },
     {
      "type": "basic",
@@ -3382,7 +3401,8 @@
      "extra": "Allowed are public members, private instance methods, and private or public static methods. A protected interface method is a compile error.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface Api { void run(); }                 // implicitly public abstract\n// interface Bad { protected void run(); }   -> error: modifier protected not allowed here\n// private is permitted (Java 9+) because it is not inherited, so no implementor is reached through it</pre>"
     },
     {
      "type": "basic",
@@ -3391,7 +3411,8 @@
      "extra": "Unlike classes, which may extend only one class. This is how the type system supports multiple inheritance of type.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface A { void a(); }\ninterface B { void b(); }\ninterface C extends A, B { }   // any number of superinterfaces, comma-separated</pre>"
     },
     {
      "type": "basic",
@@ -3400,7 +3421,8 @@
      "extra": "Declaring it <code>public</code> opens it to any class in any package. Without the modifier, it is package-private.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface PkgOnly { void run(); }   // no modifier: visible only inside its own package\nclass Impl implements PkgOnly { public void run() { } }   // a class in another package cannot name PkgOnly</pre>"
     },
     {
      "type": "basic",
@@ -3409,7 +3431,8 @@
      "extra": "The list is comma-separated and may name several interfaces, e.g. <code>extends A implements B, C</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>abstract class Base { }\ninterface Api { void run(); }\nclass Impl extends Base implements Api { public void run() { } }   // extends first, implements after</pre>"
     },
     {
      "type": "basic",
@@ -3418,7 +3441,8 @@
      "extra": "An abstract class is exempt, at the price of not being instantiable. A concrete class missing one body will not compile.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Api { void a(); int b(); }\nclass Impl implements Api { public void a() { } public int b() { return 1; } }\n// leave out either one -> error: Impl is not abstract and does not override abstract method</pre>"
     },
     {
      "type": "basic",
@@ -3427,7 +3451,8 @@
      "extra": "Producers can publish an interface, and consumers program against it. Each side can change its internals as long as the contract holds.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface Payment { void pay(int cents); }                           // the contract callers depend on\nclass Card implements Payment { public void pay(int cents) { } }    // one implementation\nclass Wallet implements Payment { public void pay(int cents) { } }  // another, same contract</pre>"
     },
     {
      "type": "basic",
@@ -3436,7 +3461,8 @@
      "extra": "The vendor may reimplement freely as long as the published interface continues to be implemented. Callers only need the interface to compile and run.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface Clock { long now(); }                                       // the published signatures\nclass SystemClock implements Clock { public long now() { return System.currentTimeMillis(); } }\n// callers compile against Clock; SystemClock's internals stay free to change</pre>"
     }
    ]
   },
@@ -3457,7 +3483,8 @@
      "extra": "It may list several interfaces, separated by commas. You cannot put a superclass after it.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>interface Api { }\nclass Impl extends Object implements Api { }   // extends first, then implements</pre>"
     },
     {
      "type": "basic",
@@ -3466,7 +3493,8 @@
      "extra": "A <code>findLargest(Relatable, Relatable)</code> method then works for rectangles, books or students. The method needs no knowledge of each class.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface Relatable { int isLargerThan(Relatable other); }\nclass Rectangle implements Relatable { public int isLargerThan(Relatable o) { return 1; } }\nclass Circle implements Relatable { public int isLargerThan(Relatable o) { return -1; } }\n// one method written against Relatable compares both</pre>"
     },
     {
      "type": "basic",
@@ -3475,7 +3503,8 @@
      "extra": "You must cast to RectanglePlus to call getArea(). The compiler does not know the interface reference is a RectanglePlus.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface Relatable { int isLargerThan(Relatable other); }\nclass Rectangle implements Relatable {\n  int width;\n  public int isLargerThan(Relatable other) { Rectangle r = (Rectangle) other; return width - r.width; }\n}</pre>"
     },
     {
      "type": "basic",
@@ -3484,7 +3513,8 @@
      "extra": "Each must now supply the new method, so source-incompatible changes break clients. This is why interface evolution is deliberate.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>interface Api { void a(); }\nclass Impl implements Api { public void a() { } }   // compiles today\n// add `void b();` to Api -> error: Impl is not abstract and does not override abstract method b() in Api</pre>"
     },
     {
      "type": "basic",
@@ -3493,7 +3523,8 @@
      "extra": "Existing implementors inherit the body unchanged and need no recompilation. Adding a new static method has the same compatibility property.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Api { void a(); default void b() { System.out.println(\"default b\"); } }\nclass Impl implements Api { public void a() { } }\n// Impl compiles unchanged: b() comes from the interface, so adding it breaks no implementor</pre>"
     },
     {
      "type": "basic",
@@ -3502,7 +3533,8 @@
      "extra": "e.g. DoItPlus extends DoIt. Users may stay on the old interface or upgrade, giving them a choice rather than a forced migration.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>interface Api { void a(); }\ninterface Api2 extends Api { void b(); }           // publish a sub-interface instead of editing Api\nclass Old implements Api { public void a() { } }   // Old keeps compiling; nothing to change</pre>"
     },
     {
      "type": "basic",
@@ -3511,7 +3543,8 @@
      "extra": "Needed when two default methods clash and the class must pick one. Without the override, the compiler rejects the ambiguity.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>interface Greeter { default String greet() { return \"hi\"; } }\nclass Both implements Greeter { public String greet() { return Greeter.super.greet() + \"!\"; } }\n// InterfaceName.super.method() names the default explicitly; plain super refers to the superclass</pre>"
     },
     {
      "type": "basic",
@@ -3520,7 +3553,8 @@
      "extra": "The compiler refuses to choose for you. Inside the override, call whichever defaults with the InterfaceName.super form.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface A { default String name() { return \"A\"; } }\ninterface B { default String name() { return \"B\"; } }\nclass Both implements A, B { public String name() { return A.super.name() + B.super.name(); } }\n// without that override: types A and B are incompatible; class Both inherits unrelated defaults for name()</pre>"
     },
     {
      "type": "basic",
@@ -3529,7 +3563,8 @@
      "extra": "Previously each sort order demanded a Comparator implementation. Now method references and chained calls express the ordering declaratively.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<String> c = java.util.Comparator.comparing(String::length)\n    .thenComparing(String.CASE_INSENSITIVE_ORDER);\nSystem.out.println(c.compare(\"Bob\", \"alice\"));   // 3 vs 5 -> negative: no Comparator class written by hand</pre>"
     },
     {
      "type": "basic",
@@ -3538,7 +3573,8 @@
      "extra": "Its Function overload extracts a Comparable key. The Int/Long/Double variants avoid boxing and unboxing that key.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<String> c = java.util.Comparator.comparingInt(String::length)\n    .thenComparing(java.util.Comparator.naturalOrder());\nSystem.out.println(c.compare(\"bob\", \"amy\"));   // both 3 chars, so the second comparator decides: positive</pre>"
     },
     {
      "type": "basic",
@@ -3547,7 +3583,8 @@
      "extra": "Inverting an existing comparator replaces writing a fresh lambda. Chain it last, as in <code>comparing(...).reversed()</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<String> asc = java.util.Comparator.naturalOrder();\njava.util.Comparator<String> desc = asc.reversed();\nSystem.out.println(desc.compare(\"a\", \"b\"));   // positive: \"b\" now sorts first</pre>"
     },
     {
      "type": "basic",
@@ -3556,7 +3593,8 @@
      "extra": "It uses the returned key's natural order. Siblings are <code>comparingInt</code>, <code>comparingLong</code> and <code>comparingDouble</code>.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.Comparator<String> byLength = java.util.Comparator.comparing(String::length);\nSystem.out.println(byLength.compare(\"aa\", \"bbb\"));   // -1: the key function extracts what is compared</pre>"
     },
     {
      "type": "basic",
@@ -3565,7 +3603,8 @@
      "extra": "Binary compatibility is the whole point. The new methods can even accept lambda expressions as parameters.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Api { void a(); }\nclass Impl implements Api { public void a() { } }\n// Api gains `default void b() { }` -> Impl keeps working without recompiling, unless another interface clashes</pre>"
     }
    ]
   },
@@ -3586,7 +3625,8 @@
      "extra": "Its name is usable anywhere a type name can appear, e.g. as a variable type, parameter or return type.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>interface Shape { double area(); }\nclass Probe { Shape s = new Shape() { public double area() { return 1.0; } }; }   // a usable reference type\n// a field, a parameter or a Shape[] is all legal: Shape is a type, not just a shape</pre>"
     },
     {
      "type": "basic",
@@ -3595,7 +3635,8 @@
      "extra": "An unrelated class cannot. That is how types like Comparable become a guarantee of behaviour across unrelated hierarchies.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>interface Shape { }\nclass Circle implements Shape { }\nclass Holder { Shape s = new Circle(); }\n// Shape t = new String();  -> error: incompatible types: String cannot be converted to Shape</pre>"
     },
     {
      "type": "basic",
@@ -3604,7 +3645,8 @@
      "extra": "Only the interface's methods are callable on the parameter. A common filter is that both operands must be of the same class.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface Relatable { int isLargerThan(Relatable other); }\nclass Sorter { static Relatable max(Relatable a, Relatable b) { return a.isLargerThan(b) > 0 ? a : b; } }\n// the parameter type is the interface, so any implementing class is accepted</pre>"
     },
     {
      "type": "basic",
@@ -3613,7 +3655,8 @@
      "extra": "So it can be passed to code expecting the superclass and to code expecting the interface, taking behaviour from both.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>interface Readable { }\ninterface Writable { }\nclass File implements Readable, Writable { }\nclass Probe { boolean t(File f) { return f instanceof Readable && f instanceof Writable; } }   // one object, three types</pre>"
     }
    ]
   },
@@ -3679,7 +3722,8 @@
      "extra": "This avoids clashing with class or interface names. A capitalised package would look like a type to readers.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>package demo.shapes;\nclass Circle { }   // package names are all lowercase: no underscores, no capitals</pre>"
     },
     {
      "type": "basic",
@@ -3724,7 +3768,8 @@
      "extra": "Packages only look hierarchical; the dot is part of the name. Importing <code>java.awt.*</code> therefore does not bring in <code>java.awt.color</code>.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>// java.awt.color is its own package, not a member of java.awt:\njava.awt.color.ColorSpace cs = java.awt.color.ColorSpace.getInstance(java.awt.color.ColorSpace.CS_sRGB);</pre>"
     },
     {
      "type": "basic",
@@ -3733,7 +3778,8 @@
      "extra": "Both <code>graphics.Rectangle</code> and <code>java.awt.Rectangle</code> are visible, so the simple name is ambiguous and the compiler rejects it.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>// java.sql.Date and java.util.Date both imported -> the simple name Date is ambiguous\njava.sql.Date sqlDate = new java.sql.Date(0L);   // the fully qualified name disambiguates</pre>"
     },
     {
      "type": "basic",
