@@ -1622,7 +1622,8 @@
      "extra": "The parameters are only the placeholders in the declaration. Java passes every argument by value, parameters and references alike.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Demo4 {\n    static void greet(String who) { System.out.println(who); }   // who = parameter\n    public static void main(String[] a) {\n        greet(\"Ada\");                                            // \"Ada\" = argument\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1658,7 +1659,8 @@
      "extra": "The method works on a copy, so the caller's variable is untouched. This is true for every parameter in Java; there is no by-reference passing.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Demo3 {\n    static void bump(int n) { n++; }\n    public static void main(String[] a) {\n        int n = 5;\n        bump(n);\n        System.out.println(n);   // 5 - only the copy changed\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1754,7 +1756,8 @@
      "extra": "e.g. <code>private int speed;</code>. The modifiers are optional; the type and name never are.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Account2 {\n    private static final int MAX = 10;   // modifiers, type, name\n    String owner;                        // no modifiers: type, name\n}</pre>"
     },
     {
      "type": "basic",
@@ -1763,7 +1766,8 @@
      "extra": "Access is then given indirectly through public methods, so the class can change its internal representation without breaking callers.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Account3 {\n    private int balance;                 // only this class touches the field\n    void deposit(int n) { balance += n; }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1772,7 +1776,8 @@
      "extra": "<code>public</code> exposes it to all classes. There are exceptions to the simple rule, but that is the baseline for both.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Account {\n    private int balance;                 // only Account's own code may touch it\n    int balance() { return balance; }    // outside callers go through this method\n}</pre>"
     },
     {
      "type": "basic",
@@ -1781,7 +1786,8 @@
      "extra": "A top-level class is a file-level unit; private would make it unusable anywhere. Top-level classes use public or package-private.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Outer {\n    private static class Hidden { }    // legal: the class is nested\n}\n// private class TopLevel { }          // error: modifier private not allowed here</pre>"
     },
     {
      "type": "basic",
@@ -1799,7 +1805,8 @@
      "extra": "Class names capitalise the first letter; method names begin with a lowercase verb. Breaking the convention does not break the code but hurts readability.",
      "tags": [
       "type::convention"
-     ]
+     ],
+     "example": "<pre>class my_helper {                     // legal identifier, unconventional casing\n    int do_work() { return 1; }       // same identifier rules as the class name\n}</pre>"
     }
    ]
   },
@@ -1865,7 +1872,8 @@
      "extra": "Several constructors may exist, but no two may have the same list. e.g. <code>Rectangle(Point, int, int)</code> against <code>Rectangle(int, int)</code>.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Box {\n    Box() { }\n    Box(int w) { }\n    Box(int w, int h) { }   // distinguished by number and types of arguments\n}</pre>"
     },
     {
      "type": "basic",
@@ -1874,7 +1882,8 @@
      "extra": "Which effectively chains back to <code>Object</code>. If the superclass has no no-arg constructor, the program will not compile.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Base2 { Base2() { System.out.println(\"Base2\"); } }\n\nclass Child2 extends Base2 { }   // implicit Child2() calls super() - prints Base2</pre>"
     },
     {
      "type": "basic",
@@ -1892,7 +1901,8 @@
      "extra": "e.g. <code>rectangle.width</code>. Inside the class you may use the field's simple name instead.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Point2 { int x = 3; }\n\nclass Demo {\n    public static void main(String[] args) {\n        Point2 p = new Point2();\n        System.out.println(p.x);   // dot operator: field read through the reference\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1940,7 +1950,8 @@
      "extra": "Apart from those two points it looks like a method: it may take parameters, throw exceptions, and carry access modifiers.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Point {\n    int x, y;\n    Point(int x, int y) {              // same name as the class, no return type\n        this.x = x;\n        this.y = y;\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1967,7 +1978,8 @@
      "extra": "So a class with only <code>Bicycle(int, int, int)</code> cannot be created with <code>new Bicycle()</code>. Add a no-arg constructor yourself if you need it.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Point4 {\n    Point4(int x) { }   // a constructor exists, so none is generated\n}\n// new Point4();       // error: constructor Point4 in class Point4 cannot be applied to given types</pre>"
     },
     {
      "type": "basic",
@@ -1985,7 +1997,8 @@
      "extra": "The compiler must either call <code>super()</code> or a parameterised form you declare explicitly. Declaring a constructor fixes this.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>class Base { Base(int x) { } }\n\n// class Child extends Base { }   // error: constructor Base in class Base cannot be applied\n//                                // to given types; the implicit Child() has no super() to call</pre>"
     },
     {
      "type": "basic",
@@ -1994,7 +2007,8 @@
      "extra": "That is the basis of singletons and utility classes. Protected or package-private constructors let only certain callers build the object.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Util {\n    private Util() { }                 // outside code cannot call new Util()\n    static int twice(int n) { return n * 2; }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2033,7 +2047,8 @@
      "extra": "Return type, modifiers and exception declarations are not part of it. Overloading is resolved by the signature alone.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Calc {\n    int add(int a, int b) { return a + b; }   // signature: add(int, int)\n    int add(int a) { return a; }              // signature: add(int) - a different one\n}</pre>"
     },
     {
      "type": "basic",
@@ -2118,7 +2133,8 @@
      "extra": "It also earns its keep when you want to call additional methods later. A one-shot instance instead calls for an anonymous class or a lambda.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Outer2 {\n    void run() {\n        class Helper { int twice(int n) { return n * 2; } }   // local: named, reusable\n        System.out.println(new Helper().twice(3));\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2136,7 +2152,8 @@
      "extra": "Alternatively, when a simple instance of a functional interface suffices and you need no fields, constructor or extra methods.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>java.util.function.Supplier<String> s = () -> \"hi\";   // one unit of behaviour\nSystem.out.println(s.get());                          // hi</pre>"
     },
     {
      "type": "basic",
@@ -2154,7 +2171,8 @@
      "extra": "Otherwise choose a static nested class, which has no implicit outer instance and is therefore simpler and leak-free.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Outer3 {\n    private int secret = 7;\n    class Inner { int peek() { return secret; } }   // inner sees Outer3.this.secret\n}</pre>"
     },
     {
      "type": "basic",
@@ -2172,7 +2190,8 @@
      "extra": "It is an expression, so the instance is created where it is written and can never be created again or from elsewhere. That matches helper objects used once.",
      "tags": [
       "type::compare"
-     ]
+     ],
+     "example": "<pre>Runnable r = new Runnable() {\n    public void run() { System.out.println(\"one instance\"); }   // anonymous, no constructor\n};\nr.run();</pre>"
     }
    ]
   },
@@ -2323,7 +2342,8 @@
      "extra": "It centralises initialisation logic: the simple constructors delegate to the most complete one. Before JDK 25 it had to be the first statement.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Point3 {\n    Point3() { this(0, 0); }          // explicit constructor invocation\n    Point3(int x, int y) { }\n}</pre>"
     },
     {
      "type": "basic",

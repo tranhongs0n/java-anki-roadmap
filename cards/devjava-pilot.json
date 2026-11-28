@@ -199,7 +199,8 @@
      "extra": "A class only needs main() when it is itself the entry point that the JVM launches.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Bicycle {\n    int cadence;                             // blueprint: state and behaviour only,\n    void changeCadence(int c) { cadence = c; }   // no main() entry point\n}</pre>"
     },
     {
      "type": "basic",
@@ -208,7 +209,8 @@
      "extra": "Continue-and-pass-around is part of it: once created, the object is easily passed within the system.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Parser {\n    int parse(String s) { return s.length(); }   // written and maintained on its own\n}\nclass Caller { Parser p = new Parser(); }        // uses it without knowing its internals</pre>"
     },
     {
      "type": "basic",
@@ -226,7 +228,8 @@
      "extra": "This is the information-hiding benefit. The implementation may change freely as long as the methods keep their contract.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>class Counter {\n    private int n;                 // internal detail: hidden\n    void inc() { n++; }            // callers see behaviour, not the field\n    int value() { return n; }\n}</pre>"
     },
     {
      "type": "basic",
@@ -245,7 +248,8 @@
      "extra": "It lets specialists implement, test and debug complex task-specific objects that you then trust and build on.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>java.util.List<String> names = new java.util.ArrayList<>();   // reuse an existing type\nnames.add(\"Ada\");\nSystem.out.println(names.size());                             // 1</pre>"
     },
     {
      "type": "basic",

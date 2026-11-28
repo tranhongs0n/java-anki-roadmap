@@ -25,7 +25,7 @@
    "tags": [
     "type::syntax"
    ],
-   "example": "<pre>int name = 1;\nint Name = 2;   // two different variables</pre>"
+   "example": "<pre>int Name = 1;\nint name = 2;\nSystem.out.println(Name + name);   // 3 - two distinct identifiers</pre>"
   },
   {
    "type": "basic",
