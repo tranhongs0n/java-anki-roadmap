@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 2, p. 73",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { int size; }\n  static void m() { Dog first = new Dog(); Dog second = new Dog(); first.size = 10; second.size = 40; System.out.println(first.size + \" \" + second.size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "Head First Java 3E — ch 2, p. 73",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { int size; }\n  static void m() { Dog a = new Dog(); Dog b = new Dog(); a.size = 10; b.size = 40; System.out.println(a.size + \" \" + b.size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "Head First Java 3E — ch 2, p. 74",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>\nclass TestDog {\n  static class Dog { int size; }\n  public static void main(String[] args) { Dog d = new Dog(); d.size = 40; System.out.println(d.size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -44,7 +47,8 @@
    "source": "Head First Java 3E — ch 2, p. 74",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Dog { int size; }\nclass Demo {\n  static void m() { Dog d = new Dog(); // d holds a reference, not the object\n    d.size = 40; System.out.println(d.size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -54,7 +58,8 @@
    "source": "Head First Java 3E — ch 2, p. 74",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>\nclass Dog {\n  int size; void bark() { }\n  public static void main(String[] args) { Dog d = new Dog(); d.size = 40; d.bark(); System.out.println(d.size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +69,8 @@
    "source": "Head First Java 3E — ch 2, p. 79",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>\nclass Dog {\n  int size; void bark() { }\n  public static void main(String[] args) { Dog d = new Dog(); d.size = 40; d.bark(); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -74,7 +80,8 @@
    "source": "Head First Java 3E — ch 2, p. 76",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass TestDog { public static void main(String[] args) { System.out.println(\"test\"); } }\nclass Launcher { public static void main(String[] args) { System.out.println(\"launch\"); } }\n</pre>"
   },
   {
    "type": "basic",
@@ -84,7 +91,8 @@
    "source": "Head First Java 3E — ch 2, p. 76",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { void bark() { } }\n  static class Owner { void walk(Dog d) { d.bark(); } }\n  static void m() { Owner o = new Owner(); o.walk(new Dog()); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -94,7 +102,8 @@
    "source": "Head First Java 3E — ch 2, p. 79",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { void bark() { } }\n  static class LoudDog extends Dog { void barkTwice() { bark(); bark(); } }\n  static void m() { Dog old = new Dog(); LoudDog next = new LoudDog(); old.bark(); next.barkTwice(); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -104,7 +113,8 @@
    "source": "Head First Java 3E — ch 2, p. 95",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Dog { int size; }\nclass Demo {\n  static void m() { Dog d = new Dog(); // the object is on the heap\n    System.out.println(d.size); }\n}\n</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::02 Object Model::01 Classes and Objects"

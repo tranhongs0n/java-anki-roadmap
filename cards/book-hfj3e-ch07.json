@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 7, p. 211",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>class Animal { }\nclass Engine { }\nclass Dog extends Animal { Engine e = new Engine(); } // IS-A Animal, HAS-A Engine</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "Head First Java 3E — ch 7, p. 208",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>class Animal { public void eat() { } protected void sleep() { } private void hidden() { } }\nclass Dog extends Animal { void test() { eat(); sleep(); } } // hidden() unavailable; no constructor inherited\nclass Ex { public static void main(String[] a) { new Dog().eat(); } }</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "Head First Java 3E — ch 7, p. 215",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class Animal { void makeNoise() { System.out.println(\"silence\"); } }\nclass Dog extends Animal { void makeNoise() { System.out.println(\"woof\"); } }\nclass Ex { public static void main(String[] a) { Animal x = new Dog(); x.makeNoise(); } } // woof</pre>"
   },
   {
    "type": "basic",
@@ -44,7 +47,8 @@
    "source": "Head First Java 3E — ch 7, p. 230",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>class Animal { public Animal make() { return this; } }\nclass Dog extends Animal { @Override public Dog make() { return this; } } // same args, covariant return, public\n// class Bad extends Animal { Animal make() { return this; } } // error: weaker access\nclass Ex { public static void main(String[] a) { new Dog().make(); } }</pre>"
   },
   {
    "type": "basic",
@@ -54,7 +58,8 @@
    "source": "Head First Java 3E — ch 7, p. 231",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>class Animal { void speak(int n) { System.out.println(\"animal \" + n); } }\nclass Dog extends Animal { void speak(int n) { System.out.println(\"dog\"); } void speak(String s) { } } // override + overload\nclass Ex { public static void main(String[] a) { Animal x = new Dog(); x.speak(1); } } // dog: runtime</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +69,8 @@
    "source": "Head First Java 3E — ch 7, p. 223",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>class Ex {\n    int get() { return 1; }\n    // long get() { return 2; } // error: get() is already defined\n}</pre>"
   },
   {
    "type": "basic",
@@ -74,7 +80,8 @@
    "source": "Head First Java 3E — ch 7, p. 214",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class Animal { void makeNoise() { } }\nclass Dog extends Animal { void makeNoise() { System.out.println(\"woof\"); } }\nclass Cat extends Animal { void makeNoise() { System.out.println(\"meow\"); } } // added, caller unchanged\nclass Ex { public static void main(String[] a) { for (Animal x : new Animal[] {new Dog(), new Cat()}) x.makeNoise(); } }</pre>"
   },
   {
    "type": "basic",
@@ -84,7 +91,8 @@
    "source": "Head First Java 3E — ch 7, p. 226",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class Animal { }\nclass Dog extends Animal { }\nclass Cat extends Animal { }\nclass Lion extends Animal { }\nclass Ex { static void handle(Animal a) { } public static void main(String[] x) { handle(new Dog()); handle(new Cat()); handle(new Lion()); } }</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"

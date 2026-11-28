@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>class Ex {\n  abstract static class A { }\n  static class B extends A { }\n  // new A();  -&gt; compile error: an abstract class cannot be instantiated\n  A a = new B();\n}</pre>"
   },
   {
    "type": "basic",
@@ -25,7 +26,8 @@
    "source": "Head First Java 3E — ch 8, p. 239",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>interface Contract { void doWork(); }   // 100% abstract: a pure contract\nclass Impl implements Contract { public void doWork() { } }\nclass Ex { { Contract c = new Impl(); c.doWork(); } }</pre>"
   },
   {
    "type": "basic",
@@ -35,7 +37,8 @@
    "source": "Head First Java 3E — ch 8, p. 252",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>class Animal { }\nclass Dog extends Animal implements Runnable, AutoCloseable { public void run() { } public void close() { } }\n// one class extended; many interfaces implemented</pre>"
   },
   {
    "type": "basic",
@@ -45,7 +48,8 @@
    "source": "Head First Java 3E — ch 8, p. 249",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>class Implicit { }\nclass Ex { Object o = new Implicit(); { System.out.println(o instanceof Object); } }   // every class extends Object</pre>"
   },
   {
    "type": "basic",
@@ -55,7 +59,8 @@
    "source": "Head First Java 3E — ch 8, p. 251",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>final class Dog { void bark() { } }\njava.util.ArrayList&lt;Object&gt; list = new java.util.ArrayList&lt;&gt;();\nlist.add(new Dog());\nObject o = list.get(0); // static type Object\n// o.bark(); // error: cannot find symbol</pre>"
   },
   {
    "type": "basic",
@@ -65,7 +70,8 @@
    "source": "Head First Java 3E — ch 8, p. 268",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>class Animal { void speak() { System.out.println(\"animal\"); } }\nclass Dog extends Animal { @Override void speak() { super.speak(); System.out.println(\"dog\"); } }\nclass Ex { public static void main(String[] a) { new Dog().speak(); } } // animal, then dog</pre>"
   },
   {
    "type": "basic",
@@ -75,7 +81,8 @@
    "source": "Head First Java 3E — ch 8, p. 265",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class Demo {\n  interface Noise { void makeNoise(); }\n  static void call(Noise n) { n.makeNoise(); }   // the compiler checks the call against the contract\n}</pre>"
   },
   {
    "type": "basic",
@@ -86,7 +93,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>abstract class Shape { abstract double area(); }\nclass Square extends Shape { double area() { return 4; } }\nclass Ex { public static void main(String[] a) { Shape s = new Square(); System.out.println(s.area()); } }\n// Shape bad = new Shape(); // error: Shape is abstract; cannot be instantiated</pre>"
   },
   {
    "type": "basic",
@@ -97,7 +105,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction"
+   "merge_into": "00 Java Roadmap::02 Object Model::11 Abstraction",
+   "example": "<pre>abstract class Animal { abstract void makeNoise(); }\nclass Cat extends Animal { void makeNoise() { System.out.println(\"meow\"); } }\nclass Ex { public static void main(String[] a) { new Cat().makeNoise(); } }\n// class Bad extends Animal { } // error: not abstract and does not override makeNoise()</pre>"
   },
   {
    "type": "basic",
@@ -107,7 +116,8 @@
    "source": "Head First Java 3E — ch 8, p. 247",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class Animal { }\nclass Dog extends Animal { }\nclass Cat extends Animal { }\nclass Ex { static void handle(Animal[] a) { } public static void main(String[] x) { handle(new Dog[] {new Dog()}); handle(new Cat[] {new Cat()}); } }</pre>"
   },
   {
    "type": "basic",
@@ -117,7 +127,8 @@
    "source": "Head First Java 3E — ch 8, p. 246",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class Animal { void makeNoise() { } }\nclass Dog extends Animal { void makeNoise() { System.out.println(\"woof\"); } }\nclass Cat extends Animal { void makeNoise() { System.out.println(\"meow\"); } }\nclass Ex { { for (Animal a : new Animal[] { new Dog(), new Cat() }) a.makeNoise(); } }   // each object picks its override</pre>"
   },
   {
    "type": "basic",
@@ -127,7 +138,8 @@
    "source": "Head First Java 3E — ch 8, p. 254",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>class NoToString { }\nclass Ex { NoToString n = new NoToString(); { System.out.println(n); } }   // class name, @, hex hash code</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::02 Object Model::16 Interfaces"

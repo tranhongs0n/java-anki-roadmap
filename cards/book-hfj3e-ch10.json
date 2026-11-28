@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Const { static final int LIMIT = 3; }   // one value, assigned once, shared\nclass Ex { { System.out.println(new Const().LIMIT + \" \" + Const.LIMIT); } }</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword"
+   "merge_into": "00 Java Roadmap::02 Object Model::04 Static Keyword",
+   "example": "<pre>class Counter { static int count = 1; int id; }   // static initialised once when the class is loaded\nclass Ex { { System.out.println(new Counter().count + \" \" + new Counter().count); } }</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>int a = Math.abs(-5);\nlong r = Math.round(3.7);\nSystem.out.println(a + \" \" + r + \" \" + ((Object) r).getClass().getSimpleName());   // 5 4 Long</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>java.util.ArrayList&lt;Integer&gt; ints = new java.util.ArrayList&lt;&gt;();   // Integer, not int\nints.add(3);\n// java.util.ArrayList&lt;int&gt; bad = new java.util.ArrayList&lt;&gt;();   // compile error: no primitive type arguments</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String text = String.format(\"%,d\", 1234567);   // formatting makes a String\nSystem.out.println(text);   // it can also go to a GUI field, a table or a log\nnew javax.swing.JLabel(text);</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = String.format(\"%.2f\", 3.14159);\nSystem.out.println(s);   // 3.14: % starts, .2 is precision (2 decimals), f is the conversion</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::rule"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = String.format(\"%d\", 42);   // d is the mandatory conversion\nSystem.out.println(s);   // 42</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String grouped = String.format(\"%,d\", 1234567);\nSystem.out.println(grouped);   // 1,234,567</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +111,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations"
+   "merge_into": "00 Java Roadmap::01 Foundations::10 Math Operations",
+   "example": "<pre>import static java.lang.Math.*;\nclass Ex {\n  static void m() { System.out.println(round(3.7f) + \" \" + abs(-5)); }   // 4 5, no Math. prefix\n}</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +123,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types"
+   "merge_into": "00 Java Roadmap::01 Foundations::03 Data Types",
+   "example": "<pre>Object boxed = Integer.valueOf(3);   // wrap the int for code that needs an Object\nObject auto = 3;   // autoboxing does the same\nSystem.out.println(boxed + \" \" + auto);</pre>"
   },
   {
    "type": "basic",
@@ -125,7 +135,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods"
+   "merge_into": "00 Java Roadmap::01 Foundations::09 Strings and Methods",
+   "example": "<pre>String s = String.format(\"%d %d\", 1, 2, 3);\nSystem.out.println(s);   // 1 2: the extra argument is ignored, no exception</pre>"
   }
  ]
 }

@@ -1481,7 +1481,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>javac HelloWorld.java   # produces HelloWorld.class: bytecode\njava HelloWorld         # runs that bytecode on the JVM</pre>"
     },
     {
      "type": "cloze",
@@ -1501,7 +1502,8 @@
      "tags": [
       "type::convention"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>class MyFirstJavaApp {   // saved as MyFirstJavaApp.java: capital first letter, matching the class\n    public static void main(String[] args) { System.out.println(\"Hello, World!\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1511,7 +1513,8 @@
      "tags": [
       "type::syntax"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>class Main {\n    public static void main(String[] args) { System.out.println(\"entry point\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1521,7 +1524,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>export JAVA_HOME=/path/to/jdk   # root directory of the JDK\nexport PATH=$JAVA_HOME/bin:$PATH</pre>"
     },
     {
      "type": "basic",
@@ -1531,7 +1535,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>java MyFirstJavaApp         # runtime only: the JRE can run bytecode but cannot compile\njavac MyFirstJavaApp.java   # compiler: available in the JDK, not the JRE</pre>"
     },
     {
      "type": "basic",
@@ -1563,7 +1568,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>javac HelloWorld.java &amp;&amp; java HelloWorld    // classic: compile, then run\njava HelloWorld.java                        // since Java SE 11: no separate compile step</pre>"
     },
     {
      "type": "basic",
@@ -1584,7 +1590,8 @@
      "tags": [
       "type::mental-model"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>javac MyFirstJavaApp.java   # javac compiles source\njava MyFirstJavaApp         # java executes the compiled program</pre>"
     },
     {
      "type": "basic",
@@ -1594,7 +1601,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/getting-started/",
+     "example": "<pre>export JAVA_HOME=/path/to/jdk\n# closing the shell loses JAVA_HOME and PATH changes; set them again in a new shell</pre>"
     }
    ]
   },
@@ -1616,7 +1624,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell                 // read-eval-print loop: read, evaluate, print, repeat\njshell> 1 + 2</pre>"
     },
     {
      "type": "basic",
@@ -1626,7 +1635,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> int answer = 42\n// jshell automatically adds the missing terminating semicolon</pre>"
     },
     {
      "type": "basic",
@@ -1636,7 +1646,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> int count = 3;\njshell> /vars\n// lists each variable's name, type and value</pre>"
     },
     {
      "type": "basic",
@@ -1646,7 +1657,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> /list -all\n// every snippet with its ID, including failed and dropped ones</pre>"
     },
     {
      "type": "basic",
@@ -1667,7 +1679,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> /reset     // restart: history is not replayed\njshell> /reload    // restart: history is replayed in order</pre>"
     },
     {
      "type": "basic",
@@ -1677,7 +1690,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> /save snippets.jsh\n// writes snippets and commands to the file snippets.jsh</pre>"
     },
     {
      "type": "basic",
@@ -1687,7 +1701,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell PRINTING\n// predefined script defines print, println and printf as jshell methods</pre>"
     },
     {
      "type": "basic",
@@ -1697,7 +1712,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> /exit 3\n// argument is an integer expression snippet; process exits with status 3</pre>"
     },
     {
      "type": "basic",
@@ -1718,7 +1734,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>echo 'System.out.println(\"piped\");' | jshell -\n# a hyphen for load-files makes jshell read snippets from standard input</pre>"
     },
     {
      "type": "basic",
@@ -1728,7 +1745,8 @@
      "tags": [
       "type::syntax"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> 2 + 3\n// Shift+V converts the expression into a declaration of the inferred type (int)</pre>"
     },
     {
      "type": "basic",
@@ -1738,7 +1756,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> /s     // invalid: ambiguous between /set and /save\njshell> /se    // unique abbreviation for /set\njshell> /sa    // unique abbreviation for /save</pre>"
     },
     {
      "type": "basic",
@@ -1748,7 +1767,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>// 15 snippets entered (IDs 1 through 15)\njshell> /-4    // reruns the 11th snippet</pre>"
     },
     {
      "type": "basic",
@@ -1758,7 +1778,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell> 2 + 3\n// result goes into a scratch variable because no variable was assigned</pre>"
     },
     {
      "type": "basic",
@@ -1768,7 +1789,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>JSHELLEDITOR=vi jshell   # external editor: checked first\nVISUAL=code jshell       # then VISUAL\nEDITOR=nano jshell       # then EDITOR</pre>"
     },
     {
      "type": "basic",
@@ -1778,7 +1800,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell --no-startup\n# disables startup scripts; cannot be combined with --startup</pre>"
     },
     {
      "type": "basic",
@@ -1788,7 +1811,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell --startup DEFAULT   # startup scripts preload imports/code when jshell starts\njshell> /reset             # they rerun on /reset, /reload and /env</pre>"
     },
     {
      "type": "basic",
@@ -1798,7 +1822,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/jshell-tool/",
+     "example": "<pre>jshell --add-modules java.sql\n// adds java.sql as a root module while resolving the module graph</pre>"
     }
    ]
   },
@@ -1820,7 +1845,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>class First { public static void main(String[] args) { System.out.println(\"first class runs\"); } }\nclass Second { public static void main(String[] args) { System.out.println(\"not the entry point\"); } }\n// java SourceFile.java: the first class defined in the file must contain main</pre>"
     },
     {
      "type": "basic",
@@ -1863,7 +1889,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>#!/path/to/your/bin/java --source 27\n// first line of a shebang file: java launcher with --source version; no .java extension</pre>"
     },
     {
      "type": "basic",
@@ -1873,7 +1900,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>String[] args = new String[0];   // shebang script launched with no command-line arguments\nSystem.out.println(\"Hello \" + args[0]);   // ArrayIndexOutOfBoundsException</pre>"
     },
     {
      "type": "basic",
@@ -1883,7 +1911,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>javac HelloWorld.java &amp;&amp; java HelloWorld   // explicit compile, then run\njava HelloWorld.java                       // source launching: skip explicit compilation</pre>"
     },
     {
      "type": "basic",
@@ -1893,7 +1922,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/"
+     "source": "https://dev.java/learn/first-steps/first-java-code/launch-simple-source-code-programs/",
+     "example": "<pre>class HelloJava { public static void main(String[] args) { System.out.println(\"Hello \" + args[0]); } }\n// java HelloJava.java World!   ->  args[0] is \"World!\" from the command line</pre>"
     }
    ]
   },
@@ -1915,7 +1945,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>// An Eclipse workspace is the directory holding most of your projects\njava.nio.file.Path workspace = java.nio.file.Path.of(\"C:/dev/workspace\");\njava.nio.file.Path project = workspace.resolve(\"my-project\");   // a project under it</pre>"
     },
     {
      "type": "basic",
@@ -1925,7 +1956,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>// Eclipse Content Assist is triggered with Ctrl+Space\nString msg = \"hello\";\nmsg.toUpperCase();   // a completion proposal from Content Assist</pre>"
     },
     {
      "type": "basic",
@@ -1935,7 +1967,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>class Demo {\n    void demo() { System.out.println(); }   // Content Assist expands sysout to System.out.println();\n}</pre>"
     },
     {
      "type": "basic",
@@ -1945,7 +1978,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>// Eclipse: Window > Show View > Problems\n// the Problems view collects every compile error and warning in the workspace</pre>"
     },
     {
      "type": "basic",
@@ -1955,7 +1989,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>// Eclipse Quick Fix offers several proposals; choose the one matching intent\nint n = Integer.parseInt(\"42\");   // String -&gt; int: parse is the matching fix\n// Integer.valueOf(\"42\") is another proposal, not the same intent here</pre>"
     },
     {
      "type": "basic",
@@ -1965,7 +2000,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>class Person { String firstName = \"Ada\"; String greet() { return \"Hello \" + firstName; } }\n// Refactor > Rename firstName to givenName rewrites the field and its reference, unlike text replace</pre>"
     },
     {
      "type": "basic",
@@ -1975,7 +2011,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>class Person { // Source > Generate Getters and Setters for selected fields\n    private String firstName; private int age;\n    public String getFirstName() { return firstName; }\n    public void setFirstName(String firstName) { this.firstName = firstName; }\n    public int getAge() { return age; } public void setAge(int age) { this.age = age; }\n}</pre>"
     },
     {
      "type": "basic",
@@ -1985,7 +2022,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>// Eclipse Run mode: all breakpoints are ignored\nint x = 1;   // a breakpoint on this line does not suspend in Run mode\nSystem.out.println(x);</pre>"
     },
     {
      "type": "basic",
@@ -1995,7 +2033,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/"
+     "source": "https://dev.java/learn/first-steps/using-ides/eclipse/",
+     "example": "<pre>int a = 1;   // green background in Debug perspective: next statement to execute\nint b = 2;   // not executed yet\nSystem.out.println(a + b);</pre>"
     }
    ]
   },
@@ -2017,7 +2056,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>class StepInto {                      // IntelliJ F7 steps into the callee\n    void outer() { inner(); }         // F7 at this call enters inner()\n    void inner() { System.out.println(\"inside\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2027,7 +2067,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>// Java 25 compact source file: no class declaration, just code\n// System.out.println(\"Hello\");   // the whole file is this statement\n// java Main.java prints Hello</pre>"
     },
     {
      "type": "basic",
@@ -2037,7 +2078,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>String programArgs = \"input.txt\";   // Program arguments\nString vmOptions = \"-Xmx512m\";        // VM options\nString envVar = \"LANG=C\";             // Environment variables\nString workingDir = \"C:/work\";        // Working directory</pre>"
     },
     {
      "type": "basic",
@@ -2047,7 +2089,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>int sum = 0;\nint[] numbers = {};   // empty int array, watched in the debugger\nSystem.out.println(sum / numbers.length);   // ArithmeticException: / by zero</pre>"
     },
     {
      "type": "basic",
@@ -2057,7 +2100,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>int[] numbers = {};   // empty array: the average test sums no elements\nfloat sum = 0f;\nfloat average = sum / numbers.length;   // 0.0f / 0 gives NaN\nSystem.out.println(average);</pre>"
     },
     {
      "type": "basic",
@@ -2067,7 +2111,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>// press Shift twice  ->  Search Everywhere\n// searches files, settings and actions; Tab selects Classes, Files, Symbols, Actions or Text</pre>"
     },
     {
      "type": "basic",
@@ -2077,7 +2122,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>// IntelliJ Windows/Linux: Ctrl+F10 runs the current file (macOS: ⌃R)\nclass CurrentFile {\n    public static void main(String[] args) { System.out.println(\"current file ran\"); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2087,7 +2133,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>String testSourceRoot = \"src/test/java\";   // IntelliJ puts generated tests here\njava.nio.file.Path generated = java.nio.file.Path.of(testSourceRoot, \"MyTest.java\");\nSystem.out.println(generated);   // src/test/java/MyTest.java</pre>"
     },
     {
      "type": "basic",
@@ -2097,7 +2144,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>int sum = 0; int[] numbers = new int[0];\ndouble pausedFrameValue = numbers.length == 0 ? 0 : (double) sum / numbers.length; // Evaluate Expression in the paused frame</pre>"
     },
     {
      "type": "basic",
@@ -2107,7 +2155,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/"
+     "source": "https://dev.java/learn/first-steps/using-ides/intellij-idea/",
+     "example": "<pre>int oldName = 1;   // IntelliJ Shift+F6 (macOS ⇧F6) renames variables, methods, classes\nint renamed = oldName;\nSystem.out.println(renamed);</pre>"
     }
    ]
   },
@@ -2129,7 +2178,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>code --install-extension Oracle.oracle-java\n// the Oracle Java Platform Extension enables Java development in VS Code</pre>"
     },
     {
      "type": "basic",
@@ -2139,7 +2189,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>{\n  \"configurations\": [{ \"type\": \"java\", \"name\": \"Launch Main\", \"mainClass\": \"Concatenate\" }]\n}\n// launch.json: customise launch and debugger configurations here</pre>"
     },
     {
      "type": "basic",
@@ -2149,7 +2200,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>java.nio.file.Path src = java.nio.file.Path.of(\"src/main/java/com/example/app\");\nSystem.out.println(src);   // Project Explorer shows packages as this tree\nString[] packages = {\"com.example.app\", \"com.example.app.model\"};</pre>"
     },
     {
      "type": "basic",
@@ -2159,7 +2211,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>int minJdk = 11;   // Oracle Java Platform Extension requires JDK 11 at minimum\nSystem.out.println(minJdk &gt;= 11 ? \"supported\" : \"too old\");</pre>"
     },
     {
      "type": "basic",
@@ -2169,7 +2222,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>{\n  \"jdk.jdkhome\": \"/path/to/another/jdk\"\n}\n// VS Code user settings JSON: point the extension at another JDK</pre>"
     },
     {
      "type": "basic",
@@ -2179,7 +2233,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>String byProcess = \"running JVM from the process picker\";   // VS Code attach option\nString byPort = \"JDWP port\";                                 // other attach option\nSystem.out.println(byProcess + \" or \" + byPort);</pre>"
     },
     {
      "type": "basic",
@@ -2189,7 +2244,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>class Doc {\n    /** pre-populated JavaDoc comment from the VS Code source action */\n    static int area(int width, int height) { return width * height; }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2199,7 +2255,8 @@
      "tags": [
       "type::gotcha"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>import org.junit.jupiter.api.Disabled;\nimport org.junit.jupiter.api.Test;\n@Disabled\nclass ConcatenateTest { @Test void emptyTest() { } }</pre>"
     },
     {
      "type": "basic",
@@ -2209,7 +2266,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>// Maven: pom.xml is the single build configuration file\n// &lt;project&gt;&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt; ... &lt;/project&gt;\n// dependencies, plugins and properties all live in that one file</pre>"
     },
     {
      "type": "basic",
@@ -2219,7 +2277,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/"
+     "source": "https://dev.java/learn/first-steps/using-ides/vscode-java/",
+     "example": "<pre>java.util.List&lt;String&gt; names = java.util.List.of(\"Ada\", \"Grace\");\nString first = names.get(0);   // VS Code quick fix on Java 21+\nString modern = names.getFirst();   // SequencedCollection.getFirst()\nSystem.out.println(first.equals(modern));   // true</pre>"
     }
    ]
   },
@@ -2241,7 +2300,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>int value = 7;   // a breakpoint is a marker that pauses the program at this line\nSystem.out.println(value);</pre>"
     },
     {
      "type": "basic",
@@ -2251,7 +2311,8 @@
      "tags": [
       "type::rule"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>// Normal (non-debug) run: breakpoints are ignored\nint x = 3;   // this line's breakpoint has no effect\nSystem.out.println(x);</pre>"
     },
     {
      "type": "basic",
@@ -2261,7 +2322,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>class StepInto2 {\n    static int twice(int n) { return n + n; }\n    static void run() { int r = twice(3); System.out.println(r); }   // Step Into enters twice()\n}</pre>"
     },
     {
      "type": "basic",
@@ -2271,7 +2333,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>class StepOver {\n    static int twice(int n) { return 2 * n; }\n    static void run() { int d = twice(4); System.out.println(d); }   // Step Over stays in run()\n}</pre>"
     },
     {
      "type": "basic",
@@ -2281,7 +2344,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>class StepOut {\n    static int inner() { return 5; }   // Step Out runs to the end of this method\n    static void outer() { int x = inner(); System.out.println(x); }\n}</pre>"
     },
     {
      "type": "basic",
@@ -2291,7 +2355,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>for (int i = 0; i &lt; 3; i++) {   // Resume continues to the next breakpoint\n    System.out.println(i);     // or to program exit if none is reached\n}</pre>"
     },
     {
      "type": "basic",
@@ -2301,7 +2366,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>for (int i = 0; i &lt; 5; i++) {   // breakpoint condition: i == 3\n    System.out.println(i);      // suspends only when the condition is true\n}</pre>"
     },
     {
      "type": "basic",
@@ -2311,7 +2377,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>int total = 4;   // at a breakpoint, Evaluate runs Java against live state\nSystem.out.println(total * 2 + 1);   // arbitrary expression over total</pre>"
     },
     {
      "type": "basic",
@@ -2321,7 +2388,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>int threshold = 10;   // in the debugger, change this value while suspended\nboolean passes = 4 &gt;= threshold;\nSystem.out.println(passes);   // test the effect without editing the code</pre>"
     },
     {
      "type": "basic",
@@ -2331,7 +2399,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>class StackDemo {\n    static void leaf() { throw new RuntimeException(\"stack\"); }   // entry: leaf()\n    static void middle() { leaf(); }                              // entry: middle()\n    static void root() { middle(); }                              // entry: root()\n}</pre>"
     },
     {
      "type": "basic",
@@ -2341,7 +2410,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>// println debugging scatters output statements through a big program\nSystem.out.println(\"x=1\");   // output noise, plus edits to add and remove it\nSystem.out.println(\"x=2\");   // a debugger inspects state without those edits</pre>"
     },
     {
      "type": "basic",
@@ -2351,7 +2421,8 @@
      "tags": [
       "type::compare"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>int actual = 3;\nif (actual != 4) throw new AssertionError(\"expected 4, got \" + actual); // test detects wrong value\n// the debugger explains why actual became 3</pre>"
     },
     {
      "type": "basic",
@@ -2361,7 +2432,8 @@
      "tags": [
       "type::definition"
      ],
-     "source": "https://dev.java/learn/validate/debugging/"
+     "source": "https://dev.java/learn/validate/debugging/",
+     "example": "<pre>// \"debugging\" comes from a moth found inside a computer in the 1940s\nString origin = \"a moth in the computer\";\nSystem.out.println(origin);   // hence debugging a program</pre>"
     }
    ]
   }

@@ -15,7 +15,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP",
+   "example": "<pre>// Problem space: where the problem lives (the business)\n// Solution space: where you implement it (the machine)\nclass Order { }   // this class is in the solution space</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +38,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP",
+   "example": "<pre>class Speaker { public void speak() { } }   // the messages callers can send\nclass Ex { Speaker s = new Speaker(); { s.speak(); } }</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +50,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP"
+   "merge_into": "00 Java Roadmap::02 Object Model::06 Basics of OOP",
+   "example": "<pre>class Point { int x; void move(int dx) { x += dx; } }   // state and behaviour\nclass Ex { Point p = new Point(), q = new Point(); { System.out.println(p == q); } }   // identity: false</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +62,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation"
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation",
+   "example": "<pre>class Door { public void open() { } private void unlock() { } }\nclass Ex { { new Door().open(); } }   // open() is a request clients may make</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +74,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation"
+   "merge_into": "00 Java Roadmap::02 Object Model::17 Encapsulation",
+   "example": "<pre>class Door { private boolean open; public void open() { open = true; } }\nclass Ex { { new Door().open(); } }   // hidden field; clients use the public method</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +86,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance"
+   "merge_into": "00 Java Roadmap::02 Object Model::12 Inheritance",
+   "example": "<pre>class Shape { }\nclass Circle extends Shape { }   // is-a\nclass Ex { Shape s = new Circle(); { System.out.println(s instanceof Shape); } }   // subtype of the base</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +109,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding"
+   "merge_into": "00 Java Roadmap::02 Object Model::15 Static vs Dynamic Binding",
+   "example": "<pre>class Shape { void draw() { } }\nclass Circle extends Shape { void draw() { System.out.println(\"circle\"); } }\nclass Triangle extends Shape { void draw() { System.out.println(\"triangle\"); } }\nclass Renderer { void draw(Shape s) { s.draw(); } }\nclass Ex { { Renderer r = new Renderer(); r.draw(new Circle()); r.draw(new Triangle()); } }</pre>"
   },
   {
    "type": "basic",
@@ -125,7 +132,8 @@
    "tags": [
     "type::compare"
    ],
-   "merge_into": "00 Java Roadmap::04 Collections::00 Overview"
+   "merge_into": "00 Java Roadmap::04 Collections::00 Overview",
+   "example": "<pre>java.util.List&lt;String&gt; names = new java.util.ArrayList&lt;&gt;();   // a container of Strings\nfor (int i = 0; i &lt; 100; i++) names.add(\"item\" + i);\nSystem.out.println(names.size());   // 100: it expanded as needed</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +144,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Thing { }\nclass Ex { { Thing t = new Thing(); t = null; } }   // heap object; no reference reaches it</pre>"
   },
   {
    "type": "basic",
@@ -158,7 +167,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency"
+   "merge_into": "00 Java Roadmap::06 Concurrency::01 Concurrency",
+   "example": "<pre>java.util.List&lt;String&gt; shared = java.util.Collections.synchronizedList(new java.util.ArrayList&lt;String&gt;());\nThread a = new Thread(() -&gt; shared.add(\"A\"));\nThread b = new Thread(() -&gt; shared.add(\"B\"));\na.start(); b.start();   // two threads act on the shared resource at once</pre>"
   }
  ]
 }

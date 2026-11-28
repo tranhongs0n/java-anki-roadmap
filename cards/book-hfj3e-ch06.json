@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 6, p. 168",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>int[] a = new int[3]; // length fixed at 3\njava.util.ArrayList&lt;Integer&gt; list = new java.util.ArrayList&lt;&gt;();\nlist.add(1); list.add(2); list.add(3); list.add(4); // resizes\nSystem.out.println(a.length + \" \" + list.size()); // 3 4</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "Head First Java 3E — ch 6, p. 170",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>java.util.ArrayList&lt;String&gt; list = new java.util.ArrayList&lt;&gt;();\nlist.add(\"Ann\");\nlist.remove(\"Ann\");\nSystem.out.println(list.size()); // 0</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "Head First Java 3E — ch 6, p. 171",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>java.util.ArrayList&lt;Integer&gt; nums = new java.util.ArrayList&lt;&gt;();\nnums.add(3); // int -&gt; Integer\nint n = nums.get(0); // Integer -&gt; int\nSystem.out.println(n); // 3</pre>"
   },
   {
    "type": "basic",
@@ -44,7 +47,8 @@
    "source": "Head First Java 3E — ch 6, p. 200",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>java.util.ArrayList&lt;String&gt; list = new java.util.ArrayList&lt;&gt;();\nlist.add(\"Ann\");\nint i = list.indexOf(\"Bob\"); // absent\nSystem.out.println(i); // -1</pre>"
   },
   {
    "type": "basic",
@@ -54,7 +58,8 @@
    "source": "Head First Java 3E — ch 6, p. 171",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>int[] a = new int[] {1, 2, 3};\njava.util.ArrayList&lt;Integer&gt; list = new java.util.ArrayList&lt;&gt;();\nlist.add(1); list.add(2); list.add(3); // wrappers + method calls\nSystem.out.println(a[0] + \" \" + list.get(0)); // 1 1</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +69,8 @@
    "source": "Head First Java 3E — ch 6, p. 200",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>java.util.ArrayList&lt;String&gt; list = new java.util.ArrayList&lt;&gt;();\nSystem.out.println(list.indexOf(\"missing\")); // -1, not an exception\nSystem.out.println(list.size()); // 0 on empty</pre>"
   },
   {
    "type": "basic",
@@ -74,7 +80,8 @@
    "source": "Head First Java 3E — ch 6, p. 197",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>// module-info.java: java.base is implicit\nmodule demo { requires java.base; }\n// String (java.lang) and ArrayList (java.util) come from java.base</pre>"
   },
   {
    "type": "basic",
@@ -84,7 +91,8 @@
    "source": "Head First Java 3E — ch 6, p. 185",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>String ref = null;\nif (ref != null &amp;&amp; ref.length() &gt; 0) { } // right side skipped\n// if (ref != null &amp; ref.length() &gt; 0) { } // NPE: right side runs\nSystem.out.println(\"safe\");</pre>"
   },
   {
    "type": "basic",
@@ -94,7 +102,8 @@
    "source": "Head First Java 3E — ch 6, p. 176",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>final class Game {\n    boolean isHit(int guess) { return guess == 2; }\n    void play(int guess) { System.out.println(isHit(guess) ? \"hit\" : \"miss\"); }\n}\nnew Game().play(2); // one job per method, easy to check</pre>"
   },
   {
    "type": "basic",
@@ -104,7 +113,8 @@
    "source": "Head First Java 3E — ch 6, p. 167",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>int[] a = new int[2];\nint size = 0;\na[size++] = 1; a[size++] = 2; // track the next free slot\nint[] bigger = java.util.Arrays.copyOf(a, 4); bigger[size++] = 3; // copy by hand</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +124,8 @@
    "source": "Head First Java 3E — ch 6, p. 175",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>java.util.ArrayList&lt;String&gt; list = new java.util.ArrayList&lt;&gt;();\nlist.add(\"Ann\"); list.add(\"Bob\");\nlist.add(1, \"Zed\"); // insert in the middle\nlist.remove(1); System.out.println(list); // [Ann, Bob], size auto</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +135,8 @@
    "source": "Head First Java 3E — ch 6, p. 179",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>int[] a = {1, 2};\njava.util.ArrayList&lt;Integer&gt; list = new java.util.ArrayList&lt;&gt;(java.util.Arrays.asList(1, 2));\nfor (int i = 0; i &lt; list.size(); i++) System.out.println(list.get(i)); // was a[i], a.length\nfor (int n : list) System.out.println(n); // unboxed element</pre>"
   },
   {
    "type": "basic",
@@ -134,7 +146,8 @@
    "source": "Head First Java 3E — ch 6, p. 189",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>String s = null;\nif (s == null || s.isEmpty()) { } // right side skipped, yields true\n// if (s == null | s.isEmpty()) { } // NPE: right side runs\nSystem.out.println(\"safe\");</pre>"
   },
   {
    "type": "basic",
@@ -144,7 +157,8 @@
    "source": "Head First Java 3E — ch 6, p. 192",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>/** API doc: returns the index, or -1 if the element is absent. */\njava.util.ArrayList&lt;String&gt; list = new java.util.ArrayList&lt;&gt;();\nSystem.out.println(list.indexOf(\"missing\")); // -1, as the docs say</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::04 Collections::02 Array vs ArrayList"

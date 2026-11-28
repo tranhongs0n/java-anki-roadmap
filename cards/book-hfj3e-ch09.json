@@ -15,7 +15,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class HeapDemo { int x; }\nclass Ex { HeapDemo h = new HeapDemo();   // object on the heap\n  { int local = 7;   // local on the stack\n    System.out.println(h.x + local); } }</pre>"
   },
   {
    "type": "basic",
@@ -26,7 +27,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Box { int value = 1; }\nclass Ex { { Box b = new Box(); System.out.println(b.value); } }   // the instance variable lives with its object</pre>"
   },
   {
    "type": "basic",
@@ -37,7 +39,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"
+   "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes",
+   "example": "<pre>class Demo {\n  static void f() { int local = 7; System.out.println(local); }   // visible only inside f, only while f is on the stack\n}\n// System.out.println(local);   // compile error outside the method</pre>"
   },
   {
    "type": "basic",
@@ -48,7 +51,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Named {\n  Named() { }   // same name as the class, no return type: a constructor\n  void Named() { }   // with a return type it is just a method\n}</pre>"
   },
   {
    "type": "basic",
@@ -59,7 +63,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class NoCtor { }\nclass HasCtor { HasCtor(int x) { } }\nclass Ex { { NoCtor a = new NoCtor(); } }   // compiler-supplied no-arg constructor\n// new HasCtor();   // compile error: none supplied once a constructor exists</pre>"
   },
   {
    "type": "basic",
@@ -70,7 +75,8 @@
    "tags": [
     "type::gotcha"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Duck { Duck(int size) { } }\nclass Ex { { Duck d = new Duck(1); } }\n// new Duck();   // compile error: add a no-arg constructor yourself</pre>"
   },
   {
    "type": "basic",
@@ -81,7 +87,8 @@
    "tags": [
     "type::syntax"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Parent { Parent() { } Parent(int x) { } }\nclass Child extends Parent {\n  Child() { super(); }\n  Child(int x) { super(x); }\n}</pre>"
   },
   {
    "type": "basic",
@@ -92,7 +99,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Base { Base() { System.out.println(\"base\"); } }\nclass Child extends Base { Child() { super(); System.out.println(\"child\"); } }   // super() first\nclass Ex { { new Child(); } }   // base part before subclass part</pre>"
   },
   {
    "type": "basic",
@@ -103,7 +111,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Thing { }\nclass Ex { { Thing t = new Thing(); t = null; } }   // abandon it: the GC reclaims it</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +123,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class A { int a = 1; }\nclass B extends A { int b = 2; }\nclass Ex { B obj = new B(); { System.out.println(obj.a + \" \" + obj.b); } }   // A's field and B's field</pre>"
   },
   {
    "type": "basic",
@@ -125,7 +135,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Duck { int size; Duck() { this(1); } Duck(int size) { this.size = size; } }\nclass Ex { { System.out.println(new Duck().size + \" \" + new Duck(2).size); } }   // overloaded constructors</pre>"
   },
   {
    "type": "basic",
@@ -136,7 +147,8 @@
    "tags": [
     "type::definition"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Base { int baseField; }\nclass Sub extends Base { int subField; Sub() { System.out.println(\"ctor\"); } }\nclass Ex { { Sub s = new Sub(); } }   // heap space for both fields, then the constructor</pre>"
   },
   {
    "type": "basic",
@@ -147,7 +159,8 @@
    "tags": [
     "type::mental-model"
    ],
-   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle"
+   "merge_into": "00 Java Roadmap::02 Object Model::07 Object Lifecycle",
+   "example": "<pre>class Maker { static void make() { Object o = new Object(); } }   // reference dies with the stack frame\nclass Ex { { Maker.make(); } }   // object now eligible for GC</pre>"
   }
  ]
 }

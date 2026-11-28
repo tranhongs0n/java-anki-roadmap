@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 4, p. 110",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>\nclass Dog {\n  int size;\n  void grow() { size = size + 1; }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "Head First Java 3E — ch 4, p. 113",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static void change(int x) { x = 40; }\n  static void m() { int x = 7; change(x); System.out.println(x); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "Head First Java 3E — ch 4, p. 113",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { int size; }\n  static void grow(Dog d) { d.size = 40; }\n  static void m() { Dog d = new Dog(); grow(d); System.out.println(d.size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -44,7 +47,8 @@
    "source": "Head First Java 3E — ch 4, p. 114",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static void bark() { System.out.println(\"woof\"); }\n  public static void main(String[] args) { bark(); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -54,7 +58,8 @@
    "source": "Head First Java 3E — ch 4, p. 114",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static int doubleIt(int x) { return x * 2; }\n  public static void main(String[] args) { System.out.println(doubleIt(4)); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +69,8 @@
    "source": "Head First Java 3E — ch 4, p. 118",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  private int size;\n  public int getSize() { return size; }\n  public void setSize(int s) { size = s; }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -74,7 +80,8 @@
    "source": "Head First Java 3E — ch 4, p. 118",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { private int size; void setSize(int s) { if (s > 0) size = s; } }\n  static void m() { Dog d = new Dog(); d.setSize(40); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -84,7 +91,8 @@
    "source": "Head First Java 3E — ch 4, p. 121",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Defaults { int i; double d; boolean b; char c; String s; }\n  static void m() { Defaults x = new Defaults(); System.out.println(x.i + \" \" + x.d + \" \" + x.b + \" \" + (int) x.c + \" \" + x.s); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -94,7 +102,8 @@
    "source": "Head First Java 3E — ch 4, p. 123",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nint x;\nx = 5; // reading x before this line would not compile\nSystem.out.println(x);\n</pre>"
   },
   {
    "type": "basic",
@@ -104,7 +113,8 @@
    "source": "Head First Java 3E — ch 4, p. 124",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { }\n  static void m() { int a = 7, b = 7; Dog x = new Dog(), y = x; System.out.println((a == b) + \" \" + (x == y)); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +124,8 @@
    "source": "Head First Java 3E — ch 4, p. 124",
    "tags": [
     "type::compare"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { int size; }\n  static void m() { Dog a = new Dog(); Dog b = new Dog(); a.size = 40; b.size = 40; System.out.println(a == b); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +135,8 @@
    "source": "Head First Java 3E — ch 4, p. 130",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { int size; void setSize(int s) { size = s; } }\n  static void m() { Dog[] pets = new Dog[1]; pets[0] = new Dog(); pets[0].setSize(30); System.out.println(pets[0].size); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -134,7 +146,8 @@
    "source": "Head First Java 3E — ch 4, p. 112",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static void setSize(int size) { System.out.println(size); }\n  public static void main(String[] args) { setSize(40); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -144,7 +157,8 @@
    "source": "Head First Java 3E — ch 4, p. 112",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static void setSize(int size) { System.out.println(size); }\n  public static void main(String[] args) { setSize(40); /* setSize(\"40\") would not compile */ }\n}\n</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::02 Object Model::02 Attributes and Methods"

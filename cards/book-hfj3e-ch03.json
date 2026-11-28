@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 3, p. 88",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>\nint count = 3;\nString label = \"dog\";\nSystem.out.println(label + \" \" + count);\n</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "Head First Java 3E — ch 3, p. 90",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nint x = 24;\nbyte b = (byte) x; // byte b = x; fails: types are checked, not values\nSystem.out.println(b);\n</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "Head First Java 3E — ch 3, p. 93",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Box { int value; }\n  static void m() { int x = 7; Box b = new Box(); b.value = x; System.out.println(x + \" \" + b.value); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -44,7 +47,8 @@
    "source": "Head First Java 3E — ch 3, p. 92",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { }\n  static void m() { Dog d = new Dog(); // d is a reference variable, not an object variable\n    System.out.println(d != null); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -54,7 +58,8 @@
    "source": "Head First Java 3E — ch 3, p. 95",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Book { }\n  static void m() { Book c = new Book(); Book d = c; System.out.println(c == d); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +69,8 @@
    "source": "Head First Java 3E — ch 3, p. 96",
    "tags": [
     "type::trace"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Book { }\n  static void m() { Book b = new Book(); Book c = new Book(); b = c; // 2 refs, 1 reachable, 1 abandoned\n    System.out.println(b == c); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -74,7 +80,8 @@
    "source": "Head First Java 3E — ch 3, p. 97",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nint[] nums = new int[3]; // nums refers to an array object on the heap\nnums[0] = 7;\nSystem.out.println(nums[0]);\n</pre>"
   },
   {
    "type": "basic",
@@ -84,7 +91,8 @@
    "source": "Head First Java 3E — ch 3, p. 98",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { }\n  static void m() { Dog[] dogs = new Dog[7]; // seven null references, no Dog objects\n    System.out.println(dogs[0] + \" \" + dogs.length); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -94,7 +102,8 @@
    "source": "Head First Java 3E — ch 3, p. 99",
    "tags": [
     "type::syntax"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { void bark() { } }\n  static void m() { Dog[] myDogs = new Dog[1]; myDogs[0] = new Dog(); myDogs[0].bark(); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -104,7 +113,8 @@
    "source": "Head First Java 3E — ch 3, p. 98",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass Demo {\n  static class Dog { }\n  static void m() { Dog[] dogs = new Dog[2]; dogs[0] = new Dog(); System.out.println(dogs[0] != null); }\n}\n</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::01 Foundations::07 Variables and Scopes"

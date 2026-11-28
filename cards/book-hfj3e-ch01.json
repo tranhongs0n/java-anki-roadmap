@@ -14,7 +14,8 @@
    "source": "Head First Java 3E — ch 1, p. 46",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>class App {\n    public static void main(String[] args) { System.out.println(\"one entry point\"); }\n}\n// other classes can declare main too, but an application runs one main()</pre>"
   },
   {
    "type": "basic",
@@ -24,7 +25,8 @@
    "source": "Head First Java 3E — ch 1, p. 46",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>class LaunchTarget {\n    public static void main(String[] args) { System.out.println(\"entry point found\"); }\n}\n// JVM loads the class, then looks for public static void main(String[] args)</pre>"
   },
   {
    "type": "basic",
@@ -34,7 +36,8 @@
    "source": "Head First Java 3E — ch 1, p. 45",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>class Legal {                 // a statement belongs inside a method body\n    void run() { int x = 1; System.out.println(x); }   // valid here\n}\n// int y = 2; directly in the class body would not compile</pre>"
   },
   {
    "type": "basic",
@@ -44,7 +47,8 @@
    "source": "Head First Java 3E — ch 1, p. 45",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>\nclass OneClass {\n  int size;\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -54,7 +58,8 @@
    "source": "Head First Java 3E — ch 1, p. 51",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>\nint x = 1;\nboolean test = x > 0;\nif (test) { System.out.println(\"ok\"); }\n</pre>"
   },
   {
    "type": "basic",
@@ -64,7 +69,8 @@
    "source": "Head First Java 3E — ch 1, p. 52",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>\nint x = 5;\nboolean same = (x == 5);\nx = 6;\nSystem.out.println(same + \" \" + x);\n</pre>"
   },
   {
    "type": "basic",
@@ -74,7 +80,8 @@
    "source": "Head First Java 3E — ch 1, p. 52",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>if (true) {   // opening brace starts the block\n    int n = 1;   // statement inside the block\n}   // closing brace ends it</pre>"
   },
   {
    "type": "basic",
@@ -84,7 +91,8 @@
    "source": "Head First Java 3E — ch 1, p. 52",
    "tags": [
     "type::rule"
-   ]
+   ],
+   "example": "<pre>\nint x = 0;\nwhile (x > 0) { System.out.println(\"never\"); }\nSystem.out.println(\"after loop\");\n</pre>"
   },
   {
    "type": "basic",
@@ -94,7 +102,8 @@
    "source": "Head First Java 3E — ch 1, p. 40",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>// javac writes no .class file while errors remain in the source\n// `int x = ;` is an error — fix it before compiling\nint x = 1;   // clean source compiles</pre>"
   },
   {
    "type": "basic",
@@ -104,7 +113,8 @@
    "source": "Head First Java 3E — ch 1, p. 40",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>\n// Bytecode is platform-independent; only the JVM is machine-specific.\nclass Portable {\n  static void run() { System.out.println(\"same bytecode\"); }\n}\n</pre>"
   },
   {
    "type": "basic",
@@ -114,7 +124,8 @@
    "source": "Head First Java 3E — ch 1, p. 42",
    "tags": [
     "type::mental-model"
-   ]
+   ],
+   "example": "<pre>class OldCode {                  // Java written in 1996 still runs on a current JVM\n    void run() { System.out.println(\"still runs\"); }\n}\n// Backward compatibility is a deliberate promise of the platform</pre>"
   },
   {
    "type": "basic",
@@ -124,7 +135,8 @@
    "source": "Head First Java 3E — ch 1, p. 57",
    "tags": [
     "type::definition"
-   ]
+   ],
+   "example": "<pre>String[] pets = {\"Fido\", \"Zeus\", \"Bin\"};\nSystem.out.println(pets[1]);   // Zeus — arrays are zero-based\nSystem.out.println(pets[0]);   // Fido</pre>"
   },
   {
    "type": "basic",
@@ -134,7 +146,8 @@
    "source": "Head First Java 3E — ch 1, p. 57",
    "tags": [
     "type::gotcha"
-   ]
+   ],
+   "example": "<pre>String[] pets = {\"Fido\", \"Zeus\", \"Bin\"};\nSystem.out.println(pets.length);   // 3 — a field, not a method like length()</pre>"
   }
  ],
  "merge_into": "00 Java Roadmap::01 Foundations::02 Basic Syntax"
