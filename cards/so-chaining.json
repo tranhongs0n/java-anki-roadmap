@@ -53,7 +53,7 @@
    "type": "basic",
    "front": "Why does chaining break down with inheritance?",
    "back": "A method declared to return <code>Base</code> returns a <code>Base</code> reference, so subclass-only methods are no longer callable in the chain",
-   "extra": "Fixes: covariant return types per class, or the self-type idiom <code>class Builder&lt;B extends Builder&lt;B&gt;&gt;</code> with <code>(B) this</code>.",
+   "extra": "Fixes: covariant return types per class, or the self-type idiom <code>class Builder&lt;B extends Builder&gt;</code> with <code>(B) this</code>.",
    "source": "stackoverflow.com — How to achieve method chaining in Java?",
    "tags": [
     "type::chaining"

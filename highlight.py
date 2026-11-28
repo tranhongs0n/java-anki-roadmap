@@ -97,8 +97,11 @@ def highlight_fields(text):
         open_tag, tag, attrs, body, close_tag = m.group(1), m.group(2), m.group(3) or "", m.group(4), m.group(5)
         if "nohl" in attrs:
             return m.group(0)
-        # strip tags that may already exist inside, keep cloze markers
+        # strip tags that may already exist inside, keep cloze markers.
+        # Emphasis tags must go too: a code block is plain text, and leaving <b>/<i>
+        # in makes the highlighter escape them, so the learner sees literal "<b>".
         body = re.sub(r"</?span[^>]*>", "", body)
+        body = re.sub(r"</?(b|i|strong|em|u|s|small|big|mark|font)\b[^>]*>", "", body, flags=re.I)
         body = body.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
         body = body.replace("&quot;", '"').replace("&#39;", "'")
         return f"{open_tag}{highlight_java(body)}{close_tag}"

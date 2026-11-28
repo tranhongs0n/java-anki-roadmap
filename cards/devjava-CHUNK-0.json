@@ -165,7 +165,7 @@
     {
      "type": "basic",
      "front": "Applying <code>~</code> to a byte whose bits are <code>00000000</code> produces which bit pattern?",
-     "back": "<code><b>11111111</b></code>",
+     "back": "<code>11111111</code>",
      "extra": "The unary bitwise complement inverts every bit: each 0 becomes 1 and each 1 becomes 0. Applied to an <code>int</code> the pattern is 32 bits wide.",
      "tags": [
       "type::definition"
@@ -451,7 +451,7 @@
     {
      "type": "basic",
      "front": "Which keyword produces the value of a <code>switch</code> expression from inside a case <b>block</b>?",
-     "back": "<code><b>yield</b></code>",
+     "back": "<code>yield</code>",
      "extra": "<code>return</code> would be ambiguous between leaving the method and leaving the switch. <code>yield</code> is followed by a non-void expression that becomes the switch's value.",
      "tags": [
       "type::syntax"
@@ -591,7 +591,7 @@
     {
      "type": "basic",
      "front": "Which case labels handle selector values that no <code>case</code> matches?",
-     "back": "The <code><b>default</b></code> label",
+     "back": "The <code>default</code> label",
      "extra": "There is at most one default, and it may appear anywhere in the block - commonly last for readability. Without it an unmatched value runs no case statements.",
      "tags": [
       "type::definition"
@@ -658,7 +658,7 @@
     {
      "type": "basic",
      "front": "What is the new switch case label syntax in a switch expression?",
-     "back": "<code>case <i>L</i> <b>-&gt;</b></code> (arrow, no colon)",
+     "back": "<code>case L -&gt;</code> (arrow, no colon)",
      "extra": "Only the code to the right of a matched arrow label runs, so nothing falls through. That code may be an expression, a block, or a <code>throw</code> statement.",
      "tags": [
       "type::syntax"
@@ -694,7 +694,7 @@
     {
      "type": "basic",
      "front": "Which statement yields the value of a switch expression from a <b>block</b> body?",
-     "back": "<code><b>yield</b></code>",
+     "back": "<code>yield</code>",
      "extra": "<code>return</code> was rejected because it is ambiguous between leaving the method and leaving the switch expression. <code>yield</code> is a branch statement, valid in any case block.",
      "tags": [
       "type::syntax"
@@ -910,7 +910,7 @@
     {
      "type": "basic",
      "front": "Which escape sequence inserts a <b>tab</b>?",
-     "back": "<code><b>\\t</b></code>",
+     "back": "<code>\\t</code>",
      "extra": "Other common escapes are <code>\\n</code> for newline, <code>\\r</code> for carriage return, <code>\\f</code> for form feed and <code>\\b</code> for backspace.",
      "tags": [
       "type::syntax"
@@ -919,7 +919,7 @@
     {
      "type": "basic",
      "front": "How do you put a double quote inside a string literal?",
-     "back": "Escape it as <code><b>\\\"</b></code>",
+     "back": "Escape it as <code>\\\"</code>",
      "extra": "Likewise a single quote inside a character literal is <code>\\'</code>, and a literal backslash is <code>\\\\</code>. An unescaped interior quote ends the literal.",
      "tags": [
       "type::syntax"
@@ -1822,7 +1822,7 @@
     {
      "type": "basic",
      "front": "Who invokes a constructor?",
-     "back": "The <code><b>new</b></code> operator",
+     "back": "The <code>new</code> operator",
      "extra": "You never call a constructor like a method on an existing object. <code>new Bicycle(30, 0, 8)</code> both allocates and initialises.",
      "tags": [
       "type::rule"
@@ -2074,7 +2074,7 @@
     {
      "type": "basic",
      "front": "Which class do all enums implicitly extend?",
-     "back": "<code>java.lang.<b>Enum</b></code>",
+     "back": "<code>java.lang.Enum</code>",
      "extra": "Because the superclass is fixed, an enum cannot extend another class. It also cannot be subclassed: enums are effectively final.",
      "tags": [
       "type::rule"
@@ -2203,7 +2203,7 @@
     {
      "type": "basic",
      "front": "Which access modifier allows access from the same package <b>and</b> from subclasses in other packages?",
-     "back": "<code><b>protected</b></code>",
+     "back": "<code>protected</code>",
      "extra": "It is broader than package-private, which allows subclasses nowhere outside the package. It is narrower than public.",
      "tags": [
       "type::definition"
@@ -2626,7 +2626,7 @@
     {
      "type": "basic",
      "front": "Which class sits at the top of every hierarchy?",
-     "back": "<code>java.lang.<b>Object</b></code>",
+     "back": "<code>java.lang.Object</code>",
      "extra": "Every class is a direct or indirect descendant. It supplies the contract: <code>equals</code>, <code>hashCode</code>, <code>toString</code>, <code>getClass</code> and more.",
      "tags": [
       "type::definition"
@@ -2644,7 +2644,7 @@
     {
      "type": "basic",
      "front": "If you override <code>equals()</code>, what else must you override?",
-     "back": "<code><b>hashCode()</b></code>",
+     "back": "<code>hashCode()</code>",
      "extra": "Objects equal by equals must have equal hash codes. Otherwise a HashSet or HashMap lookup can miss a key that is present.",
      "tags": [
       "type::rule"
@@ -2800,7 +2800,7 @@
     {
      "type": "basic",
      "front": "How do you call a specific interface's default implementation from a class?",
-     "back": "<code><i>InterfaceName</i>.super.method()</code>",
+     "back": "<code>InterfaceName.super.method()</code>",
      "extra": "The name before <code>super</code> must be a direct superinterface that defines or inherits that default. This also works to reach a class's default.",
      "tags": [
       "type::syntax"
@@ -2875,7 +2875,7 @@
     {
      "type": "basic",
      "front": "How do you call a superclass method you have overridden?",
-     "back": "<code><b>super</b>.methodName(args)</code>",
+     "back": "<code>super.methodName(args)</code>",
      "extra": "useful as \"call the parent's logic\" in combination with extra work. Without <code>super</code> the call would recurse into the override.",
      "tags": [
       "type::syntax"
@@ -2884,7 +2884,7 @@
     {
      "type": "basic",
      "front": "How is a superclass constructor called from a subclass constructor?",
-     "back": "<code><b>super</b>(args)</code> before any use of <code>this</code>",
+     "back": "<code>super(args)</code> before any use of <code>this</code>",
      "extra": "<code>super()</code> calls the no-arg constructor; <code>super(list)</code> the matching one. If neither is present, the compiler inserts <code>super()</code> implicitly.",
      "tags": [
       "type::syntax"
@@ -2977,7 +2977,7 @@
     {
      "type": "basic",
      "front": "If no superclass is given, what is a class's implicit parent?",
-     "back": "<code>java.lang.<b>Object</b></code>",
+     "back": "<code>java.lang.Object</code>",
      "extra": "So every class is an Object and inherits its methods. The inheritance chain always terminates at Object.",
      "tags": [
       "type::rule"
@@ -3088,7 +3088,7 @@
     {
      "type": "basic",
      "front": "What is the implicit access level of an interface method?",
-     "back": "<code><b>public</b></code>",
+     "back": "<code>public</code>",
      "extra": "You may omit the keyword, and you cannot narrow it. Fields are implicitly public static final.",
      "tags": [
       "type::rule"
@@ -3226,7 +3226,7 @@
     {
      "type": "basic",
      "front": "How can you add a method to an interface without breaking implementors?",
-     "back": "Declare it <code><b>default</b></code> with an implementation body",
+     "back": "Declare it <code>default</code> with an implementation body",
      "extra": "Existing implementors inherit the body unchanged and need no recompilation. Adding a new static method has the same compatibility property.",
      "tags": [
       "type::rule"
@@ -3244,7 +3244,7 @@
     {
      "type": "basic",
      "front": "How does a class express a default-method override to call the interface version?",
-     "back": "<code><i>InterfaceName</i>.super.method()</code>",
+     "back": "<code>InterfaceName.super.method()</code>",
      "extra": "Needed when two default methods clash and the class must pick one. Without the override, the compiler rejects the ambiguity.",
      "tags": [
       "type::syntax"
@@ -3514,7 +3514,7 @@
     {
      "type": "basic",
      "front": "Which class is the entry point for all reflection?",
-     "back": "<code>java.lang.<b>Class</b></code>",
+     "back": "<code>java.lang.Class</code>",
      "extra": "It models a runtime type and offers members, constructors and annotations. It is itself a subclass of Object.",
      "tags": [
       "type::definition"
@@ -3541,7 +3541,7 @@
     {
      "type": "basic",
      "front": "How do you load a class whose name is only known as a String at runtime?",
-     "back": "<code>Class.<b>forName</b>(name)</code>",
+     "back": "<code>Class.forName(name)</code>",
      "extra": "The name must be fully qualified. If the class does not exist, the call throws <code>ClassNotFoundException</code>.",
      "tags": [
       "type::definition"
@@ -3568,7 +3568,7 @@
     {
      "type": "basic",
      "front": "Which exception type covers everything that can go wrong with a reflective call?",
-     "back": "<code><b>ReflectiveOperationException</b></code> (since Java 7)",
+     "back": "<code>ReflectiveOperationException</code> (since Java 7)",
      "extra": "It wraps NoSuchMethodException, IllegalAccessException and related failures. Catching it avoids a long list of catch clauses.",
      "tags": [
       "type::definition"
@@ -3670,7 +3670,7 @@
     {
      "type": "basic",
      "front": "Which factory creates method handles?",
-     "back": "A <code>MethodHandles.<b>Lookup</b></code> object",
+     "back": "A <code>MethodHandles.Lookup</code> object",
      "extra": "You decide its access level when creating it. A private lookup can find private members of the class it is created in.",
      "tags": [
       "type::definition"
@@ -4084,7 +4084,7 @@
     {
      "type": "basic",
      "front": "Which exception signals an index beyond the array's length?",
-     "back": "<code><b>ArrayIndexOutOfBoundsException</b></code>",
+     "back": "<code>ArrayIndexOutOfBoundsException</code>",
      "extra": "It fires for both reads and writes. It is one of the few reflectively reached errors that are not wrapped.",
      "tags": [
       "type::gotcha"
@@ -4132,7 +4132,7 @@
     {
      "type": "basic",
      "front": "What does <code>Class.forName(name)</code> throw for an unknown class?",
-     "back": "<code><b>ClassNotFoundException</b></code>",
+     "back": "<code>ClassNotFoundException</code>",
      "extra": "The name must be fully qualified. It cannot be used for primitive types, but it does work for array classes.",
      "tags": [
       "type::gotcha"
@@ -4186,7 +4186,7 @@
     {
      "type": "basic",
      "front": "Which field of a wrapper class holds the Class of the primitive it wraps?",
-     "back": "<code>public static final <b>TYPE</b></code>",
+     "back": "<code>public static final TYPE</code>",
      "extra": "So <code>Double.TYPE</code> is identical to <code>double.class</code>. <code>Void.TYPE</code> is <code>void.class</code>.",
      "tags": [
       "type::definition"
@@ -4249,7 +4249,7 @@
     {
      "type": "basic",
      "front": "Which interface do <code>Field</code>, <code>Method</code> and <code>Constructor</code> share?",
-     "back": "<code><b>Member</b></code>",
+     "back": "<code>Member</code>",
      "extra": "It provides <code>getDeclaringClass</code> for each member, plus modifiers and related queries. That is why the three look alike in the API.",
      "tags": [
       "type::definition"
@@ -4333,7 +4333,7 @@
     {
      "type": "basic",
      "front": "Which exception wraps an exception thrown by the constructor itself?",
-     "back": "<code><b>InvocationTargetException</b></code>",
+     "back": "<code>InvocationTargetException</code>",
      "extra": "Use <code>getTargetException()</code> to reach the real cause. It is part of reflective invocation for methods too.",
      "tags": [
       "type::definition"
@@ -4564,7 +4564,7 @@
     {
      "type": "basic",
      "front": "How do you read the value of an enum's <b>static</b> field reflectively?",
-     "back": "<code>field.get(<b>null</b>)</code>",
+     "back": "<code>field.get(null)</code>",
      "extra": "A static field belongs to no object. Passing an instance is pointless and may mislead readers.",
      "tags": [
       "type::gotcha"
@@ -4693,7 +4693,7 @@
     {
      "type": "basic",
      "front": "Which superclass holds the <code>setAccessible</code> method for fields, methods and constructors?",
-     "back": "<code><b>AccessibleObject</b></code>",
+     "back": "<code>AccessibleObject</code>",
      "extra": "All three extend it, so the whole family shares the flag. The class also holds related accessibility queries.",
      "tags": [
       "type::definition"

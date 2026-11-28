@@ -3045,7 +3045,7 @@
      "type": "basic",
      "front": "What does the three-argument <code>reduce</code> overload fuse together?",
      "back": "A <b>mapping</b> and a reduction into one accumulator step",
-     "extra": "Signature: <code>reduce(U identity, BiFunction&lt;U, ? super T, U&gt; accumulator, BinaryOperator&lt;U&gt; combiner)</code>. U is the accumulating type.",
+     "extra": "Signature: <code>reduce(U identity, BiFunction&lt;U, ? super T, U&gt; accumulator, BinaryOperator combiner)</code>. U is the accumulating type.",
      "kind": "definition",
      "tags": [
       "type::definition"
