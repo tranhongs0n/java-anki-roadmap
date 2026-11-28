@@ -438,9 +438,9 @@
     },
     {
      "type": "basic",
-     "front": "After a labeled <code>break search;</code>, where does control continue?",
+     "front": "After a labeled <code>break outer;</code>, where does control continue?",
      "back": "At the statement <b>immediately after</b> the labeled statement",
-     "extra": "It does not jump to the label. The label merely names the statement to leave, so the statement flagged <code>search:</code> is abandoned entirely.",
+     "extra": "It does not jump back to the label. The name is arbitrary - <code>outer</code>, <code>search</code>, anything - and only marks which enclosing statement to abandon, so that statement is left entirely and execution resumes below it.",
      "tags": [
       "type::gotcha"
      ],
