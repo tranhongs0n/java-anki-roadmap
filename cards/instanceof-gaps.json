@@ -1,0 +1,38 @@
+{
+ "batches": [
+  {
+   "deck": "00 Java Roadmap::01 Foundations::02 Basic Syntax",
+   "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html",
+   "tags": [
+    "roadmap::java",
+    "devjava",
+    "sec::01-foundations",
+    "topic::basic-syntax"
+   ],
+   "cards": [
+    {
+     "type": "basic",
+     "front": "Can <code>instanceof</code> test an array type?",
+     "back": "Yes — <code>o instanceof int[]</code> is a legal type comparison",
+     "extra": "Arrays are reference types, and JLS 15.20.2 allows any <code>ReferenceType</code> on the right, including an array type. It checks the array's actual component type, so <code>new int[3]</code> passes <code>int[]</code> but not <code>Object[]</code> — arrays are covariant, so <code>new String[1] instanceof Object[]</code> is true.",
+     "example": "<pre><span class=\"kw\">Object</span> a = <span class=\"kw\">new int</span>[<span class=\"num\">3</span>];\n<span class=\"kw\">boolean</span> hit = a <span class=\"kw\">instanceof int</span>[];      <span class=\"cmt\">// true</span>\n<span class=\"kw\">boolean</span> miss = a <span class=\"kw\">instanceof Object</span>[];  <span class=\"cmt\">// false</span></pre>",
+     "tags": [
+      "type::definition"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html"
+    },
+    {
+     "type": "basic",
+     "front": "Why is <code>1 instanceof Integer</code> a compile error?",
+     "back": "The left operand must be a reference type (or the null type) — no boxing happens here",
+     "extra": "JLS 15.20.2 requires the left operand's type to be a reference type or the null type, or a compile-time error occurs. javac reports <code>unexpected type: required reference, found int</code>. Box it yourself: <code>Integer.valueOf(1) instanceof Integer</code> compiles.",
+     "example": "<pre><span class=\"kw\">int</span> i = <span class=\"num\">1</span>;\n<span class=\"kw\">boolean</span> b = i <span class=\"kw\">instanceof Integer</span>;             <span class=\"cmt\">// error: required reference, found int</span>\n<span class=\"kw\">boolean</span> ok = <span class=\"type\">Integer</span>.valueOf(i) <span class=\"kw\">instanceof Integer</span>;  <span class=\"cmt\">// true</span></pre>",
+     "tags": [
+      "type::gotcha"
+     ],
+     "source": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html"
+    }
+   ]
+  }
+ ]
+}
