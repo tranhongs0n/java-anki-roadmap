@@ -26,7 +26,8 @@
      "extra": "Reflective code can perform operations illegal in non-reflective code, such as touching private fields and methods, causing unexpected side effects. Reflective code is therefore not portable across upgrades and modules may block it outright.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Field;\n\nclass Account { private int balance = 0; }\n\nclass Ex {\n    static void show() throws Exception {\n        Field f = Account.class.getDeclaredField(\"balance\");\n        f.setAccessible(true);   // private state reached: the class contract is bypassed\n        System.out.println(f.getInt(new Account()));\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -44,7 +45,8 @@
      "extra": "do not use reflection indiscriminately. Only reach for it when direct code cannot express the operation, such as loading a class unknown at compile time.",
      "tags": [
       "type::rule"
-     ]
+     ],
+     "example": "<pre>class Greeter { void hi() { System.out.println(\"hi\"); } }\n\nclass Ex {\n    void call(Greeter g) { g.hi(); }   // direct call; no setAccessible, no Method.invoke\n}</pre>"
     }
    ]
   },
@@ -65,7 +67,8 @@
      "extra": "Its <code>getDeclaredMethod</code> sibling looks only at the class itself but does return private methods. Use <code>int.class</code> for primitive parameters: <code>Integer.class</code> gives a NoSuchMethodException.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Base { public void run() { } }\nclass Child extends Base { }\n\nclass Ex {\n    static void show() throws Exception {\n        System.out.println(Child.class.getMethod(\"run\").getDeclaringClass());   // class Base\n    }\n}</pre>"
     },
     {
      "type": "table",
@@ -128,7 +131,8 @@
      "extra": "Class files do not store parameter names by default, because that costs memory and can leak names like <code>password</code>. Without the flag, <code>Parameter.getName()</code> returns a synthetic name such as <code>arg0</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Parameter;\n\nclass Ex {\n    void greet(String name, int age) { }\n    static void show() throws Exception {\n        for (Parameter p : Ex.class.getDeclaredMethod(\"greet\", String.class, int.class).getParameters()) {\n            System.out.println(p.isNamePresent() ? p.getName() : p.getType().getSimpleName());\n        }\n    }\n}   // javac -parameters keeps the names, otherwise they read arg0, arg1</pre>"
     },
     {
      "type": "basic",
@@ -137,7 +141,8 @@
      "extra": "Both live on <code>Method</code> and return an array, empty when nothing is declared. The generic variant preserves type information for parameterised exception types.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.io.IOException;\nimport java.lang.reflect.Method;\n\nclass Ex {\n    void load() throws IOException { }\n    static void show() throws Exception {\n        Method m = Ex.class.getDeclaredMethod(\"load\");\n        System.out.println(m.getExceptionTypes()[0]);         // class java.io.IOException\n        System.out.println(m.getGenericExceptionTypes()[0]);  // class java.io.IOException\n    }\n}</pre>"
     }
    ]
   },
@@ -242,7 +247,8 @@
      "extra": "<code>getTypeName()</code> comes from <code>Type</code> (Java SE 8) and is informative rather than normative. <code>getName()</code> also works, but differs for arrays.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    static void show() {\n        Runnable r = new Runnable() { public void run() { } };\n        System.out.println(r.getClass().getTypeName());   // Ex$1\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -251,7 +257,8 @@
      "extra": "One <code>[</code> per array dimension, then for a reference type an <code>L</code>, the type name, and a <code>;</code>. This is also the exact string <code>Class.forName</code> accepts to get the class back.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>class Ex {\n    String n = String[][].class.getName();   // [[Ljava.lang.String;\n}</pre>"
     },
     {
      "type": "table",
@@ -290,7 +297,8 @@
      "extra": "Get them with <code>Class.getRecordComponents()</code>, which returns an array. Each component exposes its name, type, generic type, accessor and declaring record.",
      "tags": [
       "type::definition"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.RecordComponent;\n\nrecord Point(int x, int y) { }\n\nclass Ex {\n    static void show() {\n        for (RecordComponent rc : Point.class.getRecordComponents()) System.out.println(rc.getName());\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -299,7 +307,8 @@
      "extra": "Returns the <code>Method</code> modelling e.g. <code>x()</code> for component <code>x</code>. Companions are <code>getType()</code> (Class), <code>getGenericType()</code> (Type) and <code>getDeclaringRecord()</code>.",
      "tags": [
       "type::syntax"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.RecordComponent;\n\nrecord Point(int x, int y) { }\n\nclass Ex {\n    static void show() throws Exception {\n        RecordComponent rc = Point.class.getRecordComponents()[0];\n        System.out.println(rc.getAccessor());   // public int Point.x()\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -356,7 +365,8 @@
      "extra": "Those are exactly the pieces <code>Method.invoke</code> needs. Because the Method travels as a parameter, the same interceptor class can intercept any service method without knowing it at compile time.",
      "tags": [
       "type::mental-model"
-     ]
+     ],
+     "example": "<pre>import java.lang.reflect.Method;\n\nclass Service { public String message(String s) { return \"hi \" + s; } }\n\nclass Ex {\n    static void show() throws Exception {\n        Service target = new Service();\n        Method m = Service.class.getMethod(\"message\", String.class);\n        Object r = m.invoke(target, \"there\");   // the Method, the target, the arguments\n    }\n}</pre>"
     },
     {
      "type": "basic",
@@ -365,7 +375,8 @@
      "extra": "<code>getDeclaredMethod</code> needs an exact parameter-type match and derives the type from the argument you passed. <code>String</code> does not match <code>CharSequence</code>, so the MyService lookup misses even though String is a subtype.",
      "tags": [
       "type::gotcha"
-     ]
+     ],
+     "example": "<pre>import java.lang.invoke.MethodHandles;\nimport java.lang.invoke.MethodType;\n\nclass Service { String message(CharSequence s) { return s.toString(); } }\n\nclass Ex {\n    static void show() throws Throwable {\n        // throws NoSuchMethodException: the service declares message(CharSequence)\n        MethodHandles.lookup().findVirtual(Service.class, \"message\",\n            MethodType.methodType(String.class, String.class));\n    }\n}</pre>"
     },
     {
      "type": "rule",
